@@ -1,6 +1,6 @@
 ---
 layout: post
-category: mybaties
+category: mybatis
 title: Mybatis之db.properties文件
 ---
 
