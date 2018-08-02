@@ -1,0 +1,89 @@
+<div class="about row">
+
+    <div class="col-md-8">
+
+        <h2>About Me</h2>
+
+        <p>I'm a student majoring in computer science in central south university.</p>
+
+        <h2>Contact</h2>
+
+        <ul>
+            <li>weixin: 15073179216</li>
+            <li>Email: <a href="mailto:{{ site.email }}" target="_top">{{ site.email }}</a></li>
+            <li>github: <a href="{{ site.github_url }}">@mafulong</a></li>
+        </ul>
+
+        <h2>
+        竞赛获奖方面：
+        </h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;数学建模湖南赛区一等奖、中南大学ACM二等奖、数学建模竞赛三等奖、机器人大赛三等奖、天梯杯程序设计大赛三等奖等
+        <h2>
+        奖学金及专业成绩方面：    
+        </h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;获得国家励志奖学金、中南大学学年一等奖学金、屈原奖学金、优秀学生、优秀团员等，专业成绩前11%
+        <h2>
+        专利/论文方面：
+        </h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;作为开发者，参与就业中心实验平台搭建并申请发明专利一项，《一种职业辅助决策方法及其系统》，专利号：2016112581480
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;作为第一作者，发表SCI论文一篇，<a href="https://www.hindawi.com/journals/wcmc/2018/8052620/">《A Time and Location Correlation Incentive Scheme for Deep Data Gathering in Crowdsourcing Networks》</a>
+        <h2>
+        在校实践经历方面：
+        </h2>
+        &nbsp;&nbsp;&nbsp;&nbsp;作为项目负责人，完成国家级大创创新训练项目——《基于无人机的铁路异物自动巡检方法研究》并结题。
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;作为项目负责人，完成校级大创创新训练项目——《中南大学图书馆座位有效利用方法研究》并结题，被评为优秀项目
+
+
+        <h2>Skill Keywords</h2>
+
+        {% if site.skill_software_keywords %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Software Engineer Keywords</h3>
+            </div>
+            <div class="panel-body">
+                {% for keyword in site.skill_software_keywords %}
+                <button class="btn btn-default" type="button">{{ keyword }}</button> {% endfor %}
+            </div>
+        </div>
+        {% endif %} {% if site.skill_j2ee_keywords %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">J2EE Developer Keywords</h3>
+            </div>
+            <div class="panel-body">
+                {% for keyword in site.skill_j2ee_keywords %}
+                <button class="btn btn-default" type="button">{{ keyword }}</button> {% endfor %}
+            </div>
+        </div>
+        {% endif %} {% if site.skill_mobile_app_keywords %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mobile Developer Keywords</h3>
+            </div>
+            <div class="panel-body">
+                {% for keyword in site.skill_mobile_app_keywords %}
+                <button class="btn btn-default" type="button">{{ keyword }}</button> {% endfor %}
+            </div>
+        </div>
+        {% endif %} {% if site.skill_web_keywords %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Web Developer Keywords</h3>
+            </div>
+            <div class="panel-body">
+                {% for keyword in site.skill_web_keywords %}
+                <button class="btn btn-default" type="button">{{ keyword }}</button> {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div class="col-md-4">
+        {% include sidebar-popular-repo.html %}
+    </div>
+
+</div>
