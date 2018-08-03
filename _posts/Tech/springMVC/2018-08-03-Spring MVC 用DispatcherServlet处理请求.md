@@ -56,3 +56,40 @@ namespace	WebApplicationContext的命名空间。默认是[servlet-name]-servlet
     </listener>
 </web-app>
 ```
+
+在MVC XML命名空间下，则使用<mvc:interceptors>元素：
+
+```xml
+<mvc:interceptors>
+    <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>
+    <mvc:interceptor>
+        <mvc:mapping path="/**"/>
+        <mvc:exclude-mapping path="/admin/**"/>
+        <bean class="org.springframework.web.servlet.theme.ThemeChangeInterceptor"/>
+    </mvc:interceptor>
+    <mvc:interceptor>
+        <mvc:mapping path="/secure/*"/>
+        <bean class="org.example.SecurityInterceptor"/>
+    </mvc:interceptor>
+</mvc:interceptors>
+```
+
+```xml
+    <mvc:interceptors>
+        <!-- 登陆拦截器,负责拦截未登录的操作 -->
+        <mvc:interceptor>
+            <!-- 需要拦截的地址 -->
+            <mvc:mapping path="/**"/>
+            <!-- 需要排除拦截的地址 -->
+            <mvc:exclude-mapping path="/static/**"/>
+            <bean id="loginInterceptor" class="com.amayadream.webchat.interceptor.LoginInterceptor">
+                <property name="IGNORE_URI">
+                    <list>
+                        <value>/user/login</value>
+                        <value>/user/logout</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+```

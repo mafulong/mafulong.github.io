@@ -4,6 +4,8 @@ category: springMVC
 title: @Controller注解定义一个控制器
 ---
 
+[详情可以参考helloworld](https://mafulong.top/springmvc/2018/08/03/springMVC-helloworld.html)
+
 ## @Controller
 
 你需要在配置中加入组件扫描的配置代码来开启框架对注解控制器的自动检测。请使用下面XML代码所示的spring-context schema：
