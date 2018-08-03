@@ -31,6 +31,10 @@ Spring 容器可以在不使用<constructor-arg>和<property> 元素的情况下
    </bean>
 ```
 
+Spring 由构造函数自动装配
+
+这种模式与 byType 非常相似，但它应用于构造器参数。
+
 ```xml
    <bean id="textEditor" class="com.tutorialspoint.TextEditor" 
       autowire="constructor">
