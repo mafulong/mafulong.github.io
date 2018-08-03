@@ -1,6 +1,6 @@
 ---
 layout: post
-category: offer
+category: struts2
 title: Struts2 Actions动作
 ---
 
