@@ -1,6 +1,6 @@
 ---
 layout: post
-category: springMVE
+category: springMVC
 title: spirngMVC forward和redirect
 ---
 
