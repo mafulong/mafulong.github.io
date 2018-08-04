@@ -1,7 +1,7 @@
 ---
 layout: post
 category: springMVC
-title: @Controller注解定义一个控制器
+title: springMVC @Controller注解定义一个控制器
 ---
 
 [详情可以参考helloworld](https://mafulong.top/springmvc/2018/08/03/springMVC-helloworld.html)
