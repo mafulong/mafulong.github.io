@@ -9,7 +9,7 @@ menu: Bookmark
 
 ### 搜索引擎
 - [Bing](https://www.bing.com/?intlF=)
-- [Baidu](www.baidu.com)
+- [Baidu](https://www.baidu.com)
 - [Google](https://www.google.com/ncr)
 
 ### 编程学习
