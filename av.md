@@ -6,3 +6,5 @@ menu: Av
 css: ['av.css']
 ---
 {% include av.html %}
+            <!-- Comments -->
+{% include disqus-comments.html %}
