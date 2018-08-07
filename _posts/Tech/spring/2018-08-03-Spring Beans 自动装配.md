@@ -1,7 +1,7 @@
 ---
 layout: post
 category: spring
-title: Spring Beans 自动装配
+title: Spring Beans 自动装配xml
 ---
 
 ## Beans 自动装配
