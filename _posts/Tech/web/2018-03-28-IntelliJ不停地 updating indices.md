@@ -1,6 +1,6 @@
 ---
 layout: post
-category: JAVA
+category: web
 title: IntelliJ不停地 updating indices
 ---
 
