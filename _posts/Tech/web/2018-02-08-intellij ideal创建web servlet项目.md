@@ -1,6 +1,6 @@
 ---
 layout: post
-category: JAVA
+category: web
 title: Idea新建web错误解决
 ---
 
