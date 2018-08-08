@@ -3,8 +3,19 @@ layout: post
 category: JAVA
 title: Arrays工具类
 ---
-equals比较
+
+java.util.Arrays类：常用方法如下
+
+```java
+public static:
+    int binarySearch(Object[] a,Object key); 
+    void fill(int[] a,int val);
+    void sort(Object[] a);
+```
+
+## equals比较
 对比两个数组是否相等
+```java
 
     @Test
     public void equals(){
@@ -16,26 +27,32 @@ equals比较
         //4 挨个元素对比
         System.out.println(Arrays.equals(array,array2));
     }
+```
 
-fill
+## fill
 基于目标元素填充数组
+```java
 
     @Test
     public void fill(){
         Arrays.fill(array,"test");
         System.out.println(Arrays.deepToString(array));//[test, test, test, test, test]
     }
+```
 
-toString
+## toString
 打印数组元素
+```java
 
     @Test
     public void string(){
         System.out.println(Arrays.toString(array));//[a, c, 2, 1, b]
     }
+```
 
-copyOf
+## copyOf
 拷贝数组，第一种用法，如果目标长度不够，会使用0进行补位。第二种用法，支持拷贝目标起始位置到结束为止的数组。
+```java
 
     @Test
     public void copyOf(){
@@ -57,9 +74,11 @@ copyOf
             System.out.println(i);
         }
     }
+```
 
-binarySearch
+## binarySearch
 查找目标元素所在的位置，注意需要先进行排序。
+```java
 
     @Test
     public void binarySearch(){
@@ -68,17 +87,21 @@ binarySearch
         Arrays.sort(array);
         System.out.println(Arrays.binarySearch(array,"c"));//4
     }
+```
     
-asList
+## asList
 这个方法可以把数组转换成List,List提供了很多的操作方法，更便于使用。
+```java
 
     @Test
     public void test1(){
         List<String> lists = Arrays.asList(array);
     }
+```
 
-sort排序和parallelSort并行排序
+## sort排序和parallelSort并行排序
 sort比较常用了，根据元素按照自然排序规则排序，也可以设置排序元素的起始位置。
+```java
 
     @Test
     public void sort(){
@@ -89,4 +112,6 @@ sort比较常用了，根据元素按照自然排序规则排序，也可以设�
         Arrays.sort(array,2,5);
         System.out.println(Arrays.deepToString(array));//[a, c, 1, 2, b]
     }
+```
+
 parallelSort则采用并行的排序算法排序.但是我自己测试，可能数据量太小，速度上并没有明显的变化。
