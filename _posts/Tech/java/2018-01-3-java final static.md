@@ -1,7 +1,7 @@
 ---
 layout: post
 category: JAVA
-title: java 修饰符
+title: java final static
 ---
 ## final
 ### final 变量：
@@ -60,9 +60,3 @@ static 关键字用来声明独立于对象的静态方法。静态方法不能�
 
 ### static 内部类
 可以当做普通类使用，而不用先实例化一个外部类。（用他修饰后，就成了静态内部类了）。 使用对象：类、变量、方法、初始化函数（注意：修饰类时只能修饰 内部类 ）
-
-## abstrct
-### abstrct函数
-必须是abstrct类
-### abstrct类
-class前加abstrct，可以没有abstrct函数
