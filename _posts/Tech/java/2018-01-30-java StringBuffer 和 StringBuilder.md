@@ -1,28 +1,8 @@
 ---
 layout: post
 category: JAVA
-title: java 数据类型
+title: java StringBuffer 和 StringBuilder
 ---
-## Number & Math 类
-所有的包装类（Integer、Long、Byte、Double、Float、Short）都是抽象类 Number 的子类。
-
-Java 的 Math 包含了用于执行基本数学运算的属性和方法，如初等指数、对数、平方根和三角函数。
-
-Math 的方法都被定义为 static 形式，通过 Math 类可以在主函数中直接调用。
-如
-
-    Math.sin();
-
-## Character 类
-
-## Sting 类
-### length()方法，length属性和size()的方法的区别:
-
- 1. length()方法是针对字符串来说的，要求一个字符串的长度就要用到它的length()方法；
-
- 2. length属性是针对Java中的数组来说的，要求数组的长度可以用其length属性；
-
- 3. java中的size()方法是针对泛型集合说的,如果想看这个泛型有多少个元素,就调用此方法来查看!
 
 ## StringBuffer 和 StringBuilder 类
 当对字符串进行修改的时候，需要使用 StringBuffer 和 StringBuilder 类。
