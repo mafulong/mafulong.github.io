@@ -10,3 +10,11 @@ title: mybatisGenerator
 
 [mybatis下载地址](https://github.com/mybatis/generator/releases)
 
+## 编写文件
+设置Model类名，数据库表名
+
+## 运行
+
+    java -jar mybatis-generator-core-1.3.7.jar -configfile generatorConfig.xml -overwrite
+
+在Lib目录下运行，因为jar包在此目录了
