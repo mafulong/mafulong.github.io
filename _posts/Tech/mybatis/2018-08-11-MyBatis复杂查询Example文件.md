@@ -1,7 +1,7 @@
 ---
 layout: post
 category: mybatis
-title: MyBatis复杂查询Example文件
+title: Mybatis复杂查询Example文件
 ---
 
 ## 如何进行混合查询
