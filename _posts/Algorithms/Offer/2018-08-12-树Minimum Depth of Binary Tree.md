@@ -11,6 +11,12 @@ Given a binary tree, find its minimum depth.The minimum depth is the number of n
 
 ## solution
 
+思路：
+
+- 递归，若为空树返回0；
+- 若左子树为空，则返回右子树的最小深度+1；（加1是因为要加上根这一层，下同）
+- 若右子树为空，则返回左子树的最小深度+1；
+- 若左右子树均不为空，则取左、右子树最小深度的较小值，+1；
 
 ```java
 /**
