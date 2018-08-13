@@ -1,0 +1,62 @@
+---
+layout: post
+category: offer
+title: linked-list-cycle-ii
+---
+
+## title
+[problem link](https://www.nowcoder.com/practice/6e630519bf86480296d0f1c868d425ad?tpId=46&tqId=29038&rp=1&ru=%2Fta%2Fleetcode&qru=%2Fta%2Fleetcode%2Fquestion-ranking&tPage=1)
+
+Given a linked list, return the node where the cycle begins. If there is no cycle, returnnull.
+
+Follow up:
+Can you solve it without using extra space?
+
+
+
+## solution
+
+
+思路：
+
+1）同linked-list-cycle-i一题，使用快慢指针方法，判定是否存在环，并记录两指针相遇位置(Z)；
+
+2）将两指针分别放在链表头(X)和相遇位置(Z)，并改为相同速度推进，则两指针在环开始位置相遇(Y)。
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if(head==null) return null;
+        ListNode slow=head,fast=head;
+        ListNode meetNode=null;
+        while (fast!=null&&fast.next!=null){
+            //这里只能这样！！！
+            fast=fast.next.next;
+            slow=slow.next;
+            if(slow==fast){
+                meetNode=slow;
+                break;
+            }
+        }
+        if(meetNode==null) return null;
+        slow=head;
+        while (slow!=fast){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        return slow;
+    }
+}
+
+```
