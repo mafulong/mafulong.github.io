@@ -1,0 +1,76 @@
+---
+layout: post
+category: offer
+title: reorder-list
+---
+
+## title
+[problem link](https://www.nowcoder.com/practice/3d281dc0b3704347846a110bf561ef6b?tpId=46&tqId=29037&rp=1&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking)
+
+Given a singly linked list L: L 0→L 1→…→L n-1→L n,
+reorder it to: L 0→L n →L 1→L n-1→L 2→L n-2→…
+
+You must do this in-place without altering the nodes' values.
+
+For example,
+Given{1,2,3,4}, reorder it to{1,4,2,3}.
+
+
+
+## solution
+
+1. 先使用快慢指针找到中点（对于偶数，中点位于靠后的一个节点）
+2. 断开中点前半部分和后半部分，并对后半部分逆置（可以使用头插法或者借助指针顺序逆置，我采用的后者）
+3. 合并前半部分与后半部分，即将后半部分插入前半部分的奇数位置后面（注意考虑特殊情况：前半部分比后半部分短）
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public void reorderList(ListNode head) {
+        if(head==null) return;
+        ListNode fast=head.next,mid=head;
+        while (fast!=null&&fast.next!=null){
+            mid=mid.next;
+            fast=fast.next.next;
+        }
+        ListNode after=mid.next;
+        mid.next=null;
+        ListNode pre=null;
+        while (after!=null){
+            ListNode t=after.next;
+            after.next=pre;
+            pre=after;
+            after=t;
+        }
+        after=pre;
+        boolean isOdd=true;
+        pre=null;
+        while (head!=null&&after!=null){
+            if(isOdd){
+                pre=head;
+                head=head.next;
+            }else{
+                ListNode t=after.next;
+                after.next=pre.next;
+                pre.next=after;
+                after=t;
+            }
+            isOdd=!isOdd;
+        }
+        if(after!=null){
+            pre.next=after;
+        }
+    }
+}
+
+```
