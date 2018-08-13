@@ -1,0 +1,47 @@
+---
+layout: post
+category: offer
+title: linked-list-cycle
+---
+
+## title
+[problem link](https://www.nowcoder.com/practice/650474f313294468a4ded3ce0f7898b9?tpId=46&tqId=29039&rp=1&ru=%2Fta%2Fleetcode&qru=%2Fta%2Fleetcode%2Fquestion-ranking&tPage=1)
+
+Given a linked list, determine if it has a cycle in it.
+
+Follow up:
+Can you solve it without using extra space?
+
+判断链表是否有环
+
+## solution
+快慢指针
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head==null) return false;
+        ListNode slow=head,fast=head.next;
+        while (fast!=null&&fast.next!=null){
+            if(slow==fast){
+                return true;
+            }
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        return false;
+    }
+}
+
+```
