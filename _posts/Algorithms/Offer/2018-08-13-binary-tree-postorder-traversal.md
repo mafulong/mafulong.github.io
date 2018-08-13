@@ -1,0 +1,68 @@
+---
+layout: post
+category: offer
+title: binary-tree-postorder-traversal
+---
+
+## title
+[problem link](https://www.nowcoder.com/practice/32af374b322342b68460e6fd2641dd1b?tpId=46&tqId=29035&rp=1&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking)
+
+Given a binary tree, return the postorder traversal of its nodes' values.
+
+For example:
+
+Given binary tree{1,#,2,3},
+
+	   1
+	    \
+	     2
+	    /
+	   3
+
+return[3,2,1].
+
+Note: Recursive solution is trivial, could you do it iteratively?
+
+二叉树后序非递归遍历
+
+## solution
+
+
+```java
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+import java.util.*;
+public class Solution {
+    public ArrayList<Integer> postorderTraversal(TreeNode root) {
+        ArrayDeque<TreeNode> stack=new ArrayDeque<>();
+        if(root==null) return new ArrayList<>();
+        stack.push(root);
+        ArrayList<Integer> res=new ArrayList<>();
+        TreeNode pre=null,cur=null;
+        while (!stack.isEmpty()){
+            cur=stack.peek();
+            if(cur.left==null&&cur.right==null||(pre!=null&&(pre==cur.left||pre==cur.right))) {
+                res.add(cur.val);
+                stack.pop();
+                pre=cur;
+            }else{
+                if(cur.right!=null){
+                    stack.push(cur.right);
+                }
+                if(cur.left!=null){
+                    stack.push(cur.left);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+```
