@@ -1,0 +1,73 @@
+---
+layout: post
+category: offer
+title: max-points-on-a-line
+---
+
+## title
+[problem link](https://www.nowcoder.com/practice/bfc691e0100441cdb8ec153f32540be2?tpId=46&tqId=29032&tPage=1&rp=1&ru=/ta/leetcode&qru=/ta/leetcode/question-ranking)
+
+Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
+
+
+给一堆点，找在一条直线上最多的点的数量
+
+注意，点可能是负的，不能数组，而且还可能使斜线
+
+## solution
+[参考链接](https://segmentfault.com/a/1190000003904387)
+
+一个点加一个斜率，就可以唯一的确定一条直线。所以我们对每个点，都计算一下该点和其他点连线的斜率，这样对于这个点来说，相同斜率的直线有多少条，就意味着有多少个点在同一条直线上，因为这些直线是相同的。另外，如果计算过点A和点B的直线，当算到点B时，就不用再和A连线了，因为AB这条直线上的点数已经都计算过了。这里，我们用哈希表，以斜率为key，记录有多少重复直线。
+
+哈希表的Key为Double，但Double是可以有正0和负0的，而且不一样。所以我们要用if(slope * slope == 0) slope = 0;把负0都变成正0
+
+
+```java
+
+/**
+ * Definition for a point.
+ * class Point {
+ *     int x;
+ *     int y;
+ *     Point() { x = 0; y = 0; }
+ *     Point(int a, int b) { x = a; y = b; }
+ * }
+ */
+import java.util.*;
+public class Solution {
+    public int maxPoints(Point[] points) {
+        if(points.length<=1)
+            return points.length;
+        int res=0;
+        Map<Double,Integer> map=new HashMap<>();
+        int n=points.length;
+        for(int i=0;i<n;i++){
+            map.clear();
+            int dup=1,vertical=0,tmpMax=0;
+            for(int j=i+1;j<n;j++){
+                if(points[j].x==points[i].x){
+                    //if duplicate
+                    if(points[j].y==points[i].y){
+                        dup++;
+                    }else{
+                        //if lie in a vertical line
+                        vertical++;
+                    }
+                    continue;
+                }
+                //calculate the k (y2-y1)/(x2-x1)
+                double k=(double)(points[j].y-points[i].y)/(double)(points[j].x-points[i].x);
+               // if(k*k==0)
+                 //   k=0;
+                if(k==0.0)
+                    k=0;
+                map.put(k,map.containsKey(k)?map.get(k)+1:1);
+                tmpMax=Math.max(tmpMax,map.get(k));
+            }
+            tmpMax=Math.max(tmpMax,vertical)+dup;
+            res=Math.max(res,tmpMax);
+        }
+        return res;
+    }
+}
+```
