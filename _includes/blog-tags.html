@@ -21,7 +21,7 @@
 
     </div>
     
-    <!-- <div class="col-md-4" id="categorywahh">
+    <div class="col-md-4" id="categorywahh">
         <!-- {% include sidebar-post-tag.html %} -->
         <h3 class="sidebar-title">Blog Tags</h3>
         <div id="blog-categories">
@@ -33,26 +33,6 @@
                 </li>
                 {% endfor %}
             </ul>
-        </div>
-    </div> -->
-
-     <div class="col-md-4" id="categorywahh">
-        <!-- {% include sidebar-post-tag.html %} -->
-        <h3 class="sidebar-title">Blog Tags</h3>
-        <div id="blog-categories">
-            <div class="post-tags">
-                {% for tag in site.tags %}
-                    <a href="#{{ tag | first }}"> {{ tag | first }}&nbsp;{{ tag[1].size }}</a>
-                {% endfor %}
-            </div>
-            <!-- <ul class="list-group">
-                {% for tag in site.tags %}
-                <li class="list-group-item" onclick="(function(){document.getElementById('{{ tag | first }}').scrollIntoView(); })()">
-                    {{ tag | first }}
-                    <span class="badge">{{ tag[1].size }}</span>
-                </li>
-                {% endfor %}
-            </ul> -->
         </div>
     </div>
 </div>
