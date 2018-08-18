@@ -7,6 +7,7 @@ title: Spring MVC 静态资源访问
 我们怎么让servlet来处理项目中的静态资源呢？这里有两种方法。
 
 1. 另外使用一个servlet来处理静态资源。若我们的资源放置在webapps文件夹下的resources文件夹中，那么我们可以用名字为default的servlet来处理静态资源。因此我们还需要在上述配置的基础上加上以下配置：
+
 ```xml
 <servlet-mapping>  
 <servlet-name>default</servlet-name>  
@@ -17,6 +18,7 @@ title: Spring MVC 静态资源访问
 这表示default的servlet会处理url中为resources/*的对应的请求。这样，当你把你的image，css已经其他文件放在resources文件中时，spring就可以找到它啦。
 
 2. 采用spring自带<mvc:resources>方法。首先找到你定义的那个servlet的xml文件，如本例子中，servlet的名字叫mvc-dispatcher，因此需要找到mvc-dispatcher-servlet.xml文件，并在该文件中插入以下配置：
+
 ```xml
 <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
 <mvc:annotation-driven/>  
@@ -26,7 +28,8 @@ title: Spring MVC 静态资源访问
 如此就不必另外添加一个mvc来处理静态资源。而mvc知道静态资源所处的位置为resources文件夹。
 两种方法都可以将spring mvc配置处理静态资源。
 
-在SpringMVC3.0之后推荐使用一： 
+在SpringMVC3.0之后推荐使用一
+
 ```xml
  <mvc:annotation-driven />
  <mvc:resources location="/img/" mapping="/img/**"/>   
