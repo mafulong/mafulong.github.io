@@ -64,5 +64,6 @@ title: 添加支持Http的delete、put请求
 <input type="hidden" name="_method" value="put"/>
 
 </form>
-``
+```
+
 另外也可以用ajax发送delete、put请求
