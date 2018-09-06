@@ -30,3 +30,17 @@ GET:http://www.xxx.com/source/id 获取指定ID的某一类资源。例如GET:ht
 POST:http://www.xxx.com/friends/123表示为指定ID为123的会员新增好友。其他的操作类似就不举例了。
 
 RESTful API还有其他一些规范。1：应该将API的版本号放入URL。GET:http://www.xxx.com/v1/friend/123。或者将版本号放在HTTP头信息中。我个人觉得要不要版本号取决于自己开发团队的习惯和业务的需要，不是强制的。2：URL中只能有名词而不能有动词，操作的表达是使用HTTP的动词GET,POST,PUT,DELETEL。URL只标识资源的地址，既然是资源那就是名词了。3：如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。?limit=10：指定返回记录的数量、?page=2&per_page=100：指定第几页，以及每页的记录数。
+
+之前web请求
+
+    /getUser?id=1
+    /addUser
+    /deleteUser?id=1
+    /updateUser
+
+rest风格
+
+    /user/1		           GET
+    /user	               POST
+    /user/1                DELETE
+    /user/1                PUT
