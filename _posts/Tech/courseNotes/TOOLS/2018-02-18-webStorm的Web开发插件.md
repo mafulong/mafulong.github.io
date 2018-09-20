@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 工具 
+category: 学习 
 title: JetBrains IDE Support
 ---
 
