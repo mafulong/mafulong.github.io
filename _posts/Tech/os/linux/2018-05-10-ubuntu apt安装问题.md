@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 操作系统
+category: Linux
 title: ubuntu apt安装问题
 ---
 
