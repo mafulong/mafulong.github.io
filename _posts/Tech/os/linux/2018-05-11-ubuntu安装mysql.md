@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 操作系统
+category: Linux
 title: ubuntu18.04安装mysql
 ---
 
