@@ -6,7 +6,7 @@ title: C++11之unordered_set介绍
 
 C++ 11中出现了两种新的关联容器:unordered_set和unordered_map，其内部实现与set和map大有不同，set和map内部实现是基于RB-Tree，而unordered_set和unordered_map内部实现是基于哈希表(hashtable)，由于unordered_set和unordered_map内部实现的公共接口大致相同，所以本文以unordered_set为例。
 
-包含头文件#include<undered_set>
+包含头文件```#include<undered_set>```
 
 undered_set采用链地址法解决冲突，也叫做拉链法，和java的hashmap类似，虽然无序，但也拥有集合最大特点：不允许重复
 
