@@ -29,7 +29,7 @@
                 {% for tag in site.tags %}
                 <li class="list-group-item" onclick="(function(){document.getElementById('{{ tag | first }}').scrollIntoView(); })()">
                     {{ tag | first }}
-                    <span class="badge">{{ tag[1].size }}</span>
+                    <span class="badge">&nbsp;{{ tag[1].size }}</span>
                 </li>
                 {% endfor %}
             </ul>
