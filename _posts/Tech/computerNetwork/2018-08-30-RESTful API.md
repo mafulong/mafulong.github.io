@@ -1,6 +1,6 @@
 ---
 layout: post
-category: web
+category: 计算机网络
 title: RESTful API
 ---
 

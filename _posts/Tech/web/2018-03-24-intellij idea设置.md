@@ -1,6 +1,6 @@
 ---
 layout: post
-category: web
+category: web开发
 title: idea的web开发设置
 ---
 
