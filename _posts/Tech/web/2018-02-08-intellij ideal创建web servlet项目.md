@@ -1,6 +1,6 @@
 ---
 layout: post
-category: web
+category: web开发
 title: Idea新建web错误解决
 ---
 

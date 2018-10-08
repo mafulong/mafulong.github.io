@@ -1,6 +1,6 @@
 ---
 layout: post
-category: web
+category: web开发
 title: tomcat之没有Java_Home错误解决
 ---
 
