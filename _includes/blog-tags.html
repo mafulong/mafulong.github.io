@@ -26,14 +26,12 @@
         <h3 class="sidebar-title">Algorithm Topics</h3>
         <div id="blog-categories">
             <ul class="list-group">
-                <li class="list-group-item"></li>
                 {% for tag in site.tags %}
                 <li class="list-group-item" onclick="(function(){document.getElementById('{{ tag | first }}').scrollIntoView(); })()">
                     {{ tag | first }}&nbsp;
                     <span class="badge">{{ tag[1].size }}</span>
                 </li>
                 {% endfor %}
-                <li class="list-group-item"></li>
             </ul>
         </div>
     </div>
