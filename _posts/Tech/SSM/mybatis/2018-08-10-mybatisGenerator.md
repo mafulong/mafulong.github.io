@@ -2,6 +2,7 @@
 layout: post
 category: SSM
 title: mybatisGenerator
+tags: Mybatis
 ---
 
 [mafulong/mybatis-generator](https://github.com/mafulong/mybatis-generator) -项目代码
@@ -9,6 +10,9 @@ title: mybatisGenerator
 [MyBatis Generator生成代码的几种方式](https://blog.csdn.net/qq_32786873/article/details/78226925) -挺全的
 
 [mybatis下载地址](https://github.com/mybatis/generator/releases)
+
+[MyBatis Generator](https://www.cnblogs.com/zyw-205520/p/4771253.html)
+
 
 ## 编写文件
 设置Model类名，数据库表名

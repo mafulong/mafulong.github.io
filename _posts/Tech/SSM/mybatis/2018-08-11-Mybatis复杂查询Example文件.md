@@ -2,6 +2,7 @@
 layout: post
 category: SSM
 title: Mybatis复杂查询Example文件
+tags: Mybatis
 ---
 
 ## 如何进行混合查询

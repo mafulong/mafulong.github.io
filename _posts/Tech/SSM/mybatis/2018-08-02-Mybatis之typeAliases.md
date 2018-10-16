@@ -2,6 +2,7 @@
 layout: post
 category: SSM
 title: Mybatis之typeAliases
+tags: Mybatis
 ---
 
 - 自定义别名 

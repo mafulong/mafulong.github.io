@@ -2,6 +2,7 @@
 layout: post
 category: SSM
 title: Mybatis之@param
+tags: Mybatis
 ---
 
 实现多参数传入
