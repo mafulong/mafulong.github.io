@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: 添加支持Http的delete、put请求
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: Spring MVC 注解 @RequestParam解析
 ---
 

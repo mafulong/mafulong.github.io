@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: spirngMVC forward和redirect
 ---
 

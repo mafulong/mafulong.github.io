@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: springmvc mock测试
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: Spring MVC 静态资源访问
 ---
 
@@ -17,7 +18,7 @@ title: Spring MVC 静态资源访问
 
 这表示default的servlet会处理url中为resources/*的对应的请求。这样，当你把你的image，css已经其他文件放在resources文件中时，spring就可以找到它啦。
 
-2. 采用spring自带<mvc:resources>方法。首先找到你定义的那个servlet的xml文件，如本例子中，servlet的名字叫mvc-dispatcher，因此需要找到mvc-dispatcher-servlet.xml文件，并在该文件中插入以下配置：
+2. 采用spring自带```<mvc:resources>```方法。首先找到你定义的那个servlet的xml文件，如本例子中，servlet的名字叫mvc-dispatcher，因此需要找到mvc-dispatcher-servlet.xml文件，并在该文件中插入以下配置：
 
 ```xml
 <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
