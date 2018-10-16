@@ -1,8 +1,8 @@
 ---
 layout: post
 category: SSM 
-tags: SSM
-title: springHelloworld
+tags: Spring
+title: spring使用bean入门
 ---
 
 idea新建spring项目

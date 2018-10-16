@@ -2,7 +2,7 @@
 layout: post
 category: SSM 
 tags: Spring
-title: Spring 基于 Java 的配置
+title: Spring的Bean基于Java的配置
 ---
 
 ## @Configuration 和 @Bean 注解
