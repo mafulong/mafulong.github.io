@@ -11,6 +11,7 @@ BeanPostProcessor 接口定义回调方法，你可以实现该方法来提供�
 
 这是实现 BeanPostProcessor 的非常简单的例子，它在任何 bean 的初始化的之前和之后输入该 bean 的名称。你可以在初始化 bean 的之前和之后实现更复杂的逻辑，因为你有两个访问内置 bean 对象的后置处理程序的方法。
 
+## XML
 
 ```java
 public class InitHelloWorld implements BeanPostProcessor {
@@ -42,6 +43,10 @@ public class InitHelloWorld implements BeanPostProcessor {
 
 </beans>
 ```
+
+## 注解
+
+
 
 一旦你创建源代码和 bean 配置文件完成后，我们就可以运行该应用程序。如果你的应用程序一切都正常，将输出以下信息：
 
