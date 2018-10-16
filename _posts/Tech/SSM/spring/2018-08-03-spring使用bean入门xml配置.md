@@ -2,7 +2,7 @@
 layout: post
 category: SSM 
 tags: Spring
-title: spring使用bean入门
+title: spring使用bean入门xml配置
 ---
 
 idea新建spring项目

@@ -2,7 +2,7 @@
 layout: post
 category: SSM 
 tags: Spring
-title: Spring 依赖注入
+title: Spring依赖注入xml配置
 ---
 
 DI（Depandency Injection），也叫“依赖注入”，与人也称其为“控制反转（IOC）”，而我更喜欢把它称之为DI。传统的Java对象，对其本身及关联的对象（Bean），都是自主创建和管理的，这样就导致高度耦合和难以测试的问题。而Spring框架则意识到这个问题，其提供的DI功能，可以完美的解决Bean及其依赖的Bean的创建、装配及生命周期等管理工作，这个管理机制称为“Spring容器”，也是Spring框架的核心模块。

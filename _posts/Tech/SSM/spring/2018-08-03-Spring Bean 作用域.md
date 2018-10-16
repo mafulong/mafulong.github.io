@@ -28,7 +28,8 @@ Spring 框架支持以下五个作用域，如果你使用 web-aware Application
 
 只要声明带有 init-method 和/或 destroy-method 参数的 。init-method 属性指定一个方法，在实例化 bean 时，立即调用该方法。同样，destroy-method 指定一个方法，只有从容器中移除 bean 之后，才能调用该方法。
 
-## 初始化回调
+## 初始化销毁回调
+### 初始化回调
 
 org.springframework.beans.factory.InitializingBean 接口指定一个单一的方法：
 
@@ -65,7 +66,7 @@ public class ExampleBean {
 }
 ```
 
-## 销毁回调
+### 销毁回调
 
 org.springframework.beans.factory.DisposableBean 接口指定一个单一的方法：
 
@@ -108,3 +109,9 @@ public class ExampleBean implements DisposableBean {
 
 </beans>
 ```
+
+## 生命周期
+
+![](https://i.imgur.com/INF4UhB.png)
+
+![](https://upload-images.jianshu.io/upload_images/4638441-05bf2b9b2f2a01d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
