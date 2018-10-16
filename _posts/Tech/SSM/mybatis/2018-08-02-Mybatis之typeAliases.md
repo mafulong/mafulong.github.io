@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM
+category: Mybatis
 title: Mybatis之typeAliases
 tags: Mybatis
 ---

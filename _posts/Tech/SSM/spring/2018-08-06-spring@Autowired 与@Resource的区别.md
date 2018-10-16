@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM 
+category: Spring 
 tags: Spring
 title: spring@Autowired 与@Resource的区别
 ---

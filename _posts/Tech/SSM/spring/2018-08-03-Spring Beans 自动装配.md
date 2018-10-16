@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM 
+category: Spring 
 tags: Spring
 title: Spring Beans 自动装配xml
 ---
