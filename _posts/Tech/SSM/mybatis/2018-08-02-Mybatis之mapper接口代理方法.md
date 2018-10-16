@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM
+category: Mybatis
 title: Mybatix之mapper接口代理方法
 tags: Mybatis
 ---

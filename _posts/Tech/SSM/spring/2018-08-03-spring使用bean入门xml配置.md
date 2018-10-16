@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM 
+category: Spring 
 tags: Spring
 title: spring使用bean入门xml配置
 ---

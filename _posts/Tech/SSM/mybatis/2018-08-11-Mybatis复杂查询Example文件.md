@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM
+category: Mybatis
 title: Mybatis复杂查询Example文件
 tags: Mybatis
 ---

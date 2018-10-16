@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM
+category: SpirngBoot
 title: spring boot controller
 ---
 

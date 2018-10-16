@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM 
+category: Spring 
 tags: Spring
 title: Spring IoC 容器
 ---

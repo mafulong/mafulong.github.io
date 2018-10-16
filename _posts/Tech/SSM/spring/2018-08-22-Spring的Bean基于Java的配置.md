@@ -1,6 +1,6 @@
 ---
 layout: post
-category: SSM 
+category: Spring 
 tags: Spring
 title: Spring的Bean基于Java的配置
 ---
