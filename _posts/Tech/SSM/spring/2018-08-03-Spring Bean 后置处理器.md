@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SSM 
+tags: Spring
 title: Spring Bean 后置处理器
 ---
 

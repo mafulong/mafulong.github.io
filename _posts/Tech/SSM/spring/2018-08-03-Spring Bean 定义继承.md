@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SSM 
+tags: Spring
 title: Spring Bean 定义继承
 ---
 

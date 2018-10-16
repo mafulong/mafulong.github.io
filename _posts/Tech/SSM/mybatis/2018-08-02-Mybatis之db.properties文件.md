@@ -2,6 +2,7 @@
 layout: post
 category: SSM
 title: Mybatis之db.properties文件
+tags: Mybatis
 ---
 
 ## Mybatis之db.properties文件

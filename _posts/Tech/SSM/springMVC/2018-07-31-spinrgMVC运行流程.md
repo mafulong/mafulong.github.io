@@ -1,7 +1,8 @@
 ---
 layout: post
 category: SSM
-title: spinrg运行原理
+tags: Spring MVC
+title: spinrgMVC运行流程
 ---
 
 ## 详细运行流程图
