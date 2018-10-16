@@ -1,6 +1,7 @@
 ---
 layout: post
-category: SSM
+category: SpringMVC
+tags: SpringMVC
 title: Spring MVC 用DispatcherServlet处理请求
 ---
 
@@ -57,7 +58,7 @@ namespace	WebApplicationContext的命名空间。默认是[servlet-name]-servlet
 </web-app>
 ```
 
-在MVC XML命名空间下，则使用<mvc:interceptors>元素：
+在MVC XML命名空间下，则使用```<mvc:interceptors>```元素：
 
 ```xml
 <mvc:interceptors>
