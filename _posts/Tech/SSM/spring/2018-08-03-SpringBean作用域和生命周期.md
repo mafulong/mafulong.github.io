@@ -115,3 +115,12 @@ public class ExampleBean implements DisposableBean {
 ![](https://i.imgur.com/INF4UhB.png)
 
 ![](https://upload-images.jianshu.io/upload_images/4638441-05bf2b9b2f2a01d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+1. Spring容器 从XML 文件中读取bean的定义，并实例化bean。
+1. Spring根据bean的定义填充所有的属性。
+1. 如果bean实现了BeanNameAware 接口，Spring 传递bean 的ID 到 setBeanName方法。
+1. 如果Bean 实现了 BeanFactoryAware 接口， Spring传递beanfactory 给setBeanFactory 方法。
+1. 如果有任何与bean相关联的BeanPostProcessors，Spring会在postProcesserBeforeInitialization()方法内调用它们。
+1. 如果bean实现IntializingBean了，调用它的afterPropertySet方法，如果bean声明了初始化方法，调用此初始化方法。
+1. 如果有BeanPostProcessors 和bean 关联，这些bean的postProcessAfterInitialization() 方法将被调用。
+1. 如果bean实现了 DisposableBean，它将调用destroy()方法。
