@@ -2,7 +2,7 @@
 layout: post
 category: SSM 
 tags: Spring
-title: springAOP
+title: SpringAOP
 ---
 
 [link](https://www.cnblogs.com/liuruowang/p/5711563.html)

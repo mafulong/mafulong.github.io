@@ -1,7 +1,7 @@
 ---
 layout: post
 category: SSM
-tags: Spring MVC
+tags: SpringMVC
 title: spinrgMVC运行流程
 ---
 
