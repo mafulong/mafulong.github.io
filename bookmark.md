@@ -51,6 +51,7 @@ menu: Bookmark
 - 虚拟机: VMware Workstation Pro
 - 数据库管理: HeidiSQL
 - 词典: 灵格斯
+- [百度云下载器-速盘](https://www.lanzous.com/i26jxhc)
 
 ### android
 
