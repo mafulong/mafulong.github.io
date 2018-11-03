@@ -8,6 +8,16 @@ title: Golang RPC 之 Thrift
 Thrift 是一款高性能、开源的 RPC 框架，产自 Facebook 后贡献给了 Apache，Thrift 囊括了整个 RPC 的上下游体系，自带序列化编译工具，因为 Thrift 采用的是二进制序列化，并且与 gRPC 一样使用的都是长连接建立 client 与 server 之间的通讯，相比于比传统的使用XML，JSON，SOAP等短连接的解决方案性能要快得多。
 本篇只介绍 Golang 关于 Thrift 的基础使用。
 
+Thrift实际上是实现了C/S模式，通过代码生成工具将thrift文生成服务器端和客户端代码（可以为不同语言），从而实现服务端和客户端跨语言的支持。用户在Thirft文件中声明自己的服务，这些服务经过编译后会生成相应语言的代码文件，然后客户端调用服务，服务器端提服务便可以了。
+
+一般将服务放到一个.thrift文件中，服务的编写语法与C语言语法基本一致，在.thrift文件中有主要有以下几个内容：变量声明（variable）、数据声明（struct）和服务接口声明（service, 可以继承其他接口）。
+
+在client端，用户自定义CalculatorClient类型的对象（用户在.thrift文件中声明的服务名称是Calculator， 则生成的中间代码中的主类为CalculatorClient）， 该对象中封装了各种服务，可以直接调用（如client.ping()）, 然后thrift会通过封装的rpc调用server端同名的函数。
+
+在server端，需要实现在.thrift文件中声明的服务中的所有功能，以便处理client发过来的请求。
+
+ 
+
 ## 实践：
 下面我们使用 Thrift 定义一个接口，该接口实现对传入的数据进行大写的格式化处理。
 
