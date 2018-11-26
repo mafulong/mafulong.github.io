@@ -5,6 +5,11 @@ title: Golang RPC 之 Thrift
 ```
 
 ## Thrift 简介：
+
+目前流行的服务调用方式有很多种，例如基于 SOAP 消息格式的 Web Service，基于 JSON 消息格式的 RESTful 服务等。其中所用到的数据传输方式包括 XML，JSON 等，然而 XML 相对体积太大，传输效率低，JSON 体积较小，新颖，但还不够完善。本文将介绍由 Facebook 开发的远程服务调用框架 Apache Thrift，它采用接口描述语言定义并创建服务，支持可扩展的跨语言服务开发，所包含的代码生成引擎可以在多种语言中，如 C++, Java, Python, PHP, Ruby, Erlang, Perl, Haskell, C#, Cocoa, Smalltalk 等创建高效的、无缝的服务，其传输数据采用二进制格式，相对 XML 和 JSON 体积更小，对于高并发、大数据量和多语言的环境更有优势。本文将详细介绍 Thrift 的使用，并且提供丰富的实例代码加以解释说明，帮助使用者快速构建服务。
+
+[thrift参考文档](https://www.ibm.com/developerworks/cn/java/j-lo-apachethrift/index.html)
+
 Thrift 是一款高性能、开源的 RPC 框架，产自 Facebook 后贡献给了 Apache，Thrift 囊括了整个 RPC 的上下游体系，自带序列化编译工具，因为 Thrift 采用的是二进制序列化，并且与 gRPC 一样使用的都是长连接建立 client 与 server 之间的通讯，相比于比传统的使用XML，JSON，SOAP等短连接的解决方案性能要快得多。
 本篇只介绍 Golang 关于 Thrift 的基础使用。
 
