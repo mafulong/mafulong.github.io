@@ -1,7 +1,7 @@
 ```
 layout: post
-category: 分布式系统
-title: Golang RPC 之 Thrift
+category: 服务端
+title: Thrift
 ```
 
 ## Thrift 简介：
