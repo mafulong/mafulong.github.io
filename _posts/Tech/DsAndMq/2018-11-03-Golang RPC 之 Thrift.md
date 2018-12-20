@@ -1,6 +1,6 @@
 ```
 layout: post
-category: golang
+category: 分布式系统
 title: Golang RPC 之 Thrift
 ```
 
