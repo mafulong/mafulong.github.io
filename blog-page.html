@@ -1,0 +1,72 @@
+<div class="row">
+    <!-- 0311下午，增加目录anchor功能，可以快速定位 -->
+    <!-- 还需要增加快速回到目录页面的功能 -->
+    <div class="col-md-8">
+        {% assign sortedcategories = site.categories | sort %} {% for category in sortedcategories %}
+        <h2 id='{{ category | first }}'>{{ category | first }}</h2>
+        <ul id="posts-list">
+            {% assign pages_list = category[1] %} {% for node in pages_list %} {% if node.title != null %} {% if group == null or group == node.group %}
+            <li class="posts-list-item">
+                <div class="posts-content">
+                    <span class="posts-list-meta">{{ node.date | date: "%Y-%m-%d"}} -----</span>
+                    <a class="posts-list-name bubble-float-left" href="{{ site.url }}{{ node.url }}">{{ node.title }}</a>
+                    <span class='circle'></span>
+                </div>
+            </li>
+            {% endif %} {% endif %} {% endfor %} {% assign pages_list = nil %}
+        </ul>
+        {% endfor %}
+    </div>
+    <div class="col-md-4" id="categorywahh">
+        <!-- {% include sidebar-post-tag.html %} -->
+        <h3 class="sidebar-title">Blog Categories</h3>
+        <div id="blog-categories">
+            <ul class="list-group">
+                {% for category in site.categories %}
+                <li class="list-group-item" onclick="(function(){document.getElementById('{{ category | first }}').scrollIntoView(); })()">
+                    {{ category | first }}
+                    <span class="badge">{{ category[1].size }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        // Enable bootstrap tooltip
+        $("body").tooltip({
+
+            selector: '[data-toggle=tooltip]'
+        });
+        //从sidebar-post-tag copy
+        // $("#blog-categories li").css('text-transform', 'capitalize')
+
+        //实现不上滚计划
+        // var fixmeTop = $('#categorywahh').offset().top - 100; // get initial position of the element
+
+        // $(window).scroll(function() { // assign scroll event listener
+
+        //     var currentScroll = $(window).scrollTop(); // get current position
+        //     // console.log(currentScroll);
+        //     if (currentScroll >= fixmeTop) { // apply position: fixed if you
+        //         $('#categorywahh').css({ // scroll to that element or below it
+        //             top: '100px',
+        //             // position: 'fixed',
+        //             position: 'fixed',
+        //             right: '80px',
+        //             // right: '100px',
+        //             width: 'inherit'
+        //         });
+        //         // console.log("上来了san");
+        //     } else { // apply position: static
+        //         $('#categorywahh').css({ // if you scroll above it
+        //             position: 'inherit',
+        //             width: 'inherit'
+        //         });
+        //         // console.log("下来了");
+        //     }
+
+        // });
+    });
+</script>
