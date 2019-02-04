@@ -6,9 +6,10 @@ css: ['sidebar-post-nav.css']
 <article class="post container" itemscope itemtype="https://schema.org/BlogPosting">
 
     <div class="row">
+        <h1> 哈哈哈哈哈哈哈哈哈 {{ page.no-post-nav }}</h1>
 
         {% if page.no-post-nav %}
-        <h1> 哈哈哈哈哈哈哈哈哈 {{ page.no-post-nav }}</h1>
+
         <div class="col-md-12 markdown-body">
 
             {{ content }}
@@ -18,6 +19,7 @@ css: ['sidebar-post-nav.css']
         </div>
 
         {% else %}
+
         <div class="col-md-9 markdown-body">
 
             {{ content }}
@@ -25,11 +27,10 @@ css: ['sidebar-post-nav.css']
             <!-- Comments -->
             {% include disqus-comments.html %}
         </div>
-
         <div class="col-md-3">
-
             {% include sidebar-post-nav.html %}
         </div>
+        
         {% endif %}
 
     </div>
