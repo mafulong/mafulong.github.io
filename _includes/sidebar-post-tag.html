@@ -2,7 +2,7 @@
 <div id="blog-categories">
     <ul class="list-group">
         {% for category in site.categories %}
-        <li class="list-group-item">
+        <li class="list-group-item" onclick="(function(){document.getElementById('{{ category | first }}').scrollIntoView(); })()">
             {{ category | first }}
             <span class="badge">{{ category[1].size }}</span>
         </li>
