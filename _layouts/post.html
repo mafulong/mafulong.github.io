@@ -5,10 +5,11 @@ css: ['sidebar-post-nav.css']
 {% include jumbotron.html %}
 <article class="post container" itemscope itemtype="https://schema.org/BlogPosting">
 
-    <div class="row">
+    <div id= "blog-body" class="row">
 
-        {% if page.no-post-nav %}
-        <h2> col-12 </h2>
+        
+        <!-- {% if page.no-post-nav %} -->
+        
         <div class="col-md-12 markdown-body">
 
             {{ content }}
@@ -17,19 +18,18 @@ css: ['sidebar-post-nav.css']
             {% include disqus-comments.html %}
         </div>
 
-        {% else %}
+        <!-- {% else %}
         <div class="col-md-9 markdown-body">
 
             {{ content }}
 
-            <!-- Comments -->
             {% include disqus-comments.html %}
         </div>
         <div class="col-md-3">
             {% include sidebar-post-nav.html %}
         </div>
 
-        {% endif %}
+        {% endif %} -->
 
     </div>
 
