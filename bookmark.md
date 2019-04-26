@@ -37,6 +37,7 @@ menu: Bookmark
 - [电影天堂](http://www.dytt8.net/)
 - [中南大学图书馆](http://122.207.86.18/)
 - [乔布简历模板](http://cv.qiaobutang.com/tpl/?order=relevance&keyword=%E7%A8%8B%E5%BA%8F%E5%91%98)
+- [高清壁纸](https://pixabay.com)
 
 ## 秋招笔记
 - [秋招笔记](https://github.com/CyC2018/Interview-Notebook) - 准备秋招学习笔记: 算法，操作系统，网路，面向对象，数据库，Java，分布式，工具
