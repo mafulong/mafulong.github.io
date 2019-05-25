@@ -1,6 +1,6 @@
 ---
 layout: post
-category: python
+category: Python
 title: python连接mysql
 ---
 

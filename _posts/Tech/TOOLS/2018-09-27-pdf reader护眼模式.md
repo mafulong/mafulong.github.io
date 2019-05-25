@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 工具
+category: Tools
 title: pdf reader护眼模式
 ---
 

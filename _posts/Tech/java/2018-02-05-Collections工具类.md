@@ -1,6 +1,6 @@
 ---
 layout: post
-category: JAVA
+category: Java
 title: Collections工具类
 ---
 [链接](https://www.cnblogs.com/fysola/p/6021134.html)

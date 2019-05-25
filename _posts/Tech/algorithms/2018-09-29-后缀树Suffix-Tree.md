@@ -1,6 +1,6 @@
 ---
 layout: post
-category: 算法知识
+category: Algorithms
 title: 后缀树Suffix-Tree
 ---
 

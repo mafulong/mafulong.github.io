@@ -1,6 +1,6 @@
 ---
 layout: post
-category: JAVA
+category: Java
 title: Java中System.arraycopy()和Arrays.copyOf()
 ---
 

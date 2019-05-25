@@ -1,6 +1,6 @@
 (echo ---
 echo layout: post
-echo category: 算法知识
+echo category: Algorithms
 echo title: 11
 echo ---
 echo ```c++
