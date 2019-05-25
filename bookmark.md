@@ -54,6 +54,13 @@ menu: Bookmark
 - 词典: 灵格斯
 - [百度云下载器-速盘](https://www.lanzous.com/i26jxhc)
 
+### mac os
+
+- iTerm
+- Sequel Pro
+- HyperSwitch
+- Spectacle
+
 ### android
 
 - 可可英语
