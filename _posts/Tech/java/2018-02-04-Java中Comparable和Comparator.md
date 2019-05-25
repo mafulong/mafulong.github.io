@@ -1,6 +1,6 @@
 ---
 layout: post
-category: JAVA
+category: Java
 title: Java中Comparable和Comparator
 ---
 
