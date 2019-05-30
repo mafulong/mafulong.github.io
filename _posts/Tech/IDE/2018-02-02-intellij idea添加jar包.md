@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tools 
+category: IDE
 title: intellij idea添加jar包
 ---
 
