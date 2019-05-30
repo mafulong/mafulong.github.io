@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tools 
+category: IDE
 title: IntelliJ IDEA快捷键
 ---
 
