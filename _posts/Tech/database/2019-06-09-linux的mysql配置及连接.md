@@ -24,6 +24,21 @@ sudo systemctl restart mysql
 mysql -u root -p
 ```
 
+## mysql更改密码和创建用户
+```shell
+UPDATE user SET Password = PASSWORD('newpass') WHERE user = 'root';
+FLUSH PRIVILEGES;
+select host,user,password from user ;
+# 创建admin用户可远程也可本地访问，超级用户
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '1234';
+CREATE USER 'admin'@'%' IDENTIFIED BY '1234';
+GRANT ALL ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+GRANT ALL ON *.* TO 'admin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+[grant](https://www.yiibai.com/mysql/grant.html)
+
 ## 查看默认端口号
 [查看并修改默认端口号](https://www.cnblogs.com/tianlangshu/p/5665290.html)
 
@@ -55,10 +70,3 @@ service mysqld restart
 service mysqld stop
 ```
 
-## mysql更改密码和创建用户
-```shell
-UPDATE user SET Password = PASSWORD('newpass') WHERE user = 'root';
-FLUSH PRIVILEGES;
-select host,user,password from user ;
-insert into mysql.user (Host,User,Password) Values('%','wise',PASSWORD('passwd'));
-```
