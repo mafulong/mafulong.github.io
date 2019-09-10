@@ -66,7 +66,7 @@ WebSocket 在服务端的实现非常丰富。Node.js、Java、C++、Python 等�
 
 以下，介绍我在学习 WebSocket 过程中接触过的 WebSocket 服务端解决方案。
 
-### Java
+### 1. Java
 Java 的 web 一般都依托于 servlet 容器。
 
 我使用过的 servlet 容器有：Tomcat、Jetty、Resin。其中Tomcat7、Jetty7及以上版本均开始支持 WebSocket（推荐较新的版本，因为随着版本的更迭，对 WebSocket 的支持可能有变更）。
@@ -75,7 +75,7 @@ Java 的 web 一般都依托于 servlet 容器。
 
 虽然，以上应用对于 WebSocket 都有各自的实现。但是，它们都遵循RFC6455 的通信标准，并且 Java API 统一遵循 JSR 356 - JavaTM API for WebSocket 规范。所以，在实际编码中，API 差异不大。
 
-### Spring
+### 2. Spring
 Spring 对于 WebSocket 的支持基于下面的 jar 包：
 ```xml
 <dependency>
@@ -85,7 +85,7 @@ Spring 对于 WebSocket 的支持基于下面的 jar 包：
 </dependency>
 ```
 
-### javax.websocket
+### 3. javax.websocket
 如果不想使用 Spring 框架的 WebSocket API，你也可以选择基本的 javax.websocket。
 
 首先，需要引入 API jar 包。
