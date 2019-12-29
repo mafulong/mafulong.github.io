@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tech
+category: Go
 title: goroutines和线程
 ---
 
