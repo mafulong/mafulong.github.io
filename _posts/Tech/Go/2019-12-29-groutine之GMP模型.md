@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tech
+category: Go
 title: groutine与GMP模型
 ---
 
