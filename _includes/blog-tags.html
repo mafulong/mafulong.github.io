@@ -21,18 +21,34 @@
 
     </div>
     
-    <div class="col-md-4" id="categorywahh">
-        <!-- {% include sidebar-post-tag.html %} -->
-        <h3 class="sidebar-title">Algorithm Topics</h3>
-        <div id="blog-categories">
-            <ul class="list-group">
+    <style>
+        /* 以下用于tags */
+        .list-group-2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .list-group-2 .list-group-item-2 {
+            border-radius: 8px;
+            /* list-style: none; */
+            list-style-type:none;
+            border: 1px solid blue;
+            padding: 5px;
+            margin-right: 8px;
+        }   
+    </style>
+    <div class="col-md-4" >
+
+        <h3 class="sidebar-title">Blog Tags</h3>
+        <div id="blog-tags">
+            <ul class="list-group-2">
                 {% for tag in site.tags %}
-                <li class="list-group-item" onclick="(function(){document.getElementById('{{ tag | first }}').scrollIntoView(); })()">
+                <li class="list-group-item-2" onclick="(function(){document.getElementById('{{ tag | first }}').scrollIntoView(); })()">
                     {{ tag | first }}&nbsp;
                     <span class="badge">{{ tag[1].size }}</span>
                 </li>
                 {% endfor %}
             </ul>
+        
         </div>
     </div>
 </div>
