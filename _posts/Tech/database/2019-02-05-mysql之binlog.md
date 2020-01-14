@@ -2,6 +2,7 @@
 layout: post
 category: Database
 title: mysql之binlog
+tags: Database
 ---
 
 ## 1.概述

@@ -2,6 +2,7 @@
 layout: post
 category: IDE
 title: IntelliJ IDEA快捷键
+tags: IDE
 ---
 
 ![](https://i.imgur.com/10i0xxN.png)

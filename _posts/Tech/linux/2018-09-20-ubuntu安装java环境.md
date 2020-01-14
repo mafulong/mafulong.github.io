@@ -2,6 +2,7 @@
 layout: post
 category: Linux
 title: ubuntu安装java环境
+tags: Linux
 ---
 
 ## ubuntu安装java环境

@@ -2,6 +2,7 @@
 layout: post
 category: SpirngBoot
 title: spring boot controller
+tags: SpirngBoot
 ---
 
 ```@Controller```  处理Http请求

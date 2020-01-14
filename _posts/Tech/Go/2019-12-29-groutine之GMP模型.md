@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title: groutine与GMP模型
+tags: Go
 ---
 
 # groutine与GMP模型

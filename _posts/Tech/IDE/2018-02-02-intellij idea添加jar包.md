@@ -2,6 +2,7 @@
 layout: post
 category: IDE
 title: intellij idea添加jar包
+tags: IDE
 ---
 
 1. 打开Project

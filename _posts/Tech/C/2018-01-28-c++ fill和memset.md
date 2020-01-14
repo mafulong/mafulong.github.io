@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: fill和memset
+tags: C
 ---
 
 ## fill函数

@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: string、char*和int转换
+tags: C
 ---
 
 对于string与int的转换, 刷题用stoi(string)函数和to_string(int)函数

@@ -2,6 +2,7 @@
 layout: post
 category: PAT
 title: 1007 Maximum Subsequence Sum (25)
+tags: PAT
 ---
 
 ## title

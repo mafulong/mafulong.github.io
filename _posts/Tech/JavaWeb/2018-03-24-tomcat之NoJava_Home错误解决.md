@@ -2,6 +2,7 @@
 layout: post
 category: JavaWeb
 title: tomcat之没有Java_Home错误解决
+tags: JavaWeb
 ---
 
 ## 运行方式

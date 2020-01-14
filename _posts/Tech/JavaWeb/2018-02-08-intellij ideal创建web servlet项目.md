@@ -2,6 +2,7 @@
 layout: post
 category: JavaWeb
 title: Idea新建web错误解决
+tags: JavaWeb
 ---
 
 问题：

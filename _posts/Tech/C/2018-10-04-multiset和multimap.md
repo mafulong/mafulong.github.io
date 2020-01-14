@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: multiset和multimap
+tags: C
 ---
 
 和set,map一样都是红黑树的，从小到大排序。

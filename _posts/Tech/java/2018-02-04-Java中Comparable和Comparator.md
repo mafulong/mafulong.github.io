@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: Java中Comparable和Comparator
+tags: Java
 ---
 
 [链接](https://www.cnblogs.com/xujian2014/p/5215082.html)

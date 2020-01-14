@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title:  json 和 struct 的相互转化
+tags: Go
 ---
 
 ## Json和struct相互转换

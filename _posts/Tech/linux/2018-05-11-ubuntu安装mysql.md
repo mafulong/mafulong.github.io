@@ -2,6 +2,7 @@
 layout: post
 category: Linux
 title: ubuntu18.04安装mysql
+tags: Linux
 ---
 
 ## 删除mysql

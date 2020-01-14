@@ -2,6 +2,7 @@
 layout: post
 category: IDE
 title: codeblock快捷键
+tags: IDE
 ---
 
 - F2 显示/隐藏信息面板

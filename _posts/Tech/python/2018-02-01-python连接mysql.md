@@ -2,6 +2,7 @@
 layout: post
 category: Python
 title: python连接mysql
+tags: Python
 ---
 
 ## PyMySQL 安装

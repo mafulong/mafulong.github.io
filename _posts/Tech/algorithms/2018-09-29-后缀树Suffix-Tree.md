@@ -2,6 +2,7 @@
 layout: post
 category: Algorithms
 title: 后缀树Suffix-Tree
+tags: Algorithms
 ---
 
 [参考1](https://blog.csdn.net/u013949069/article/details/78056102)

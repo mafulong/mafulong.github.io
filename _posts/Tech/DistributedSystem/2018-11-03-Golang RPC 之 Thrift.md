@@ -2,6 +2,7 @@
 layout: post
 category: DistributedSystem
 title: Thrift
+tags: DistributedSystem
 ```
 
 ## Thrift 简介：

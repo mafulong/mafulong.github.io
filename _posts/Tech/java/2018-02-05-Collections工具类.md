@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: Collections工具类
+tags: Java
 ---
 [链接](https://www.cnblogs.com/fysola/p/6021134.html)
 

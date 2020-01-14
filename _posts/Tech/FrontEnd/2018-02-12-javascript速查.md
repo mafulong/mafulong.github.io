@@ -2,6 +2,7 @@
 layout: post
 category: FrontEnd
 title: javascript速查
+tags: FrontEnd
 ---
 
 ## js用法

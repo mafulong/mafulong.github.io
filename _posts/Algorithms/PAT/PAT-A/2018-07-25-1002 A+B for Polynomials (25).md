@@ -2,6 +2,7 @@
 layout: post
 category: PAT
 title: 1002 A+B for Polynomials (25)
+tags: PAT
 ---
 
 ## title

@@ -2,6 +2,7 @@
 layout: post
 category: ComputerNetwork
 title: RESTful API
+tags: ComputerNetwork
 ---
 
 要弄清楚什么是RESTful API,首先要弄清楚什么是REST。REST -- REpresentational State Transfer，英语的直译就是“表现层状态转移”。如果看这个概念，估计没几个人能明白是什么意思。那下面就让我来用一句人话解释一下什么是RESTful:URL定位资源，用HTTP动词（GET,POST,PUT,DELETE)描述操作。

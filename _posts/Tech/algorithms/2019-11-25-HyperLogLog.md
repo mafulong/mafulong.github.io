@@ -2,6 +2,7 @@
 layout: post
 category: Algorithms
 title: HyperLogLog
+tags: Algorithms
 ---
 
 ## HyperLogLog

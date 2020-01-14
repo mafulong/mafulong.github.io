@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title: goroutines和线程
+tags: Go
 ---
 
 协程，线程，进程的区别。

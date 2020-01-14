@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: java final static
+tags: Java
 ---
 ## final
 ### final 变量：
