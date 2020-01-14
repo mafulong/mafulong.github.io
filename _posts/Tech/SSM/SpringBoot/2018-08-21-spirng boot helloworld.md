@@ -2,6 +2,7 @@
 layout: post
 category: SpirngBoot
 title: spirng boot helloworld
+tags: SpirngBoot
 ---
 
 pom.xml

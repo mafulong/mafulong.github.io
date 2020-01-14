@@ -2,6 +2,7 @@
 layout: post
 category: Database
 title: java连接Mysql例子
+tags: Database
 ---
 
 intellij idea添加jar，参考学习中blog

@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title: go的panic和recover
+tags: Go
 ---
 
 ## 什么是 panic？

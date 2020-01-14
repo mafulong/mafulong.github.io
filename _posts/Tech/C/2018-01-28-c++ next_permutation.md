@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: next_permutation
+tags: C
 ---
 
 产生全排列：

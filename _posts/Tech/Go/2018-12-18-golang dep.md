@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title: golang dep
+tags: Go
 ---
 
 ```go

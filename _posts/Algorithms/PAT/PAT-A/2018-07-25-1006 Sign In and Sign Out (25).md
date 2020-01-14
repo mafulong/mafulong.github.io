@@ -2,6 +2,7 @@
 layout: post
 category: PAT
 title: 1006 Sign In and Sign Out (25)
+tags: PAT
 ---
 
 ## title

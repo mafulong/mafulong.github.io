@@ -2,6 +2,7 @@
 layout: post
 category: Linux
 title: ubuntu apt安装问题
+tags: Linux
 ---
 
 [参考])(https://www.zhujiceping.com/28021.html)

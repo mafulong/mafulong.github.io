@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: C++11之unordered_set介绍
+tags: C
 ---
 
 C++ 11中出现了两种新的关联容器:unordered_set和unordered_map，其内部实现与set和map大有不同，set和map内部实现是基于RB-Tree，而unordered_set和unordered_map内部实现是基于哈希表(hashtable)，由于unordered_set和unordered_map内部实现的公共接口大致相同，所以本文以unordered_set为例。

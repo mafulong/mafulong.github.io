@@ -2,6 +2,7 @@
 layout: post
 category: JavaWeb
 title: idea的web开发设置
+tags: JavaWeb
 ---
 
 ## tomcat运行

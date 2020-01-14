@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: Java中System.arraycopy()和Arrays.copyOf()
+tags: Java
 ---
 
 ## System.arraycopy()

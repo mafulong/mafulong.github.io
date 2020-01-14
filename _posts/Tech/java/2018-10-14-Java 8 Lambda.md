@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: Java 8 Lambda
+tags: Java
 ---
 
 ## Lambda表达式的组成及使用
