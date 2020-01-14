@@ -2,6 +2,7 @@
 layout: post
 category: Python
 title: python的__new__和__init__的区别
+tags: Python
 ---
 
 ## python的__new__和__init__的区别

@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: make工具与Makefile文件
+tags: C
 ---
 
 [Linux工具入门：make工具与Makefile文件](http://www.cnblogs.com/QG-whz/p/5461110.html)

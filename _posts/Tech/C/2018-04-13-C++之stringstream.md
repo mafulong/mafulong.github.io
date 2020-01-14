@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: istringstream和ostringstream
+tags: C
 ---
 
 头文件sstream

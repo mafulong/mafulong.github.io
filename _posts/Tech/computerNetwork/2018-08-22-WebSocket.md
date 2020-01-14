@@ -2,6 +2,7 @@
 layout: post
 category: ComputerNetwork
 title: WebSocket
+tags: ComputerNetwork
 ---
 
 WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。

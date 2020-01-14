@@ -2,6 +2,7 @@
 layout: post
 category: Java
 title: RandomAccess接口
+tags: Java
 ---
 
 ## 介绍

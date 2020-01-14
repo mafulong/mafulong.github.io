@@ -2,6 +2,7 @@
 layout: post
 category: SpirngBoot
 title: spring boot application配置文件
+tags: SpirngBoot
 ---
 
 [参考](https://www.cnblogs.com/lixuwu/p/6376194.html)

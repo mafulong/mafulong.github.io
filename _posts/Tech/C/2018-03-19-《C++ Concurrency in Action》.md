@@ -2,6 +2,7 @@
 layout: post
 category: C
 title: 《C++ Concurrency in Action》
+tags: C
 ---
 
 ## 线程构造

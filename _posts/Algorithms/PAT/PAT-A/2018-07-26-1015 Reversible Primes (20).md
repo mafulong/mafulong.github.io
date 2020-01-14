@@ -2,6 +2,7 @@
 layout: post
 category: PAT
 title: 1015 Reversible Primes (20)
+tags: PAT
 ---
 
 ## title

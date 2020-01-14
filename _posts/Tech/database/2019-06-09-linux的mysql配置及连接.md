@@ -2,6 +2,7 @@
 layout: post
 category: Database
 title: linux的mysql配置及连接
+tags: Database
 ---
 
 # linux的mysql配置及连接

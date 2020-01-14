@@ -2,6 +2,7 @@
 layout: post
 category: Go
 title: go test
+tags: Go
 ---
 
 ## 编写测试用例
