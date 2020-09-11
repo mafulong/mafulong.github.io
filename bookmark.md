@@ -39,6 +39,9 @@ menu: Bookmark
 - [乔布简历模板](http://cv.qiaobutang.com/tpl/?order=relevance&keyword=%E7%A8%8B%E5%BA%8F%E5%91%98)
 - [高清壁纸](https://pixabay.com)
 
+### 工具
+- [html转markdown](https://euangoddard.github.io/clipboard2markdown/) 鼠标选择html的文字，然后copy到网页里复制就行
+
 ## 秋招笔记
 - [秋招笔记](https://github.com/CyC2018/Interview-Notebook) - 准备秋招学习笔记: 算法，操作系统，网路，面向对象，数据库，Java，分布式，工具
 
