@@ -5,6 +5,8 @@ title: groutine与GMP模型
 tags: Go
 ---
 
+[可以看这篇文章 ](https://juejin.im/post/6844904130398404616)
+
 # groutine与GMP模型
 
 Go语言在语言层面实现并发。Go编写一个并发编程程序很简单，只需要在函数调用之前使用一个`go`关键字即可启动一个goroutine执行并发。
