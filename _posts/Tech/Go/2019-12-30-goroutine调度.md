@@ -1,11 +1,11 @@
 ---
 layout: post
 category: Go
-title: gorutine调度
+title: goroutine调度
 tags: Go
 ---
 
-## gorutine调度
+## goroutine调度
 goroutine是Golang语言中最经典的设计，也是其魅力所在，goroutine的本质是协程，是实现并行计算的核心。
 goroutine使用方式非常的简单，只需使用go关键字即可启动一个协程，并且它是处于异步方式运行，你不需要等它运行完成以后在执行以后的代码。
 
