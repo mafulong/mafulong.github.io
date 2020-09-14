@@ -87,8 +87,7 @@ runqueue没有任务G了，那么P不得不从其他的P里拿一些G来执行�
 
 如果只有一个工作线程，那么就只会有一个m结构体对象，问题就很简单，定义一个全局的m结构体变量就行了。可是我们有多个工作线程和多个m需要一一对应，怎么办呢？还记得第一章我们讨论过的线程本地存储吗？当时我们说过，线程本地存储其实就是线程私有的全局变量，这不正是我们所需要的吗？！只要每个工作线程拥有了各自私有的m结构体全局变量，我们就能在不同的工作线程中使用相同的全局变量名来访问不同的m结构体对象，这完美的解决我们的问题。
 
-
-**线程模型与调度器**
+## 线程模型与调度器
 
 第一章讨论操作系统线程调度的时候我们曾经提到过，goroutine建立在操作系统线程基础之上，它与操作系统线程之间实现了一个多对多(M:N)的两级线程模型。
 
@@ -96,6 +95,7 @@ runqueue没有任务G了，那么P不得不从其他的P里拿一些G来执行�
 
 所谓的对goroutine的调度，是指程序代码按照一定的算法在适当的时候挑选出合适的goroutine并放到CPU上去运行的过程，这些负责对goroutine进行调度的程序代码我们称之为goroutine调度器。用极度简化了的伪代码来描述goroutine调度器的工作流程大概是下面这个样子：
 
+```go
 // 程序启动时的初始化代码\
 ......\
 for i := 0; i < N; i++ { // 创建N个操作系统线程执行schedule函数\
@@ -111,12 +111,13 @@ func schedule() {\
          save_status_of_g(g) // 保存goroutine的状态，主要是寄存器的值\
     }\
 }
+```
 
 这段伪代码表达的意思是，程序运行起来之后创建了N个由内核调度的操作系统线程（为了方便描述，我们称这些系统线程为工作线程）去执行shedule函数，而schedule函数在一个调度循环中反复从M个goroutine中挑选出一个需要运行的goroutine并跳转到该goroutine去运行，直到需要调度其它goroutine时才返回到schedule函数中通过save_status_of_g保存刚刚正在运行的goroutine的状态然后再次去寻找下一个goroutine。
 
 需要强调的是，这段伪代码对goroutine的调度代码做了高度的抽象、修改和简化处理，放在这里只是为了帮助我们从宏观上了解goroutine的两级调度模型，具体的实现原理和细节将从本章开始进行全面介绍。
 
-**调度器数据结构概述**
+## 调度器数据结构概述
 
 第一章我们讨论操作系统线程及其调度时还说过，可以把内核对系统线程的调度简单的归纳为：在执行操作系统代码时，内核调度器按照一定的算法挑选出一个线程并把该线程保存在内存之中的寄存器的值放入CPU对应的寄存器从而恢复该线程的运行。
 
@@ -144,6 +145,7 @@ func schedule() {\
 
 有了上述数据结构以及工作线程与数据结构之间的映射机制，我们可以把前面的调度伪代码写得更丰满一点：
 
+```go
 // 程序启动时的初始化代码\
 ......\
 for i := 0; i < N; i++ { // 创建N个操作系统线程执行schedule函数\
@@ -169,6 +171,7 @@ func schedule() {\
           save_status_of_g(g) // 保存goroutine的状态，主要是寄存器的值\
      }\
 }
+```
 
 仅仅从上面这个伪代码来看，我们完全不需要线程私有全局变量，只需在schedule函数中定义一个局部变量就行了。但真实的调度代码错综复杂，不光是这个schedule函数会需要访问m，其它很多地方还需要访问它，所以需要使用全局变量来方便其它地方对m的以及与m相关的g和p的访问。
 
@@ -179,10 +182,10 @@ func schedule() {\
 
 下面介绍的这些结构体中的字段非常多，牵涉到的细节也很庞杂，光是看这些结构体的定义我们没有必要也无法真正理解它们的用途，所以在这里我们只需要大概了解一下就行了，看不懂记不住都没有关系，随着后面对代码逐步深入的分析，我们也必将会对这些结构体有越来越清晰的认识。为了节省篇幅，下面各结构体的定义略去了跟调度器无关的成员。另外，这些结构体的定义全部位于Go语言的源代码路径下的runtime/runtime2.go文件之中。
 
-stack结构体
+### stack结构体
 
 stack结构体主要用来记录goroutine所使用的栈的信息，包括栈顶和栈底位置：
-
+```go
 // Stack describes a Go execution stack.\
 // The bounds of the stack are exactly [lo, hi),\
 // with no implicit data structures on either side.\
@@ -191,11 +194,11 @@ type stack struct {\
     lo uintptr    // 栈顶，指向内存低地址\
     hi uintptr    // 栈底，指向内存高地址\
 }
-
-gobuf结构体
+```
+### gobuf结构体
 
 gobuf结构体用于保存goroutine的调度信息，主要包括CPU的几个寄存器的值：
-
+```go
 type gobuf struct {\
     // The offsets of sp, pc, and g are known to (hard-coded in) libmach.\
     //\
@@ -222,11 +225,12 @@ type gobuf struct {\
     // 保存CPU的rip寄存器的值\
     bp   uintptr // for GOEXPERIMENT=framepointer\
 }
-
-g结构体
+```
+### g结构体
 
 g结构体用于代表一个goroutine，该结构体保存了goroutine的所有信息，包括栈，gobuf结构体和其它的一些状态信息：
 
+```go
 // 前文所说的g结构体，它代表了一个goroutine\
 type g struct {\
     // Stack parameters.\
@@ -261,11 +265,12 @@ type g struct {\
 
    ......\
 }
+```
 
-m结构体
+### m结构体
 
 m结构体用来代表工作线程，它保存了m自身使用的栈信息，当前正在运行的goroutine以及与m绑定的p等信息，详见下面定义中的注释：
-
+```go
 type m struct {\
     // g0主要用来记录工作线程使用的栈信息，在执行调度代码时需要使用这个栈\
     // 执行用户goroutine代码时，使用用户goroutine自己的栈，调度时会发生栈的切换\
@@ -299,11 +304,11 @@ type m struct {\
 
     ......\
 }
-
-p结构体
+```
+### p结构体
 
 p结构体用于保存工作线程执行go代码时所必需的资源，比如goroutine的运行队列，内存分配用到的缓存等等。
-
+```go
 type p struct {\
     lock mutex
 
@@ -340,11 +345,11 @@ type p struct {\
 
     ......\
 }
-
-schedt结构体
+```
+### schedt结构体
 
 schedt结构体用来保存调度器的状态信息和goroutine的全局运行队列：
-
+```go
 type schedt struct {\
     // accessed atomically. keep at top to ensure alignment on 32-bit systems.\
     goidgen  uint64\
@@ -393,8 +398,9 @@ type schedt struct {\
 
     ......\
 }
-
+```
 ### 重要的全局变量
+```
 
 allgs     []*g     // 保存所有的g\
 allm       *m    // 所有的m构成的一个链表，包括下面的m0\
@@ -407,5 +413,5 @@ sched      schedt     // 调度器结构体对象，记录了调度器�
 
 m0  m       // 代表进程的主线程\
 g0   g        // m0的g0，也就是m0.g0 = &g0
-
+```
 在程序初始化时，这些全变量都会被初始化为0值，指针会被初始化为nil指针，切片初始化为nil切片，int被初始化为数字0，结构体的所有成员变量按其本类型初始化为其类型的0值。所以程序刚启动时allgs，allm和allp都不包含任何g,m和p。
