@@ -147,3 +147,20 @@ public class WebSocketServerConfigurator extends ServerEndpointConfig.Configurat
     }
 }
 ```
+
+## 深入探究
+
+[参考](https://www.infoq.cn/article/deep-in-websocket-protocol)
+
+WebSocket 复用了 HTTP 的握手通道。具体指的是，客户端通过 HTTP 请求与 WebSocket 服务端协商升级协议。协议升级完成后，后续的数据交换则遵照 WebSocket 的协议。
+
+建立链接时需要密钥验证，公开算法，可破解伪造，只是为了避免误操作。
+
+数据帧交互: opcode有Ping,Pong, 二进制交换，断开连接等。
+
+有分片逻辑，最后一帧的FIN为1
+
+客户端到服务请求需要进行掩码转换，达到不容易伪造到达服务端的数据。
+
+[掩码例子](https://blog.csdn.net/yangzai187/article/details/93862980)
+
