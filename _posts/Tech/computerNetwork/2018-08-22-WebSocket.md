@@ -150,7 +150,7 @@ public class WebSocketServerConfigurator extends ServerEndpointConfig.Configurat
 
 ## 深入探究
 
-[参考](https://www.infoq.cn/article/deep-in-websocket-protocol)
+[参考](https://www.infoq.cn/article/deep-in-websocket-protocol) 
 
 WebSocket 复用了 HTTP 的握手通道。具体指的是，客户端通过 HTTP 请求与 WebSocket 服务端协商升级协议。协议升级完成后，后续的数据交换则遵照 WebSocket 的协议。
 
