@@ -1,9 +1,11 @@
 ---
 layout: post
 category: Go
-title: groutine
+title: goroutine
 tags: Go
 ---
+
+[讲的很好的一篇](https://segmentfault.com/a/1190000021951119)
 
 ## 协程，线程，进程的区别。
 
