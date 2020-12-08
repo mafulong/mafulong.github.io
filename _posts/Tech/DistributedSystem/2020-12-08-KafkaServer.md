@@ -1,0 +1,310 @@
+---
+layout: post
+category: DistributedSystem
+title: KafkaServer
+tags: DistributedSystem
+---
+
+## KafkaServer
+
+
+
+使用消息队列的主要好处有：
+
+- 解耦
+- 峰值处理能力、异步
+- 持久化
+- 顺序保证
+- 扩展性
+
+## 1. 架构
+
+### 1.1 概念
+
+**Broker：**
+
+Kafka集群中的一台服务器。
+
+**Topic：**
+
+主题。消息的分类，是逻辑上的概念，实际以partition的形式存放在各Broker服务器上。
+
+**Partition：**
+
+-   分区。是物理上的概念，组成Topic的单位。
+
+**Replica：**
+
+副本。是具体的分区，比Partition更具体的物理概念，一个真实的目录，存放在一台Broker服务器上。在代码中又分为leader和follower。
+
+**Producer：**
+
+-   生产者。负责发送消息到Broker。
+
+**Consumer：**
+
+-   消费者。负责订阅Topic并拉取消息。
+
+**CousumerGroup：**
+
+消费者组。每条消息只被组内成员消费一次。
+
+### 1.2 逻辑架构
+
+![image](https://user-images.githubusercontent.com/24795000/101492494-e46f1300-399f-11eb-8bfe-e977580591ce.png)
+
+### 1.3 物理架构
+
+#### 1.3.1 集群物理架构
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492515-e76a0380-399f-11eb-830b-e32b200f5bcb.png)
+
+如上图，本集群有：
+
+- - 4台broker。broker_1 到 broker_4
+  - 2个topic。topic_A和topic_B
+  - topic_A的分区数是4。topicA_0 到 topic_3
+  - topic_A的副本因子是2。例如topicA_0这个分区，有两个副本，分别分布在broker_1和broker_3两台机器上。
+
+#### 1.3.2 一个副本目录结构
+
+上图中的topicA-0是一个partition，准确的说应该称之为一个副本，即Replica。它是broker_1服务器上的一个日志目录，其内部由多个segment文件组成。topicA-0目录结构：
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492535-eafd8a80-399f-11eb-970a-968e2df7d470.png)
+
+***.log文件**：日志文件
+
+***.index文件**：稀疏索引文件
+
+***.timeindex文件**：时间戳索引文件。根据时间戳快速定位消息所在位置。（Kafka API offsetsForTimes方法所使用）
+
+index文件与log文件关系:
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492550-ed5fe480-399f-11eb-91ea-ffe6cf9cd514.png)
+
+### 1.4 代码架构
+
+#### 1.4.1 线程池
+
+KafkaServer在启动时，初始化KafkaRequestHandlerPool线程池
+
+KafkaRequestHandlerPool（线程池）由KafkaRequestHandler组成
+
+KafkaRequestHandler调用KafkaApis处理request
+
+下图：Kafka处理request的线程池
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492570-efc23e80-399f-11eb-9d1c-7218bd62d153.png)
+
+kafkaServer接收的请求，包括来自客户端的请求和来自其他server的请求。客户端请求例如producer发送消息请求、consumer消费消息请求。其他broker请求例如副本同步日志请求。请求类型有21个枚举值。
+
+所有的请求最终会收敛到Broker服务器上的KafkaApis.handle方法，如下图：
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492598-f355c580-399f-11eb-8c1b-ec18b4cbd25f.png)
+
+#### 1.4.2 处理request的组件
+
+有3个重要组件处理上图21种请求，它们分别是：
+
+- **ReplicaManager**
+
+- - 把Produce日志写入磁盘
+  - 如果副本是follower，启动副本同步线程，发送fetch请求
+  - 如果副本是leader，处理来自副本的fetch请求
+
+- **Coordinator**
+
+- - 管理Consumer的balance
+
+- **KafkaController**
+
+- - Broker 的上线、下线
+  - 新建 topic 或已有 topic 的扩容，topic 删除
+  - 处理replica的分配、迁移、leader 选举、leader 切换
+
+下图：处理request请求
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492617-f650b600-399f-11eb-8860-4a0b29cbd256.png)
+
+## 2. 可用性、可靠性保障
+
+### 2.1 集群高可用性
+
+在应对单点故障时，kafka仍然能够对外提供服务，主要通过以下特性保证：
+
+- 分布式集群模式，多台服务器，分散单服务器压力。
+- 一个topic拆分成多partition分区
+- 一个partition建立n个副本，分为leader和follower，保持同步。leader一旦宕机从follower选举出新的leader提供读写日志服务。
+
+### **2.2 消息可靠性与一致性**
+
+面对故障时是否仍然保持最终一致。
+
+- producer.ACKS = [ -1, 0, 1] 保证日志生产的准确性。
+- HW和LEO机制。保证日志同步的准确性。
+
+#### 2.2.1 producer.ACKs
+
+**ACKs=1**
+
+- producer发送日志，只要Leader写入成功，则返回producer成功
+
+**ACKs=0** 
+
+- producer发送日志，不需要等待leader返回成功
+- 传输效率最高，可靠性最差
+
+**ACKs=-1** 
+
+- producer发送日志，Leader需要等待ISR中所有的Replica同步完成后，才返回给客户端成功
+- 可靠性最高，效率最差。集群的瓶颈卡在了最差的那台机器
+
+#### 2.2.2 HW和LEO
+
+**LEO**  
+
+- LogEndOffset，日志末端偏移量
+- 每个Replica最后一条log所在的位置
+
+**HW**  
+
+- HighWaterMark，高水位
+- HW = min( ISR.LEO )
+- 已经被ISR完成同步的消息的位置
+- Consumer最多只能消费到HW所在的位置
+- 对于内部Replica的同步消息请求，没有HW的限制
+
+如下图，HW与LEO位置示意：
+
+![image](https://user-images.githubusercontent.com/24795000/101492654-fd77c400-399f-11eb-8fa7-6fdeb852179a.png)
+
+**HW与LEO更新过程：**
+
+![image](https://user-images.githubusercontent.com/24795000/101492803-28621800-39a0-11eb-9d8f-4a9553eb4727.png)
+
+**HW与LEO更新过程（详细）：**
+
+HW与LEO存在于每一个副本，并不仅仅存在于leader。
+
+leader中维护了两套LEO，一套是自己的，另一套是follower的。
+
+1. 假设目前消息队列为空，follower启动的同步消息线程，不会获取到任何消息，也不会更新HW和LEO
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492816-2b5d0880-39a0-11eb-8ff6-0176da48ec90.png)
+
+1. 此时，Producer给leader发送了一条日志
+
+2. 1. leader的LEO + 1
+   2. leader尝试更新HW，HW = min(LEO)，仍然是0
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492828-2e57f900-39a0-11eb-84e7-7e4e7c85dbeb.png)
+
+1. follower发送fetch请求：
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492837-3152e980-39a0-11eb-8402-520c1c7ec1c0.png)
+
+1. 1. req的offset参数是0，表示从第0个消息开始fetch
+   2. leader更新remote LEO=0，这是因为follower request的offset是0
+   3. leader尝试更新HW，HW = min(LEO)，仍然是0
+   4. leader把数据和此时的leader HW返回给follower
+   5. follower接收到respsonse，更新LEO=1，更新HW仍然是0
+
+1. follower发送第二轮fetch请求:
+
+![image](https://user-images.githubusercontent.com/24795000/101492843-33b54380-39a0-11eb-8752-02fb0c15f64a.png)
+
+1. 1. req的offset参数是1，表示请求同步第一个消息
+   2. leader更新remote LEO=1，因为follower request的offset是1
+   3. leader尝试更新HW，HW=min(LEO)，**此时更新HW=1**
+   4. leader把数据和此时的leader HW返回给follower
+   5. follower接收到respsonse，更新HW，**此时更新HW=1**
+
+至此，producer生产的消息已经保存到kafka的各个副本上了，Consumer已经可以消费到HW位置了。
+
+一个消息从写入kafka到完成更新HW，需要follower发送两轮fetch请求。
+
+## 3. 常见的选举、分配、Rebalance
+
+Kafka集群依赖Zookeeper，Zookeeper的数据模型是一棵树，kafka的组件把回调函数注册到zk树节点下，在节点发生变更时，zk通过回调通知kafka。
+
+### 3.1 Controller选举
+
+KafkaController的选举过程比较简单，所有的broker启动时，抢占注册Zookeeper的/Controller节点，注册成功即成为Controller。伪代码如下：
+
+```
+def elect: Boolean = {
+    leaderId = getControllerID   // 查询当前集群ControllerId
+    
+    if(leaderId != -1) {  // Controller早已存在了
+       return amILeader
+    }
+    try {
+        zkCheckedEphemeral.create()  // 注册到zookeeper leader节点
+    } catch {
+        case _: ZkNodeExistsException =>   // leader被别人注册，抛异常
+        leaderId = getControllerID
+    }
+    return amILeader
+}
+```
+
+### 3.2 Consumer启动触发Rebalance
+
+由于Broker数量通常不会很多，所以Controller选举采用抢占注册的方式不会给zookeeper带来很大压力。
+
+但是对于Consumer而言，一个大的Topic可能对应创建了数量庞大的Consumer，Kafka老版本也确实是这么实现的，这种情况下，存在两个问题：
+
+- 羊群效应：任何一个Consumer的增减都会触发所有Consumer的Rebalance
+- 脑裂效应：每个Consumer分别单独通过Zookeeper判断哪些Consumer 宕机了，那么不同Consumer在同一时刻从Zookeeper看到的视角就可能不一样。这就会造成不正确的Reblance尝试。
+
+新版本的Kafka对此做了优化，使用了“协调员”这一角色，作为“权威”“指挥”Consumer Rebalance
+
+新版本，Consumer启动过程如下：
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492861-39ab2480-39a0-11eb-9062-2b974fb45d0a.png)
+
+1. Consumer启动，向任意一台broker发送请求，得到响应。响应内容为“协调员的地址”。
+2. Consumer找到自己的Coordinator，**持续**发送心跳请求
+3. Consumer判断心跳请求的响应的ErrorCode，如果没有异常则消费数据。如果有IllegalGeneration异常，说明Coordinator正在计算rebalance，统一给Consumer分配Partition。
+4. Consumer给Coordinator发送JonGroup请求，得到响应，得知自己被分配了哪个Partition，连接那个partition进行消费。
+
+### 3.3 Leader Replica宕机触发Rebalance
+
+*|*![image](https://user-images.githubusercontent.com/24795000/101492871-3c0d7e80-39a0-11eb-8bfb-50deeff9a8ec.png)
+
+图：broker宕机触发replica选举
+
+Replica分布在broker上，Replica leader掉线其实就是leader所在的broker的宕机，从宕机到集群恢复稳定态过程：
+
+1. Broker启动，在zookeeper的broker/ids路径注册临时节点
+2. Controller启动，注册watcher函数，监听zookeeper上述路径的节点变化
+3. Broker因为网络、断电、机器故障等原因宕机
+4. zookeeper监听到broker节点掉线，触发controller注册的watcher，通过回调函数通知Controller
+5. Controller决定一个set_p集合，包含宕机broker上的所有partition
+6. 对于上述的partition，Controller从/brokers/topics/[topic]/partitions/[partition]/state读取该 Partition 当前的 ISR  
+7. Controller从上述ISR中选出Leader。选举算法是quorum（法定人数）算法，通过数据冗余来保证数据一致性的投票算法。对于Kafka而言，选举人数就是ISR。
+8. Controller将新的 Leader、ISR 和新的leader_epoch及controller_epoch写入/brokers/topics/[topic]/partitions/[partition]/state
+9. 向set_p相关的broker发送LeaderAndIsrRequest通知受影响的broker更新信息
+
+### 3.4 topic分配到broker
+
+1. 用户调用脚本创建topic，指定分区数和副本数
+2. Controller接收CreateTopic请求，计算broker与partition的对应关系
+3. Controller向Broker发送LeaderAndIsr请求，通知Broker有了新的Topic，各broker负责创建Partition
+
+副本分配算法：
+
+```
+* To achieve this goal for replica assignment without considering racks, we:
+* 1. Assign the first replica of each partition by round-robin, starting from a random position in the broker list.
+* 2. Assign the remaining replicas of each partition with an increasing shift.
+*
+* Here is an example of assigning
+* broker-0  broker-1  broker-2  broker-3  broker-4
+* p0        p1        p2        p3        p4       (1st replica)
+* p5        p6        p7        p8        p9       (1st replica)
+* p4        p0        p1        p2        p3       (2nd replica)
+* p8        p9        p5        p6        p7       (2nd replica)
+* p3        p4        p0        p1        p2       (3nd replica)
+* p7        p8        p9        p5        p6       (3nd replica)
+```
