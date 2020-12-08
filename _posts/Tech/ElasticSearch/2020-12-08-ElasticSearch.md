@@ -84,7 +84,7 @@ Node 是集群中的一个节点，节点也有一个名称，默认是随机分
 
 也就是说，shard 分为 primary shard 和 replica shard。而 primary shard 一般简称为 shard，而 replica shard 一般简称为 replica。
 
-![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=54f865e6344e651f4b48e9cf49254adc_8f118824ce50c961_boxcnKHf6BoiOLrIGS6b7U74J3f_yW2gbCcJdBRPWkmmRgzPyG8kbrXeFSc1)
+![image](https://user-images.githubusercontent.com/24795000/101483824-b1bf1d80-3993-11eb-80d2-0939ce17847a.png)
 
 #### **ES 核心概念 vs. DB 核心概念**
 
@@ -92,7 +92,7 @@ ESDBindex数据库type数据表document一行数据
 
 以上是一个简单的类比。
 
-![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=3302436fc97d01023d55b3854d2a7771_8f118824ce50c961_boxcnzqLIXP4FCR7CW0XR4ORWIc_XIojNhh5Sliu446LML84CzP609wNwhZJ)
+![image](https://user-images.githubusercontent.com/24795000/101483884-c56a8400-3993-11eb-90b3-f399f13661aa.png)
 
 查询阶段包含以下三个步骤:
 
@@ -116,13 +116,13 @@ ES 中存储数据的**基本单位是索引**，比如说你现在要在 ES 中
 index -> type -> mapping -> document -> field。
 ```
 
-*|*![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=d639f445ba822c335088a3395dffdc94_8f118824ce50c961_boxcnGwjNdFBUhKNviksaNvS7Uf_XZEBohLfTkjTt462M6IJY0oi7dd0OKa0)
+*|*![image](https://user-images.githubusercontent.com/24795000/101483896-ca2f3800-3993-11eb-9e19-c68e2091e88c.png)
 
 你搞一个索引，这个索引可以拆分成多个 shard ，每个 shard 存储部分数据。拆分多个 shard 是有好处的，一是**支持横向扩展**，比如你数据量是 3T，3 个 shard，每个 shard 就 1T 的数据，若现在数据量增加到 4T，怎么扩展，很简单，重新建一个有 4 个 shard 的索引，将数据导进去；二是**提高性能**，数据分布在多个 shard，即多台服务器上，所有的操作，都会在多台机器上并行分布式执行，提高了吞吐量和性能。
 
 接着就是这个 shard 的数据实际是有多个备份，就是说每个 shard 都有一个 primary shard ，负责写入数据，但是还有几个 replica shard 。 primary shard 写入数据之后，会将数据同步到其他几个 replica shard 上去。
 
-*|*![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=a92f4ca10a2d5a3c3e59126df557ca25_8f118824ce50c961_boxcnI5l61KClUhBhSn5ifefxHb_heORIEaP57jx7M9aL5REOkoAaBikvdrI)
+*|*![image](https://user-images.githubusercontent.com/24795000/101483908-cdc2bf00-3993-11eb-9a07-5052b0939118.png)
 
 通过这个 replica 的方案，每个 shard 的数据都有多个备份，保证**高可用。**
 
@@ -141,7 +141,7 @@ index -> type -> mapping -> document -> field。
 - 实际的 node 上的 primary shard 处理请求，然后将数据同步到 replica node 。
 - coordinating node 如果发现 primary node 和所有 replica node 都搞定之后，就返回响应结果给客户端。
 
-*|*![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=fa359cb154a2c6460d661b506c61efd8_8f118824ce50c961_boxcnOSVgUhbf6oGLQhCILwp0xO_oEphk4wHdoDldsAaoIzB1C96JdQGWsy5)
+*|*![image](https://user-images.githubusercontent.com/24795000/101483922-d1eedc80-3993-11eb-9799-800410be66b2.png)
 
 #### es 读数据过程
 
@@ -172,7 +172,7 @@ golang不好玩
 
 #### 写数据底层原理
 
-*|*![img](https://bytedance.feishu.cn/space/api/box/stream/download/asynccode/?code=c5d13f8b3d27334e2f4b50c42a65bf50_8f118824ce50c961_boxcnBKRRvpguI7V1kuoCSS7RVR_xVNkyz1HSgclOtswIfQovbE1JZ6qKjrG)
+*|*![image](https://user-images.githubusercontent.com/24795000/101483952-d9ae8100-3993-11eb-9d71-ef984ff9e6a3.png)
 
 **总结:**  数据先写入内存 buffer，然后每隔 1s，将数据 refresh 到 os cache，到了 os cache 数据就能被搜索到（所以我们才说 es 从写入到能被搜索到，中间有 1s 的延迟）。每隔 5s，将数据写入 translog 文件（这样如果机器宕机，内存数据全没，最多会有 5s 的数据丢失），translog 大到一定程度，或者默认每隔 30mins，会触发 commit 操作，将缓冲区的数据都 flush 到 segment file 磁盘文件中。数据写入 segment file 之后，同时就建立好了倒排索引。
 
