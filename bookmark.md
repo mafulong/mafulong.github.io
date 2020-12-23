@@ -41,6 +41,7 @@ menu: Bookmark
 
 ### 工具
 - [html转markdown](https://euangoddard.github.io/clipboard2markdown/) 鼠标选择html的文字，然后copy到网页里复制就行
+- [rgb颜色表](http://www.wahart.com.hk/rgb.htm) rgb颜色表
 
 ## 秋招笔记
 - [秋招笔记](https://github.com/CyC2018/Interview-Notebook) - 准备秋招学习笔记: 算法，操作系统，网路，面向对象，数据库，Java，分布式，工具
