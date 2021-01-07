@@ -2,7 +2,7 @@
 layout: post
 category: DistributedSystem
 title: KafkaServer
-tags: DistributedSystem
+tags: Mq
 ---
 
 ## KafkaServer
