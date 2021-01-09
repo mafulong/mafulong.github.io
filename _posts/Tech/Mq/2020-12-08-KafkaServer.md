@@ -1,6 +1,6 @@
 ---
 layout: post
-category: DistributedSystem
+category: Mq
 title: KafkaServer
 tags: Mq
 ---
