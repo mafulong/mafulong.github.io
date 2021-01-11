@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Database
-title: redis操作
+title: java的redis操作
 tags: Database
 ---
 
@@ -142,7 +142,7 @@ append num 5: append 5 if num exists, or create a key 0 and assigned to 5
 -1: represents the last element in the list. Like this,-2 represents the second to last.
 
 ### hash
-	
+
 	//set
 	hset hashname field-key value
 	hmset myhash2 name mafulong age 18
@@ -156,19 +156,19 @@ append num 5: append 5 if num exists, or create a key 0 and assigned to 5
 	//delete
 	hdel myhash2 name
 	del myhash2
-
+	
 	//incr
 	hincrby myhash age 5
 	
 	//if exist
 	hexists myhash
-
+	
 	hgetall myhash
-
+	
 	hlen myhash
 	
 	hkeys myhash
-
+	
 	hvals myhash
 
 ### list
@@ -182,7 +182,7 @@ Redis列表是简单的字符串列表，按照插入顺序排序。你可以添
 右边插入
 	
 	rpush mylist a b c
-	
+
 查看链表
 
 	lrange mylist 
@@ -190,7 +190,7 @@ Redis列表是简单的字符串列表，按照插入顺序排序。你可以添
 弹出
 
 	lpop mylist
-
+	
 	rop mylist
 
 获取元素个数
@@ -212,7 +212,7 @@ Redis列表是简单的字符串列表，按照插入顺序排序。你可以添
 	sunion myset1 myset2
 	//get the size
 	scard myset
-	
+
 
 ```
 
