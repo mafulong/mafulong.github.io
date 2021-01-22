@@ -140,7 +140,7 @@ Processor是一个抽象的概念，代表了Machine所需的上下文环境，�
 
 三者与内核级线程的关系如下图所示：
 
-![](https://www.bitlogs.tech/images/go/goroutine/goroutine-01.jpg)
+![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/dc2a71ec365985552475b70edc5f28a3.jpeg)
 
 一个Machine会对应一个内核线程（K），同时会有一个Processor与它绑定。一个Processor连接一个或者多个Goroutine。Processor有一个运行时的Goroutine（上图中绿色的G），其它的Goroutine处于等待状态。
 

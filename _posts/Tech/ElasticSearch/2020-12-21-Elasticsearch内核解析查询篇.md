@@ -40,7 +40,7 @@ public int count(Query query);
 
 Elasticsearch中每个Shard都会有多个Replica，主要是为了保证数据可靠性，除此之外，还可以增加读能力，因为写的时候虽然要写大部分Replica Shard，但是查询的时候只需要查询Primary和Replica中的任何一个就可以了。
 
-![img](https://pic1.zhimg.com/80/v2-1ad1351408bdf0ce7f76f251d6ef8bc4_1440w.jpg)Search On Replicas
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/c2af91bf4da5d9e875e17ad6eab45a30.jpeg)Search On Replicas
 
 在上图中，该Shard有1个Primary和2个Replica Node，当查询的时候，从三个节点中根据Request中的preference参数选择一个节点查询。preference可以设置_local，_primary，_replica以及其他选项。如果选择了primary，则每次查询都是直接查询Primary，可以保证每次查询都是最新的。如果设置了其他参数，那么可能会查询到R1或者R2，这时候就有可能查询不到最新的数据。
 
@@ -56,7 +56,7 @@ Elasticsearch中通过分区实现分布式，数据写入的时候根据_routin
 
 Elasticsearch中的查询主要分为两类，Get请求：通过ID查询特定Doc；Search请求：通过Query查询匹配Doc。
 
-![img](https://pic2.zhimg.com/80/v2-1f4c1cf921049b841ae2612b4734cdb1_1440w.jpg)
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/e2abf69247a809c63f02b1ddccc7e0e8.jpeg)
 
 > 上图中内存中的Segment是指刚Refresh Segment，但是还没持久化到磁盘的新Segment，而非从磁盘加载到内存中的Segment。
 
@@ -64,7 +64,7 @@ Elasticsearch中的查询主要分为两类，Get请求：通过ID查询特定Do
 
 对于Get类请求，查询的时候是先查询内存中的TransLog，如果找到就立即返回，如果没找到再查询磁盘上的TransLog，如果还没有则再去查询磁盘上的Segment。这种查询是实时（Real Time）的。这种查询顺序可以保证查询到的Doc是最新版本的Doc，这个功能也是为了保证NoSQL场景下的实时性要求。
 
-![img](https://pic1.zhimg.com/80/v2-c5455432442548d1f12c975684fc4a00_1440w.jpg)多阶段查询
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/56b9ba318750e96257360ac75c80a13d.jpeg)多阶段查询
 
 所有的搜索系统一般都是两阶段查询，第一阶段查询到匹配的DocID，第二阶段再查询DocID对应的完整文档，这种在Elasticsearch中称为query_then_fetch，还有一种是一阶段查询的时候就返回完整Doc，在Elasticsearch中称作query_and_fetch，一般第二种适用于只需要查询一个Shard的请求。
 
@@ -76,7 +76,7 @@ Elasticsearch中的查询主要分为两类，Get请求：通过ID查询特定Do
 
 Elasticsearch中的大部分查询，以及核心功能都是Search类型查询，上面我们了解到查询分为一阶段，二阶段和三阶段，这里我们就以最常见的的二阶段查询为例来介绍查询流程。
 
-![img](https://pic3.zhimg.com/80/v2-10acab5576a2359ca279331e81adc1e2_1440w.jpg)查询流程
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/2c9c1ff4cd958b73e0308d4da8573206.jpeg)查询流程
 
 **注册Action**
 
@@ -91,11 +91,11 @@ actions.register(SearchAction.INSTANCE, TransportSearchAction.class);
 
 如果请求是Rest请求，则会在RestSearchAction中解析请求，检查查询类型，不能设置为dfs_query_and_fetch或者query_and_fetch，这两个目前只能用于Elasticsearch中的优化场景，然后将请求发给后面的TransportSearchAction处理。然后构造SearchRequest，将请求发送给TransportSearchAction处理。
 
-![img](https://pic1.zhimg.com/80/v2-02fdc9375a9d6af62ac6c2035b5a9730_1440w.jpg)
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/aeea74cf9609c3a2b648faa87705bfe5.jpeg)
 
 如果是第一阶段的Query Phase请求，则会调用SearchService的executeQueryPhase方法。
 
-![img](https://pic3.zhimg.com/80/v2-be3a37c7fe08d4f1559b9eb0aaa8d37a_1440w.jpg)
+![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/fbda51d75b061aabc638e37022302a19.jpeg)
 
 如果是第二阶段的Fetch Phase请求，则会调用SearchService的executeFetchPhase方法。
 
