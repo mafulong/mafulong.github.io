@@ -55,7 +55,7 @@ Spring AOP 模块提供拦截器来拦截一个应用程序，例如，当执行
 
 3.例子：
 
-![](https://images2015.cnblogs.com/blog/760279/201607/760279-20160727152818888-1665005413.png)
+![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/a695da806255c5921318dd009c2aa8e9.png)
 
 (1)Operator.java --> 切面类
 
