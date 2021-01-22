@@ -114,7 +114,7 @@ public class ExampleBean implements DisposableBean {
 
 ![](https://i.imgur.com/INF4UhB.png)
 
-![](https://upload-images.jianshu.io/upload_images/4638441-05bf2b9b2f2a01d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/93e3cfc6efdf6772ae8b671c3c760225.png)
 
 1. Spring容器 从XML 文件中读取bean的定义，并实例化bean。
 1. Spring根据bean的定义填充所有的属性。
