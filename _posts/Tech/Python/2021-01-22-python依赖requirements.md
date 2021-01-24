@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Python
-title: python依赖requirements
+title: 依赖requirements
 tags: Python
 ---
 
