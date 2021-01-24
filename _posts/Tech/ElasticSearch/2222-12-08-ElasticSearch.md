@@ -1,7 +1,7 @@
 ---
 layout: post
 category: ElasticSearch
-title: ElasticSearch(ES)原理
+title: [置顶]ElasticSearch(ES)原理
 tags: ElasticSearch
 ---
 
