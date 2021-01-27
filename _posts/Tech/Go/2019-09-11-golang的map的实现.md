@@ -54,7 +54,7 @@ struct Bucket
 
 整个hash的存储如下图所示(临时先采用了XX同学画的图，这个图有点问题)：
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/91f2bd8a03a8a4b0468cb5fc781ab8d8.png)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/91f2bd8a03a8a4b0468cb5fc781ab8d8.png)
 
 图2.2 HMap的存储结构
 
