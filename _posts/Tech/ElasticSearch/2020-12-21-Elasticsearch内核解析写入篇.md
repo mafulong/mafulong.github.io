@@ -11,7 +11,7 @@ tags: ElasticSearch
 
 目前的Elasticsearch有两个明显的身份，一个是分布式搜索系统，另一个是分布式NoSQL数据库，对于这两种不同的身份，读写语义基本类似，但也有一点差异。
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/5139c3df8ff6d15f974d37339369c6b8.png)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5139c3df8ff6d15f974d37339369c6b8.png)
 
 ## **写操作**
 
@@ -75,7 +75,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 此外，Elasticsearch整体架构上采用了一主多副的方式：
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/cc5c57a31828ac42c62c17cf26572d23.png)Elasticsearch一主多副
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/cc5c57a31828ac42c62c17cf26572d23.png)Elasticsearch一主多副
 
 每个Index由多个Shard组成，每个Shard有一个主节点和多个副本节点，副本个数可配。但每次写入的时候，写入请求会先根据_routing规则选择发给哪个Shard，Index Request中可以设置使用哪个Filed的值作为路由参数，如果没有设置，则使用Mapping中的配置，如果mapping中也没有配置，则使用_id作为路由参数，然后通过_routing的Hash值选择出Shard（在OperationRouting类中），最后从集群的Meta中找出出该Shard的Primary节点。
 
@@ -87,7 +87,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 对于这种问题，Elasticsearch学习了数据库中的处理方式：增加CommitLog模块，Elasticsearch中叫TransLog。
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/6de4a6a12a721bb6c691e0372e55e541.jpeg)Refresh && Flush
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/6de4a6a12a721bb6c691e0372e55e541.jpeg)Refresh && Flush
 
 在每一个Shard中，写入流程分为两部分，先写入Lucene，再写入TransLog。
 
@@ -95,7 +95,7 @@ Elasticsearch采用多Shard方式，通过配置routing规则将数据分成多�
 
 上面介绍了Elasticsearch在写入时的两个关键模块，Replica和TransLog，接下来，我们看一下Update流程：
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/a244ae57cf4143cec9b1967d4c502ac3.jpeg)Update
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/a244ae57cf4143cec9b1967d4c502ac3.jpeg)Update
 
 Lucene中不支持部分字段的Update，所以需要在Elasticsearch中实现该功能，具体流程如下：
 
@@ -119,7 +119,7 @@ Elasticsearch中的写入请求类型，主要包括下列几个：Index(Create)
 
 ## **Elasticsearch写入流程图**
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/b8109e9e6130966c248d5a1d9e3863d0.jpeg)写入流程图
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/b8109e9e6130966c248d5a1d9e3863d0.jpeg)写入流程图
 
 - 红色：Client Node。
 - 绿色：Primary Node。
@@ -129,15 +129,15 @@ Elasticsearch中的写入请求类型，主要包括下列几个：Index(Create)
 
 在Elasticsearch中，所有action的入口处理方法都是注册在ActionModule.java中，比如Bulk Request有两个注册入口，分别是Rest和Transport入口：
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/ee76580e85621c64a1d504425c9a8218.jpeg)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/ee76580e85621c64a1d504425c9a8218.jpeg)
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/153a4b24078c42f9031b8041a6fd5b74.jpeg)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/153a4b24078c42f9031b8041a6fd5b74.jpeg)
 
 如果请求是Rest请求，则会在RestBulkAction中Parse Request，构造出BulkRequest，然后发给后面的TransportAction处理。
 
 TransportShardBulkAction的基类TransportReplicationAction中注册了对Primary，Replica等的不同处理入口:
 
-![img](https://raw.githubusercontent.com/mafulong/mdPic/master/images/2b589f25f9fb9460aaf4a25d709e65b7.jpeg)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/2b589f25f9fb9460aaf4a25d709e65b7.jpeg)
 
 这里对原始请求，Primary Node请求和Replica Node请求各自注册了一个handler处理入口。
 

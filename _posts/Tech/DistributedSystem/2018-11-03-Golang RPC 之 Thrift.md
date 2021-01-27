@@ -29,7 +29,7 @@ Thrift实际上是实现了C/S模式，通过代码生成工具将thrift文生�
 
 **创建 golang 项目 ThriftDemo 工程：**
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/d5b3806676a8c76adb1bc47272293151.webp)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/d5b3806676a8c76adb1bc47272293151.webp)
 
 - client目录下的 client.go 实现了客户端用于发送数据并打印接收到 server 端处理后的数据
 - server 目录下的 server.go 实现了服务端用于接收客户端发送的数据，并对数据进行大写处理后返回给客户端
@@ -54,7 +54,7 @@ service format_data {
 
 进入 thrift_file 目录执行：$ thrift -out .. --gen go example.thrift，就会在 thrift_file 的同级目录下生成 golang 的包：example，其中 format_data-remote 是生成的测试代码可以不用特别关注
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/5a72985f051051defa62bb00c1e6441b.webp)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5a72985f051051defa62bb00c1e6441b.webp)
 
 实现 server 端：
 

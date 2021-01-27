@@ -51,13 +51,13 @@ Kafka集群中的一台服务器。
 
 ### 1.2 逻辑架构
 
-![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/60af40353a110cbc9948067b4502a75d.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/60af40353a110cbc9948067b4502a75d.png)
 
 ### 1.3 物理架构
 
 #### 1.3.1 集群物理架构
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/0993d208eeb5dfe12a9e6f132e9d0eef.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/0993d208eeb5dfe12a9e6f132e9d0eef.png)
 
 如上图，本集群有：
 
@@ -70,7 +70,7 @@ Kafka集群中的一台服务器。
 
 上图中的topicA-0是一个partition，准确的说应该称之为一个副本，即Replica。它是broker_1服务器上的一个日志目录，其内部由多个segment文件组成。topicA-0目录结构：
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/15917459e5a10f3a6839bc535f0afbc6.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/15917459e5a10f3a6839bc535f0afbc6.png)
 
 ***.log文件**：日志文件
 
@@ -80,7 +80,7 @@ Kafka集群中的一台服务器。
 
 index文件与log文件关系:
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/42a9581fb80035875abcaff0e6902542.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/42a9581fb80035875abcaff0e6902542.png)
 
 ### 1.4 代码架构
 
@@ -94,13 +94,13 @@ KafkaRequestHandler调用KafkaApis处理request
 
 下图：Kafka处理request的线程池
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/83fbd9155e52d987bb704a028f719772.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/83fbd9155e52d987bb704a028f719772.png)
 
 kafkaServer接收的请求，包括来自客户端的请求和来自其他server的请求。客户端请求例如producer发送消息请求、consumer消费消息请求。其他broker请求例如副本同步日志请求。请求类型有21个枚举值。
 
 所有的请求最终会收敛到Broker服务器上的KafkaApis.handle方法，如下图：
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/9fb206ff88bb93e7d92cf7dced0e540b.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/9fb206ff88bb93e7d92cf7dced0e540b.png)
 
 #### 1.4.2 处理request的组件
 
@@ -124,7 +124,7 @@ kafkaServer接收的请求，包括来自客户端的请求和来自其他server
 
 下图：处理request请求
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/d85330c319388dddad5de8b90e743c9a.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/d85330c319388dddad5de8b90e743c9a.png)
 
 ## 2. 可用性、可靠性保障
 
@@ -176,11 +176,11 @@ kafkaServer接收的请求，包括来自客户端的请求和来自其他server
 
 如下图，HW与LEO位置示意：
 
-![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/b9466c871eb1de0157d41377cd06d94a.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/b9466c871eb1de0157d41377cd06d94a.png)
 
 **HW与LEO更新过程：**
 
-![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/d64eb94018321663dfe38c6ea278bbde.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/d64eb94018321663dfe38c6ea278bbde.png)
 
 **HW与LEO更新过程（详细）：**
 
@@ -190,18 +190,18 @@ leader中维护了两套LEO，一套是自己的，另一套是follower的。
 
 1. 假设目前消息队列为空，follower启动的同步消息线程，不会获取到任何消息，也不会更新HW和LEO
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/ec19a2cae1dc96baef8fe646f758b97a.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/ec19a2cae1dc96baef8fe646f758b97a.png)
 
 1. 此时，Producer给leader发送了一条日志
 
 2. 1. leader的LEO + 1
    2. leader尝试更新HW，HW = min(LEO)，仍然是0
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/219fab4d24791360c434d96ad75c71e8.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/219fab4d24791360c434d96ad75c71e8.png)
 
 1. follower发送fetch请求：
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/65578cc63bfff21a8529caed7fd904ff.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/65578cc63bfff21a8529caed7fd904ff.png)
 
 1. 1. req的offset参数是0，表示从第0个消息开始fetch
    2. leader更新remote LEO=0，这是因为follower request的offset是0
@@ -211,7 +211,7 @@ leader中维护了两套LEO，一套是自己的，另一套是follower的。
 
 1. follower发送第二轮fetch请求:
 
-![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/a730c7a7e7b6ea34fa9d3a71e1911f57.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/a730c7a7e7b6ea34fa9d3a71e1911f57.png)
 
 1. 1. req的offset参数是1，表示请求同步第一个消息
    2. leader更新remote LEO=1，因为follower request的offset是1
@@ -261,7 +261,7 @@ def elect: Boolean = {
 
 新版本，Consumer启动过程如下：
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/5849ad51359fe5c181c7c4673b8f6da8.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5849ad51359fe5c181c7c4673b8f6da8.png)
 
 1. Consumer启动，向任意一台broker发送请求，得到响应。响应内容为“协调员的地址”。
 2. Consumer找到自己的Coordinator，**持续**发送心跳请求
@@ -270,7 +270,7 @@ def elect: Boolean = {
 
 ### 3.3 Leader Replica宕机触发Rebalance
 
-*|*![image](https://raw.githubusercontent.com/mafulong/mdPic/master/images/c981ddff865953bf37066940aa92cc28.png)
+*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/c981ddff865953bf37066940aa92cc28.png)
 
 图：broker宕机触发replica选举
 
