@@ -21,18 +21,18 @@ tags: Algorithms
 
 由于并非所有的字符串都存在这样的树，因此S通常使用一个终止符号进行填充（通常使用$）。
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/cbc0942c49766bad09ba134b41e81295.gif)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/cbc0942c49766bad09ba134b41e81295.gif)
 
 #### 优点
 匹配快。对于长度为m的模式串，只需花费至多O(m)的时间进行匹配。
 
 空间省。Suffix tree的空间耗费要低于Suffix trie，因为Suffix tree除根节点外不允许其内部节点只含单个子节点，因此它是Suffix trie的压缩表示。
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/7a75afe1c22113474dc0cf803ae94d71.gif)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/7a75afe1c22113474dc0cf803ae94d71.gif)
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/dda895e1efbf5f4cca68f520d6b6a263.gif)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/dda895e1efbf5f4cca68f520d6b6a263.gif)
 
-![](https://raw.githubusercontent.com/mafulong/mdPic/master/images/5a5d8cc3d02d8e1e11b7bb793c0d105d.jpeg)
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5a5d8cc3d02d8e1e11b7bb793c0d105d.jpeg)
 
 
 
