@@ -8,12 +8,24 @@ menu: 关于
 permalink: /about/
 ---
 
-{% include about.html %}
-<!-- 我是马壮，码而生，码而立。
+<!-- {% include about.html %} -->
 
-仰慕「优雅编码的艺术」。
+### Yoo, I'm mafulong 👋
 
-坚信熟能生巧，努力改变人生。
+🎊 Hello world!
+
+- 🔭 Now:Bytedance as a Back-end Software Engineer 
+- 🌱 **PROFESSIONAL SKILLS**:
+  - Programmer Languages: Golang(frequent), Python/C++/Java (Basic, once used).
+  - Mysql(frequent), Redis(frequent), Kafka(frequent), Elastic-Search(Basic).
+  - Understand common network protocol, such as Http, WebSocket, Quic.
+  - Understand common distributed components and protocols such as etcd.
+
+- 📫 [Blog:mafulong.top](https://mafulong.top)
+- 📝 [My Patent List(20+)](https://github.com/mafulong/mafulong/blob/main/files/zhuanli.csv)
+- 📝 [SCI Articles:《A Time and Location Correlation Incentive Scheme for Deeply Data Gathering in Crowdsourcing Networks》](https://www.hindawi.com/journals/wcmc/2018/8052620/)
+
+<!-- 
 
 ## 联系
 
