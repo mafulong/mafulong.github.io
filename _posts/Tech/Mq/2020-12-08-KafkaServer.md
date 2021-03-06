@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Mq
-title: [置顶]KafkaServer
+title: KafkaServer
 tags: Mq
 ---
 
