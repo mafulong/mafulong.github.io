@@ -1,7 +1,4 @@
-哇哈哈哈哈
 
-博客网址
+我的个人博客：<https://mafulong.github.io>，欢迎 Star 和 Fork。
 
-http://mafulong.top
-
-主题见：DONGChuan/DONGChuan.github.io
+主题基于<https://github.com/mzlogin>修改，感谢！
