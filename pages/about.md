@@ -6,6 +6,10 @@ keywords: Zhuang Ma, 马壮
 comments: true
 menu: 关于
 permalink: /about/
+subtitle:   
+            <a role="button" class="btn btn-primary hvr-grow-shadow" href="/assets/files/cv.pdf">
+                <span class="flag-icon flag-icon-cn"></span> mfl's CV
+            </a>
 ---
 
 ### Yoo, I'm mafulong 👋
