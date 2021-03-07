@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>javascript笔记 &mdash; LogBook</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2017/12/03/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="alternate" type="application/atom+xml" title="LogBook" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/favicon.ico"><meta property="og:title" content="javascript笔记"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="javascript 字符串转换为数字用Number(str)或则和parseInt(str)/parseFloat(str)方法 数字转换为字符串用var.toString()方法 获取字符串或者数组的长度，用arr.length属性 数组添加头部元素: arr.unshift(“a”,”b”….); 结尾用push()方法 NaN： not a number 将数组元素连接成字符串： arr.join(“连接符”) 可以直接使用Math.方法名，如max(…), document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低 ByName()只用于表单元素，一般是单选和复选框 两个特殊方法，document.title, document.body 节点有三种：元素节点，属性节点，文本节点 创建节点的流程：createElement(), createTextNode()，把文本节点插入元素节点 appendChild()，把组装好的节点插入到已有元素中:appendChild（） obj.style.属性名只可以获得行内样式，是没办法获得内部样式和外部样式的。一般用getComputedStyle.属性名或者obj.style.cssText()=”width:3px”等来写，后者可以写多个，css写法，前者驼峰样式，没有-了 html中onclick=”f()”, js中obj.click=f，前者是调用属性，后者是给属性赋值 只执行最后一次window.onload=function(){ } 事件绑定： obj.addEventListener(“click”,funcion,false);"><meta name="og:description" content="javascript 字符串转换为数字用Number(str)或则和parseInt(str)/parseFloat(str)方法 数字转换为字符串用var.toString()方法 获取字符串或者数组的长度，用arr.length属性 数组添加头部元素: arr.unshift(“a”,”b”….); 结尾用push()方法 NaN： not a number 将数组元素连接成字符串： arr.join(“连接符”) 可以直接使用Math.方法名，如max(…), document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低 ByName()只用于表单元素，一般是单选和复选框 两个特殊方法，document.title, document.body 节点有三种：元素节点，属性节点，文本节点 创建节点的流程：createElement(), createTextNode()，把文本节点插入元素节点 appendChild()，把组装好的节点插入到已有元素中:appendChild（） obj.style.属性名只可以获得行内样式，是没办法获得内部样式和外部样式的。一般用getComputedStyle.属性名或者obj.style.cssText()=”width:3px”等来写，后者可以写多个，css写法，前者驼峰样式，没有-了 html中onclick=”f()”, js中obj.click=f，前者是调用属性，后者是给属性赋值 只执行最后一次window.onload=function(){ } 事件绑定： obj.addEventListener(“click”,funcion,false);"><meta property="og:url" content="https://mafulong.github.io/2017/12/03/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="LogBook"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2017-12-03"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="LogBook"><span class="octicon octicon-mark-github"></span> LogBook</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/blog/" class=" site-header-nav-item" target="" title="Blog">Blog</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="javascript笔记"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">javascript笔记</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2017/12/03 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#FrontEnd" title="FrontEnd">FrontEnd</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 6460 字，约 19 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="javascript">javascript</h2><ul><li>字符串转换为数字用Number(str)或则和parseInt(str)/parseFloat(str)方法</li><li>数字转换为字符串用var.toString()方法</li><li>获取字符串或者数组的长度，用arr.length属性</li><li>数组添加头部元素: arr.unshift(“a”,”b”….); 结尾用push()方法</li><li>NaN： not a number</li><li>将数组元素连接成字符串： arr.join(“连接符”)</li><li>可以直接使用Math.方法名，如max(…),</li><li>document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低</li><li>ByName()只用于表单元素，一般是单选和复选框</li><li>两个特殊方法，document.title, document.body</li><li>节点有三种：元素节点，属性节点，文本节点</li><li>创建节点的流程：createElement(), createTextNode()，把文本节点插入元素节点 appendChild()，把组装好的节点插入到已有元素中:appendChild（）</li><li>obj.style.属性名只可以获得行内样式，是没办法获得内部样式和外部样式的。一般用getComputedStyle.属性名或者obj.style.cssText()=”width:3px”等来写，后者可以写多个，css写法，前者驼峰样式，没有-了</li><li>html中onclick=”f()”, js中obj.click=f，前者是调用属性，后者是给属性赋值</li><li>只执行最后一次window.onload=function(){ }</li><li>事件绑定： obj.addEventListener(“click”,funcion,false);</li></ul><h1 id="javascript基础教程">javascript基础教程</h1><h2 id="插入js用法">插入js用法</h2><ol><li>可以插入到html的任何位置</li><li>头部<script>内容</script></li><li>头部<scirpt src="位置"></scirpt>&gt;</li></ol><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 内部脚本</span>
+<span class="cm">/*使用&lt;stript&gt;标签*/</span>
+<span class="c1">//外部脚本使用&lt;script src="myScript.js"&gt;&lt;/script&gt; 可以插入任何位置</span>
+<span class="c1">//document.write()加载后使用，将覆盖，如函数中</span>
+
+<span class="c1">//JavaScript 拥有动态类型。这意味着相同的变量可用作不同的类型：</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">demo</span><span class="dl">"</span><span class="p">).</span><span class="nx">innerHTML</span><span class="o">=</span><span class="dl">"</span><span class="s2">我的第一段 JavaScript</span><span class="dl">"</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;p&gt;我的第一段 JavaScript&lt;/p&gt;</span><span class="dl">"</span><span class="p">);</span>
+</code></pre></div></div><h2 id="变量声明用法">变量声明用法</h2><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">对大小写敏感</span>
+<span class="nx">拆行用</span><span class="o">\</span>
+<span class="c1">//声明变量</span>
+<span class="kd">var</span> <span class="nx">a</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Gates</span><span class="dl">"</span><span class="p">,</span> <span class="nx">age</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="nx">job</span><span class="o">=</span><span class="dl">"</span><span class="s2">CEO</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// 数组 开头为0</span>
+<span class="kd">var</span> <span class="nx">cars</span><span class="o">=</span><span class="k">new</span> <span class="nb">Array</span><span class="p">();</span>
+<span class="nx">cars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="dl">"</span><span class="s2">Audi</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">cars</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="dl">"</span><span class="s2">BMW</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">cars</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="dl">"</span><span class="s2">Volvo</span><span class="dl">"</span><span class="p">;</span>
+<span class="c1">// 或者</span>
+<span class="kd">var</span> <span class="nx">cars</span><span class="o">=</span><span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="dl">"</span><span class="s2">Audi</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">BMW</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Volvo</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">// 或者</span>
+<span class="kd">var</span> <span class="nx">cars</span><span class="o">=</span><span class="p">[</span><span class="dl">"</span><span class="s2">Audi</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">BMW</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Volvo</span><span class="dl">"</span><span class="p">];</span>
+
+<span class="c1">// 对象</span>
+<span class="kd">var</span> <span class="nx">person</span><span class="o">=</span><span class="p">{</span>
+    <span class="na">firstname</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">Bill</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">lastname</span>  <span class="p">:</span> <span class="dl">"</span><span class="s2">Gates</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">id</span>        <span class="p">:</span>  <span class="mi">5566</span>
+<span class="p">};</span>
+
+<span class="c1">//声明变量时可以确定其类型，如</span>
+<span class="kd">var</span> <span class="nx">carname</span><span class="o">=</span><span class="k">new</span> <span class="nb">String</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="o">=</span>      <span class="k">new</span> <span class="nb">Number</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">y</span><span class="o">=</span>      <span class="k">new</span> <span class="nb">Boolean</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">cars</span><span class="o">=</span>   <span class="k">new</span> <span class="nb">Array</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">person</span><span class="o">=</span> <span class="k">new</span> <span class="nb">Object</span><span class="p">;</span>
+
+<span class="c1">//创建对象</span>
+<span class="nx">person</span><span class="o">=</span><span class="k">new</span> <span class="nb">Object</span><span class="p">();</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">firstname</span><span class="o">=</span><span class="dl">"</span><span class="s2">Bill</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">lastname</span><span class="o">=</span><span class="dl">"</span><span class="s2">Gates</span><span class="dl">"</span><span class="p">;</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="o">=</span><span class="mi">56</span><span class="p">;</span>
+<span class="nx">person</span><span class="p">.</span><span class="nx">eyecolor</span><span class="o">=</span><span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">;</span>
+<span class="c1">//或者</span>
+<span class="nx">person</span><span class="o">=</span><span class="p">{</span><span class="na">firstname</span><span class="p">:</span><span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="p">,</span><span class="na">lastname</span><span class="p">:</span><span class="dl">"</span><span class="s2">Doe</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="na">eyecolor</span><span class="p">:</span><span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">};</span>
+<span class="c1">//或者对象构造器</span>
+<span class="kd">function</span> <span class="nx">person</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span><span class="nx">lastname</span><span class="p">,</span><span class="nx">age</span><span class="p">,</span><span class="nx">eyecolor</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span><span class="o">=</span><span class="nx">firstname</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span><span class="o">=</span><span class="nx">lastname</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="o">=</span><span class="nx">age</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eyecolor</span><span class="o">=</span><span class="nx">eyecolor</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">myFather</span><span class="o">=</span><span class="k">new</span> <span class="nx">person</span><span class="p">(</span><span class="dl">"</span><span class="s2">Bill</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">Gates</span><span class="dl">"</span><span class="p">,</span><span class="mi">56</span><span class="p">,</span><span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">);</span>
+<span class="c1">//定义对象方法</span>
+<span class="kd">function</span> <span class="nx">person</span><span class="p">(</span><span class="nx">firstname</span><span class="p">,</span><span class="nx">lastname</span><span class="p">,</span><span class="nx">age</span><span class="p">,</span><span class="nx">eyecolor</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstname</span><span class="o">=</span><span class="nx">firstname</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span><span class="o">=</span><span class="nx">lastname</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="o">=</span><span class="nx">age</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">eyecolor</span><span class="o">=</span><span class="nx">eyecolor</span><span class="p">;</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">changeName</span><span class="o">=</span><span class="nx">changeName</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">changeName</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">lastname</span><span class="o">=</span><span class="nx">name</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div><h2 id="if-else用法循环">if else用法，循环</h2><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">if</span> <span class="p">(</span><span class="nx">time</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Good morning</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">time</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Good day</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Good evening</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">day</span><span class="o">=</span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getDay</span><span class="p">();</span>
+<span class="k">switch</span> <span class="p">(</span><span class="nx">day</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">case</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Today it's Saturday</span><span class="dl">"</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Today it's Sunday</span><span class="dl">"</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default</span><span class="p">:</span>
+        <span class="nx">x</span><span class="o">=</span><span class="dl">"</span><span class="s2">Looking forward to the Weekend</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">cars</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">cars</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;br&gt;</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">len</span><span class="o">=</span><span class="nx">cars</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">cars</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;br&gt;</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//循环遍历对象的属性</span>
+<span class="kd">var</span> <span class="nx">person</span><span class="o">=</span><span class="p">{</span><span class="na">fname</span><span class="p">:</span><span class="dl">"</span><span class="s2">John</span><span class="dl">"</span><span class="p">,</span><span class="na">lname</span><span class="p">:</span><span class="dl">"</span><span class="s2">Doe</span><span class="dl">"</span><span class="p">,</span><span class="na">age</span><span class="p">:</span><span class="mi">25</span><span class="p">};</span>
+<span class="k">for</span> <span class="p">(</span><span class="nx">x</span> <span class="k">in</span> <span class="nx">person</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">txt</span><span class="o">=</span><span class="nx">txt</span> <span class="o">+</span> <span class="nx">person</span><span class="p">[</span><span class="nx">x</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">=</span><span class="nx">x</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">The number is </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">do</span>
+<span class="p">{</span>
+    <span class="nx">x</span><span class="o">=</span><span class="nx">x</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">The number is </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">&lt;br&gt;</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">);</span>
+<span class="c1">//break; continue;</span>
+</code></pre></div></div><h2 id="函数">函数</h2><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">myFunction</span><span class="p">(</span><span class="nx">var1</span><span class="p">,</span><span class="nx">var2</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// 这里是要执行的代码</span>
+    <span class="k">return</span> <span class="mi">3</span><span class="p">;</span><span class="c1">//可以没有</span>
+<span class="p">}</span>
+
+</code></pre></div></div><h2 id="trycatch">try/catch</h2><pre><code class="language-javacript">try
+{
+    throw exception;
+    adddlert("Welcome guest!");
+}
+catch(err)
+{
+    txt="There was an error on this page.\n\n";
+    txt+="Error description: " + err.message + "\n\n";
+    txt+="Click OK to continue.\n\n";
+    alert(txt);
+}
+</code></pre><h2 id="引用元素">引用元素</h2><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//通过标签找html元素</span>
+<span class="kd">var</span> <span class="nx">x</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">main</span><span class="dl">"</span><span class="p">);</span><span class="c1">//id： main</span>
+<span class="kd">var</span> <span class="nx">y</span><span class="o">=</span><span class="nx">x</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">element</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">header</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="dl">"</span><span class="s2">New Header</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">attribute</span><span class="o">=</span><span class="k">new</span> <span class="nx">value</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">image</span><span class="dl">"</span><span class="p">).</span><span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">landscape.jpg</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p2</span><span class="dl">"</span><span class="p">).</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="o">=</span><span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">//DOM事件</span>
+<span class="c1">//&lt;h1 onclick="this.innerHTML='谢谢!'"&gt;请点击该文本&lt;/h1&gt; this就是自己的id</span>
+<span class="c1">//&lt;h1 onclick="changetext(this)"&gt;请点击该文本&lt;/h1&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">myBtn</span><span class="dl">"</span><span class="p">).</span><span class="nx">onclick</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span><span class="nx">displayDate</span><span class="p">()};</span>
+<span class="c1">// &lt;input type="text" id="fname" onchange="upperCase()"&gt;</span>
+<span class="c1">//分配事件</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">myBtn</span><span class="dl">"</span><span class="p">).</span><span class="nx">onclick</span><span class="o">=</span><span class="kd">function</span><span class="p">(){</span><span class="nx">displayDate</span><span class="p">()};</span>
+
+<span class="c1">//创建元素</span>
+<span class="kd">var</span> <span class="nx">para</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">node</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="dl">"</span><span class="s2">这是新段落。</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">para</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">element</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">element</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">para</span><span class="p">);</span>
+<span class="c1">//删除元素</span>
+<span class="kd">var</span> <span class="nx">parent</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">div1</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">child</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">p1</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">parent</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
+<span class="c1">//正则表达式 RegExp</span>
+</code></pre></div></div><h1 id="jquery教程">jquery教程</h1><h2 id="语法">语法</h2><pre><code class="language-javacript"> $(document).ready(function(){
+
+   // 开始写 jQuery 代码...
+
+ }); 
+
+ 简洁写法（与以上写法效果相同）:
+ $(function(){
+
+   // 开始写 jQuery 代码...
+
+ }); 
+
+#id 选择器 
+$("#test")
+.class 选择器
+$(".test")
+$("p").css("background-color","red");
+$(this)	选取当前 HTML 元素
+</code></pre><h2 id="事件">事件</h2><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>        
+  <span class="c1">// action goes here!!        </span>
+<span class="p">});</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">dblclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span> 
+<span class="p">});</span>
+
+<span class="nx">jQuery</span> <span class="nx">hide</span><span class="p">()</span> <span class="nx">和</span> <span class="nx">show</span><span class="p">()</span>
+<span class="nx">通过</span> <span class="nx">jQuery</span><span class="err">，</span><span class="nx">您可以使用</span> <span class="nx">toggle</span><span class="p">()</span> <span class="nx">方法来切换</span> <span class="nx">hide</span><span class="p">()</span> <span class="nx">和</span> <span class="nx">show</span><span class="p">()</span> <span class="nx">方法</span><span class="err">。</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">toggle</span><span class="p">(</span><span class="nx">speed</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+<span class="nx">可选的</span> <span class="nx">speed</span> <span class="nx">参数规定隐藏</span><span class="o">/</span><span class="nx">显示的速度</span><span class="err">，</span><span class="nx">可以取以下值</span><span class="err">：</span><span class="dl">"</span><span class="s2">slow</span><span class="dl">"</span><span class="err">、</span><span class="dl">"</span><span class="s2">fast</span><span class="dl">"</span> <span class="nx">或毫秒</span><span class="err">。</span>
+<span class="nx">可选的</span> <span class="nx">callback</span> <span class="nx">参数是</span> <span class="nx">toggle</span><span class="p">()</span> <span class="nx">方法完成后所执行的函数名称</span><span class="err">。</span>
+<span class="nx">可选的</span> <span class="nx">callback</span> <span class="nx">参数</span><span class="err">，</span><span class="nx">具有以下三点说明</span><span class="err">：</span>
+<span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span><span class="nx">选中的元素的个数为n个</span><span class="err">，</span><span class="nx">则callback函数会执行n次</span>
+<span class="nx">callback函数名后加括号</span><span class="err">，</span><span class="nx">会立刻执行函数体</span><span class="err">，</span><span class="nx">而不是等到显示</span><span class="o">/</span><span class="nx">隐藏完成后才执行</span>
+<span class="nx">callback既可以是函数名</span><span class="err">，</span><span class="nx">也可以是匿名函数</span>
+
+<span class="nx">Callback</span> <span class="nx">函数在当前动画</span> <span class="mi">100</span><span class="o">%</span> <span class="nx">完成之后执行</span><span class="err">。</span>
+
+<span class="nx">通过</span> <span class="nx">jQuery</span><span class="err">，</span><span class="nx">可以把动作</span><span class="o">/</span><span class="nx">方法链接在一起</span><span class="err">。</span>
+<span class="nx">Chaining</span> <span class="nx">允许我们在一条语句中运行多个</span> <span class="nx">jQuery</span> <span class="nx">方法</span><span class="err">（</span><span class="nx">在相同的元素上</span><span class="err">）。</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#p1</span><span class="dl">"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">).</span><span class="nx">slideUp</span><span class="p">(</span><span class="mi">2000</span><span class="p">).</span><span class="nx">slideDown</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#p1</span><span class="dl">"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">color</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">red</span><span class="dl">"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">slideUp</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">slideDown</span><span class="p">(</span><span class="mi">2000</span><span class="p">);</span>
+
+<span class="nx">三个简单实用的用于</span> <span class="nx">DOM</span> <span class="nx">操作的</span> <span class="nx">jQuery</span> <span class="nx">方法</span><span class="err">：</span>
+<span class="nx">text</span><span class="p">()</span> <span class="o">-</span> <span class="nx">设置或返回所选元素的文本内容</span>
+<span class="nx">html</span><span class="p">()</span> <span class="o">-</span> <span class="nx">设置或返回所选元素的内容</span><span class="err">（</span><span class="nx">包括</span> <span class="nx">HTML</span> <span class="nx">标记</span><span class="err">）</span>
+<span class="nx">val</span><span class="p">()</span> <span class="o">-</span> <span class="nx">设置或返回表单字段的值</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn1</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Text: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">());</span>
+<span class="p">});</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn2</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">HTML: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test</span><span class="dl">"</span><span class="p">).</span><span class="nx">html</span><span class="p">());</span>
+<span class="p">});</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn1</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">Value: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+<span class="p">});</span>
+
+<span class="nx">下面的例子演示如何通过</span> <span class="nx">jQuery</span> <span class="nx">val</span><span class="p">()</span> <span class="nx">方法获得输入字段的值</span><span class="err">：</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">值为: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+<span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/head</span><span class="err">&gt;
+</span>
+<span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">名称</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text</span><span class="dl">"</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">test</span><span class="dl">"</span> <span class="nx">value</span><span class="o">=</span><span class="dl">"</span><span class="s2">W3Cschool教程</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/p</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="nx">button</span><span class="o">&gt;</span><span class="nx">显示值</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/body</span><span class="err">&gt;
+</span><span class="o">&lt;</span><span class="sr">/html</span><span class="err">&gt;
+</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#w3s</span><span class="dl">"</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">href</span><span class="dl">"</span><span class="p">));</span>
+<span class="p">});</span>
+
+<span class="nx">下面的例子演示如何通过</span> <span class="nx">text</span><span class="p">()</span><span class="err">、</span><span class="nx">html</span><span class="p">()</span> <span class="nx">以及</span> <span class="nx">val</span><span class="p">()</span> <span class="nx">方法来设置内容</span><span class="err">：</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn1</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello world!</span><span class="dl">"</span><span class="p">);</span> 
+<span class="p">});</span> 
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn2</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test2</span><span class="dl">"</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="dl">"</span><span class="s2">&lt;b&gt;Hello world!&lt;/b&gt;</span><span class="dl">"</span><span class="p">);</span> 
+<span class="p">});</span> 
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn3</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test3</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="dl">"</span><span class="s2">Dolly Duck</span><span class="dl">"</span><span class="p">);</span> 
+<span class="p">});</span>
+<span class="nx">text</span><span class="p">()</span><span class="err">、</span><span class="nx">html</span><span class="p">()</span> <span class="nx">以及</span> <span class="nx">val</span><span class="p">()</span> <span class="nx">的回调函数</span>
+
+<span class="nx">上面的三个</span> <span class="nx">jQuery</span> <span class="nx">方法</span><span class="err">：</span><span class="nx">text</span><span class="p">()</span><span class="err">、</span><span class="nx">html</span><span class="p">()</span> <span class="nx">以及</span> <span class="nx">val</span><span class="p">()</span><span class="err">，</span><span class="nx">同样拥有回调函数</span><span class="err">。</span>
+<span class="nx">回调函数由两个参数</span><span class="err">：</span><span class="nx">被选元素列表中当前元素的下标</span><span class="err">，</span><span class="nx">以及原始</span><span class="err">（</span><span class="nx">旧的</span><span class="err">）</span><span class="nx">值</span><span class="err">。</span>
+<span class="nx">然后以函数新值返回您希望使用的字符串</span><span class="err">。</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#btn1</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#test1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">origText</span><span class="p">){</span> 
+    <span class="k">return</span> <span class="dl">"</span><span class="s2">Old text: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">origText</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> New text: Hello world! 
+    (index: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">i</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span><span class="p">;</span> 
+  <span class="p">});</span> 
+<span class="p">});</span> 
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> 
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#w3s</span><span class="dl">"</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="dl">"</span><span class="s2">href</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">//www.w3cschool.cn/jquery</span><span class="dl">"</span><span class="p">);</span> 
+<span class="p">});</span>
+
+<span class="nx">append</span><span class="p">()</span> <span class="o">-</span> <span class="nx">在被选元素内部的结尾插入指定内容</span>
+<span class="nx">prepend</span><span class="p">()</span> <span class="o">-</span> <span class="nx">在被选元素内部的开头插入指定内容</span>
+<span class="nx">after</span><span class="p">()</span> <span class="o">-</span> <span class="nx">在被选元素之后插入内容</span>
+<span class="nx">before</span><span class="p">()</span> <span class="o">-</span> <span class="nx">在被选元素之前插入内容</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="dl">"</span><span class="s2">Some appended text.</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#div1</span><span class="dl">"</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#div1</span><span class="dl">"</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+
+<span class="nx">addClass</span><span class="p">()</span> <span class="o">-</span> <span class="nx">向被选元素添加一个或多个类</span>
+<span class="nx">removeClass</span><span class="p">()</span> <span class="o">-</span> <span class="nx">从被选元素删除一个或多个类</span>
+<span class="nx">toggleClass</span><span class="p">()</span> <span class="o">-</span> <span class="nx">对被选元素进行添加</span><span class="o">/</span><span class="nx">删除类的切换操作</span>
+<span class="nx">css</span><span class="p">()</span> <span class="o">-</span> <span class="nx">设置或返回样式属性</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1,h2,p</span><span class="dl">"</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">blue</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">important</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">您也可以在</span> <span class="nx">addClass</span><span class="p">()</span> <span class="nx">方法中规定多个类</span><span class="err">：</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#div1</span><span class="dl">"</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="dl">"</span><span class="s2">important blue</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">下面的例子将返回首个匹配元素的</span> <span class="nx">background</span><span class="o">-</span><span class="nx">color</span> <span class="nx">值</span><span class="err">：</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">background-color</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="dl">"</span><span class="s2">background-color</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">);</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">p</span><span class="dl">"</span><span class="p">).</span><span class="nx">css</span><span class="p">({</span><span class="dl">"</span><span class="s2">background-color</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">yellow</span><span class="dl">"</span><span class="p">,</span><span class="dl">"</span><span class="s2">font-size</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">200%</span><span class="dl">"</span><span class="p">});</span>
+</code></pre></div></div></article><div class="share"><div class="share-component"></div></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2017/12/03/js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0', clientID: '99d40aa8c51f2e320555', clientSecret: '08d7d01185f19e4e205adc2b36a6750d92d640c2', repo: 'blog-comment', owner: 'mafulong', admin: ['mafulong'], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://mafulong.github.io/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 16, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo(0,0)" >TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/blog/" title="Blog" target="">Blog</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li><li><a href="https://mafulong.github.io"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span> <span id="busuanzi_container_page_pv" style="display:none"> / 本页访问量<span id="busuanzi_value_page_pv"></span>次 / 统计始于2020-05-03 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-80669434-1', 'auto'); ga('send', 'pageview'); </script></div></body></html>

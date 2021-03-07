@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>spacevim &mdash; LogBook</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2019/06/29/spacevim/"><link rel="alternate" type="application/atom+xml" title="LogBook" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/favicon.ico"><meta property="og:title" content="spacevim"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="spacevim"><meta name="og:description" content="spacevim"><meta property="og:url" content="https://mafulong.github.io/2019/06/29/spacevim/"><meta property="og:site_name" content="LogBook"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2019-06-29"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="LogBook"><span class="octicon octicon-mark-github"></span> LogBook</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/blog/" class=" site-header-nav-item" target="" title="Blog">Blog</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="spacevim"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">spacevim</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2019/06/29 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#IDE" title="IDE">IDE</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 2140 字，约 7 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="spacevim">spacevim</h2><h3 id="1-跳转">1. 跳转</h3><h3 id="2-文件树">2. 文件树</h3><p><code class="language-plaintext highlighter-rouge">SPC f t</code> 切换侧栏文件树</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>快捷键	功能描述
+&lt;F3&gt; / SPC f t	切换文件树
+文件树内的快捷键	 
+&lt;Left&gt; / h	移至父目录，并关闭文件夹
+&lt;Down&gt; / j	向下移动光标
+&lt;Up&gt; / k	向上移动光标
+&lt;Right&gt; / l	展开目录，或打开文件
+N	在光标位置新建文件
+y y	复制光标下文件路径至系统剪切板
+y Y	复制光标下文件至系统剪切板
+P	在光标位置黏贴文件
+.	切换显示隐藏文件
+s v	分屏编辑该文件
+s g	垂直分屏编辑该文件
+</code></pre></div></div><h3 id="3-文件操作">3. 文件操作</h3><p><code class="language-plaintext highlighter-rouge">SPC f s / Ctrl-s</code> 保存文件 (:w) <code class="language-plaintext highlighter-rouge">SPC f y</code> 复制并显示当前文件的绝对路径 失效</p><p>如果只有一个 Tab, Buffers 将被罗列在标签栏上，每一个包含：序号、文件类型图标、文件名。如果有不止一个 Tab, 那么所有 Tab 将被罗列在标签栏上。标签栏上每一个 Tab 或者 Buffer 可通过快捷键<code class="language-plaintext highlighter-rouge"> &lt;Leader&gt; number </code>进行快速访问，默认的 <code class="language-plaintext highlighter-rouge">&lt;Leader&gt;</code> 是 <code class="language-plaintext highlighter-rouge">\</code>。</p><h3 id="4-窗口和标签">4. 窗口和标签</h3><p>可使用 SPC t t 打开内置的标签管理器，标签管理器内的快捷键如下：</p><p>快捷键 功能描述 <code class="language-plaintext highlighter-rouge">o</code> 展开或关闭标签目录 <code class="language-plaintext highlighter-rouge">r</code> 重命名光标下的标签页 <code class="language-plaintext highlighter-rouge">n</code> 在光标位置下新建命名标签页 <code class="language-plaintext highlighter-rouge">N</code> 在光标位置下新建匿名标签页 <code class="language-plaintext highlighter-rouge">x</code> 删除光标下的标签页 <code class="language-plaintext highlighter-rouge">Ctrl-S-&lt;Up&gt;</code> 向上移动光标下的标签页 <code class="language-plaintext highlighter-rouge">Ctrl-S-&lt;Down&gt;</code> 向下移动光标下的标签页 <code class="language-plaintext highlighter-rouge">&lt;Enter&gt;</code> 跳至光标所对应的标签窗口</p><p><code class="language-plaintext highlighter-rouge">s v</code> 水平分屏 <code class="language-plaintext highlighter-rouge">s g</code> 垂直分屏 <code class="language-plaintext highlighter-rouge">[ b</code> 跳至前一 buffer <code class="language-plaintext highlighter-rouge">] b</code> 跳至下一 buffer</p><h3 id="5-缓冲区">5. 缓冲区</h3><p><code class="language-plaintext highlighter-rouge">SPC b c</code> 删除其它已保存的缓冲区 <code class="language-plaintext highlighter-rouge">SPC b d</code> 删除当前缓冲区，但保留编辑窗口 <code class="language-plaintext highlighter-rouge">SPC b Y</code> 将整个缓冲区复制到系统剪切板</p><h3 id="6-跳转">6. 跳转</h3><p>搜索当前文件</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC s S	search with the first found tool with default input
+</code></pre></div></div><p>搜索当前文件所在的文件夹</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC s d	searching in buffer directory with default tool
+SPC s D	searching in buffer directory cursor word with default tool
+</code></pre></div></div><p>在所有打开的缓冲区中进行搜索</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC s b	search with the first found tool
+SPC s B	search with the first found tool with default input
+</code></pre></div></div><p>在任意目录中进行搜索</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC s f	search with the first found tool
+SPC s F	search with the first found tool with default input
+</code></pre></div></div><h3 id="7-shell">7. shell</h3><h3 id="8-python">8. python</h3><h3 id="9-注释">9. 注释</h3><p>用 SPC ; 可以启动一个 comment operator 模式，在该模式下，可以使用移动命令确认注释的范围， 比如 SPC ; 4 j，这个组合键会注释当前行以及下方的 4 行。这个数字即为相对行号，可在左侧看到。</p><p>注释 (Commentings) 注释 (comment) 通过工具 nerdcommenter 来处理，它用下面的按键来界定范围。</p><p>快捷键 功能描述</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC ;	进入注释操作模式
+SPC c h	隐藏/显示注释
+SPC c l	注释/反注释当前行
+SPC c L	注释行
+SPC c u	反注释行
+SPC c p	注释/反注释段落
+SPC c P	注释段落
+SPC c s	使用完美格式注释
+SPC c t	注释/反注释到行
+SPC c T	注释到行
+SPC c y	toggle comment and yank(TODO)
+SPC c Y	复制到未命名寄存器后注释
+SPC c $	从光标位置开始注释当前行
+</code></pre></div></div><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SPC f o 打开文件栏
+文件栏:
+  回车打开文件
+  h回上一级目录
+  l去下一级目录
+F2打开标签栏
+  s是按首字母排序
+  回车跳转
+SPC t n	显示/隐藏行号
+SPC t h c	高亮光标所在列
+SPC t t	打开 Tab 管理器
+x	删除光标下的标签页
+SPC ' 打开shell
+\ g python跳转  g d也是
+SPC f o 文件树
+
+语法结构
+    F2
+折叠
+    z a	toggle a fold
+    z b	redraw, cursor line at bottom
+    z c	close a fold
+    z d	delete a fold
+    z o	open fold
+
+调回原处
+    SPC j b	向后回跳， ctrL O
+    SPC j f	向前跳  ctrl i
+    g d调转定义
+退出当前文件
+切换文件
+文件树操作
+shell切换
+如何下面加1空行
+    [ SPC	在当前行或已选区域上方添加空行
+    ] SPC	在当前行或已选区域下方添加空行
+ 
+python语法检查
+python运行
+行wrap: SPC s W
+高亮当前单词
+关闭当前tab
+
+SpaceVim 初次安装时默认并未启用相关语言模块。首先需要启用 lang#python 模块，通过快捷键 SPC f v d 打开配置文件
+
+高亮
+    可以通过 SPC s c 或者运行 命令 :nohlsearch 来取消搜索结果的高亮表示
+高亮光标下变量
+    SPC s h 来高亮光标下的符号
+    SPC s e	edit all occurrences of the current symbol
+
+SPC x u	将选中字符串转为小写
+SPC x U	将选中字符串转为大写
+SPC x i c	change symbol style to lowerCamelCase
+SPC x i C	change symbol style to UpperCamelCase
+选择单词
+</code></pre></div></div></article><div class="share"><div class="share-component"></div></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2019/06/29/spacevim/', clientID: '99d40aa8c51f2e320555', clientSecret: '08d7d01185f19e4e205adc2b36a6750d92d640c2', repo: 'blog-comment', owner: 'mafulong', admin: ['mafulong'], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width:96%" type="text" id="search_box" placeholder="Search"></div><ul id="search_results" style="font-size:14px;list-style-type:none;padding-top:10px;padding-left:10px;"></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://mafulong.github.io/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 16, fuzzy: false, exclude: ['Welcome'] }) </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="javascript:window.scrollTo(0,0)" >TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/blog/" title="Blog" target="">Blog</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li><li><a href="https://mafulong.github.io"><span class="octicon octicon-rss" style="color:orange;"></span></a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span> <span id="busuanzi_container_page_pv" style="display:none"> / 本页访问量<span id="busuanzi_value_page_pv"></span>次 / 统计始于2020-05-03 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function($) { $('.geopattern').each(function(){ $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-80669434-1', 'auto'); ga('send', 'pageview'); </script></div></body></html>
