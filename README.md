@@ -1,4 +1,15 @@
+## Blog
 
-我的个人博客：<https://mafulong.github.io>，欢迎 Star 和 Fork。
+这是我的博客，网址 [mafulong.top](https://mafulong.top),  基于github pages
 
-主题基于<https://github.com/mzlogin>修改，感谢！
+## Usage
+
+无
+
+## Acknowledge
+
+博客主题基于 [Zhuang Ma's blog](https://github.com/mzlogin/mzlogin.github.io)，感谢
+
+## License
+
+The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
