@@ -1,6 +1,6 @@
 ---
 layout: post
-category: algorithms
+category: Algorithms
 title: skiplist跳跃表redis
 tags: Algorithms
 ---
