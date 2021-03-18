@@ -2,7 +2,7 @@
 T(n) = n^(log to the base b of a) if k&lt;=logba
 T(n) = n^k if k&gt;logba
 T(n) = n^klogn if k==log(b)a
-</code></pre></div></div><p><a href="https://blog.csdn.net/qq_36582604/article/details/81661236">递归的时间复杂度分析</a></p><p>我们先看下面这个例子</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/typora/70-20210113183935323.png" alt="img" /></p><p>怎样才能知道它的递归次数呢，我们可以画一棵递归树，再把树的节点数出来</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/typora/70-20210113183947754.png" alt="img" /></p><p><a href="https://blog.csdn.net/qq_32534441/article/details/95098059">归并排序时间复杂度分析</a></p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T(n)=2*T(n/2)+n
+</code></pre></div></div><p><a href="https://blog.csdn.net/qq_36582604/article/details/81661236">递归的时间复杂度分析</a></p><p>我们先看下面这个例子</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/typora/70-20210113183935323.png" alt="img" /></p><p>怎样才能知道它的递归次数呢，我们可以画一棵递归树，再把树的节点数出来</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@v1/v1/20.png" alt="img" /></p><p><a href="https://blog.csdn.net/qq_32534441/article/details/95098059">归并排序时间复杂度分析</a></p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T(n)=2*T(n/2)+n
 第一层n, 第二层2*(n/2), 第三层4*(n/4), 每层都有个n，高度Logn
 </code></pre></div></div><p><a href="https://blog.csdn.net/qq_22080999/article/details/80669993">合并k个链表的时间复杂度分析</a></p><p>分治的话：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assume that k linked-list, and length is N for each linked-list
 T(kn) = 2T(k/2*n) + kn
