@@ -1,4 +1,120 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-17T14:29:40+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">github action</title><link href="https://mafulong.top/2021/03/16/github-action/" rel="alternate" type="text/html" title="github action" /><published>2021-03-16T00:00:00+08:00</published><updated>2021-03-16T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/16/github%20action</id><content type="html" xml:base="https://mafulong.top/2021/03/16/github-action/">&lt;h2 id=&quot;github-action&quot;&gt;github action&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-18T11:26:11+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Makefile</title><link href="https://mafulong.top/2021/03/17/Makefile/" rel="alternate" type="text/html" title="Makefile" /><published>2021-03-17T00:00:00+08:00</published><updated>2021-03-17T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/17/Makefile</id><content type="html" xml:base="https://mafulong.top/2021/03/17/Makefile/">&lt;h2 id=&quot;makefile&quot;&gt;Makefile&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PROJECT_NAME :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;github.com/mafulong/godal&quot;&lt;/span&gt;
+PKG :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;PROJECT_NAME&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+PKG_LIST :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;shell go list &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/... | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; utils&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go | grep -v &quot;$(PROJECT_NAME)&quot;/utils | grep -v &quot;$(PROJECT_NAME)&quot;/test)&lt;/span&gt;
+a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;abc&quot;&lt;/span&gt;
+
+.PHONY: all dep lint vet &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;test-coverage build clean
+
+all: build
+
+dep: &lt;span class=&quot;c&quot;&gt;## Get the dependencies&lt;/span&gt;
+	@go mod download
+
+lint: &lt;span class=&quot;c&quot;&gt;## Lint Golang files&lt;/span&gt;
+	@golint &lt;span class=&quot;nt&quot;&gt;-set_exit_status&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+vet: &lt;span class=&quot;c&quot;&gt;## Run go vet&lt;/span&gt;
+	@go vet &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;c&quot;&gt;## Run unittests&lt;/span&gt;
+	@go &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-short&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+
+test-coverage: &lt;span class=&quot;c&quot;&gt;## Run tests with coverage&lt;/span&gt;
+	@go &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-short&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-coverprofile&lt;/span&gt; cover.out &lt;span class=&quot;nt&quot;&gt;-covermode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;atomic &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
+	@cat cover.out &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; coverage.txt
+
+build: dep &lt;span class=&quot;c&quot;&gt;## Build the binary file&lt;/span&gt;
+	@go build &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; build/main &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;PKG&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+clean: &lt;span class=&quot;c&quot;&gt;## Remove previous build&lt;/span&gt;
+	@-rm &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ./build
+
+&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;: &lt;span class=&quot;c&quot;&gt;## Display this help screen&lt;/span&gt;
+	@grep &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^[a-zA-Z_-]+:.*?## .*$$'&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;MAKEFILE_LIST&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'BEGIN {FS = &quot;:.*?## &quot;}; {printf &quot;\033[36m%-30s\033[0m %s\n&quot;, $$1, $$2}'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;伪目标&quot;&gt;&lt;strong&gt;伪目标&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;最早先的一个例子中，我们提到过一个“clean”的目标，这是一个“伪目标”，&lt;/p&gt;
+
+&lt;p&gt;clean:&lt;/p&gt;
+
+&lt;p&gt;​       rm *.o temp&lt;/p&gt;
+
+&lt;p&gt;正像我们前面例子中的“clean”一样，即然我们生成了许多文件编译文件，我们也应该提供一个清除它们的“目标”以备完整地重编译而用。 （以“make clean”来使用该目标）&lt;/p&gt;
+
+&lt;p&gt;因为，我们并不生成“clean”这个文件。“伪目标”并不是一个文件，只是一个标签，由于“伪目标”不是文件，所以make无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。&lt;/p&gt;
+
+&lt;p&gt;当然，为了避免和文件重名的这种情况，我们可以使用一个特殊的标记“.PHONY”来显示地指明一个目标是“伪目标”，向make说明，不管是否有这个文件，这个目标就是“伪目标”。&lt;/p&gt;
+
+&lt;p&gt;.PHONY : clean&lt;/p&gt;
+
+&lt;p&gt;只要有这个声明，不管是否有“clean”文件，要运行“clean”这个目标，只有“make clean”这样。于是整个过程可以这样写：&lt;/p&gt;
+
+&lt;p&gt;.PHONY: clean&lt;/p&gt;
+
+&lt;p&gt;clean:&lt;/p&gt;
+
+&lt;p&gt;​       rm *.o temp&lt;/p&gt;
+
+&lt;p&gt;伪目标一般没有依赖的文件。但是，我们也可以为伪目标指定所依赖的文件。伪目标同样可以作为“默认目标”，只要将其放在第一个。一个示例就是，如果你的Makefile需要一口气生成若干个可执行文件，但你只想简单地敲一个make完事，并且，所有的目标文件都写在一个Makefile中，那么你可以使用“伪目标”这个特性：&lt;/p&gt;
+
+&lt;h3 id=&quot;显示命令&quot;&gt;&lt;strong&gt;显示命令&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;通常，make会把其要执行的命令行在命令执行前输出到屏幕上。当我们用“@”字符在命令行前，那么，这个命令将不被make显示出来，最具代表性的例子是，我们用这个功能来像屏幕显示一些信息。如：&lt;/p&gt;
+
+&lt;p&gt;@echo 正在编译XXX模块……&lt;/p&gt;
+
+&lt;p&gt;当make执行时，会输出“正在编译XXX模块……”字串，但不会输出命令，如果没有“@”，那么，make将输出：&lt;/p&gt;
+
+&lt;p&gt;echo 正在编译XXX模块……&lt;/p&gt;
+
+&lt;p&gt;正在编译XXX模块……&lt;/p&gt;
+
+&lt;p&gt;如果make执行时，带入make参数“-n”或“–just-print”，那么其只是显示命令，但不会执行命令，这个功能很有利于我们调试我们的Makefile，看看我们书写的命令是执行起来是什么样子的或是什么顺序的。&lt;/p&gt;
+
+&lt;p&gt;而make参数“-s”或“–slient”则是全面禁止命令的显示。&lt;/p&gt;
+
+&lt;h3 id=&quot;命令执行&quot;&gt;&lt;strong&gt;命令执行&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;当依赖目标新于目标时，也就是当规则的目标需要被更新时，make会一条一条的执行其后的命令。需要注意的是，如果你要让上一条命令的结果应用在下一条命令时，你应该使用分号分隔这两条命令。比如你的第一条命令是cd命令，你希望第二条命令得在cd之后的基础上运行，那么你就不能把这两条命令写在两行上，而应该把这两条命令写在一行上，用分号分隔。如：&lt;/p&gt;
+
+&lt;p&gt;示例一：&lt;/p&gt;
+
+&lt;p&gt;​     exec:&lt;/p&gt;
+
+&lt;p&gt;​         cd /home/hchen&lt;/p&gt;
+
+&lt;p&gt;​         pwd&lt;/p&gt;
+
+&lt;p&gt;示例二：&lt;/p&gt;
+
+&lt;p&gt;​     exec:&lt;/p&gt;
+
+&lt;p&gt;​         cd /home/hchen; pwd&lt;/p&gt;
+
+&lt;p&gt;当我们执行“make exec”时，第一个例子中的cd没有作用，pwd会打印出当前的Makefile目录，而第二个例子中，cd就起作用了，pwd会打印出“/home/hchen”。&lt;/p&gt;
+
+&lt;p&gt;make一般是使用环境变量SHELL中所定义的系统Shell来执行命令，默认情况下使用UNIX的标准Shell——/bin/sh来执行命令。但在MS-DOS下有点特殊，因为MS-DOS下没有SHELL环境变量，当然你也可以指定。如果你指定了UNIX风格的目录形式，首先，make会在SHELL所指定的路径中找寻命令解释器，如果找不到，其会在当前盘符中的当前目录中寻找，如果再找不到，其会在PATH环境变量中所定义的所有路径中寻找。MS-DOS中，如果你定义的命令解释器没有找到，其会给你的命令解释器加上诸如“.exe”、“.com”、“.bat”、“.sh”等后缀。&lt;/p&gt;
+
+&lt;h3 id=&quot;命令出错&quot;&gt;&lt;strong&gt;命令出错&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;​    每当命令运行完后，make会检测每个命令的返回码，如果命令返回成功，那么make会执行下一条命令，当规则中所有的命令成功返回后，这个规则就算是成功完成了。如果一个规则中的某个命令出错了（命令退出码非零），那么make就会终止执行当前规则，这将有可能终止所有规则的执行。&lt;/p&gt;
+
+&lt;p&gt;有些时候，命令的出错并不表示就是错误的。例如mkdir命令，我们一定需要建立一个目录，如果目录不存在，那么mkdir就成功执行，万事大吉，如果目录存在，那么就出错了。我们之所以使用mkdir的意思就是一定要有这样的一个目录，于是我们就不希望mkdir出错而终止规则的运行。&lt;/p&gt;
+
+&lt;p&gt;为了做到这一点，忽略命令的出错，我们可以在Makefile的命令行前加一个减号“-”（在Tab键之后），标记为不管命令出不出错都认为是成功的。如：&lt;/p&gt;
+
+&lt;p&gt;clean:&lt;/p&gt;
+
+&lt;p&gt;​       -rm -f *.o&lt;/p&gt;
+
+&lt;p&gt;还有一个全局的办法是，给make加上“-i”或是“–ignore-errors”参数，那么，Makefile中所有命令都会忽略错误。而如果一个规则是以“.IGNORE”作为目标的，那么这个规则中的所有命令将会忽略错误。这些是不同级别的防止命令出错的方法，你可以根据你的不同喜欢设置。&lt;/p&gt;
+
+&lt;p&gt;还有一个要提一下的make的参数的是“-k”或是“–keep-going”，这个参数的意思是，如果某规则中的命令出错了，那么就终目该规则的执行，但继续执行其它规则。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Linux" /><category term="Linux" /><summary type="html">Makefile</summary></entry><entry><title type="html">github action</title><link href="https://mafulong.top/2021/03/16/github-action/" rel="alternate" type="text/html" title="github action" /><published>2021-03-16T00:00:00+08:00</published><updated>2021-03-16T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/16/github%20action</id><content type="html" xml:base="https://mafulong.top/2021/03/16/github-action/">&lt;h2 id=&quot;github-action&quot;&gt;github action&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
@@ -668,61 +784,4 @@ private Node findClosest(Node node,int levelIndex,int value){
                 &lt;span class=&quot;n&quot;&gt;deleted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
                 &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deleted&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="algorithms" /><summary type="html">跳表</summary></entry><entry><title type="html">1171. 从链表中删去总和值为零的连续节点</title><link href="https://mafulong.top/2021/03/11/1171.-%E4%BB%8E%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%88%A0%E5%8E%BB%E6%80%BB%E5%92%8C%E5%80%BC%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%BF%9E%E7%BB%AD%E8%8A%82%E7%82%B9/" rel="alternate" type="text/html" title="1171. 从链表中删去总和值为零的连续节点" /><published>2021-03-11T00:00:00+08:00</published><updated>2021-03-11T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/11/1171.%20%E4%BB%8E%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%88%A0%E5%8E%BB%E6%80%BB%E5%92%8C%E5%80%BC%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%BF%9E%E7%BB%AD%E8%8A%82%E7%82%B9</id><content type="html" xml:base="https://mafulong.top/2021/03/11/1171.-%E4%BB%8E%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%88%A0%E5%8E%BB%E6%80%BB%E5%92%8C%E5%80%BC%E4%B8%BA%E9%9B%B6%E7%9A%84%E8%BF%9E%E7%BB%AD%E8%8A%82%E7%82%B9/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个链表的头节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;head&lt;/code&gt;，请你编写代码，反复删去链表中由 &lt;strong&gt;总和&lt;/strong&gt; 值为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 的连续节点组成的序列，直到不存在这样的序列为止。&lt;/p&gt;
-
-&lt;p&gt;删除完毕后，请你返回最终结果链表的头节点。&lt;/p&gt;
-
-&lt;p&gt;你可以返回任何满足题目要求的答案。&lt;/p&gt;
-
-&lt;p&gt;（注意，下面示例中的所有序列，都是对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ListNode&lt;/code&gt; 对象序列化的表示。）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：head = [1,2,-3,3,1]
-输出：[3,1]
-提示：答案 [1,2,1] 也是正确的。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：head = [1,2,3,-3,4]
-输出：[1,2,4]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：head = [1,2,3,-3,-2]
-输出：[1]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;给你的链表中可能有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1000&lt;/code&gt; 个节点。&lt;/li&gt;
-  &lt;li&gt;对于链表中的每个节点，节点的值：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1000 &amp;lt;= node.val &amp;lt;= 1000&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;removeZeroSumSublists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;newhead&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ListNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;newhead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newhead&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newhead&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newhead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;next&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="algorithms" /><summary type="html">跳表</summary></entry></feed>
