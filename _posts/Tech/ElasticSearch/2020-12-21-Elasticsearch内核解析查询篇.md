@@ -48,7 +48,7 @@ Elasticsearch中每个Shard都会有多个Replica，主要是为了保证数据�
 
 接下来看一下，Elasticsearch中的查询是如何支持分布式的。
 
-![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@v1/v1/4.png)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv1/v1/4.png)
 
 Elasticsearch中通过分区实现分布式，数据写入的时候根据_routing规则将数据写入某一个Shard中，这样就能将海量数据分布在多个Shard以及多台机器上，已达到分布式的目标。这样就导致了查询的时候，潜在数据会在当前index的所有的Shard中，所以Elasticsearch查询的时候需要查询所有Shard，同一个Shard的Primary和Replica选择一个即可，查询请求会分发给所有Shard，每个Shard中都是一个独立的查询引擎，比如需要返回Top 10的结果，那么每个Shard都会查询并且返回Top 10的结果，然后在Client Node里面会接收所有Shard的结果，然后通过优先级队列二次排序，选择出Top 10的结果返回给用户。
 
