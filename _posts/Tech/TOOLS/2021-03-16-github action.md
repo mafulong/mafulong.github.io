@@ -25,7 +25,7 @@ GitHub 做了一个[官方市场](https://github.com/marketplace?type=actions)�
 
 > ```bash
 > actions/setup-node@74bc508 # 指向一个 commit
-> actions/setup-node@v1.0    # 指向一个标签
+> actions/setup-node@vv1.0    # 指向一个标签
 > actions/setup-node@master  # 指向一个分支
 > ```
 
