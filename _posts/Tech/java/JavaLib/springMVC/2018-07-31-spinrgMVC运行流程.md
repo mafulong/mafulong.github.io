@@ -6,7 +6,6 @@ title: spinrgMVC运行流程
 ---
 
 ## 详细运行流程图
-![](https://i.imgur.com/fb03ryP.png)
 
 ## 运行原理
 

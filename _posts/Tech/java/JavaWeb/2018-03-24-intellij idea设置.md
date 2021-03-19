@@ -30,7 +30,6 @@ Web Resource Directories：在这部分，我们将第三方或未分类资源�
 ---- Web Resource Directory ：只读字段，展示所需的Web Resource位置的本地目录。Web Resource目录包含Web开发所需的文件：JSP、HTML、XML等。Web Resource目录下的内容会被拷贝到由Relative Path所指定的Web模块部署目录。
 
 ---- Path Relative to Deployment Root：只读字段，展示Web Resource相对于Web部署的根目录的相对路径。
-![](https://i.imgur.com/ORR3pIf.png)
 
 ### Artifacts
 在给项目配置Artifacts的时候有好多个type的选项，exploed是什么意思：
@@ -39,11 +38,9 @@ explode 在这里你可以理解为展开，不压缩的意思。也就是war、
 
 默认情况下，IDEA的 Modules 和 Artifacts 的 output目录 已经设置好了，不需要更改，打成 war包 的时候会自动在 WEB-INF目录 下生产 classes目录，然后把编译后的文件放进去。
 
-![](https://i.imgur.com/DiLnx7B.png)
 
 ### Modules
 
-![](https://i.imgur.com/kecXB8e.png)
 
 
 ## 参考链接

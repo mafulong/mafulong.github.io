@@ -112,7 +112,6 @@ public class ExampleBean implements DisposableBean {
 
 ## 生命周期
 
-![](https://i.imgur.com/INF4UhB.png)
 
 ![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/93e3cfc6efdf6772ae8b671c3c760225.png)
 
