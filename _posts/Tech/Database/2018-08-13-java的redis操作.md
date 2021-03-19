@@ -17,7 +17,6 @@ redis-cli.exe -h 127.0.0.1 -p 6379
 
 取出键值对 get myKey
 
-![](https://i.imgur.com/WyKgA86.jpg)
 
 server是服务器启动，cli是客户端
 

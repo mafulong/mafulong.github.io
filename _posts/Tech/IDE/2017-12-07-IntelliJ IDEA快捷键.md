@@ -5,7 +5,6 @@ title: IntelliJ IDEA快捷键
 tags: IDE
 ---
 
-![](https://i.imgur.com/10i0xxN.png)
 
 Ctrl+Shift + Enter，语句完成
 “！”，否定完成，输入表达式时按 “！”键
