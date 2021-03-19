@@ -9,7 +9,6 @@ idea新建spring项目
 
 ## 目录结构
 
-![](https://i.imgur.com/bAy9eNc.jpg)
 
 ## 代码
 HelloWorld.java
