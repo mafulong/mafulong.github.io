@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-23T23:37:10+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">378. 有序矩阵中第 K 小的元素</title><link href="https://mafulong.top/2021/03/23/378.-%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0/" rel="alternate" type="text/html" title="378. 有序矩阵中第 K 小的元素" /><published>2021-03-23T00:00:00+08:00</published><updated>2021-03-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/23/378.%20%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC%20K%20%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0</id><content type="html" xml:base="https://mafulong.top/2021/03/23/378.-%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-24T12:36:02+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">787. K 站中转内最便宜的航班</title><link href="https://mafulong.top/2021/03/24/787.-K-%E7%AB%99%E4%B8%AD%E8%BD%AC%E5%86%85%E6%9C%80%E4%BE%BF%E5%AE%9C%E7%9A%84%E8%88%AA%E7%8F%AD/" rel="alternate" type="text/html" title="787. K 站中转内最便宜的航班" /><published>2021-03-24T00:00:00+08:00</published><updated>2021-03-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/24/787.%20K%20%E7%AB%99%E4%B8%AD%E8%BD%AC%E5%86%85%E6%9C%80%E4%BE%BF%E5%AE%9C%E7%9A%84%E8%88%AA%E7%8F%AD</id><content type="html" xml:base="https://mafulong.top/2021/03/24/787.-K-%E7%AB%99%E4%B8%AD%E8%BD%AC%E5%86%85%E6%9C%80%E4%BE%BF%E5%AE%9C%E7%9A%84%E8%88%AA%E7%8F%AD/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个城市通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 个航班连接。每个航班都从城市 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;u&lt;/code&gt; 开始，以价格 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;w&lt;/code&gt; 抵达 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;v&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;现在给定所有的城市和航班，以及出发城市 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt; 和目的地 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dst&lt;/code&gt;，你的任务是找到从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dst&lt;/code&gt; 最多经过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 站中转的最便宜的价格。 如果没有这样的路线，则输出 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: 
+n = 3, edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0, dst = 2, k = 1
+输出: 200
+解释: 
+城市航班图如下
+
+
+从城市 0 到城市 2 在 1 站中转以内的最便宜价格是 200，如图中红色所示。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: 
+n = 3, edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0, dst = 2, k = 0
+输出: 500
+解释: 
+城市航班图如下
+
+
+从城市 0 到城市 2 在 0 站中转以内的最便宜价格是 500，如图中蓝色所示。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, 100]&lt;/code&gt;，城市标签从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt; - 1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;航班数量范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0, n * (n - 1) / 2]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;每个航班的格式 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(src, &lt;/code&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dst&lt;/code&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;, price)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;每个航班的价格范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, 10000]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[0, n - 1]&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;航班没有重复，且不存在自环&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findCheapestPrice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heapq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heappop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dst&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;heapq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;steps&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">378. 有序矩阵中第 K 小的元素</title><link href="https://mafulong.top/2021/03/23/378.-%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0/" rel="alternate" type="text/html" title="378. 有序矩阵中第 K 小的元素" /><published>2021-03-23T00:00:00+08:00</published><updated>2021-03-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/23/378.%20%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC%20K%20%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0</id><content type="html" xml:base="https://mafulong.top/2021/03/23/378.-%E6%9C%89%E5%BA%8F%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%AC%AC-K-%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n x n&lt;/code&gt; 矩阵 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matrix&lt;/code&gt; ，其中每行和每列元素均按升序排序，找到矩阵中第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 小的元素。
@@ -205,7 +271,224 @@
                 &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">410. 分割数组的最大值</title><link href="https://mafulong.top/2021/03/22/410.-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" rel="alternate" type="text/html" title="410. 分割数组的最大值" /><published>2021-03-22T00:00:00+08:00</published><updated>2021-03-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/22/410.%20%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC</id><content type="html" xml:base="https://mafulong.top/2021/03/22/410.-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">垃圾回收算法概况</title><link href="https://mafulong.top/2021/03/23/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%A6%82%E5%86%B5/" rel="alternate" type="text/html" title="垃圾回收算法概况" /><published>2021-03-23T00:00:00+08:00</published><updated>2021-03-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/23/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%A6%82%E5%86%B5</id><content type="html" xml:base="https://mafulong.top/2021/03/23/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95%E6%A6%82%E5%86%B5/">&lt;h2 id=&quot;垃圾回收算法概况&quot;&gt;垃圾回收算法概况&lt;/h2&gt;
+
+&lt;p&gt;垃圾回收算法一般分两种&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;引用计数法：对每一个对象维护一个被引用的数目，每次新增或取消引用时增减该数目，当数目为0时回收&lt;/li&gt;
+  &lt;li&gt;追踪式垃圾回收算法：对比于引用计数式垃圾收集，&lt;strong&gt;追踪式垃圾回收算法都是采用的间接式的回收策略，也就是这种策略并非直接寻找垃圾本身，而是先寻找哪些对象存活，然后反过来判断其余所有的对象为垃圾对象&lt;/strong&gt;。
+    &lt;ul&gt;
+      &lt;li&gt;踪式回收算法本身包括标记-清除(Mark-Sweep)、标记-复制(Mark-Copy)、标记-整理(Mark-Compact)这三种回收策略，在真正的回收器上，一定是根据对象的不同情况进行分区或者分代，针对不同的区域采取不同的回收策略，针对这些情况，有许多的相关基础概念展现出来。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;gc之追踪式垃圾收集算法基础&quot;&gt;GC之追踪式垃圾收集算法基础&lt;/h1&gt;
+
+&lt;p&gt;  学习JVM的垃圾回收，离不开的是&lt;strong&gt;追踪式垃圾回收算法&lt;/strong&gt;，现有的主流Java虚拟机都采用的是追踪式回收算法。对比于引用计数式垃圾收集，&lt;strong&gt;追踪式垃圾回收算法都是采用的间接式的回收策略，也就是这种策略并非直接寻找垃圾本身，而是先寻找哪些对象存活，然后反过来判断其余所有的对象为垃圾对象&lt;/strong&gt;。追踪式回收算法本身包括&lt;strong&gt;标记-清除(Mark-Sweep)、标记-复制(Mark-Copy)、标记-整理(Mark-Compact)这三种回收策略&lt;/strong&gt;，在真正的回收器上，一定是根据对象的不同情况进行分区或者分代，针对不同的区域采取不同的回收策略，针对这些情况，有许多的相关基础概念展现出来。&lt;/p&gt;
+
+&lt;h2 id=&quot;追踪回收算法回收策略&quot;&gt;追踪回收算法回收策略&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;追踪式回收算法本身包括标记-清除(Mark-Sweep)、标记-复制(Mark-Copy)、标记-整理(Mark-Compact)这三种回收策略，这三种策略都有一个共通之处，那就是&lt;strong&gt;标记&lt;/strong&gt;(Mark)，关于这个标记的过程在上一篇文章(&lt;a href=&quot;https://juejin.im/post/6844904040753561614&quot;&gt;JVM学习-GC之判断对象存活&lt;/a&gt;)有讲过，就是里面的可达性分析算法，本篇文章将不再做多余概述。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;标记-清除mark-sweep算法&quot;&gt;标记-清除(Mark-Sweep)算法&lt;/h3&gt;
+
+&lt;p&gt;标记-清除(Mark-Sweep)算法是一种典型的非移动式回收算法，是所有追踪式回收算法的基础，其他的算法都是针对标记-清除(Mark-Sweep)算法的缺点改进而来。&lt;/p&gt;
+
+&lt;h4 id=&quot;原理&quot;&gt;原理&lt;/h4&gt;
+
+&lt;p&gt;  在标记过程完成之后，将未标记的对象进行回收。&lt;/p&gt;
+
+&lt;h4 id=&quot;优缺点&quot;&gt;优缺点&lt;/h4&gt;
+
+&lt;p&gt;  优点：
+    1. 标记-清除(Mark-Sweep)算法的吞吐量（吞吐量就是处理器用于运行用户代码的时间与处理器总消耗时间的比值，吞吐量 = 运行用户代码时间 / (运行用户代码时间 + 运行垃圾收集时间)）较高；
+    2. 标记-清除(Mark-Sweep)算法对空间的利用率比较高，既不需要像标记-复制(Mark-Copy)算法划出多余的空间来进行复制对象，也不需要像引用计数算法为每个对象设置引用计数器；
+  缺点：
+    1. 标记-清除(Mark-Sweep)算法的执行效率不太稳定；
+    2. 标记-清除(Mark-Sweep)算法在清除的过程中会产生大量的碎片化空间，空间的碎片化太多，会导致程序在运行时分配对象的时候，无法找到足够大的连续空间，导致提前进行另一次垃圾收集；&lt;/p&gt;
+
+&lt;h3 id=&quot;标记-复制mark-copy算法&quot;&gt;标记-复制(Mark-Copy)算法&lt;/h3&gt;
+
+&lt;p&gt;标记-复制(Mark-Copy)算法简称为复制算法，为了解决标记-清除(Mark-Sweep)算法面对大量可回收对象时，执行效率低的问题。&lt;/p&gt;
+
+&lt;h4 id=&quot;半区复制原理&quot;&gt;半区复制原理&lt;/h4&gt;
+
+&lt;p&gt;  基本的复制回收器会将堆划分称为两个大小相等的半区，分别是来源空间和目标空间。每次在程序运行时，只用其中的来源空间来进行对象的内存分配，当来源空间的内存不足时，进行垃圾回收，交换两个半区的角色，然后将存活的对象移到另一个半区的一端，最后将垃圾回收的半区内存清零。&lt;/p&gt;
+
+&lt;h4 id=&quot;半区复制优缺点&quot;&gt;半区复制优缺点&lt;/h4&gt;
+
+&lt;p&gt;  优点：
+    1. 半区复制提升了垃圾回收的效率；
+    2. 半区复制减少了碎片化空间的诞生；
+  缺点：
+    1. 半区复制将原来的可用内存减少了一半；&lt;/p&gt;
+
+&lt;h4 id=&quot;appel式回收原理&quot;&gt;Appel式回收原理&lt;/h4&gt;
+
+&lt;p&gt;  Appel式回收是针对标准ML提出的一种自适应分代策略，在ML语言中，一次回收完成通常只有不到2%的对象能够存活，Appel式回收正式针对这一种情况而设计的策略。&lt;strong&gt;Appel式回收策略将空间分为三个：老年代、复制保留区、新生代，在HotSpot虚拟机中的实现中新生代收集器将新生代变成Eden空间，将复制保留区变成两块较小的Survivor空间，在程序运行中每次分配内存只使用Eden和其中一块Survivor空间，在发生垃圾收集时，将存活的对象复制到保留的那一块Survivor上，另外两块空间直接清零&lt;/strong&gt;（在HotSpot虚拟机中Eden和Survivor的比例为8:1）。
+  当Survivor空间不足以容纳一次Minor GC之后，就需要依赖其他内存区域（大部分时候是老年代）进行分配担保，这些没有足够空间存放的对象直接进入其他区域。&lt;/p&gt;
+
+&lt;h4 id=&quot;appel式回收优缺点&quot;&gt;Appel式回收优缺点&lt;/h4&gt;
+
+&lt;p&gt;  优点：
+    1. Appel式回收可以为复制保留区的大小进行动态调节；
+  缺点：
+    1. 必须要有其他空间进行空间担保；&lt;/p&gt;
+
+&lt;h3 id=&quot;标记-整理mark-compact算法&quot;&gt;标记-整理(Mark-Compact)算法&lt;/h3&gt;
+
+&lt;p&gt;  在标记-清除(Mark-Sweep)算法这种非移动式回收算法中最大的问题就是会产生碎片化的空间，而标记-整理(Mark-Compact)算法正是为了降低内存碎片化提出来的解决策略。&lt;/p&gt;
+
+&lt;h4 id=&quot;原理-1&quot;&gt;原理&lt;/h4&gt;
+
+&lt;p&gt;  在标记之后，把所有标记的对象都移到内存空间的一端，然后直接把边界之外的内存清零。&lt;/p&gt;
+
+&lt;h4 id=&quot;优缺点-1&quot;&gt;优缺点&lt;/h4&gt;
+
+&lt;p&gt;  优点：
+    1. 减少了内存碎片化；
+    1. 在对象大量存活的情况下，效率要高于复制算法；
+  缺点：
+    1. 整理(Compact)过程繁琐，在大多数算法下需要多次遍历内存，STW(Stop The World)时间比清理(Sweep)时间长；&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;关于标记-整理(Mark-Compact)算法吞吐量的个人理解：在算法上标记-整理(Mark-Compact)算法一般需要多次遍历堆的过程，所以标记-整理(Mark-Compact)算法上的吞吐量是不如标记-清除(Mark-Sweep)算法的吞吐量的，但是对于整个系统来说标记-清除(Mark-Sweep)算法是属于不移动回收算法，不移动回收算法有一个明显的缺点就是在分配内存时更加复杂，对于大量的碎片化空间就只能通过其他分配空间手段（比如：分区空闲分配链表）来解决，而分配内存是程序运行过程中最频繁的操作，所以在系统的吞吐量上标记-整理(Mark-Compact)算法上的吞吐量是优于标记-清除(Mark-Sweep)算法的吞吐量的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;三色算法&quot;&gt;三色算法&lt;/h3&gt;
+
+&lt;p&gt;在标记过程中，三色算法是所有赋值器和回收器遵守的不变式。&lt;/p&gt;
+
+&lt;h4 id=&quot;三色算法原理&quot;&gt;三色算法原理&lt;/h4&gt;
+
+&lt;p&gt;  在遍历对象图的过程中，回收器把是否访问过的对象根据“是否访问过”来把所有对象标记成三种颜色。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;白色：对象尚未被回收器访问到，在回收周期的开始阶段，所有的对象都是白色，在回收周期结束的时候，所有白色对象都是不可达对象。&lt;/li&gt;
+  &lt;li&gt;灰色：表示对象已经被回收器扫描过，但是对象上还有一个或者多个引用没有进行扫描。&lt;/li&gt;
+  &lt;li&gt;黑色：对象已经被回收器扫描过，并且所有的引用已经被扫描。黑色对象永远不可能直接指向白色对象，也永远不会被回收器再次扫描，除非颜色变化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  回收器从白色根节点出发，逐步把对象图的对象变成灰色再到黑色，当全部遍历完成后所有可达的节点变成黑色，不可达的节点依旧是白色。&lt;/p&gt;
+
+&lt;h4 id=&quot;对象丢失问题&quot;&gt;对象丢失问题&lt;/h4&gt;
+
+&lt;p&gt;  当在同时产生下面两个条件时，会产生对象丢失问题&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;赋值器插入了一条或者多条从黑色对象到白色对象的新引用&lt;/strong&gt;；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;赋值器删除了全部从灰色对象到该白色对象的直接或者间接引用&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;弱三色不变式和强三色不变式&quot;&gt;弱三色不变式和强三色不变式&lt;/h4&gt;
+
+&lt;p&gt;弱三色不变式和强三色不变式是为了解决对象丢失的。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;弱三色不变式：所有被黑色引用的白色对象都会被灰色保护（灰色保护：白色对象直接或间接被灰色对象引用）。弱三色不变式打破了对象丢失条件的条件二。&lt;/li&gt;
+  &lt;li&gt;强三色不变式：不存在黑色对象指向白色对象的指针。强三色不变式打破了对象丢失条件的条件一。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;并发时三色问题的解决方案&quot;&gt;并发时三色问题的解决方案&lt;/h4&gt;
+
+&lt;h5 id=&quot;增量更新&quot;&gt;增量更新&lt;/h5&gt;
+
+&lt;p&gt;  增量更新要破坏的是第一个条件，当黑色对象插入新的指向白色对象的引用关系的时候，就将这个新插入的引用记录下来，等并发扫描结束之后，再将这些记录过的引用关系中的黑色对象为根，重新扫描一次。&lt;/p&gt;
+
+&lt;h5 id=&quot;原始快照satb&quot;&gt;原始快照(SATB)&lt;/h5&gt;
+
+&lt;p&gt;  原始快照(SATB)要破坏第二个条件，当灰色对象要删除指向白色对象的引用关系的时候，就要将这个要删除的引用记录下来，在并发扫描结束之后，再将这些引用记录过的引用关系中的灰色对象为根，重新扫描一次。&lt;/p&gt;
+
+&lt;h2 id=&quot;gc的实现方式&quot;&gt;GC的实现方式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在追踪式垃圾收集算法里面最先开始的就是用可达性分析算法标记(Mark)对象，在可达性分析算法里面第一步就是确定根节点集合(Root Set)，而如何确定根节点集合(Root Set)，就影响了GC的实现方式。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;保守式gc&quot;&gt;保守式GC&lt;/h3&gt;
+
+&lt;p&gt;  &lt;strong&gt;如果JVM选择不记录内存中每个数据的类型，那么JVM就无法区分内存里某个位置上的数据到底应该解读为引用类型还是其他数据类型。这种条件下，实现出来的GC就会是“保守式GC(Conservative GC)”&lt;/strong&gt;。在进行GC的时候，JVM开始从一些已知位置（例如说JVM栈）开始扫描内存，扫描的时候每看到一个数字就看看它“像不像是一个指向GC堆中的指针”，判断的方式类似于上下边界的检查，对其检查等。&lt;/p&gt;
+
+&lt;h3 id=&quot;半保守式gc&quot;&gt;半保守式GC&lt;/h3&gt;
+
+&lt;p&gt;  &lt;strong&gt;JVM可以选择在栈上不记录类型信息，而在对象上记录类型信息&lt;/strong&gt;。这样的话，扫描栈的时候仍然会和保守式GC(Conservative GC)的过程一样，但扫描到GC堆内的对象时因为对象带有足够类型信息了，JVM就能够准确判断出在该对象内什么位置的数据是引用类型了。这种是“半保守式GC”，也称为“根上保守(ConserVative With Respect To The Roots)”。&lt;/p&gt;
+
+&lt;h3 id=&quot;准确式gc&quot;&gt;准确式GC&lt;/h3&gt;
+
+&lt;p&gt;  “准确式GC”所谓的准确，关键就是“类型”，也就是说给定某个位置上的某块数据，要能知道它的准确类型是什么，这样才可以合理地解读数据的含义；&lt;strong&gt;GC所关心的含义就是“这块数据是不是指针”，这块数据不仅仅是GC堆内对象上的数据，包括活动记录（栈+寄存器）里的数据&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;分代收集理论相关&quot;&gt;分代收集理论相关&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;追踪式垃圾收集算法在少量垃圾回收的时候效率非常高效，特别是复制回收算法。但是长寿对象的存在会影响到回收回收的效率，这个时候就通过分区，使长寿的数据都堆积在一边，这样对年轻的数据使用复制回收算法就可以大大提升效率。在真实的商用垃圾回收大部分都采用了分代理论，哪怕G1回收器作为全区域回收器，在区域里面依旧用到了分代概念。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;分代收集理论&quot;&gt;分代收集理论&lt;/h3&gt;
+
+&lt;p&gt;分代收集理论建立在两个分代假说之上：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;弱分代假说：&lt;strong&gt;大多数对象都是朝生夕灭的&lt;/strong&gt;。这个假说已经在不同的编程语言和编程范式中得到证实；&lt;/li&gt;
+  &lt;li&gt;强分代假说：&lt;strong&gt;越长寿的对象越不容易死亡&lt;/strong&gt;。这个假说证据稍显不足，但是却依旧给大对象回收处理有一定的意义。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  这两个假说共同奠定了多款常用的垃圾收集器的一致设计原则：收集器应该将堆划分出不同区域，然后将回收对象依据年龄分配到不同的区域之中。&lt;/p&gt;
+
+&lt;p&gt;  除此之外新生代对象完全可以由老年代对象引用，如果产生这种引用，就需要遍历整个老年代来确定可达性分析的准确性，这样对内存回收带来极大的性能负担，所以引出了另一条假说&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;跨代引用假说：&lt;strong&gt;跨代引用对比与同代引用来说仅占极少数&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;记忆集remembered-set和卡表card-table&quot;&gt;记忆集(Remembered Set)和卡表(Card Table)&lt;/h3&gt;
+
+&lt;p&gt;  对于跨代引用来说，目前解决的方式就是记忆集和卡表。记忆集(Remembered Set)是一种抽象概念，而卡表(Card Table)可以是记忆集(Remembered Set)的一种实现方式。
+  记忆集(Remembered Set)是在实现部分垃圾收集(partial GC)时&lt;strong&gt;用于记录从非收集部分指向收集部分的指针的集合的抽象数据结构&lt;/strong&gt;。
+  1. 记录精度（其实无论是remembered set还是card table，记录精度都有很大的选择余地）：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;字粒度：每个记录精确到一个机器字(Word)。该字包含有跨代指针。&lt;/li&gt;
+  &lt;li&gt;对象粒度：每个记录精确到一个对象。该对象里有字段含有跨代指针。&lt;/li&gt;
+  &lt;li&gt;卡(card)粒度：每个记录精确到一大块内存区域。该区域内有对象含有跨代指针。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  (还有许多类型的颗粒度，可以自己想象)&lt;/p&gt;
+
+&lt;p&gt;  2. 数据结构
+  记忆集(Remembered Set)：使用指针（对象指针或者字指针）的数据来实现，例如&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct RememberedSet {  
+  Object* data[MAX_REMEMBEREDSET_SIZE];  
+}; 
+复制代码
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;卡表(Card Table)：使用字节数组来实现卡(card)的记录，每个卡(card)对应该数组里的一个bit或一个byte，例如&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct CardTable {  
+  byte table[MAX_CARDTABLE_SIZE];  
+};  
+复制代码
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;字节数组卡表的每一个元素都对应着其标识的内存区域中一块特定大小的内存块，这个内存块被称作“卡页”(Card Page)，一般来说卡页大小都是以2的N次幂的字节数。一个卡页的内存中通常不止包含一个对象，只要卡页中有一个或者多个对象的字段存在着跨代指针，那就将对应的卡表的数组元素的标识变成1，称为这个元素变脏，没有则标识为0。在垃圾收集过程中只要筛选出来变脏的元素，把变脏的元素加入根节点集合(Root Set)一并扫描。&lt;/p&gt;
+
+&lt;h3 id=&quot;对象的年龄&quot;&gt;对象的年龄&lt;/h3&gt;
+
+&lt;p&gt;在JVM的HotSpot虚拟机中，对象的年龄放置在对象头中，每当对象经历熬过一次回收，年龄加一，最大15。
+对象分配规则和晋升老年代规则：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;对象优先在Eden分配&lt;/li&gt;
+  &lt;li&gt;大对象直接进入老年代&lt;/li&gt;
+  &lt;li&gt;长期存活对象进入老年代&lt;/li&gt;
+  &lt;li&gt;动态对象年龄判断（&lt;strong&gt;虚拟机并不是总是要求对象年龄需要达到规定的晋升年龄(MaxTenuringThreshold)才能晋升到老年代的，如果在Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到MaxTenuringThreshold中要求的年龄&lt;/strong&gt;）&lt;/li&gt;
+  &lt;li&gt;空间分配担保&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">垃圾回收算法概况</summary></entry><entry><title type="html">410. 分割数组的最大值</title><link href="https://mafulong.top/2021/03/22/410.-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" rel="alternate" type="text/html" title="410. 分割数组的最大值" /><published>2021-03-22T00:00:00+08:00</published><updated>2021-03-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/22/410.%20%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC</id><content type="html" xml:base="https://mafulong.top/2021/03/22/410.-%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/split-array-largest-sum/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给定一个非负整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; ，你需要将这个数组分成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 个非空的连续子数组。&lt;/p&gt;
@@ -520,157 +803,4 @@
                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">Makefile</title><link href="https://mafulong.top/2021/03/17/Makefile/" rel="alternate" type="text/html" title="Makefile" /><published>2021-03-17T00:00:00+08:00</published><updated>2021-03-17T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/17/Makefile</id><content type="html" xml:base="https://mafulong.top/2021/03/17/Makefile/">&lt;h2 id=&quot;makefile&quot;&gt;Makefile&lt;/h2&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PROJECT_NAME :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;github.com/mafulong/godal&quot;&lt;/span&gt;
-PKG :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;PROJECT_NAME&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-PKG_LIST :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;shell go list &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/... | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; utils&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#GO_FILES := $(shell find . -name '*.go' | grep -v /vendor/ | grep -v _test.go | grep -v &quot;$(PROJECT_NAME)&quot;/utils | grep -v &quot;$(PROJECT_NAME)&quot;/test)&lt;/span&gt;
-a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;abc&quot;&lt;/span&gt;
-
-.PHONY: all dep lint vet &lt;span class=&quot;nb&quot;&gt;test &lt;/span&gt;test-coverage build clean
-
-all: build
-
-dep: &lt;span class=&quot;c&quot;&gt;## Get the dependencies&lt;/span&gt;
-	@go mod download
-
-lint: &lt;span class=&quot;c&quot;&gt;## Lint Golang files&lt;/span&gt;
-	@golint &lt;span class=&quot;nt&quot;&gt;-set_exit_status&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-
-vet: &lt;span class=&quot;c&quot;&gt;## Run go vet&lt;/span&gt;
-	@go vet &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;: &lt;span class=&quot;c&quot;&gt;## Run unittests&lt;/span&gt;
-	@go &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-short&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-
-test-coverage: &lt;span class=&quot;c&quot;&gt;## Run tests with coverage&lt;/span&gt;
-	@go &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-short&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-coverprofile&lt;/span&gt; cover.out &lt;span class=&quot;nt&quot;&gt;-covermode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;atomic &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PKG_LIST&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;
-	@cat cover.out &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; coverage.txt
-
-build: dep &lt;span class=&quot;c&quot;&gt;## Build the binary file&lt;/span&gt;
-	@go build &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; build/main &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;PKG&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-
-clean: &lt;span class=&quot;c&quot;&gt;## Remove previous build&lt;/span&gt;
-	@-rm &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ./build
-
-&lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;: &lt;span class=&quot;c&quot;&gt;## Display this help screen&lt;/span&gt;
-	@grep &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'^[a-zA-Z_-]+:.*?## .*$$'&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;MAKEFILE_LIST&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'BEGIN {FS = &quot;:.*?## &quot;}; {printf &quot;\033[36m%-30s\033[0m %s\n&quot;, $$1, $$2}'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;伪目标&quot;&gt;&lt;strong&gt;伪目标&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;最早先的一个例子中，我们提到过一个“clean”的目标，这是一个“伪目标”，&lt;/p&gt;
-
-&lt;p&gt;clean:&lt;/p&gt;
-
-&lt;p&gt;​       rm *.o temp&lt;/p&gt;
-
-&lt;p&gt;正像我们前面例子中的“clean”一样，即然我们生成了许多文件编译文件，我们也应该提供一个清除它们的“目标”以备完整地重编译而用。 （以“make clean”来使用该目标）&lt;/p&gt;
-
-&lt;p&gt;因为，我们并不生成“clean”这个文件。“伪目标”并不是一个文件，只是一个标签，由于“伪目标”不是文件，所以make无法生成它的依赖关系和决定它是否要执行。我们只有通过显示地指明这个“目标”才能让其生效。当然，“伪目标”的取名不能和文件名重名，不然其就失去了“伪目标”的意义了。&lt;/p&gt;
-
-&lt;p&gt;当然，为了避免和文件重名的这种情况，我们可以使用一个特殊的标记“.PHONY”来显示地指明一个目标是“伪目标”，向make说明，不管是否有这个文件，这个目标就是“伪目标”。&lt;/p&gt;
-
-&lt;p&gt;.PHONY : clean&lt;/p&gt;
-
-&lt;p&gt;只要有这个声明，不管是否有“clean”文件，要运行“clean”这个目标，只有“make clean”这样。于是整个过程可以这样写：&lt;/p&gt;
-
-&lt;p&gt;.PHONY: clean&lt;/p&gt;
-
-&lt;p&gt;clean:&lt;/p&gt;
-
-&lt;p&gt;​       rm *.o temp&lt;/p&gt;
-
-&lt;p&gt;伪目标一般没有依赖的文件。但是，我们也可以为伪目标指定所依赖的文件。伪目标同样可以作为“默认目标”，只要将其放在第一个。一个示例就是，如果你的Makefile需要一口气生成若干个可执行文件，但你只想简单地敲一个make完事，并且，所有的目标文件都写在一个Makefile中，那么你可以使用“伪目标”这个特性：&lt;/p&gt;
-
-&lt;h3 id=&quot;显示命令&quot;&gt;&lt;strong&gt;显示命令&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;通常，make会把其要执行的命令行在命令执行前输出到屏幕上。当我们用“@”字符在命令行前，那么，这个命令将不被make显示出来，最具代表性的例子是，我们用这个功能来像屏幕显示一些信息。如：&lt;/p&gt;
-
-&lt;p&gt;@echo 正在编译XXX模块……&lt;/p&gt;
-
-&lt;p&gt;当make执行时，会输出“正在编译XXX模块……”字串，但不会输出命令，如果没有“@”，那么，make将输出：&lt;/p&gt;
-
-&lt;p&gt;echo 正在编译XXX模块……&lt;/p&gt;
-
-&lt;p&gt;正在编译XXX模块……&lt;/p&gt;
-
-&lt;p&gt;如果make执行时，带入make参数“-n”或“–just-print”，那么其只是显示命令，但不会执行命令，这个功能很有利于我们调试我们的Makefile，看看我们书写的命令是执行起来是什么样子的或是什么顺序的。&lt;/p&gt;
-
-&lt;p&gt;而make参数“-s”或“–slient”则是全面禁止命令的显示。&lt;/p&gt;
-
-&lt;h3 id=&quot;命令执行&quot;&gt;&lt;strong&gt;命令执行&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;当依赖目标新于目标时，也就是当规则的目标需要被更新时，make会一条一条的执行其后的命令。需要注意的是，如果你要让上一条命令的结果应用在下一条命令时，你应该使用分号分隔这两条命令。比如你的第一条命令是cd命令，你希望第二条命令得在cd之后的基础上运行，那么你就不能把这两条命令写在两行上，而应该把这两条命令写在一行上，用分号分隔。如：&lt;/p&gt;
-
-&lt;p&gt;示例一：&lt;/p&gt;
-
-&lt;p&gt;​     exec:&lt;/p&gt;
-
-&lt;p&gt;​         cd /home/hchen&lt;/p&gt;
-
-&lt;p&gt;​         pwd&lt;/p&gt;
-
-&lt;p&gt;示例二：&lt;/p&gt;
-
-&lt;p&gt;​     exec:&lt;/p&gt;
-
-&lt;p&gt;​         cd /home/hchen; pwd&lt;/p&gt;
-
-&lt;p&gt;当我们执行“make exec”时，第一个例子中的cd没有作用，pwd会打印出当前的Makefile目录，而第二个例子中，cd就起作用了，pwd会打印出“/home/hchen”。&lt;/p&gt;
-
-&lt;p&gt;make一般是使用环境变量SHELL中所定义的系统Shell来执行命令，默认情况下使用UNIX的标准Shell——/bin/sh来执行命令。但在MS-DOS下有点特殊，因为MS-DOS下没有SHELL环境变量，当然你也可以指定。如果你指定了UNIX风格的目录形式，首先，make会在SHELL所指定的路径中找寻命令解释器，如果找不到，其会在当前盘符中的当前目录中寻找，如果再找不到，其会在PATH环境变量中所定义的所有路径中寻找。MS-DOS中，如果你定义的命令解释器没有找到，其会给你的命令解释器加上诸如“.exe”、“.com”、“.bat”、“.sh”等后缀。&lt;/p&gt;
-
-&lt;h3 id=&quot;命令出错&quot;&gt;&lt;strong&gt;命令出错&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;​    每当命令运行完后，make会检测每个命令的返回码，如果命令返回成功，那么make会执行下一条命令，当规则中所有的命令成功返回后，这个规则就算是成功完成了。如果一个规则中的某个命令出错了（命令退出码非零），那么make就会终止执行当前规则，这将有可能终止所有规则的执行。&lt;/p&gt;
-
-&lt;p&gt;有些时候，命令的出错并不表示就是错误的。例如mkdir命令，我们一定需要建立一个目录，如果目录不存在，那么mkdir就成功执行，万事大吉，如果目录存在，那么就出错了。我们之所以使用mkdir的意思就是一定要有这样的一个目录，于是我们就不希望mkdir出错而终止规则的运行。&lt;/p&gt;
-
-&lt;p&gt;为了做到这一点，忽略命令的出错，我们可以在Makefile的命令行前加一个减号“-”（在Tab键之后），标记为不管命令出不出错都认为是成功的。如：&lt;/p&gt;
-
-&lt;p&gt;clean:&lt;/p&gt;
-
-&lt;p&gt;​       -rm -f *.o&lt;/p&gt;
-
-&lt;p&gt;还有一个全局的办法是，给make加上“-i”或是“–ignore-errors”参数，那么，Makefile中所有命令都会忽略错误。而如果一个规则是以“.IGNORE”作为目标的，那么这个规则中的所有命令将会忽略错误。这些是不同级别的防止命令出错的方法，你可以根据你的不同喜欢设置。&lt;/p&gt;
-
-&lt;p&gt;还有一个要提一下的make的参数的是“-k”或是“–keep-going”，这个参数的意思是，如果某规则中的命令出错了，那么就终目该规则的执行，但继续执行其它规则。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Linux" /><category term="Linux" /><summary type="html">Makefile</summary></entry><entry><title type="html">github action</title><link href="https://mafulong.top/2021/03/16/github-action/" rel="alternate" type="text/html" title="github action" /><published>2021-03-16T00:00:00+08:00</published><updated>2021-03-16T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/16/github%20action</id><content type="html" xml:base="https://mafulong.top/2021/03/16/github-action/">&lt;h2 id=&quot;github-action&quot;&gt;github action&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;大家知道，持续集成由很多操作组成，比如抓取代码、运行测试、登录远程服务器，发布到第三方服务等等。GitHub 把这些操作就称为 actions。&lt;/p&gt;
-
-&lt;p&gt;如果你需要某个 action，不必自己写复杂的脚本，直接引用他人写好的 action 即可，整个持续集成过程，就变成了一个 actions 的组合。这就是 GitHub Actions 最特别的地方。&lt;/p&gt;
-
-&lt;p&gt;GitHub 做了一个&lt;a href=&quot;https://github.com/marketplace?type=actions&quot;&gt;官方市场&lt;/a&gt;，可以搜索到他人提交的 actions。另外，还有一个 &lt;a href=&quot;https://github.com/sdras/awesome-actions&quot;&gt;awesome actions&lt;/a&gt; 的仓库，也可以找到不少 action。&lt;/p&gt;
-
-&lt;p&gt;上面说了，每个 action 就是一个独立脚本，因此可以做成代码仓库，使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;userName/repoName&lt;/code&gt;的语法引用 action。&lt;/p&gt;
-
-&lt;p&gt;比如，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;actions/setup-node&lt;/code&gt;就表示&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github.com/actions/setup-node&lt;/code&gt;这个&lt;a href=&quot;https://github.com/actions/setup-node&quot;&gt;仓库&lt;/a&gt;，它代表一个 action，作用是安装 Node.js。事实上，GitHub 官方的 actions 都放在 &lt;a href=&quot;https://github.com/actions&quot;&gt;github.com/actions&lt;/a&gt; 里面。&lt;/p&gt;
-
-&lt;p&gt;既然 actions 是代码仓库，当然就有版本的概念，用户可以引用某个具体版本的 action。下面都是合法的 action 引用，用的就是 Git 的指针概念，详见&lt;a href=&quot;https://help.github.com/en/articles/about-actions#versioning-your-action&quot;&gt;官方文档&lt;/a&gt;。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;actions/setup-node@74bc508 &lt;span class=&quot;c&quot;&gt;# 指向一个 commit&lt;/span&gt;
-actions/setup-node@vv1.0    &lt;span class=&quot;c&quot;&gt;# 指向一个标签&lt;/span&gt;
-actions/setup-node@master  &lt;span class=&quot;c&quot;&gt;# 指向一个分支&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;基本概念&quot;&gt;基本概念&lt;/h2&gt;
-
-&lt;p&gt;GitHub Actions 有一些自己的术语。&lt;/p&gt;
-
-&lt;p&gt;（1）&lt;strong&gt;workflow&lt;/strong&gt; （工作流程）：持续集成一次运行的过程，就是一个 workflow。&lt;/p&gt;
-
-&lt;p&gt;（2）&lt;strong&gt;job&lt;/strong&gt; （任务）：一个 workflow 由一个或多个 jobs 构成，含义是一次持续集成的运行，可以完成多个任务。&lt;/p&gt;
-
-&lt;p&gt;（3）&lt;strong&gt;step&lt;/strong&gt;（步骤）：每个 job 由多个 step 构成，一步步完成。&lt;/p&gt;
-
-&lt;p&gt;（4）&lt;strong&gt;action&lt;/strong&gt; （动作）：每个 step 可以依次执行一个或多个命令（action）。&lt;/p&gt;
-
-&lt;h2 id=&quot;secret&quot;&gt;Secret&lt;/h2&gt;
-
-&lt;p&gt;如果workflow里需要发到 GitHub 仓库，则需要 GitHub 密钥。按照&lt;a href=&quot;https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line&quot;&gt;官方文档&lt;/a&gt;，生成一个密钥。然后，将这个密钥储存到当前仓库的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Settings/Secrets&lt;/code&gt;里面。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="TOOLS" /><category term="TOOLS" /><summary type="html">github action</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
