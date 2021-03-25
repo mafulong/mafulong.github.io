@@ -1,56 +1,157 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-25T14:12:48+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">语言篇学习</title><link href="https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="语言篇学习" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0/">&lt;h2 id=&quot;语言篇学习&quot;&gt;语言篇学习&lt;/h2&gt;
-
-&lt;h2 id=&quot;通用&quot;&gt;通用&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;静态动态&quot;&gt;静态动态&lt;/h3&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;静态， 编译时检查，变量关联类型和实体. eg. java/c/c++&lt;/li&gt;
-      &lt;li&gt;动态， 运行时检查，变量关联实体。 eg. python&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;强弱类型&quot;&gt;强弱类型&lt;/h3&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;强类型，不允许类型隐式转换， eg. java/python/golang&lt;/li&gt;
-      &lt;li&gt;弱类型， 允许类型隐式转换， 比如c++的int可以变成double&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;内存管理&quot;&gt;内存管理&lt;/h3&gt;
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;h3 id=&quot;垃圾回收&quot;&gt;垃圾回收&lt;/h3&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;h4 id=&quot;对象类型内存模型&quot;&gt;对象类型、内存模型&lt;/h4&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;h4 id=&quot;基本运行原理&quot;&gt;基本运行原理&lt;/h4&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;依赖管理&quot;&gt;依赖管理&lt;/h3&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-03-25T19:31:11+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">编译原理</title><link href="https://mafulong.top/2021/03/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="alternate" type="text/html" title="编译原理" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86</id><content type="html" xml:base="https://mafulong.top/2021/03/25/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">&lt;p&gt;##&lt;/p&gt;
 
 &lt;h2 id=&quot;编译原理&quot;&gt;编译原理&lt;/h2&gt;
 
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6844903486258151431&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;预处理&quot;&gt;预处理&lt;/h3&gt;
+
+&lt;p&gt;最后简单描述一下预处理。预处理主要是处理一些宏定义，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#define&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#include&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#if&lt;/code&gt; 等。预处理的实现有很多种，有的编译器会在词法分析前先进行预处理，替换掉所有 # 开头的宏，而有的编译器则是在词法分析的过程中进行预处理。当分析到 # 开头的单词时才进行替换。虽然先预处理再词法分析比较符合直觉，但在实际使用中，GCC 使用的却是一边词法分析，一边预处理的方案。&lt;/p&gt;
+
+&lt;h3 id=&quot;词法分析&quot;&gt;词法分析&lt;/h3&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;h3 id=&quot;词法分析&quot;&gt;词法分析&lt;/h3&gt;
-  &lt;/li&gt;
   &lt;li&gt;输入：源代码&lt;/li&gt;
   &lt;li&gt;输出：中间代码&lt;/li&gt;
   &lt;li&gt;把源代码分割开，形成若干个单词。原理主要是状态机。处理之后，编译器就知道了每个单词&lt;/li&gt;
-  &lt;li&gt;语法分析&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;语法分析&quot;&gt;语法分析&lt;/h3&gt;
+
+&lt;ul&gt;
   &lt;li&gt;思路是模板匹配，把单词组合起来&lt;/li&gt;
   &lt;li&gt;成功解析语法以后，我们会得到抽象语法树(AST: Abstract Syntax Tree)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">语言篇学习</summary></entry><entry><title type="html">678. 有效的括号字符串</title><link href="https://mafulong.top/2021/03/24/678.-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="alternate" type="text/html" title="678. 有效的括号字符串" /><published>2021-03-24T00:00:00+08:00</published><updated>2021-03-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/24/678.%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2</id><content type="html" xml:base="https://mafulong.top/2021/03/24/678.-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int fun(int a, int b) {    int c = 0;    c = a + b;    return c;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;它的语法树如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210325142313&quot; alt=&quot;img&quot; style=&quot;zoom:25%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;生成中间代码&quot;&gt;生成中间代码&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;意义：&lt;strong&gt;不同cpu的汇编语法不一致。因此需要生成和语言无关、也和cpu无关的中间代码，然后再生成各个cpu的汇编代码&lt;/strong&gt;。可以理解为中间代码是一种非常抽象，又非常普适的代码。它客观中立的描述了代码要做的事情，如果用中文、英文来分别表示 C 和 Java 的话，中间码某种意义上可以被理解为世界语。&lt;/li&gt;
+  &lt;li&gt;eg. 如gcc,
+    &lt;ul&gt;
+      &lt;li&gt;语法树转高端gimple
+        &lt;ul&gt;
+          &lt;li&gt;主要处理寄存器和栈，如c=a+b变成寄存器处理。&lt;/li&gt;
+          &lt;li&gt;函数调用则建栈&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;高端gimple转低端gimple
+        &lt;ul&gt;
+          &lt;li&gt;主要是把变量定义，语句执行和返回语句区分存储
+            &lt;ul&gt;
+              &lt;li&gt;好处是容易计算一个函数需要多少栈空间&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;低端gimple转中间代码
+        &lt;ul&gt;
+          &lt;li&gt;（略）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;生成目标代码生成汇编代码&quot;&gt;生成目标代码（生成汇编代码）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主要的工作量在于兼容各种 CPU 以及填写模板。在最终生成的汇编代码中，不仅有汇编命令，也有一些对文件的说明。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;汇编生成二进制机器码&quot;&gt;汇编，生成二进制机器码&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;把汇编代码转成 二进制的机器码，机器码可以直接被 CPU 识别并执行&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;从目标代码可以猜出来，最终的目标文件(机器码)也是分段的，这主要有以下三个原因:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;分段可以将数据和代码区分开。其中代码只读，数据可写，方便权限管理，避免指令被改写，提高安全性。&lt;/li&gt;
+  &lt;li&gt;现代 CPU 一般有自己的数据缓存和指令缓存，区分存储有助于提高缓存命中率。&lt;/li&gt;
+  &lt;li&gt;当多个进程同时运行时，他们的指令可以被共享，这样能节省内存。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;对于一个目标文件来说，文件的最开头(也叫作 ELF 头)记录了目标文件的基本信息，程序入口地址，以及段表的位置，相当于是对文件的整体描述。接下来的重点是段表，它记录了每个段的段名，长度，偏移量。比较常用的段有:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;.strtab 段: 字符串长度不定，分开存放浪费空间(因为需要内存对齐)，因此可以统一放到字符串表(也就是 .strtab 段)中进行管理。字符串之间用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\0&lt;/code&gt; 分割，所以凡是引用字符串的地方用一个数字就可以代表。&lt;/li&gt;
+  &lt;li&gt;.symtab: 表示符号表。符号表统一管理所有符号，比如变量名，函数名。符号表可以理解为一个表格，每行都有符号名(数字)、符号类型和符号值(存储地址)&lt;/li&gt;
+  &lt;li&gt;.rel 段: 它表示一系列重定位表。这个表主要在链接时用到，下面会详细解释。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;链接&quot;&gt;链接&lt;/h3&gt;
+
+&lt;p&gt;在一个目标文件中，不可能所有变量和函数都定义在文件内部。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strlen&lt;/code&gt; 函数就是一个被调用的外部函数，此时就需要把 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.o&lt;/code&gt; 这个目标文件和包含了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strlen&lt;/code&gt; 函数实现的目标文件链接起来。我们知道函数调用对应到汇编其实是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jump&lt;/code&gt; 指令，后面写上被调用函数的地址，但在生成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.o&lt;/code&gt; 的过程中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strlen()&lt;/code&gt; 函数的地址并不知道，所以只能先用  0 来代替，直到最后链接时，才会修改成真实的地址。&lt;/p&gt;
+
+&lt;p&gt;链接器就是靠着重定位表来知道哪些地方需要被重定位的。每个可能存在重定位的段都会有对应的重定位表。在链接阶段，链接器会根据重定位表中，需要重定位的内容，去别的目标文件中找到地址并进行重定位。&lt;/p&gt;
+
+&lt;p&gt;有时候我们还会听到动态链接这个名词，它表示重定位发生在运行时而非编译后。动态链接可以节省内存，但也会带来加载的性能问题，这里不详细解释，感兴趣的读者可以阅读《程序员的自我修养》这本书。&lt;/p&gt;
+
+&lt;h2 id=&quot;编译-vs-解释&quot;&gt;编译 VS 解释&lt;/h2&gt;
+
+&lt;p&gt;总结一下，对于 C 语言来说，从源码到运行结果大致上需要经历编译、汇编和链接三个步骤。编译器接收源代码，输出目标代码(也就是汇编代码)，汇编器接收汇编代码，输出由机器码组成的目标文件(二进制格式，.o 后缀)，最后链接器将各个目标文件链接起来，执行重定位，最终生成可执行文件。&lt;/p&gt;
+
+&lt;h3 id=&quot;解释型语言&quot;&gt;解释型语言&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;解释型语言：源代码 -&amp;gt; 解释器 -&amp;gt; 运行结果&lt;/li&gt;
+  &lt;li&gt;编译型语言：源代码 -&amp;gt; 中间代码 -&amp;gt; 目标代码 -&amp;gt; 运行结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;解释型语言和编译型语言的根本区别在于，对于用户来说，到底是直接从源码开始执行，还是从中间代码开始执行。以 C 语言为例，所有的可执行程序都是二进制文件。而对于传统意义的 Python 或者 JavaScript，用户并没有拿到中间代码，他们直接从源码开始执行。从这个角度来看， Java 不可能是解释型语言，虽然 Java 虚拟机会解释字节码，但是对于用户来说，他们是从编译好的 .class 文件开始执行，而非源代码。&lt;/p&gt;
+
+&lt;p&gt;解释程序和编译程序的根本区别：是否生成目标代码。有没有虚拟机，虚拟机是不是解释执行，会不会生成中间代码，这些都不重要，重要的是如果从中间代码开始执行，而且 AST 已经事先生成好，那就是编译型的语言。&lt;/p&gt;
+
+&lt;h2 id=&quot;运行时&quot;&gt;运行时&lt;/h2&gt;
+
+&lt;h3 id=&quot;运行时库的基本概念&quot;&gt;运行时库的基本概念&lt;/h3&gt;
+
+&lt;p&gt;以 C 语言为例，有非常多的操作最终都依赖于 &lt;strong&gt;glibc&lt;/strong&gt; 这个动态链接库。包括但不限于字符串处理(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strlen&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strcpy&lt;/code&gt;)、信号处理、socket、线程、IO、动态内存分配(malloc)等等。这一点很好理解，如果回忆一下之前编译器的工作原理，我们会发现它仅仅是处理了语言的语法，比如变量定义，函数声明和调用等等。至于语言的功能， 比如内存管理，內建的类型，一些必要功能的实现等等。如果要对运行时库进行分类，大概有两类。一种是语言自身功能的实现，比如一些內建类型，内置的函数；另一种则是语言无关的基础功能，比如文件        IO，socket 等等。&lt;/p&gt;
+
+&lt;p&gt;由于每个程序都依赖于运行时库，这些库一般都是动态链接的，比如 C 语言的 (g)libc。这样一来，运行时库可以存储在操作系统中，节省内存占用空间和应用程序大小。&lt;/p&gt;
+
+&lt;p&gt;对于 Java 语言来说，它的垃圾回收功能，文件 IO 等都是在虚拟机中实现，并提供给 Java 层调用。从这个角度来看，虚拟机/解释器也可以被看做语言的运行时环境(库)。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="CourseNotes" /><category term="CourseNotes" /><summary type="html">##</summary></entry><entry><title type="html">语言篇学习</title><link href="https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="语言篇学习" /><published>2021-03-25T00:00:00+08:00</published><updated>2021-03-25T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.top/2021/03/25/%E8%AF%AD%E8%A8%80%E7%AF%87%E5%AD%A6%E4%B9%A0/">&lt;h2 id=&quot;语言篇学习&quot;&gt;语言篇学习&lt;/h2&gt;
+
+&lt;h2 id=&quot;通用&quot;&gt;通用&lt;/h2&gt;
+
+&lt;h3 id=&quot;静态动态&quot;&gt;静态动态&lt;/h3&gt;
+
+&lt;p&gt;指变量类型&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;静态， 编译时检查，变量关联类型和实体. eg. java/c/c++&lt;/li&gt;
+  &lt;li&gt;动态， 运行时检查，变量关联实体。 eg. python
+    &lt;h3 id=&quot;强弱类型&quot;&gt;强弱类型&lt;/h3&gt;
+  &lt;/li&gt;
+  &lt;li&gt;强类型，不允许类型隐式转换， eg. java/python/golang&lt;/li&gt;
+  &lt;li&gt;弱类型， 允许类型隐式转换， 比如c++的int可以变成double
+    &lt;h3 id=&quot;内存管理&quot;&gt;内存管理&lt;/h3&gt;
+    &lt;p&gt;### 垃圾回收&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;#### 对象类型、内存模型&lt;/p&gt;
+
+&lt;p&gt;#### 基本运行原理&lt;/p&gt;
+&lt;h3 id=&quot;依赖管理&quot;&gt;依赖管理&lt;/h3&gt;
+
+&lt;h2 id=&quot;编译原理&quot;&gt;编译原理&lt;/h2&gt;
+
+&lt;p&gt;参考mfl blog: 编译原理&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">语言篇学习</summary></entry><entry><title type="html">678. 有效的括号字符串</title><link href="https://mafulong.top/2021/03/24/678.-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="alternate" type="text/html" title="678. 有效的括号字符串" /><published>2021-03-24T00:00:00+08:00</published><updated>2021-03-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/24/678.%20%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2</id><content type="html" xml:base="https://mafulong.top/2021/03/24/678.-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%E5%AD%97%E7%AC%A6%E4%B8%B2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/valid-parenthesis-string/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给定一个只包含三种字符的字符串：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;（ &lt;/code&gt;，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;）&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;，写一个函数来检验这个字符串是否为有效字符串。有效字符串具有如下规则：&lt;/p&gt;
@@ -744,72 +845,4 @@ src = 0, dst = 2, k = 0
             &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
                 &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">LCP 12. 小张刷题计划</title><link href="https://mafulong.top/2021/03/22/LCP-12.-%E5%B0%8F%E5%BC%A0%E5%88%B7%E9%A2%98%E8%AE%A1%E5%88%92/" rel="alternate" type="text/html" title="LCP 12. 小张刷题计划" /><published>2021-03-22T00:00:00+08:00</published><updated>2021-03-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/03/22/LCP%2012.%20%E5%B0%8F%E5%BC%A0%E5%88%B7%E9%A2%98%E8%AE%A1%E5%88%92</id><content type="html" xml:base="https://mafulong.top/2021/03/22/LCP-12.-%E5%B0%8F%E5%BC%A0%E5%88%B7%E9%A2%98%E8%AE%A1%E5%88%92/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/xiao-zhang-shua-ti-ji-hua/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;为了提高自己的代码能力，小张制定了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LeetCode&lt;/code&gt; 刷题计划，他选中了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LeetCode&lt;/code&gt; 题库中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 道题，编号从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt;，并计划在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 天内&lt;strong&gt;按照题目编号顺序&lt;/strong&gt;刷完所有的题目（注意，小张不能用多天完成同一题）。&lt;/p&gt;
-
-&lt;p&gt;在小张刷题计划中，小张需要用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time[i]&lt;/code&gt; 的时间完成编号 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 的题目。此外，小张还可以使用场外求助功能，通过询问他的好朋友小杨题目的解法，可以省去该题的做题时间。为了防止“小张刷题计划”变成“小杨刷题计划”，小张每天最多使用一次求助。&lt;/p&gt;
-
-&lt;p&gt;我们定义 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 天中做题时间最多的一天耗时为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt;（小杨完成的题目不计入做题总时间）。请你帮小张求出最小的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt;是多少。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;输入：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time = [1,2,3,3], m = 2&lt;/code&gt;&lt;/p&gt;
-
-  &lt;p&gt;输出：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt;&lt;/p&gt;
-
-  &lt;p&gt;解释：第一天小张完成前三题，其中第三题找小杨帮忙；第二天完成第四题，并且找小杨帮忙。这样做题时间最多的一天花费了 3 的时间，并且这个值是最小的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;输入：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;time = [999,999,999], m = 4&lt;/code&gt;&lt;/p&gt;
-
-  &lt;p&gt;输出：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;&lt;/p&gt;
-
-  &lt;p&gt;解释：在前三天中，小张每天求助小杨一次，这样他可以在三天内完成所有的题目并不花任何时间。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;限制：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= time.length &amp;lt;= 10^5&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= time[i] &amp;lt;= 10000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= m &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sumv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;maxTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;maxTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maxTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sumv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;sumv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;maxTime&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;sumv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sumv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
