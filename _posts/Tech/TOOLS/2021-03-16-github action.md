@@ -1,8 +1,8 @@
 ---
 layout: post
-category: TOOLS
+category: Tools
 title: github action
-tags: TOOLS
+tags: Tools
 ---
 
 ## github action
