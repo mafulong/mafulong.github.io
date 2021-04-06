@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-06T17:40:29+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">816. 模糊坐标</title><link href="https://mafulong.top/2021/04/06/816.-%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/" rel="alternate" type="text/html" title="816. 模糊坐标" /><published>2021-04-06T00:00:00+08:00</published><updated>2021-04-06T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/06/816.%20%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87</id><content type="html" xml:base="https://mafulong.top/2021/04/06/816.-%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-06T20:09:32+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">816. 模糊坐标</title><link href="https://mafulong.top/2021/04/06/816.-%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/" rel="alternate" type="text/html" title="816. 模糊坐标" /><published>2021-04-06T00:00:00+08:00</published><updated>2021-04-06T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/06/816.%20%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87</id><content type="html" xml:base="https://mafulong.top/2021/04/06/816.-%E6%A8%A1%E7%B3%8A%E5%9D%90%E6%A0%87/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/ambiguous-coordinates/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;我们有一些二维坐标，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;(1, 3)&quot;&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;(2, 0.5)&quot;&lt;/code&gt;，然后我们移除所有逗号，小数点和空格，得到一个字符串&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S&lt;/code&gt;。返回所有可能的原始字符串到一个列表中。&lt;/p&gt;
@@ -150,11 +150,15 @@
 
 &lt;h2 id=&quot;分布式定时器--延迟消息&quot;&gt;分布式定时器 &amp;amp; 延迟消息&lt;/h2&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1573261&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;放rocksdb&quot;&gt;放rocksdb&lt;/h3&gt;
 
 &lt;p&gt;丢到自建的rocketmq broker作为缓冲层，到期后再投递到业务里，实现定时/延迟的功能&lt;/p&gt;
 
 &lt;p&gt;对于任务分发，最核心一点的是对执行时间的排序，用rocksdb代替mysql的好处就是rocksdb中缓存层，SST file对key进行了排序，所以对范围且排序的查询效率十分高&lt;/p&gt;
+
+&lt;p&gt;为什么同样是数据库RocksDB会比Mysql更加合适呢？因为RocksDB的特性是LSM树，其使用场景适用于大量写入，和消息队列的场景更加契合，所以这个也是滴滴和美团选择其作为延时消息封装的存储介质。&lt;/p&gt;
 
 &lt;h3 id=&quot;时间轮-1&quot;&gt;时间轮&lt;/h3&gt;
 
