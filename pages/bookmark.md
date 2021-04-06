@@ -98,6 +98,10 @@ permalink: /bookmark/
 
 ## 书签
 
+### 系统涉及
+- [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
+- [Go语言设计与实现](https://draveness.me/golang/) - Go语言设计与实现
+
 ### Java
 - [Dom4j](https://dom4j.github.io/) - Flexible XML framework
 - [Gson](https://github.com/google/gson) - Google Library to support JSON
