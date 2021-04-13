@@ -98,7 +98,10 @@ permalink: /bookmark/
 
 ## 书签
 
-### 系统涉及
+### 理念
+- [到底什么是技术](https://mp.weixin.qq.com/s/h8iZcL1FOabjWis4_vQVQQ) - 到底什么是技术
+
+### 系统设计
 - [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
 - [Go语言设计与实现](https://draveness.me/golang/) - Go语言设计与实现
 
