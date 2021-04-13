@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-13T18:15:55+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">微服务中间件</title><link href="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="alternate" type="text/html" title="微服务中间件" /><published>2021-04-13T00:00:00+08:00</published><updated>2021-04-13T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6</id><content type="html" xml:base="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/">&lt;h2 id=&quot;微服务中间件&quot;&gt;微服务中间件&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-13T19:33:28+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">微服务中间件</title><link href="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="alternate" type="text/html" title="微服务中间件" /><published>2021-04-13T00:00:00+08:00</published><updated>2021-04-13T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6</id><content type="html" xml:base="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/">&lt;h2 id=&quot;微服务中间件&quot;&gt;微服务中间件&lt;/h2&gt;
 
 &lt;p&gt;比如一个rpc微服务框架都需要支持什么能力？&lt;/p&gt;
 
@@ -60,7 +60,93 @@
 
 &lt;p&gt;计算是否熔断时累加每个bucket的值即可。&lt;/p&gt;
 
-&lt;p&gt;bucket组织形式感觉可以用的循环数组实现。循环数组可以用个mutex锁住。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">熔断器</summary></entry><entry><title type="html">内存屏障</title><link href="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="alternate" type="text/html" title="内存屏障" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">&lt;h2 id=&quot;内存屏障&quot;&gt;内存屏障&lt;/h2&gt;
+&lt;p&gt;bucket组织形式感觉可以用的循环数组实现。循环数组可以用个mutex锁住。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">熔断器</summary></entry><entry><title type="html">连接池</title><link href="https://mafulong.top/2021/04/13/%E8%BF%9E%E6%8E%A5%E6%B1%A0/" rel="alternate" type="text/html" title="连接池" /><published>2021-04-13T00:00:00+08:00</published><updated>2021-04-13T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/13/%E8%BF%9E%E6%8E%A5%E6%B1%A0</id><content type="html" xml:base="https://mafulong.top/2021/04/13/%E8%BF%9E%E6%8E%A5%E6%B1%A0/">&lt;h2 id=&quot;连接池&quot;&gt;连接池&lt;/h2&gt;
+
+&lt;p&gt;什么是连接？四元组：&amp;lt;\source ip,source port,target ip,target port&amp;gt;。 本质上是个tcp的结构，tcp socket。&lt;/p&gt;
+
+&lt;p&gt;为了降低建立连接的时间，HTTP 1.1引入了长连接的概念，并把它搞成了默认的连接方式。啥叫长连接？就是当完成一个业务之后，socket结构并不回收。这样，只要在socket结构还存在的时候，客户端发送的任何数据，服务器都可以收到，这就是所谓的长连接。&lt;/p&gt;
+
+&lt;p&gt;相比短连接而言，长连接并没有什么特别的新的技术，只是维护socket结构时间长了。因为，说http长连接更不如说是tcp长连接。&lt;/p&gt;
+
+&lt;p&gt;为什么要有连接池？ &lt;strong&gt;资源复用&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210413182350&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+
+&lt;p&gt;在分布式高并发服务器中，client到server以及server中的多个节点之间的连接往往使用连接池来管理。简单来说就是将提前创建好的连接保存在池中，当有请求到来时，直接使用连接池中的连接对server端访问，省去了创建连接和销毁连接的开销(TCP建立连接时的三次握手和释放连接时的四次挥手)，从而提高了性能。&lt;/p&gt;
+
+&lt;h3 id=&quot;设计原则&quot;&gt;设计原则&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;连接池的扩缩容&lt;/li&gt;
+  &lt;li&gt;空闲连接的超时与保活&lt;/li&gt;
+  &lt;li&gt;池满的处理机制&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;连接池的扩缩容&quot;&gt;连接池的扩缩容&lt;/h4&gt;
+
+&lt;p&gt;通常连接池属性包含最大空闲连接数和最大活跃连接数。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;最大空闲连接数&lt;/code&gt;：连接池一直保持的连接数，无论这些连接被使用与否都会被保持。如果客户端对连接池的使用量不大，便会造成服务端连接资源的浪费。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;最大活跃连接数&lt;/code&gt;：连接池最多保持的连接数，如果客户端请求超过次数，便要根据&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;池满的处理机制&lt;/code&gt;来处理没有得到连接的请求。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;扩容&lt;/code&gt;：当请求到来时，如果连接池中没有空闲的连接，同时连接数也没有达到最大活跃连接数，便会按照特定的增长策略创建新的连接服务该请求，同时用完之后归还到池中，而不是关闭连接。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;缩容&lt;/code&gt;：当连接池一段时间没有被使用，同时池中的连接数超过了最大空闲连接数，那么便会关闭一部分连接，使池中的连接数始终维持在最大空闲连接数。&lt;/p&gt;
+
+&lt;h4 id=&quot;空闲连接的超时与保活&quot;&gt;空闲连接的超时与保活&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;超时&lt;/code&gt; 如果连接没有被客户端使用的话，便会成为空闲连接，在一段时间后，服务端可能会根据自己的超时策略关闭空闲连接，此时空闲连接已经失效，如果客户端再使用失效的连接，便会通信失败。为了避免这种情况发生，通常连接池中的连接设有&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;最大空闲超时时间&lt;/code&gt;(最好略小于服务器的空闲连接超时时间)，在从池中获取连接时，判断是否空闲超时，如果超时则关闭，没有超时则可以继续使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;保活&lt;/code&gt; 如果服务器发生重启，那么连接池中的连接便会全部失效，如果此时再从池中获取连接，不论获取到哪一个，都将通信失败。因此，连接池必须考虑连接的保活问题，有两种解决方法：&lt;/p&gt;
+
+&lt;p&gt;1、连接池设置一个Ping函数，专门用来做连接的保活。在从池中获取连接的时候，Ping一下服务器，如果得到响应，则连接依然有效，便可继续使用，如果超时无响应，则关闭该连接，生成新的连接，由于每次都要Ping一下，必然会增加延迟。也可以后台用一个线程或者协程定期的执行Ping函数，进行连接的保活，缺点是感知连接的失效会有一定的延迟，从池中仍然有可能获取到失效的连接。&lt;/p&gt;
+
+&lt;p&gt;2、客户端加入相应的重试机制。比如重试3次，前两次从池中获取连接执行，如果报的错是失效的连接等有关连接问题的错误，那么第3次从池中获取的时候带上参数，指定获取新建的连接，同时连接池移除前两次获取的失效的连接。&lt;/p&gt;
+
+&lt;h4 id=&quot;池满的处理机制&quot;&gt;池满的处理机制&lt;/h4&gt;
+
+&lt;p&gt;连接池不可能无限的容纳连接，当池满时，有两种处理机制：&lt;/p&gt;
+
+&lt;p&gt;1、池新建连接，并返回给客户端，当客户端用完时，如果池满则关闭连接，否则放入池中。&lt;/p&gt;
+
+&lt;p&gt;2、设置一定的超时时间来等待空闲连接。需要客户端加入重试机制，避免因超时之后获取不到空闲连接产生的错误。&lt;/p&gt;
+
+&lt;h3 id=&quot;基本原理&quot;&gt;基本原理&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;服务启动时建立连接池。&lt;/li&gt;
+  &lt;li&gt;初始化连接池，建立最大空闲连接数个连接。&lt;/li&gt;
+  &lt;li&gt;请求到来时，从池中获取一个连接。如果没有空闲连接且连接数没有达到最大活跃连接数，则新建连接；如果达到最大活跃连接数，设置一定的超时时间，等待获取空闲连接。&lt;/li&gt;
+  &lt;li&gt;获取到连接后进行通信服务。&lt;/li&gt;
+  &lt;li&gt;释放连接，此时是将连接放回连接池，如果池满则关闭连接。&lt;/li&gt;
+  &lt;li&gt;释放连接池，关闭所有连接。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;golang实现&quot;&gt;golang实现&lt;/h2&gt;
+
+&lt;p&gt;实现上可以用数组当空闲连接的队列，每次left pop一个空闲连接使用。&lt;/p&gt;
+
+&lt;p&gt;该队列的访问更新要加锁。&lt;/p&gt;
+
+&lt;p&gt;获取连接操作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当连接池有连接时，取个连接，判断是否已经过期。
+    &lt;ul&gt;
+      &lt;li&gt;过期了就新建个。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;当没空闲连接时，加入等待队列。&lt;/li&gt;
+  &lt;li&gt;当连接用完时，判断等待队列里 是否有等待的，有等待的，分配给它。
+    &lt;ul&gt;
+      &lt;li&gt;否则直接放入空闲连接池。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;也应该有个定时任务定期清理空闲连接池过期的连接。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">连接池</summary></entry><entry><title type="html">内存屏障</title><link href="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="alternate" type="text/html" title="内存屏障" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">&lt;h2 id=&quot;内存屏障&quot;&gt;内存屏障&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
@@ -598,77 +684,4 @@
             &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;inf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
                 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">140. 单词拆分 II</title><link href="https://mafulong.top/2021/04/05/140.-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-II/" rel="alternate" type="text/html" title="140. 单词拆分 II" /><published>2021-04-05T00:00:00+08:00</published><updated>2021-04-05T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/05/140.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86%20II</id><content type="html" xml:base="https://mafulong.top/2021/04/05/140.-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86-II/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/word-break-ii/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给定一个&lt;strong&gt;非空&lt;/strong&gt;字符串 &lt;em&gt;s&lt;/em&gt; 和一个包含&lt;strong&gt;非空&lt;/strong&gt;单词列表的字典 &lt;em&gt;wordDict&lt;/em&gt;，在字符串中增加空格来构建一个句子，使得句子中所有的单词都在词典中。返回所有这些可能的句子。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;说明：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;分隔时可以重复使用字典中的单词。&lt;/li&gt;
-  &lt;li&gt;你可以假设字典中没有重复的单词。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入:
-s = &quot;catsanddog&quot;
-wordDict = [&quot;cat&quot;, &quot;cats&quot;, &quot;and&quot;, &quot;sand&quot;, &quot;dog&quot;]
-输出:
-[
-  &quot;cats and dog&quot;,
-  &quot;cat sand dog&quot;
-]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入:
-s = &quot;pineapplepenapple&quot;
-wordDict = [&quot;apple&quot;, &quot;pen&quot;, &quot;applepen&quot;, &quot;pine&quot;, &quot;pineapple&quot;]
-输出:
-[
-  &quot;pine apple pen apple&quot;,
-  &quot;pineapple pen apple&quot;,
-  &quot;pine applepen apple&quot;
-]
-解释: 注意你可以重复使用字典中的单词。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入:
-s = &quot;catsandog&quot;
-wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;, &quot;cat&quot;]
-输出:
-[]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;wordBreak&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordDict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;wordSet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordDict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;functools&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functools&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lru_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]])&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
