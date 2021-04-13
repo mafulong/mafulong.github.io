@@ -1,4 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-13T14:00:58+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">内存屏障</title><link href="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="alternate" type="text/html" title="内存屏障" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">&lt;h2 id=&quot;内存屏障&quot;&gt;内存屏障&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-13T16:04:38+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">微服务中间件</title><link href="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="alternate" type="text/html" title="微服务中间件" /><published>2021-04-13T00:00:00+08:00</published><updated>2021-04-13T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6</id><content type="html" xml:base="https://mafulong.top/2021/04/13/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%97%B4%E4%BB%B6/">&lt;h2 id=&quot;微服务中间件&quot;&gt;微服务中间件&lt;/h2&gt;
+
+&lt;p&gt;比如一个rpc微服务框架都需要支持什么能力？&lt;/p&gt;
+
+&lt;h2 id=&quot;client-中间件&quot;&gt;client-中间件&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;OpenTracing， &lt;a href=&quot;https://github.com/opentracing/specification/blob/master/specification.md&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Log，&lt;/li&gt;
+  &lt;li&gt;Metrics&lt;/li&gt;
+  &lt;li&gt;鉴权，判断能否调用，可以用个kv记录&lt;/li&gt;
+  &lt;li&gt;熔断器，熔断&lt;/li&gt;
+  &lt;li&gt;超时控制，golang可以用timeoutCancelCtx&lt;/li&gt;
+  &lt;li&gt;选择idc，统一配置&lt;/li&gt;
+  &lt;li&gt;服务发现，应该有cache&lt;/li&gt;
+  &lt;li&gt;负载均衡&lt;/li&gt;
+  &lt;li&gt;长短链接？ 长链接有个链接池。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;server-中间件&quot;&gt;server-中间件&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Log,&lt;/li&gt;
+  &lt;li&gt;鉴权acl&lt;/li&gt;
+  &lt;li&gt;限流器，令牌桶。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">微服务中间件</summary></entry><entry><title type="html">内存屏障</title><link href="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="alternate" type="text/html" title="内存屏障" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">&lt;h2 id=&quot;内存屏障&quot;&gt;内存屏障&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
@@ -708,77 +733,6 @@ wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;
                         &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
 
         &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">979. 在二叉树中分配硬币</title><link href="https://mafulong.top/2021/04/05/979.-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%88%86%E9%85%8D%E7%A1%AC%E5%B8%81/" rel="alternate" type="text/html" title="979. 在二叉树中分配硬币" /><published>2021-04-05T00:00:00+08:00</published><updated>2021-04-05T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/05/979.%20%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%88%86%E9%85%8D%E7%A1%AC%E5%B8%81</id><content type="html" xml:base="https://mafulong.top/2021/04/05/979.-%E5%9C%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%88%86%E9%85%8D%E7%A1%AC%E5%B8%81/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/distribute-coins-in-binary-tree/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给定一个有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N&lt;/code&gt; 个结点的二叉树的根结点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;，树中的每个结点上都对应有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node.val&lt;/code&gt; 枚硬币，并且总共有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;N&lt;/code&gt; 枚硬币。&lt;/p&gt;
-
-&lt;p&gt;在一次移动中，我们可以选择两个相邻的结点，然后将一枚硬币从其中一个结点移动到另一个结点。(移动可以是从父结点到子结点，或者从子结点移动到父结点。)。&lt;/p&gt;
-
-&lt;p&gt;返回使每个结点上只有一枚硬币所需的移动次数。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree1.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[3,0,0]
-输出：2
-解释：从树的根结点开始，我们将一枚硬币移到它的左子结点上，一枚硬币移到它的右子结点上。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree2.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[0,3,0]
-输出：3
-解释：从根结点的左子结点开始，我们将两枚硬币移到根结点上 [移动两次]。然后，我们把一枚硬币从根结点移到右子结点上。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree3.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[1,0,2]
-输出：2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/01/19/tree4.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：[1,0,0,null,3]
-输出：4
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&amp;lt;= N &amp;lt;= 100&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= node.val &amp;lt;= N&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;dfs后续遍历。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/distribute-coins-in-binary-tree/solution/hou-xu-bian-li-cong-dang-qian-jie-dian-na-chu-node/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;distributeCoins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TreeNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;nonlocal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
