@@ -1,4 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-10T00:30:10+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1255. 得分最高的单词集合</title><link href="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/" rel="alternate" type="text/html" title="1255. 得分最高的单词集合" /><published>2021-04-10T00:00:00+08:00</published><updated>2021-04-10T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/10/1255.%20%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88</id><content type="html" xml:base="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-04-13T14:00:58+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">内存屏障</title><link href="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/" rel="alternate" type="text/html" title="内存屏障" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/">&lt;h2 id=&quot;内存屏障&quot;&gt;内存屏障&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://monkeysayhi.github.io/2017/12/28/%E4%B8%80%E6%96%87%E8%A7%A3%E5%86%B3%E5%86%85%E5%AD%98%E5%B1%8F%E9%9A%9C/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;内存屏障是硬件之上、操作系统或JVM之下，对并发作出的最后一层支持。再向下是是硬件提供的支持；向上是操作系统或JVM对内存屏障作出的各种封装。内存屏障是一种标准，各厂商可能采用不同的实现。&lt;/p&gt;
+
+&lt;p&gt;内存屏障的实现涉及大量硬件架构层面的知识，又需要操作系统或JVM的配合才能发挥威力，单纯从任何一个层面都无法理解。&lt;/p&gt;
+
+&lt;p&gt;volatile变量规则：&lt;strong&gt;对volatile变量的写入操作必须在对该变量的读操作之前执行&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;volatile变量规则只是一种标准，要求JVM实现保证volatile变量的偏序语义。&lt;strong&gt;结合程序顺序规则、传递性&lt;/strong&gt;，该偏序语义通常表现为两个作用：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;保持可见性&lt;/li&gt;
+  &lt;li&gt;禁用重排序（读操作禁止重排序之后的操作，写操作禁止重排序之前的操作）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通过&lt;strong&gt;volatile标记，可以解决编译器层面的可见性与重排序问题&lt;/strong&gt;。而&lt;strong&gt;内存屏障则解决了硬件层面的可见性与重排序问题&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">内存屏障</summary></entry><entry><title type="html">限流器</title><link href="https://mafulong.top/2021/04/12/%E9%99%90%E6%B5%81%E5%99%A8/" rel="alternate" type="text/html" title="限流器" /><published>2021-04-12T00:00:00+08:00</published><updated>2021-04-12T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/12/%E9%99%90%E6%B5%81%E5%99%A8</id><content type="html" xml:base="https://mafulong.top/2021/04/12/%E9%99%90%E6%B5%81%E5%99%A8/">&lt;p&gt;保障服务稳定的三大利器：熔断降级、服务限流和故障模拟。今天和大家谈谈限流算法的几种实现方式，本文所说的限流并非是Nginx层面的限流，而是业务代码中的逻辑限流。&lt;/p&gt;
+
+&lt;h2 id=&quot;为什么需要限流&quot;&gt;为什么需要限流&lt;/h2&gt;
+
+&lt;p&gt;按照服务的调用方，可以分为以下几种类型服务&lt;/p&gt;
+
+&lt;h3 id=&quot;1与用户打交道的服务&quot;&gt;1、与用户打交道的服务&lt;/h3&gt;
+
+&lt;p&gt;比如web服务、对外API，这种类型的服务有以下几种可能导致机器被拖垮：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用户增长过快（这是好事）&lt;/li&gt;
+  &lt;li&gt;因为某个热点事件（微博热搜）&lt;/li&gt;
+  &lt;li&gt;竞争对象爬虫&lt;/li&gt;
+  &lt;li&gt;恶意的刷单&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这些情况都是无法预知的，不知道什么时候会有10倍甚至20倍的流量打进来，如果真碰上这种情况，扩容是根本来不及的（弹性扩容都是虚谈，一秒钟你给我扩一下试试）&lt;/p&gt;
+
+&lt;h3 id=&quot;2对内的rpc服务&quot;&gt;2、对内的RPC服务&lt;/h3&gt;
+
+&lt;p&gt;一个服务A的接口可能被BCDE多个服务进行调用，在B服务发生突发流量时，直接把A服务给调用挂了，导致A服务对CDE也无法提供服务。 这种情况时有发生，解决方案有两种： 1、每个调用方采用线程池进行资源隔离 2、使用限流手段对每个调用方进行限流&lt;/p&gt;
+
+&lt;h2 id=&quot;服务限流&quot;&gt;服务限流：&lt;/h2&gt;
+
+&lt;p&gt;流量控制本质上是减小访问量，而服务处理能力不变；而服务降级本质上是降低了部分服务的处理能力，增强另一部分服务处理能力，而访问量不变。&lt;/p&gt;
+
+&lt;p&gt;以下主要介绍几种常见的服务限流算法和优缺点，以及单机限流和分布式限流。没有哪种算法是最好的或者是最差的，具体要根据实际业务场景决定使用哪种实现方式，本质都是提高功能的性价比，利用尽可能小的开发成本，产生尽可能大的收益。常见的限流算法包含：计数器法，滑动窗口算法，令牌桶算法以及漏桶算法（队列限流）。&lt;/p&gt;
+
+&lt;h3 id=&quot;计数器法&quot;&gt;计数器法&lt;/h3&gt;
+
+&lt;p&gt;计数器法是限流算法里最简单也是最容易实现的一种算法。假设我们规定接口A的qps是100， 即每分钟的访问次数不能超过100。那么我们可以这么做：在一开始的时候，我们可以设置一个计数器counter，初始化为0， 过期时间为1秒，即1秒后计数器失效。每当一个请求过来的时候，counter值加1，判断当前counter的值是否大于100，如果大于100则说明请求数过多，直接拒绝请求。如果请求counter计数器不存在，则重置计数器，开始新的一秒的接口限流。注意并发情况下访问计数器需要加锁。&lt;/p&gt;
+
+&lt;p&gt;缺点：限制粒度太低，存在临界问题。&lt;/p&gt;
+
+&lt;p&gt;例如：假设有一个恶意用户，他在0:59时，瞬间发送了100个请求，并且1:00又瞬间发送了100个请求，那么其实这个用户在1秒内，瞬间发送了200个请求。用户通过在时间窗口的重置节点处突发请求，可以瞬间超过我们的速率限制。用户有可能通过算法的这个漏洞，瞬间压垮我们的应用。解决这个问题的办法就是提高限流的粒度，即滑动窗口算法。&lt;/p&gt;
+
+&lt;h3 id=&quot;滑动窗口rolling-window&quot;&gt;滑动窗口（rolling window）&lt;/h3&gt;
+
+&lt;p&gt;滑动窗口的概念源于计算机网络，它的限流思想描述如下：假设一个时间窗口就是一分钟。然后我们将时间窗口进行划分，比如我们将滑动窗口划成了6格，所以每格代表的是10秒钟。每过10秒钟，我们的时间窗口就会往右滑动一格。每一个格子都有自己独立的计数器counter，比如当一个请求在0:35秒的时候到达，那么0:30~0:39对应的counter就会加1。滑动窗口能够很好的解决计数器法所存在的临界问题，并且窗口划分粒度越细，窗口滑动就越平滑，控制效果越好。滑动窗口实现较复杂，临界问题只是某种极端案例，比如恶意攻击，是否采用这种限流方式，还需取决于具体业务的要求。&lt;/p&gt;
+
+&lt;h3 id=&quot;漏桶算法&quot;&gt;漏桶算法&lt;/h3&gt;
+
+&lt;p&gt;为了消除”突刺现象”，可以采用漏桶算法实现限流，漏桶算法这个名字就很形象，算法内部有一个容器，类似生活用到的漏斗，当请求进来时，相当于水倒入漏斗，然后从下端小口慢慢匀速的流出。不管上面流量多大，下面流出的速度始终保持不变。&lt;/p&gt;
+
+&lt;p&gt;不管服务调用方多么不稳定，通过漏桶算法进行限流，每10毫秒处理一次请求。因为处理的速度是固定的，请求进来的速度是未知的，可能突然进来很多请求，没来得及处理的请求就先放在桶里，既然是个桶，肯定是有容量上限，如果桶满了，那么新进来的请求就丢弃。&lt;/p&gt;
+
+&lt;p&gt;在算法实现方面，可以准备一个队列，用来保存请求，另外通过一个线程池定期从队列中获取请求并执行，可以一次性获取多个并发执行。&lt;/p&gt;
+
+&lt;p&gt;这种算法，在使用过后也存在弊端：无法应对短时间的突发流量。这个指和令牌桶比较而言，突发指令牌桶可以每秒100qps的条件下，支持每10ms支持100qps， 而漏桶只能每10ms支持1qps，可以理解为漏桶只能平均。&lt;/p&gt;
+
+&lt;h3 id=&quot;令牌桶法&quot;&gt;令牌桶法&lt;/h3&gt;
+
+&lt;p&gt;从某种意义上讲，令牌桶算法是对漏桶算法的一种改进，桶算法能够限制请求调用的速率，而令牌桶算法能够在限制调用的平均速率的同时还允许一定程度的突发调用。&lt;/p&gt;
+
+&lt;p&gt;思想描述：系统按照恒定的时间间隔（通常是1/QPS）往桶里加入Token,每个Token代表一次接口访问权限，如果桶已经满了丢弃令牌。新请求来临时，会请求从桶中拿走一个Token,如果没有Token可拿了就阻塞或者拒绝服务请求。放入Token的时间间隔取决于限制的qps，假设接口的qps是100，则按照1/qps的速率放令牌，即每10ms放入一个令牌，令牌桶算法不存在瞬间的流量高峰，它能严格控制接口在qps内访问。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210412173956&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;放令牌这个动作是持续不断的进行，如果桶中令牌数达到上限，就丢弃令牌，所以就存在这种情况，桶中一直有大量的可用令牌，这时进来的请求就可以直接拿到令牌执行，比如设置qps为100，那么限流器初始化完成一秒后，桶中就已经有100个令牌了，这时服务还没完全启动好，等启动完成对外提供服务时，该限流器可以抵挡瞬时的100个请求。所以，只有桶中没有令牌时，请求才会进行等待，最后相当于以一定的速率执行。&lt;/p&gt;
+
+&lt;p&gt;实现思路：可以准备一个队列，用来保存令牌，另外通过一个线程池定期生成令牌放到队列中，每来一个请求，就从队列中获取一个令牌，并继续执行。&lt;/p&gt;
+
+&lt;h3 id=&quot;单机限流器使用场景&quot;&gt;单机限流器使用场景&lt;/h3&gt;
+
+&lt;h4 id=&quot;两种算法的区别&quot;&gt;两种算法的区别&lt;/h4&gt;
+
+&lt;p&gt;​	两者主要区别在于“漏桶算法”能够强行限制数据的传输速率，而“令牌桶算法”在能够限制数据的平均传输速率外，还允许某种程度的突发传输。在“令牌桶算法”中，只要令牌桶中存在令牌，那么就允许突发地传输数据直到达到用户配置的门限，所以它适合于具有突发特性的流量。&lt;/p&gt;
+
+&lt;p&gt;​	对于很多应用场景来说，除了要求能够限制数据的平均传输速率外，还要求允许某种程度的突发传输。这时候漏桶算法可能就不合适了，令牌桶算法更为适合。令牌桶也是最适用的。&lt;/p&gt;
+
+&lt;p&gt;​	并不能说明令牌桶一定比漏洞好，她们使用场景不一样。令牌桶可以用来保护自己，主要用来对调用者频率进行限流，为的是让自己不被打垮。所以如果自己本身有处理能力的时候，如果流量突发（实际消费能力强于配置的流量限制），那么实际处理速率可以超过配置的限制。而漏桶算法，这是用来保护他人，也就是保护他所调用的系统。主要场景是，当调用的第三方系统本身没有保护机制，或者有流量限制的时候，我们的调用速度不能超过他的限制，由于我们不能更改第三方系统，所以只有在主调方控制。这个时候，即使流量突发，也必须舍弃。因为消费能力是第三方决定的。&lt;/p&gt;
+
+&lt;p&gt;​	总结起来：如果要让自己的系统不被打垮，用令牌桶。如果保证被别人的系统不被打垮，用漏桶算法。&lt;/p&gt;
+
+&lt;h2 id=&quot;集群式限流&quot;&gt;集群式限流&lt;/h2&gt;
+
+&lt;p&gt;相比上面的单机限流，也可以分布式集群限流。&lt;/p&gt;
+
+&lt;p&gt;需要额外的存储，比如redis等。&lt;/p&gt;
+
+&lt;h2 id=&quot;限流器实现&quot;&gt;限流器实现&lt;/h2&gt;
+
+&lt;h3 id=&quot;golang实现令牌桶&quot;&gt;golang实现令牌桶&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;初始化qps上线limit, 间隔时间internal（单位ms)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;使用int32当做桶的数量，token，操作使用atomic.LoadInt32, AddInt32进行操作，防止并发问题。性能足够好: &lt;a href=&quot;https://m.51dev.com/show.php?id=84890&quot;&gt;性能参考&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;使用time.Ticker每隔internal ms，原子操作token+=1。实际上是个定时任务。&lt;/li&gt;
+  &lt;li&gt;判断能否限流规则， token&amp;gt;0则不限流，原子判断token是否大于0&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;golang实现漏桶&quot;&gt;golang实现漏桶&lt;/h3&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">保障服务稳定的三大利器：熔断降级、服务限流和故障模拟。今天和大家谈谈限流算法的几种实现方式，本文所说的限流并非是Nginx层面的限流，而是业务代码中的逻辑限流。</summary></entry><entry><title type="html">1255. 得分最高的单词集合</title><link href="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/" rel="alternate" type="text/html" title="1255. 得分最高的单词集合" /><published>2021-04-10T00:00:00+08:00</published><updated>2021-04-10T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/10/1255.%20%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88</id><content type="html" xml:base="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-score-words-formed-by-letters/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;你将会得到一份单词表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt;，一个字母表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters&lt;/code&gt; （可能会有重复字母），以及每个字母对应的得分情况表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score&lt;/code&gt;。&lt;/p&gt;
@@ -669,153 +780,5 @@ wordDict = [&quot;cats&quot;, &quot;dog&quot;, &quot;sand&quot;, &quot;and&quot;
             &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">1032. 字符流</title><link href="https://mafulong.top/2021/04/04/1032.-%E5%AD%97%E7%AC%A6%E6%B5%81/" rel="alternate" type="text/html" title="1032. 字符流" /><published>2021-04-04T00:00:00+08:00</published><updated>2021-04-04T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/04/1032.%20%E5%AD%97%E7%AC%A6%E6%B5%81</id><content type="html" xml:base="https://mafulong.top/2021/04/04/1032.-%E5%AD%97%E7%AC%A6%E6%B5%81/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/stream-of-characters/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;按下述要求实现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StreamChecker&lt;/code&gt; 类：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StreamChecker(words)&lt;/code&gt;：构造函数，用给定的字词初始化数据结构。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;query(letter)&lt;/code&gt;：如果存在某些 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k &amp;gt;= 1&lt;/code&gt;，可以用查询的最后 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt;个字符（按从旧到新顺序，包括刚刚查询的字母）拼写出给定字词表中的某一字词时，返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;。否则，返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;StreamChecker streamChecker = new StreamChecker([&quot;cd&quot;,&quot;f&quot;,&quot;kl&quot;]); // 初始化字典
-streamChecker.query('a');          // 返回 false
-streamChecker.query('b');          // 返回 false
-streamChecker.query('c');          // 返回 false
-streamChecker.query('d');          // 返回 true，因为 'cd' 在字词表中
-streamChecker.query('e');          // 返回 false
-streamChecker.query('f');          // 返回 true，因为 'f' 在字词表中
-streamChecker.query('g');          // 返回 false
-streamChecker.query('h');          // 返回 false
-streamChecker.query('i');          // 返回 false
-streamChecker.query('j');          // 返回 false
-streamChecker.query('k');          // 返回 false
-streamChecker.query('l');          // 返回 true，因为 'kl' 在字词表中。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words.length &amp;lt;= 2000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words[i].length &amp;lt;= 2000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;字词只包含小写英文字母。&lt;/li&gt;
-  &lt;li&gt;待查项只包含小写英文字母。&lt;/li&gt;
-  &lt;li&gt;待查项最多 40000 个。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StreamChecker&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]):&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trie&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;reversed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trie&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'#'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">211. 添加与搜索单词 - 数据结构设计</title><link href="https://mafulong.top/2021/04/04/211.-%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8D%95%E8%AF%8D-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="211. 添加与搜索单词 - 数据结构设计" /><published>2021-04-04T00:00:00+08:00</published><updated>2021-04-04T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/04/211.%20%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8D%95%E8%AF%8D%20-%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.top/2021/04/04/211.-%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8D%95%E8%AF%8D-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。&lt;/p&gt;
-
-&lt;p&gt;实现词典类 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WordDictionary&lt;/code&gt; ：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WordDictionary()&lt;/code&gt; 初始化词典对象&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;void addWord(word)&lt;/code&gt; 将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word&lt;/code&gt; 添加到数据结构中，之后可以对它进行匹配&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bool search(word)&lt;/code&gt; 如果数据结构中存在字符串与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word&lt;/code&gt; 匹配，则返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; ；否则，返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; 。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word&lt;/code&gt; 中可能包含一些 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'.'&lt;/code&gt; ，每个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; 都可以表示任何一个字母。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：
-[&quot;WordDictionary&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;]
-[[],[&quot;bad&quot;],[&quot;dad&quot;],[&quot;mad&quot;],[&quot;pad&quot;],[&quot;bad&quot;],[&quot;.ad&quot;],[&quot;b..&quot;]]
-输出：
-[null,null,null,null,false,true,true,true]
-
-解释：
-WordDictionary wordDictionary = new WordDictionary();
-wordDictionary.addWord(&quot;bad&quot;);
-wordDictionary.addWord(&quot;dad&quot;);
-wordDictionary.addWord(&quot;mad&quot;);
-wordDictionary.search(&quot;pad&quot;); // return False
-wordDictionary.search(&quot;bad&quot;); // return True
-wordDictionary.search(&quot;.ad&quot;); // return True
-wordDictionary.search(&quot;b..&quot;); // return True
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= word.length &amp;lt;= 500&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addWord&lt;/code&gt; 中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word&lt;/code&gt; 由小写英文字母组成&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search&lt;/code&gt; 中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;word&lt;/code&gt; 由 ‘.’ 或小写英文字母组成&lt;/li&gt;
-  &lt;li&gt;最多调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;50000&lt;/code&gt; 次 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addWord&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;search&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TrieNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;precount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WordDictionary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;
-        Initialize your data structure here.
-        &quot;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrieNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addWord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TrieNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;precount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:]):&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;children&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
