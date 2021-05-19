@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-19T17:28:20+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">设计与实现</title><link href="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="alternate" type="text/html" title="设计与实现" /><published>2021-05-19T00:00:00+08:00</published><updated>2021-05-19T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0</id><content type="html" xml:base="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">&lt;h2 id=&quot;设计与实现&quot;&gt;设计与实现&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-19T17:50:59+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Go设计与实现</title><link href="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="alternate" type="text/html" title="Go设计与实现" /><published>2021-05-19T00:00:00+08:00</published><updated>2021-05-19T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0</id><content type="html" xml:base="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">&lt;h2 id=&quot;设计与实现&quot;&gt;设计与实现&lt;/h2&gt;
 
 &lt;h2 id=&quot;基础知识&quot;&gt;基础知识&lt;/h2&gt;
 
@@ -31,23 +31,31 @@ make([]int64, 10) // cap10, len 10, 少用
 
 &lt;p&gt;&lt;a href=&quot;https://mafulong.top/2019/09/11/golang%E7%9A%84map%E7%9A%84%E5%AE%9E%E7%8E%B0/&quot;&gt;直接看另一篇文档&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hmap&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;uint8&lt;/span&gt;   &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;// 可以容纳2^B个项&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;uint16&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;bucketsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;// 每个桶的大小&lt;/span&gt;
-
-    &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buckets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;// 2^B个Buckets的数组&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;byte&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oldbuckets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c&quot;&gt;// 前一个buckets，只有当正在扩容时才不为空&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这个hash结构使用的是一个可扩展哈希的算法，由hash值mod当前hash表大小决定某一个值属于哪个桶，而hash表大小是2的指数，即上面结构体中的2^B。每次扩容，会增大到上次大小的两倍。结构体中有一个buckets和一个oldbuckets是用来实现增量扩容的。正常情况下直接使用buckets，而oldbuckets为空。如果当前哈希表正在扩容中，则oldbuckets不为空，并且buckets大小是oldbuckets大小的两倍。&lt;/p&gt;
-
 &lt;ul&gt;
   &lt;li&gt;map存的是指针，不可以取址，扩容时会发生变化。&lt;/li&gt;
   &lt;li&gt;不会缩容。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">设计与实现</summary></entry><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;string&quot;&gt;String&lt;/h3&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringHeader&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uintptr&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Len&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;string不能修改&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt;号拼接不再具有优势，因为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt;是不可变的，每次拼接都会生成一个新的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt;,也就是会进行一次内存分配&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;接口&quot;&gt;接口&lt;/h3&gt;
+
+&lt;p&gt;接口也是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口，一种是带有一组方法的接口，另一种是不带任何方法的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img.draveness.me/golang-different-interface.png&quot; alt=&quot;golang-different-interface&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;需要注意的是，与 C 语言中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;void *&lt;/code&gt; 不同，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt; 类型&lt;strong&gt;不是任意类型&lt;/strong&gt;。如果我们将类型转换成了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt; 类型，变量在运行期间的类型也会发生变化，获取变量类型时会得到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">设计与实现</summary></entry><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-xor-sum-of-all-pairs-bitwise-and/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;列表的 &lt;strong&gt;异或和&lt;/strong&gt;（&lt;strong&gt;XOR sum&lt;/strong&gt;）指对所有元素进行按位 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XOR&lt;/code&gt; 运算的结果。如果列表中仅有一个元素，那么其 &lt;strong&gt;异或和&lt;/strong&gt; 就等于该元素。&lt;/p&gt;
