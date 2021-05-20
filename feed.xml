@@ -1,61 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-19T17:50:59+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Go设计与实现</title><link href="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" rel="alternate" type="text/html" title="Go设计与实现" /><published>2021-05-19T00:00:00+08:00</published><updated>2021-05-19T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0</id><content type="html" xml:base="https://mafulong.top/2021/05/19/%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">&lt;h2 id=&quot;设计与实现&quot;&gt;设计与实现&lt;/h2&gt;
-
-&lt;h2 id=&quot;基础知识&quot;&gt;基础知识&lt;/h2&gt;
-
-&lt;h3 id=&quot;切片&quot;&gt;切片&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make([]int64, 0, 10) // cap10, len0
-make([]int64, 10) // cap10, len 10, 少用
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;结构:&lt;/p&gt;
-
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SliceHeader&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uintptr&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Len&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Cap&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;扩容策略&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;cap&amp;lt;1024，每次*2&lt;/li&gt;
-  &lt;li&gt;cap&amp;gt;1024，每次*1.25&lt;/li&gt;
-  &lt;li&gt;然后会字节对齐。&lt;/li&gt;
-  &lt;li&gt;如果没发生扩容，修改在原来内存，&lt;/li&gt;
-  &lt;li&gt;发生了扩容，修改在新内存，尤其注意当slice作为函数参会后，函数内部发生扩容并不会影响之前的了。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;map&quot;&gt;map&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mafulong.top/2019/09/11/golang%E7%9A%84map%E7%9A%84%E5%AE%9E%E7%8E%B0/&quot;&gt;直接看另一篇文档&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;map存的是指针，不可以取址，扩容时会发生变化。&lt;/li&gt;
-  &lt;li&gt;不会缩容。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;string&quot;&gt;String&lt;/h3&gt;
-
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringHeader&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;uintptr&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;Len&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;string不能修改&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt;号拼接不再具有优势，因为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt;是不可变的，每次拼接都会生成一个新的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt;,也就是会进行一次内存分配&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;接口&quot;&gt;接口&lt;/h3&gt;
-
-&lt;p&gt;接口也是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口，一种是带有一组方法的接口，另一种是不带任何方法的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://img.draveness.me/golang-different-interface.png&quot; alt=&quot;golang-different-interface&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;需要注意的是，与 C 语言中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;void *&lt;/code&gt; 不同，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt; 类型&lt;strong&gt;不是任意类型&lt;/strong&gt;。如果我们将类型转换成了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt; 类型，变量在运行期间的类型也会发生变化，获取变量类型时会得到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface{}&lt;/code&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">设计与实现</summary></entry><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-20T11:06:11+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-xor-sum-of-all-pairs-bitwise-and/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;列表的 &lt;strong&gt;异或和&lt;/strong&gt;（&lt;strong&gt;XOR sum&lt;/strong&gt;）指对所有元素进行按位 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XOR&lt;/code&gt; 运算的结果。如果列表中仅有一个元素，那么其 &lt;strong&gt;异或和&lt;/strong&gt; 就等于该元素。&lt;/p&gt;
@@ -539,4 +482,107 @@ code &lt;span class=&quot;nt&quot;&gt;--list-extensions&lt;/span&gt;
                     &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;(%s, %s)&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">定时器</title><link href="https://mafulong.top/2021/04/06/%E5%AE%9A%E6%97%B6%E5%99%A8/" rel="alternate" type="text/html" title="定时器" /><published>2021-04-06T00:00:00+08:00</published><updated>2021-04-06T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/06/%E5%AE%9A%E6%97%B6%E5%99%A8</id><content type="html" xml:base="https://mafulong.top/2021/04/06/%E5%AE%9A%E6%97%B6%E5%99%A8/">&lt;h2 id=&quot;定时器&quot;&gt;定时器&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.bookstack.cn/read/system-design/cn-task-scheduler.md&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;一般都有个延迟队列，延迟队列一定有个锁避免并发问题，然后肯定有个线程或者携程异步监听延迟队列头部时间到没到。&lt;/p&gt;
+
+&lt;p&gt;延迟队列实现包括：基于排序链表实现、基于小根堆实现、基于红黑树实现、基于时间轮实现等。&lt;/p&gt;
+
+&lt;p&gt;延迟队列方案：&lt;/p&gt;
+
+&lt;p&gt;方案一：优先队列+轮询。 缺点：轮询通常有个很大的缺点，就是时间间隔不好设置，间隔太长，任务无法及时处理，间隔太短，会很耗CPU。&lt;/p&gt;
+
+&lt;p&gt;方案二：优先队列+时间差，没到时间点就time.Sleep()下。缺点：假设当前堆顶的任务在100秒后执行，消费者线程peek()偷看到了后，开始sleep 100秒，这时候一个新的任务插了进来，该任务在10秒后应该执行，但是由于消费者线程要睡眠100秒，这个新任务无法及时处理。但这个可以通过增加任务时，给信号给异步线程，告知重新计算time.Sleep()时间。&lt;/p&gt;
+
+&lt;p&gt;方案三：[推荐] 时间轮实现。当任务数量非常大时，堆(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PriorityQueue&lt;/code&gt;)维护任务的新增、删除必然会导致性能下降，性能o(nlogn)。而&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HashedWheelTimer&lt;/code&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tick&lt;/code&gt;管理，不受任务数量的限制, 添加任务是o(1)。&lt;/p&gt;
+
+&lt;h3 id=&quot;时间轮&quot;&gt;时间轮&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://my.oschina.net/anur/blog/2252539&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;定时任务（5分钟后执行xx任务/每隔1天执行一次）&lt;/li&gt;
+    &lt;li&gt;超时控制（xx分钟没有动作就断开连接）&lt;/li&gt;
+    &lt;li&gt;频率限制（最快只能每5s调用一次API/ 对同一个站点下页面的抓取最低要间隔5s）&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;是一个存储定时任务的环形队列，底层采用数组实现，数组中的每个元素可以存放一个定时任务列表（TimerTaskList）。TimerTaskList是一个环形的双向链表，链表中的每一项表示的都是定时任务项（TimerTaskEntry），其中封装了真正的定时任务TimerTask。&lt;/p&gt;
+
+&lt;p&gt;时间轮定时器最大的优点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;是任务的添加与移除，都是O(1)级的复杂度；&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;不会占用大量的资源；&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;ol&gt;
+      &lt;li&gt;只需要有一个线程去推进时间轮就可以工作了。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了避免时间轮占用内存，比如10天后的定时任务，上限是2^32，可以用钟表表示方式进行，多加几个指针，时分秒。&lt;/p&gt;
+
+&lt;p&gt;kafka时间轮实现：http://russellluo.com/2018/10/golang-implementation-of-hierarchical-timing-wheels.html。&lt;/p&gt;
+
+&lt;p&gt;golang非分层时间轮实现：https://github.com/ouqiang/timewheel/blob/master/timewheel.go#L121&lt;/p&gt;
+
+&lt;h3 id=&quot;golang定时器实现&quot;&gt;golang定时器实现&lt;/h3&gt;
+
+&lt;p&gt;比如golang定时器实现， &lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-timer/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;全局最小四叉堆&quot;&gt;全局最小四叉堆&lt;/h4&gt;
+
+&lt;p&gt;最开始 ，是全局一个最小四叉堆，运行时创建的所有计时器都会加入到四叉堆中。Goroutine 会运行时间驱动的事件，运行时会在发生以下事件时唤醒计时器：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;四叉堆中的计时器到期；&lt;/li&gt;
+  &lt;li&gt;四叉堆中加入了触发时间更早的新计时器；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;!&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210406150652.png&quot; alt=&quot;golang-timer-quadtree&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;分片四叉堆&quot;&gt;分片四叉堆&lt;/h4&gt;
+
+&lt;p&gt;然而全局四叉堆共用的互斥锁对计时器的影响非常大，计时器的各种操作都需要获取全局唯一的互斥锁，这会严重影响计时器的性能。&lt;/p&gt;
+
+&lt;p&gt;Go 1.10 将全局的四叉堆分割成了 64 个更小的四叉堆&lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-timer/#fn:5&quot;&gt;5&lt;/a&gt;。在理想情况下，四叉堆的数量应该等于处理器的数量，但是这需要实现动态的分配过程，所以经过权衡最终选择初始化 64 个四叉堆，以牺牲内存占用的代价换取性能的提升。&lt;/p&gt;
+
+&lt;p&gt;如果当前机器上的处理器 P 的个数超过了 64，多个处理器上的计时器就可能存储在同一个桶中。每一个计时器桶都由一个运行 &lt;a href=&quot;https://draveness.me/golang/tree/runtime.timerproc:76f4fd8&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.timerproc:76f4fd8&lt;/code&gt;&lt;/a&gt; 函数的 Goroutine 处理。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://img.draveness.me/2020-01-25-15799218054791-golang-timer-bucket.png&quot; alt=&quot;golang-timer-bucket&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;网络轮询器&quot;&gt;网络轮询器&lt;/h4&gt;
+
+&lt;p&gt;将全局计时器分片的方式，虽然能够降低锁的粒度，提高计时器的性能，但是 &lt;a href=&quot;https://draveness.me/golang/tree/runtime.timerproc:76f4fd8&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.timerproc:76f4fd8&lt;/code&gt;&lt;/a&gt; 造成的处理器和线程之间频繁的上下文切换却成为了影响计时器性能的首要因素&lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-timer/#fn:6&quot;&gt;6&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;在最新版本的实现中，计时器桶已经被移除&lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-timer/#fn:7&quot;&gt;7&lt;/a&gt;，所有的计时器都以最小四叉堆的形式存储在处理器 &lt;a href=&quot;https://draveness.me/golang/tree/runtime.p&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.p&lt;/code&gt;&lt;/a&gt; 中。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210406150836.png&quot; alt=&quot;golang-p-and-timers&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;分布式定时器--延迟消息&quot;&gt;分布式定时器 &amp;amp; 延迟消息&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://cloud.tencent.com/developer/article/1573261&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;放rocksdb&quot;&gt;放rocksdb&lt;/h3&gt;
+
+&lt;p&gt;丢到自建的rocketmq broker作为缓冲层，到期后再投递到业务里，实现定时/延迟的功能&lt;/p&gt;
+
+&lt;p&gt;对于任务分发，最核心一点的是对执行时间的排序，用rocksdb代替mysql的好处就是rocksdb中缓存层，SST file对key进行了排序，所以对范围且排序的查询效率十分高&lt;/p&gt;
+
+&lt;p&gt;为什么同样是数据库RocksDB会比Mysql更加合适呢？因为RocksDB的特性是LSM树，其使用场景适用于大量写入，和消息队列的场景更加契合，所以这个也是滴滴和美团选择其作为延时消息封装的存储介质。&lt;/p&gt;
+
+&lt;h3 id=&quot;时间轮-1&quot;&gt;时间轮&lt;/h3&gt;
+
+&lt;p&gt;要实现个分布式时间轮，比如redis存了当前指针等。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">定时器</summary></entry></feed>
