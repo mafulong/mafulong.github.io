@@ -5,6 +5,18 @@ title: golang的nil
 tags: Go
 ---
 
+## 小结
+
+接口也是 Go 语言中的一种类型，它能够出现在变量的定义、函数的入参和返回值中并对它们进行约束，不过 Go 语言中有两种略微不同的接口，一种是带有一组方法的接口，另一种是不带任何方法的 `interface{}`：
+
+![golang-different-interface](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210520110312.png)
+
+需要注意的是，与 C 语言中的 `void *` 不同，`interface{}` 类型**不是任意类型**。如果我们将类型转换成了 `interface{}` 类型，变量在运行期间的类型也会发生变化，获取变量类型时会得到 `interface{}`。
+
+
+
+## 正文
+
 nil是一种数据结构么？为什么会讲到它，没搞错吧？没搞错。不仅仅是Go语言中，每门语言中nil都是非常重要的，它代表的是空值的语义。
 
 在不同语言中，表示空这个概念都有细微不同。比如在scheme语言(一种lisp方言)中，nil是true的！而在ruby语言中，一切都是对象，连nil也是一个对象！在C中NULL跟0是等价的。
@@ -40,7 +52,7 @@ i = v
 		fmt.Println("The pet is not nil. [wrap1]")
 	}
 
-```    
+```
 
 在 demo33.go 文件的这段代码中，我先声明了一个*Dog类型的变量dog1，并且没有对它进行初始化。这时该变量的值是什么？显然是nil。然后我把该变量赋给了dog2，后者的值此时也必定是nil，对吗？
 
