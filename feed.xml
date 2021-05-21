@@ -1,6 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-21T11:51:03+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">go语言问题集</title><link href="https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86/" rel="alternate" type="text/html" title="go语言问题集" /><published>2021-05-21T00:00:00+08:00</published><updated>2021-05-21T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86</id><content type="html" xml:base="https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86/">&lt;h2 id=&quot;go语言问题集&quot;&gt;go语言问题集&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-21T15:20:24+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">go语言问题集</title><link href="https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86/" rel="alternate" type="text/html" title="go语言问题集" /><published>2021-05-21T00:00:00+08:00</published><updated>2021-05-21T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86</id><content type="html" xml:base="https://mafulong.top/2021/05/21/go%E8%AF%AD%E8%A8%80%E9%97%AE%E9%A2%98%E9%9B%86/">&lt;h1 id=&quot;go语言问题集&quot;&gt;go语言问题集&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://www.bookstack.cn/books/qcrao-Go-Questions&quot;&gt;Go 语言问题集(Go Questions)&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">go语言问题集</summary></entry><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.bookstack.cn/books/qcrao-Go-Questions&quot;&gt;Go 语言问题集(Go Questions)&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;小结&quot;&gt;小结&lt;/h1&gt;
+
+&lt;h2 id=&quot;channel&quot;&gt;Channel&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CSP，Communicating Sequential Processes， 通信顺序处理。不要通过共享内存来通信，而要通过通信来实现内存共享。相比于内存共享（如mutex)，不需要考虑数据所有权，不需要保护结构的内部状态，不需要协调多个逻辑。&lt;/li&gt;
+  &lt;li&gt;chan结构:
+    &lt;ul&gt;
+      &lt;li&gt;一个循环数组（实际是循环链表），有发送、接收offset&lt;/li&gt;
+      &lt;li&gt;等待接收和发送的goroutine队列（这些 goroutine 由于尝试读取 channel 或向 channel 发送数据而被阻塞）&lt;/li&gt;
+      &lt;li&gt;mutex锁保护所有字段。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;chan本质是值的拷贝，无论是从 sender goroutine 的栈到 chan buf，还是从 chan buf 到 receiver goroutine，或者是直接从 sender goroutine 到 receiver goroutine。&lt;/li&gt;
+  &lt;li&gt;channel引发goroutine泄露：当且仅当goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。&lt;/li&gt;
+  &lt;li&gt;channel引用
+    &lt;ul&gt;
+      &lt;li&gt;停止信号&lt;/li&gt;
+      &lt;li&gt;任务定时，time.Ticker()&lt;/li&gt;
+      &lt;li&gt;解耦生产方和消费放，当并发任务队列使用。服务启动时，启动 n 个 worker，100个生产者，5个消费者同时消费。&lt;/li&gt;
+      &lt;li&gt;控制并发数，比如len=3的chan.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;channel关闭后读取可以读到零值&lt;/li&gt;
+  &lt;li&gt;channel的happened-before
+    &lt;ul&gt;
+      &lt;li&gt;channel close 一定 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;happened before&lt;/code&gt; receiver 得到通知。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;关闭chan过程
+    &lt;ul&gt;
+      &lt;li&gt;对于等待接收者而言，会收到一个相应类型的零值。对于等待发送者，会直接 panic。&lt;/li&gt;
+      &lt;li&gt;close 函数先上一把大锁，接着把所有挂在这个 channel 上的 sender 和 receiver 全都连成一个 sudog 链表，再解锁。最后，再将所有的 sudog 全都唤醒。唤醒之后，该干嘛干嘛。sender 会继续执行 chansend 函数里 goparkunlock 函数之后的代码，很不幸，检测到 channel 已经关闭了，panic。receiver 则比较幸运，进行一些扫尾工作后，返回。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;chan发送过程
+    &lt;ul&gt;
+      &lt;li&gt;如果close, panic&lt;/li&gt;
+      &lt;li&gt;如果能从等待接收队列 recvq 里出队一个 sudog（代表一个 goroutine），说明此时 channel 是空的，没有元素，所以才会有等待接收者。这时会调用 send 函数将元素直接从发送者的栈拷贝到接收者的栈&lt;/li&gt;
+      &lt;li&gt;如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c.qcount &amp;lt; c.dataqsiz&lt;/code&gt;，说明缓冲区可用（肯定是缓冲型的 channel）。先通过函数取出待发送元素应该去到的位置&lt;/li&gt;
+      &lt;li&gt;如果没有命中以上条件的，说明 channel 已经满了。不管这个 channel 是缓冲型的还是非缓冲型的，都要将这个 sender “关起来”（goroutine 被阻塞）。&lt;/li&gt;
+      &lt;li&gt;先构造一个 sudog，将其入队（channel 的 sendq 字段）。然后调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goparkunlock&lt;/code&gt; 将当前 goroutine 挂起，并解锁，等待合适的时机再唤醒。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;如何关闭chan
+    &lt;ul&gt;
+      &lt;li&gt;不要从一个 receiver 侧关闭 channel，也不要在有多个 sender 时，关闭 channel。&lt;/li&gt;
+      &lt;li&gt;本质：don’t close (or send values to) closed channels.&lt;/li&gt;
+      &lt;li&gt;增加一个中间人，增加一个传递关闭信号的 channel，receiver 通过信号 channel 下达关闭数据 channel 指令&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;总结一下操作 channel 的结果：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;操作&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;nil channel&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;closed channel&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;not nil, not closed channel&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;close&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;panic&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;panic&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;正常关闭&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;读 &amp;lt;- ch&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;阻塞&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;读到对应类型的零值&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;阻塞或正常读取数据。缓冲型 channel 为空或非缓冲型 channel 没有等待发送者时会阻塞&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;写 ch &amp;lt;-&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;阻塞&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;panic&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;阻塞或正常写入数据。非缓冲型 channel 没有等待接收者或缓冲型 channel buf 满时会被阻塞&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;总结一下，发生 panic 的情况有三种：向一个关闭的 channel 进行写操作；关闭一个 nil 的 channel；重复关闭一个 channel。&lt;/p&gt;
+
+&lt;p&gt;读、写一个 nil channel 都会被阻塞。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">go语言问题集</summary></entry><entry><title type="html">1835. 所有数对按位与结果的异或和</title><link href="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/" rel="alternate" type="text/html" title="1835. 所有数对按位与结果的异或和" /><published>2021-04-24T00:00:00+08:00</published><updated>2021-04-24T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/24/1835.%20%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/04/24/1835.-%E6%89%80%E6%9C%89%E6%95%B0%E5%AF%B9%E6%8C%89%E4%BD%8D%E4%B8%8E%E7%BB%93%E6%9E%9C%E7%9A%84%E5%BC%82%E6%88%96%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-xor-sum-of-all-pairs-bitwise-and/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;列表的 &lt;strong&gt;异或和&lt;/strong&gt;（&lt;strong&gt;XOR sum&lt;/strong&gt;）指对所有元素进行按位 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;XOR&lt;/code&gt; 运算的结果。如果列表中仅有一个元素，那么其 &lt;strong&gt;异或和&lt;/strong&gt; 就等于该元素。&lt;/p&gt;
