@@ -140,20 +140,30 @@ go语言运行时环境提供了非常强大的管理goroutine和系统内核线
 
 当一个Goroutine创建被创建时，Goroutine对象被压入 **Processor的本地队列** 或者 **Go运行时
 全局Goroutine队列** 。Processor唤醒一个Machine，如果Machine的waiting队列没有等待被
-唤醒的Machine，则创建一个（只要不超过Machine的最大值，10000），Processor获取到Machine后，与此Machine绑定，并执行此Goroutine。Machine执行过程中，随时会发生上下文切换。当发生上下文切换时，需要对执行现场进行保护，以便下次被调度执行时进行现场恢复。Go调度器中Machine的栈保存在Goroutine对象上，只需要将Machine所需要的寄存器(堆栈指针、程序计数器等)保存到Goroutine对象上即可。如果此时Goroutine任务还没有执行完，Machine可以将Goroutine重新压入Processor的队列，等待下一次被调度执行。
+唤醒的Machine，则创建一个（只要不超过Machine的最大值，10000），Processor获取到Machine后，与此Machine绑定，并执行此Goroutine。
+
+Machine执行过程中，随时会发生上下文切换。当发生上下文切换时，需要对执行现场进行保护，以便下次被调度执行时进行现场恢复。Go调度器中Machine的栈保存在Goroutine对象上，只需要将Machine所需要的寄存器(堆栈指针、程序计数器等)保存到Goroutine对象上即可。如果此时Goroutine任务还没有执行完，Machine可以将Goroutine重新压入Processor的队列，等待下一次被调度执行。
 如果执行过程遇到阻塞并阻塞超时（调度器检测这种超时），Machine会与Processor分离，并等待阻塞结束。此时Processor可以继续唤醒Machine执行其它的Goroutine，当阻塞结束时，Machine会尝试”偷取”一个Processor，如果失败，这个Goroutine会被加入到全局队列中，然后Machine将自己转入Waiting队列，等待被再次唤醒。
 
 在各个Processor运行完本地队列的任务时，会从全局队列中获取任务，调度器也会定期检查全局队列，否则在并发较高的情况下，全局队列的Goroutine会因为得不到调度而”饿死”。如果全局队列也为空的时候，会去分担其它Processor的任务，一次分一半任务，比如，ProcessorA任务完成了，ProcessorB还有10个任务待运行，Processor在获取任务的时候，会一次性拿走5个。（是不是觉得Processor相互之间很友爱啊
 ^_^）。
 
+
+
+本质上是个抢占式调度。Go scheduler 会启动一个后台线程 sysmon，用来检测长时间（超过 10 ms）运行的 goroutine，将其调度到 global runqueues。这是一个全局的 runqueue，优先级比较低，以示惩罚。
+
+
+
+M状态变化: 
+
+<img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210523140241.png" alt="M 的状态流转图" style="zoom: 33%;" />
+
+M 只有自旋和非自旋两种状态。自旋的时候，会努力找工作：检查全局队列，查看 network poller，试图执行 gc 任务，或者“偷”工作。；找不到的时候会进入非自旋状态，之后会休眠，直到有工作需要处理时，被其他工作线程唤醒，又进入自旋状态。
+
 ### 一些优化
 
 - 资源复用，池子。
 - 无锁结构。
-- 
-
-
-## GMP
 
 ### C10K问题
 一个服务器处理10000个连接后，性能会急剧下降。
@@ -164,3 +174,75 @@ go语言运行时环境提供了非常强大的管理goroutine和系统内核线
   1. 专门的线程(或者进程)采用IO多路复用的模式负责批量的处理网络IO，实现吞吐量最大化；
   2. 专门的线程(或者进程)负责处理请求；
   3. IO线程通过消息队列或者其他的方式将请求发送给业务线程；
+
+### goroutine数据结构
+
+G: 
+
+```go
+type g struct {
+    // goroutine 使用的栈
+    stack       stack   // offset known to runtime/cgo
+    // 用于栈的扩张和收缩检查，抢占标志
+    stackguard0 uintptr // offset known to liblink
+    stackguard1 uintptr // offset known to liblink
+    _panic         *_panic // innermost panic - offset known to liblink
+    _defer         *_defer // innermost defer
+    // 当前与 g 绑定的 m
+    m              *m      // current m; offset known to arm liblink
+    // goroutine 的运行现场
+    sched          gobuf
+    syscallsp      uintptr        // if status==Gsyscall, syscallsp = sched.sp to use during gc
+    syscallpc      uintptr        // if status==Gsyscall, syscallpc = sched.pc to use during gc
+    stktopsp       uintptr        // expected sp at top of stack, to check in traceback
+    // wakeup 时传入的参数
+    param          unsafe.Pointer // passed parameter on wakeup
+    atomicstatus   uint32
+    stackLock      uint32 // sigprof/scang lock; TODO: fold in to atomicstatus
+    goid           int64
+    // g 被阻塞之后的近似时间
+    waitsince      int64  // approx time when the g become blocked
+    // g 被阻塞的原因
+    waitreason     string // if status==Gwaiting
+    // 指向全局队列里下一个 g
+    schedlink      guintptr
+    // 抢占调度标志。这个为 true 时，stackguard0 等于 stackpreempt
+    preempt        bool     // preemption signal, duplicates stackguard0 = stackpreempt
+    paniconfault   bool     // panic (instead of crash) on unexpected fault address
+    preemptscan    bool     // preempted g does scan for gc
+    gcscandone     bool     // g has scanned stack; protected by _Gscan bit in status
+    gcscanvalid    bool     // false at start of gc cycle, true if G has not run since last scan; TODO: remove?
+    throwsplit     bool     // must not split stack
+    raceignore     int8     // ignore race detection events
+    sysblocktraced bool     // StartTrace has emitted EvGoInSyscall about this goroutine
+    // syscall 返回之后的 cputicks，用来做 tracing
+    sysexitticks   int64    // cputicks when syscall has returned (for tracing)
+    traceseq       uint64   // trace event sequencer
+    tracelastp     puintptr // last P emitted an event for this goroutine
+    // 如果调用了 LockOsThread，那么这个 g 会绑定到某个 m 上
+    lockedm        *m
+    sig            uint32
+    writebuf       []byte
+    sigcode0       uintptr
+    sigcode1       uintptr
+    sigpc          uintptr
+    // 创建该 goroutine 的语句的指令地址
+    gopc           uintptr // pc of go statement that created this goroutine
+    // goroutine 函数的指令地址
+    startpc        uintptr // pc of goroutine function
+    racectx        uintptr
+    waiting        *sudog         // sudog structures this g is waiting on (that have a valid elem ptr); in lock order
+    cgoCtxt        []uintptr      // cgo traceback context
+    labels         unsafe.Pointer // profiler labels
+    // time.Sleep 缓存的定时器
+    timer          *timer         // cached timer for time.Sleep
+    gcAssistBytes int64
+}
+```
+
+关键数据结构：
+
+- 数据栈：栈顶，栈低。
+- gobuf: 各种pc, sp寄存器。
+- m:  线程信息，包含了自身使用的栈信息、G信息、P信息。
+
