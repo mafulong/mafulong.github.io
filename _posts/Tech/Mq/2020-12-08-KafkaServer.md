@@ -61,7 +61,7 @@ Kafka集群中的一台服务器。
 
 如上图，本集群有：
 
-- - 4台broker。broker_1 到 broker_4
+  - 4台broker。broker_1 到 broker_4
   - 2个topic。topic_A和topic_B
   - topic_A的分区数是4。topicA_0 到 topic_3
   - topic_A的副本因子是2。例如topicA_0这个分区，有两个副本，分别分布在broker_1和broker_3两台机器上。
@@ -108,17 +108,16 @@ kafkaServer接收的请求，包括来自客户端的请求和来自其他server
 
 - **ReplicaManager**
 
-- - 把Produce日志写入磁盘
+  - 把Produce日志写入磁盘
   - 如果副本是follower，启动副本同步线程，发送fetch请求
   - 如果副本是leader，处理来自副本的fetch请求
-
 - **Coordinator**
 
-- - 管理Consumer的balance
+  - 管理Consumer的balance
 
 - **KafkaController**
 
-- - Broker 的上线、下线
+  - Broker 的上线、下线
   - 新建 topic 或已有 topic 的扩容，topic 删除
   - 处理replica的分配、迁移、leader 选举、leader 切换
 
@@ -188,40 +187,42 @@ HW与LEO存在于每一个副本，并不仅仅存在于leader。
 
 leader中维护了两套LEO，一套是自己的，另一套是follower的。
 
-1. 假设目前消息队列为空，follower启动的同步消息线程，不会获取到任何消息，也不会更新HW和LEO
+假设目前消息队列为空，follower启动的同步消息线程，不会获取到任何消息，也不会更新HW和LEO
 
 *|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/ec19a2cae1dc96baef8fe646f758b97a.png)
 
-1. 此时，Producer给leader发送了一条日志
+此时，Producer给leader发送了一条日志
 
-2. 1. leader的LEO + 1
-   2. leader尝试更新HW，HW = min(LEO)，仍然是0
+1. leader的LEO + 1
+2. leader尝试更新HW，HW = min(LEO)，仍然是0
 
 *|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/219fab4d24791360c434d96ad75c71e8.png)
 
-1. follower发送fetch请求：
+follower发送fetch请求：
 
 *|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/65578cc63bfff21a8529caed7fd904ff.png)
 
-1. 1. req的offset参数是0，表示从第0个消息开始fetch
-   2. leader更新remote LEO=0，这是因为follower request的offset是0
-   3. leader尝试更新HW，HW = min(LEO)，仍然是0
-   4. leader把数据和此时的leader HW返回给follower
-   5. follower接收到respsonse，更新LEO=1，更新HW仍然是0
+1. req的offset参数是0，表示从第0个消息开始fetch
+2. leader更新remote LEO=0，这是因为follower request的offset是0
+1. leader尝试更新HW，HW = min(LEO)，仍然是0
+1. leader把数据和此时的leader HW返回给follower
+1. follower接收到respsonse，更新LEO=1，更新HW仍然是0
 
-1. follower发送第二轮fetch请求:
+
+
+follower发送第二轮fetch请求:
 
 ![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/a730c7a7e7b6ea34fa9d3a71e1911f57.png)
 
-1. 1. req的offset参数是1，表示请求同步第一个消息
-   2. leader更新remote LEO=1，因为follower request的offset是1
-   3. leader尝试更新HW，HW=min(LEO)，**此时更新HW=1**
-   4. leader把数据和此时的leader HW返回给follower
-   5. follower接收到respsonse，更新HW，**此时更新HW=1**
+1. req的offset参数是1，表示请求同步第一个消息
+2. leader更新remote LEO=1，因为follower request的offset是1
+3. leader尝试更新HW，HW=min(LEO)，**此时更新HW=1**
+4. leader把数据和此时的leader HW返回给follower
+5. follower接收到respsonse，更新HW，**此时更新HW=1**
 
 至此，producer生产的消息已经保存到kafka的各个副本上了，Consumer已经可以消费到HW位置了。
 
-一个消息从写入kafka到完成更新HW，需要follower发送两轮fetch请求。
+一个消息从写入kafka到完成更新HW，需要follower发送两轮fetch请求。 第一轮fetch是follow告诉leader自己的leo, 以及更新offset以及leo.  第二轮fetch是告诉producer自己最新的leo用于leader更新hw.
 
 ## 3. 常见的选举、分配、Rebalance
 
