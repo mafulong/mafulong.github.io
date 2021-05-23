@@ -1,15 +1,13 @@
 ---
 layout: post
 category: Go
-title: go语言问题集
+title: go之channel
 tags: Go
 ---
 
-# go语言问题集
+## go之channel
 
 [Go 语言问题集(Go Questions)](https://www.bookstack.cn/books/qcrao-Go-Questions)
-
-# 小结
 
 ## Channel
 
@@ -54,10 +52,6 @@ tags: Go
 总结一下，发生 panic 的情况有三种：向一个关闭的 channel 进行写操作；关闭一个 nil 的 channel；重复关闭一个 channel。
 
 读、写一个 nil channel 都会被阻塞。
-
-
-
-
 
 
 
