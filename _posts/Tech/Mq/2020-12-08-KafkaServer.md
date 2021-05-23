@@ -262,7 +262,7 @@ def elect: Boolean = {
 
 新版本，Consumer启动过程如下：
 
-*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5849ad51359fe5c181c7c4673b8f6da8.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/5849ad51359fe5c181c7c4673b8f6da8.png)
 
 1. Consumer启动，向任意一台broker发送请求，得到响应。响应内容为“协调员的地址”。
 2. Consumer找到自己的Coordinator，**持续**发送心跳请求
@@ -271,7 +271,7 @@ def elect: Boolean = {
 
 ### 3.3 Leader Replica宕机触发Rebalance
 
-*|*![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/c981ddff865953bf37066940aa92cc28.png)
+![image](https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/c981ddff865953bf37066940aa92cc28.png)
 
 图：broker宕机触发replica选举
 
