@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-23T16:52:22+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">go之channel</title><link href="https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel/" rel="alternate" type="text/html" title="go之channel" /><published>2021-05-23T00:00:00+08:00</published><updated>2021-05-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel</id><content type="html" xml:base="https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel/">&lt;h2 id=&quot;go之channel&quot;&gt;go之channel&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-23T17:14:00+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">go之channel</title><link href="https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel/" rel="alternate" type="text/html" title="go之channel" /><published>2021-05-23T00:00:00+08:00</published><updated>2021-05-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel</id><content type="html" xml:base="https://mafulong.top/2021/05/23/go%E4%B9%8Bchannel/">&lt;h2 id=&quot;go之channel&quot;&gt;go之channel&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://www.bookstack.cn/books/qcrao-Go-Questions&quot;&gt;Go 语言问题集(Go Questions)&lt;/a&gt;&lt;/p&gt;
 
@@ -88,7 +88,77 @@
 
 &lt;p&gt;总结一下，发生 panic 的情况有三种：向一个关闭的 channel 进行写操作；关闭一个 nil 的 channel；重复关闭一个 channel。&lt;/p&gt;
 
-&lt;p&gt;读、写一个 nil channel 都会被阻塞。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">go之channel</summary></entry><entry><title type="html">1862. 向下取整数对和</title><link href="https://mafulong.top/2021/05/22/1862.-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C/" rel="alternate" type="text/html" title="1862. 向下取整数对和" /><published>2021-05-22T00:00:00+08:00</published><updated>2021-05-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/22/1862.%20%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/05/22/1862.-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;读、写一个 nil channel 都会被阻塞。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">go之channel</summary></entry><entry><title type="html">kafka原理2-知识点</title><link href="https://mafulong.top/2021/05/23/kafka%E5%8E%9F%E7%90%862-%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="alternate" type="text/html" title="kafka原理2-知识点" /><published>2021-05-23T00:00:00+08:00</published><updated>2021-05-23T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/23/kafka%E5%8E%9F%E7%90%862-%E7%9F%A5%E8%AF%86%E7%82%B9</id><content type="html" xml:base="https://mafulong.top/2021/05/23/kafka%E5%8E%9F%E7%90%862-%E7%9F%A5%E8%AF%86%E7%82%B9/">&lt;h2 id=&quot;kafka原理2-知识点&quot;&gt;kafka原理2-知识点&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;kafka使用tcp, io多路复用即信号驱动io, 生产者有同步和异步2种类型&lt;/li&gt;
+  &lt;li&gt;选择由producer向broker push消息并由consumer从broker pull消息。&lt;/li&gt;
+  &lt;li&gt;kafka和nsq对比：
+    &lt;ul&gt;
+      &lt;li&gt;kafka是pull，有序，吞吐高；nsq消息是无序的，吞吐低，有requeue和defer功能，不持久化，不可回溯，pull，用内存，所以速度快。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;kafka数据可靠性和重复消费
+    &lt;ol&gt;
+      &lt;li&gt;需要消费者操作幂等，来保证重复消费无影响&lt;/li&gt;
+      &lt;li&gt;处理后提交commit，保证消息被消费到，事务保证&lt;/li&gt;
+      &lt;li&gt;生产者生产消息失败时，报error。&lt;/li&gt;
+      &lt;li&gt;如果要保证有序，让消息到1个partition就行了，partition内部消费是有序的&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;kafka基于zk.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;控制器controller&quot;&gt;控制器Controller&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;控制器是如何被选出来的？&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;你一定很想知道，控制器是如何被选出来的呢？我们刚刚在前面说过，每台 Broker 都能充当控制器，那么，当集群启动后，Kafka 怎么确认控制器位于哪台 Broker 呢？&lt;/p&gt;
+
+        &lt;p&gt;实际上，Broker 在启动时，会尝试去 ZooKeeper 中创建 /controller 节点。Kafka 当前选举控制器的规则是：第一个成功创建 /controller 节点的 Broker 会被指定为控制器。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;控制器是做什么的？&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;1.主题管理（创建、删除、增加分区）&lt;/p&gt;
+
+        &lt;p&gt;2.分区重分配&lt;/p&gt;
+
+        &lt;p&gt;3.Preferred 领导者选举&lt;/p&gt;
+
+        &lt;p&gt;4.集群成员管理（新增 Broker、Broker 主动关闭、Broker 宕机）&lt;/p&gt;
+
+        &lt;p&gt;5.数据服务&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;保存的数据：&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210523170815.png&quot; alt=&quot;image-20210523170815843&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;consumer管理offset&quot;&gt;consumer管理offset&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;kafka内部有个主题，__consumer_offset&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;老版本 Consumer 的位移管理是依托于 Apache ZooKeeper 的，它会自动或手动地将位移数据提交到 ZooKeeper 中保存。当 Consumer 重启后，它能自动从 ZooKeeper 中读取位移数据，从而在上次消费截止的地方继续消费。这种设计使得 Kafka Broker 不需要保存位移数据，减少了 Broker 端需要持有的状态空间，因而有利于实现高伸缩性。&lt;/p&gt;
+
+&lt;p&gt;但是，ZooKeeper 其实并不适用于这种高频的写操作，因此，Kafka 社区自 0.8.2.x 版本开始，就在酝酿修改这种设计，并最终在新版本 Consumer 中正式推出了全新的位移管理机制，自然也包括这个新的位移主题。&lt;/p&gt;
+
+&lt;p&gt;新版本 Consumer 的位移管理机制其实也很简单，就是将 Consumer 的位移数据作为一条条普通的 Kafka 消息，提交到 __consumer_offsets 中。可以这么说，__consumer_offsets 的主要作用是保存 Kafka 消费者的位移信息。它要求这个提交过程不仅要实现高持久性，还要支持高频的写操作。显然，Kafka 的主题设计天然就满足这两个条件，因此，使用 Kafka 主题来保存位移这件事情，实际上就是一个水到渠成的想法了。&lt;/p&gt;
+
+&lt;p&gt;位移主题的 Key 中应该保存 3 部分内容：gourpId, topic, partitionId&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Mq" /><category term="Mq" /><summary type="html">kafka原理2-知识点</summary></entry><entry><title type="html">1862. 向下取整数对和</title><link href="https://mafulong.top/2021/05/22/1862.-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C/" rel="alternate" type="text/html" title="1862. 向下取整数对和" /><published>2021-05-22T00:00:00+08:00</published><updated>2021-05-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/22/1862.%20%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/05/22/1862.-%E5%90%91%E4%B8%8B%E5%8F%96%E6%95%B4%E6%95%B0%E5%AF%B9%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sum-of-floored-pairs/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; ，请你返回所有下标对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= i, j &amp;lt; nums.length&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;floor(nums[i] / nums[j])&lt;/code&gt; 结果之和。由于答案可能会很大，请你返回答案对&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;109 + 7&lt;/code&gt; &lt;strong&gt;取余&lt;/strong&gt; 的结果。&lt;/p&gt;
@@ -475,101 +545,4 @@ code &lt;span class=&quot;nt&quot;&gt;--list-extensions&lt;/span&gt;
   &lt;li&gt;判断能否限流规则， token&amp;gt;0则不限流，原子判断token是否大于0&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;golang实现漏桶&quot;&gt;golang实现漏桶&lt;/h3&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">保障服务稳定的三大利器：熔断降级、服务限流和故障模拟。今天和大家谈谈限流算法的几种实现方式，本文所说的限流并非是Nginx层面的限流，而是业务代码中的逻辑限流。</summary></entry><entry><title type="html">1255. 得分最高的单词集合</title><link href="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/" rel="alternate" type="text/html" title="1255. 得分最高的单词集合" /><published>2021-04-10T00:00:00+08:00</published><updated>2021-04-10T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/10/1255.%20%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88</id><content type="html" xml:base="https://mafulong.top/2021/04/10/1255.-%E5%BE%97%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E5%8D%95%E8%AF%8D%E9%9B%86%E5%90%88/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-score-words-formed-by-letters/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;你将会得到一份单词表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt;，一个字母表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters&lt;/code&gt; （可能会有重复字母），以及每个字母对应的得分情况表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;请你帮忙计算玩家在单词拼写游戏中所能获得的「最高得分」：能够由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters&lt;/code&gt; 里的字母拼写出的 &lt;strong&gt;任意&lt;/strong&gt; 属于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 单词子集中，分数最高的单词集合的得分。&lt;/p&gt;
-
-&lt;p&gt;单词拼写游戏的规则概述如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;玩家需要用字母表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters&lt;/code&gt; 里的字母来拼写单词表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 中的单词。&lt;/li&gt;
-  &lt;li&gt;可以只使用字母表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters&lt;/code&gt; 中的部分字母，但是每个字母最多被使用一次。&lt;/li&gt;
-  &lt;li&gt;单词表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 中每个单词只能计分（使用）一次。&lt;/li&gt;
-  &lt;li&gt;根据字母得分情况表&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score&lt;/code&gt;，字母 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'a'&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'b'&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'c'&lt;/code&gt;, … , &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'z'&lt;/code&gt; 对应的得分分别为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score[0]&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score[1]&lt;/code&gt;, …, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score[25]&lt;/code&gt;。&lt;/li&gt;
-  &lt;li&gt;本场游戏的「得分」是指：玩家所拼写出的单词集合里包含的所有字母的得分之和。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：words = [&quot;dog&quot;,&quot;cat&quot;,&quot;dad&quot;,&quot;good&quot;], letters = [&quot;a&quot;,&quot;a&quot;,&quot;c&quot;,&quot;d&quot;,&quot;d&quot;,&quot;d&quot;,&quot;g&quot;,&quot;o&quot;,&quot;o&quot;], score = [1,0,9,5,0,0,3,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0]
-输出：23
-解释：
-字母得分为  a=1, c=9, d=5, g=3, o=2
-使用给定的字母表 letters，我们可以拼写单词 &quot;dad&quot; (5+1+5)和 &quot;good&quot; (3+2+2+5)，得分为 23 。
-而单词 &quot;dad&quot; 和 &quot;dog&quot; 只能得到 21 分。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：words = [&quot;xxxz&quot;,&quot;ax&quot;,&quot;bx&quot;,&quot;cx&quot;], letters = [&quot;z&quot;,&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;x&quot;,&quot;x&quot;,&quot;x&quot;], score = [4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,10]
-输出：27
-解释：
-字母得分为  a=4, b=4, c=4, x=5, z=10
-使用给定的字母表 letters，我们可以组成单词 &quot;ax&quot; (4+5)， &quot;bx&quot; (4+5) 和 &quot;cx&quot; (4+5) ，总得分为 27 。
-单词 &quot;xxxz&quot; 的得分仅为 25 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：words = [&quot;leetcode&quot;], letters = [&quot;l&quot;,&quot;e&quot;,&quot;t&quot;,&quot;c&quot;,&quot;o&quot;,&quot;d&quot;], score = [0,0,1,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1,0,0,0,0,0,0]
-输出：0
-解释：
-字母 &quot;e&quot; 在字母表 letters 中只出现了一次，所以无法组成单词表 words 中的单词。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words.length &amp;lt;= 14&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words[i].length &amp;lt;= 15&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= letters.length &amp;lt;= 100&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters[i].length == 1&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;score.length == 26&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= score[i] &amp;lt;= 10&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words[i]&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;letters[i]&lt;/code&gt; 只包含小写的英文字母。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;回溯法&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;maxScoreWords&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;letters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;chr2score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;chr2int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;lettterCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;letters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;wordCounter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;wordScore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chr2score&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;nonlocal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordCounter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()):&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-                    &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-                    &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lettterCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;h3 id=&quot;golang实现漏桶&quot;&gt;golang实现漏桶&lt;/h3&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">保障服务稳定的三大利器：熔断降级、服务限流和故障模拟。今天和大家谈谈限流算法的几种实现方式，本文所说的限流并非是Nginx层面的限流，而是业务代码中的逻辑限流。</summary></entry></feed>
