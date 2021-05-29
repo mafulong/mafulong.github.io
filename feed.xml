@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-28T14:26:27+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Redis2-知识点</title><link href="https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="alternate" type="text/html" title="Redis2-知识点" /><published>2021-05-28T00:00:00+08:00</published><updated>2021-05-28T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9</id><content type="html" xml:base="https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9/">&lt;h2 id=&quot;redis2-知识点&quot;&gt;Redis2-知识点&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-05-29T10:27:11+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">365. 水壶问题</title><link href="https://mafulong.top/2021/05/29/365.-%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="365. 水壶问题" /><published>2021-05-29T00:00:00+08:00</published><updated>2021-05-29T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/29/365.%20%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.top/2021/05/29/365.-%E6%B0%B4%E5%A3%B6%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/water-and-jug-problem/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;有两个容量分别为 &lt;em&gt;x&lt;/em&gt;升 和 &lt;em&gt;y&lt;/em&gt;升 的水壶以及无限多的水。请判断能否通过使用这两个水壶，从而可以得到恰好 &lt;em&gt;z&lt;/em&gt;升 的水？&lt;/p&gt;
+
+&lt;p&gt;如果可以，最后请用以上水壶中的一或两个来盛放取得的 &lt;em&gt;z升&lt;/em&gt; 水。&lt;/p&gt;
+
+&lt;p&gt;你允许：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;装满任意一个水壶&lt;/li&gt;
+  &lt;li&gt;清空任意一个水壶&lt;/li&gt;
+  &lt;li&gt;从一个水壶向另外一个水壶倒水，直到装满或者倒空&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt; (From the famous &lt;a href=&quot;https://www.youtube.com/watch?v=BVtQNK_ZUJg&quot;&gt;&lt;em&gt;“Die Hard”&lt;/em&gt; example&lt;/a&gt;)&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: x = 3, y = 5, z = 4
+输出: True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: x = 2, y = 6, z = 5
+输出: False
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;数学问题，&lt;a href=&quot;https://leetcode-cn.com/problems/water-and-jug-problem/solution/shui-hu-wen-ti-by-leetcode-solution/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canMeasureWater&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gcd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">Redis2-知识点</title><link href="https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="alternate" type="text/html" title="Redis2-知识点" /><published>2021-05-28T00:00:00+08:00</published><updated>2021-05-28T00:00:00+08:00</updated><id>https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9</id><content type="html" xml:base="https://mafulong.top/2021/05/28/Redis2-%E7%9F%A5%E8%AF%86%E7%82%B9/">&lt;h2 id=&quot;redis2-知识点&quot;&gt;Redis2-知识点&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/ThinkWon/article/details/103522351&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
@@ -959,41 +997,4 @@ code &lt;span class=&quot;nt&quot;&gt;--list-extensions&lt;/span&gt;
   &lt;li&gt;Log,&lt;/li&gt;
   &lt;li&gt;鉴权acl&lt;/li&gt;
   &lt;li&gt;限流器，令牌桶。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">微服务中间件</summary></entry><entry><title type="html">熔断器</title><link href="https://mafulong.top/2021/04/13/%E7%86%94%E6%96%AD%E5%99%A8/" rel="alternate" type="text/html" title="熔断器" /><published>2021-04-13T00:00:00+08:00</published><updated>2021-04-13T00:00:00+08:00</updated><id>https://mafulong.top/2021/04/13/%E7%86%94%E6%96%AD%E5%99%A8</id><content type="html" xml:base="https://mafulong.top/2021/04/13/%E7%86%94%E6%96%AD%E5%99%A8/">&lt;h2 id=&quot;熔断器&quot;&gt;熔断器&lt;/h2&gt;
-
-&lt;h3 id=&quot;熔断器模式&quot;&gt;熔断器模式&lt;/h3&gt;
-
-&lt;p&gt;熔断器模式定义了熔断器开关相互转换的逻辑:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210413173634.png&quot; alt=&quot;image-20210413173622309&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;服务的健康状况 = 请求失败数 / 请求总数.
-熔断器开关由关闭到打开的状态转换是通过当前服务健康状况和设定阈值比较决定的.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;当熔断器开关关闭时, 请求被允许通过熔断器. 如果当前健康状况高于设定阈值, 开关继续保持关闭. 如果当前健康状况低于设定阈值, 开关则切换为打开状态.&lt;/li&gt;
-  &lt;li&gt;当熔断器开关打开时, 请求被禁止通过.&lt;/li&gt;
-  &lt;li&gt;当熔断器开关处于打开状态, 经过一段时间后, 熔断器会自动进入半开状态, 这时熔断器只允许一个请求通过. 当该请求调用成功时, 熔断器恢复到关闭状态. 若该请求失败, 熔断器继续保持打开状态, 接下来的请求被禁止通过.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;熔断器的开关能保证服务调用者在调用异常服务时, 快速返回结果, 避免大量的同步等待. 并且熔断器能在一段时间后继续侦测请求执行结果, 提供恢复服务调用的可能.&lt;/p&gt;
-
-&lt;p&gt;资源上可以互相隔离。比如一个依赖服务端一个熔断器。&lt;/p&gt;
-
-&lt;p&gt;微服务可以两个熔断器，一个是针对服务实例熔断、一个是针对依赖服务接口熔断。&lt;/p&gt;
-
-&lt;p&gt;并且也不必全靠真实流量从半开到闭合，像实例也可以用Ping定时检测自动恢复，避免影响真实流量。&lt;/p&gt;
-
-&lt;p&gt;以上也是&lt;strong&gt;Hystrix&lt;/strong&gt; [hɪst’rɪks]的设计理念。&lt;/p&gt;
-
-&lt;h3 id=&quot;熔断器实现&quot;&gt;熔断器实现&lt;/h3&gt;
-
-&lt;p&gt;以golang为例子。使用无锁结构或者atomic方式。&lt;/p&gt;
-
-&lt;p&gt;维护bucket，比如每10ms一个bucket， bucket上维护计数器cnt。&lt;/p&gt;
-
-&lt;p&gt;每次接口调用都在最新的bucket上+1，可能是success也可能是fail。&lt;/p&gt;
-
-&lt;p&gt;计算是否熔断时累加每个bucket的值即可。&lt;/p&gt;
-
-&lt;p&gt;bucket组织形式感觉可以用的循环数组实现。循环数组可以用个mutex锁住。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">熔断器</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">微服务中间件</summary></entry></feed>
