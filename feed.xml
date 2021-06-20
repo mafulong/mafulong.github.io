@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-06-20T14:08:57+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-06-20T14:10:48+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
 
 &lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;在并发场景下，没办法保证更新操作的有序性。关于这点，我们可以利用系统本身的有序性来解决，例如利用binlog来保证有序性，更新或删除缓存。&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;在并发场景下，没办法保证更新操作的有序性。关于这点，我们可以利用系统本身的有序性来解决，例如利用binlog来保证有序性，更新或删除缓存。&lt;/p&gt;
 
 &lt;h2 id=&quot;缓存模式&quot;&gt;缓存模式&lt;/h2&gt;
 
-&lt;h3 id=&quot;cache-aside-标准缓存模式&quot;&gt;&lt;strong&gt;Cache Aside 标准缓存模式&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3 id=&quot;cache-aside-标准缓存模式&quot;&gt;Cache Aside 标准缓存模式&lt;/h3&gt;
 
 &lt;p&gt;对于读操作，先读缓存，读不到就读db，然后回写缓存;对于写操作，会先更新db，然后删除缓存（使缓存失效）。&lt;/p&gt;
 
