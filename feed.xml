@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-06-21T22:53:24+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">前缀和</title><link href="https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="alternate" type="text/html" title="前缀和" /><published>2021-06-21T00:00:00+08:00</published><updated>2021-06-21T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C/">&lt;h2 id=&quot;前缀和&quot;&gt;前缀和&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-06-21T23:19:54+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">前缀和</title><link href="https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C/" rel="alternate" type="text/html" title="前缀和" /><published>2021-06-21T00:00:00+08:00</published><updated>2021-06-21T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C</id><content type="html" xml:base="https://mafulong.top/2021/06/21/%E5%89%8D%E7%BC%80%E5%92%8C/">&lt;h2 id=&quot;前缀和&quot;&gt;前缀和&lt;/h2&gt;
 
 &lt;p&gt;前缀和思想和滑动窗口会经常用在求子数组和子串问题上，当我们遇到此类问题时，则应该需要想到此类解题方式，该文章深入浅出描述前缀和思想，读完这个文章就会有属于自己的解题框架，遇到此类问题时就能够轻松应对。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/continuous-subarray-sum/solution/de-liao-wo-ba-qian-zhui-he-miao-de-gan-g-c8kp/&quot;&gt;必看&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/circle/discuss/SrePlc/&quot;&gt;前缀和题目大汇总必看&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;维护map&lt;/p&gt;
 
@@ -14,7 +16,384 @@
 
 &lt;p&gt;差[l,r]的绝对值最小值。用前缀和判断[l,r]有没有数字num（范围有限)&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-absolute-difference-queries/&quot;&gt;1906. 查询差绝对值的最小值&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">前缀和</summary></entry><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-absolute-difference-queries/&quot;&gt;1906. 查询差绝对值的最小值&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;0-基础前缀和&quot;&gt;$0 基础前缀和&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/range-sum-query-immutable/&quot;&gt;303. 区域和检索 - 数组不可变&lt;/a&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/range-sum-query-2d-immutable/&quot;&gt;304. 二维区域和检索 - 矩阵不可变&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/25169.html&quot;&gt;前缀和与差分&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;1-频数前缀和&quot;&gt;$1 频数前缀和&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/can-make-palindrome-from-substring/&quot;&gt;1177. 构建回文串检测&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/321431d8.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/sum-of-floored-pairs/&quot;&gt;1862. 向下取整数对和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/7e1cd469.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;2-数据结构维护前缀和&quot;&gt;$2 数据结构维护前缀和&lt;/h2&gt;
+
+&lt;h3 id=&quot;单调队列维护&quot;&gt;单调队列维护&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-subarray/&quot;&gt;53. 最大子序和&lt;/a&gt; &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-sum-circular-subarray/&quot;&gt;918. 环形子数组的最大和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/8501.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;单调栈维护&quot;&gt;单调栈维护&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/longest-well-performing-interval/&quot;&gt;1124. 表现良好的最长时间段&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/62e87f73.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;hashmap-维护&quot;&gt;HashMap 维护&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-键是前缀和的值值为第一次出现时的索引&quot;&gt;(1) 键是前缀和的值，值为第一次出现时的索引&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-size-subarray-sum-equals-k/&quot;&gt;325. 和等于 k 的最长子数组长度&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/22173.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/contiguous-array/&quot;&gt;525. 连续数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;频数前缀和, 记录 1 和 0 的个数差&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-the-longest-substring-containing-vowels-in-even-counts/&quot;&gt;1371. 每个元音包含偶数次的最长子字符串&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/22173.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-longest-awesome-substring/&quot;&gt;1542. 找出最长的超赞子字符串&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;频数前缀和，记录 0,1,2,3,4,5,6,7,8,9 的个数的奇偶性&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;2-键是前缀和的值值为出现次数&quot;&gt;(2) 键是前缀和的值，值为出现次数&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/subarray-sum-equals-k/&quot;&gt;560. 和为K的子数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-submatrices-that-sum-to-target/&quot;&gt;1074. 元素和为目标值的子矩阵数量&lt;/a&gt; 的一维版本, &lt;a href=&quot;https://chengzhaoxi.xyz/e89a20bf.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/count-number-of-nice-subarrays/&quot;&gt;1248. 统计优美子数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/22173.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;3-键是前缀和模-k-的余数&quot;&gt;(3) 键是前缀和模 K 的余数&lt;/h4&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/continuous-subarray-sum/&quot;&gt;523. 连续的子数组和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;值为第一次出现时的索引&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/subarray-sums-divisible-by-k/&quot;&gt;974. 和可被 K 整除的子数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;值为出现次数&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/make-sum-divisible-by-p/&quot;&gt;1590. 使数组和能被 P 整除&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;值为最后一次出现时的索引&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-sub-arrays-with-odd-sum/&quot;&gt;1524. 和为奇数的子数组数目&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;值为出现次数&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;3-二维前缀和&quot;&gt;$3 二维前缀和&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-submatrices-that-sum-to-target/&quot;&gt;1074. 元素和为目标值的子矩阵数量&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/subarray-sum-equals-k/&quot;&gt;560. 和为K的子数组&lt;/a&gt; 的二维版本, &lt;a href=&quot;https://chengzhaoxi.xyz/e89a20bf.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/max-submatrix-lcci/&quot;&gt;面试题 17.24. 最大子矩阵&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;思路类似于 &lt;a href=&quot;https://leetcode-cn.com/problems/maximum-subarray/&quot;&gt;53. 最大子序和&lt;/a&gt;, &lt;a href=&quot;https://chengzhaoxi.xyz/27a63125.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/max-sum-of-rectangle-no-larger-than-k/&quot;&gt;363. 矩形区域不超过 K 的最大数值和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;在&lt;a href=&quot;https://leetcode-cn.com/problems/max-submatrix-lcci/&quot;&gt;面试题 17.24. 最大子矩阵&lt;/a&gt;基础上加了一个 K, &lt;a href=&quot;https://chengzhaoxi.xyz/d98d7741.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-side-length-of-a-square-with-sum-less-than-or-equal-to-threshold/&quot;&gt;1292. 元素和小于等于阈值的正方形的最大边长&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;二分 + 二维前缀和&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/matrix-block-sum/&quot;&gt;1314. 矩阵区域和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/largest-1-bordered-square/&quot;&gt;1139. 最大的以 1 为边界的正方形&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;用两组一维前缀和&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;4-运算推广&quot;&gt;$4 运算推广&lt;/h2&gt;
+
+&lt;h3 id=&quot;前缀积&quot;&gt;前缀积&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-product-subarray/&quot;&gt;152. 乘积最大子数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/bc5f24e2.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/product-of-the-last-k-numbers/&quot;&gt;1352. 最后 K 个数的乘积&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;若乘法的前缀积会溢出，可以用对数的前缀和防溢出，但是结果转回整数需要用四舍五入而不是下取整&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;前缀异或&quot;&gt;前缀异或&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/xor-queries-of-a-subarray/&quot;&gt;1310. 子数组异或查询&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;基础前缀异或&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/&quot;&gt;1442. 形成两个异或相等数组的三元组数目&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;哈希表维护前缀异或结果&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-kth-largest-xor-coordinate-value/&quot;&gt;1738. 找出第 K 大的异或坐标值&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;二维前缀异或&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;5-同时需要前缀和与后缀和信息&quot;&gt;$5 同时需要前缀和与后缀和信息&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/product-of-array-except-self/&quot;&gt;238. 除自身以外数组的乘积&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-pivot-index/&quot;&gt;724. 寻找数组的中心索引&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-two-non-overlapping-sub-arrays-each-with-target-sum/&quot;&gt;1477. 找两个和为目标值且不重叠的子数组&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/&quot;&gt;926. 将字符串翻转到单调递增&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/push-dominoes/&quot;&gt;838. 推多米诺&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/count-unique-characters-of-all-substrings-of-a-given-string/&quot;&gt;828. 统计子串中的唯一字符&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/e52b9148.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-good-ways-to-split-a-string/&quot;&gt;1525. 字符串的好分割数目&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;频数前缀和, 统计字符的个数&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;6-前缀和预处理优化-dp&quot;&gt;$6 前缀和预处理优化 dp&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用前缀和预处理原始数组&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/new-21-game/&quot;&gt;837. 新21点&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-ways-of-cutting-a-pizza/&quot;&gt;1444. 切披萨的方案数&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/allocate-mailboxes/&quot;&gt;1478. 安排邮筒&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;7-前缀和优化-dp&quot;&gt;$7 前缀和优化 dp&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用前缀和维护 dp 数组&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/jump-game-vii/&quot;&gt;1871. 跳跃游戏 VII&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/8fa62e7.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;8-差分&quot;&gt;$8 差分&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/merge-intervals/&quot;&gt;56. 合并区间&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/11686.html&quot;&gt;题解&lt;/a&gt;, 更好的做法是排序后贪心或者扫描线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/range-addition/&quot;&gt;370. 区间加法&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/58832.html&quot;&gt;题解&lt;/a&gt;, 用差分维护区间加法模板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/corporate-flight-bookings/&quot;&gt;1109. 航班预订统计&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/58832.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;9-其它&quot;&gt;$9 其它&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;题目&lt;/th&gt;
+      &lt;th&gt;备注&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/design-a-stack-with-increment-operation/&quot;&gt;1381. 设计一个支持增量操作的栈&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/34670.html&quot;&gt;题解&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-sum-of-3-non-overlapping-subarrays/&quot;&gt;689. 三个无重叠子数组的最大和&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;在预处理出的序列上再做前缀和&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">前缀和</summary></entry><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
 
 &lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
 
