@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.top/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 14908 字，约 43 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.top/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15106 字，约 44 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -129,6 +129,11 @@
 <span class="n">c</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">c</span><span class="p">[</span><span class="s">'k'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span>
 <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
+
+<span class="n">defaultdict还可以作为id生成器</span><span class="err">。</span> 
+<span class="c1"># 参考: https://leetcode-cn.com/problems/find-duplicate-subtrees/solution/xun-zhao-zhong-fu-de-zi-shu-by-leetcode/
+</span><span class="n">trees</span> <span class="o">=</span> <span class="n">collections</span><span class="p">.</span><span class="n">defaultdict</span><span class="p">()</span>
+<span class="n">trees</span><span class="p">.</span><span class="n">default_factory</span> <span class="o">=</span> <span class="n">trees</span><span class="p">.</span><span class="n">__len__</span>
 
 </code></pre></div></div>
 <h3 id="sortedset-sorteddict">SortedSet, SortedDict</h3>
