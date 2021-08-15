@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-08-15T00:26:44+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1948. 删除系统中的重复文件夹</title><link href="https://mafulong.top/2021/08/15/1948.-%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9/" rel="alternate" type="text/html" title="1948. 删除系统中的重复文件夹" /><published>2021-08-15T00:00:00+08:00</published><updated>2021-08-15T00:00:00+08:00</updated><id>https://mafulong.top/2021/08/15/1948.%20%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9</id><content type="html" xml:base="https://mafulong.top/2021/08/15/1948.-%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-08-15T18:54:14+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1944. 队列中可以看到的人数</title><link href="https://mafulong.top/2021/08/15/1944.-%E9%98%9F%E5%88%97%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%BA%E6%95%B0/" rel="alternate" type="text/html" title="1944. 队列中可以看到的人数" /><published>2021-08-15T00:00:00+08:00</published><updated>2021-08-15T00:00:00+08:00</updated><id>https://mafulong.top/2021/08/15/1944.%20%E9%98%9F%E5%88%97%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%BA%E6%95%B0</id><content type="html" xml:base="https://mafulong.top/2021/08/15/1944.-%E9%98%9F%E5%88%97%E4%B8%AD%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E7%9A%84%E4%BA%BA%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-visible-people-in-a-queue/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个人排成一个队列，&lt;strong&gt;从左到右&lt;/strong&gt; 编号为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n - 1&lt;/code&gt; 。给你以一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;heights&lt;/code&gt; ，每个整数 &lt;strong&gt;互不相同&lt;/strong&gt;，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;heights[i]&lt;/code&gt; 表示第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个人的高度。&lt;/p&gt;
+
+&lt;p&gt;一个人能 &lt;strong&gt;看到&lt;/strong&gt; 他右边另一个人的条件是这两人之间的所有人都比他们两人 &lt;strong&gt;矮&lt;/strong&gt; 。更正式的，第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个人能看到第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; 个人的条件是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i &amp;lt; j&lt;/code&gt; 且 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;min(heights[i], heights[j]) &amp;gt; max(heights[i+1], heights[i+2], ..., heights[j-1])&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;请你返回一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;answer&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;answer[i]&lt;/code&gt; 是第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个人在他右侧队列中能 &lt;strong&gt;看到&lt;/strong&gt; 的 &lt;strong&gt;人数&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://assets.leetcode.com/uploads/2021/05/29/queue-plane.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：heights = [10,6,8,5,11,9]
+输出：[3,1,2,1,1,0]
+解释：
+第 0 个人能看到编号为 1 ，2 和 4 的人。
+第 1 个人能看到编号为 2 的人。
+第 2 个人能看到编号为 3 和 4 的人。
+第 3 个人能看到编号为 4 的人。
+第 4 个人能看到编号为 5 的人。
+第 5 个人谁也看不到因为他右边没人。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：heights = [5,1,2,3,10]
+输出：[4,1,1,1,0]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == heights.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= heights[i] &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;heights&lt;/code&gt; 中所有数 &lt;strong&gt;互不相同&lt;/strong&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;单调栈题目。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;canSeePersonsCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heights&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">1948. 删除系统中的重复文件夹</title><link href="https://mafulong.top/2021/08/15/1948.-%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9/" rel="alternate" type="text/html" title="1948. 删除系统中的重复文件夹" /><published>2021-08-15T00:00:00+08:00</published><updated>2021-08-15T00:00:00+08:00</updated><id>https://mafulong.top/2021/08/15/1948.%20%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9</id><content type="html" xml:base="https://mafulong.top/2021/08/15/1948.-%E5%88%A0%E9%99%A4%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E6%96%87%E4%BB%B6%E5%A4%B9/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/delete-duplicate-folders-in-system/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;由于一个漏洞，文件系统中存在许多重复文件夹。给你一个二维数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paths&lt;/code&gt;，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paths[i]&lt;/code&gt; 是一个表示文件系统中第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个文件夹的绝对路径的数组。&lt;/p&gt;
@@ -834,11 +891,23 @@ queries[4] : 子串 = &quot;abcda&quot;，可以变成回文的 &quot;abcba&quot
 
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/solution/dan-diao-dui-lie-yu-dan-diao-zhan-by-huaji_store/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;todo&lt;/p&gt;
-
 &lt;p&gt;单调栈用于求下一个比它大或者比它小的。o(n)。 或者是左边最小的。&lt;/p&gt;
 
-&lt;p&gt;单调队列在此基础上可以筛选头部不要的元素。也就是可以求比如限定多少范围以内的，往往是头部最先不合法。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">单调队列和单调栈</summary></entry><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
+&lt;p&gt;单调队列在此基础上可以筛选头部不要的元素。也就是可以求比如限定多少范围以内的，往往是头部最先不合法。&lt;/p&gt;
+
+&lt;p&gt;维护一个栈， 最终目的是把当前元素append进去，因此可能对pop一些元素，可利用的就是pop的这些元素，和最后插入元素这两个时机。&lt;/p&gt;
+
+&lt;p&gt;如果是递减栈，则插入过程中被Pop掉的都是小于当前i的值， 因此对于pop元素，求的是的右边第一个大，对i也知道左边第一个小。&lt;/p&gt;
+
+&lt;p&gt;单调队列就是单调栈的底部有些不合法，提前给过滤。&lt;/p&gt;
+
+&lt;p&gt;单调栈题目:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h4 id=&quot;1944-队列中可以看到的人数&quot;&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/number-of-visible-people-in-a-queue/&quot;&gt;1944. 队列中可以看到的人数&lt;/a&gt;&lt;/h4&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">单调队列和单调栈</summary></entry><entry><title type="html">缓存一致性</title><link href="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="缓存一致性" /><published>2021-06-20T00:00:00+08:00</published><updated>2021-06-20T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.top/2021/06/20/%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h2&gt;
 
 &lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
 
@@ -987,28 +1056,4 @@ queries[4] : 子串 = &quot;abcda&quot;，可以变成回文的 &quot;abcba&quot
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;:action {name}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;比如执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:action Debug&lt;/code&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="IDE" /><category term="IDE" /><summary type="html">ideavim配置</summary></entry><entry><title type="html">739. 每日温度</title><link href="https://mafulong.top/2021/06/04/739.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/" rel="alternate" type="text/html" title="739. 每日温度" /><published>2021-06-04T00:00:00+08:00</published><updated>2021-06-04T00:00:00+08:00</updated><id>https://mafulong.top/2021/06/04/739.%20%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6</id><content type="html" xml:base="https://mafulong.top/2021/06/04/739.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/daily-temperatures/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;请根据每日 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;气温&lt;/code&gt; 列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 来代替。&lt;/p&gt;
-
-&lt;p&gt;例如，给定一个列表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;temperatures = [73, 74, 75, 71, 69, 72, 76, 73]&lt;/code&gt;，你的输出应该是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, 1, 4, 2, 1, 1, 0, 0]&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;气温&lt;/code&gt; 列表长度的范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, 30000]&lt;/code&gt;。每个气温的值的均为华氏度，都是在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[30, 100]&lt;/code&gt; 范围内的整数。&lt;/p&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;单调栈题目&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dailyTemperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temperatures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;p&gt;比如执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:action Debug&lt;/code&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="IDE" /><category term="IDE" /><summary type="html">ideavim配置</summary></entry></feed>
