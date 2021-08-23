@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-08-22T23:44:59+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">离散化</title><link href="https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="alternate" type="text/html" title="离散化" /><published>2021-08-22T00:00:00+08:00</published><updated>2021-08-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96</id><content type="html" xml:base="https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96/">&lt;h2 id=&quot;离散化&quot;&gt;离散化&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.top/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.top/" rel="alternate" type="text/html" /><updated>2021-08-23T13:02:07+08:00</updated><id>https://mafulong.top/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">离散化</title><link href="https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96/" rel="alternate" type="text/html" title="离散化" /><published>2021-08-22T00:00:00+08:00</published><updated>2021-08-22T00:00:00+08:00</updated><id>https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96</id><content type="html" xml:base="https://mafulong.top/2021/08/22/%E7%A6%BB%E6%95%A3%E5%8C%96/">&lt;h2 id=&quot;离散化&quot;&gt;离散化&lt;/h2&gt;
 
 &lt;p&gt;Sorted(Range(N))的用法。&lt;/p&gt;
 
@@ -1060,6 +1060,7 @@ queries[4] : 子串 = &quot;abcda&quot;，可以变成回文的 &quot;abcba&quot
 &lt;ul&gt;
   &lt;li&gt;求左边/右边 第一个比a[i]大/小的值。&lt;/li&gt;
   &lt;li&gt;求左边/右边 持续的a[i]&amp;lt;a[j]或者a[i]&amp;gt;a[j]的值。&lt;/li&gt;
+  &lt;li&gt;利用单调栈做一些合并，比如&lt;a href=&quot;https://leetcode-cn.com/problems/online-stock-span/&quot;&gt;901. 股票价格跨度&lt;/a&gt; 求出小于或等于今天价格的最大连续日数等价于求出最近的一个大于今日价格的日子。使用单调栈，元素weight进行合并。再比如题目: &lt;a href=&quot;https://leetcode-cn.com/problems/minimum-cost-tree-from-leaf-values/&quot;&gt;1130. 叶值的最小代价生成树&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/smallest-subsequence-of-distinct-characters/&quot;&gt;求不重复的字典序字符串&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://chengzhaoxi.xyz/cc968d26.html&quot;&gt;求A[i]&amp;lt;A[j]的最大j-i, 最大宽度坡&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1110,7 +1111,7 @@ queries[4] : 子串 = &quot;abcda&quot;，可以变成回文的 &quot;abcba&quot
 
 &lt;p&gt;注意以上求法是非严格小的。&lt;/p&gt;
 
-&lt;p&gt;下面是严格小的：&lt;img src=&quot;https://pic.leetcode-cn.com/1613007377-MVxZMC-stackl-1Jl's%20sInallest.png&quot; alt=&quot;stackl-1Jl's sInallest.png&quot; /&gt; 对于stack[-1]来说，&lt;a href=&quot;https://leetcode-cn.com/problems/sum-of-subarray-minimums/solution/python3-tong-84ti-zui-da-zhi-fang-tu-by-5ersw/&quot;&gt;参考：&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;严格小的：对于stack[-1]，它左右两边就是严格小的。，&lt;a href=&quot;https://leetcode-cn.com/problems/sum-of-subarray-minimums/solution/python3-tong-84ti-zui-da-zhi-fang-tu-by-5ersw/&quot;&gt;参考：&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;相关题目：&lt;/p&gt;
 
