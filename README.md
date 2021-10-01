@@ -1,6 +1,6 @@
 ## Blog
 
-这是我的博客，网址 [mafulong.top](https://mafulong.top),  基于github pages
+这是我的博客，网址 [mafulong.github.io](https://mafulong.github.io),  基于github pages
 
 ## Usage
 
