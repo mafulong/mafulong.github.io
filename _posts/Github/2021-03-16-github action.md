@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tools
+category: Github 
 title: github action
 tags: Tools
 ---
