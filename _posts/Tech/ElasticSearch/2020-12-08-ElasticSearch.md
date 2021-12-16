@@ -254,7 +254,7 @@ WordId	Word	DocIds
 
 ```
 # 创建索引
-PUT eh_course_online
+PUT x
 {
   "mappings": {
     "dynamic": true,
@@ -262,24 +262,19 @@ PUT eh_course_online
   }
 }
 # 增加记录
-PUT eh_course_v1/_doc/1667018228926472
+PUT x/_doc/1667018228926472
 {
   "course_id" : 1667018228926472,
-  "course_type" : 0,
-  "create_time" : 1589792470000,
-  "status" : 2,
-  "title" : "测试标题",
-  "category_id" : 1666463972088845,
   "category_ids": [1666463972088845,1666463972160520, 1666463972088870]
 }
 
 
 # 获取某个docId的内容
-GET eh_course_v1/_doc/1667018228926472
+GET x/_doc/1667018228926472
 
 
 # 查询全部数据
-GET eh_course_online/_search
+GET x/_search
 {
 
 
@@ -287,7 +282,7 @@ GET eh_course_online/_search
 
 
 # 查询courseId=xx的数据
-GET eh_course_v1/_search
+GET x/_search
 {
   "query": {
     "bool": {
@@ -304,7 +299,7 @@ GET eh_course_v1/_search
 
 
 # 查询 create_time倒序
-GET eh_course_v1/_search
+GET x/_search
 {
   "sort": [
     {
@@ -317,7 +312,7 @@ GET eh_course_v1/_search
 
 
 # 删除记录
-POST eh_course_online/_delete_by_query
+POST x/_delete_by_query
 {
   "query": { 
     "match_all": {
