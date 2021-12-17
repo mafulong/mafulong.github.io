@@ -6,7 +6,6 @@ keywords: 归档
 comments: false
 menu: 归档
 permalink: /archives/
-subtitle:  <h3> This is personal blog, some are technical notes</h3>
 ---
 
 <section class="container posts-content">
