@@ -6,6 +6,7 @@ keywords: 分类
 comments: false
 menu: Categories
 permalink: /categories/
+subtitle:  <h3> This is personal blog, some are technical notes</h3>
 ---
 
 <section class="container posts-content">
