@@ -48,6 +48,7 @@ permalink: /bookmark/
 - [秋招笔记](https://github.com/CyC2018/Interview-Notebook) - 准备秋招学习笔记: 算法，操作系统，网路，面向对象，数据库，Java，分布式，工具
 - [LeetCode](https://books.halfrost.com/)
 - [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
+- [编程之法: 面试和算法心得](https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/00.01.html)
 
 ## 软件使用
 ### win10
