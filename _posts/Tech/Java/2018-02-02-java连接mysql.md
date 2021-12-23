@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Database
+category: Java
 title: java连接Mysql例子
 tags: Database
 ---
