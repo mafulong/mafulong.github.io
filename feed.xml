@@ -1,4 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-23T21:19:43+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">密码学加密解密</title><link href="https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="密码学加密解密" /><published>2021-12-22T00:00:00+08:00</published><updated>2021-12-22T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h2 id=&quot;密码学加密解密&quot;&gt;密码学加密解密&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-23T22:21:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">LogBook</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">一致性hash</title><link href="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/" rel="alternate" type="text/html" title="一致性hash" /><published>2021-12-23T00:00:00+08:00</published><updated>2021-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash</id><content type="html" xml:base="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/">&lt;h2 id=&quot;一致性hash&quot;&gt;一致性hash&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;首先，我们将hash算法的值域映射成一个具有232 次方个桶的空间中，即0~（232）-1的数字空间。现在我们可以将这些数字头尾相连，组合成一个闭合的环形。&lt;/li&gt;
+  &lt;li&gt;每一个缓存key都可以通过Hash算法转化为一个32位的二进制数，也就对应着环形空间的某一个缓存区。我们把所有的缓存key映射到环形空间的不同位置。&lt;/li&gt;
+  &lt;li&gt;我们的每一个缓存节点也遵循同样的Hash算法，比如利用IP或者主机名做Hash，映射到环形空间当中，如下图&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211223220115.png&quot; alt=&quot;image&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;虚拟节点解决数据倾斜&quot;&gt;虚拟节点解决数据倾斜&lt;/h2&gt;
+
+&lt;p&gt;当节点太少时，容易出现数据倾斜，有的节点数据特别多。&lt;/p&gt;
+
+&lt;p&gt;为了优化这种节点太少而产生的不均衡情况。一致性哈希算法引入了&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;虚拟节点&lt;/code&gt;的概念。
+所谓虚拟节点，就是基于原来的物理节点映射出N个子节点，最后把所有的子节点映射到环形空间上。注意是随机映射。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://aijishu.com/img/bVb2W&quot; alt=&quot;image&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一致性hash实现&quot;&gt;一致性hash实现&lt;/h2&gt;
+
+&lt;h3 id=&quot;数据结构的选择&quot;&gt;数据结构的选择&lt;/h3&gt;
+
+&lt;p&gt;根据算法原理，我们的算法有几个要求：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;要能根据hash值排序存储&lt;/li&gt;
+  &lt;li&gt;排序存储要被快速查找 （List不行）&lt;/li&gt;
+  &lt;li&gt;排序查找还要能方便变更 （Array不行）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;另外，由于二叉树可能极度不平衡。所以采用红黑树是最稳妥的实现方法。Java中直接使用TreeMap即可。&lt;/p&gt;
+
+&lt;p&gt;简单版本可以使用数组存储，变更复杂度o(n),但我们实际上只需要存储node列表即可，node上提供缓存set/get能力。&lt;/p&gt;
+
+&lt;p&gt;那我们每次找Node就是数组上二分查找。&lt;/p&gt;
+
+&lt;h3 id=&quot;python实现&quot;&gt;python实现&lt;/h3&gt;
+
+&lt;p&gt;下面的addserver和deleteserver可以把数据放到下一个server上。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#/bin/python 
+# -*- coding: utf-8 -*-
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bisect&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;hashlib&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;将字符串映射到2^32的数字中&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;md5_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hashlib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexdigest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md5_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CacheNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;缓存节点类，负责记录缓存服务器信息，以及发送缓存服务器方法&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;发送到对应的cache
+        Args:
+            request：需要转发的request信息
+        &quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 假装有内容的亚子
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HashSeverMgr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;server管理类，给定ip，返回对应的server&quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;添加缓存节点
+        Args:
+            node: 缓存节点类CacheNode，记录缓存server的香港信息。
+        &quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bisect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;del_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;删除缓存节点&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;del&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;获取目标缓存节点，确定待转发的目标缓存server&quot;&quot;&quot;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;key_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bisect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bisect_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 若比最大的node hash还大，分发给第一个node
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+    
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://xie.infoq.cn/article/e7182d18df48bc26eeb30b207&quot;&gt;一致性 hash 原理及实现（python 版）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://aijishu.com/a/1060000000007241&quot;&gt;图解一致性hash算法和实现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">一致性hash</summary></entry><entry><title type="html">密码学加密解密</title><link href="https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/" rel="alternate" type="text/html" title="密码学加密解密" /><published>2021-12-22T00:00:00+08:00</published><updated>2021-12-22T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86</id><content type="html" xml:base="https://mafulong.github.io/2021/12/22/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8A%A0%E5%AF%86%E8%A7%A3%E5%AF%86/">&lt;h2 id=&quot;密码学加密解密&quot;&gt;密码学加密解密&lt;/h2&gt;
 
 &lt;h2 id=&quot;数字签名&quot;&gt;数字签名&lt;/h2&gt;
 
@@ -431,226 +533,4 @@
 
 &lt;p&gt;&lt;a href=&quot;https://codecov.io/gh&quot;&gt;Codecov&lt;/a&gt;是一个测试结果分析工具，travis负责执行测试，Codecov负责分析测试结果，最简单的用法就是衡量测试代码覆盖度，当然更高端的用法还有待继续学习。依赖于travis，Codecov非常简单就能上手。&lt;/p&gt;
 
-&lt;p&gt;入门教程: https://cloud.tencent.com/developer/article/1433286&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Github" /><category term="Github" /><summary type="html">github codecov</summary></entry><entry><title type="html">计算机英语</title><link href="https://mafulong.github.io/2021/10/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/" rel="alternate" type="text/html" title="计算机英语" /><published>2021-10-15T00:00:00+08:00</published><updated>2021-10-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/10/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD</id><content type="html" xml:base="https://mafulong.github.io/2021/10/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/">&lt;h2 id=&quot;计算机英语&quot;&gt;计算机英语&lt;/h2&gt;
-
-&lt;p&gt;单词: https://www.cnblogs.com/along21/p/8075668.html&lt;/p&gt;
-
-&lt;h2 id=&quot;雇佣关系词汇&quot;&gt;雇佣关系词汇&lt;/h2&gt;
-
-&lt;p&gt;Employee: 员工，  包括普通雇员， 和有限公司的股东成员
-Employer: 老板(无限公司）
-Own account workers: 要申请ABN， 多见于服务业，cleaner， plumber， 某些IT从业人员。 
-Family workers： 在家族企业，且没有酬劳。&lt;/p&gt;
-
-&lt;p&gt;Full time, 也叫 permanent， 全职员工， 福利最好， 但是相应的时薪可能比较低。 福利包括， 带薪年假， 带薪病假，带薪事假，带薪育儿假，带薪公共假期， 长期服务奖励假（&lt;strong&gt;Long service leave&lt;/strong&gt; ） ， 以及彼此至少一个月的提前通知终止合同的缓冲期， 如果是公司裁退， 补贴n个月薪的补偿（为公司工作n年）。&lt;/p&gt;
-
-&lt;p&gt;Part time,  和Full time 类似， 不过不是5天工作制，  按照合同， 每星期工作4天或更少。 其他福利类似Full time。&lt;/p&gt;
-
-&lt;p&gt;casual, temporary,  小时工， 工钱按时薪算， 彼此可以随时终止合同。 无带薪假。&lt;/p&gt;
-
-&lt;p&gt;contractor,&lt;br /&gt;
-fixed term， 合同工， 有固定的结束期限， 可能有部分福利如 带薪年假， 带薪病假，带薪事假，带薪育儿假，带薪公共假期。 具体要看合同的条款。&lt;/p&gt;
-
-&lt;p&gt;self-employed, sole trader,  要自己申请ABN， 和公司属于合作关系，而不是雇佣关系。 提供服务以换取酬劳， 如cleaner， plumber， 某些IT从业人员等。&lt;/p&gt;
-
-&lt;p&gt;partner, trust, company ， 属于生意范畴&lt;/p&gt;
-
-&lt;p&gt;cash in hand， 非法现金工。 官方网上没有说明， 不过大家都知道怎么回事。&lt;/p&gt;
-
-&lt;p&gt;Apprenticeships and traineeships就是所谓的学徒， 有些工种需要满足一定期限的学徒期， 才能独自单干。&lt;/p&gt;
-
-&lt;h2 id=&quot;计算机英语-1&quot;&gt;计算机英语&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://guanpengchn.github.io/awesome-pronunciation/content/L.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;access&lt;/p&gt;
-
-&lt;p&gt;admin&lt;/p&gt;
-
-&lt;p&gt;agile&lt;/p&gt;
-
-&lt;p&gt;alias [ˈeɪliəs]&lt;/p&gt;
-
-&lt;p&gt;archive [‘ɑːkaɪv]&lt;/p&gt;
-
-&lt;p&gt;array&lt;/p&gt;
-
-&lt;p&gt;aspect&lt;/p&gt;
-
-&lt;p&gt;avatar [/’ævətɑr/]&lt;/p&gt;
-
-&lt;p&gt;Azure&lt;/p&gt;
-
-&lt;p&gt;char&lt;/p&gt;
-
-&lt;p&gt;console&lt;/p&gt;
-
-&lt;p&gt;ctrl&lt;/p&gt;
-
-&lt;p&gt;Daemon [‘diːmən]&lt;/p&gt;
-
-&lt;p&gt;deque [‘dek]&lt;/p&gt;
-
-&lt;p&gt;event&lt;/p&gt;
-
-&lt;p&gt;facade [fə’sɑːd] 外观模式&lt;/p&gt;
-
-&lt;p&gt;hidden [‘hɪdn]&lt;/p&gt;
-
-&lt;p&gt;hystrix&lt;/p&gt;
-
-&lt;p&gt;icon [‘aɪkɑn]&lt;/p&gt;
-
-&lt;p&gt;image [‘ɪmɪdʒ]&lt;/p&gt;
-
-&lt;p&gt;integer  [‘ɪntɪdʒə]&lt;/p&gt;
-
-&lt;p&gt;Java [‘dʒɑːvə]&lt;/p&gt;
-
-&lt;p&gt;linear [‘lɪnɪə]&lt;/p&gt;
-
-&lt;p&gt;locale [ləʊ’kɑːl]&lt;/p&gt;
-
-&lt;p&gt;Lucene [ˈlu:sɪn]&lt;/p&gt;
-
-&lt;p&gt;matrix [ˈmeɪtrɪks]&lt;/p&gt;
-
-&lt;p&gt;module [‘mɒdjuːl]&lt;/p&gt;
-
-&lt;p&gt;nginx [‘endʒɪn eks]&lt;/p&gt;
-
-&lt;p&gt;parameter [pə’ræmɪtə]&lt;/p&gt;
-
-&lt;p&gt;replica [ˈreplɪkə]&lt;/p&gt;
-
-&lt;p&gt;scale&lt;/p&gt;
-
-&lt;p&gt;scheme [skiːm]  方案体系&lt;/p&gt;
-
-&lt;p&gt;sudo [ˈsuːduː]&lt;/p&gt;
-
-&lt;p&gt;suite [swiːt]&lt;/p&gt;
-
-&lt;p&gt;variable [‘veərɪəbl]&lt;/p&gt;
-
-&lt;p&gt;width [wɪdθ]&lt;/p&gt;
-
-&lt;p&gt;YouTube [‘juː’tjuːb]&lt;/p&gt;
-
-&lt;h2 id=&quot;编程词汇&quot;&gt;编程词汇&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.jianshu.com/p/3aa376e16990&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;arrow[‘ærəʊ]&lt;/p&gt;
-
-&lt;p&gt;assign [ə’saɪn]指派、指定、设值、赋值 赋值。 assign a to b, assign b a. 把a给b.&lt;/p&gt;
-
-&lt;p&gt;associated [ə’soʃɪetɪd]相应的、相关的 相关的、关联、相应的. + with&lt;/p&gt;
-
-&lt;p&gt;atomic [ə’tɔmik]不可分割的 原子的&lt;/p&gt;
-
-&lt;p&gt;attribute [ˈætrɪˌbjuːt]属性 属性、特性&lt;/p&gt;
-
-&lt;p&gt;backward [ˈbækwərd] compatible 向后兼容.   compati&lt;/p&gt;
-
-&lt;p&gt;binding 必须遵守的&lt;/p&gt;
-
-&lt;p&gt;bitwise 以 bit 为单元逐一  adj&lt;/p&gt;
-
-&lt;p&gt;boolean [‘bu:li:ən]布林值&lt;/p&gt;
-
-&lt;p&gt;brace[breis] (curly [‘kə:li] brace) 大括弧、大括号 花括弧、花括号&lt;/p&gt;
-
-&lt;p&gt;bracket[‘brækit] (square [skwεə]brakcet) 中括弧、中括号 方括弧、方括号&lt;/p&gt;
-
-&lt;p&gt;build [bild]建造、构筑、建置（MS 用语）&lt;/p&gt;
-
-&lt;p&gt;class declaration [,deklə’reiʃən]类别宣告、类别宣告式 类声明&lt;/p&gt;
-
-&lt;p&gt;connection [kə’nekʃən]连接，连线（网络,资料库） 连接&lt;/p&gt;
-
-&lt;p&gt;class declaration [,deklə’reiʃən]类别宣告、类别宣告式 类声明&lt;/p&gt;
-
-&lt;p&gt;class definition [,defi’niʃən]类别定义、类别定义式 类定义&lt;/p&gt;
-
-&lt;p&gt;class derivation [,deri’veiʃən] list 类别衍化列 类继承列表&lt;/p&gt;
-
-&lt;p&gt;constraint[kən’streint] 约束（条件）&lt;/p&gt;
-
-&lt;p&gt;delegate [‘deliɡeit]委派、委托、委任 委托&lt;/p&gt;
-
-&lt;p&gt;demarshal 反编列 散集&lt;/p&gt;
-
-&lt;p&gt;dereference [di’refərəns]提领（取出指标所指物体的内容） 解叁考&lt;/p&gt;
-
-&lt;p&gt;dispatch [dis’pætʃ] 分派 分派&lt;/p&gt;
-
-&lt;p&gt;equal [‘i:kwəl] 相等 相等&lt;/p&gt;
-
-&lt;p&gt;equivalent [i’kwivələnt]等价、等同、对等 等价&lt;/p&gt;
-
-&lt;p&gt;generic [dʒi’nerik]泛型、一般化的 一般化的、通用的、泛化&lt;/p&gt;
-
-&lt;p&gt;implicit,隐式的，explicit是显式的&lt;/p&gt;
-
-&lt;p&gt;infinite [‘infinət] loop [lu:p]无穷回圈 无限循环&lt;/p&gt;
-
-&lt;p&gt;protocol [‘prəutəkɔl]协定 协议&lt;/p&gt;
-
-&lt;p&gt;queue [kju:]伫列 队列&lt;/p&gt;
-
-&lt;p&gt;register [‘redʒistə]暂存器 寄存器&lt;/p&gt;
-
-&lt;p&gt;syntax [‘sintæks]语法 语法&lt;/p&gt;
-
-&lt;h2 id=&quot;数学符号&quot;&gt;数学符号&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.sohu.com/a/214664854_200286&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;介词: plus, minus.&lt;/p&gt;
-
-&lt;p&gt;the sum a plus b.  the difference a minus b.&lt;/p&gt;
-
-&lt;p&gt;动词: times,  is divided by&lt;/p&gt;
-
-&lt;p&gt;equals.&lt;/p&gt;
-
-&lt;p&gt;括号 小到大: parentheses &lt;a href=&quot;cmd://Speak/_uk_/parentheses&quot;&gt;/pə’rɛnθəsɪz/&lt;/a&gt;, bracket, brace.&lt;/p&gt;
-
-&lt;p&gt;绝对值: absolute value of a&lt;/p&gt;
-
-&lt;p&gt;幂： a**n, a to the power of n,  a super n, a to the n.&lt;/p&gt;
-
-&lt;p&gt;上角标: a superscript b,可以直接诶读a super b.&lt;/p&gt;
-
-&lt;p&gt;下角标: a sub b.&lt;/p&gt;
-
-&lt;p&gt;符号英文: operator.&lt;/p&gt;
-
-&lt;p&gt;log: log2a, log to the base 2 of a&lt;/p&gt;
-
-&lt;p&gt;开根号: nth root of a.&lt;/p&gt;
-
-&lt;p&gt;since, because,  implies. equivalent.&lt;/p&gt;
-
-&lt;p&gt;区分括号: the quantity xx end of quantity.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211208123506.jpeg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;部分, 指分数, that fraction.&lt;/p&gt;
-
-&lt;p&gt;分数: a over b.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211208123621.jpeg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;平方: square 立方: cube&lt;/p&gt;
-
-&lt;p&gt;p(x) 读p of x.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211208123729.jpeg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">计算机英语</summary></entry></feed>
+&lt;p&gt;入门教程: https://cloud.tencent.com/developer/article/1433286&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Github" /><category term="Github" /><summary type="html">github codecov</summary></entry></feed>
