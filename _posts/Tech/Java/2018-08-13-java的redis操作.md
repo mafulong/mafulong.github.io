@@ -1,8 +1,7 @@
 ---
 layout: post
-category: Database
+category: Java
 title: java的redis操作
-tags: Database
 ---
 
 ## 安装
