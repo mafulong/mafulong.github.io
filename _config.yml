@@ -10,7 +10,7 @@ description: "This is personnel website of me"
 keywords: logbook, mafulong
 timezone: Asia/Shanghai
 encoding: "utf-8"
-side_bar_repo_limit: 5
+side_bar_repo_limit: 3
 # 下面涉及js引用，先不能改
 repository: mafulong/mafulong.github.io
 # 对 css 和 js 资源的 cdn 加速配置
@@ -92,11 +92,12 @@ markdown: kramdown
 kramdown:
     input: GFM
 highlighter: rouge
-paginate: 10
+paginate: 8
 lsi: false
 quiet: false
 excerpt_separator: "\n\n"
-permalink: /:year/:month/:day/:title/
+permalink: /:title/
+# permalink: /:year/:month/:day/:title/
 plugins:
     - jekyll-github-metadata
     - rouge
