@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-26T19:55:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-26T20:40:14+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
 
 &lt;h1 id=&quot;raft&quot;&gt;raft&lt;/h1&gt;
 
@@ -142,7 +142,117 @@
 
 &lt;p&gt;1是消息的延迟，Gossip 协议中，消息最终需要通过多个轮次的散播而到达全网，不适合用在对实时性要求较高的场景下。&lt;/p&gt;
 
-&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry><entry><title type="html">一致性hash</title><link href="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/" rel="alternate" type="text/html" title="一致性hash" /><published>2021-12-23T00:00:00+08:00</published><updated>2021-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash</id><content type="html" xml:base="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/">&lt;h2 id=&quot;一致性hash&quot;&gt;一致性hash&lt;/h2&gt;
+&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry><entry><title type="html">网络攻击技术</title><link href="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/" rel="alternate" type="text/html" title="网络攻击技术" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/">&lt;h2 id=&quot;网络攻击技术&quot;&gt;网络攻击技术&lt;/h2&gt;
+
+&lt;h2 id=&quot;xss跨站脚本技术&quot;&gt;XSS跨站脚本技术&lt;/h2&gt;
+
+&lt;p&gt;跨站脚本攻击（Cross-Site Scripting, XSS），可以将代码注入到用户浏览的网页上，这种代码包括 HTML 和 JavaScript。&lt;/p&gt;
+
+&lt;p&gt;例如有一个论坛网站，攻击者可以在上面发布以下内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;//domain.com/?c=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后该内容可能会被渲染成以下形式：&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&amp;gt;&amp;lt;script&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;//domain.com/?c=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cookie&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;另一个用户浏览了含有这个内容的页面将会跳转到 domain.com 并携带了当前作用域的 Cookie。如果这个论坛网站通过 Cookie 管理用户登录状态，那么攻击者就可以通过这个 Cookie 登录被攻击者的账号了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;危害&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;窃取用户的 Cookie&lt;/li&gt;
+  &lt;li&gt;伪造虚假的输入表单骗取个人信息&lt;/li&gt;
+  &lt;li&gt;显示伪造的文章或者图片&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;防范&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;设置 Cookie 为 HttpOnly&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;设置了 HttpOnly 的 Cookie 可以防止 JavaScript 脚本调用，就无法通过 document.cookie 获取用户 Cookie 信息。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;过滤特殊字符&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;例如将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; 转义为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt;，将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt; 转义为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&lt;/code&gt;，从而避免 HTML 和 Jascript 代码的运行。&lt;/p&gt;
+
+&lt;p&gt;富文本编辑器允许用户输入 HTML 代码，就不能简单地将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; 等字符进行过滤了，极大地提高了 XSS 攻击的可能性。&lt;/p&gt;
+
+&lt;p&gt;富文本编辑器通常采用 XSS filter 来防范 XSS 攻击，通过定义一些标签白名单或者黑名单，从而不允许有攻击性的 HTML 代码的输入。&lt;/p&gt;
+
+&lt;h2 id=&quot;csrf跨站请求伪造&quot;&gt;CSRF跨站请求伪造&lt;/h2&gt;
+
+&lt;p&gt;跨站请求伪造（Cross-site request forgery，CSRF），是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并执行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去执行。&lt;/p&gt;
+
+&lt;p&gt;XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户浏览器的信任。&lt;/p&gt;
+
+&lt;p&gt;假如一家银行用以执行转账操作的 URL 地址如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http://www.examplebank.com/withdraw?account=AccoutName&amp;amp;amount=1000&amp;amp;for=PayeeName。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;那么，一个恶意攻击者可以在另一个网站上放置如下代码：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;img src=&quot;http://www.examplebank.com/withdraw?account=Alice&amp;amp;amount=1000&amp;amp;for=Badman&quot;&amp;gt;。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果有账户名为 Alice 的用户访问了恶意站点，而她之前刚访问过银行不久，登录信息尚未过期，那么她就会损失 1000 美元。&lt;/p&gt;
+
+&lt;h2 id=&quot;sql-注入攻击&quot;&gt;SQL 注入攻击&lt;/h2&gt;
+
+&lt;h3 id=&quot;概念&quot;&gt;概念&lt;/h3&gt;
+
+&lt;p&gt;服务器上的数据库运行非法的 SQL 语句，主要通过拼接来完成。&lt;/p&gt;
+
+&lt;h3 id=&quot;攻击原理&quot;&gt;攻击原理&lt;/h3&gt;
+
+&lt;p&gt;例如一个网站登录验证的 SQL 查询代码为：&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;strSQL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;SELECT * FROM users WHERE (name = '&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;') and (pw = '&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;passWord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&quot;');&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果填入以下内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;1' OR '1'='1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;passWord&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;1' OR '1'='1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;那么 SQL 查询字符串为：&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;strSQL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;SELECT * FROM users WHERE (name = '1' OR '1'='1') and (pw = '1' OR '1'='1');&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;此时无需验证通过就能执行以下查询：&lt;/p&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;strSQL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&quot;SELECT * FROM users;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dos拒绝服务攻击&quot;&gt;DoS拒绝服务攻击&lt;/h2&gt;
+
+&lt;p&gt;拒绝服务攻击（denial-of-service attack，DoS），亦称洪水攻击，其目的在于使目标电脑的网络或系统资源耗尽，使服务暂时中断或停止，导致其正常用户无法访问。&lt;/p&gt;
+
+&lt;p&gt;分布式拒绝服务攻击（distributed denial-of-service attack，DDoS），指攻击者使用两个或以上被攻陷的电脑作为“僵尸”向特定的目标发动“拒绝服务”式攻击。&lt;/p&gt;
+
+&lt;h3 id=&quot;syn-泛洪攻击&quot;&gt;SYN 泛洪攻击&lt;/h3&gt;
+
+&lt;p&gt;比如SYN Dos攻击就是DoS攻击的一种，&lt;/p&gt;
+
+&lt;p&gt;在 SYN 泛洪攻击中，恶意客户端发送大量 SYN 数据包（通常在握手的第一部分），但永远不会发送确认以完成握手。这使得服务器一直等待对于这些半开放的 TCP 连接的响应，而这些连接最终会耗尽容量，造成服务器无法接受跟踪连接状态的新连接。&lt;/p&gt;
+
+&lt;p&gt;SYN 泛洪攻击就好像一所大型高中里，整个毕业班的一场可怕恶作剧 - 所有学生在同一时间段内打电话给同一家披萨店，每个人都要订个披萨。在送餐员备货时，她会发现收到了太多的披萨订单，外卖车根本装不下，而且订单上也没有地址，所以所有送餐都会停止。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cyc2018.xyz/%E5%85%B6%E5%AE%83/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF.html#%E4%B8%80%E3%80%81%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB&quot;&gt;攻击技术&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.akamai.com/zh/our-thinking/ddos&quot;&gt;什么是 DDoS 攻击？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="ComputerNetwork" /><category term="ComputerNetwork" /><summary type="html">网络攻击技术</summary></entry><entry><title type="html">一致性hash</title><link href="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/" rel="alternate" type="text/html" title="一致性hash" /><published>2021-12-23T00:00:00+08:00</published><updated>2021-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash</id><content type="html" xml:base="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/">&lt;h2 id=&quot;一致性hash&quot;&gt;一致性hash&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;首先，我们将hash算法的值域映射成一个具有232 次方个桶的空间中，即0~（232）-1的数字空间。现在我们可以将这些数字头尾相连，组合成一个闭合的环形。&lt;/li&gt;
@@ -634,16 +744,4 @@
 
 &lt;p&gt;access&lt;/p&gt;
 
-&lt;p&gt;represent&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">个人单词本</summary></entry><entry><title type="html">BFS</title><link href="https://mafulong.github.io/2021/12/05/BFS/" rel="alternate" type="text/html" title="BFS" /><published>2021-12-05T00:00:00+08:00</published><updated>2021-12-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/05/BFS</id><content type="html" xml:base="https://mafulong.github.io/2021/12/05/BFS/">&lt;h2 id=&quot;bfs&quot;&gt;BFS&lt;/h2&gt;
-
-&lt;p&gt;bfs可以求一些复杂的最短路径。模板就是使用优先队列，同时记录是否访问过，每次弹出最短的那一个，持续更新到终点。这也是dijkstra.&lt;/p&gt;
-
-&lt;p&gt;比如，&lt;a href=&quot;https://mafulong.top/2018/08/27/bfs%E6%9C%80%E5%B0%8F%E8%BD%AC%E5%BC%AF%E8%B7%AF%E5%BE%84/&quot;&gt;求最少转弯的路径&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;以及，&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/&quot;&gt;1368. 使网格图至少有一条有效路径的最小代价&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;0-1-广度优先搜索&quot;&gt;0-1 广度优先搜索&lt;/h2&gt;
-
-&lt;p&gt;参考：&lt;a href=&quot;https://leetcode-cn.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/solution/shi-wang-ge-tu-zhi-shao-you-yi-tiao-you-xiao-lu-2/&quot;&gt;https://leetcode-cn.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/solution/shi-wang-ge-tu-zhi-shao-you-yi-tiao-you-xiao-lu-2/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;为了可以处理权值为0的边，使用双端队列，当遇到是0的边，就加入到队首。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">BFS</summary></entry></feed>
+&lt;p&gt;represent&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">个人单词本</summary></entry></feed>
