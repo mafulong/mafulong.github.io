@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-26T20:42:16+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-26T21:16:10+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
 
 &lt;h1 id=&quot;raft&quot;&gt;raft&lt;/h1&gt;
 
@@ -142,7 +142,77 @@
 
 &lt;p&gt;1是消息的延迟，Gossip 协议中，消息最终需要通过多个轮次的散播而到达全网，不适合用在对实时性要求较高的场景下。&lt;/p&gt;
 
-&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry><entry><title type="html">网络攻击技术</title><link href="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/" rel="alternate" type="text/html" title="网络攻击技术" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/">&lt;h2 id=&quot;网络攻击技术&quot;&gt;网络攻击技术&lt;/h2&gt;
+&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry><entry><title type="html">缓存问题</title><link href="https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="缓存问题" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;缓存问题&quot;&gt;缓存问题&lt;/h2&gt;
+
+&lt;h3 id=&quot;缓存穿透&quot;&gt;缓存穿透&lt;/h3&gt;
+
+&lt;p&gt;指的是对某个一定不存在的数据进行请求，该请求将会穿透缓存到达数据库。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对这些不存在的数据缓存一个空数据；&lt;/li&gt;
+  &lt;li&gt;对这类请求进行过滤。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缓存击穿&quot;&gt;缓存击穿&lt;/h3&gt;
+
+&lt;p&gt;缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置热点数据永远不过期。&lt;/li&gt;
+  &lt;li&gt;加互斥锁，互斥锁参考代码如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缓存雪崩&quot;&gt;缓存雪崩&lt;/h3&gt;
+
+&lt;p&gt;指的是由于数据没有被加载到缓存中，或者缓存数据在同一时间大面积失效（过期），又或者缓存服务器宕机，导致大量的请求都到达数据库。&lt;/p&gt;
+
+&lt;p&gt;在有缓存的系统中，系统非常依赖于缓存，缓存分担了很大一部分的数据请求。当发生缓存雪崩时，数据库无法处理这么大的请求，导致数据库崩溃。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;为了防止缓存在同一时间大面积过期导致的缓存雪崩，可以通过观察用户行为，合理设置缓存过期时间来实现；&lt;/li&gt;
+  &lt;li&gt;为了防止缓存服务器宕机出现的缓存雪崩，可以使用分布式缓存，分布式缓存中每一个节点只缓存部分的数据，当某个节点宕机时可以保证其它节点的缓存仍然可用。&lt;/li&gt;
+  &lt;li&gt;也可以进行缓存预热，避免在系统刚启动不久由于还未将大量数据进行缓存而导致缓存雪崩。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h3&gt;
+
+&lt;p&gt;缓存一致性要求数据更新的同时缓存数据也能够实时更新。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在数据更新的同时立即去更新缓存；&lt;/li&gt;
+  &lt;li&gt;在读缓存之前先判断缓存是否是最新的，如果不是最新的先进行更新。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;要保证缓存一致性需要付出很大的代价，缓存数据最好是那些对一致性要求不高的数据，允许缓存数据存在一些脏数据。&lt;/p&gt;
+
+&lt;h3 id=&quot;缓存-无底洞-现象&quot;&gt;缓存 “无底洞” 现象&lt;/h3&gt;
+
+&lt;p&gt;指的是为了满足业务要求添加了大量缓存节点，但是性能不但没有好转反而下降了的现象。&lt;/p&gt;
+
+&lt;p&gt;产生原因：缓存系统通常采用 hash 函数将 key 映射到对应的缓存节点，随着缓存节点数目的增加，键值分布到更多的节点上，导致客户端一次批量操作会涉及多次网络操作，这意味着批量操作的耗时会随着节点数目的增加而不断增大。此外，网络连接数变多，对节点的性能也有一定影响。&lt;/p&gt;
+
+&lt;p&gt;解决方案：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;优化批量数据操作命令；&lt;/li&gt;
+  &lt;li&gt;减少网络通信次数；&lt;/li&gt;
+  &lt;li&gt;降低接入成本，使用长连接 / 连接池，NIO 等。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/kongtiao5/article/details/82771694&quot;&gt;缓存穿透、缓存击穿、缓存雪崩区别和解决方案&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cyc2018.xyz/%E5%85%B6%E5%AE%83/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E7%BC%93%E5%AD%98.html#%E5%9B%9B%E3%80%81%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98&quot;&gt;缓存&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">缓存问题</summary></entry><entry><title type="html">网络攻击技术</title><link href="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/" rel="alternate" type="text/html" title="网络攻击技术" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF/">&lt;h2 id=&quot;网络攻击技术&quot;&gt;网络攻击技术&lt;/h2&gt;
 
 &lt;h2 id=&quot;xss跨站脚本技术&quot;&gt;XSS跨站脚本技术&lt;/h2&gt;
 
@@ -664,84 +734,4 @@
 
 &lt;p&gt;网址：https://lib-pku.github.io/&lt;/p&gt;
 
-&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry><entry><title type="html">个人单词本</title><link href="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/" rel="alternate" type="text/html" title="个人单词本" /><published>2021-12-09T00:00:00+08:00</published><updated>2021-12-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC</id><content type="html" xml:base="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/">&lt;h2 id=&quot;个人单词本&quot;&gt;个人单词本&lt;/h2&gt;
-
-&lt;p&gt;部分使用欧路词典生词本，其他见这里。&lt;/p&gt;
-
-&lt;p&gt;乐观的 optimistic&lt;/p&gt;
-
-&lt;p&gt;悲观的 pressimistic&lt;/p&gt;
-
-&lt;p&gt;熔断 circuit breaker&lt;/p&gt;
-
-&lt;p&gt;限流 rate limiting&lt;/p&gt;
-
-&lt;p&gt;降级 fallback,n.  degrade, v. degration.&lt;/p&gt;
-
-&lt;p&gt;服务发现 service discovery.&lt;/p&gt;
-
-&lt;p&gt;负载均衡 load balance&lt;/p&gt;
-
-&lt;p&gt;访问控制列表ACL: access control list&lt;/p&gt;
-
-&lt;p&gt;可靠性: reliance, 可用的: reliance&lt;/p&gt;
-
-&lt;p&gt;一致性: consistency&lt;/p&gt;
-
-&lt;p&gt;最终一致性: eventually consistency  &lt;a href=&quot;cmd://Speak/_uk_/eventually&quot;&gt;/ɪ’ventʃʊəlɪ/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;隔离: isolation  &lt;a href=&quot;cmd://Speak/_uk_/isolation&quot;&gt;/aɪsə’leɪʃ(ə)n/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;连接池: connection pool &lt;a href=&quot;cmd://Speak/_uk_/pool&quot;&gt;/puːl/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;鉴权: authentication&lt;/p&gt;
-
-&lt;p&gt;计数器法: counter method&lt;/p&gt;
-
-&lt;p&gt;滑动窗口: sliding window&lt;/p&gt;
-
-&lt;p&gt;滚动的: rolling &lt;a href=&quot;cmd://Speak/_uk_/rolling&quot;&gt;/’rəʊlɪŋ/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;流量: traffic&lt;/p&gt;
-
-&lt;p&gt;漏桶: Leaky Bucket  令牌桶: token bucket&lt;/p&gt;
-
-&lt;p&gt;轮询，探询: poll&lt;/p&gt;
-
-&lt;p&gt;延迟: delay&lt;/p&gt;
-
-&lt;p&gt;定时器: timer, 任务定时调度: task scheduler&lt;/p&gt;
-
-&lt;p&gt;定时的: timed&lt;/p&gt;
-
-&lt;p&gt;时间轮: wheeltimer&lt;/p&gt;
-
-&lt;p&gt;优先的: prior &lt;a href=&quot;cmd://Speak/_uk_/prior&quot;&gt;/’praɪə/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;circualr环形的，circuit环形vi, 电路。&lt;/p&gt;
-
-&lt;p&gt;缓冲 buffer&lt;/p&gt;
-
-&lt;p&gt;层 level&lt;/p&gt;
-
-&lt;p&gt;层级 hierachy  分层的 hierarchical&lt;/p&gt;
-
-&lt;p&gt;灵活的 flexible&lt;/p&gt;
-
-&lt;p&gt;线程安全 thread safety&lt;/p&gt;
-
-&lt;p&gt;attribute&lt;/p&gt;
-
-&lt;p&gt;boolean&lt;/p&gt;
-
-&lt;p&gt;atomic&lt;/p&gt;
-
-&lt;p&gt;assign&lt;/p&gt;
-
-&lt;p&gt;aspect&lt;/p&gt;
-
-&lt;p&gt;scale&lt;/p&gt;
-
-&lt;p&gt;access&lt;/p&gt;
-
-&lt;p&gt;represent&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">个人单词本</summary></entry></feed>
+&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry></feed>
