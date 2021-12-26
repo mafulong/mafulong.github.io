@@ -125,7 +125,7 @@
 </script>
 {% endif %}
 
-{% if site.google.analytics_id %}
+<!-- {% if site.google.analytics_id %}
 <div style="display:none">
   <script>
     (function (i, s, o, g, r, a, m) {
@@ -140,7 +140,16 @@
 
   </script>
 </div>
-{% endif %}
+{% endif %} -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SS4VDLWLNC');
+</script>
 </body>
 
 </html>
