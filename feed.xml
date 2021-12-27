@@ -1,146 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-27T19:47:55+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">golang锁</title><link href="https://mafulong.github.io/2021/12/27/golang%E9%94%81/" rel="alternate" type="text/html" title="golang锁" /><published>2021-12-27T00:00:00+08:00</published><updated>2021-12-27T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/27/golang%E9%94%81</id><content type="html" xml:base="https://mafulong.github.io/2021/12/27/golang%E9%94%81/">&lt;h2 id=&quot;前提知识&quot;&gt;前提知识&lt;/h2&gt;
-
-&lt;h3 id=&quot;悲观锁和乐观锁&quot;&gt;悲观锁和乐观锁&lt;/h3&gt;
-
-&lt;p&gt;悲观锁是一种悲观思想，它总认为最坏的情况可能会出现，它认为数据很可能会被其他人所修改，不管读还是写，悲观锁在执行操作之前都先上锁。&lt;/p&gt;
-
-&lt;p&gt;对读对写都需要加锁导致性能低，适合写多读少。&lt;/p&gt;
-
-&lt;p&gt;乐观锁的思想与悲观锁的思想相反，它总认为资源和数据不会被别人所修改，所以读取不会上锁，但是乐观锁在进行写入操作的时候会判断当前数据是否被修改过。乐观锁的实现方案主要包含CAS和版本号机制。乐观锁适用于多读的场景，可以提高吞吐量。&lt;/p&gt;
-
-&lt;p&gt;CAS即Compare And Swap（比较与交换），是一种有名的无锁算法。即不使用锁的情况下实现多线程之间的变量同步，也就是在没有线程被阻塞的情况下实现变量的同步，所以也叫非阻塞同步。CAS涉及三个关系：指向内存一块区域的指针V、旧值A和将要写入的新值B。CAS实现的乐观锁会带来ABA问题，同时整个乐观锁在遇到数据不一致的情况下会触发等待、重试机制，这对性能的影响较大。&lt;/p&gt;
-
-&lt;p&gt;版本号机制是通过一个版本号version来实现版本控制。&lt;/p&gt;
-
-&lt;h3 id=&quot;自旋锁&quot;&gt;自旋锁&lt;/h3&gt;
-
-&lt;p&gt;之前介绍的CAS就是自旋锁的一种。同一时刻只能有一个线程获取到锁，没有获取到锁的线程通常有两种处理方式：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一直循环等待判断该资源是否已经释放锁，这种锁叫做自旋锁，它不用将线程阻塞起来(NON-BLOCKING)；&lt;/li&gt;
-  &lt;li&gt;把自己阻塞起来，等待重新调度请求，这种是互斥锁。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;自旋锁的原理比较简单，如果持有锁的线程能在短时间内释放锁资源，那么那些等待竞争锁的线程就不需要做内核态和用户态之间的切换进入阻塞状态，它们只需要等一等(自旋)，等到持有锁的线程释放锁之后即可获取，这样就避免了用户进程和内核切换的消耗。&lt;/p&gt;
-
-&lt;p&gt;但是如果长时间上锁的话，自旋锁会非常耗费性能，它阻止了其他线程的运行和调度。线程持有锁的时间越长，则持有该锁的线程将被OS调度程序中断的风险越大。如果发生中断情况，那么其他线程将保持旋转状态(反复尝试获取锁)，而持有该锁的线程并不打算释放锁，这样导致的是结果是无限期推迟，直到持有锁的线程可以完成并释放它为止。&lt;/p&gt;
-
-&lt;p&gt;解决上面这种情况一个很好的方式是给自旋锁设定一个自旋时间，等时间一到立即释放自旋锁。自旋锁的目的是占着CPU资源不进行释放，等到获取锁立即进行处理。&lt;/p&gt;
-
-&lt;h3 id=&quot;信号量和锁&quot;&gt;信号量和锁&lt;/h3&gt;
-
-&lt;p&gt;信号量和锁虽然看起来很相似，比如当信号量为1时就实现了互斥锁，但实际上他们表示的含义不同&lt;a href=&quot;https://nxw.name/2021/golang-mutexde-shi-xian-yuan-li-1ef30cc7#fn-1&quot;&gt;1&lt;/a&gt;。锁是用来保护临界资源的，比如读写不可以同时进行等；信号量是为了保证进程（或线程或goroutine）调度的，比如三个进程共同计算c=a+b，首先计算a+b和赋值操作不能同时进行，其次还要保证a+b先执行，对c的赋值后执行，因此这个地方需要采用信号量的方式来进行。&lt;/p&gt;
-
-&lt;p&gt;更进一步的，锁可以由信号量实现，那么goroutine可以遵循规定的被阻塞和唤醒，也可以由自旋锁实现，那么goroutine一直占用CPU直到解锁。他们这两种方式的区别在于是否需要goroutine调度，但本质上锁的实现都是为了保证临界资源不会被错误的访问。&lt;/p&gt;
-
-&lt;h2 id=&quot;syncmutex&quot;&gt;Sync.Mutex&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://nxw.name/2021/golang-mutexde-shi-xian-yuan-li-1ef30cc7&quot;&gt;golang的Mutex实现&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/&quot;&gt;go设计与原理&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Golang Mutex其实是不断改进的，截止到目前为至主要改进了4版：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;V1: 简单实现，按照FIFO的方式来加锁、解锁的，cpu切换效率低&lt;/li&gt;
-  &lt;li&gt;V2: 新goroutine参与锁的竞争，取队头时，如果有新来的goroutine, 新来的有cpu资源，给它。&lt;/li&gt;
-  &lt;li&gt;V3: 再多给新goroutine一些机会：有cpu资源的goroutine多自旋一会，如果自旋期间可以得到锁，给它。&lt;/li&gt;
-  &lt;li&gt;V4: 解决老goroutine饥饿问题， 老的goroutine可能一直拿不到锁，等待超过阈值(1ms)进入饥饿模式，直接到fifo队头，并关闭其他自旋。与饥饿模式相比，正常模式下的互斥锁能够提供更好地性能，饥饿模式的能避免 Goroutine 由于陷入等待无法获取锁而造成的高尾延时。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;每一次的改进都是为了提高系统的整体性能，这个升级是逐步的连贯的，所以需要从V1版本慢慢开始看Mutex的演化进程。&lt;/p&gt;
-
-&lt;p&gt;在默认情况下，互斥锁的所有状态位都是 0，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int32&lt;/code&gt; 中的不同位分别表示了不同的状态：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexLocked&lt;/code&gt; — 表示互斥锁的锁定状态；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexWoken&lt;/code&gt; — 表示从正常模式被从唤醒；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexStarving&lt;/code&gt; — 当前的互斥锁进入饥饿状态；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;waitersCount&lt;/code&gt; — 当前互斥锁上等待的 Goroutine 个数；&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;获取锁的过程：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;判断当前 Goroutine 能否进入自旋；&lt;/li&gt;
-  &lt;li&gt;通过自旋等待互斥锁的释放；&lt;/li&gt;
-  &lt;li&gt;计算互斥锁的最新状态；&lt;/li&gt;
-  &lt;li&gt;更新互斥锁的状态并获取锁；&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Goroutine 进入自旋的条件非常苛刻：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;互斥锁只有在普通模式才能进入自旋；&lt;/li&gt;
-  &lt;li&gt;runtime_canSpin需要返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;：
-    &lt;ol&gt;
-      &lt;li&gt;运行在多 CPU 的机器上；&lt;/li&gt;
-      &lt;li&gt;当前 Goroutine 为了获取该锁进入自旋的次数小于四次；&lt;/li&gt;
-      &lt;li&gt;当前机器上至少存在一个正在运行的处理器 P 并且处理的运行队列为空；&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;一旦当前 Goroutine 能够进入自旋就会调用&lt;a href=&quot;https://draveness.me/golang/tree/runtime.sync_runtime_doSpin&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.sync_runtime_doSpin&lt;/code&gt;&lt;/a&gt; 和 &lt;a href=&quot;https://draveness.me/golang/tree/runtime.procyield&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.procyield&lt;/code&gt;&lt;/a&gt; 并执行 30 次的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PAUSE&lt;/code&gt; 指令，该指令只会占用 CPU 并消耗 CPU 时间&lt;/p&gt;
-
-&lt;p&gt;互斥锁的加锁过程比较复杂，它涉及自旋、信号量以及调度等概念：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果互斥锁处于初始化状态，会通过置位 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexLocked&lt;/code&gt; 加锁；&lt;/li&gt;
-  &lt;li&gt;如果互斥锁处于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexLocked&lt;/code&gt; 状态并且在普通模式下工作，会进入自旋，执行 30 次 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PAUSE&lt;/code&gt; 指令消耗 CPU 时间等待锁的释放；&lt;/li&gt;
-  &lt;li&gt;如果当前 Goroutine 等待锁的时间超过了 1ms，互斥锁就会切换到饥饿模式；&lt;/li&gt;
-  &lt;li&gt;互斥锁在正常情况下会通过 &lt;a href=&quot;https://draveness.me/golang/tree/runtime.sync_runtime_SemacquireMutex&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.sync_runtime_SemacquireMutex&lt;/code&gt;&lt;/a&gt; 将尝试获取锁的 Goroutine 切换至休眠状态，等待锁的持有者唤醒；&lt;/li&gt;
-  &lt;li&gt;如果当前 Goroutine 是互斥锁上的最后一个等待的协程或者等待的时间小于 1ms，那么它会将互斥锁切换回正常模式；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;互斥锁的解锁过程与之相比就比较简单，其代码行数不多、逻辑清晰，也比较容易理解：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;当互斥锁已经被解锁时，调用 &lt;a href=&quot;https://draveness.me/golang/tree/sync.Mutex.Unlock&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync.Mutex.Unlock&lt;/code&gt;&lt;/a&gt; 会直接抛出异常；&lt;/li&gt;
-  &lt;li&gt;当互斥锁处于饥饿模式时，将锁的所有权交给队列中的下一个等待者，等待者会负责设置 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mutexLocked&lt;/code&gt; 标志位；&lt;/li&gt;
-  &lt;li&gt;当互斥锁处于普通模式时，如果没有 Goroutine 等待锁的释放或者已经有被唤醒的 Goroutine 获得了锁，会直接返回；在其他情况下会通过 &lt;a href=&quot;https://draveness.me/golang/tree/sync.runtime_Semrelease&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync.runtime_Semrelease&lt;/code&gt;&lt;/a&gt; 唤醒对应的 Goroutine；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;syncrwmutex&quot;&gt;Sync.RWMutex&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://draveness.me/golang/tree/sync.RWMutex&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sync.RWMutex&lt;/code&gt;&lt;/a&gt; 中总共包含以下 5 个字段：&lt;/p&gt;
-
-&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RWMutex&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;           &lt;span class=&quot;n&quot;&gt;Mutex&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;writerSem&lt;/span&gt;   &lt;span class=&quot;kt&quot;&gt;uint32&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;readerSem&lt;/span&gt;   &lt;span class=&quot;kt&quot;&gt;uint32&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;readerCount&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int32&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;readerWait&lt;/span&gt;  &lt;span class=&quot;kt&quot;&gt;int32&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Go&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;w&lt;/code&gt; — 复用互斥锁提供的能力；&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writerSem&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readerSem&lt;/code&gt; — 分别用于写等待读和读等待写：&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readerCount&lt;/code&gt; 存储了当前正在执行的读操作数量；&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readerWait&lt;/code&gt; 表示当写操作被阻塞时等待的读操作个数；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;syncmap&quot;&gt;Sync.Map&lt;/h2&gt;
-
-&lt;h2 id=&quot;reference&quot;&gt;Reference&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://nxw.name/2021/golang-mutexde-shi-xian-yuan-li-1ef30cc7&quot;&gt;golang的Mutex实现&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/&quot;&gt;go设计与原理&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">前提知识</summary></entry><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-27T23:31:18+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
 
 &lt;h1 id=&quot;raft&quot;&gt;raft&lt;/h1&gt;
 
@@ -766,4 +624,84 @@
 
 &lt;p&gt;网址：https://lib-pku.github.io/&lt;/p&gt;
 
-&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry></feed>
+&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry><entry><title type="html">个人单词本</title><link href="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/" rel="alternate" type="text/html" title="个人单词本" /><published>2021-12-09T00:00:00+08:00</published><updated>2021-12-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC</id><content type="html" xml:base="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/">&lt;h2 id=&quot;个人单词本&quot;&gt;个人单词本&lt;/h2&gt;
+
+&lt;p&gt;部分使用欧路词典生词本，其他见这里。&lt;/p&gt;
+
+&lt;p&gt;乐观的 optimistic&lt;/p&gt;
+
+&lt;p&gt;悲观的 pressimistic&lt;/p&gt;
+
+&lt;p&gt;熔断 circuit breaker&lt;/p&gt;
+
+&lt;p&gt;限流 rate limiting&lt;/p&gt;
+
+&lt;p&gt;降级 fallback,n.  degrade, v. degration.&lt;/p&gt;
+
+&lt;p&gt;服务发现 service discovery.&lt;/p&gt;
+
+&lt;p&gt;负载均衡 load balance&lt;/p&gt;
+
+&lt;p&gt;访问控制列表ACL: access control list&lt;/p&gt;
+
+&lt;p&gt;可靠性: reliance, 可用的: reliance&lt;/p&gt;
+
+&lt;p&gt;一致性: consistency&lt;/p&gt;
+
+&lt;p&gt;最终一致性: eventually consistency  &lt;a href=&quot;cmd://Speak/_uk_/eventually&quot;&gt;/ɪ’ventʃʊəlɪ/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;隔离: isolation  &lt;a href=&quot;cmd://Speak/_uk_/isolation&quot;&gt;/aɪsə’leɪʃ(ə)n/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;连接池: connection pool &lt;a href=&quot;cmd://Speak/_uk_/pool&quot;&gt;/puːl/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;鉴权: authentication&lt;/p&gt;
+
+&lt;p&gt;计数器法: counter method&lt;/p&gt;
+
+&lt;p&gt;滑动窗口: sliding window&lt;/p&gt;
+
+&lt;p&gt;滚动的: rolling &lt;a href=&quot;cmd://Speak/_uk_/rolling&quot;&gt;/’rəʊlɪŋ/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;流量: traffic&lt;/p&gt;
+
+&lt;p&gt;漏桶: Leaky Bucket  令牌桶: token bucket&lt;/p&gt;
+
+&lt;p&gt;轮询，探询: poll&lt;/p&gt;
+
+&lt;p&gt;延迟: delay&lt;/p&gt;
+
+&lt;p&gt;定时器: timer, 任务定时调度: task scheduler&lt;/p&gt;
+
+&lt;p&gt;定时的: timed&lt;/p&gt;
+
+&lt;p&gt;时间轮: wheeltimer&lt;/p&gt;
+
+&lt;p&gt;优先的: prior &lt;a href=&quot;cmd://Speak/_uk_/prior&quot;&gt;/’praɪə/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;circualr环形的，circuit环形vi, 电路。&lt;/p&gt;
+
+&lt;p&gt;缓冲 buffer&lt;/p&gt;
+
+&lt;p&gt;层 level&lt;/p&gt;
+
+&lt;p&gt;层级 hierachy  分层的 hierarchical&lt;/p&gt;
+
+&lt;p&gt;灵活的 flexible&lt;/p&gt;
+
+&lt;p&gt;线程安全 thread safety&lt;/p&gt;
+
+&lt;p&gt;attribute&lt;/p&gt;
+
+&lt;p&gt;boolean&lt;/p&gt;
+
+&lt;p&gt;atomic&lt;/p&gt;
+
+&lt;p&gt;assign&lt;/p&gt;
+
+&lt;p&gt;aspect&lt;/p&gt;
+
+&lt;p&gt;scale&lt;/p&gt;
+
+&lt;p&gt;access&lt;/p&gt;
+
+&lt;p&gt;represent&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">个人单词本</summary></entry></feed>
