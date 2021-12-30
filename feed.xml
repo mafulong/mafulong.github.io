@@ -1,4 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-30T23:01:45+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-30T23:11:58+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;以ByteGraph为例, &lt;a href=&quot;https://www.modb.pro/db/85661&quot;&gt;参考链接&lt;/a&gt;&lt;/p&gt;
+
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_8915aa0c-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;支持能力&quot;&gt;支持能力&lt;/h2&gt;
+
+&lt;p&gt;百万级QPS,  亿级粉丝&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211230230926.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;底层存储设计&quot;&gt;底层存储设计&lt;/h2&gt;
+
+&lt;p&gt;底层基于分布式KV&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_89c500ce-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;简单讲一下如何机遇KV系统能够构建一个图结构？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_89e5a554-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;用一个类似于B树的结构来建模Graph，对某一个点来说，一个点同一个边type的所有的终点是一个存储单元，也就是说我们把一个起点ID、起点type和边type，基于它去group by，具有相同值的所有边集合，我们会认为它是逻辑上属于一个分区的。&lt;/p&gt;
+
+&lt;p&gt;如果这个分区依然涉及到很多点怎么办呢？我们会把它作为一个二级的拆分，所以因此会涉及到 b树的多层级。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_8a187ae2-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第一层的page就叫Meta page，它其实只是去简单记录了一个映射，这1000万个邻居当中，我们基于每2000为一片，每一片我们把它称作为一个Edge page ，每一个Edge page又存储了2000个Edge，所以用这样一个多级拆分的这样的方式去降低了读写放大的问题，同时起到了一个非常平衡的设计。&lt;/p&gt;
+
+&lt;p&gt;总结下来就是单起点和某一种固定的边类型组成了一个B树，然后B树的每一个节点是一个KV队，然后这里涉及到完整性上的话，我们会限制每一个B树的写者只能是唯一的，以防止并发的写入导致 B树逻辑上的破坏。&lt;/p&gt;
+
+&lt;p&gt;刚才说到写放大的问题，我们具体在当前 B树的建模上，依然其实会存在写放大的问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;热点读写怎么办&quot;&gt;热点读写怎么办&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_8b0562f8-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">图数据库设计</summary></entry><entry><title type="html">etcd和raft</title><link href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/" rel="alternate" type="text/html" title="etcd和raft" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">&lt;h1 id=&quot;etcd&quot;&gt;etcd&lt;/h1&gt;
 
 &lt;h1 id=&quot;raft&quot;&gt;raft&lt;/h1&gt;
 
@@ -628,84 +667,4 @@
 
 &lt;p&gt;网址：https://lib-pku.github.io/&lt;/p&gt;
 
-&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry><entry><title type="html">个人单词本</title><link href="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/" rel="alternate" type="text/html" title="个人单词本" /><published>2021-12-09T00:00:00+08:00</published><updated>2021-12-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC</id><content type="html" xml:base="https://mafulong.github.io/2021/12/09/%E4%B8%AA%E4%BA%BA%E5%8D%95%E8%AF%8D%E6%9C%AC/">&lt;h2 id=&quot;个人单词本&quot;&gt;个人单词本&lt;/h2&gt;
-
-&lt;p&gt;部分使用欧路词典生词本，其他见这里。&lt;/p&gt;
-
-&lt;p&gt;乐观的 optimistic&lt;/p&gt;
-
-&lt;p&gt;悲观的 pressimistic&lt;/p&gt;
-
-&lt;p&gt;熔断 circuit breaker&lt;/p&gt;
-
-&lt;p&gt;限流 rate limiting&lt;/p&gt;
-
-&lt;p&gt;降级 fallback,n.  degrade, v. degration.&lt;/p&gt;
-
-&lt;p&gt;服务发现 service discovery.&lt;/p&gt;
-
-&lt;p&gt;负载均衡 load balance&lt;/p&gt;
-
-&lt;p&gt;访问控制列表ACL: access control list&lt;/p&gt;
-
-&lt;p&gt;可靠性: reliance, 可用的: reliance&lt;/p&gt;
-
-&lt;p&gt;一致性: consistency&lt;/p&gt;
-
-&lt;p&gt;最终一致性: eventually consistency  &lt;a href=&quot;cmd://Speak/_uk_/eventually&quot;&gt;/ɪ’ventʃʊəlɪ/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;隔离: isolation  &lt;a href=&quot;cmd://Speak/_uk_/isolation&quot;&gt;/aɪsə’leɪʃ(ə)n/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;连接池: connection pool &lt;a href=&quot;cmd://Speak/_uk_/pool&quot;&gt;/puːl/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;鉴权: authentication&lt;/p&gt;
-
-&lt;p&gt;计数器法: counter method&lt;/p&gt;
-
-&lt;p&gt;滑动窗口: sliding window&lt;/p&gt;
-
-&lt;p&gt;滚动的: rolling &lt;a href=&quot;cmd://Speak/_uk_/rolling&quot;&gt;/’rəʊlɪŋ/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;流量: traffic&lt;/p&gt;
-
-&lt;p&gt;漏桶: Leaky Bucket  令牌桶: token bucket&lt;/p&gt;
-
-&lt;p&gt;轮询，探询: poll&lt;/p&gt;
-
-&lt;p&gt;延迟: delay&lt;/p&gt;
-
-&lt;p&gt;定时器: timer, 任务定时调度: task scheduler&lt;/p&gt;
-
-&lt;p&gt;定时的: timed&lt;/p&gt;
-
-&lt;p&gt;时间轮: wheeltimer&lt;/p&gt;
-
-&lt;p&gt;优先的: prior &lt;a href=&quot;cmd://Speak/_uk_/prior&quot;&gt;/’praɪə/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;circualr环形的，circuit环形vi, 电路。&lt;/p&gt;
-
-&lt;p&gt;缓冲 buffer&lt;/p&gt;
-
-&lt;p&gt;层 level&lt;/p&gt;
-
-&lt;p&gt;层级 hierachy  分层的 hierarchical&lt;/p&gt;
-
-&lt;p&gt;灵活的 flexible&lt;/p&gt;
-
-&lt;p&gt;线程安全 thread safety&lt;/p&gt;
-
-&lt;p&gt;attribute&lt;/p&gt;
-
-&lt;p&gt;boolean&lt;/p&gt;
-
-&lt;p&gt;atomic&lt;/p&gt;
-
-&lt;p&gt;assign&lt;/p&gt;
-
-&lt;p&gt;aspect&lt;/p&gt;
-
-&lt;p&gt;scale&lt;/p&gt;
-
-&lt;p&gt;access&lt;/p&gt;
-
-&lt;p&gt;represent&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">个人单词本</summary></entry></feed>
+&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry></feed>
