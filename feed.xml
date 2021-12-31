@@ -1,4 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-30T23:56:27+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-31T12:36:32+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">存储分页查询及深分页问题</title><link href="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="存储分页查询及深分页问题" /><published>2021-12-31T00:00:00+08:00</published><updated>2021-12-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;分页查询效率&quot;&gt;分页查询效率&lt;/h2&gt;
+
+&lt;h3 id=&quot;b树&quot;&gt;B+树&lt;/h3&gt;
+
+&lt;p&gt;Btree父节点会记录多个子节点的Range。查询o(logn)&lt;/p&gt;
+
+&lt;p&gt;对于有条件&amp;gt;=查询后就到了叶子节点，那此时在limit 10000, 10, 就需要拿出来10010条再截断，性能退化。&lt;/p&gt;
+
+&lt;h3 id=&quot;跳表&quot;&gt;跳表&lt;/h3&gt;
+
+&lt;p&gt;每个节点记录个span，记录下一层有多少个节点。查询o(logn)&lt;/p&gt;
+
+&lt;h2 id=&quot;深分页问题&quot;&gt;深分页问题&lt;/h2&gt;
+
+&lt;p&gt;链接: https://database.51cto.com/art/202109/683765.htm&lt;/p&gt;
+
+&lt;p&gt;update_time建了索引后，&lt;/p&gt;
+
+&lt;p&gt;执行以下语句&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select id,name,balance from account where update_time&amp;gt; '2020-09-19' limit 100000,10;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这个SQL的执行流程：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过普通二级索引树idx_update_time，过滤update_time条件，找到满足条件的记录ID。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过ID，回到主键索引树，找到满足记录的行，然后取出展示的列（回表）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;扫描满足条件的100010行，然后扔掉前100000行，返回。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211231120007.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SQL变慢原因有两个：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;limit语句会先扫描offset+n行，然后再丢弃掉前offset行，返回后n行数据。也就是说limit 100000,10，就会扫描100010行，而limit 0,10，只扫描10行。&lt;/li&gt;
+  &lt;li&gt;limit 100000,10 扫描更多的行数，也意味着回表更多的次数。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;通过子查询优化&quot;&gt;通过子查询优化&lt;/h3&gt;
+
+&lt;p&gt;因为以上的SQL，回表了100010次，实际上，我们只需要10条数据，也就是我们只需要10次回表其实就够了。因此，我们可以通过减少回表次数来优化。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select id,name,balance FROM account where id &amp;gt;= (select a.id from account a where a.update_time &amp;gt;= '2020-09-19' limit 100000, 1) LIMIT 10; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;标签记录法&quot;&gt;标签记录法&lt;/h3&gt;
+
+&lt;p&gt;limit 深分页问题的本质原因就是：偏移量（offset）越大，mysql就会扫描越多的行，然后再抛弃掉。这样就导致查询性能的下降。&lt;/p&gt;
+
+&lt;p&gt;其实我们可以采用标签记录法，就是标记一下上次查询到哪一条了，下次再来查的时候，从该条开始往下扫描。就好像看书一样，上次看到哪里了，你就折叠一下或者夹个书签，下次来看的时候，直接就翻到啦。&lt;/p&gt;
+
+&lt;p&gt;假设上一次记录到100000，则SQL可以修改为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select  id,name,balance FROM account where id &amp;gt; 100000 order by id limit 10; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样的话，后面无论翻多少页，性能都会不错的，因为命中了id索引。但是这种方式有局限性：需要一种类似连续自增的字段。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">分页查询效率</summary></entry><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;以ByteGraph为例, &lt;a href=&quot;https://www.modb.pro/db/85661&quot;&gt;参考链接&lt;/a&gt;&lt;/p&gt;
@@ -24,6 +88,10 @@
 &lt;p&gt;&lt;img src=&quot;https://oss-emcsprod-public.modb.pro/wechatSpider/modb_20210721_89e5a554-e9c9-11eb-a1a6-00163e068ecd.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;用一个类似于B树的结构来建模Graph，对某一个点来说，一个点同一个边type的所有的终点是一个存储单元，也就是说我们把一个起点ID、起点type和边type，基于它去group by，具有相同值的所有边集合，我们会认为它是逻辑上属于一个分区的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;就是个B+Tree, 插入删除查找都是o(logn)，会动态调整树高度，进行分裂合并等。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;同时父节点会记录底层range, 因此limit 10000, 10等这种也是o(logn)，类似跳表的span。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;如果这个分区依然涉及到很多点怎么办呢？我们会把它作为一个二级的拆分，所以因此会涉及到 b树的多层级。&lt;/p&gt;
 
@@ -655,16 +723,4 @@
 
 &lt;p&gt;哈夫曼编码是无损压缩当中最好的方法。它使用预先二进制描述来替换每个符号，长度由特殊符号出现的频率决定。常见的符号需要很少的位来表示，而不常见的符号需要很多为来表示。&lt;/p&gt;
 
-&lt;p&gt;哈夫曼算法在改变任何符号二进制编码引起少量密集表现方面是最佳的。然而，它并不处理符号的顺序和重复或序号的序列。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">编码和压缩</summary></entry><entry><title type="html">English学习资源</title><link href="https://mafulong.github.io/2021/12/09/English%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/" rel="alternate" type="text/html" title="English学习资源" /><published>2021-12-09T00:00:00+08:00</published><updated>2021-12-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/09/English%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90</id><content type="html" xml:base="https://mafulong.github.io/2021/12/09/English%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/">&lt;h2 id=&quot;english学习资源&quot;&gt;English学习资源&lt;/h2&gt;
-
-&lt;p&gt;计算机英语部分参考另一个博客&lt;/p&gt;
-
-&lt;h2 id=&quot;english-level-up-tips-for-chinese&quot;&gt;English-level-up-tips-for-Chinese&lt;/h2&gt;
-
-&lt;p&gt;网址：https://github.com/byoungd/English-level-up-tips-for-Chinese&lt;/p&gt;
-
-&lt;h2 id=&quot;github上读北大北大课程资料民间整理&quot;&gt;github上“读”北大（北大课程资料民间整理）&lt;/h2&gt;
-
-&lt;p&gt;网址：https://lib-pku.github.io/&lt;/p&gt;
-
-&lt;p&gt;github:https://github.com/lib-pku/libpku&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">English学习资源</summary></entry></feed>
+&lt;p&gt;哈夫曼算法在改变任何符号二进制编码引起少量密集表现方面是最佳的。然而，它并不处理符号的顺序和重复或序号的序列。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">编码和压缩</summary></entry></feed>
