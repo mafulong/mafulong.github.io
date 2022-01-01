@@ -5,14 +5,15 @@ title: leveldb和RocksDB
 tags: Database
 ---
 
-## leveldb实现
+# leveldb实现
 
-> [参考](https://johng.cn/leveldb-intro/)
+> [参考，如下正文](https://soulmachine.gitbooks.io/system-design/content/cn/key-value-store.html)
 >
+> [LSM详解](https://zhuanlan.zhihu.com/p/114906516) lsm就是leveldb这个多层SSTable这个树，通过降低一些读性能，来达到使用顺序写的目的。
 
 有一个反直觉的事情是，**内存随机写甚至比硬盘的顺序读还要慢**，磁盘随机写就更慢了，说明我们要避免随机写，最好设计成顺序写。因此好的KV存储引擎，都在尽量避免更新操作，把更新和删除操作转化为顺序写操作。LevelDB采用了一种SSTable的数据结构来达到这个目的。
 
-SSTable(Sorted String Table)就是一组按照key排序好的 key-value对, key和value都是字节数组。SSTable既可以在内存中，也可以在硬盘中。SSTable底层使用LSM Tree(Log-Structured Merge Tree)来存放有序的key-value对。
+SSTable(Sorted String Table)就是一组按照key排序好的 key-value对, key和value都是字节数组。SSTable既可以在内存中，也可以在硬盘中。SSTable底层使用**LSM Tree**(Log-Structured Merge Tree)来存放有序的key-value对。
 
 LevelDB整体由如下几个组成部分，
 
@@ -23,7 +24,7 @@ LevelDB整体由如下几个组成部分，
 5. Manifest文件。 Manifest文件中记录SST文件在不同Level的分布，单个SST文件的最大最小key，以及其他一些LevelDB需要的元信息。
 6. Current文件。从上面的介绍可以看出，LevelDB启动时的首要任务就是找到当前的Manifest，而Manifest可能有多个。Current文件简单的记录了当前Manifest的文件名。
 
-![img](https://soulmachine.gitbooks.io/system-design/content/images/leveldb/architecture.png)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220101161536.png)
 
 LevelDB的一些核心逻辑如下，
 
@@ -77,13 +78,19 @@ LevelDB删除一条记录时，也不会修改SST文件，而是用一个特殊�
 
 读操作使用了如下几个手段进行优化：
 
-- MemTable + SkipList
-- Binary Search(通过 manifest 文件)
+- MemTable + SkipList (跳表的查找插入删除都是o(logn))
+- Binary Search(通过 manifest 文件，存了每个key到offset)
 - 页缓存
-- bloom filter
+- bloom filter (判断一个key是否在SST里使用布隆过滤器)
 - 周期性分层合并
 
-## 分层合并(Leveled Compaction)
 
-## RocksDB
 
+# RocksDB
+
+和LevelDB的区别：
+
+- Leveldb是单线程合并文件，Rocksdb可以支持多线程合并文件，充分利用多核的特性，加快文件合并的速度，避免文件合并期间引起系统停顿；
+- Leveldb只有一个Memtable，若Memtable满了还没有来得及持久化，则会引起系统停顿，Rocksdb可以根据需要开辟多个Memtable；
+- Leveldb只能获取单个K-V，Rocksdb支持一次获取多个K-V。
+- Levledb不支持备份，Rocksdb支持全量和备份。
