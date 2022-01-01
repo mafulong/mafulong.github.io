@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2021-12-31T16:14:00+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">存储分页查询及深分页问题</title><link href="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="存储分页查询及深分页问题" /><published>2021-12-31T00:00:00+08:00</published><updated>2021-12-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;分页查询效率&quot;&gt;分页查询效率&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-01T15:27:32+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">存储分页查询及深分页问题</title><link href="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="存储分页查询及深分页问题" /><published>2021-12-31T00:00:00+08:00</published><updated>2021-12-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2021/12/31/%E5%AD%98%E5%82%A8%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2%E5%8F%8A%E6%B7%B1%E5%88%86%E9%A1%B5%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;分页查询效率&quot;&gt;分页查询效率&lt;/h2&gt;
 
 &lt;h3 id=&quot;b树&quot;&gt;B+树&lt;/h3&gt;
 
@@ -62,7 +62,161 @@
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select  id,name,balance FROM account where id &amp;gt; 100000 order by id limit 10; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;这样的话，后面无论翻多少页，性能都会不错的，因为命中了id索引。但是这种方式有局限性：需要一种类似连续自增的字段。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">分页查询效率</summary></entry><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
+&lt;p&gt;这样的话，后面无论翻多少页，性能都会不错的，因为命中了id索引。但是这种方式有局限性：需要一种类似连续自增的字段。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">分页查询效率</summary></entry><entry><title type="html">负载均衡和反向代理</title><link href="https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" rel="alternate" type="text/html" title="负载均衡和反向代理" /><published>2021-12-31T00:00:00+08:00</published><updated>2021-12-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">&lt;h2 id=&quot;负载均衡器&quot;&gt;负载均衡器&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211231223727.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;负载均衡器将传入的请求分发到应用服务器和数据库等计算资源。无论哪种情况，负载均衡器将从计算资源来的响应返回给恰当的客户端。负载均衡器的效用在于:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;防止请求进入不好的服务器&lt;/li&gt;
+  &lt;li&gt;防止资源过载&lt;/li&gt;
+  &lt;li&gt;帮助消除单一的故障点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;负载均衡器可以通过硬件（昂贵）或 HAProxy 等软件来实现。 增加的好处包括:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;SSL 终结 ─ 解密传入的请求并加密服务器响应，这样的话后端服务器就不必再执行这些潜在高消耗运算了。&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;不需要再每台服务器上安装 &lt;a href=&quot;https://en.wikipedia.org/wiki/X.509&quot;&gt;X.509 证书&lt;/a&gt;。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Session 留存&lt;/strong&gt; ─ 如果 Web 应用程序不追踪会话，发出 cookie 并将特定客户端的请求路由到同一实例。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;通常会设置采用&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#工作到备用切换active-passive&quot;&gt;工作─备用&lt;/a&gt; 或 &lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#双工作切换active-active&quot;&gt;双工作&lt;/a&gt; 模式的多个负载均衡器，以免发生故障。&lt;/p&gt;
+
+&lt;p&gt;负载均衡器能基于多种方式来路由流量:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;随机&lt;/li&gt;
+  &lt;li&gt;最少负载&lt;/li&gt;
+  &lt;li&gt;Session/cookie&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://g33kinfo.com/info/archives/2657&quot;&gt;轮询调度或加权轮询调度算法&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#四层负载均衡&quot;&gt;四层负载均衡&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#七层负载均衡&quot;&gt;七层负载均衡&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;四层负载均衡&quot;&gt;四层负载均衡&lt;/h3&gt;
+
+&lt;p&gt;四层负载均衡根据监看&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#通讯&quot;&gt;传输层&lt;/a&gt;的信息来决定如何分发请求。通常，这会涉及来源，目标 IP 地址和请求头中的端口，但不包括数据包（报文）内容。四层负载均衡执行&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-4-load-balancing/&quot;&gt;网络地址转换（NAT）&lt;/a&gt;来向上游服务器转发网络数据包。&lt;/p&gt;
+
+&lt;h3 id=&quot;七层负载均衡器&quot;&gt;七层负载均衡器&lt;/h3&gt;
+
+&lt;p&gt;七层负载均衡器根据监控&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#通讯&quot;&gt;应用层&lt;/a&gt;来决定怎样分发请求。这会涉及请求头的内容，消息和 cookie。七层负载均衡器终结网络流量，读取消息，做出负载均衡判定，然后传送给特定服务器。比如，一个七层负载均衡器能直接将视频流量连接到托管视频的服务器，同时将更敏感的用户账单流量引导到安全性更强的服务器。&lt;/p&gt;
+
+&lt;p&gt;以损失灵活性为代价，四层负载均衡比七层负载均衡花费更少时间和计算资源，虽然这对现代商用硬件的性能影响甚微。&lt;/p&gt;
+
+&lt;h3 id=&quot;水平扩展&quot;&gt;水平扩展&lt;/h3&gt;
+
+&lt;p&gt;负载均衡器还能帮助水平扩展，提高性能和可用性。使用商业硬件的性价比更高，并且比在单台硬件上&lt;strong&gt;垂直扩展&lt;/strong&gt;更贵的硬件具有更高的可用性。相比招聘特定企业系统人才，招聘商业硬件方面的人才更加容易。&lt;/p&gt;
+
+&lt;h4 id=&quot;缺陷水平扩展&quot;&gt;缺陷：水平扩展&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;水平扩展引入了复杂度并涉及服务器复制
+    &lt;ul&gt;
+      &lt;li&gt;服务器应该是无状态的:它们也不该包含像 session 或资料图片等与用户关联的数据。&lt;/li&gt;
+      &lt;li&gt;session 可以集中存储在数据库或持久化&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#缓存&quot;&gt;缓存&lt;/a&gt;（Redis、Memcached）的数据存储区中。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;缓存和数据库等下游服务器需要随着上游服务器进行扩展，以处理更多的并发连接。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺陷负载均衡器&quot;&gt;缺陷：负载均衡器&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果没有足够的资源配置或配置错误，负载均衡器会变成一个性能瓶颈。&lt;/li&gt;
+  &lt;li&gt;引入负载均衡器以帮助消除单点故障但导致了额外的复杂性。&lt;/li&gt;
+  &lt;li&gt;单个负载均衡器会导致单点故障，但配置多个负载均衡器会进一步增加复杂性。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;来源及延伸阅读&quot;&gt;来源及延伸阅读&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/&quot;&gt;NGINX 架构&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;HAProxy 架构指南&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.lecloud.net/post/7295452622/scalability-for-dummies-part-1-clones&quot;&gt;可扩展性&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Load_balancing_(computing)&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-4-load-balancing/&quot;&gt;四层负载平衡&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-7-load-balancing/&quot;&gt;七层负载平衡&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html&quot;&gt;ELB 监听器配置&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;反向代理web-服务器&quot;&gt;反向代理（web 服务器）&lt;/h2&gt;
+
+&lt;p&gt;反向代理是一种可以集中地调用内部服务，并提供统一接口给公共客户的 web 服务器。来自客户端的请求先被反向代理服务器转发到可响应请求的服务器，然后代理再把服务器的响应结果返回给客户端。&lt;/p&gt;
+
+&lt;p&gt;带来的好处包括：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;增加安全性&lt;/strong&gt; - 隐藏后端服务器的信息，屏蔽黑名单中的 IP，限制每个客户端的连接数。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;提高可扩展性和灵活性&lt;/strong&gt; - 客户端只能看到反向代理服务器的 IP，这使你可以增减服务器或者修改它们的配置。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;本地终结 SSL 会话&lt;/p&gt;
+
+    &lt;p&gt;- 解密传入请求，加密服务器响应，这样后端服务器就不必完成这些潜在的高成本的操作。&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;免除了在每个服务器上安装 &lt;a href=&quot;https://en.wikipedia.org/wiki/X.509&quot;&gt;X.509&lt;/a&gt; 证书的需要&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;压缩&lt;/strong&gt; - 压缩服务器响应&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;缓存&lt;/strong&gt; - 直接返回命中的缓存结果&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;静态内容&lt;/p&gt;
+
+    &lt;p&gt;- 直接提供静态内容&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;HTML/CSS/JS&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;图片&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;视频&lt;/li&gt;
+      &lt;li&gt;等等&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;负载均衡器与反向代理&quot;&gt;负载均衡器与反向代理&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当你有多个服务器时，部署负载均衡器非常有用。通常，负载均衡器将流量路由给一组功能相同的服务器上。&lt;/li&gt;
+  &lt;li&gt;即使只有一台 web 服务器或者应用服务器时，反向代理也有用，可以参考上一节介绍的好处。&lt;/li&gt;
+  &lt;li&gt;NGINX 和 HAProxy 等解决方案可以同时支持第七层反向代理和负载均衡。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;不利之处反向代理&quot;&gt;不利之处：反向代理&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;引入反向代理会增加系统的复杂度。&lt;/li&gt;
+  &lt;li&gt;单独一个反向代理服务器仍可能发生单点故障，配置多台反向代理服务器（如&lt;a href=&quot;https://en.wikipedia.org/wiki/Failover&quot;&gt;故障转移&lt;/a&gt;）会进一步增加复杂度。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;来源及延伸阅读-1&quot;&gt;来源及延伸阅读&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/&quot;&gt;反向代理与负载均衡&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/&quot;&gt;NGINX 架构&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;HAProxy 架构指南&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Reverse_proxy&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">负载均衡器</summary></entry><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;以ByteGraph为例, &lt;a href=&quot;https://www.modb.pro/db/85661&quot;&gt;参考链接&lt;/a&gt;&lt;/p&gt;
@@ -651,76 +805,4 @@
       &lt;li&gt;Kafka分区的复制份数指定为N，则可以容忍N-1个节点的故障。发生故障只需要分区leader选举下即可，效率很高。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Mq" /><category term="Mq" /><summary type="html">RocketMQ原理</summary></entry><entry><title type="html">编码和压缩</title><link href="https://mafulong.github.io/2021/12/20/%E7%BC%96%E7%A0%81%E5%92%8C%E5%8E%8B%E7%BC%A9/" rel="alternate" type="text/html" title="编码和压缩" /><published>2021-12-20T00:00:00+08:00</published><updated>2021-12-20T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/20/%E7%BC%96%E7%A0%81%E5%92%8C%E5%8E%8B%E7%BC%A9</id><content type="html" xml:base="https://mafulong.github.io/2021/12/20/%E7%BC%96%E7%A0%81%E5%92%8C%E5%8E%8B%E7%BC%A9/">&lt;h2 id=&quot;编码和压缩&quot;&gt;编码和压缩&lt;/h2&gt;
-
-&lt;h2 id=&quot;编码前置知识&quot;&gt;编码前置知识&lt;/h2&gt;
-
-&lt;h3 id=&quot;变长编码和定长编码&quot;&gt;变长编码和定长编码：&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;定长编码使用固定字节数来表示，如int32类型固定使用4个字节表示&lt;/li&gt;
-  &lt;li&gt;变长编码是需要几个字节就使用几个字节，如对于int32类型的数字1来说，只需要1个字节&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;小端序和大端序&quot;&gt;小端序和大端序&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Big-Endian：大端序，高位字节在前，低位字节在后，这是人类读写数值的方法&lt;/li&gt;
-  &lt;li&gt;Little-Endian：小端序，低位地址在前，高位地址在后&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;tlv编码格式&quot;&gt;TLV编码格式&lt;/h3&gt;
-
-&lt;p&gt;TLV即Tag-Length-Value, Tag作为该字段的唯一标识，Length代表Value数据域的长度，最后即Value数据本身&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211220153141.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;负数的处理&quot;&gt;负数的处理&lt;/h3&gt;
-
-&lt;p&gt;如果要表示的数是一个负数，采用上面所说的方式编码，就会占用很多字节，因为对于比较常用（数值比较大）的负数来说，转成补码后会有很多个1，也就是说占用的字节会比较多，这样如果还采用上面那种方式编码，就得不偿失了，因此Google又新增加了一种数据类型，叫sint，专门用来处理这些负数，其实现原理是采用zigzag编码，zigzag编码的映射函数为：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ZigZag(n) = (n &amp;lt;&amp;lt; 1) ^ (n &amp;lt;&amp;lt; k)，k为31或者63
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;最终的效果就是将负数映射为正整数，了解到这里即可&lt;/p&gt;
-
-&lt;h2 id=&quot;thrift&quot;&gt;thrift&lt;/h2&gt;
-
-&lt;p&gt;Thrift是一套包含序列化功能和支持服务通信的RPC框架，主要包含三大部分：&lt;strong&gt;代码生成&lt;/strong&gt;、&lt;strong&gt;序列化框架&lt;/strong&gt;、&lt;strong&gt;RPC框架&lt;/strong&gt;，大致相当于protoc + protobuffer + grpc，并且支持大量语言，保证常用功能在跨语言间功能一致，是一套全栈式的RPC解决方案。&lt;/p&gt;
-
-&lt;p&gt;二进制编码常用TLV编码实现，TLV是指由数据的类型Tag，数据的长度Length，数据的值Value组成的结构体，几乎可以描述任意数据类型，TLV的Value也可以是一个TLV结构，正因为这种嵌套的特性，可以让我们用来包装协议的实现。Thrift中Binary和Compact编码实现都是采用的TLV编码变种实现，两者不同点主要在于对整数类型处理方面。&lt;/p&gt;
-
-&lt;p&gt;每个字段又有一个编号，因此是一个四元组: (id,type, length,value) 其中length在定长里不用，在非定长里用最高位表示。&lt;/p&gt;
-
-&lt;h3 id=&quot;binary序列化&quot;&gt;binary序列化&lt;/h3&gt;
-
-&lt;p&gt;简单数据类型为定长编码，包含一个字节类型标识+两个字节编号+类型对应定长值。因此这里就不用长度来记录了，因为是定长。&lt;/p&gt;
-
-&lt;h3 id=&quot;compact序列化&quot;&gt;compact序列化&lt;/h3&gt;
-
-&lt;p&gt;区别就是使用不定长编码，每个字节，我们只使用低7位，最高的一位作为一个标志位（msb）：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;1：下一个byte也是该数字的一部分&lt;/li&gt;
-  &lt;li&gt;0：下一个byte不是该数字的一部分&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;该编码好处是对于小数字采用更少字节，大数字采用更多字节，但大部分使用都是小数字，则整体看压缩作用明显。&lt;/p&gt;
-
-&lt;p&gt;对于负数用了最高位，会先做个转换。&lt;/p&gt;
-
-&lt;h2 id=&quot;protocol-buffer&quot;&gt;protocol buffer&lt;/h2&gt;
-
-&lt;h2 id=&quot;压缩算法&quot;&gt;压缩算法&lt;/h2&gt;
-
-&lt;h3 id=&quot;rle&quot;&gt;RLE&lt;/h3&gt;
-
-&lt;p&gt;RLE 又叫 Run Length Encoding ，是一个针对无损压缩的非常简单的算法。它用重复字节和重复的次数来简单描述来代替重复的字节。尽管简单并且对于通常的压缩非常低效，但它有的时候却非常有用（例如， JPEG 就使用它）。&lt;/p&gt;
-
-&lt;p&gt;比如aaabbb变成3a3b&lt;/p&gt;
-
-&lt;h3 id=&quot;哈夫曼&quot;&gt;哈夫曼&lt;/h3&gt;
-
-&lt;p&gt;哈夫曼编码是无损压缩当中最好的方法。它使用预先二进制描述来替换每个符号，长度由特殊符号出现的频率决定。常见的符号需要很少的位来表示，而不常见的符号需要很多为来表示。&lt;/p&gt;
-
-&lt;p&gt;哈夫曼算法在改变任何符号二进制编码引起少量密集表现方面是最佳的。然而，它并不处理符号的顺序和重复或序号的序列。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">编码和压缩</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Mq" /><category term="Mq" /><summary type="html">RocketMQ原理</summary></entry></feed>
