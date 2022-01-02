@@ -5,39 +5,53 @@ title: WebSocket
 tags: ComputerNetwork
 ---
 
-WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。
+## WebSocket
 
-## 为什么需要 WebSocket ？
-了解计算机网络协议的人，应该都知道：HTTP 协议是一种无状态的、无连接的、单向的应用层协议。它采用了请求/响应模型。通信请求只能由客户端发起，服务端对请求做出应答处理。
+WebSocket是一种**基于TCP连接的全双工通信的协议**，其**工作在应用层**，建立连接的时候通过**复用http握手通道**，**完成http协议的切换升级**，即切换到WebSocket协议，协议切换成功后，**将不再需要客户端发起请求，服务端就可以直接向客户端发送数据**，实现双向通信。
+相对于Http协议而言，WebSocket有以下优点:
 
-这种通信模型有一个弊端：HTTP 协议无法实现服务器主动向客户端发起消息。
+- 可以支持**双向通信**
+- WebSocket协议可以更好的**支持二进制**，**可以直接传送二进制数据**。
+- 同时WebSocket协议的**头部非常小**，服务器发到客户端的数据包的包头，**只有2~10个字节(取决于数据包的长度)**，客户端发送服务端的包头稍微大一点，因为其要进行**掩码加密**，所以**还要加上4个字节的掩码**。总得来说，头部不超过14个字节。
+- **支持扩展**，用户可以扩展协议实现自己的子协议。
 
-这种单向请求的特点，注定了如果服务器有连续的状态变化，客户端要获知就非常麻烦。大多数 Web 应用程序将通过频繁的异步JavaScript和XML（AJAX）请求实现长轮询。轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）。
 
-![](http://oyz7npk35.bkt.clouddn.com/image/spring/web/ajax-long-polling.png)
 
-因此，工程师们一直在思考，有没有更好的方法。WebSocket 就是这样发明的。WebSocket 连接允许客户端和服务器之间进行全双工通信，以便任一方都可以通过建立的连接将数据推送到另一端。WebSocket 只需要建立一次连接，就可以一直保持连接状态。这相比于轮询方式的不停建立连接显然效率要大大提高。
+### WebSocket 建立连接
+握手过程
 
-说起实时通讯就不得不提一些“服务器推”技术。
+1. 浏览器、服务器建立TCP连接，三次握手。这是通信的基础，传输控制层，若失败后续都不执行。
+2. TCP连接成功后，浏览器通过HTTP协议向服务器传送WebSocket支持的版本号等信息。（开始前的HTTP握手）
+3. 服务器收到客户端的握手请求后，同样采用HTTP协议回馈数据。http header特殊数据
+   1. Connection: Upgrade 表示**要升级协议**
+   2. Upgrade: websocket 表示**要升级到websocket协议**
+   3. Sec-WebSocket-version 表示**websocket的版本**。
+   4. Sec-WebSocket-Key 浏览器生成的一个字符串，**服务器端需要取出该字符串**，后**通过SHA1算法计算出摘要**，并**转成base64字符串**，然后**作为`Sec-WebSocket-Accept`的值放到响应头部返回给客户端**，否则会连接失败。关键就是**要监听`upgrade`事件**，然后**根据`Sec-WebSocket-Key`生成对应`Sec-WebSocket-Accept`的key值，然后返回给客户端**
+4. 当收到了连接成功的消息后，通过TCP通道进行传输通信。
 
-1. 轮询
-客户端以一定的时间间隔发送Ajax请求,优点实现起来比较简单、省事,不过缺点也很明显，请求有很大一部分是无用的，而且需要频繁建立和释放TCP连接，很消耗带宽和服务器资源。
 
-2. 长轮询
-与普通轮询不同的地方在于，服务端接收到请求后会保持住不立即返回响应，等到有消息更新才返回响应并关闭连接，客户端处理完响应再重新发起请求。较之普通轮询没有无用的请求，但服务器保持连接也是有消耗的，如果服务端数据变化频繁的话和普通轮询并无两样。
 
-3. 长连接
-在页面中嵌入一个隐藏的iframe,将其src设为一个长连接的请求，这样服务端就能不断向客户端发送数据。优缺点与长轮询相仿。
+### 深入探究
 
-这些技术都明显存在两个相同的缺点：1. 服务器需要很大的开销 2. 都做不到真正意义上的“主动推送”，服务端只能“被动”地响应，于是就轮到正主出场了。在websocket中，只需要做一个握手动作就可以在客户端和服务器之间建立连接，之后通过数据帧的形式在这个连接上进行通讯，并且，由于连接是双向的，在连接建立之后服务端随时可以主动向客户端发送消息（前提是连接没有断开）。
+[参考](https://www.infoq.cn/article/deep-in-websocket-protocol) 
 
-## WebSocket 如何工作？
-Web浏览器和服务器都必须实现 WebSockets 协议来建立和维护连接。由于 WebSockets 连接长期存在，与典型的HTTP连接不同，对服务器有重要的影响。
+WebSocket 复用了 HTTP 的握手通道。具体指的是，客户端通过 HTTP 请求与 WebSocket 服务端协商升级协议。
 
-基于多线程或多进程的服务器无法适用于 WebSockets，因为它旨在打开连接，尽可能快地处理请求，然后关闭连接。任何实际的 WebSockets 服务器端实现都需要一个异步服务器。
+协议升级完成后，后续的数据交换则遵照 WebSocket 的协议。
 
-## WebSocket 客户端
-在客户端，没有必要为 WebSockets 使用 JavaScript 库。实现 WebSockets 的 Web 浏览器将通过 WebSockets 对象公开所有必需的客户端功能（主要指支持 Html5 的浏览器）。
+建立链接时需要密钥验证，公开算法，可破解伪造，只是为了避免误操作。
+
+数据帧交互: opcode有Ping,Pong, 二进制交换，断开连接等。
+
+有分片逻辑，最后一帧的FIN为1
+
+客户端到服务端请求需要进行掩码转换，数据不同意伪造。
+
+[掩码例子](https://blog.csdn.net/yangzai187/article/details/93862980)
+
+
+
+### 客户端流程
 
 ```javascript
 // 初始化一个 WebSocket 对象
@@ -62,105 +76,47 @@ ws.onclose = function () {
 };
 ```
 
-## WebSocket 服务端
-WebSocket 在服务端的实现非常丰富。Node.js、Java、C++、Python 等多种语言都有自己的解决方案。
 
-以下，介绍我在学习 WebSocket 过程中接触过的 WebSocket 服务端解决方案。
 
-### 1. Java
-Java 的 web 一般都依托于 servlet 容器。
+## HTTP 长连接
 
-我使用过的 servlet 容器有：Tomcat、Jetty、Resin。其中Tomcat7、Jetty7及以上版本均开始支持 WebSocket（推荐较新的版本，因为随着版本的更迭，对 WebSocket 的支持可能有变更）。
+HTTP 协议是一种无状态的、无连接的、单向的应用层协议。它采用了请求/响应模型。通信请求只能由客户端发起，服务端对请求做出应答处理。
 
-此外，Spring 框架对 WebSocket 也提供了支持。
+这种通信模型有一个弊端：HTTP 协议无法实现服务器主动向客户端发起消息。
 
-虽然，以上应用对于 WebSocket 都有各自的实现。但是，它们都遵循RFC6455 的通信标准，并且 Java API 统一遵循 JSR 356 - JavaTM API for WebSocket 规范。所以，在实际编码中，API 差异不大。
+这种单向请求的特点，注定了如果服务器有连续的状态变化，客户端要获知就非常麻烦。大多数 Web 应用程序将通过频繁的异步JavaScript和XML（AJAX）请求实现长轮询。轮询的效率低，非常浪费资源（因为必须不停连接，或者 HTTP 连接始终打开）。
 
-### 2. Spring
-Spring 对于 WebSocket 的支持基于下面的 jar 包：
-```xml
-<dependency>
-  <groupId>org.springframework</groupId>
-  <artifactId>spring-websocket</artifactId>
-  <version>${spring.version}</version>
-</dependency>
-```
+一些“服务器推”技术。
 
-### 3. javax.websocket
-如果不想使用 Spring 框架的 WebSocket API，你也可以选择基本的 javax.websocket。
+1. 轮询
+   客户端以一定的时间间隔发送Ajax请求,优点实现起来比较简单、省事,不过缺点也很明显，请求有很大一部分是无用的，而且需要频繁建立和释放TCP连接，很消耗带宽和服务器资源。
 
-首先，需要引入 API jar 包。
+2. 长轮询
+   与普通轮询不同的地方在于，服务端接收到请求后会保持住不立即返回响应，等到有消息更新才返回响应并关闭连接，客户端处理完响应再重新发起请求。较之普通轮询没有无用的请求，但服务器保持连接也是有消耗的，如果服务端数据变化频繁的话和普通轮询并无两样。
 
-```xml
-<!-- To write basic javax.websocket against -->
-<dependency>
-  <groupId>javax.websocket</groupId>
-  <artifactId>javax.websocket-api</artifactId>
-  <version>1.0</version>
-</dependency>
-```
+3. 长连接
+   在页面中嵌入一个隐藏的iframe,将其src设为一个长连接的请求，这样服务端就能不断向客户端发送数据。优缺点与长轮询相仿。
 
-@ServerEndpoint
+这些技术都明显存在两个相同的缺点：
 
-这个注解用来标记一个类是 WebSocket 的处理器。
+1. 服务器需要很大的开销 
+2. 都做不到真正意义上的“主动推送”，服务端只能“被动”地响应，于是就轮到正主出场了。在websocket中，只需要做一个握手动作就可以在客户端和服务器之间建立连接，之后通过数据帧的形式在这个连接上进行通讯，并且，由于连接是双向的，在连接建立之后服务端随时可以主动向客户端发送消息（前提是连接没有断开）。
 
-然后，你可以在这个类中使用下面的注解来表明所修饰的方法是触发事件的回调
+## VS http
 
-```java
-// 收到消息触发事件
-@OnMessage
-public void onMessage(String message, Session session) throws IOException, InterruptedException {
-    ...
-}
+相同点
+1. 都是一样基于TCP的，都是可靠性传输协议。
+2. 都是应用层协议。
 
-// 打开连接触发事件
-@OnOpen
-public void onOpen(Session session, EndpointConfig config, @PathParam("id") String id) {
-    ...
-}
+不同点
 
-// 关闭连接触发事件
-@OnClose
-public void onClose(Session session, CloseReason closeReason) {
-    ...
-}
+1. WebSocket是双向通信协议，模拟Socket协议，可以双向发送或接受信息。HTTP是单向的。
+2. WebSocket是需要握手进行建立连接的。
 
-// 传输消息错误触发事件
-@OnError
-public void onError(Throwable error) {
-    ...
-}
-```
+联系：WebSocket在建立握手时，数据是通过HTTP传输的。但是建立之后，在真正传输时候是不需要HTTP协议的。
 
-ServerEndpointConfig.Configurator
+## VS Socket
 
-编写完处理器，你需要扩展 ServerEndpointConfig.Configurator 类完成配置：
+Socket是传输控制层协议，WebSocket是应用层协议。
 
-猜测主要用于取用HttpSession
-
-```java
-public class WebSocketServerConfigurator extends ServerEndpointConfig.Configurator {
-    @Override
-    public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
-        HttpSession httpSession = (HttpSession) request.getHttpSession();
-        sec.getUserProperties().put(HttpSession.class.getName(), httpSession);
-    }
-}
-```
-
-## 深入探究
-
-[参考](https://www.infoq.cn/article/deep-in-websocket-protocol) 
-
-WebSocket 复用了 HTTP 的握手通道。具体指的是，客户端通过 HTTP 请求与 WebSocket 服务端协商升级协议。协议升级完成后，后续的数据交换则遵照 WebSocket 的协议。
-
-建立链接时需要密钥验证，公开算法，可破解伪造，只是为了避免误操作。
-
-数据帧交互: opcode有Ping,Pong, 二进制交换，断开连接等。
-
-有分片逻辑，最后一帧的FIN为1
-
-客户端到服务请求需要进行掩码转换，达到不容易伪造到达服务端的数据。
-
-[掩码例子](https://blog.csdn.net/yangzai187/article/details/93862980)
-
+Socket是应用层与TCP/IP协议族通信的中间软件抽象层，它是一组接口。在设计模式中，Socket其实就是一个门面模式，它把复杂的TCP/IP协议族隐藏在Socket接口后面，对用户来说，一组简单的接口就是全部，让Socket去组织数据，以符合指定的协议。
