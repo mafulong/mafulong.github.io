@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-03T11:58:12+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">373. 查找和最小的K对数字</title><link href="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/" rel="alternate" type="text/html" title="373. 查找和最小的K对数字" /><published>2022-01-03T00:00:00+08:00</published><updated>2022-01-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/03/373.%20%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97</id><content type="html" xml:base="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-03T18:41:47+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">373. 查找和最小的K对数字</title><link href="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/" rel="alternate" type="text/html" title="373. 查找和最小的K对数字" /><published>2022-01-03T00:00:00+08:00</published><updated>2022-01-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/03/373.%20%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97</id><content type="html" xml:base="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给定两个以升序排列的整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums2&lt;/code&gt; , 以及一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。&lt;/p&gt;
@@ -78,7 +78,79 @@
                 &lt;span class=&quot;n&quot;&gt;heapq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">5970. 参加会议的最多员工数</title><link href="https://mafulong.github.io/2022/01/02/5970.-%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0/" rel="alternate" type="text/html" title="5970. 参加会议的最多员工数" /><published>2022-01-02T00:00:00+08:00</published><updated>2022-01-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/02/5970.%20%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/01/02/5970.-%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">找第k小及变种</title><link href="https://mafulong.github.io/2022/01/03/%E6%89%BE%E7%AC%ACk%E5%B0%8F%E5%8F%8A%E5%8F%98%E7%A7%8D/" rel="alternate" type="text/html" title="找第k小及变种" /><published>2022-01-03T00:00:00+08:00</published><updated>2022-01-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/03/%E6%89%BE%E7%AC%ACk%E5%B0%8F%E5%8F%8A%E5%8F%98%E7%A7%8D</id><content type="html" xml:base="https://mafulong.github.io/2022/01/03/%E6%89%BE%E7%AC%ACk%E5%B0%8F%E5%8F%8A%E5%8F%98%E7%A7%8D/">&lt;h2 id=&quot;找第k小及变种&quot;&gt;找第k小及变种&lt;/h2&gt;
+
+&lt;h2 id=&quot;常见思路&quot;&gt;常见思路&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;对结果二分查找
+    &lt;ol&gt;
+      &lt;li&gt;需要看判定复杂度是多少，考虑下有序后再遍历，o(n)是否判定&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;max heap大顶堆
+    &lt;ol&gt;
+      &lt;li&gt;对于找前k小是否有效&lt;/li&gt;
+      &lt;li&gt;heap大小维护在不超过k，超过则弹出堆顶&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;多路链表归并
+    &lt;ol&gt;
+      &lt;li&gt;看能否抽象成多路链表归并&lt;/li&gt;
+      &lt;li&gt;可以用heap取最小值优化成每次取最小链路时时间复杂度是o(logn)&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;应用&quot;&gt;应用&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-k-th-smallest-pair-distance/&quot;&gt;719. 找出第 k 小的距离对&lt;/a&gt;  给定一个整数数组，返回所有数对之间的第 k 个最小&lt;strong&gt;距离&lt;/strong&gt;。一对 (A, B) 的距离被定义为 A 和 B 之间的绝对差值。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对结果二分解法 o(nlogn) 先排序后再每次判定就可以o(n)判定了，其实就是有序数组的滑动窗口，当slow不符合条件时slow+=1&lt;/li&gt;
+  &lt;li&gt;多路链表归并 o(klogn) 对每个item维护右边指针，每次取最小，然后右移指针，总共k次。k最大接近n^2&lt;/li&gt;
+  &lt;li&gt;大顶堆，o(n2logk) 找到所有距离对o(n2)，不断插入大顶堆，维护长度不超过k.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/kth-smallest-element-in-a-sorted-matrix/&quot;&gt;378. 有序矩阵中第 K 小的元素&lt;/a&gt; 给你一个 n x n 矩阵 matrix ，其中每行和每列元素均按升序排序，找到矩阵中第 k 小的元素。
+请注意，它是 排序后 的第 k 小元素，而不是第 k 个 不同 的元素。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对结果二分 判定可以从bottom-left 开始，维护(i,j)，每次i-=1时，不断增加j, w+=j,相当于多行求最长路径j，累积和和mid比较&lt;/li&gt;
+  &lt;li&gt;多路链表归并 对每行维护列指针…&lt;/li&gt;
+  &lt;li&gt;大顶堆 ….&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/super-ugly-number/&quot;&gt;313. 超级丑数&lt;/a&gt; 超级丑数 是一个正整数，并满足其所有质因数都出现在质数数组 primes 中。&lt;/p&gt;
+
+&lt;p&gt;给你一个整数 n 和一个整数数组 primes ，返回第 n 个 超级丑数 。&lt;/p&gt;
+
+&lt;p&gt;题目数据保证第 n 个 超级丑数 在 32-bit 带符号整数范围内。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/super-ugly-number/solution/gong-shui-san-xie-yi-ti-shuang-jie-you-x-jyow/&quot;&gt;多路归并&lt;/a&gt; 其&lt;strong&gt;实就是2一个链路、3一个链路、5一个链路，然后归并&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nthSuperUglyNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;primes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;heapq&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;hpush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hpop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;heapq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heappush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heapq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;heappop&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;hpush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hpop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;# print(idx,ans)
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;hpush&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;primes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">找第k小及变种</summary></entry><entry><title type="html">5970. 参加会议的最多员工数</title><link href="https://mafulong.github.io/2022/01/02/5970.-%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0/" rel="alternate" type="text/html" title="5970. 参加会议的最多员工数" /><published>2022-01-02T00:00:00+08:00</published><updated>2022-01-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/02/5970.%20%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/01/02/5970.-%E5%8F%82%E5%8A%A0%E4%BC%9A%E8%AE%AE%E7%9A%84%E6%9C%80%E5%A4%9A%E5%91%98%E5%B7%A5%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/maximum-employees-to-be-invited-to-a-meeting/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;一个公司准备组织一场会议，邀请名单上有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 位员工。公司准备了一张 &lt;strong&gt;圆形&lt;/strong&gt; 的桌子，可以坐下 &lt;strong&gt;任意数目&lt;/strong&gt; 的员工。&lt;/p&gt;
@@ -775,80 +847,4 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://xie.infoq.cn/article/e7182d18df48bc26eeb30b207&quot;&gt;一致性 hash 原理及实现（python 版）&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://aijishu.com/a/1060000000007241&quot;&gt;图解一致性hash算法和实现&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">一致性hash</summary></entry><entry><title type="html">网络为什么这么设计</title><link href="https://mafulong.github.io/2021/12/23/%E7%BD%91%E7%BB%9C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="网络为什么这么设计" /><published>2021-12-23T00:00:00+08:00</published><updated>2021-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/23/%E7%BD%91%E7%BB%9C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/23/%E7%BD%91%E7%BB%9C%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;tcp为什么粘包&quot;&gt;tcp为什么粘包？&lt;/h2&gt;
-
-&lt;p&gt;粘包就是数据A和数据B顺序发送，结果A和B一起发送了。&lt;/p&gt;
-
-&lt;p&gt;这是tcp特性：基于字节流，然后有个算法会优化，如果数据太小并且一定时间内还有数据就一起发送，节省发送次数。&lt;/p&gt;
-
-&lt;p&gt;这其实不是问题，需要开发者自己识别消息边界。&lt;/p&gt;
-
-&lt;h2 id=&quot;udp分片&quot;&gt;udp分片？&lt;/h2&gt;
-
-&lt;p&gt;udp不分片，要分片也是ip协议进行的分片。&lt;/p&gt;
-
-&lt;p&gt;一个包会分为多个片发送，如果一个片丢了那么就需要重新发送整个包，非常浪费，因此也是建议有最大大小： 65507字节。&lt;/p&gt;
-
-&lt;p&gt;tcp是tcp和ip都有分片。&lt;/p&gt;
-
-&lt;h2 id=&quot;为什么ip和tcp需要分片和分段&quot;&gt;为什么IP和TCP需要分片和分段？&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;IP 协议拆分数据是因为物理设备的限制，一次能够传输的数据由路径上 MTU 最小的设备决定，一旦 IP 协议传输的数据包超过 MTU 的限制就会发生分片，所以我们需要通过路径 MTU 发现获取传输路径上的 MTU 限制；&lt;/li&gt;
-  &lt;li&gt;TCP 协议拆分数据是为了保证传输的可靠性和顺序，作为可靠的传输协议，为了保证数据的传输顺序，它需要为每一个数据段增加包含序列号的 TCP 协议头，如果数据段大小超过了 IP 协议的 MTU 限制， 就会带来更多额外的重传和重组开销，影响性能。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;既然ip层会分片为什么tcp层也还要分段&quot;&gt;既然IP层会分片，为什么TCP层也还要分段？&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;数据在TCP分段，就是为了在IP层不需要分片，同时发生重传的时候只重传分段后的小份数据&lt;/strong&gt;。籍此来保证效率，不需要整个重传。&lt;/p&gt;
-
-&lt;p&gt;另外ip层包大小限制来自于数据链路层，因此如果遇到了特殊的要求，限制很小，还是会ip分片的。&lt;/p&gt;
-
-&lt;p&gt;TCP分段时使用MSS，IP分片时使用MTU&lt;/p&gt;
-
-&lt;p&gt;MSS是通过MTU计算得到，在三次握手和发送消息时都有可能产生变化。&lt;/p&gt;
-
-&lt;p&gt;IP分片是&lt;strong&gt;不得已&lt;/strong&gt;的行为，尽量不在IP层分片，尤其是链路上中间设备的IP分片。因此，在IPv6中已经禁止中间节点设备对IP报文进行分片，分片只能在链路的最开头和最末尾两端进行。&lt;/p&gt;
-
-&lt;h2 id=&quot;tcp为什么三次握手&quot;&gt;tcp为什么三次握手？&lt;/h2&gt;
-
-&lt;p&gt;TCP 建立连接时通过三次握手可以有效地避免历史错误连接的建立，减少通信双方不必要的资源消耗，三次握手能够帮助通信双方获取初始化序列号，它们能够保证数据包传输的不重不丢，还能保证它们的传输顺序，不会因为网络传输的问题发生混乱，到这里不使用『两次握手』和『四次握手』的原因已经非常清楚了：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;『两次握手』：无法避免历史错误连接的初始化，浪费接收方的资源；&lt;/li&gt;
-  &lt;li&gt;『四次握手』：TCP 协议的设计可以让我们同时传递 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ACK&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SYN&lt;/code&gt; 两个控制信息，减少了通信次数，所以不需要使用更多的通信次数传输相同的信息；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;为什么tcp有性能问题&quot;&gt;为什么tcp有性能问题？&lt;/h2&gt;
-
-&lt;p&gt;TCP 协议的一些设计在今天来看虽然仍然具有巨大的价值，但是并不能适用于所有场景。为了解决 TCP 的性能问题，目前业界有两种解决方案：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;使用 UDP 构建性能更加优异、更灵活的传输协议，例如：QUIC&lt;a href=&quot;https://draveness.me/whys-the-design-tcp-performance/#fn:19&quot;&gt;19&lt;/a&gt; 等；&lt;/li&gt;
-  &lt;li&gt;通过不同的手段优化 TCP 协议的性能，例如：选择性 ACK（Selective ACK, SACK），TCP 快开启（TCP Fast Open, TFO）；&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;由于 TCP 协议在操作系统内核中，不利于协议的更新，所以第一种方案目前发展的更好，HTTP/3 就使用了 QUIC 作为传输协议&lt;a href=&quot;https://draveness.me/whys-the-design-tcp-performance/#fn:20&quot;&gt;20&lt;/a&gt;。我们在这里重新回顾一下导致 TCP 性能问题的三个重要原因：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;TCP 的拥塞控制在发生丢包时会进行退让，减少能够发送的数据段数量，但是丢包并不一定意味着网络拥塞，更多的可能是网络状况较差；&lt;/li&gt;
-  &lt;li&gt;TCP 的三次握手带来了额外开销，这些开销不只包括需要传输更多的数据，还增加了首次传输数据的网络延迟；&lt;/li&gt;
-  &lt;li&gt;TCP 的重传机制在数据包丢失时可能会重新传输已经成功接收的数据段，造成带宽的浪费；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;为什么dns不用tcp&quot;&gt;为什么DNS不用TCP?&lt;/h2&gt;
-
-&lt;p&gt;无论是选择 UDP 还是 TCP，最核心的矛盾就在于需要传输的数据包大小，如果数据包小到一定程度，UDP 协议绝对最佳的选择。&lt;/p&gt;
-
-&lt;p&gt;当数据包大到一定程度，tcp握手等额外开销变得无足轻重时，自然是选择更可靠的tcp。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://draveness.me/whys-the-design/&quot;&gt;为什么这么设计系列文章&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6961578444774146078&quot;&gt;动图图解！既然IP层会分片，为什么TCP层也还要分段？&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="ComputerNetwork" /><category term="ComputerNetwork" /><summary type="html">tcp为什么粘包？</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">一致性hash</summary></entry></feed>
