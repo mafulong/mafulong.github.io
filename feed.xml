@@ -1,4 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-06T15:02:31+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">373. 查找和最小的K对数字</title><link href="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/" rel="alternate" type="text/html" title="373. 查找和最小的K对数字" /><published>2022-01-03T00:00:00+08:00</published><updated>2022-01-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/03/373.%20%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97</id><content type="html" xml:base="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-06T15:49:54+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">会话管理session及jwt</title><link href="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/" rel="alternate" type="text/html" title="会话管理session及jwt" /><published>2022-01-06T00:00:00+08:00</published><updated>2022-01-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt</id><content type="html" xml:base="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/">&lt;h2 id=&quot;cookiesession&quot;&gt;cookie、session&lt;/h2&gt;
+
+&lt;p&gt;cookie：cookie中的信息是以键值对的形式储存在浏览器中，而且在浏览器中可以直接看到数据&lt;/p&gt;
+
+&lt;p&gt;session：session存储在服务器中，然后发送一个cookie存储在浏览器中，cookie中存储的是session_id，之后每次请求服务器通过session_id可以获取对应的session信息&lt;/p&gt;
+
+&lt;h2 id=&quot;基于session的认证方式&quot;&gt;基于session的认证方式&lt;/h2&gt;
+
+&lt;p&gt;早期互联网以 web 为主，客户端是浏览器 ，所以 Cookie-Session 方式是早期最常用的认证方式，直到现在，一些 web 网站依然用这种方式做认证。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;认证过程大致如下：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;用户输入用户名、密码或者用短信验证码方式登录系统；&lt;/li&gt;
+  &lt;li&gt;服务端验证后，创建一个 Session 信息，并且将 SessionID 存到 cookie，发送回浏览器；&lt;/li&gt;
+  &lt;li&gt;下次客户端再发起请求，自动带上 cookie 信息，服务端通过 cookie 获取 Session 信息进行校验；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;缺点:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Cookie 是不能跨域的，就是不能多域名共享&lt;/li&gt;
+  &lt;li&gt;cookie 存在 CSRF（跨站请求伪造）的风险。比如在html里加了script复用你的cookie来搞事情&lt;/li&gt;
+  &lt;li&gt;分布式系统可能要session同步，当然redis可解决。&lt;/li&gt;
+  &lt;li&gt;对于app可能没有cookie，但可以用app数据库&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;改造版&quot;&gt;改造版&lt;/h3&gt;
+
+&lt;p&gt;用了redis， 本地不用cookie, 浏览器使用local storage，app使用app数据库&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;用户输入用户名、密码或者用短信验证码方式登录系统；&lt;/li&gt;
+  &lt;li&gt;服务端经过验证，将认证信息构造好的数据结构存储到 Redis 中，并将 key 值返回给客户端；&lt;/li&gt;
+  &lt;li&gt;客户端拿到返回的 key，存储到 local storage 或本地数据库；&lt;/li&gt;
+  &lt;li&gt;下次客户端再次请求，把 key 值附加到 header 或者 请求体中；&lt;/li&gt;
+  &lt;li&gt;服务端根据获取的 key，到 Redis 中获取认证信息；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;基于token的认证方式-jwt&quot;&gt;基于token的认证方式 JWT&lt;/h2&gt;
+
+&lt;p&gt;近些年SPA, web API, 和IoT(Internet of Things, 物联网)的崛起带动了基于Token的验证, 通常就是指JWT(Json Web Token)&lt;/p&gt;
+
+&lt;p&gt;JWT是无状态的(stateless), 后端不必保存有关session的信息. 后端只需要验证每次请求中携带的Token即可验证请求的真实性.&lt;/p&gt;
+
+&lt;p&gt;Token通常以&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bearer {JWT}&lt;/code&gt;的形式保存在Authentication header中, 也可以放到POST body或query parameter中.&lt;/p&gt;
+
+&lt;p&gt;流程如下:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;用户输入登录信息&lt;/li&gt;
+  &lt;li&gt;服务器验证后, 返回一个签名(signed)的token. 该token存储在前端, 通常在localStorage中, sessionStorage或cookie也可以. &lt;strong&gt;(为了不暴露jwt可以使用https)&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;接下来的请求中token被加到Authentication Header中, 或者POST body / query parameter中.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;后台解码JWT，使用 base64的头部和 base64 的载荷部分，通过HMACSHA256算法计算签名部分，比较计算结果和传来的签名部分是否一致，如果一致，说明此次请求没有问题，如果不一致，说明请求过期或者是非法请求。&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;用户登出后, token从前端销毁, 无需与后端交互.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;JWT存储在浏览器的storage或者cookie中。由服务器产生加密的json数据包括：header，payload和signature三部分组成。&lt;/p&gt;
+
+&lt;p&gt;header中通常来说由token的生成算法和类型组成；payload中则用来保存相关的状态信息；signature部分由header，payload，secret_key三部分加密生成。 注意，不要在JWT的payload或header中放置敏感信息&lt;/p&gt;
+
+&lt;p&gt;缺点：  &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;token&lt;/code&gt;由于自包含信息，因此一般数据量较大，而且每次请求 都需要传递，因此比较占带宽&lt;/p&gt;
+
+&lt;h2 id=&quot;开放授权-oauth2&quot;&gt;开放授权 oauth2&lt;/h2&gt;
+
+&lt;p&gt;有时候，我们登录某个网站，但我们又不想注册该网站的账号，这时我们可以使用第三方账号登录，比如 github、微博、微信、QQ等。&lt;/p&gt;
+
+&lt;p&gt;开放授权（OAuth）是一个开放标准，允许用户让第三方应用访问该用户在某一网站上存储的私密的资源（如照片，视频，联系人列表），而无需将用户名和密码提供给第三方应用。&lt;/p&gt;
+
+&lt;p&gt;OAuth允许用户提供一个令牌，而不是用户名和密码来访问他们存放在特定服务提供者的数据。每一个令牌授权一个特定的网站（例如，视频编辑网站)在特定的时段（例如，接下来的2小时内）内访问特定的资源（例如仅仅是某一相册中的视频）。这样，OAuth让用户可以授权第三方网站访问他们存储在另外服务提供者的某些特定信息，而非所有内容。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;名词解释：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Third-party application：第三方应用程序又称”客户端”（client），比如打开知乎，使用第三方登录，选择 Github 登录，这时候知乎就是客户端。&lt;/li&gt;
+  &lt;li&gt;Resource Owner：资源所有者，本文中又称”用户”（user）,即登录用户。&lt;/li&gt;
+  &lt;li&gt;Authorization server：认证服务器，即 Github 专门用来处理认证的服务器。&lt;/li&gt;
+  &lt;li&gt;Resource server：资源服务器，即 Github 存放用户生成的资源的服务器。它与认证服务器，可以是同一台服务器，也可以是不同的服务器。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106154749.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A. A网站让用户跳转到 GitHub，请求授权码；GitHub 要求用户登录，然后询问“知乎网站要求获得 xx 权限，你是否同意？”；&lt;/li&gt;
+  &lt;li&gt;B. 用户同意，GitHub 就会重定向回 A 网站，同时发回一个授权码；&lt;/li&gt;
+  &lt;li&gt;C. A 网站使用授权码，向 GitHub 请求令牌；&lt;/li&gt;
+  &lt;li&gt;D. GitHub 返回令牌；&lt;/li&gt;
+  &lt;li&gt;E. A 网站使用令牌，向 GitHub 请求用户数据；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://cloud.tencent.com/developer/news/769106&lt;/li&gt;
+  &lt;li&gt;https://liuzhenglai.com/post/5bbabecedcd9832abf60c176&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">cookie、session</summary></entry><entry><title type="html">373. 查找和最小的K对数字</title><link href="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/" rel="alternate" type="text/html" title="373. 查找和最小的K对数字" /><published>2022-01-03T00:00:00+08:00</published><updated>2022-01-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/03/373.%20%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97</id><content type="html" xml:base="https://mafulong.github.io/2022/01/03/373.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9C%80%E5%B0%8F%E7%9A%84K%E5%AF%B9%E6%95%B0%E5%AD%97/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/find-k-pairs-with-smallest-sums/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给定两个以升序排列的整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums2&lt;/code&gt; , 以及一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。&lt;/p&gt;
@@ -743,108 +838,4 @@
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/kongtiao5/article/details/82771694&quot;&gt;缓存穿透、缓存击穿、缓存雪崩区别和解决方案&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.cyc2018.xyz/%E5%85%B6%E5%AE%83/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E7%BC%93%E5%AD%98.html#%E5%9B%9B%E3%80%81%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98&quot;&gt;缓存&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">缓存问题</summary></entry><entry><title type="html">一致性hash</title><link href="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/" rel="alternate" type="text/html" title="一致性hash" /><published>2021-12-23T00:00:00+08:00</published><updated>2021-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash</id><content type="html" xml:base="https://mafulong.github.io/2021/12/23/%E4%B8%80%E8%87%B4%E6%80%A7hash/">&lt;h2 id=&quot;一致性hash&quot;&gt;一致性hash&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;首先，我们将hash算法的值域映射成一个具有232 次方个桶的空间中，即0~（232）-1的数字空间。现在我们可以将这些数字头尾相连，组合成一个闭合的环形。&lt;/li&gt;
-  &lt;li&gt;每一个缓存key都可以通过Hash算法转化为一个32位的二进制数，也就对应着环形空间的某一个缓存区。我们把所有的缓存key映射到环形空间的不同位置。&lt;/li&gt;
-  &lt;li&gt;我们的每一个缓存节点也遵循同样的Hash算法，比如利用IP或者主机名做Hash，映射到环形空间当中，如下图&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211223220115.png&quot; alt=&quot;image&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;虚拟节点解决数据倾斜&quot;&gt;虚拟节点解决数据倾斜&lt;/h2&gt;
-
-&lt;p&gt;当节点太少时，容易出现数据倾斜，有的节点数据特别多。&lt;/p&gt;
-
-&lt;p&gt;为了优化这种节点太少而产生的不均衡情况。一致性哈希算法引入了&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;虚拟节点&lt;/code&gt;的概念。
-所谓虚拟节点，就是基于原来的物理节点映射出N个子节点，最后把所有的子节点映射到环形空间上。注意是随机映射。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://aijishu.com/img/bVb2W&quot; alt=&quot;image&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一致性hash实现&quot;&gt;一致性hash实现&lt;/h2&gt;
-
-&lt;h3 id=&quot;数据结构的选择&quot;&gt;数据结构的选择&lt;/h3&gt;
-
-&lt;p&gt;根据算法原理，我们的算法有几个要求：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;要能根据hash值排序存储&lt;/li&gt;
-  &lt;li&gt;排序存储要被快速查找 （List不行）&lt;/li&gt;
-  &lt;li&gt;排序查找还要能方便变更 （Array不行）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;另外，由于二叉树可能极度不平衡。所以采用红黑树是最稳妥的实现方法。Java中直接使用TreeMap即可。&lt;/p&gt;
-
-&lt;p&gt;红黑树是o(logn),对于o(1)的算法，可以使用map缓存下，但增加了存储。&lt;/p&gt;
-
-&lt;p&gt;简单版本可以使用数组存储，变更复杂度o(n),但我们实际上只需要存储node列表即可，node上提供缓存set/get能力。&lt;/p&gt;
-
-&lt;p&gt;那我们每次找Node就是数组上二分查找。&lt;/p&gt;
-
-&lt;h3 id=&quot;python实现-数组维护二分查找&quot;&gt;python实现 数组维护+二分查找&lt;/h3&gt;
-
-&lt;p&gt;下面的addserver和deleteserver可以把数据放到下一个server上。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#/bin/python 
-# -*- coding: utf-8 -*-
-&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bisect&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;hashlib&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;将字符串映射到2^32的数字中&quot;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;md5_str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hashlib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hexdigest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;md5_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CacheNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;缓存节点类，负责记录缓存服务器信息，以及发送缓存服务器方法&quot;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;发送到对应的cache
-        Args:
-            request：需要转发的request信息
-        &quot;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;# 假装有内容的亚子
-&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
-
-
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HashSeverMgr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;server管理类，给定ip，返回对应的server&quot;&quot;&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;添加缓存节点
-        Args:
-            node: 缓存节点类CacheNode，记录缓存server的香港信息。
-        &quot;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;bisect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;
-    
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;del_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;删除缓存节点&quot;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;del&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;node_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;source_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;获取目标缓存节点，确定待转发的目标缓存server&quot;&quot;&quot;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;key_hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;source_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bisect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bisect_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 若比最大的node hash还大，分发给第一个node
-&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cache_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-    
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://xie.infoq.cn/article/e7182d18df48bc26eeb30b207&quot;&gt;一致性 hash 原理及实现（python 版）&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://aijishu.com/a/1060000000007241&quot;&gt;图解一致性hash算法和实现&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">一致性hash</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">缓存问题</summary></entry></feed>
