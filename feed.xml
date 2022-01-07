@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-07T13:08:06+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-07T13:38:12+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
 
 &lt;p&gt;单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑&lt;strong&gt;读高并发&lt;/strong&gt;的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的&lt;strong&gt;读请求全部走从节点&lt;/strong&gt;。这样也可以很轻松实现水平扩容，&lt;strong&gt;支撑读高并发&lt;/strong&gt;。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210528141728.png&quot; alt=&quot;image-20210528141728472&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;redis replication -&amp;gt; 主从架构 -&amp;gt; 读写分离 -&amp;gt; 水平扩容支撑读高并发&lt;/p&gt;
+&lt;p&gt;redis replication -&amp;gt; 主从架构 -&amp;gt; 读写分离 -&amp;gt; 水平扩容支撑读高并发。&lt;/p&gt;
+
+&lt;p&gt;如果所有的slave节点数据的复制和同步都由master节点来处理，会照成master节点压力太大，使用主从从结构来解决。即一个从复制另一个从&lt;/p&gt;
 
 &lt;h3 id=&quot;redis主从复制多机房复制过程&quot;&gt;Redis主从复制/多机房复制过程&lt;/h3&gt;
 
@@ -23,6 +25,8 @@
 
 &lt;p&gt;Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是分布式的架构，包含了&lt;strong&gt;「多个」&lt;/strong&gt;Sentinel节点和&lt;strong&gt;「多个」&lt;/strong&gt;Redis节点。而每个Sentinel节点会对Redis节点和其余的Sentinel节点进行监控。&lt;/p&gt;
 
+&lt;p&gt;无法保证消息完全不丢失。&lt;/p&gt;
+
 &lt;p&gt;它的主要功能有以下几点&lt;/p&gt;
 
 &lt;ul&gt;
@@ -33,15 +37,17 @@
 
 &lt;h2 id=&quot;rediscluster-分片-多主&quot;&gt;RedisCluster 分片 多主&lt;/h2&gt;
 
+&lt;p&gt;是一个去中心化架构，内置了16384个哈希槽。&lt;/p&gt;
+
 &lt;p&gt;可以理解为n个主从架构组合在一起对外服务。Redis Cluster要求至少需要3个master才能组成一个集群，同时每个master至少需要有一个slave节点。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220107112851.png&quot; alt=&quot;redis-cluster&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，那Redis Cluster中是如何做的呢？&lt;strong&gt;虽然每个master下都挂载了一个slave节点，但是在Redis Cluster中的读、写请求其实都是在master上完成的。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;slave节点只是充当了一个数据备份的角色&lt;/strong&gt;，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。&lt;/p&gt;
+&lt;p&gt;key到某个server的过程是采用类一致性hash方式，即hash slot。&lt;/p&gt;
 
-&lt;p&gt;key到某个server的过程是采用类一致性hash方式，即hash slot&lt;/p&gt;
+&lt;p&gt;Redis把请求转发的逻辑放在了Smart Client中，要想使用Redis Cluster，必须升级Client SDK，&lt;strong&gt;这个SDK中内置了请求转发的逻辑，所以业务开发人员同样不需要自己编写转发规则，Redis Cluster采用16384个槽位进行路由规则的转发。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;redis-cluster-的-hash-slot-算法&quot;&gt;redis cluster 的 hash slot 算法&lt;/h3&gt;
 
@@ -75,19 +81,62 @@
 
 &lt;p&gt;你转发了一个特别有意思的文章到朋友圈，然后你的朋友们都觉得还不错，于是就一传十、十传百这样的散播出去了，这就是朋友圈的裂变传播。&lt;/p&gt;
 
-&lt;h2 id=&quot;主从和sentinel和cluster关系&quot;&gt;主从和sentinel和cluster关系&lt;/h2&gt;
+&lt;h2 id=&quot;redis集群化方案对比&quot;&gt;Redis集群化方案对比&lt;/h2&gt;
+
+&lt;h3 id=&quot;主从和sentinel和cluster关系&quot;&gt;主从和sentinel和cluster关系&lt;/h3&gt;
 
 &lt;p&gt;主从是降低读压力，从节点提供读。&lt;/p&gt;
 
 &lt;p&gt;sentinel是HA 高可用架构，master挂了，sentinel节点就从slave里选举新master。&lt;/p&gt;
 
-&lt;p&gt;cluster重在大数据量，进行分片，从节点是备份，不提供读。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。&lt;/p&gt;
+&lt;p&gt;cluster重在大数据量，进行分片。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。&lt;/p&gt;
+
+&lt;h3 id=&quot;cluster架构延伸&quot;&gt;cluster架构延伸&lt;/h3&gt;
+
+&lt;p&gt;gossip协议有网络风暴问题，节点数过多比如超过1000时就有性能问题，因此可能需要一种新的架构。&lt;/p&gt;
+
+&lt;p&gt;设想&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以不用gossip,  使用sentinel来故障转移。&lt;/li&gt;
+  &lt;li&gt;配置集中化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;集群化方案&quot;&gt;集群化方案&lt;/h3&gt;
+
+&lt;p&gt;业界主流的Redis集群化方案主要包括以下几个：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;客户端分片&lt;/li&gt;
+  &lt;li&gt;Codis&lt;/li&gt;
+  &lt;li&gt;Twemproxy&lt;/li&gt;
+  &lt;li&gt;Redis Cluster&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;它们还可以用&lt;strong&gt;是否中心化&lt;/strong&gt;来划分，其中&lt;strong&gt;客户端分片、Redis Cluster属于无中心化的集群方案，Codis、Tweproxy属于中心化的集群方案。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;是否中心化是指客户端访问多个Redis节点时，是&lt;strong&gt;直接访问&lt;/strong&gt;还是通过一个&lt;strong&gt;中间层Proxy&lt;/strong&gt;来进行操作，直接访问的就属于无中心化的方案，通过中间层Proxy访问的就属于中心化。&lt;/p&gt;
+
+&lt;h3 id=&quot;客户端分片&quot;&gt;客户端分片&lt;/h3&gt;
+
+&lt;p&gt;缺点是业务开发人员&lt;strong&gt;使用Redis的成本较高&lt;/strong&gt;，需要编写路由规则的代码来使用多个节点，而且如果事先对业务的数据量评估不准确，后期的&lt;strong&gt;扩容和迁移成本非常高&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;codis&quot;&gt;Codis&lt;/h3&gt;
+
+&lt;p&gt;加个代理层。&lt;/p&gt;
+
+&lt;p&gt;Codis的Proxy就是负责请求转发的组件，它内部维护了请求转发的具体规则，Codis把整个集群划分为1024个槽位，在处理读写请求时，采用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;crc32&lt;/code&gt;Hash算法计算key的Hash值，然后再根据Hash值对1024个槽位取模，最终找到具体的Redis节点。&lt;/p&gt;
+
+&lt;h3 id=&quot;twemproxy&quot;&gt;Twemproxy&lt;/h3&gt;
+
+&lt;p&gt;功能比较单一，只实现了请求路由转发，没有像Codis那么全面有在线扩容的功能，它解决的重点就是把客户端分片的逻辑统一放到了Proxy层而已，其他功能没有做任何处理。&lt;/p&gt;
 
 &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_42667608/article/details/111360617&quot;&gt;深度图解Redis Cluster原理&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/k-wGpBBnS53Ap86KNiBYvA&quot;&gt;Redis Sentinel-深入浅出原理和实战&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://kaito-kidd.com/2020/07/07/redis-cluster-codis-twemproxy/&quot;&gt;Redis集群化方案对比：Codis、Twemproxy、Redis Cluster&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">Redis 主从架构 一主多从</summary></entry><entry><title type="html">会话管理session及jwt</title><link href="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/" rel="alternate" type="text/html" title="会话管理session及jwt" /><published>2022-01-06T00:00:00+08:00</published><updated>2022-01-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt</id><content type="html" xml:base="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/">&lt;h2 id=&quot;cookiesession&quot;&gt;cookie、session&lt;/h2&gt;
 
 &lt;p&gt;cookie：cookie中的信息是以键值对的形式储存在浏览器中，而且在浏览器中可以直接看到数据&lt;/p&gt;
