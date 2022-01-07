@@ -11,7 +11,9 @@ tags: Database
 
 <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210528141728.png" alt="image-20210528141728472" style="zoom:50%;" />
 
-redis replication -> 主从架构 -> 读写分离 -> 水平扩容支撑读高并发
+redis replication -> 主从架构 -> 读写分离 -> 水平扩容支撑读高并发。
+
+如果所有的slave节点数据的复制和同步都由master节点来处理，会照成master节点压力太大，使用主从从结构来解决。即一个从复制另一个从
 
 ### Redis主从复制/多机房复制过程
 
@@ -36,6 +38,10 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 
 
 
+无法保证消息完全不丢失。
+
+
+
 它的主要功能有以下几点
 
 - 不时地监控redis是否按照预期良好地运行;
@@ -44,19 +50,21 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 
 ## RedisCluster 分片 多主
 
+是一个去中心化架构，内置了16384个哈希槽。
+
 可以理解为n个主从架构组合在一起对外服务。Redis Cluster要求至少需要3个master才能组成一个集群，同时每个master至少需要有一个slave节点。
 
 <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220107112851.png" alt="redis-cluster" style="zoom:50%;" />
 
 
 
-主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，那Redis Cluster中是如何做的呢？**虽然每个master下都挂载了一个slave节点，但是在Redis Cluster中的读、写请求其实都是在master上完成的。**
-
-**slave节点只是充当了一个数据备份的角色**，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。
+主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。
 
 
 
-key到某个server的过程是采用类一致性hash方式，即hash slot
+key到某个server的过程是采用类一致性hash方式，即hash slot。
+
+Redis把请求转发的逻辑放在了Smart Client中，要想使用Redis Cluster，必须升级Client SDK，**这个SDK中内置了请求转发的逻辑，所以业务开发人员同样不需要自己编写转发规则，Redis Cluster采用16384个槽位进行路由规则的转发。**
 
 ### redis cluster 的 hash slot 算法
 
@@ -88,16 +96,56 @@ gossip可以在O(logN) 轮就可以将信息传播到所有的节点，为什么
 
 你转发了一个特别有意思的文章到朋友圈，然后你的朋友们都觉得还不错，于是就一传十、十传百这样的散播出去了，这就是朋友圈的裂变传播。
 
-## 主从和sentinel和cluster关系
+## Redis集群化方案对比
+
+### 主从和sentinel和cluster关系
 
 主从是降低读压力，从节点提供读。
 
 sentinel是HA 高可用架构，master挂了，sentinel节点就从slave里选举新master。
 
-cluster重在大数据量，进行分片，从节点是备份，不提供读。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。
+cluster重在大数据量，进行分片。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。
+
+### cluster架构延伸
+
+gossip协议有网络风暴问题，节点数过多比如超过1000时就有性能问题，因此可能需要一种新的架构。
+
+设想
+
+- 可以不用gossip,  使用sentinel来故障转移。
+- 配置集中化。
+
+### 集群化方案
+
+业界主流的Redis集群化方案主要包括以下几个：
+
+- 客户端分片
+- Codis
+- Twemproxy
+- Redis Cluster
+
+它们还可以用**是否中心化**来划分，其中**客户端分片、Redis Cluster属于无中心化的集群方案，Codis、Tweproxy属于中心化的集群方案。**
+
+是否中心化是指客户端访问多个Redis节点时，是**直接访问**还是通过一个**中间层Proxy**来进行操作，直接访问的就属于无中心化的方案，通过中间层Proxy访问的就属于中心化。
+
+
+
+### 客户端分片
+
+缺点是业务开发人员**使用Redis的成本较高**，需要编写路由规则的代码来使用多个节点，而且如果事先对业务的数据量评估不准确，后期的**扩容和迁移成本非常高**
+
+### Codis
+
+加个代理层。
+
+Codis的Proxy就是负责请求转发的组件，它内部维护了请求转发的具体规则，Codis把整个集群划分为1024个槽位，在处理读写请求时，采用`crc32`Hash算法计算key的Hash值，然后再根据Hash值对1024个槽位取模，最终找到具体的Redis节点。
+
+### Twemproxy
+
+功能比较单一，只实现了请求路由转发，没有像Codis那么全面有在线扩容的功能，它解决的重点就是把客户端分片的逻辑统一放到了Proxy层而已，其他功能没有做任何处理。
 
 ## 参考
 
 - [深度图解Redis Cluster原理](https://blog.csdn.net/weixin_42667608/article/details/111360617)
 - [Redis Sentinel-深入浅出原理和实战](https://mp.weixin.qq.com/s/k-wGpBBnS53Ap86KNiBYvA)
-
+- [Redis集群化方案对比：Codis、Twemproxy、Redis Cluster](http://kaito-kidd.com/2020/07/07/redis-cluster-codis-twemproxy/)
