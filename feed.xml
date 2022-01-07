@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-06T21:59:38+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">会话管理session及jwt</title><link href="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/" rel="alternate" type="text/html" title="会话管理session及jwt" /><published>2022-01-06T00:00:00+08:00</published><updated>2022-01-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt</id><content type="html" xml:base="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/">&lt;h2 id=&quot;cookiesession&quot;&gt;cookie、session&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-07T13:08:06+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulong の blog</title><subtitle>This is personnel website of me</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
+
+&lt;p&gt;单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑&lt;strong&gt;读高并发&lt;/strong&gt;的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的&lt;strong&gt;读请求全部走从节点&lt;/strong&gt;。这样也可以很轻松实现水平扩容，&lt;strong&gt;支撑读高并发&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210528141728.png&quot; alt=&quot;image-20210528141728472&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;redis replication -&amp;gt; 主从架构 -&amp;gt; 读写分离 -&amp;gt; 水平扩容支撑读高并发&lt;/p&gt;
+
+&lt;h3 id=&quot;redis主从复制多机房复制过程&quot;&gt;Redis主从复制/多机房复制过程&lt;/h3&gt;
+
+&lt;p&gt;通过积压队列&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全量同步： rdb dump，比如第一次用&lt;/li&gt;
+  &lt;li&gt;部分同步： AOF, 根据offset传递积压缓存中的部分数据。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;redis-sentinel哨兵-一主多从故障转移&quot;&gt;Redis Sentinel哨兵 一主多从+故障转移&lt;/h2&gt;
+
+&lt;p&gt;一主多从的master挂了后没法自动选举master。当其发现某个节点不可达时，如果是master节点就会与其余的Sentinel节点协商。当大多数的Sentinel节点都认为master不可达时，就会选出一个Sentinel节点对master执行故障转移，并通知Redis的调用方相关的变更。&lt;/p&gt;
+
+&lt;p&gt;sentinel模式是建立在主从模式的基础上，如果只有一个Redis节点，sentinel就没有任何意义。&lt;/p&gt;
+
+&lt;p&gt;Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是分布式的架构，包含了&lt;strong&gt;「多个」&lt;/strong&gt;Sentinel节点和&lt;strong&gt;「多个」&lt;/strong&gt;Redis节点。而每个Sentinel节点会对Redis节点和其余的Sentinel节点进行监控。&lt;/p&gt;
+
+&lt;p&gt;它的主要功能有以下几点&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不时地监控redis是否按照预期良好地运行;&lt;/li&gt;
+  &lt;li&gt;如果发现某个redis节点运行出现状况，能够通知另外一个进程(例如它的客户端);&lt;/li&gt;
+  &lt;li&gt;能够进行自动切换。当一个master节点不可用时，能够选举出master的多个slave(如果有超过一个slave的话)中的一个来作为新的master,其它的slave节点会将它所追随的master的地址改为被提升为master的slave的新地址。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;rediscluster-分片-多主&quot;&gt;RedisCluster 分片 多主&lt;/h2&gt;
+
+&lt;p&gt;可以理解为n个主从架构组合在一起对外服务。Redis Cluster要求至少需要3个master才能组成一个集群，同时每个master至少需要有一个slave节点。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220107112851.png&quot; alt=&quot;redis-cluster&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，那Redis Cluster中是如何做的呢？&lt;strong&gt;虽然每个master下都挂载了一个slave节点，但是在Redis Cluster中的读、写请求其实都是在master上完成的。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;slave节点只是充当了一个数据备份的角色&lt;/strong&gt;，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。&lt;/p&gt;
+
+&lt;p&gt;key到某个server的过程是采用类一致性hash方式，即hash slot&lt;/p&gt;
+
+&lt;h3 id=&quot;redis-cluster-的-hash-slot-算法&quot;&gt;redis cluster 的 hash slot 算法&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;redis cluster有固定的16384个hash slot，对每个key计算CRC16值，然后对16384取模，可以获取key对应的hash slot&lt;/li&gt;
+  &lt;li&gt;redis cluster中每个master都会持有部分slot，比如有3个master，那么可能每个master持有5000多个hash slot&lt;/li&gt;
+  &lt;li&gt;hash slot让node的增加和移除很简单，增加一个master，就将其他master的hash slot移动部分过去，减少一个master，就将它的hash slot移动到其他master上去&lt;/li&gt;
+  &lt;li&gt;移动hash slot的成本是非常低的&lt;/li&gt;
+  &lt;li&gt;客户端的api，可以对指定的数据，让他们走同一个hash slot，通过hash tag来实现&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;redis-cluster-高可用保证客观宕机则故障转移&quot;&gt;redis cluster 高可用保证，客观宕机则故障转移&lt;/h3&gt;
+
+&lt;p&gt;简单来说，针对A节点，某一个节点认为A宕机了，那么此时是&lt;strong&gt;主观宕机&lt;/strong&gt;。而如果集群内超过半数的节点认为A挂了， 那么此时A就会被标记为&lt;strong&gt;客观宕机&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;一旦节点A被标记为了客观宕机，集群就会开始执行&lt;strong&gt;故障转移&lt;/strong&gt;。其余正常运行的master节点会进行投票选举，从A节点的slave节点中选举出一个，将其切换成新的master对外提供服务。当某个slave获得了超过半数的master节点投票，就成功当选。&lt;/p&gt;
+
+&lt;p&gt;当选成功之后，新的master会执来让自己停止复制A节点，使自己成为master。然后将A节点所负责处理的slot，全部转移给自己，然后就会向集群发&lt;strong&gt;PONG&lt;/strong&gt;消息来广播自己的最新状态。&lt;/p&gt;
+
+&lt;p&gt;按照一致性哈希的思想，如果某个节点挂了，那么就会沿着那个圆环，按照顺时针的顺序找到遇到的第一个Redis实例。&lt;/p&gt;
+
+&lt;p&gt;而对于Redis Cluster，某个key它其实并不关心它最终要去到哪个节点，他只关心他最终落到哪个slot上，无论你节点怎么去迁移，最终还是只需要找到对应的slot，然后再找到slot关联的节点，最终就能够找到最终的Redis实例了。&lt;/p&gt;
+
+&lt;p&gt;那这个&lt;strong&gt;PONG&lt;/strong&gt;消息又是什么东西呢？ gossip， &lt;strong&gt;redis cluster 节点间采用gossip协议进行通信&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;不同node直接ping-pong-gossip协议&quot;&gt;不同Node直接Ping-Pong, Gossip协议&lt;/h3&gt;
+
+&lt;p&gt;gossip 广泛运用于信息扩散、故障探测等等&lt;/p&gt;
+
+&lt;p&gt;gossip可以在O(logN) 轮就可以将信息传播到所有的节点，为什么是O(logN)呢？因为每次ping，当前节点会带上自己的信息外加整个Cluster的1/10数量的节点信息，一起发送出去。你可以简单的把这个模型抽象为：&lt;/p&gt;
+
+&lt;p&gt;你转发了一个特别有意思的文章到朋友圈，然后你的朋友们都觉得还不错，于是就一传十、十传百这样的散播出去了，这就是朋友圈的裂变传播。&lt;/p&gt;
+
+&lt;h2 id=&quot;主从和sentinel和cluster关系&quot;&gt;主从和sentinel和cluster关系&lt;/h2&gt;
+
+&lt;p&gt;主从是降低读压力，从节点提供读。&lt;/p&gt;
+
+&lt;p&gt;sentinel是HA 高可用架构，master挂了，sentinel节点就从slave里选举新master。&lt;/p&gt;
+
+&lt;p&gt;cluster重在大数据量，进行分片，从节点是备份，不提供读。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_42667608/article/details/111360617&quot;&gt;深度图解Redis Cluster原理&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/k-wGpBBnS53Ap86KNiBYvA&quot;&gt;Redis Sentinel-深入浅出原理和实战&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">Redis 主从架构 一主多从</summary></entry><entry><title type="html">会话管理session及jwt</title><link href="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/" rel="alternate" type="text/html" title="会话管理session及jwt" /><published>2022-01-06T00:00:00+08:00</published><updated>2022-01-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt</id><content type="html" xml:base="https://mafulong.github.io/2022/01/06/%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86session%E5%8F%8Ajwt/">&lt;h2 id=&quot;cookiesession&quot;&gt;cookie、session&lt;/h2&gt;
 
 &lt;p&gt;cookie：cookie中的信息是以键值对的形式储存在浏览器中，而且在浏览器中可以直接看到数据&lt;/p&gt;
 
@@ -768,74 +858,4 @@
 
 &lt;p&gt;1是消息的延迟，Gossip 协议中，消息最终需要通过多个轮次的散播而到达全网，不适合用在对实时性要求较高的场景下。&lt;/p&gt;
 
-&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry><entry><title type="html">缓存问题</title><link href="https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="缓存问题" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;缓存问题&quot;&gt;缓存问题&lt;/h2&gt;
-
-&lt;h3 id=&quot;缓存穿透&quot;&gt;缓存穿透&lt;/h3&gt;
-
-&lt;p&gt;指的是对某个一定不存在的数据进行请求，该请求将会穿透缓存到达数据库。&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;对这些不存在的数据缓存一个空数据；&lt;/li&gt;
-  &lt;li&gt;对这类请求进行过滤。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缓存击穿&quot;&gt;缓存击穿&lt;/h3&gt;
-
-&lt;p&gt;缓存击穿是指缓存中没有但数据库中有的数据（一般是缓存时间到期），这时由于并发用户特别多，同时读缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设置热点数据永远不过期。&lt;/li&gt;
-  &lt;li&gt;加互斥锁，互斥锁参考代码如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缓存雪崩&quot;&gt;缓存雪崩&lt;/h3&gt;
-
-&lt;p&gt;指的是由于数据没有被加载到缓存中，或者缓存数据在同一时间大面积失效（过期），又或者缓存服务器宕机，导致大量的请求都到达数据库。&lt;/p&gt;
-
-&lt;p&gt;在有缓存的系统中，系统非常依赖于缓存，缓存分担了很大一部分的数据请求。当发生缓存雪崩时，数据库无法处理这么大的请求，导致数据库崩溃。&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;为了防止缓存在同一时间大面积过期导致的缓存雪崩，可以通过观察用户行为，合理设置缓存过期时间来实现；&lt;/li&gt;
-  &lt;li&gt;为了防止缓存服务器宕机出现的缓存雪崩，可以使用分布式缓存，分布式缓存中每一个节点只缓存部分的数据，当某个节点宕机时可以保证其它节点的缓存仍然可用。&lt;/li&gt;
-  &lt;li&gt;也可以进行缓存预热，避免在系统刚启动不久由于还未将大量数据进行缓存而导致缓存雪崩。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缓存一致性&quot;&gt;缓存一致性&lt;/h3&gt;
-
-&lt;p&gt;缓存一致性要求数据更新的同时缓存数据也能够实时更新。&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;在数据更新的同时立即去更新缓存；&lt;/li&gt;
-  &lt;li&gt;在读缓存之前先判断缓存是否是最新的，如果不是最新的先进行更新。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;要保证缓存一致性需要付出很大的代价，缓存数据最好是那些对一致性要求不高的数据，允许缓存数据存在一些脏数据。&lt;/p&gt;
-
-&lt;h3 id=&quot;缓存-无底洞-现象&quot;&gt;缓存 “无底洞” 现象&lt;/h3&gt;
-
-&lt;p&gt;指的是为了满足业务要求添加了大量缓存节点，但是性能不但没有好转反而下降了的现象。&lt;/p&gt;
-
-&lt;p&gt;产生原因：缓存系统通常采用 hash 函数将 key 映射到对应的缓存节点，随着缓存节点数目的增加，键值分布到更多的节点上，导致客户端一次批量操作会涉及多次网络操作，这意味着批量操作的耗时会随着节点数目的增加而不断增大。此外，网络连接数变多，对节点的性能也有一定影响。&lt;/p&gt;
-
-&lt;p&gt;解决方案：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;优化批量数据操作命令；&lt;/li&gt;
-  &lt;li&gt;减少网络通信次数；&lt;/li&gt;
-  &lt;li&gt;降低接入成本，使用长连接 / 连接池，NIO 等。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/kongtiao5/article/details/82771694&quot;&gt;缓存穿透、缓存击穿、缓存雪崩区别和解决方案&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.cyc2018.xyz/%E5%85%B6%E5%AE%83/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E7%BC%93%E5%AD%98.html#%E5%9B%9B%E3%80%81%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98&quot;&gt;缓存&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">缓存问题</summary></entry></feed>
+&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry></feed>
