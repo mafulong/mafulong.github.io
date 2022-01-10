@@ -49,6 +49,7 @@ permalink: /bookmark/
 - [LeetCode](https://books.halfrost.com/)
 - [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
 - [编程之法: 面试和算法心得](https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/00.01.html)
+- [小刀面试笔记](https://wdxtub.com/interview/index.html)
 
 ## 软件使用
 ### win10
