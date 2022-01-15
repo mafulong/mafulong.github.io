@@ -1,4 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-14T15:39:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-15T21:01:05+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">差分</title><link href="https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86/" rel="alternate" type="text/html" title="差分" /><published>2022-01-15T00:00:00+08:00</published><updated>2022-01-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86</id><content type="html" xml:base="https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86/">&lt;h2 id=&quot;差分&quot;&gt;差分&lt;/h2&gt;
+
+&lt;p&gt;前缀和是元素的累加，而差分则是相邻两元素的差；前缀和用来计算整块元素的和，而差分则用来实现整块元素的加或减（例如将a[m]到a[n]都+1）；&lt;/p&gt;
+
+&lt;p&gt;同样，差分也可以化区间计算为点计算，减小时间复杂度。&lt;/p&gt;
+
+&lt;p&gt;diff[n]的含义，便是原始数组中当前项减去前一项的&lt;strong&gt;差&lt;/strong&gt;。
+即： diff[n] = a[n] - a[n-1] ；&lt;/p&gt;
+
+&lt;p&gt;主要用于针对某个区间+x的操作复杂度降低，可以o(1)对某个区间增加复杂度，然后可以根据差分数组反推原数组，叫做回收。&lt;/p&gt;
+
+&lt;h2 id=&quot;应用&quot;&gt;应用&lt;/h2&gt;
+
+&lt;h3 id=&quot;一维差分&quot;&gt;一维差分&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/corporate-flight-bookings/&quot;&gt;1109. 航班预订统计 &lt;/a&gt; 有一份航班预订表 bookings ，表中第 i 条预订记录 bookings[i] = [firsti, lasti, seatsi] 意味着在从 firsti 到 lasti （包含 firsti 和 lasti ）的 每个航班 上预订了 seatsi 个座位。&lt;/p&gt;
+
+&lt;p&gt;请你返回一个长度为 n 的数组 answer，里面的元素是每个航班预定的座位总数。&lt;/p&gt;
+
+&lt;p&gt;实际上就是区间增加x，然后根据还原出每个点的值。一维差分&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;corpFlightBookings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bookings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bookings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;二维差分&quot;&gt;二维差分&lt;/h3&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">差分</summary></entry><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
 
 &lt;p&gt;单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑&lt;strong&gt;读高并发&lt;/strong&gt;的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的&lt;strong&gt;读请求全部走从节点&lt;/strong&gt;。这样也可以很轻松实现水平扩容，&lt;strong&gt;支撑读高并发&lt;/strong&gt;。&lt;/p&gt;
 
@@ -883,28 +917,4 @@
   &lt;li&gt;日志顺序写，保持最新，如果有不一致，会被leader的日志覆盖。&lt;/li&gt;
   &lt;li&gt;选举时只有最新日志的才能参与选举，防止旧的follower当选leader而导致丢信息。&lt;/li&gt;
   &lt;li&gt;防止脑裂，Raft leader拥有最新的数据，因此读请求走leader那么leader可以直接返回结果给客户端，但直接从leader状态机读并不能完全确保系统的线性一致性。比如发生网络分区，旧leader处于少数派分区中，此时直接从旧leader的状态机读，则很可能返回过期的数据。所以leader需要在发起读时记录当前的committed Index，然后在后续heartbeat请求中如果能获得多数follower对leadership的确认，那么可以等待committed Index提交到状态机后即可返回结果。记录committed Index是因为当一个节点刚当选 Leader的时候并不知道最新的committed index。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">etcd</summary></entry><entry><title type="html">gossip最终一致性</title><link href="https://mafulong.github.io/2021/12/26/gossip%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7/" rel="alternate" type="text/html" title="gossip最终一致性" /><published>2021-12-26T00:00:00+08:00</published><updated>2021-12-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/26/gossip%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7</id><content type="html" xml:base="https://mafulong.github.io/2021/12/26/gossip%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7/">&lt;h2 id=&quot;gossip最终一致性&quot;&gt;gossip最终一致性&lt;/h2&gt;
-
-&lt;p&gt;gossip实现了最终一致性，性能高。&lt;/p&gt;
-
-&lt;p&gt;Gossip 的三板斧分别是：直接邮寄（Direct Mail）、反熵（Anti-entropy）和谣言传播（Rumor mongering）。&lt;/p&gt;
-
-&lt;p&gt;• 直接邮寄，即写时修复，直接发送更新数据，当数据发送失败时，将数据缓存在失败重试队列，然后重传。这种方式虽然存在丢数据问题，但是实现简单、数据同步及时，不需要校验数据一致性对比，性能消耗低&lt;/p&gt;
-
-&lt;p&gt;• 反熵，即异步修复，集群中的节点，每隔段时间就随机选择某个其他节点，然后通过互相交换自己的所有数据来消除两者之间的差异，实现数据的最终一致性。主要有推、拉、推拉三种实现方式。适合集群节点数已知、少量、稳定的场景，主要由于反熵需要节点两两交换和比对自己所有的数据，执行反熵时通讯成本会很高，性能消耗高。需要注意的是实现反熵时一般设计一个闭环的流程，一次修复所有节点的副本数据不一致，因为我们希望能在一个确定的时间范围内实现数据副本的最终一致性，而不是基于随机性的概率，在一个不确定的时间范围内实现数据副本的最终一致性&lt;/p&gt;
-
-&lt;p&gt;• 谣言传播，指的是当一个节点有了新数据后，这个节点变成活跃状态，并周期性地联系其他节点向其发送新数据，直到所有的节点都存储了该新数据。由于谣言传播非常具有传染性，它适合动态变化的分布式系统&lt;/p&gt;
-
-&lt;h2 id=&quot;gossip-协议&quot;&gt;Gossip 协议&lt;/h2&gt;
-
-&lt;p&gt;consul中应用。Gossip protocol 也叫 Epidemic Protocol （流行病协议），实际上它还有很多别名，比如：“流言算法”、“疫情传播算法”等。&lt;/p&gt;
-
-&lt;p&gt;https://zhuanlan.zhihu.com/p/41228196&lt;/p&gt;
-
-&lt;p&gt;Gossip协议是一种基于”流行病传播”方式的计算机点对点通信、去中心化的最终一致性算法。它的基本思想是有界的集群中每个节点都随机不断的和其他节点交换信息，最终确保网络中所有节点的数据一致。consul中的gossip主要用途就是来做集群成员身份确认、故障发现和广播。&lt;/p&gt;
-
-&lt;p&gt;缺点：&lt;/p&gt;
-
-&lt;p&gt;1是消息的延迟，Gossip 协议中，消息最终需要通过多个轮次的散播而到达全网，不适合用在对实时性要求较高的场景下。&lt;/p&gt;
-
-&lt;p&gt;2是冗余通信会对网络、cpu资源造成很大的浪费。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">gossip最终一致性</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">etcd</summary></entry></feed>
