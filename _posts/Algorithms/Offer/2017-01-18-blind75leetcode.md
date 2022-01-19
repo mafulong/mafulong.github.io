@@ -1,8 +1,7 @@
 ---
-
 layout: post
 category: Offer
-title: bind75leetcode
+title: blind75leetcode
 tags: Offer
 ---
 
