@@ -157,18 +157,18 @@ tags: Offer
 ## Tree
 - [x] [Maximum Depth of Binary Tree](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/)
 - [x] [Same Tree](https://leetcode-cn.com/problems/same-tree/)
-- [x] [Invert/Flip Binary Tree](https://leetcode-cn.com/problems/invert-binary-tree/)
+- [x] [Invert/Flip Binary Tree](https://leetcode-cn.com/problems/invert-binary-tree/) 左右翻转
 - [x] [Binary Tree Maximum Path Sum](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/)
 - [x] [Binary Tree Level Order Traversal](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
 - [x] [Serialize and Deserialize Binary Tree](https://leetcode-cn.com/problems/serialize-and-deserialize-binary-tree/)
 - [x] [Subtree of Another Tree](https://leetcode-cn.com/problems/subtree-of-another-tree/)
 - [x] [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
 - [x] [Validate Binary Search Tree](https://leetcode-cn.com/problems/validate-binary-search-tree/)
-- [x] [Kth Smallest Element in a BST](https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/)
-- [x] [Lowest Common Ancestor of BST](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+- [x] [Kth Smallest Element in a BST](https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/) 第k小
+- [x] [Lowest Common Ancestor of BST](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)  [236. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/)
 - [x] [Implement Trie (Prefix Tree)](https://leetcode-cn.com/problems/implement-trie-prefix-tree/)
 - [x] [Add and Search Word](https://leetcode-cn.com/problems/add-and-search-word-data-structure-design/)
-- [x] [Word Search II](https://leetcode-cn.com/problems/word-search-ii/)
+- [x] [Word Search II](https://leetcode-cn.com/problems/word-search-ii/) 字典树剪枝
 
 ---
 
