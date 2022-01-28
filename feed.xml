@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-24T21:14:07+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">排行榜</title><link href="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/" rel="alternate" type="text/html" title="排行榜" /><published>2022-01-24T00:00:00+08:00</published><updated>2022-01-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C</id><content type="html" xml:base="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/">&lt;h2 id=&quot;系统设计-排行榜&quot;&gt;系统设计-排行榜&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-01-28T14:46:00+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">排行榜</title><link href="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/" rel="alternate" type="text/html" title="排行榜" /><published>2022-01-24T00:00:00+08:00</published><updated>2022-01-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C</id><content type="html" xml:base="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/">&lt;h2 id=&quot;系统设计-排行榜&quot;&gt;系统设计-排行榜&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;精确、近似排行榜&lt;/li&gt;
@@ -29,11 +29,22 @@
 &lt;h2 id=&quot;近似&quot;&gt;近似&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;桶排序，比如分数100分 每0.1分一个桶计数，对于分数集中统计结果误差更大。&lt;/li&gt;
-  &lt;li&gt;Lossy Counting
+  &lt;li&gt;
+    &lt;p&gt;桶排序，比如分数100分 每0.1分一个桶计数，对于分数集中统计结果误差更大。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lossy Counting&lt;/p&gt;
+
     &lt;ul&gt;
       &lt;li&gt;比如每秒维护一个map,  hashmap counting, 每次轮换counter减1， 不停轮换清counter为0的，因此对于counting小于map数的可能漏掉。&lt;/li&gt;
       &lt;li&gt;优点就是map对于counting小于map数的直接给丢掉了，节省内存。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;计数 count-min sketch&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;bloom filter基础上增加计数，以最小那个hash计数为值&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">系统设计-排行榜</summary></entry><entry><title type="html">差分</title><link href="https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86/" rel="alternate" type="text/html" title="差分" /><published>2022-01-15T00:00:00+08:00</published><updated>2022-01-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86</id><content type="html" xml:base="https://mafulong.github.io/2022/01/15/%E5%B7%AE%E5%88%86/">&lt;h2 id=&quot;差分&quot;&gt;差分&lt;/h2&gt;
