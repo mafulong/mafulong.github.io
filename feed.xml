@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-16T19:20:13+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">排行榜</title><link href="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/" rel="alternate" type="text/html" title="排行榜" /><published>2022-01-24T00:00:00+08:00</published><updated>2022-01-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C</id><content type="html" xml:base="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/">&lt;h2 id=&quot;系统设计-排行榜&quot;&gt;系统设计-排行榜&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-18T20:25:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">gomod版本管理</title><link href="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" rel="alternate" type="text/html" title="gomod版本管理" /><published>2022-02-18T00:00:00+08:00</published><updated>2022-02-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">&lt;h2 id=&quot;gomod版本表达&quot;&gt;gomod版本表达&lt;/h2&gt;
+
+&lt;h3 id=&quot;semantic-version语义化版本&quot;&gt;semantic version语义化版本&lt;/h3&gt;
+
+&lt;p&gt;v2.3.4&lt;/p&gt;
+
+&lt;p&gt;Go使用semantic version来标识package的版本。具体来说：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MAJOR version when you make incompatible API changes(不兼容的修改)&lt;/li&gt;
+  &lt;li&gt;MINOR version when you add functionality in a backwards compatible manner(特性添加，版本兼容)&lt;/li&gt;
+  &lt;li&gt;PATCH version when you make backwards compatible bug fixes(bug修复，版本兼容)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220218114754.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里，只要模块的主版本号(MAJOR)不变，次版本号(MINOR)以及修订号(PATCH)的变更都不会引起破坏性的变更(breaking change)。这就要求开发人员尽可能按照semantic version发布和管理模块(实际是否遵守以及遵守的程度不能保证，参考Hyrum’s Law)&lt;/p&gt;
+
+&lt;h3 id=&quot;基于某一commit的伪版本号path&quot;&gt;基于某一commit的伪版本号path&lt;/h3&gt;
+
+&lt;p&gt;vA.B.0 - dfasdf83423&lt;/p&gt;
+
+&lt;h2 id=&quot;命令行&quot;&gt;命令行&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;download    下载modules到本地cache
+
+edit        使用工具或脚本编辑go.mod文件
+
+graph       打印现有的模块依赖图
+
+init        初始化一个新模块到本地
+
+tidy        添加缺失并去除无用的模块
+
+vendor      把当前依赖复制出一个vendor包
+
+verify      校验依赖是预期的内容
+
+why 包名        解释为什么包和模块是需要的
+
+go get xxx@P， P = latest : 升级为最新的语义化版本
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;命令go get只会拉取指定依赖的版本，如果没有指定版本就会拉取最新版本，且不会自动添加间接依赖的版本。&lt;/li&gt;
+  &lt;li&gt;命令go get -u除了拉取指定依赖版本外，还会拉取并添加间接依赖的最新版本，而不是直接依赖所依赖的版本，也不会回退间接依赖的版本。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;查看有更新的直接依赖项的方法&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go list -u -f '' -m all
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;该方法还有变种，比如查看更新的版本信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go list -u -f ':  -&amp;gt; ' -m all
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更新他们:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go get -u $(go list -u -f '' -m all)
+或者
+go list -u -f '' -m all | xargs go get -u
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;交互式更新：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go get -u github.com/oligot/go-mod-upgrade
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;依赖图形化&quot;&gt;依赖图形化&lt;/h3&gt;
+
+&lt;p&gt;todo&lt;/p&gt;
+
+&lt;h2 id=&quot;版本选择策略minimal-version-selection&quot;&gt;版本选择策略Minimal version selection&lt;/h2&gt;
+
+&lt;p&gt;Minimal version selection也即最小版本选择，如果光看上述的引用可能会很迷惑(或者矛盾)：明明是选择最新的版本(keep only the newest version)，为什么叫最小版本选择？&lt;/p&gt;
+
+&lt;p&gt;对每个依赖项，选择其所有被依赖版本中的最高的那个版本&lt;/p&gt;
+
+&lt;h2 id=&quot;标记&quot;&gt;标记&lt;/h2&gt;
+
+&lt;p&gt;indirect:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;没使用gomod&lt;/li&gt;
+  &lt;li&gt;不在gomod里&lt;/li&gt;
+  &lt;li&gt;手动指定较新版本&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">gomod版本表达</summary></entry><entry><title type="html">排行榜</title><link href="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/" rel="alternate" type="text/html" title="排行榜" /><published>2022-01-24T00:00:00+08:00</published><updated>2022-01-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C</id><content type="html" xml:base="https://mafulong.github.io/2022/01/24/%E6%8E%92%E8%A1%8C%E6%A6%9C/">&lt;h2 id=&quot;系统设计-排行榜&quot;&gt;系统设计-排行榜&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;精确、近似排行榜&lt;/li&gt;
@@ -909,47 +998,4 @@ for i in range(1, m+1):
   &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/&quot;&gt;NGINX 架构&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;HAProxy 架构指南&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Reverse_proxy&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">负载均衡器</summary></entry><entry><title type="html">图数据库设计</title><link href="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="图数据库设计" /><published>2021-12-30T00:00:00+08:00</published><updated>2021-12-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2021/12/30/%E5%9B%BE%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;图数据库设计&quot;&gt;图数据库设计&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;以ByteGraph为例, &lt;a href=&quot;https://www.modb.pro/db/85661&quot;&gt;参考链接&lt;/a&gt;&lt;/p&gt;
-
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106201719.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;支持能力&quot;&gt;支持能力&lt;/h2&gt;
-
-&lt;p&gt;百万级QPS,  亿级粉丝&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211230230926.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;底层存储设计&quot;&gt;底层存储设计&lt;/h2&gt;
-
-&lt;p&gt;底层基于分布式KV&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106201729.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;简单讲一下如何机遇KV系统能够构建一个图结构？&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106201748.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;用一个类似于B树的结构来建模Graph，对某一个点来说，一个点同一个边type的所有的终点是一个存储单元，也就是说我们把一个起点ID、起点type和边type，基于它去group by，具有相同值的所有边集合，我们会认为它是逻辑上属于一个分区的。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;就是个B+Tree, 插入删除查找都是o(logn)，会动态调整树高度，进行分裂合并等。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;同时父节点会记录底层range, 因此limit 10000, 10等这种也是o(logn)，类似跳表的span。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;如果这个分区依然涉及到很多点怎么办呢？我们会把它作为一个二级的拆分，所以因此会涉及到 b树的多层级。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106201742.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;第一层的page就叫Meta page，它其实只是去简单记录了一个映射，这1000万个邻居当中，我们基于每2000为一片，每一片我们把它称作为一个Edge page ，每一个Edge page又存储了2000个Edge，所以用这样一个多级拆分的这样的方式去降低了读写放大的问题，同时起到了一个非常平衡的设计。&lt;/p&gt;
-
-&lt;p&gt;总结下来就是单起点和某一种固定的边类型组成了一个B树，然后B树的每一个节点是一个KV队，然后这里涉及到完整性上的话，我们会限制每一个B树的写者只能是唯一的，以防止并发的写入导致 B树逻辑上的破坏。&lt;/p&gt;
-
-&lt;p&gt;刚才说到写放大的问题，我们具体在当前 B树的建模上，依然其实会存在写放大的问题。&lt;/p&gt;
-
-&lt;h2 id=&quot;热点读写怎么办&quot;&gt;热点读写怎么办&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220106201736.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">图数据库设计</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">负载均衡器</summary></entry></feed>
