@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-18T20:25:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">gomod版本管理</title><link href="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" rel="alternate" type="text/html" title="gomod版本管理" /><published>2022-02-18T00:00:00+08:00</published><updated>2022-02-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">&lt;h2 id=&quot;gomod版本表达&quot;&gt;gomod版本表达&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-19T14:28:44+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">2157. 字符串分组</title><link href="https://mafulong.github.io/2022/02/19/2157.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E7%BB%84/" rel="alternate" type="text/html" title="2157. 字符串分组" /><published>2022-02-19T00:00:00+08:00</published><updated>2022-02-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/19/2157.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E7%BB%84</id><content type="html" xml:base="https://mafulong.github.io/2022/02/19/2157.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E7%BB%84/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/groups-of-strings/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的字符串数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 。每个字符串都只包含 &lt;strong&gt;小写英文字母&lt;/strong&gt; 。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 中任意一个子串中，每个字母都至多只出现一次。&lt;/p&gt;
+
+&lt;p&gt;如果通过以下操作之一，我们可以从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s1&lt;/code&gt; 的字母集合得到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s2&lt;/code&gt; 的字母集合，那么我们称这两个字符串为 &lt;strong&gt;关联的&lt;/strong&gt; ：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;往 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s1&lt;/code&gt; 的字母集合中添加一个字母。&lt;/li&gt;
+  &lt;li&gt;从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s1&lt;/code&gt; 的字母集合中删去一个字母。&lt;/li&gt;
+  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s1&lt;/code&gt; 中的一个字母替换成另外任意一个字母（也可以替换为这个字母本身）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 可以分为一个或者多个无交集的 &lt;strong&gt;组&lt;/strong&gt; 。如果一个字符串与另一个字符串关联，那么它们应当属于同一个组。&lt;/p&gt;
+
+&lt;p&gt;注意，你需要确保分好组后，一个组内的任一字符串与其他组的字符串都不关联。可以证明在这个条件下，分组方案是唯一的。&lt;/p&gt;
+
+&lt;p&gt;请你返回一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt; 的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ans&lt;/code&gt; ：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ans[0]&lt;/code&gt; 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words&lt;/code&gt; 分组后的 &lt;strong&gt;总组数&lt;/strong&gt; 。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ans[1]&lt;/code&gt; 是字符串数目最多的组所包含的字符串数目。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：words = [&quot;a&quot;,&quot;b&quot;,&quot;ab&quot;,&quot;cde&quot;]
+输出：[2,3]
+解释：
+- words[0] 可以得到 words[1] （将 'a' 替换为 'b'）和 words[2] （添加 'b'）。所以 words[0] 与 words[1] 和 words[2] 关联。
+- words[1] 可以得到 words[0] （将 'b' 替换为 'a'）和 words[2] （添加 'a'）。所以 words[1] 与 words[0] 和 words[2] 关联。
+- words[2] 可以得到 words[0] （删去 'b'）和 words[1] （删去 'a'）。所以 words[2] 与 words[0] 和 words[1] 关联。
+- words[3] 与 words 中其他字符串都不关联。
+所以，words 可以分成 2 个组 [&quot;a&quot;,&quot;b&quot;,&quot;ab&quot;] 和 [&quot;cde&quot;] 。最大的组大小为 3 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：words = [&quot;a&quot;,&quot;ab&quot;,&quot;abc&quot;]
+输出：[1,3]
+解释：
+- words[0] 与 words[1] 关联。
+- words[1] 与 words[0] 和 words[2] 关联。
+- words[2] 与 words[1] 关联。
+由于所有字符串与其他字符串都关联，所以它们全部在同一个组内。
+所以最大的组大小为 3 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words.length &amp;lt;= 2 * 104&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= words[i].length &amp;lt;= 26&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words[i]&lt;/code&gt; 只包含小写英文字母。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;words[i]&lt;/code&gt; 中每个字母最多只出现一次。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;word通过转换，就属于一组。这里转换实现是通过位运算来的。&lt;/p&gt;
+
+&lt;p&gt;然后求组的数量 和最大组的元素数量，注意可能一个word出现多次，所以要累计cnt。&lt;/p&gt;
+
+&lt;p&gt;实现上通过并查集，其实也可以通过bfs求连通分量，是一样的。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UnionFind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ra&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;rb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ra&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rb&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ra&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ra&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ra&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_connected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;groupStrings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UnionFind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;words&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                                &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;most_common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">gomod版本管理</title><link href="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" rel="alternate" type="text/html" title="gomod版本管理" /><published>2022-02-18T00:00:00+08:00</published><updated>2022-02-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2022/02/18/gomod%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">&lt;h2 id=&quot;gomod版本表达&quot;&gt;gomod版本表达&lt;/h2&gt;
 
 &lt;h3 id=&quot;semantic-version语义化版本&quot;&gt;semantic version语义化版本&lt;/h3&gt;
 
@@ -844,158 +956,4 @@ for i in range(1, m+1):
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;select  id,name,balance FROM account where id &amp;gt; 100000 order by id limit 10; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;这样的话，后面无论翻多少页，性能都会不错的，因为命中了id索引。但是这种方式有局限性：需要一种类似连续自增的字段。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">分页查询效率</summary></entry><entry><title type="html">负载均衡和反向代理</title><link href="https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" rel="alternate" type="text/html" title="负载均衡和反向代理" /><published>2021-12-31T00:00:00+08:00</published><updated>2021-12-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2021/12/31/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">&lt;h2 id=&quot;负载均衡器&quot;&gt;负载均衡器&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20211231223727.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;负载均衡器将传入的请求分发到应用服务器和数据库等计算资源。无论哪种情况，负载均衡器将从计算资源来的响应返回给恰当的客户端。负载均衡器的效用在于:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;防止请求进入不好的服务器&lt;/li&gt;
-  &lt;li&gt;防止资源过载&lt;/li&gt;
-  &lt;li&gt;帮助消除单一的故障点&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;负载均衡器可以通过硬件（昂贵）或 HAProxy 等软件来实现。 增加的好处包括:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;SSL 终结 ─ 解密传入的请求并加密服务器响应，这样的话后端服务器就不必再执行这些潜在高消耗运算了。&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;不需要再每台服务器上安装 &lt;a href=&quot;https://en.wikipedia.org/wiki/X.509&quot;&gt;X.509 证书&lt;/a&gt;。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Session 留存&lt;/strong&gt; ─ 如果 Web 应用程序不追踪会话，发出 cookie 并将特定客户端的请求路由到同一实例。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;通常会设置采用&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#工作到备用切换active-passive&quot;&gt;工作─备用&lt;/a&gt; 或 &lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#双工作切换active-active&quot;&gt;双工作&lt;/a&gt; 模式的多个负载均衡器，以免发生故障。&lt;/p&gt;
-
-&lt;p&gt;负载均衡器能基于多种方式来路由流量:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;随机&lt;/li&gt;
-  &lt;li&gt;最少负载&lt;/li&gt;
-  &lt;li&gt;Session/cookie&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://g33kinfo.com/info/archives/2657&quot;&gt;轮询调度或加权轮询调度算法&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#四层负载均衡&quot;&gt;四层负载均衡&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#七层负载均衡&quot;&gt;七层负载均衡&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;四层负载均衡&quot;&gt;四层负载均衡&lt;/h3&gt;
-
-&lt;p&gt;四层负载均衡根据监看&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#通讯&quot;&gt;传输层&lt;/a&gt;的信息来决定如何分发请求。通常，这会涉及来源，目标 IP 地址和请求头中的端口，但不包括数据包（报文）内容。四层负载均衡执行&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-4-load-balancing/&quot;&gt;网络地址转换（NAT）&lt;/a&gt;来向上游服务器转发网络数据包。&lt;/p&gt;
-
-&lt;h3 id=&quot;七层负载均衡器&quot;&gt;七层负载均衡器&lt;/h3&gt;
-
-&lt;p&gt;七层负载均衡器根据监控&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#通讯&quot;&gt;应用层&lt;/a&gt;来决定怎样分发请求。这会涉及请求头的内容，消息和 cookie。七层负载均衡器终结网络流量，读取消息，做出负载均衡判定，然后传送给特定服务器。比如，一个七层负载均衡器能直接将视频流量连接到托管视频的服务器，同时将更敏感的用户账单流量引导到安全性更强的服务器。&lt;/p&gt;
-
-&lt;p&gt;以损失灵活性为代价，四层负载均衡比七层负载均衡花费更少时间和计算资源，虽然这对现代商用硬件的性能影响甚微。&lt;/p&gt;
-
-&lt;h3 id=&quot;水平扩展&quot;&gt;水平扩展&lt;/h3&gt;
-
-&lt;p&gt;负载均衡器还能帮助水平扩展，提高性能和可用性。使用商业硬件的性价比更高，并且比在单台硬件上&lt;strong&gt;垂直扩展&lt;/strong&gt;更贵的硬件具有更高的可用性。相比招聘特定企业系统人才，招聘商业硬件方面的人才更加容易。&lt;/p&gt;
-
-&lt;h4 id=&quot;缺陷水平扩展&quot;&gt;缺陷：水平扩展&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;水平扩展引入了复杂度并涉及服务器复制
-    &lt;ul&gt;
-      &lt;li&gt;服务器应该是无状态的:它们也不该包含像 session 或资料图片等与用户关联的数据。&lt;/li&gt;
-      &lt;li&gt;session 可以集中存储在数据库或持久化&lt;a href=&quot;https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md#缓存&quot;&gt;缓存&lt;/a&gt;（Redis、Memcached）的数据存储区中。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;缓存和数据库等下游服务器需要随着上游服务器进行扩展，以处理更多的并发连接。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺陷负载均衡器&quot;&gt;缺陷：负载均衡器&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果没有足够的资源配置或配置错误，负载均衡器会变成一个性能瓶颈。&lt;/li&gt;
-  &lt;li&gt;引入负载均衡器以帮助消除单点故障但导致了额外的复杂性。&lt;/li&gt;
-  &lt;li&gt;单个负载均衡器会导致单点故障，但配置多个负载均衡器会进一步增加复杂性。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;来源及延伸阅读&quot;&gt;来源及延伸阅读&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/&quot;&gt;NGINX 架构&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;HAProxy 架构指南&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.lecloud.net/post/7295452622/scalability-for-dummies-part-1-clones&quot;&gt;可扩展性&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Load_balancing_(computing)&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-4-load-balancing/&quot;&gt;四层负载平衡&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/layer-7-load-balancing/&quot;&gt;七层负载平衡&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html&quot;&gt;ELB 监听器配置&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;反向代理web-服务器&quot;&gt;反向代理（web 服务器）&lt;/h2&gt;
-
-&lt;p&gt;反向代理是一种可以集中地调用内部服务，并提供统一接口给公共客户的 web 服务器。来自客户端的请求先被反向代理服务器转发到可响应请求的服务器，然后代理再把服务器的响应结果返回给客户端。&lt;/p&gt;
-
-&lt;p&gt;带来的好处包括：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;增加安全性&lt;/strong&gt; - 隐藏后端服务器的信息，屏蔽黑名单中的 IP，限制每个客户端的连接数。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;提高可扩展性和灵活性&lt;/strong&gt; - 客户端只能看到反向代理服务器的 IP，这使你可以增减服务器或者修改它们的配置。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;本地终结 SSL 会话&lt;/p&gt;
-
-    &lt;p&gt;- 解密传入请求，加密服务器响应，这样后端服务器就不必完成这些潜在的高成本的操作。&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;免除了在每个服务器上安装 &lt;a href=&quot;https://en.wikipedia.org/wiki/X.509&quot;&gt;X.509&lt;/a&gt; 证书的需要&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;压缩&lt;/strong&gt; - 压缩服务器响应&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;缓存&lt;/strong&gt; - 直接返回命中的缓存结果&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;静态内容&lt;/p&gt;
-
-    &lt;p&gt;- 直接提供静态内容&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;HTML/CSS/JS&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;图片&lt;/p&gt;
-    &lt;ul&gt;
-      &lt;li&gt;视频&lt;/li&gt;
-      &lt;li&gt;等等&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;负载均衡器与反向代理&quot;&gt;负载均衡器与反向代理&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;当你有多个服务器时，部署负载均衡器非常有用。通常，负载均衡器将流量路由给一组功能相同的服务器上。&lt;/li&gt;
-  &lt;li&gt;即使只有一台 web 服务器或者应用服务器时，反向代理也有用，可以参考上一节介绍的好处。&lt;/li&gt;
-  &lt;li&gt;NGINX 和 HAProxy 等解决方案可以同时支持第七层反向代理和负载均衡。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;不利之处反向代理&quot;&gt;不利之处：反向代理&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;引入反向代理会增加系统的复杂度。&lt;/li&gt;
-  &lt;li&gt;单独一个反向代理服务器仍可能发生单点故障，配置多台反向代理服务器（如&lt;a href=&quot;https://en.wikipedia.org/wiki/Failover&quot;&gt;故障转移&lt;/a&gt;）会进一步增加复杂度。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;来源及延伸阅读-1&quot;&gt;来源及延伸阅读&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/resources/glossary/reverse-proxy-vs-load-balancer/&quot;&gt;反向代理与负载均衡&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/&quot;&gt;NGINX 架构&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.haproxy.org/download/1.2/doc/architecture.txt&quot;&gt;HAProxy 架构指南&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Reverse_proxy&quot;&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">负载均衡器</summary></entry></feed>
+&lt;p&gt;这样的话，后面无论翻多少页，性能都会不错的，因为命中了id索引。但是这种方式有局限性：需要一种类似连续自增的字段。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">分页查询效率</summary></entry></feed>
