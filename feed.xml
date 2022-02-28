@@ -1,4 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-28T14:13:37+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">chrome插件vimium</title><link href="https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium/" rel="alternate" type="text/html" title="chrome插件vimium" /><published>2022-02-28T00:00:00+08:00</published><updated>2022-02-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium</id><content type="html" xml:base="https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium/">&lt;h2 id=&quot;chrome插件vimium&quot;&gt;chrome插件vimium&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-02-28T19:59:35+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">843. 猜猜这个单词</title><link href="https://mafulong.github.io/2022/02/28/843.-%E7%8C%9C%E7%8C%9C%E8%BF%99%E4%B8%AA%E5%8D%95%E8%AF%8D/" rel="alternate" type="text/html" title="843. 猜猜这个单词" /><published>2022-02-28T00:00:00+08:00</published><updated>2022-02-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/28/843.%20%E7%8C%9C%E7%8C%9C%E8%BF%99%E4%B8%AA%E5%8D%95%E8%AF%8D</id><content type="html" xml:base="https://mafulong.github.io/2022/02/28/843.-%E7%8C%9C%E7%8C%9C%E8%BF%99%E4%B8%AA%E5%8D%95%E8%AF%8D/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode-cn.com/problems/guess-the-word/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;这是一个 &lt;strong&gt;*交互式问题*&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;我们给出了一个由一些 &lt;strong&gt;不同的&lt;/strong&gt; 单词组成的列表 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist&lt;/code&gt; ，对于每个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist[i]&lt;/code&gt; 长度均为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6&lt;/code&gt; ，这个列表中的一个单词将被选作 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secret&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;你可以调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Master.guess(word)&lt;/code&gt; 来猜单词。你所猜的单词应当是存在于原列表并且由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;6&lt;/code&gt; 个小写字母组成的类型 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;此函数将会返回一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;integer&lt;/code&gt; ，表示你的猜测与&lt;strong&gt;秘密单词&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secret&lt;/code&gt; 的准确匹配（值和位置同时匹配）的数目。此外，如果你的猜测不在给定的单词列表中，它将返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;对于每个测试用例，你有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10&lt;/code&gt; 次机会来猜出这个单词。当所有调用都结束时，如果您对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Master.guess&lt;/code&gt; 的调用在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10&lt;/code&gt; 次以内，并且至少有一次猜到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secret&lt;/code&gt; ，将判定为通过该用例。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: secret = &quot;acckzz&quot;, wordlist = [&quot;acckzz&quot;,&quot;ccbazz&quot;,&quot;eiowzz&quot;,&quot;abcczz&quot;]
+输出: You guessed the secret word correctly.
+解释:
+master.guess(&quot;aaaaaa&quot;) 返回 -1, 因为 &quot;aaaaaa&quot; 不在 wordlist 中.
+master.guess(&quot;acckzz&quot;) 返回 6, 因为 &quot;acckzz&quot; 就是秘密，6个字母完全匹配。
+master.guess(&quot;ccbazz&quot;) 返回 3, 因为 &quot;ccbazz&quot; 有 3 个匹配项。
+master.guess(&quot;eiowzz&quot;) 返回 2, 因为 &quot;eiowzz&quot; 有 2 个匹配项。
+master.guess(&quot;abcczz&quot;) 返回 4, 因为 &quot;abcczz&quot; 有 4 个匹配项。
+我们调用了 5 次master.guess，其中一次猜到了秘密，所以我们通过了这个测试用例。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: secret = &quot;hamada&quot;, wordlist = [&quot;hamada&quot;,&quot;khaled&quot;], numguesses = 10
+输出: You guessed the secret word correctly.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= wordlist.length &amp;lt;= 100&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist[i].length == 6&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist[i]&lt;/code&gt; 只包含小写英文字母&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist&lt;/code&gt; 中所有字符串都 &lt;strong&gt;不同&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;secret&lt;/code&gt; 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wordlist&lt;/code&gt; 中&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numguesses == 10&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;极小化极大，维护可能的可行解列表，不断减少&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findSecretWord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Master'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;'''
+        先随机选一个单词，调用guess得到匹配的数目a, 则答案肯定是在与该单词匹配的数目也是a的列表，每次循环更新一次列表
+        '''&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;
+        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;guess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;new_wordlist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;new_wordlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;wordlist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new_wordlist&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">chrome插件vimium</title><link href="https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium/" rel="alternate" type="text/html" title="chrome插件vimium" /><published>2022-02-28T00:00:00+08:00</published><updated>2022-02-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium</id><content type="html" xml:base="https://mafulong.github.io/2022/02/28/chrome%E6%8F%92%E4%BB%B6vimium/">&lt;h2 id=&quot;chrome插件vimium&quot;&gt;chrome插件vimium&lt;/h2&gt;
 
 &lt;p&gt;安装后 键盘?  可打开如下帮助页&lt;/p&gt;
 
@@ -765,143 +836,4 @@ for i in range(1, m+1):
                     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">差分</summary></entry><entry><title type="html">RedisCluster</title><link href="https://mafulong.github.io/2022/01/07/RedisCluster/" rel="alternate" type="text/html" title="RedisCluster" /><published>2022-01-07T00:00:00+08:00</published><updated>2022-01-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/01/07/RedisCluster</id><content type="html" xml:base="https://mafulong.github.io/2022/01/07/RedisCluster/">&lt;h2 id=&quot;redis-主从架构-一主多从&quot;&gt;&lt;strong&gt;Redis 主从架构&lt;/strong&gt; 一主多从&lt;/h2&gt;
-
-&lt;p&gt;单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑&lt;strong&gt;读高并发&lt;/strong&gt;的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的&lt;strong&gt;读请求全部走从节点&lt;/strong&gt;。这样也可以很轻松实现水平扩容，&lt;strong&gt;支撑读高并发&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210528141728.png&quot; alt=&quot;image-20210528141728472&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;redis replication -&amp;gt; 主从架构 -&amp;gt; 读写分离 -&amp;gt; 水平扩容支撑读高并发。&lt;/p&gt;
-
-&lt;p&gt;如果所有的slave节点数据的复制和同步都由master节点来处理，会照成master节点压力太大，使用主从从结构来解决。即一个从复制另一个从&lt;/p&gt;
-
-&lt;h3 id=&quot;redis主从复制多机房复制过程&quot;&gt;Redis主从复制/多机房复制过程&lt;/h3&gt;
-
-&lt;p&gt;通过积压队列&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;全量同步： rdb dump，比如第一次用&lt;/li&gt;
-  &lt;li&gt;部分同步： AOF, 根据offset传递积压缓存中的部分数据。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;redis-sentinel哨兵-一主多从故障转移&quot;&gt;Redis Sentinel哨兵 一主多从+故障转移&lt;/h2&gt;
-
-&lt;p&gt;一主多从的master挂了后没法自动选举master。当其发现某个节点不可达时，如果是master节点就会与其余的Sentinel节点协商。当大多数的Sentinel节点都认为master不可达时，就会选出一个Sentinel节点对master执行故障转移，并通知Redis的调用方相关的变更。&lt;/p&gt;
-
-&lt;p&gt;sentinel模式是建立在主从模式的基础上，如果只有一个Redis节点，sentinel就没有任何意义。&lt;/p&gt;
-
-&lt;p&gt;Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是分布式的架构，包含了&lt;strong&gt;「多个」&lt;/strong&gt;Sentinel节点和&lt;strong&gt;「多个」&lt;/strong&gt;Redis节点。而每个Sentinel节点会对Redis节点和其余的Sentinel节点进行监控。&lt;/p&gt;
-
-&lt;p&gt;无法保证消息完全不丢失。&lt;/p&gt;
-
-&lt;p&gt;它的主要功能有以下几点&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不时地监控redis是否按照预期良好地运行;&lt;/li&gt;
-  &lt;li&gt;如果发现某个redis节点运行出现状况，能够通知另外一个进程(例如它的客户端);&lt;/li&gt;
-  &lt;li&gt;能够进行自动切换。当一个master节点不可用时，能够选举出master的多个slave(如果有超过一个slave的话)中的一个来作为新的master,其它的slave节点会将它所追随的master的地址改为被提升为master的slave的新地址。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;rediscluster-分片-多主&quot;&gt;RedisCluster 分片 多主&lt;/h2&gt;
-
-&lt;p&gt;是一个去中心化架构，内置了16384个哈希槽。&lt;/p&gt;
-
-&lt;p&gt;可以理解为n个主从架构组合在一起对外服务。Redis Cluster要求至少需要3个master才能组成一个集群，同时每个master至少需要有一个slave节点。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220107112851.png&quot; alt=&quot;redis-cluster&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;主从架构中，可以通过增加slave节点的方式来扩展读请求的并发量，当master发生了宕机，就会将对应的slave节点提拔为master，来重新对外提供服务。&lt;/p&gt;
-
-&lt;p&gt;key到某个server的过程是采用类一致性hash方式，即hash slot。&lt;/p&gt;
-
-&lt;p&gt;Redis把请求转发的逻辑放在了Smart Client中，要想使用Redis Cluster，必须升级Client SDK，&lt;strong&gt;这个SDK中内置了请求转发的逻辑，所以业务开发人员同样不需要自己编写转发规则，Redis Cluster采用16384个槽位进行路由规则的转发。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;redis-cluster-的-hash-slot-算法&quot;&gt;redis cluster 的 hash slot 算法&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;redis cluster有固定的16384个hash slot，对每个key计算CRC16值，然后对16384取模，可以获取key对应的hash slot&lt;/li&gt;
-  &lt;li&gt;redis cluster中每个master都会持有部分slot，比如有3个master，那么可能每个master持有5000多个hash slot&lt;/li&gt;
-  &lt;li&gt;hash slot让node的增加和移除很简单，增加一个master，就将其他master的hash slot移动部分过去，减少一个master，就将它的hash slot移动到其他master上去&lt;/li&gt;
-  &lt;li&gt;移动hash slot的成本是非常低的&lt;/li&gt;
-  &lt;li&gt;客户端的api，可以对指定的数据，让他们走同一个hash slot，通过hash tag来实现&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;redis-cluster-高可用保证客观宕机则故障转移&quot;&gt;redis cluster 高可用保证，客观宕机则故障转移&lt;/h3&gt;
-
-&lt;p&gt;简单来说，针对A节点，某一个节点认为A宕机了，那么此时是&lt;strong&gt;主观宕机&lt;/strong&gt;。而如果集群内超过半数的节点认为A挂了， 那么此时A就会被标记为&lt;strong&gt;客观宕机&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;一旦节点A被标记为了客观宕机，集群就会开始执行&lt;strong&gt;故障转移&lt;/strong&gt;。其余正常运行的master节点会进行投票选举，从A节点的slave节点中选举出一个，将其切换成新的master对外提供服务。当某个slave获得了超过半数的master节点投票，就成功当选。&lt;/p&gt;
-
-&lt;p&gt;当选成功之后，新的master会执来让自己停止复制A节点，使自己成为master。然后将A节点所负责处理的slot，全部转移给自己，然后就会向集群发&lt;strong&gt;PONG&lt;/strong&gt;消息来广播自己的最新状态。&lt;/p&gt;
-
-&lt;p&gt;按照一致性哈希的思想，如果某个节点挂了，那么就会沿着那个圆环，按照顺时针的顺序找到遇到的第一个Redis实例。&lt;/p&gt;
-
-&lt;p&gt;而对于Redis Cluster，某个key它其实并不关心它最终要去到哪个节点，他只关心他最终落到哪个slot上，无论你节点怎么去迁移，最终还是只需要找到对应的slot，然后再找到slot关联的节点，最终就能够找到最终的Redis实例了。&lt;/p&gt;
-
-&lt;p&gt;那这个&lt;strong&gt;PONG&lt;/strong&gt;消息又是什么东西呢？ gossip， &lt;strong&gt;redis cluster 节点间采用gossip协议进行通信&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;不同node直接ping-pong-gossip协议&quot;&gt;不同Node直接Ping-Pong, Gossip协议&lt;/h3&gt;
-
-&lt;p&gt;gossip 广泛运用于信息扩散、故障探测等等&lt;/p&gt;
-
-&lt;p&gt;gossip可以在O(logN) 轮就可以将信息传播到所有的节点，为什么是O(logN)呢？因为每次ping，当前节点会带上自己的信息外加整个Cluster的1/10数量的节点信息，一起发送出去。你可以简单的把这个模型抽象为：&lt;/p&gt;
-
-&lt;p&gt;你转发了一个特别有意思的文章到朋友圈，然后你的朋友们都觉得还不错，于是就一传十、十传百这样的散播出去了，这就是朋友圈的裂变传播。&lt;/p&gt;
-
-&lt;h2 id=&quot;redis集群化方案对比&quot;&gt;Redis集群化方案对比&lt;/h2&gt;
-
-&lt;h3 id=&quot;主从和sentinel和cluster关系&quot;&gt;主从和sentinel和cluster关系&lt;/h3&gt;
-
-&lt;p&gt;主从是降低读压力，从节点提供读。&lt;/p&gt;
-
-&lt;p&gt;sentinel是HA 高可用架构，master挂了，sentinel节点就从slave里选举新master。&lt;/p&gt;
-
-&lt;p&gt;cluster重在大数据量，进行分片。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。&lt;/p&gt;
-
-&lt;h3 id=&quot;cluster架构延伸&quot;&gt;cluster架构延伸&lt;/h3&gt;
-
-&lt;p&gt;gossip协议有网络风暴问题，节点数过多比如超过1000时就有性能问题，因此可能需要一种新的架构。&lt;/p&gt;
-
-&lt;p&gt;设想&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;可以不用gossip,  使用sentinel来故障转移。&lt;/li&gt;
-  &lt;li&gt;配置集中化。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;集群化方案&quot;&gt;集群化方案&lt;/h3&gt;
-
-&lt;p&gt;业界主流的Redis集群化方案主要包括以下几个：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;客户端分片&lt;/li&gt;
-  &lt;li&gt;Codis&lt;/li&gt;
-  &lt;li&gt;Twemproxy&lt;/li&gt;
-  &lt;li&gt;Redis Cluster&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;它们还可以用&lt;strong&gt;是否中心化&lt;/strong&gt;来划分，其中&lt;strong&gt;客户端分片、Redis Cluster属于无中心化的集群方案，Codis、Tweproxy属于中心化的集群方案。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;是否中心化是指客户端访问多个Redis节点时，是&lt;strong&gt;直接访问&lt;/strong&gt;还是通过一个&lt;strong&gt;中间层Proxy&lt;/strong&gt;来进行操作，直接访问的就属于无中心化的方案，通过中间层Proxy访问的就属于中心化。&lt;/p&gt;
-
-&lt;h3 id=&quot;客户端分片&quot;&gt;客户端分片&lt;/h3&gt;
-
-&lt;p&gt;缺点是业务开发人员&lt;strong&gt;使用Redis的成本较高&lt;/strong&gt;，需要编写路由规则的代码来使用多个节点，而且如果事先对业务的数据量评估不准确，后期的&lt;strong&gt;扩容和迁移成本非常高&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;codis&quot;&gt;Codis&lt;/h3&gt;
-
-&lt;p&gt;加个代理层。&lt;/p&gt;
-
-&lt;p&gt;Codis的Proxy就是负责请求转发的组件，它内部维护了请求转发的具体规则，Codis把整个集群划分为1024个槽位，在处理读写请求时，采用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;crc32&lt;/code&gt;Hash算法计算key的Hash值，然后再根据Hash值对1024个槽位取模，最终找到具体的Redis节点。&lt;/p&gt;
-
-&lt;h3 id=&quot;twemproxy&quot;&gt;Twemproxy&lt;/h3&gt;
-
-&lt;p&gt;加个代理层，功能比较单一，只实现了请求路由转发，没有像Codis那么全面有在线扩容的功能，它解决的重点就是把客户端分片的逻辑统一放到了Proxy层而已，其他功能没有做任何处理。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/weixin_42667608/article/details/111360617&quot;&gt;深度图解Redis Cluster原理&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/k-wGpBBnS53Ap86KNiBYvA&quot;&gt;Redis Sentinel-深入浅出原理和实战&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://kaito-kidd.com/2020/07/07/redis-cluster-codis-twemproxy/&quot;&gt;Redis集群化方案对比：Codis、Twemproxy、Redis Cluster&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">Redis 主从架构 一主多从</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">差分</summary></entry></feed>
