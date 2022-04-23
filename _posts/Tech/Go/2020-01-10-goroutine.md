@@ -7,7 +7,7 @@ tags: Go
 
 [讲的很好的一篇](https://segmentfault.com/a/1190000021951119)
 
-## 协程，线程，进程的区别。
+## 协程，线程，进程
 
   * 进程
 
@@ -21,7 +21,7 @@ tags: Go
 
 协程是一种用户态的轻量级线程，协程的调度完全由用户控制。协程拥有自己的寄存器上下文和栈。协程调度切换时，将寄存器上下文和栈保存到其他地方，在切回来的时候，恢复先前保存的寄存器上下文和栈，直接操作栈则基本没有内核切换的开销，可以不加锁的访问全局变量，所以上下文的切换非常快。
 
-## goroutines和线程
+## goroutines和线程区别
 
 goroutine和操作系统的线程区别。尽管两者的区别实际上只是一个量的区别，但量变会引起质变的道理同样适用于goroutine和线程。现在正是我们来区分开两者的最佳时机。
 
@@ -143,6 +143,7 @@ go语言运行时环境提供了非常强大的管理goroutine和系统内核线
 唤醒的Machine，则创建一个（只要不超过Machine的最大值，10000），Processor获取到Machine后，与此Machine绑定，并执行此Goroutine。
 
 Machine执行过程中，随时会发生上下文切换。当发生上下文切换时，需要对执行现场进行保护，以便下次被调度执行时进行现场恢复。Go调度器中Machine的栈保存在Goroutine对象上，只需要将Machine所需要的寄存器(堆栈指针、程序计数器等)保存到Goroutine对象上即可。如果此时Goroutine任务还没有执行完，Machine可以将Goroutine重新压入Processor的队列，等待下一次被调度执行。
+
 如果执行过程遇到阻塞并阻塞超时（调度器检测这种超时），Machine会与Processor分离，并等待阻塞结束。此时Processor可以继续唤醒Machine执行其它的Goroutine，当阻塞结束时，Machine会尝试”偷取”一个Processor，如果失败，这个Goroutine会被加入到全局队列中，然后Machine将自己转入Waiting队列，等待被再次唤醒。
 
 在各个Processor运行完本地队列的任务时，会从全局队列中获取任务，调度器也会定期检查全局队列，否则在并发较高的情况下，全局队列的Goroutine会因为得不到调度而”饿死”。如果全局队列也为空的时候，会去分担其它Processor的任务，一次分一半任务，比如，ProcessorA任务完成了，ProcessorB还有10个任务待运行，Processor在获取任务的时候，会一次性拿走5个。（是不是觉得Processor相互之间很友爱啊
@@ -246,3 +247,37 @@ type g struct {
 - gobuf: 各种pc, sp寄存器。
 - m:  线程信息，包含了自身使用的栈信息、G信息、P信息。
 
+## Key Points
+
+[参考](https://www.bookstack.cn/read/qcrao-Go-Questions/goroutine%20%E8%B0%83%E5%BA%A6%E5%99%A8-%E4%BB%80%E4%B9%88%E6%98%AF%20go%20shceduler.md)
+
+### goroutine 调度时机
+
+在四种情形下，goroutine 可能会发生调度，但也并不一定会发生，只是说 Go scheduler 有机会进行调度。
+
+| 情形            | 说明                                                         |
+| :-------------- | :----------------------------------------------------------- |
+| 使用关键字 `go` | go 创建一个新的 goroutine，Go scheduler 会考虑调度           |
+| GC              | 由于进行 GC 的 goroutine 也需要在 M 上运行，因此肯定会发生调度。当然，Go scheduler 还会做很多其他的调度，例如调度不涉及堆访问的 goroutine 来运行。GC 不管栈上的内存，只会回收堆上的内存 |
+| 系统调用        | 当 goroutine 进行系统调用时，会阻塞 M，所以它会被调度走，同时一个新的 goroutine 会被调度上来 |
+| 内存同步访问    | atomic，mutex，channel 操作等会使 goroutine 阻塞，因此会被调度走。等条件满足后（例如其他 goroutine 解锁了）还会被调度上来继续运行 |
+
+### 什么是 sheduler
+
+Go 程序的执行由两层组成：Go Program，Runtime，即用户程序和运行时。它们之间通过函数调用来实现内存管理、channel 通信、goroutines 创建等功能。用户程序进行的系统调用都会被 Runtime 拦截，以此来帮助它进行调度以及垃圾回收相关的工作。
+
+一个展现了全景式的关系如下图：
+
+<img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220423175440.png" alt="runtime overall" style="zoom:50%;" />
+
+Go scheduler 是 Go runtime 的一部分，它内嵌在 Go 程序里，和 Go 程序一起运行。因此它运行在用户空间，在 kernel 的上一层。和 Os scheduler 抢占式调度（preemptive）不一样，Go scheduler 采用协作式调度（cooperating）。
+
+但是由于在 Go 语言里，goroutine 调度的事情是由 Go runtime 来做，并非由用户控制，所以我们依然可以将 Go scheduler 看成是抢占式调度，因为用户无法预测调度器下一步的动作是什么。
+
+<img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220423175721.png" alt="goroutine workflow" style="zoom:67%;" />
+
+### GMP
+
+Go的`GOMAXPROCS`默认值已经设置为 CPU的核数。
+
+M和P数量默认为GOMAXPROCS， 但M由于调度阻塞是可以动态加的， 但P不能。
