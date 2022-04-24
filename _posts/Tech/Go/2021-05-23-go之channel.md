@@ -180,3 +180,30 @@ func worker(id int, ch chan token, next chan token) {
 
 
 
+## 读写流程
+
+> 向 channel 写数据:
+>
+> 1. 若等待接收队列 recvq 不为空，则缓冲区中无数据或无缓冲区，将直接从 recvq 取出 G ，并把数据写入，最后把该 G 唤醒，结束发送过程。
+> 2. 若缓冲区中有空余位置，则将数据写入缓冲区，结束发送过程。
+> 3. 若缓冲区中没有空余位置，则将发送数据写入 G，将当前 G 加入 sendq ，进入睡眠，等待被读 goroutine 唤醒。
+
+> 从 channel 读数据
+>
+> 1. 若等待发送队列 sendq 不为空，且没有缓冲区，直接从 sendq 中取出 G ，把 G 中数据读出，最后把 G 唤醒，结束读取过程。
+> 2. 如果等待发送队列 sendq 不为空，说明缓冲区已满，从缓冲区中首部读出数据，把 G 中数据写入缓冲区尾部，把 G 唤醒，结束读取过程。
+> 3. 如果缓冲区中有数据，则从缓冲区取出数据，结束读取过程。
+> 4. 将当前 goroutine 加入 recvq ，进入睡眠，等待被写 goroutine 唤醒。
+
+> 关闭 channel
+>
+> 1.关闭 channel 时会将 recvq 中的 G 全部唤醒，本该写入 G 的数据位置为 nil。将 sendq 中的 G 全部唤醒，但是这些 G 会 panic。
+>
+> panic 出现的场景还有：
+>
+> - 关闭值为 nil 的 channel
+> - 关闭已经关闭的 channel
+> - 向已经关闭的 channel 中写数据
+
+
+
