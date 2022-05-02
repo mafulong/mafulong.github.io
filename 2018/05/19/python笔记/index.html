@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15106 字，约 44 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15496 字，约 45 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -403,10 +403,26 @@ sorted(s, key=lambda x: (x.isdigit(),x.isdigit() and int(x) % 2 == 0,x.isupper()
 <ul>
 <li>x.isdigit()的作用是把数字放在后边（True）,字母放在前面（False）.</li>
 <li>x.isdigit() and int(x) % 2 == 0的作用是保证数字中奇数在前（False），偶数在后（True）。</li>
-<li>x.isupper()的作用是在前面基础上,保证字母小写（False）在前大写在后（True）. 最后的x表示在前面基础上,对所有类别数字或字母排序。<h3 id="lambda">lambda</h3>
-<p>Lambda函数，是一个匿名函数，创建语法：</p>
+<li>x.isupper()的作用是在前面基础上,保证字母小写（False）在前大写在后（True）. 最后的x表示在前面基础上,对所有类别数字或字母排序。<h3 id="cmp_to_key">cmp_to_key</h3>
 </li>
+<li>使用 key 比使用 cmp 的性能更快，对于有 N 个元素的列表，在排序过程中如果调用 cmp 进行比较，那么 cmp 的调用次数为 Nlog(N) 量级（基于比较的排序的最快时间复杂度），如果使用 key 参数，那么只需要在每个元素上调用一次 key 函数，只有 N 次调用，虽然使用 key 参数也要进行 O(Nlog(N)) 量级比较次数，但这些比较是在 C 语言层，比调用用户自定义的函数快。</li>
 </ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kn">import</span> <span class="nn">functools</span>
+
+    <span class="n">num_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+
+
+    <span class="c1"># x是否在y后面，如果正数表示x在y后面
+</span>    <span class="k">def</span> <span class="nf">custom_cmp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># 返回正数表示x应该排在y后面
+</span>        <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+
+    <span class="n">sorted_num_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">num_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">functools</span><span class="p">.</span><span class="n">cmp_to_key</span><span class="p">(</span><span class="n">custom_cmp</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">sorted_num_list</span><span class="p">)</span>
+</code></pre></div></div>
+<h3 id="lambda">lambda</h3>
+<p>Lambda函数，是一个匿名函数，创建语法：</p>
 <p>lambda parameters:express</p>
 <p>parameters：可选，如果提供，通常是逗号分隔的变量表达式形式，即位置参数。</p>
 <p>expression：不能包含分支或循环（但允许条件表达式），也不能包含return（或yield）函数。如果为元组，则应用圆括号将其包含起来。</p>
