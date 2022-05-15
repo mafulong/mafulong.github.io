@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-05-15T16:06:03+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6068. 毯子覆盖的最多白色砖块数</title><link href="https://mafulong.github.io/2022/05/15/6068.-%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0/" rel="alternate" type="text/html" title="6068. 毯子覆盖的最多白色砖块数" /><published>2022-05-15T00:00:00+08:00</published><updated>2022-05-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/05/15/6068.%20%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/05/15/6068.-%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-05-15T18:57:36+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6068. 毯子覆盖的最多白色砖块数</title><link href="https://mafulong.github.io/2022/05/15/6068.-%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0/" rel="alternate" type="text/html" title="6068. 毯子覆盖的最多白色砖块数" /><published>2022-05-15T00:00:00+08:00</published><updated>2022-05-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/05/15/6068.%20%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/05/15/6068.-%E6%AF%AF%E5%AD%90%E8%A6%86%E7%9B%96%E7%9A%84%E6%9C%80%E5%A4%9A%E7%99%BD%E8%89%B2%E7%A0%96%E5%9D%97%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximum-white-tiles-covered-by-a-carpet/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个二维整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tiles&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tiles[i] = [li, ri]&lt;/code&gt; ，表示所有在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;li &amp;lt;= j &amp;lt;= ri&lt;/code&gt; 之间的每个瓷砖位置 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; 都被涂成了白色。&lt;/p&gt;
@@ -45,13 +45,13 @@
 
 &lt;p&gt;We are given two key parameters.&lt;/p&gt;
 
-&lt;p&gt;first,  the tiles,  which is a two-dimensional arrsy,  and every element of this array is a range, we can call it interval consisting of l and r.&lt;/p&gt;
+&lt;p&gt;first,  the tiles,  which is a two-dimensional array,  and every element of this array is a range, we can call it interval consisting of l and r.&lt;/p&gt;
 
-&lt;p&gt;secone, the carpetlen, the length of the carpet.&lt;/p&gt;
+&lt;p&gt;second, the carpetlen, the length of the carpet.&lt;/p&gt;
 
 &lt;p&gt;here is my initial idea of solution.&lt;/p&gt;
 
-&lt;p&gt;what we need to do is to find the most tiles that can be covered by this carpet. notice that the covered tiles must be continueous.&lt;/p&gt;
+&lt;p&gt;what we need to do is to find the most tiles that can be covered by this carpet. note that the covered tiles must be continueous.&lt;/p&gt;
 
 &lt;p&gt;it’s always better to place a carpet at the beginning of a range. the reason is that if you shift a carpet one right, you might cover another white tile, but you definately uncover the previous while tile.&lt;/p&gt;
 
@@ -70,15 +70,11 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;start from the beginning of each interval, to find the rightmost interval that can be partially covered.&lt;/p&gt;
-
-&lt;p&gt;to find the maximum number of tiles that can be covered by the given carpet from the left point. actually, it the right pointer, which will move to right or stay the current position.&lt;/p&gt;
-
-&lt;p&gt;so the left pointer will move o(n) times, and right pointer will move o(n) times. total is o(n).&lt;/p&gt;
+&lt;p&gt;so the left pointer will move o(n) times, and right pointer will move o(n) times. total is o(nlogn).&lt;/p&gt;
 
 &lt;p&gt;no extra space complexity.&lt;/p&gt;
 
-&lt;p&gt;it’s easier and better to calculate the cover + partial, rather than cover - uncovered.&lt;/p&gt;
+&lt;p&gt;it’s easier and better to calculate the cover + partial, rather than cover minus uncovered.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;maximumWhiteTiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;carpetLen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
