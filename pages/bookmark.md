@@ -50,6 +50,7 @@ permalink: /bookmark/
 - [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
 - [编程之法: 面试和算法心得](https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/00.01.html)
 - [小刀面试笔记](https://wdxtub.com/interview/index.html)
+- [算法通关手册](https://algo.itcharge.cn/07.Tree/03.Segment-Tree/01.Segment-Tree/)
 
 ## 软件使用
 ### win10
