@@ -3,7 +3,6 @@ layout: post
 category: ElasticSearch
 title: ElasticSearch(ES)原理
 tags: ElasticSearch
-topmost: true
 ---
 
 ## Part1： ES介绍及核心概念
