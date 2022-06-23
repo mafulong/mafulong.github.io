@@ -49,8 +49,11 @@ permalink: /bookmark/
 - [LeetCode](https://books.halfrost.com/)
 - [力扣加加](https://leetcode-solution-leetcode-pp.gitbook.io/leetcode-solution/)
 - [编程之法: 面试和算法心得](https://wizardforcel.gitbooks.io/the-art-of-programming-by-july/content/00.01.html)
-- [小刀面试笔记](https://wdxtub.com/interview/index.html)
+- [小刀面试笔记](https://wdxtub.com/interview/index.html) 包含面向对象
 - [算法通关手册](https://algo.itcharge.cn/07.Tree/03.Segment-Tree/01.Segment-Tree/)
+- [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
+- [Go语言设计与实现](https://draveness.me/golang/) - Go语言设计与实现
+- [Java全栈知识](https://pdai.tech/md/outline/x-outline.html)
 
 ## 软件使用
 ### win10
@@ -108,7 +111,4 @@ permalink: /bookmark/
 ### 理念
 - [到底什么是技术](https://mp.weixin.qq.com/s/h8iZcL1FOabjWis4_vQVQQ) - 到底什么是技术
 
-### 系统设计
-- [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
-- [Go语言设计与实现](https://draveness.me/golang/) - Go语言设计与实现
 
