@@ -54,6 +54,7 @@ permalink: /bookmark/
 - [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
 - [Go语言设计与实现](https://draveness.me/golang/) - Go语言设计与实现
 - [Java全栈知识](https://pdai.tech/md/outline/x-outline.html)
+- [Spring](https://potoyang.gitbook.io/spring-in-action-v4/1/1.3-fu-kan-spring-feng-jing-xian/1.3.1spring-mo-kuai)
 
 ## 软件使用
 ### win10
@@ -110,5 +111,4 @@ permalink: /bookmark/
 
 ### 理念
 - [到底什么是技术](https://mp.weixin.qq.com/s/h8iZcL1FOabjWis4_vQVQQ) - 到底什么是技术
-
 
