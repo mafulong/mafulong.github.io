@@ -1,17 +1,17 @@
 ---
 layout: post
-category: JavaLib
+category: SpringBoot
 title: spring boot controller
-tags: JavaLib
+tags: SpringBoot
 ---
 
-```@Controller```  处理Http请求
+`@Controller` 处理 Http 请求
 
-```@RestController```  spring4新加注解，就是```@ResponseBody```与```@Contrller```的结合，返回Json
+`@RestController` spring4 新加注解，就是`@ResponseBody`与`@Contrller`的结合，返回 Json
 
-默认没有```@Controller``` 的模板，要引入thymeleaf，然后templates里放
+默认没有`@Controller` 的模板，要引入 thymeleaf，然后 templates 里放
 
-```@PathVariable``` 获取Url中的数据
+`@PathVariable` 获取 Url 中的数据
 
 ```java
     @RequestMapping(value = "/hello/{id}",method = RequestMethod.GET)
@@ -21,7 +21,7 @@ tags: JavaLib
     }
 ```
 
-```@RequestParam```获取参数
+`@RequestParam`获取参数
 
 ```java
     @RequestMapping(value = "/hello",method = RequestMethod.GET)
@@ -31,13 +31,13 @@ tags: JavaLib
     }
 ```
 
-```http://localhost:8080/hello?id=444```
+`http://localhost:8080/hello?id=444`
 
-## 简化RequesetMapping
+## 简化 RequesetMapping
 
-```@RequestMapping(value = "/hello",method = RequestMethod.GET)```
-   替换为
-```@GetMapping(value = "/hello")```
+`@RequestMapping(value = "/hello",method = RequestMethod.GET)`
+替换为
+`@GetMapping(value = "/hello")`
 
 类似的：
 

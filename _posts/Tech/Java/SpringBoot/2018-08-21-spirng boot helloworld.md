@@ -1,8 +1,8 @@
 ---
 layout: post
-category: JavaLib
+category: SpringBoot
 title: spirng boot helloworld
-tags: JavaLib
+tags: SpringBoot
 ---
 
 pom.xml
@@ -76,7 +76,6 @@ public class Controller1 {
 }
 
 ```
-
 
 ```java
 package com.mfl.springboot;
