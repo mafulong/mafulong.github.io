@@ -1,17 +1,18 @@
 ---
 layout: post
-category: JavaLib
-tags: JavaLib
+category: Spring
+tags: Spring
 title: spring使用bean入门xml配置
 ---
 
-idea新建spring项目
+idea 新建 spring 项目
 
 ## 目录结构
 
-
 ## 代码
+
 HelloWorld.java
+
 ```java
 package com.mfl.spring.model;
 
@@ -37,6 +38,7 @@ public class HelloWorld {
 ```
 
 App
+
 ```java
 package com.mfl.spring;
 
@@ -58,7 +60,8 @@ public class App {
 
 ```
 
-Beans.xml，是根目录src下的
+Beans.xml，是根目录 src 下的
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 

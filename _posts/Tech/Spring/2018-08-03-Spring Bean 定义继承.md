@@ -1,7 +1,7 @@
 ---
 layout: post
-category: JavaLib
-tags: JavaLib
+category: Spring
+tags: Spring
 title: Spring Bean 定义继承
 ---
 

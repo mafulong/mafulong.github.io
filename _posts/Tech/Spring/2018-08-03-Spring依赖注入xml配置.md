@@ -1,11 +1,11 @@
 ---
 layout: post
-category: JavaLib
-tags: JavaLib
+category: Spring
+tags: Spring
 title: Spring依赖注入xml配置
 ---
 
-DI（Depandency Injection），也叫“依赖注入”，与人也称其为“控制反转（IOC）”，而我更喜欢把它称之为DI。传统的Java对象，对其本身及关联的对象（Bean），都是自主创建和管理的，这样就导致高度耦合和难以测试的问题。而Spring框架则意识到这个问题，其提供的DI功能，可以完美的解决Bean及其依赖的Bean的创建、装配及生命周期等管理工作，这个管理机制称为“Spring容器”，也是Spring框架的核心模块。
+DI（Depandency Injection），也叫“依赖注入”，与人也称其为“控制反转（IOC）”，而我更喜欢把它称之为 DI。传统的 Java 对象，对其本身及关联的对象（Bean），都是自主创建和管理的，这样就导致高度耦合和难以测试的问题。而 Spring 框架则意识到这个问题，其提供的 DI 功能，可以完美的解决 Bean 及其依赖的 Bean 的创建、装配及生命周期等管理工作，这个管理机制称为“Spring 容器”，也是 Spring 框架的核心模块。
 
 ## Spring 基于构造函数的依赖注入
 
@@ -31,6 +31,7 @@ public class Foo {
 ```
 
 下述配置文件工作顺利：
+
 ```xml
 <beans>
    <bean id="foo" class="x.y.Foo">
@@ -44,6 +45,7 @@ public class Foo {
 ```
 
 让我们再检查一下我们传递给构造函数不同类型的位置。考虑下面的类：
+
 ```java
 package x.y;
 public class Foo {
@@ -54,6 +56,7 @@ public class Foo {
 ```
 
 如果你使用 type 属性显式的指定了构造函数参数的类型，容器也可以使用与简单类型匹配的类型。例如：
+
 ```xml
 <beans>
 
@@ -66,6 +69,7 @@ public class Foo {
 ```
 
 最后并且也是最好的传递构造函数参数的方式，使用 index 属性来显式的指定构造函数参数的索引。下面是基于索引为 0 的例子，如下所示：
+
 ```xml
 <beans>
 
@@ -82,6 +86,7 @@ public class Foo {
 ## Spring 基于设值函数的依赖注入
 
 当容器调用一个无参的构造函数或一个无参的静态 factory 方法来初始化你的 bean 后，通过容器在你的 bean 上调用设值函数，基于设值函数的 DI 就完成了。
+
 ```xml
    <bean id="textEditor" class="com.tutorialspoint.TextEditor">
       <property name="spellChecker" ref="spellChecker"/>
@@ -96,7 +101,7 @@ public class Foo {
 
 ## 注入内部 Beans
 
-正如你所知道的 Java 内部类是在其他类的范围内被定义的，同理，inner beans 是在其他 bean 的范围内定义的 bean。因此在 或 元素内 元素被称为内部bean，如下所示。
+正如你所知道的 Java 内部类是在其他类的范围内被定义的，同理，inner beans 是在其他 bean 的范围内定义的 bean。因此在 或 元素内 元素被称为内部 bean，如下所示。
 
 ```xml
    <bean id="textEditor" class="com.tutorialspoint.TextEditor">
@@ -161,6 +166,7 @@ public class Foo {
 ## 注入 null 和空字符串的值
 
 如果你需要传递一个空字符串作为值，那么你可以传递它，如下所示：
+
 ```xml
 <bean id="..." class="exampleBean">
    <property name="email" value=""/>
