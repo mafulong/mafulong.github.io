@@ -1,8 +1,8 @@
 ---
 layout: post
-category: JavaLib
+category: Mybatis
 title: Mybatis之@param
-tags: JavaLib
+tags: Mybatis
 ---
 
 实现多参数传入
@@ -18,7 +18,6 @@ public interface UserMapper {
 }
 
 ```
-
 
 ```xml
     <select id="selectUserByBetweenAandB" resultType="com.mfl.model.User">

@@ -1,53 +1,55 @@
 ---
 layout: post
-category: JavaLib
+category: Mybatis
 title: Mybatis复杂查询Example文件
-tags: JavaLib
+tags: Mybatis
 ---
 
 ## 如何进行混合查询
+
 简单介绍：
 
-Criteria，包含一个Cretiron的集合,每一个Criteria对象内包含的Cretiron之间是由AND连接的,是逻辑与的关系。
+Criteria，包含一个 Cretiron 的集合,每一个 Criteria 对象内包含的 Cretiron 之间是由 AND 连接的,是逻辑与的关系。
 
-oredCriteria，Example内有一个成员叫oredCriteria,是Criteria的集合,就想其名字所预示的一样，这个集合中的Criteria是由OR连接的，是逻辑或关系。oredCriteria就是ORed Criteria。
+oredCriteria，Example 内有一个成员叫 oredCriteria,是 Criteria 的集合,就想其名字所预示的一样，这个集合中的 Criteria 是由 OR 连接的，是逻辑或关系。oredCriteria 就是 ORed Criteria。
 
-查询条件1：a=? and (b=? or c=?) 不支持
+查询条件 1：a=? and (b=? or c=?) 不支持
 
-查询条件2：(a=? And b=?) or (a=? And c=?) 支持
+查询条件 2：(a=? And b=?) or (a=? And c=?) 支持
 
-**写法1**
+**写法 1**
+
 ```java
-DemoExample example=new DemoExample();  
+DemoExample example=new DemoExample();
 
-DemoExample.Criteria criteria1=example.createCriteria();  
-criteria1.andAEqualTo(?).andBEqualTo(?);  
-          
-DemoExample.Criteria criteria2=example.createCriteria();  
-criteria2.andAEqualTo(?).andCEqualTo(?);  
+DemoExample.Criteria criteria1=example.createCriteria();
+criteria1.andAEqualTo(?).andBEqualTo(?);
 
-example.or(criteria2);  
+DemoExample.Criteria criteria2=example.createCriteria();
+criteria2.andAEqualTo(?).andCEqualTo(?);
+
+example.or(criteria2);
 
 SqlSession sqlSession = MyBatisUtil.openSession();
 DemoMapper m = sqlSession.getMapper(DemoMapper.class);
-m.countByExample(example);  
+m.countByExample(example);
 //生成的sql语句
 select count(*) from demo WHERE ( a = ? and b = ? ) or ( a = ? and c = ? )
 ```
 
-**写法2**
+**写法 2**
 
 推荐
 
 ```java
-DemoExample example=new DemoExample();  
+DemoExample example=new DemoExample();
 
 example.or().andAEqualTo(?).andBEqualTo(?);
-example.or().andAEqualTo(?).andCEqualTo(?); 
+example.or().andAEqualTo(?).andCEqualTo(?);
 
 SqlSession sqlSession = MyBatisUtil.openSession();
 DemoMapper m = sqlSession.getMapper(DemoMapper.class);
-m.countByExample(example);  
+m.countByExample(example);
 //生成的sql语句
 select count(*) from demo WHERE ( a = ? and b = ? ) or ( a = ? and c = ? )
 ```
@@ -55,6 +57,7 @@ select count(*) from demo WHERE ( a = ? and b = ? ) or ( a = ? and c = ? )
 ## 单独查询用法
 
 ### 1.模糊搜索用户名：
+
 ```java
 String name = "明";
 UserExample ex = new UserExample();
@@ -63,6 +66,7 @@ List<User> userList = userDao.selectByExample(ex);
 ```
 
 ### 2.通过某个字段排序：
+
 ```java
 String orderByClause = "id DESC";
 UserExample ex = new UserExample();
@@ -71,6 +75,7 @@ List<User> userList = userDao.selectByExample(ex);
 ```
 
 ### 3.条件搜索，不确定条件的个数：
+
 ```java
 UserExample ex = new UserExample();
 Criteria criteria = ex.createCriteria();
@@ -84,6 +89,7 @@ List<User> userList = userDao.selectByExample(ex);
 ```
 
 ### 4.分页搜索列表：
+
 ```java
 pager.setPageNum(1);
 pager.setPageSize(5);
