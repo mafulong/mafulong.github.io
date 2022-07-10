@@ -1,11 +1,11 @@
 ---
 layout: post
-category: JavaLib
+category: Mybatis
 title: Mybatis之typeAliases
-tags: JavaLib
+tags: Mybatis
 ---
 
-- 自定义别名 
+- 自定义别名
 - 单个别名定义
 - 批量定义别名（常用）
 
