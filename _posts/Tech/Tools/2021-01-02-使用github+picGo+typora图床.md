@@ -11,7 +11,7 @@ tags: Tools
 
 
 
-## picgo免费版本下载
+## Typora免费版本下载
 
 ### Windows用户
 
