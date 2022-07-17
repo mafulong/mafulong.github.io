@@ -33,6 +33,10 @@ https://github.com/settings/tokens
 https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6
 ```
 
+开启『时间戳重命名』
+
+不要开启：『上传前重命名』
+
 
 
 ## Typora免费版本下载
