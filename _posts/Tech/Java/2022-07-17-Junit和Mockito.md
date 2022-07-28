@@ -5,8 +5,6 @@ title: Junit和Mockito
 tags: Java
 ---
 
-## Junit和Mockito
-
 # Junit
 
 ## 例子+常用注解
@@ -151,3 +149,79 @@ Assert的核心方法：
 [参考](https://www.w3cschool.cn/junit/1h4e1hva.html)
 
 # Mockito
+
+[Tutorial](https://www.baeldung.com/mockito-series)
+
+## 添加mockito
+
+
+
+```xml
+      <dependency>
+          <groupId>org.mockito</groupId>
+          <artifactId>mockito-all</artifactId>
+          <version>1.9.5</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+
+```
+
+
+
+```java
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+```
+
+## Spy和mock
+
+spy 和 mock不同，不同点是：
+
+- spy 的参数是对象示例，mock 的参数是 class。
+- 被 spy 的对象，调用其方法时默认会走真实方法。mock 对象不会。
+
+mock默认是返回默认值的。
+
+
+
+## 注解
+
+@Mock用于代替Mockito.mock创建mock对象。
+
+
+
+spy 对应注解 @Spy，和 @Mock 是一样用的。
+
+
+
+对于@Spy，如果发现修饰的变量是 null，会自动调用类的无参构造函数来初始化。
+
+所以下面两种写法是等价的：
+
+```java
+// 写法1
+@Spy
+private ExampleService spyExampleService;
+
+// 写法2
+@Spy
+private ExampleService spyExampleService = new ExampleService();
+```
+
+## 测试隔离
+
+根据 JUnit 单测隔离 ，当 Mockito 和 JUnit 配合使用时，也会将非static变量或者非单例隔离开。
+
+比如使用 @Mock 修饰的 mock 对象在不同的单测中会被隔离开。
+
+## 实现原理
+
+Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实的对象进行执行，为了mock实例的方法，你可以在subclass中覆盖它。
+
+因此无法mock静态方法。
