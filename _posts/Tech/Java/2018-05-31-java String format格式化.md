@@ -12,6 +12,52 @@ String fs;
 fs=String.format("%d is 3",3);
 ```
 
+String format()方法的语法为：
+
+```
+String.format(String format, Object... args)
+```
+
+### 格式说明符
+
+以下是常用的格式说明符：
+
+| 说明符 | 描述                        |
+| :----- | :-------------------------- |
+| %b, %B | 根据参数为“ true”或“ false” |
+| %s, %S | 一个字符串, 也可以是其他，万能匹配 |
+| %c, %C | Unicode字符                 |
+| %d     | 十进制整数（仅用于整数）    |
+| %f   | 用于十进制数字（用于浮点数） |
+
+不知道用啥就用%s
+
+
+
+### 十进制数的格式
+
+示例
+
+```java
+class Main {
+  public static void main(String[] args) {
+
+    float n1 = -452.534f;
+    double n2 = -345.766d;
+
+    //按原样格式化浮点数
+    System.out.println(String.format("n1 = %f", n1)); // -452.533997
+    System.out.println(String.format("n2 = %f", n2)); // -345.766000
+
+    //显示到小数点后两位
+    System.out.println(String.format("n1 = %.2f", n1)); // -452.53
+    System.out.println(String.format("n2 = %.2f", n2)); // -345.77
+  }
+}
+```
+
+
+
 ## String, StringBuffer and StringBuilder
 
 **1. 是否可变** 
