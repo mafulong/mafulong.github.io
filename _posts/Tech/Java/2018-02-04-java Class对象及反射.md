@@ -1,13 +1,11 @@
 ---
 layout: post
 category: Java
-title: java反射
+title: java Class对象及反射
 tags: Java
 ---
 
-[链接](http://blog.csdn.net/javazejian/article/details/70768369?utm_source=gold_browser_extension)
-
-## 反射
+# 反射
 
 每个类都有一个  **Class**  对象，包含了与类有关的信息。当编译一个新类时，会产生一个同名的 .class 文件，该文件内容保存着 Class 对象。
 
@@ -39,11 +37,90 @@ Reflection is powerful, but should not be used indiscriminately. If it is possib
 
 > [Trail: The Reflection API](https://docs.oracle.com/javase/tutorial/reflect/index.html) </br> [深入解析 Java 反射（1）- 基础](http://www.sczyh30.com/posts/Java/java-reflection-1/)
 
-## Class对象
+# Class对象
+
+获取Class的方法有三种：
+
+1.Class.forName("类名"); 通过类名字符串获取Class对象。
+
+2.通过类的对象调用getClass() 获取该类型的Class对象
+
+3.通过类型直接获取Class对象。 类名.class （类字面常量）
+
+
+
+Example:
+
+```java
+// Class支持泛型
+Class<Integer> integerClass = Integer.class;
+// 注意这里能拿到的是Class<?>, 和Class.forName返回的一样
+Class<?> c1 = Integer.valueOf(3).getClass();
+```
+
+
+
+Class类是什么？
+
+1. Class类也是类的一种，与class关键字是不一样的。
+2. 手动编写的类被编译后会产生一个Class对象，其表示的是创建的类的类型信息，而且这个Class对象保存在同名.class的文件中(字节码文件)，比如创建一个Shapes类，编译Shapes类后就会创建其包含Shapes类相关类型信息的Class对象，并保存在Shapes.class字节码文件中。
+3. 每个通过关键字class标识的类，在内存中有且只有一个与之对应的Class对象来描述其类型信息，无论创建多少个实例对象，其依据的都是用一个Class对象。
+4. Class类只存私有构造函数，因此对应Class对象只能有JVM创建和加载
+5. Class类的对象作用是运行时提供或获得某个对象的类型信息，这点对于反射技术很重要(关于反射稍后分析)。
+
+
+
+类加载的过程，如下：
+
+1. 加载：类加载过程的一个阶段：通过一个类的完全限定查找此类字节码文件，并利用字节码文件创建一个Class对象
+
+2. 链接：验证字节码的安全性和完整性，准备阶段正式为静态域分配存储空间，注意此时只是分配静态成员变量的存储空间，不包含实例1. 成员变量，如果必要的话，解析这个类创建的对其他类的所有引用。
+
+3. 初始化：类加载最后阶段，若该类具有超类，则对其进行初始化，执行静态初始化器和静态初始化成员变量。
+
+   
+
+Note: 
+
+- 使用字面常量的方式获取Class对象的引用不会触发类的初始化。 我们获取字面常量的Class引用时，触发的应该是加载阶段，因为在这个阶段Class对象已创建完成，获取其引用并不困难，而无需触发类的最后阶段初始化。
+- 实例类的getClass方法和Class类的静态方法forName都将会触发类的初始化阶段
+
+
+
+关于类加载的初始化阶段，在虚拟机规范严格规定了有且只有5种场景必须对类进行初始化：
+
+1. 使用new关键字实例化对象时、读取或者设置一个类的静态字段(不包含编译期常量)以及调用静态方法的时候，必须触发类加载的初始化过程(类加载过程最终阶段)。
+2. 使用反射包(java.lang.reflect)的方法对类进行反射调用时，如果类还没有被初始化，则需先进行初始化，这点对反射很重要。
+3. 当初始化一个类的时候，如果其父类还没进行初始化则需先触发其父类的初始化。
+4. 当Java虚拟机启动时，用户需要指定一个要执行的主类(包含main方法的类)，虚拟机会先初始化这个主类
 
 [参考我的另一个博客：深入理解Class对象](https://mafulong.github.io/java/2018/10/23/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Class%E5%AF%B9%E8%B1%A1.html)
 
+
+
+# 类型转换
+
+在许多需要强制类型转换的场景，我们更多的做法是直接强制转换类型
+
+之所可以强制转换，这得归功于RTTI（Run-Time Type Identification）运行时类型识别，要知道在Java中，所有类型转换都是在运行时进行正确性检查的，利用RRTI进行判断类型是否正确从而确保强制转换的完成，如果类型转换失败，将会抛出类型转换异常ClassCastException。
+
+
+
+关于instanceof 关键字，它返回一个boolean类型的值，意在告诉我们对象是不是某个特定的类型实例。如下，在强制转换前利用instanceof检测obj是不是Animal类型的实例对象，如果返回true再进行类型转换，这样可以避免抛出类型转换的异常(ClassCastException)。 注意子类对象也是父类类型的一个实例，返回true. 
+
+```java
+//判断这个对象是不是这种类型
+obj.instanceof(class)
+//判断这个对象能不能被转化为这个类
+class.inInstance(obj)
+```
+
+功能上它们是等价的。
+
+# 反射用法
+
 ## Constructor类及其用法
+
 ```java
         //获取Class对象的引用
         Class clazz = Class.forName("reflect.User");
