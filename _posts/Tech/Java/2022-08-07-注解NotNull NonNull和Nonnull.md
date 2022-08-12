@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Java
-title: @NotNull @NonNull和@Nonnull
+title: 注解NotNull NonNull和Nonnull
 tags: Java
 ---
 
@@ -10,10 +10,6 @@ tags: Java
 
 
 [参考](https://github.com/giantray/stackoverflow-java-top-qa/blob/master/contents/which-notnull-java-annotation-should-i-use.md)
-
-
-
-看着懵逼吧
 
 
 
