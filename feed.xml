@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-08-24T23:09:48+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">数位DP</title><link href="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/" rel="alternate" type="text/html" title="数位DP" /><published>2022-08-19T00:00:00+08:00</published><updated>2022-08-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP</id><content type="html" xml:base="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/">&lt;h2 id=&quot;数位dp&quot;&gt;数位DP&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-08-25T10:38:05+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">数位DP</title><link href="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/" rel="alternate" type="text/html" title="数位DP" /><published>2022-08-19T00:00:00+08:00</published><updated>2022-08-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP</id><content type="html" xml:base="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/">&lt;h2 id=&quot;数位dp&quot;&gt;数位DP&lt;/h2&gt;
 
 &lt;p&gt;数位：把一个数字按照个、十、百、千等等一位一位地拆开，关注它每一位上的数字。如果拆的是十进制数，那么每一位数字都是 0~9，其他进制可类比十进制。&lt;/p&gt;
 
@@ -983,6 +983,18 @@ newFoo: Foo = Foo@5b83f762
 &lt;/ul&gt;
 
 &lt;p&gt;构造器的顺序是类的线性化的反向。线性化是描述某个类型的所有超类型的一种技术规格。&lt;/p&gt;
+
+&lt;h3 id=&quot;extends-和-with&quot;&gt;extends 和 with&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/41031166/scala-extends-vs-with&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you have multiple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;class&lt;/code&gt;es or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trait&lt;/code&gt;s to inherit, the first one is always &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;extends&lt;/code&gt;, and the following &amp;gt;=0 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;class&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trait&lt;/code&gt; to be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt;s.&lt;/p&gt;
+
+&lt;p&gt;But remember that you can only &lt;em&gt;inherit&lt;/em&gt; &amp;lt;=1 (abstract) class, which means if you need to inherit a parent class (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Parent&lt;/code&gt;), it should always comes at first of the form &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;... extends Parent ...&lt;/code&gt;, and no more classes can be inherited to the derived class.&lt;/p&gt;
+
+&lt;p&gt;scala一个类最多可以继承一个实体/抽象类，但对trait继承数量没有限制。 在java中，trait叫interface，对应叫实现implements.&lt;/p&gt;
+
+&lt;p&gt;Extends 表示第一个集成的class/abstract class/trait, 如果trait和class都有，那就extends class with trait. 当只有trait就可以extends trait.&lt;/p&gt;
 
 &lt;h3 id=&quot;命名空间&quot;&gt;命名空间&lt;/h3&gt;
 
