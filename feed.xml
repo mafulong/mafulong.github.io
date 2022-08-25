@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-08-25T20:56:59+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">数位DP</title><link href="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/" rel="alternate" type="text/html" title="数位DP" /><published>2022-08-19T00:00:00+08:00</published><updated>2022-08-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP</id><content type="html" xml:base="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/">&lt;h2 id=&quot;数位dp&quot;&gt;数位DP&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-08-25T21:07:05+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">数位DP</title><link href="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/" rel="alternate" type="text/html" title="数位DP" /><published>2022-08-19T00:00:00+08:00</published><updated>2022-08-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP</id><content type="html" xml:base="https://mafulong.github.io/2022/08/19/%E6%95%B0%E4%BD%8DDP/">&lt;h2 id=&quot;数位dp&quot;&gt;数位DP&lt;/h2&gt;
 
 &lt;p&gt;数位：把一个数字按照个、十、百、千等等一位一位地拆开，关注它每一位上的数字。如果拆的是十进制数，那么每一位数字都是 0~9，其他进制可类比十进制。&lt;/p&gt;
 
@@ -1013,11 +1013,15 @@ newFoo: Foo = Foo@5b83f762
 
 &lt;h3 id=&quot;样本类case-class&quot;&gt;样本类case class&lt;/h3&gt;
 
+&lt;p&gt;case class最重要的功能，支持模式匹配，这也是定义case class的重要原因。&lt;/p&gt;
+
 &lt;ul&gt;
   &lt;li&gt;它会添加与类名一致的工厂方法。&lt;/li&gt;
   &lt;li&gt;样本类参数列表的所有参数隐式获得了val前缀，因此它被当做字段维护。&lt;/li&gt;
   &lt;li&gt;编译器为你的类添加了方法toString、hashcode、equals的“自然”实现。&lt;/li&gt;
   &lt;li&gt;样本类支持模式匹配。&lt;/li&gt;
+  &lt;li&gt;自动创建伴生对象，同时在里面给我们实现子apply方法，使得我们在使用的时候可以不直接显示地new对象&lt;/li&gt;
+  &lt;li&gt;伴生对象中同样会帮我们实现unapply方法，从而可以将case class应用于模式匹配，关于unapply方法我们在后面的“提取器”那一节会重点讲解&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;比如这样&lt;/p&gt;
@@ -1041,6 +1045,8 @@ newFoo: Foo = Foo@5b83f762
    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;case class 和 case object 区别：类中有参和无参，当类有参数的时候，用case class ，当类没有参数的时候那么用case object。&lt;/p&gt;
 
 &lt;h3 id=&quot;类实例当函数&quot;&gt;类实例当函数&lt;/h3&gt;
 
@@ -1230,9 +1236,48 @@ res0: Int = 2
 
 &lt;h1 id=&quot;scala-option和some&quot;&gt;Scala Option和Some&lt;/h1&gt;
 
-&lt;h3 id=&quot;scala-的-option类型&quot;&gt;Scala 的 Option类型&lt;/h3&gt;
+&lt;h3 id=&quot;option&quot;&gt;Option&lt;/h3&gt;
 
-&lt;p&gt;为了让所有东西都是对象的目标更加一致，也为了遵循函数式编程的习惯，Scala 鼓励你在变量和函数返回值可能不会引用任何值的时候使用 Option 类型。在没有值的时候，使用 None，这是 Option 的一个子类。如果有值可以引用，就使用 Some 来包含这个值。Some 也是 Option 的子类。 None 被声明为一个对象，而不是一个类，因为我们只需要它的一个实例。这样，它多少有点像 null 关键字，但它却是一个实实在在的，有方法的对象。&lt;/p&gt;
+&lt;p&gt;Option[A] (sealed trait) 有两个取值:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Some[A] 有类型A的值&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;None 没有值&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Option一般有两种用法：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;模式匹配&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Option&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;?&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;map&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;?&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;getOrElse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;默认值&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;some&quot;&gt;Some&lt;/h3&gt;
+
+&lt;p&gt;Some是一个继承了Option的case class。 而None是一个继承了Option[Nothing]的case object。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Some的解释&lt;/strong&gt;: Class &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Some[A]&lt;/code&gt; represents existing values of type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Some[A] some是一定有值的, some.get获取值，如果没有值， 会报异常. Predef.NoSuchElementException  if the option is empty.&lt;/p&gt;
 
 &lt;h3 id=&quot;应用例子&quot;&gt;应用例子&lt;/h3&gt;
 
