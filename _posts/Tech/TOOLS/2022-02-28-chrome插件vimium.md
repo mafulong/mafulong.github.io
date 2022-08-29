@@ -5,9 +5,9 @@ title: chrome插件vimium
 tags: Tools
 ---
 
-## chrome插件vimium
+## chrome 插件 vimium
 
-安装后 键盘?  可打开如下帮助页
+安装后 键盘? 可打开如下帮助页
 
 ![image-20220228134807860](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220228134807.png)
 
@@ -21,4 +21,3 @@ map << closeTabsOnLeft
 map >> closeTabsOnRight
 map cc closeOtherTabs
 ```
-
