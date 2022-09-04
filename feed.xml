@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-09-01T09:53:51+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">2386. 找出数组的第 K 大和</title><link href="https://mafulong.github.io/2022/08/27/2386.-%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC-K-%E5%A4%A7%E5%92%8C/" rel="alternate" type="text/html" title="2386. 找出数组的第 K 大和" /><published>2022-08-27T00:00:00+08:00</published><updated>2022-08-27T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/27/2386.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E5%92%8C</id><content type="html" xml:base="https://mafulong.github.io/2022/08/27/2386.-%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC-K-%E5%A4%A7%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-09-04T14:53:53+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">多机器同步rsync</title><link href="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/" rel="alternate" type="text/html" title="多机器同步rsync" /><published>2022-09-03T00:00:00+08:00</published><updated>2022-09-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync</id><content type="html" xml:base="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/">&lt;h2 id=&quot;多机器同步rsync&quot;&gt;多机器同步rsync&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tb &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;
+	rsync &lt;span class=&quot;nt&quot;&gt;-avz&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--delete&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--exclude&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'build'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;/ &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DEV_A&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;:/home/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;:6&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+get &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;
+	rsync &lt;span class=&quot;nt&quot;&gt;-avz&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--delete&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--exclude&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DEV_A&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;:/home/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;:6&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;/ &lt;span class=&quot;nv&quot;&gt;$x&lt;/span&gt;/
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;检测文件变化可以&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;macOS: fswatch&lt;/li&gt;
+  &lt;li&gt;Linux: ionotify&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ssh可以远程执行另一台机器的命令&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;DEV_A&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;echo 'hhh'&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;mac可以触发mac系统通知&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;osascript &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'display notification &quot;Notification text&quot; with title &quot;Title&quot;'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">多机器同步rsync</summary></entry><entry><title type="html">2386. 找出数组的第 K 大和</title><link href="https://mafulong.github.io/2022/08/27/2386.-%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC-K-%E5%A4%A7%E5%92%8C/" rel="alternate" type="text/html" title="2386. 找出数组的第 K 大和" /><published>2022-08-27T00:00:00+08:00</published><updated>2022-08-27T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/27/2386.%20%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC%20K%20%E5%A4%A7%E5%92%8C</id><content type="html" xml:base="https://mafulong.github.io/2022/08/27/2386.-%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E7%9A%84%E7%AC%AC-K-%E5%A4%A7%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/find-the-k-sum-of-an-array/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和一个 &lt;strong&gt;正&lt;/strong&gt; 整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。你可以选择数组的任一 &lt;strong&gt;子序列&lt;/strong&gt; 并且对其全部元素求和。&lt;/p&gt;
@@ -2127,26 +2157,4 @@ res0: Int = 2
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/lfri/p/15758120.html&quot;&gt;图的最大环最长链&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">最大环最长链</summary></entry><entry><title type="html">chrome必装插件</title><link href="https://mafulong.github.io/2022/07/30/chrome%E5%BF%85%E8%A3%85%E6%8F%92%E4%BB%B6/" rel="alternate" type="text/html" title="chrome必装插件" /><published>2022-07-30T00:00:00+08:00</published><updated>2022-07-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/07/30/chrome%E5%BF%85%E8%A3%85%E6%8F%92%E4%BB%B6</id><content type="html" xml:base="https://mafulong.github.io/2022/07/30/chrome%E5%BF%85%E8%A3%85%E6%8F%92%E4%BB%B6/">&lt;h2 id=&quot;chrome-必装插件&quot;&gt;chrome 必装插件&lt;/h2&gt;
-
-&lt;h3 id=&quot;tampermonkey-油猴&quot;&gt;Tampermonkey: 油猴&lt;/h3&gt;
-
-&lt;p&gt;安装脚本&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Open the F**king URL Right Now&lt;/strong&gt; 知乎自动跳转&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;ublacklistgoogle-bing-屏蔽&quot;&gt;uBlacklist：google, bing 屏蔽&lt;/h3&gt;
-
-&lt;p&gt;参考个人博客 搜索引擎屏蔽 rubbish 网站&lt;/p&gt;
-
-&lt;h3 id=&quot;dark-reader-护眼&quot;&gt;Dark Reader: 护眼&lt;/h3&gt;
-
-&lt;p&gt;护眼，背景颜色改变&lt;/p&gt;
-
-&lt;h2 id=&quot;主题背景&quot;&gt;主题背景&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://chrome.google.com/webstore/category/themes&quot;&gt;Game of Thrones: Stark&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">chrome 必装插件</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">最大环最长链</summary></entry></feed>
