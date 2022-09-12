@@ -623,8 +623,179 @@ $("p").css("background-color");
 $("p").css("background-color","yellow");
 
 $("p").css({"background-color":"yellow","font-size":"200%"});
+
+
+
+旧版本
+$("").hide()
+//必须
+$(document).ready(function(){
+
+--- jQuery functions go here ----
+
+});
+
+jQuery 语法实例
+$(this).hide()
+演示 jQuery hide() 函数，隐藏当前的 HTML 元素。
+$("#test").hide()
+演示 jQuery hide() 函数，隐藏 id="test" 的元素。
+$("p").hide()
+演示 jQuery hide() 函数，隐藏所有 <p> 元素。
+$(".test").hide()
+演示 jQuery hide() 函数，隐藏所有 class="test" 的元素。
+
+jQuery 元素选择器
+jQuery 使用 CSS 选择器来选取 HTML 元素。
+$("p") 选取 <p> 元素。
+$("p.intro") 选取所有 class="intro" 的 <p> 元素。
+$("p#demo") 选取所有 id="demo" 的 <p> 元素。
+jQuery 属性选择器
+jQuery 使用 XPath 表达式来选择带有给定属性的元素。
+$("[href]") 选取所有带有 href 属性的元素。
+$("[href='#']") 选取所有带有 href 值等于 "#" 的元素。
+$("[href!='#']") 选取所有带有 href 值不等于 "#" 的元素。
+$("[href$='.jpg']") 选取所有 href 值以 ".jpg" 结尾的元素。
+jQuery CSS 选择器
+jQuery CSS 选择器可用于改变 HTML 元素的 CSS 属性。
+下面的例子把所有 p 元素的背景颜色更改为红色：
+$("p").css("background-color","red");
+
+$(document).ready(function)	将函数绑定到文档的就绪事件（当文档完成加载时）
+$(selector).click(function)	触发或将函数绑定到被选元素的点击事件
+$(selector).dblclick(function)	触发或将函数绑定到被选元素的双击事件
+$(selector).focus(function)	触发或将函数绑定到被选元素的获得焦点事件
+$(selector).mouseover(function)	触发或将函数绑定到被选元素的鼠标悬停事件
+
+$("#btn1").click(function(){
+  $("#test1").text("Hello world!");
+});
+$("#btn2").click(function(){
+  $("#test2").html("<b>Hello world!</b>");
+});
+$("#btn3").click(function(){
+  $("#test3").val("Dolly Duck");
+});
+//回调函数
+$("#btn1").click(function(){
+  $("#test1").text(function(i,origText){
+    return "Old text: " + origText + " New text: Hello world!
+    (index: " + i + ")";
+  });
+});
+
+$("button").click(function(){
+  $("#w3s").attr("href","http://www.w3school.com.cn/jquery");
+});
+//同时设置多个属性
+$("button").click(function(){
+  $("#w3s").attr({
+    "href" : "http://www.w3school.com.cn/jquery",
+    "title" : "W3School jQuery Tutorial"
+  });
+});
+
+$("p").append("Some appended text.");
+$("p").prepend("Some prepended text.");
+
+function appendText()
+{
+var txt1="<p>Text.</p>";               // 以 HTML 创建新元素
+var txt2=$("<p></p>").text("Text.");   // 以 jQuery 创建新元素
+var txt3=document.createElement("p");  // 以 DOM 创建新元素
+txt3.innerHTML="Text.";
+$("p").append(txt1,txt2,txt3);         // 追加新元素
+}
+
+$("img").after("Some text after");
+$("img").before("Some text before");
+
+$("#div1").remove();
+$("#div1").empty();
+$("p").remove(".italic");
+
+$("button").click(function(){
+  $("h1,h2,p").addClass("blue");
+  $("div").addClass("important");
+});
+
+$("button").click(function(){
+  $("h1,h2,p").removeClass("blue");
+});
+
+$("p").css("background-color","yellow");
+$("p").css({"background-color":"yellow","font-size":"200%"});
 ```
 
-## Jquery ajax淘汰
+# Jquery ajax淘汰
 
 [参考](https://www.xiejiahe.com/blog/detail/59b35ad615c192bd11b90469)
+
+
+
+
+
+# ajax教程
+
+## ajax请求数据
+### get
+```javascript
+    var xmlhttp=new XMLHttpRequest();
+	xmlhttp.open("GET","/test/GetSearchTips?sear="+thisnode.value,true);
+    xmlhttp.send();
+```
+
+### post
+```javascript
+    xmlhttp.open("POST","/myservlet",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("name=mafulong&age=14");
+```
+
+## 后台处理数据
+```java
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        super.doGet(req, resp);
+//        resp.setContentType("text/html");
+        String name=req.getParameter("name");
+        System.out.println(name);
+        resp.setContentType("application/json; charset=UTF-8");
+        PrintWriter out=resp.getWriter();
+//        out.print("fjdkfjdk");
+//        out.println("<h1>abc</h1>");
+        JSONObject jsonObject=new JSONObject();
+        JSONArray jsonArray=new JSONArray();
+        jsonArray.put(jsonObject);
+        jsonArray.put(jsonObject);
+        try{
+            jsonObject.put("name","mafulong");
+            jsonObject.put("age",18);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+//        out.print(jsonObject.toString());
+        out.print(jsonArray.toString());
+
+    }
+```
+
+## 前端处理后端接收得数据
+```javascript
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            // document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+            alert("success ");
+            var data=xmlhttp.responseText;
+            var djson=JSON.parse(data);
+            var str="";
+            for(var i=0;i<djson.length;i++){
+                str+=djson[i].name+"<br>";
+                str+=djson[i].age+"<br>";
+            }
+            document.getElementById("myDiv").innerHTML=str;
+        }
+    }
+```
