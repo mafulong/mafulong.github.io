@@ -1,4 +1,184 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-02T11:50:40+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">多机器同步rsync</title><link href="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/" rel="alternate" type="text/html" title="多机器同步rsync" /><published>2022-09-03T00:00:00+08:00</published><updated>2022-09-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync</id><content type="html" xml:base="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/">&lt;h2 id=&quot;多机器同步rsync&quot;&gt;多机器同步rsync&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-04T11:14:15+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">AWS network</title><link href="https://mafulong.github.io/2022/10/04/AWS-network/" rel="alternate" type="text/html" title="AWS network" /><published>2022-10-04T00:00:00+08:00</published><updated>2022-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/04/AWS%20network</id><content type="html" xml:base="https://mafulong.github.io/2022/10/04/AWS-network/">&lt;h1 id=&quot;aws-network&quot;&gt;AWS network&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/what-is-amazon-vpc.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Virtual Private Cloud (VPC)&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/configure-your-vpc.html&quot;&gt;VPC&lt;/a&gt; 是一个虚拟网络，与您在自己的数据中心中运行的传统网络极为相似。创建 VPC 后，您可以添加子网。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;子网&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/configure-subnets.html&quot;&gt;子网&lt;/a&gt;是您的 VPC 内的 IP 地址范围。子网必须位于单个可用区中。在添加子网后，您可以在 VPC 中部署 Amazon 资源。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;IP 寻址&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;您可以将 IPv4 地址和 IPv6 地址分配到 VPC 和子网。您还可以将您的公有 IPv4 和 IPv6 GUA 地址带到 Amazon 并将其分配到 VPC 中的资源，例如 EC2 实例、NAT 网关和网络负载均衡器。创建 VPC 时，需要为其分配一个 IPv4 CIDR 块（一系列私有 IPv4 地址）、一个 IPv6 CIDR 块或同时分配两种 CIDR 块（双堆栈）。&lt;/p&gt;
+
+    &lt;p&gt;私有 IPv4 地址无法通过 Internet 访问。IPv6 地址具有全球唯一性，可以配置为保持私有或通过互联网进行访问。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;路由选择&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;使用&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Route_Tables.html&quot;&gt;路由表&lt;/a&gt;决定将来自您的子网或网关的网络流量定向到何处。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;网关和端点&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/extend-intro.html&quot;&gt;网关&lt;/a&gt;将您的 VPC 连到其他网络。例如，使用&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Internet_Gateway.html&quot;&gt;互联网网关&lt;/a&gt;将您的 VPC 连接到网络。使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/privatelink/privatelink-access-aws-services.html&quot;&gt;VPC 端点&lt;/a&gt;私下连接到 Amazon Web Services，无需使用互联网网关或 NAT 设备。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;对等连接&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/peering/&quot;&gt;VPC 对等连接&lt;/a&gt;在两个 VPC 中的资源之间路由流量。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;流量镜像&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;从网络接口&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/mirroring/&quot;&gt;复制网络流量&lt;/a&gt;，然后将其发送到安全和监控设备进行深度数据包检查。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;中转网关&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;将&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/extend-tgw.html&quot;&gt;中转网关&lt;/a&gt;用作中央枢纽，以在 VPC、VPN 连接和 Amazon Direct Connect 连接之间路由流量。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;VPC 流日志&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/flow-logs.html&quot;&gt;流日志&lt;/a&gt;捕获有关在 VPC 中传入和传出网络接口的 IP 流量的信息。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;VPN 连接&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/vpn-connections.html&quot;&gt;Amazon Virtual Private Network (Amazon VPN)&lt;/a&gt; 将 VPC 连接到您的本地网络。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;工作原理&quot;&gt;工作原理&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/how-it-works.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ip-寻址&quot;&gt;IP 寻址&lt;/h2&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS network</summary></entry><entry><title type="html">python项目环境</title><link href="https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83/" rel="alternate" type="text/html" title="python项目环境" /><published>2022-10-04T00:00:00+08:00</published><updated>2022-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83</id><content type="html" xml:base="https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83/">&lt;h2 id=&quot;python项目环境&quot;&gt;python项目环境&lt;/h2&gt;
+
+&lt;h2 id=&quot;pip&quot;&gt;pip&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.runoob.com/w3cnote/python-pip-install-usage.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;以下是对系统python环境修改，如果是项目级别的，记住先venv后再venv里进行pip3的操作&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;你可以通过以下命令来判断是否已安装：&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# Python3.x 版本命令&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 可以alias pip=pip3&lt;/span&gt;
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; pip &lt;span class=&quot;c&quot;&gt;# pip升级&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;指定pip也可以&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip2 &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;模块名
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;pip源修改 阿里源即可&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 清华源&lt;/span&gt;
+pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+&lt;span class=&quot;c&quot;&gt;# 或：&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 阿里源&lt;/span&gt;
+pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url https://mirrors.aliyun.com/pypi/simple/
+&lt;span class=&quot;c&quot;&gt;# 腾讯源&lt;/span&gt;
+pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url http://mirrors.cloud.tencent.com/pypi/simple
+&lt;span class=&quot;c&quot;&gt;# 豆瓣源&lt;/span&gt;
+pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url http://pypi.douban.com/simple/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;requirements&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;适用于 &lt;strong&gt;单虚拟环境的情况：为什么只适用于单虚拟环境？因为这种方式，会将环境中的依赖包全都加入，如果使用的全局环境，则下载的所有包都会在里面，不管是不时当前项目依赖的&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;非venv请不要用这个&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;查看当前pip install的&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 list &lt;span class=&quot;c&quot;&gt;# 输出当前列表&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;更新requirements文件，每次pip install新的后都需要执行一次&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip freeze &amp;gt; requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;使用requirements.txt安装依赖&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install ``-``r requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;venv--虚拟环境&quot;&gt;venv  虚拟环境&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://docs.python.org/zh-cn/3/library/venv.html#creating-virtual-environments&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;虚拟环境，和系统Python环境隔离，好处是互不影响，项目级别推荐。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;创建虚拟环境 (后面venv是名字，一个项目可以多个venv，这里就叫venv，不用起其他名字了)&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; venv venv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;要使用虚拟环境就必须激活&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ➜ &lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;venv/bin/activate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后在命令行中就会出现&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;venv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;说明虚拟环境已经激活，进入到venv shell了&lt;/p&gt;
+
+&lt;p&gt;venv里有pip和Pip3提供, python3也是venv自己的，相当于一个新的shell，然后覆盖了一些python相关命令&lt;/p&gt;
+
+&lt;p&gt;要取消虚拟环境，使用&lt;/p&gt;
+
+&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;venv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;deactivate&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;pycharm结合使用&quot;&gt;pycharm结合使用&lt;/h2&gt;
+
+&lt;p&gt;可通过venv命令行创建好python环境，然后使用pycharm设置里设置interpreter 来切换到venv。&lt;/p&gt;
+
+&lt;h2 id=&quot;example&quot;&gt;example&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;创建venv, 如果有就激活&lt;/li&gt;
+  &lt;li&gt;venv shell里pip requirement操作，安装和更新requirement文件&lt;/li&gt;
+  &lt;li&gt;pycharm设置interpreter&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Python" /><category term="Python" /><summary type="html">python项目环境</summary></entry><entry><title type="html">popclip插件开发</title><link href="https://mafulong.github.io/2022/10/04/popclip%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="alternate" type="text/html" title="popclip插件开发" /><published>2022-10-04T00:00:00+08:00</published><updated>2022-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/04/popclip%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91</id><content type="html" xml:base="https://mafulong.github.io/2022/10/04/popclip%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">&lt;h2 id=&quot;popclip插件开发&quot;&gt;popclip插件开发&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://sspai.com/post/73404&quot;&gt;js开发插件&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://quickref.me/&quot;&gt;quickref&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/mesqueeb/case-anything&quot;&gt;case-anything&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://thenounproject.com/&quot;&gt;The Noun Project&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://sfsymbols.com/&quot;&gt;SF Symbols&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://unicode-org.github.io/icu/userguide/strings/regexp.html&quot;&gt;ICU specification&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pilotmoon/PopClip-Extensions&quot;&gt;官方教程&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;看起来可以js, applescript, shell实现。不能python…&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">popclip插件开发</summary></entry><entry><title type="html">多机器同步rsync</title><link href="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/" rel="alternate" type="text/html" title="多机器同步rsync" /><published>2022-09-03T00:00:00+08:00</published><updated>2022-09-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync</id><content type="html" xml:base="https://mafulong.github.io/2022/09/03/%E5%A4%9A%E6%9C%BA%E5%99%A8%E5%90%8C%E6%AD%A5rsync/">&lt;h2 id=&quot;多机器同步rsync&quot;&gt;多机器同步rsync&lt;/h2&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tb &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 	&lt;span class=&quot;nv&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;pwd&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
@@ -2080,139 +2260,4 @@ res0: Int = 2
 
 &lt;h1 id=&quot;参考教程&quot;&gt;参考教程&lt;/h1&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://docs.scala-lang.org/zh-cn/tour/generic-classes.html&quot;&gt;参考1&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Scala" /><category term="Scala" /><summary type="html">scala语法</summary></entry><entry><title type="html">java Lombok</title><link href="https://mafulong.github.io/2022/08/07/java-Lombok/" rel="alternate" type="text/html" title="java Lombok" /><published>2022-08-07T00:00:00+08:00</published><updated>2022-08-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/07/java%20Lombok</id><content type="html" xml:base="https://mafulong.github.io/2022/08/07/java-Lombok/">&lt;h2 id=&quot;java-lombok&quot;&gt;java Lombok&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6844903557016076302&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java Lombok</summary></entry><entry><title type="html">注解NotNull NonNull和Nonnull</title><link href="https://mafulong.github.io/2022/08/07/%E6%B3%A8%E8%A7%A3NotNull-NonNull%E5%92%8CNonnull/" rel="alternate" type="text/html" title="注解NotNull NonNull和Nonnull" /><published>2022-08-07T00:00:00+08:00</published><updated>2022-08-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/07/%E6%B3%A8%E8%A7%A3NotNull%20NonNull%E5%92%8CNonnull</id><content type="html" xml:base="https://mafulong.github.io/2022/08/07/%E6%B3%A8%E8%A7%A3NotNull-NonNull%E5%92%8CNonnull/">&lt;h2 id=&quot;notnull-nonnull和nonnull&quot;&gt;@NotNull @NonNull和@Nonnull&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/giantray/stackoverflow-java-top-qa/blob/master/contents/which-notnull-java-annotation-should-i-use.md&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;lombok.NonNull&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;适用Lombok项目中代码生成器。不是一个标准的占位符注解.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;会生成检查是否为空的code， 如果为空就抛出NPE异常。&lt;/p&gt;
-
-&lt;p&gt;javax.annotation.Nonnull&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;只适用FindBugs,JSR-305不适用
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;一个占位符，不生成code，但是代码分析里可以用到，如果是可空然后又直接引用属性，会发现这样。&lt;/p&gt;
-
-&lt;p&gt;其中@Nullable也是这样的，只是一个占位符，不生成code。&lt;/p&gt;
-
-&lt;p&gt;NotNull倒没用过这个注解。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">@NotNull @NonNull和@Nonnull</summary></entry><entry><title type="html">最大环最长链</title><link href="https://mafulong.github.io/2022/07/31/%E6%9C%80%E5%A4%A7%E7%8E%AF%E6%9C%80%E9%95%BF%E9%93%BE/" rel="alternate" type="text/html" title="最大环最长链" /><published>2022-07-31T00:00:00+08:00</published><updated>2022-07-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/07/31/%E6%9C%80%E5%A4%A7%E7%8E%AF%E6%9C%80%E9%95%BF%E9%93%BE</id><content type="html" xml:base="https://mafulong.github.io/2022/07/31/%E6%9C%80%E5%A4%A7%E7%8E%AF%E6%9C%80%E9%95%BF%E9%93%BE/">&lt;h2 id=&quot;最大环最长链&quot;&gt;最大环最长链&lt;/h2&gt;
-
-&lt;p&gt;https://www.cnblogs.com/lfri/p/15758120.html&lt;/p&gt;
-
-&lt;p&gt;针对的是出度为1的图，否则会多环重合。&lt;/p&gt;
-
-&lt;h2 id=&quot;最大环&quot;&gt;最大环&lt;/h2&gt;
-
-&lt;h3 id=&quot;有向图&quot;&gt;有向图&lt;/h3&gt;
-
-&lt;p&gt;有多种方法：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一种是先用拓扑排序将外链去掉，再dfs每一个环&lt;/li&gt;
-  &lt;li&gt;DFS: 另一种是从某一点出发，记录途径的点，如果遇到已经访问过的点，说明找到了环的入口。减去起始点到入口的距离，就是环的长度。&lt;/li&gt;
-  &lt;li&gt;还有一种有并查集，对于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x-&amp;gt;y&lt;/code&gt;，如果&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x&lt;/code&gt;和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt;同属于一个集合，说明形成了一个环。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;dfs代码&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;longestCycle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;无向图&quot;&gt;无向图&lt;/h3&gt;
-
-&lt;p&gt;和有向图类似，略&lt;/p&gt;
-
-&lt;h2 id=&quot;最长链&quot;&gt;最长链&lt;/h2&gt;
-
-&lt;p&gt;等价问题： &lt;a href=&quot;https://leetcode.cn/problems/minimum-height-trees/&quot;&gt;310. 最小高度树&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;有向图-1&quot;&gt;有向图&lt;/h3&gt;
-
-&lt;p&gt;这里有一个很重要的问题，有环怎么办？
-有环的情况下，求最长链是没有意义的。要么保证无环，要么是求连接到环上的链的长度。
-例如求连接到环上的链的长度，需要从入度为0的节点开始，递推计算，于是采用拓扑序。&lt;/p&gt;
-
-&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;TopologicalSort&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;front&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// cout &amp;lt;&amp;lt; cur &amp;lt;&amp;lt; &quot; &quot;;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;in&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;// dp[i] 表示到达i的最长链的长度&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two_point_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 题目相关部分&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;favorite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two_point_sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;two_point_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;无向无环图&quot;&gt;无向无环图&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;也可以和有向图一样，拓扑序+dp&lt;/li&gt;
-  &lt;li&gt;还有一种有趣的方法，两次dfs。可以证明，从任一点出发，dfs能走到的最远点一定是”直径”的一个端点，然后从这个端点出发，dfs得到另一个端点。 参考下面【路径最长的两个叶子节点】&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;例如&lt;a href=&quot;https://leetcode.cn/problems/minimum-height-trees/solution/zui-xiao-gao-du-shu-by-leetcode-solution-6v6f/&quot;&gt;Leetcode310最小树高度&lt;/a&gt;，等价于求树的直径
-第一次dfs找到一个端点，再从这个端点出发dfs找到另一个端点，最后在写个dfs得到路径&lt;/p&gt;
-
-&lt;h3 id=&quot;dfsbfs-求最长链&quot;&gt;DFS/BFS 求最长链&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-height-trees/solution/zui-xiao-gao-du-shu-by-leetcode-solution-6v6f/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;可以利用以下算法找到图中距离最远的两个节点与它们之间的路径：&lt;/p&gt;
-
-&lt;p&gt;以任意节点 pp 出现，利用广度优先搜索或者深度优先搜索找到以 pp 为起点的最长路径的终点 xx；&lt;/p&gt;
-
-&lt;p&gt;以节点 xx 出发，找到以 xx 为起点的最长路径的终点 yy；&lt;/p&gt;
-
-&lt;p&gt;xx 到 yy 之间的路径即为图中的最长路径，找到路径的中间节点即为根节点。&lt;/p&gt;
-
-&lt;p&gt;上述算法的证明可以参考「&lt;a href=&quot;http://courses.csail.mit.edu/6.046/fall01/handouts/ps9sol.pdf&quot;&gt;算法导论习题解答 9-1&lt;/a&gt;」。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.cnblogs.com/lfri/p/15758120.html&quot;&gt;图的最大环最长链&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">最大环最长链</summary></entry></feed>
+&lt;p&gt;&lt;a href=&quot;https://docs.scala-lang.org/zh-cn/tour/generic-classes.html&quot;&gt;参考1&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Scala" /><category term="Scala" /><summary type="html">scala语法</summary></entry></feed>
