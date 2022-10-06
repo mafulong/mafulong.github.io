@@ -105,10 +105,88 @@ tags: AWS
 VPC 网络安全组标志 VPC 中的哪些流量可以发往 EC2 实例或从 EC2 发出。安全组指定具体的入向和出向流量规则，并精确到源地址（入向）和目的地址（出向）。这些安全组是与 EC2 实例而非子网关联的。
 默认情况下，流量只允许出，不允许入。
 
+
+
+Security Group（SG）通过控制IP和端口来控制出站入站规则，可以用于EC2，RDS及下面将要用到的VPC Endpoint。
+
+
+
+# Difference between Internet Gateway and NAT Gateway
+
+<img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210041648324.png" style="zoom:67%;" />
+
+参考
+
+- Internet Gateway (IGW) allows instances with public IPs to access the internet.
+- NAT Gateway (NGW) allows instances with no public IPs to access the internet.
+
+# 参考Note 基础概念
+
+[参考](https://juejin.cn/post/6949072638145003556)
+
+大部分 AWS 服务都需要以 VPC 为基础进行构建，比如最常用的 EC2，ALB，及无服务器服务 ECS Fargate。 vb
+
+当我们在一个 VPC 中创建 Subnet 时需要给 Subnet 选择一个 AZ（Availability Zone），一个 Subnet 只能选择建在一个 AZ 中。
+
+
+
+**选择region**
+
+因为国内政策法规原因，AWS 在中国的服务与 AWS Global 服务略有不同。
+
+AWS Global 的 Region 之间是通过主干网相连的，AWS 中国区的服务没有通过主干网与 AWS Global 相连，只有中国区内部两个 Region，北京和宁夏是相连接的。
+
+在创建 VPC 时并不需要添写 AZ（Availability Zone）信息，VPC 只与 Region 有关。
+
+
+
+Subnet 是最终承载大部分 AWS 服务的组件，比如 EC2， ECS Fargate，RDS。
+
+Subnet 分为两种 Private Subnet 和 Public Subnet。
+
+简单来说，不能直接访问 internet 的 Subnet 就是 Private Subnet，能直接访问 internet 的就是 Public Subnet。
+
+
+
+Security Group（SG）通过控制IP和端口来控制出站入站规则，可以用于EC2，RDS及下面将要用到的VPC Endpoint。
+
+
+
+VPC Endpoint用来直接连接VPC与AWS相关服务，比如RDS AIP,S3。
+
+当系统安全要求比较高时，EC2处于的Subnet可能被限制，无法访问internet，这时EC2就无法访问AWS的一些服务，比如SSM。
+
+这时我们可以利用VPC Endpoint把VPC和所需要访问的服务连接起来，然后EC2就可以不经internet访问到所需的服务。
+
+
+
+[参考](https://juejin.cn/post/6954169148318433288)
+
+RT（Route Table）与Subnet相关连，用来描述网络路由。IGW: Internet gateway IGW是一个独立的组件配置在VPC上，使得VPC可以访问internet
+
+我们给VPC加了IGW之后，需要修改Subnet相关的路由，确保访问Internet的请求发送到IGW。
+
+每个VPC中有一个默认的主RT，自动关联VPC内的每一个Subnet。我们现在为Subnet “ts-public-1”单独创建一个新的RT。
+
+
+
+- 新建的Subnet就是Private Subnet
+- 在Private Subnet中配置了到IGW的路由后，就变成Public Subnet
+- Public Subnet中的EC2还要再配置一个Public IP或者EIP就可以访问Internet
+- 如果EC2可以访问internet，其关联的Security Group入站规则如果允许从internet访问，那么这个EC2就可以从internet中直接访问到。
+
+
+
+1. 实践中我们把应用程序，数据库放在Private Subnet中，阻止从internet访问。把堡垒机和ALB（Application Load balancer）放在Public Subnet，允许从internet访问。
+
+2. 一般我们会建两套Public Subnet和Private Subnet，分别放在不同的AZ中，防止其中一个AZ出问题。这时如果配置NAT，也需要在两个Public Subnet中各配置一个NAT。
+
+
+
 # 总结
 
-每个AZ都需要VPC，和一个子网，默认是公有子网。但如果有internet访问不到的实例或者数据库，则需建个私有子网，私有子网默认不能访问internet，internet也不能访问私有子网。
+VPN里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。但如果有internet访问不到的实例或者数据库，则需建个私有子网，私有子网默认不能访问internet，internet也不能访问私有子网。
 
-如果私有子网通过NAT走公有子网是可以访问internet的，反向不能。
+要走互联网必须走internet gateway，它对整个vpc生效, public subnet可直接通过IGW与互联网互联，私有子网再通过NAT走公有子网是可以访问internet的，反向不能。 
 
-附加一个互联网网关也可以让私有子网双向访问互联网，此时有个弹性ip地址关联。
+和互联网连接时都需要有个公网ip，这个是从amazon分配的。
