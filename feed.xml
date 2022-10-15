@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-09T15:29:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">2430. 对字母串可执行的最大删除数</title><link href="https://mafulong.github.io/2022/10/09/2430.-%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0/" rel="alternate" type="text/html" title="2430. 对字母串可执行的最大删除数" /><published>2022-10-09T00:00:00+08:00</published><updated>2022-10-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/09/2430.%20%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/10/09/2430.-%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-15T10:40:58+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">字符串hash</title><link href="https://mafulong.github.io/2022/10/10/%E5%AD%97%E7%AC%A6%E4%B8%B2hash/" rel="alternate" type="text/html" title="字符串hash" /><published>2022-10-10T00:00:00+08:00</published><updated>2022-10-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/10/%E5%AD%97%E7%AC%A6%E4%B8%B2hash</id><content type="html" xml:base="https://mafulong.github.io/2022/10/10/%E5%AD%97%E7%AC%A6%E4%B8%B2hash/">&lt;h2 id=&quot;字符串hash&quot;&gt;字符串hash&lt;/h2&gt;
+
+&lt;p&gt;字符串hash得到hash值，用于o(1)时间复杂度判断是否相等。在提前计算好整个字符串的预处理情况下，可快速比较某两子串是否相等。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://oi-wiki.org/string/hash/&quot;&gt;oi wiki参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210101304818.png&quot; alt=&quot;image-20221010130458789&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;模板&quot;&gt;模板&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StringHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;998244353&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;131&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 计算前缀哈希值
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BASE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;ord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;'''
+    s的[l,r]区间的hash值，闭区间, l从1开始
+    '''&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;H&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;示例&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;leetcode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;problems&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;maximum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deletions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;submissions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deleteString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;# print(i, j, mid)
+&lt;/span&gt;                        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;c1&quot;&gt;# print(dp[i])
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# print(dp)
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;题目&quot;&gt;题目&lt;/h2&gt;
+
+&lt;p&gt;题目： https://leetcode.cn/problems/maximum-deletions-on-a-string/solution/by-tsreaper-9xkh/&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">字符串hash</summary></entry><entry><title type="html">2430. 对字母串可执行的最大删除数</title><link href="https://mafulong.github.io/2022/10/09/2430.-%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0/" rel="alternate" type="text/html" title="2430. 对字母串可执行的最大删除数" /><published>2022-10-09T00:00:00+08:00</published><updated>2022-10-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/09/2430.%20%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/10/09/2430.-%E5%AF%B9%E5%AD%97%E6%AF%8D%E4%B8%B2%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A0%E9%99%A4%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximum-deletions-on-a-string/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个仅由小写英文字母组成的字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 。在一步操作中，你可以：&lt;/p&gt;
@@ -51,7 +105,24 @@
 
 &lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximum-deletions-on-a-string/solution/xian-xing-dppythonjavacgo-by-endlesschen-gpx9/&quot;&gt;参考&lt;/a&gt;  不加特例判断会超时，因此使用hash string更优&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deleteString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 特判全部相同的情况
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;lcp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# lcp[i][j] 表示 s[i:] 和 s[j:] 的最长公共前缀
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;lcp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lcp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lcp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 说明 s[i:i+j] == s[i+j:i+2*j]
+&lt;/span&gt;                    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6202. 使用机器人打印字典序最小的字符串</title><link href="https://mafulong.github.io/2022/10/09/6202.-%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%89%93%E5%8D%B0%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="alternate" type="text/html" title="6202. 使用机器人打印字典序最小的字符串" /><published>2022-10-09T00:00:00+08:00</published><updated>2022-10-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/09/6202.%20%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%89%93%E5%8D%B0%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2</id><content type="html" xml:base="https://mafulong.github.io/2022/10/09/6202.-%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%89%93%E5%8D%B0%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/using-a-robot-to-print-the-lexicographically-smallest-string/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
@@ -178,7 +249,11 @@
 
 &lt;p&gt;chrome可以以csv形式导出密码。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://websetnet.net/zh-CN/%E5%A6%82%E4%BD%95%E5%B0%86%E5%AF%86%E7%A0%81%E4%BB%8Ecsv%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E5%88%B0firefox/&quot;&gt;细节请参考&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">密码管理器</summary></entry><entry><title type="html">块存储和对象存储和文件存储</title><link href="https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" rel="alternate" type="text/html" title="块存储和对象存储和文件存储" /><published>2022-10-06T00:00:00+08:00</published><updated>2022-10-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8</id><content type="html" xml:base="https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/">&lt;h1 id=&quot;块存储和对象存储和文件存储&quot;&gt;块存储和对象存储和文件存储&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://websetnet.net/zh-CN/%E5%A6%82%E4%BD%95%E5%B0%86%E5%AF%86%E7%A0%81%E4%BB%8Ecsv%E6%96%87%E4%BB%B6%E5%AF%BC%E5%85%A5%E5%88%B0firefox/&quot;&gt;细节请参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;微软-authenticator&quot;&gt;微软 authenticator&lt;/h2&gt;
+
+&lt;p&gt;首推，还可以跨平台，微软有保障。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">密码管理器</summary></entry><entry><title type="html">块存储和对象存储和文件存储</title><link href="https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/" rel="alternate" type="text/html" title="块存储和对象存储和文件存储" /><published>2022-10-06T00:00:00+08:00</published><updated>2022-10-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8</id><content type="html" xml:base="https://mafulong.github.io/2022/10/06/%E5%9D%97%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E5%92%8C%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/">&lt;h1 id=&quot;块存储和对象存储和文件存储&quot;&gt;块存储和对象存储和文件存储&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/21536660&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
@@ -819,546 +894,4 @@ get &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;
 
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">英语-连词</title><link href="https://mafulong.github.io/2022/08/26/%E8%8B%B1%E8%AF%AD-%E8%BF%9E%E8%AF%8D/" rel="alternate" type="text/html" title="英语-连词" /><published>2022-08-26T00:00:00+08:00</published><updated>2022-08-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/08/26/%E8%8B%B1%E8%AF%AD-%E8%BF%9E%E8%AF%8D</id><content type="html" xml:base="https://mafulong.github.io/2022/08/26/%E8%8B%B1%E8%AF%AD-%E8%BF%9E%E8%AF%8D/">&lt;h2 id=&quot;连词&quot;&gt;连词&lt;/h2&gt;
-
-&lt;h2 id=&quot;不仅而且not-only-but-also&quot;&gt;不仅而且Not only but also&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://en-grammar.xiao84.com/201612/27635.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;比较自由。also可省略， but also之间也可以加词。&lt;/p&gt;
-
-&lt;p&gt;可连接主语、谓语动词…&lt;/p&gt;
-
-&lt;p&gt;The Americans and the British &lt;strong&gt;not only&lt;/strong&gt; speak the same language &lt;strong&gt;but also&lt;/strong&gt; share a large number of social customs.&lt;/p&gt;
-
-&lt;p&gt;Note:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;”not only A but also B”结构中的A和B通常是同等成分。因此这句话是错误的“He not only plays the piano, but also the violin.” 可以改成“He plays &lt;strong&gt;not only&lt;/strong&gt; the piano, but also the violin”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;也too-as-well-also-either&quot;&gt;也(too, as well, also, either)&lt;/h2&gt;
-
-&lt;p&gt;too和as well两者都可用在肯定句或疑问句的句末。两者通常可以换用。&lt;/p&gt;
-
-&lt;p&gt;She likes pizza as well.&lt;/p&gt;
-
-&lt;p&gt;=She likes pizza too.&lt;/p&gt;
-
-&lt;p&gt;-also:常在&lt;strong&gt;肯定句句中&lt;/strong&gt;
--too:常在&lt;strong&gt;肯定句句末&lt;/strong&gt;，前面常有逗号
--either:常在&lt;strong&gt;否定句句末&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;He isn’t a singer either.&lt;/p&gt;
-
-&lt;p&gt;也不nor&lt;/p&gt;
-
-&lt;p&gt;He can’t speak english, &lt;strong&gt;nor&lt;/strong&gt; can I.&lt;/p&gt;
-
-&lt;h2 id=&quot;除了&quot;&gt;除了&lt;/h2&gt;
-
-&lt;p&gt;I did &lt;strong&gt;nothing but&lt;/strong&gt; watch it&lt;/p&gt;
-
-&lt;h2 id=&quot;然而&quot;&gt;然而&lt;/h2&gt;
-
-&lt;p&gt;whereas&lt;/p&gt;
-
-&lt;p&gt;Some praise him, &lt;strong&gt;whereas&lt;/strong&gt; others condemn him&lt;/p&gt;
-
-&lt;h2 id=&quot;尽管&quot;&gt;尽管&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Although&lt;/strong&gt; she’s young, she knows a lot.&lt;/p&gt;
-
-&lt;h2 id=&quot;只要&quot;&gt;只要&lt;/h2&gt;
-
-&lt;p&gt;As long as I’m free, I will help you.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;only if （连词）只有&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The lawyer is paid only if he wins.&lt;/p&gt;
-
-&lt;h2 id=&quot;要是xx就好了&quot;&gt;&lt;strong&gt;要是xx就好了&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;p&gt;if only&lt;/p&gt;
-
-&lt;p&gt;There had to be an answer — he was sure he could tease it out if only he had time.&lt;/p&gt;
-
-&lt;h2 id=&quot;以免&quot;&gt;以免&lt;/h2&gt;
-
-&lt;p&gt;in case&lt;/p&gt;
-
-&lt;p&gt;You should be careful &lt;strong&gt;in case&lt;/strong&gt; there’s a fire.&lt;/p&gt;
-
-&lt;h2 id=&quot;为了&quot;&gt;为了&lt;/h2&gt;
-
-&lt;p&gt;We study hard in order that we can pass the team.&lt;/p&gt;
-
-&lt;h2 id=&quot;刚一就&quot;&gt;刚一。。。就。&lt;/h2&gt;
-
-&lt;p&gt;推荐as soon as.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;As soon as&lt;/strong&gt; I stepped inside,my glasses misted over.&lt;/p&gt;
-
-&lt;p&gt;The stars came out &lt;strong&gt;as soon as&lt;/strong&gt; darkness fell.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Hardly&lt;/strong&gt; I entered the room &lt;strong&gt;when&lt;/strong&gt; the bell rang.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;No sooner&lt;/strong&gt; had I come home &lt;strong&gt;than&lt;/strong&gt; it began to rain.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Scarcely&lt;/strong&gt; had she entered the room &lt;strong&gt;when&lt;/strong&gt; the phone rang.&lt;/p&gt;
-
-&lt;h2 id=&quot;由于&quot;&gt;由于&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Now that&lt;/strong&gt; you are on duty, you should clean the classroom.&lt;/p&gt;
-
-&lt;h2 id=&quot;无论&quot;&gt;无论&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Whether&lt;/strong&gt; you are sick &lt;strong&gt;or&lt;/strong&gt; not, I’ll help you.&lt;/p&gt;
-
-&lt;h2 id=&quot;而不是&quot;&gt;而不是&lt;/h2&gt;
-
-&lt;p&gt;They relied on brains &lt;strong&gt;rather than&lt;/strong&gt; brawn&lt;/p&gt;
-
-&lt;p&gt;He preferred to die &lt;strong&gt;instead of&lt;/strong&gt; stealing.&lt;/p&gt;
-
-&lt;h2 id=&quot;尽可能地快&quot;&gt;尽可能地快&lt;/h2&gt;
-
-&lt;p&gt;as soon as possible， soon: &lt;em&gt;adv.&lt;/em&gt; 不久；即刻，马上&lt;/p&gt;
-
-&lt;p&gt;We must correct our defects &lt;strong&gt;as soon as possible.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;as quickly as possible.&lt;/p&gt;
-
-&lt;h2 id=&quot;如果将会怎么样&quot;&gt;如果…将会怎么样？&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;What if&lt;/strong&gt; the car breaks down?&lt;/p&gt;
-
-&lt;h2 id=&quot;15类英语连接词&quot;&gt;15类英语连接词&lt;/h2&gt;
-
-&lt;p&gt;https://zhuanlan.zhihu.com/p/277394043&lt;/p&gt;
-
-&lt;p&gt;整理分享15类英语连接词，超级全。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示强调&quot;&gt;表示强调&lt;/h3&gt;
-
-&lt;p&gt;still 然而，仍然&lt;/p&gt;
-
-&lt;p&gt;indeed 事实上&lt;/p&gt;
-
-&lt;p&gt;apparently 显然&lt;/p&gt;
-
-&lt;p&gt;oddly enough 奇怪的是&lt;/p&gt;
-
-&lt;p&gt;of course 当然&lt;/p&gt;
-
-&lt;p&gt;after all 毕竟&lt;/p&gt;
-
-&lt;p&gt;significantly 明显地；显著地&lt;/p&gt;
-
-&lt;p&gt;interestingly 有趣的是&lt;/p&gt;
-
-&lt;p&gt;also 并且，另外&lt;/p&gt;
-
-&lt;p&gt;surely 肯定/必定地&lt;/p&gt;
-
-&lt;p&gt;certainly 当然&lt;/p&gt;
-
-&lt;p&gt;undoubtedly 毫无疑问地&lt;/p&gt;
-
-&lt;p&gt;in any case 在任何情况下；无论如何&lt;/p&gt;
-
-&lt;p&gt;anyway 反正；不管怎样；总之&lt;/p&gt;
-
-&lt;p&gt;above all 首先，尤其是；最重要的是&lt;/p&gt;
-
-&lt;p&gt;in fact 事实上&lt;/p&gt;
-
-&lt;p&gt;especially 特别是&lt;/p&gt;
-
-&lt;p&gt;obviously 很明显 &lt;a href=&quot;cmd://Speak/_us_/obviously&quot;&gt; /’ɑbvɪəsli/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;clearly 无疑的&lt;/p&gt;
-
-&lt;p&gt;例：In fact, he is not an honest man.&lt;/p&gt;
-
-&lt;p&gt;事实上，他不是个诚实的人。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示比较&quot;&gt;表示比较&lt;/h3&gt;
-
-&lt;p&gt;like 就像&lt;/p&gt;
-
-&lt;p&gt;similarly 类似的 be similar to&lt;/p&gt;
-
-&lt;p&gt;likewise 同样的；照样的 副词。&lt;/p&gt;
-
-&lt;p&gt;in the same way 以同样的方式&lt;/p&gt;
-
-&lt;p&gt;in the same manner 以类似的方式&lt;/p&gt;
-
-&lt;p&gt;equally 同样地；相等程度地&lt;/p&gt;
-
-&lt;p&gt;例：I will help you solve this problem, but equally you need to give me some reward.&lt;/p&gt;
-
-&lt;p&gt;我会帮你们解决这个问题，但是同样地，你们需要付出一些回报。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示对比&quot;&gt;表示对比&lt;/h3&gt;
-
-&lt;p&gt;by contrast 相比之下&lt;/p&gt;
-
-&lt;p&gt;on the contrary 相反&lt;/p&gt;
-
-&lt;p&gt;while 而；虽然，尽管&lt;/p&gt;
-
-&lt;p&gt;whereas 而&lt;/p&gt;
-
-&lt;p&gt;on the other hand 另一方面&lt;/p&gt;
-
-&lt;p&gt;unlike 不像&lt;/p&gt;
-
-&lt;p&gt;instead 而不是；而；相反&lt;/p&gt;
-
-&lt;p&gt;but 但&lt;/p&gt;
-
-&lt;p&gt;conversely 相反&lt;/p&gt;
-
-&lt;p&gt;different from 不同于&lt;/p&gt;
-
-&lt;p&gt;however 然而&lt;/p&gt;
-
-&lt;p&gt;nevertheless 不过&lt;/p&gt;
-
-&lt;p&gt;otherwise 否则&lt;/p&gt;
-
-&lt;p&gt;yet 然而, 但是&lt;/p&gt;
-
-&lt;p&gt;in contrast 与此相反；比较起来&lt;/p&gt;
-
-&lt;p&gt;例：On the other hand, they are also unwilling to adopt our advice.&lt;/p&gt;
-
-&lt;p&gt;另一方面，他们也不愿意采纳我们的建议。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示列举&quot;&gt;表示列举&lt;/h3&gt;
-
-&lt;p&gt;for example 例如&lt;/p&gt;
-
-&lt;p&gt;for instance 例如&lt;/p&gt;
-
-&lt;p&gt;such as 如&lt;/p&gt;
-
-&lt;p&gt;take …for example 以……为例&lt;/p&gt;
-
-&lt;p&gt;except (for) 要不是由于  &lt;em&gt;except for&lt;/em&gt; 除了…以外；要不是由于&lt;/p&gt;
-
-&lt;p&gt;to illustrate 为了说明（举例说明）&lt;/p&gt;
-
-&lt;p&gt;例：We bought some fruits such as apples, oranges and pears.&lt;/p&gt;
-
-&lt;p&gt;我们买了一些水果，有苹果橘子还有梨。&lt;/p&gt;
-
-&lt;p&gt;\5. 表示时间&lt;/p&gt;
-
-&lt;p&gt;later 后来；稍后；随后&lt;/p&gt;
-
-&lt;p&gt;next 然后；其次；接下来；下一…&lt;/p&gt;
-
-&lt;p&gt;then 然后&lt;/p&gt;
-
-&lt;p&gt;finally 最终终于&lt;/p&gt;
-
-&lt;p&gt;at last 最后&lt;/p&gt;
-
-&lt;p&gt;eventually 最终 &lt;a href=&quot;cmd://Speak/_us_/eventually&quot;&gt;ɪ’vɛntʃuəli/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;meanwhile 与此同时&lt;/p&gt;
-
-&lt;p&gt;from now on 从现在开始  I have made up my mind not to go skating from now on. 我决心从此不再去滑冰.&lt;/p&gt;
-
-&lt;p&gt;at the same time 同时&lt;/p&gt;
-
-&lt;p&gt;for the time being 暂时 adv&lt;/p&gt;
-
-&lt;p&gt;in the end 最后&lt;/p&gt;
-
-&lt;p&gt;immediately 立即&lt;/p&gt;
-
-&lt;p&gt;in the meantime 在此期间；于此际；与此同时&lt;/p&gt;
-
-&lt;p&gt;in the meanwhile 同时；在此期间&lt;/p&gt;
-
-&lt;p&gt;recently 最近&lt;/p&gt;
-
-&lt;p&gt;soon 很快&lt;/p&gt;
-
-&lt;p&gt;now and then 偶尔；有时；不时  occasionally&lt;/p&gt;
-
-&lt;p&gt;during 在……的期间；在……期间的某个时候 The pond iced over during the night.&lt;/p&gt;
-
-&lt;p&gt;nowadays 如今&lt;/p&gt;
-
-&lt;p&gt;since 自……以后；自……以来；此后；之前&lt;/p&gt;
-
-&lt;p&gt;lately 最近&lt;/p&gt;
-
-&lt;p&gt;as soon as 一旦&lt;/p&gt;
-
-&lt;p&gt;afterwards 后来&lt;/p&gt;
-
-&lt;p&gt;temporarily 暂时&lt;/p&gt;
-
-&lt;p&gt;earlier 早些时候&lt;/p&gt;
-
-&lt;p&gt;now 现在&lt;/p&gt;
-
-&lt;p&gt;after a while 不久；过了一会儿&lt;/p&gt;
-
-&lt;p&gt;例：She answered the question immediately.&lt;/p&gt;
-
-&lt;p&gt;她迅速回答了这个问题。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示顺序&quot;&gt;表示顺序&lt;/h3&gt;
-
-&lt;p&gt;first 首先，第一&lt;/p&gt;
-
-&lt;p&gt;second 第二&lt;/p&gt;
-
-&lt;p&gt;third 第三&lt;/p&gt;
-
-&lt;p&gt;then 然后&lt;/p&gt;
-
-&lt;p&gt;finally 最后&lt;/p&gt;
-
-&lt;p&gt;to begin with 首先，本来，一方面  To begin with, we must consider the faculties of the staff all-sidedly.&lt;/p&gt;
-
-&lt;p&gt;first of all 首先&lt;/p&gt;
-
-&lt;p&gt;in the first place 首先&lt;/p&gt;
-
-&lt;p&gt;last 最后&lt;/p&gt;
-
-&lt;p&gt;next 下一个&lt;/p&gt;
-
-&lt;p&gt;above all 最重要的是&lt;/p&gt;
-
-&lt;p&gt;last but not the least 最后一点，也是非常重要的一点&lt;/p&gt;
-
-&lt;p&gt;first and most important 第一点也是最重要的一点&lt;/p&gt;
-
-&lt;p&gt;例：First of all, you should obey rules as a student.&lt;/p&gt;
-
-&lt;p&gt;作为一个学生，首先你要遵守学校里的规章制度。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示可能&quot;&gt;表示可能&lt;/h3&gt;
-
-&lt;p&gt;presumably 大概&lt;/p&gt;
-
-&lt;p&gt;probably 可能&lt;/p&gt;
-
-&lt;p&gt;perhaps 也许&lt;/p&gt;
-
-&lt;p&gt;例：Perhaps he will not show up today.&lt;/p&gt;
-
-&lt;p&gt;他今天可能不会露面了。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示解释&quot;&gt;表示解释&lt;/h3&gt;
-
-&lt;p&gt;in other words 换句话说&lt;/p&gt;
-
-&lt;p&gt;in fact 事实上&lt;/p&gt;
-
-&lt;p&gt;as a matter of fact 事实上&lt;/p&gt;
-
-&lt;p&gt;that is 即；就是说；换言之&lt;/p&gt;
-
-&lt;p&gt;namely 也就是；即是；换句话说  Namely, a return to white supremacy and institutional slavery.&lt;/p&gt;
-
-&lt;p&gt;in simpler terms 简单来说  &lt;strong&gt;To put it simply&lt;/strong&gt;, everything happens instantaneously. &lt;strong&gt;In short,&lt;/strong&gt; the building would consist of two floors.&lt;/p&gt;
-
-&lt;p&gt;例：He departed from his hometown, namely, London.&lt;/p&gt;
-
-&lt;p&gt;他离开了自己的故乡，也就是伦敦。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示递进&quot;&gt;表示递进&lt;/h3&gt;
-
-&lt;p&gt;What is more 更重要的是；此外，而且&lt;/p&gt;
-
-&lt;p&gt;in addition 另外，此外&lt;/p&gt;
-
-&lt;p&gt;and 并且，以及&lt;/p&gt;
-
-&lt;p&gt;besides 况且，再说；此外，以及&lt;/p&gt;
-
-&lt;p&gt;also 而且；同样；还有&lt;/p&gt;
-
-&lt;p&gt;furthermore 此外&lt;/p&gt;
-
-&lt;p&gt;too 也；还&lt;/p&gt;
-
-&lt;p&gt;moreover 此外；而且&lt;/p&gt;
-
-&lt;p&gt;furthermore 此外&lt;/p&gt;
-
-&lt;p&gt;as well as 以及&lt;/p&gt;
-
-&lt;p&gt;additionally 另外&lt;/p&gt;
-
-&lt;p&gt;again 再说；又&lt;/p&gt;
-
-&lt;p&gt;例：Susan is a beautiful girl, what is more, she works hard all the time.&lt;/p&gt;
-
-&lt;p&gt;苏珊是个漂亮的女孩，而且，她也一直努力工作。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示让步&quot;&gt;表示让步&lt;/h3&gt;
-
-&lt;p&gt;although 虽然&lt;/p&gt;
-
-&lt;p&gt;after all 毕竟&lt;/p&gt;
-
-&lt;p&gt;in spite of …尽管……&lt;/p&gt;
-
-&lt;p&gt;despite 尽管&lt;/p&gt;
-
-&lt;p&gt;even if 即使&lt;/p&gt;
-
-&lt;p&gt;even though 尽管&lt;/p&gt;
-
-&lt;p&gt;though 虽然&lt;/p&gt;
-
-&lt;p&gt;admittedly 不可否认&lt;/p&gt;
-
-&lt;p&gt;whatever may happen 不管三七二十一&lt;/p&gt;
-
-&lt;p&gt;例：Although you told a lie before, we believe in you now.&lt;/p&gt;
-
-&lt;p&gt;虽然你以前说过谎，但我们现在相信你。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示转折&quot;&gt;表示转折&lt;/h3&gt;
-
-&lt;p&gt;however 然而&lt;/p&gt;
-
-&lt;p&gt;rather than 而不是；宁可…也不愿&lt;/p&gt;
-
-&lt;p&gt;instead of 而不是…&lt;/p&gt;
-
-&lt;p&gt;but 但&lt;/p&gt;
-
-&lt;p&gt;yet 然而&lt;/p&gt;
-
-&lt;p&gt;on the other hand 另一方面&lt;/p&gt;
-
-&lt;p&gt;unfortunately 不幸的是&lt;/p&gt;
-
-&lt;p&gt;whereas 然而；鉴于; 反之&lt;/p&gt;
-
-&lt;p&gt;例：However, he did not pass the exam.&lt;/p&gt;
-
-&lt;p&gt;然而，他没有通过考试。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示原因&quot;&gt;表示原因&lt;/h3&gt;
-
-&lt;p&gt;for this reason 因为这个原因&lt;/p&gt;
-
-&lt;p&gt;due to 由于&lt;/p&gt;
-
-&lt;p&gt;thanks to 多亏了&lt;/p&gt;
-
-&lt;p&gt;because 因为&lt;/p&gt;
-
-&lt;p&gt;because of 由于&lt;/p&gt;
-
-&lt;p&gt;as 因为，由于&lt;/p&gt;
-
-&lt;p&gt;since 因为，由于&lt;/p&gt;
-
-&lt;p&gt;owing to 由于&lt;/p&gt;
-
-&lt;p&gt;例：She broke up with her boyfriend because of a terrible quarrel.&lt;/p&gt;
-
-&lt;p&gt;因为大吵了一架，她和男友分手了。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示结果&quot;&gt;表示结果&lt;/h3&gt;
-
-&lt;p&gt;as a result 结果….&lt;/p&gt;
-
-&lt;p&gt;thus 因此&lt;/p&gt;
-
-&lt;p&gt;hence 因此&lt;/p&gt;
-
-&lt;p&gt;so 所以&lt;/p&gt;
-
-&lt;p&gt;therefore 因此&lt;/p&gt;
-
-&lt;p&gt;accordingly 因此，于是&lt;/p&gt;
-
-&lt;p&gt;consequently 因此；结果；所以; 从而&lt;/p&gt;
-
-&lt;p&gt;as a consequence 因此，结果&lt;/p&gt;
-
-&lt;p&gt;例：Therefore, I decide to make an apology to him.&lt;/p&gt;
-
-&lt;p&gt;因此，我决定向他道歉。&lt;/p&gt;
-
-&lt;h3 id=&quot;表示总结&quot;&gt;表示总结&lt;/h3&gt;
-
-&lt;p&gt;on the whole 基本上，大体上；总的来说&lt;/p&gt;
-
-&lt;p&gt;in conclusion 总之；最后&lt;/p&gt;
-
-&lt;p&gt;in a word 总之&lt;/p&gt;
-
-&lt;p&gt;to sum up 总而言之；概括地说&lt;/p&gt;
-
-&lt;p&gt;in brief 简言之&lt;/p&gt;
-
-&lt;p&gt;in summary 总之&lt;/p&gt;
-
-&lt;p&gt;to conclude 最后；总之&lt;/p&gt;
-
-&lt;p&gt;to summarize 简而言之&lt;/p&gt;
-
-&lt;p&gt;in short 总之；简言之&lt;/p&gt;
-
-&lt;p&gt;例：In conclusion, we d better take measures as soon as possible.&lt;/p&gt;
-
-&lt;p&gt;总之，我们最好尽可能快采取措施。&lt;/p&gt;
-
-&lt;h3 id=&quot;其他连接词&quot;&gt;其他连接词&lt;/h3&gt;
-
-&lt;p&gt;mostly 主要是；通常；多半地&lt;/p&gt;
-
-&lt;p&gt;occasionally 偶尔；有时&lt;/p&gt;
-
-&lt;p&gt;currently 目前&lt;/p&gt;
-
-&lt;p&gt;naturally 自然而然地&lt;/p&gt;
-
-&lt;p&gt;mainly 主要是&lt;/p&gt;
-
-&lt;p&gt;exactly 恰好地；正是&lt;/p&gt;
-
-&lt;p&gt;evidently 毫无疑问地; 显然&lt;/p&gt;
-
-&lt;p&gt;frankly 坦率地说；老实说 to be honest&lt;/p&gt;
-
-&lt;p&gt;commonly 一般；通常；普遍&lt;/p&gt;
-
-&lt;p&gt;for this purpose 为此；有鉴于此&lt;/p&gt;
-
-&lt;p&gt;to a large extent 在很大程度上&lt;/p&gt;
-
-&lt;p&gt;for most of us 对我们大多数人来说&lt;/p&gt;
-
-&lt;p&gt;in many cases 在许多情况下&lt;/p&gt;
-
-&lt;p&gt;in this case 在这种情况下&lt;/p&gt;
-
-&lt;p&gt;例：Frankly, I do not mind her opinions at all.&lt;/p&gt;
-
-&lt;p&gt;坦白说，我一点都不在乎她的看法。&lt;/p&gt;
-
-&lt;p&gt;according to 根据&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;https://www.sohu.com/a/330378162_100219060&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="English" /><category term="English" /><summary type="html">连词</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
