@@ -7,9 +7,9 @@ tags: FrontEnd
 
 # 语法
 
-## js用法
+## 页面如何添加js
 
-外部脚本, 可以插入任何位置
+外部脚本, 可以插入任何位置。 需要js后缀
 
 ```javascript
 <script src="myScript.js"></script>
@@ -25,7 +25,79 @@ alert("我的第一个 JavaScript");
 
 脚本可被放置在 HTML 页面的 body和head部分中。
 
-## JavaScript 输出
+内联，在html里。
+
+```scala
+<button onclick="createParagraph()">点我呀</button>
+```
+
+
+
+## Js调用策略
+
+调用顺序：HTML 元素是按其在页面中出现的次序调用的，如果用 JavaScript 来管理页面上的元素（更精确的说法是使用 [文档对象模型](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model) DOM），若 JavaScript 加载于欲操作的 HTML 元素之前，则代码将出错。
+
+JavaScript 调用于文档头处，解析 HTML 文档体之前。这样做是有隐患的，需要使用一些结构来避免错误发生。
+
+
+
+“内部”示例使用了以下结构：
+
+```js
+document.addEventListener("DOMContentLoaded", function() {
+  . . .
+});
+```
+
+这是一个事件监听器，它监听浏览器的 "`DOMContentLoaded`" 事件，即 HTML 文档体加载、解释完毕事件。事件触发时将调用 " `. . .`" 处的代码，从而避免了错误发生（[事件](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Building_blocks/Events) 的概念稍后学习）。
+
+“外部”示例中使用了 JavaScript 的一项现代技术（`async` “异步”属性）来解决这一问题，它告知浏览器在遇到 `<script>` 元素时不要中断后续 HTML 内容的加载。
+
+```js
+<script src="script.js" async></script>
+```
+
+上述情况下，脚本和 HTML 将一并加载，代码将顺利运行。
+
+**备注：** “外部”示例中 `async` 属性可以解决调用顺序问题，因此无需使用 `DOMContentLoaded` 事件。而 `async` 只能用于外部脚本，因此不适用于“内部”示例。
+
+
+
+另外用了async后 多个js顺序就保证不了了，需要用defer
+
+解决这一问题可使用 `defer` 属性，脚本将按照在页面中出现的顺序加载和运行：
+
+```js
+<script defer src="js/vendor/jquery.js"></script>
+
+<script defer src="js/script2.js"></script>
+
+<script defer src="js/script3.js"></script>
+```
+
+
+
+脚本调用策略小结：
+
+- 如果脚本无需等待页面解析，且无依赖独立运行，那么应使用 `async`。
+- 如果脚本需要等待页面解析，且依赖于其它脚本，调用这些脚本时应使用 `defer`，将关联的脚本按所需顺序置于 HTML 中。
+
+
+
+## 注释
+
+```
+// 我是一条注释
+```
+
+```
+/*
+  我也是
+  一条注释
+*/
+```
+
+## JavaScript 输入输出
 
 JavaScript 没有任何打印或者输出的函数。
 
@@ -38,6 +110,15 @@ document.write是直接写入到页面的内容流，如果在写之前没有调
     使用 document.write() 方法将内容写到 HTML 文档中。
     使用 innerHTML 写入到 HTML 元素。
     使用 console.log() 写入到浏览器的控制台。
+
+输入可以prompt
+
+```js
+function updateName() {
+  let name = prompt('输入一个新的名字：');
+  para.textContent = '玩家 1：' + name;
+}
+```
 
 ## 操作 HTML 元素
 
@@ -59,14 +140,27 @@ document.getElementById("p2").style.color="blue";
 
 ```
 
-## 变量
+## 数据类型
+
+### 变量和基础数据类型
 
 字符串（String）、数字(Number)、布尔(Boolean)、数组(Array)、对象(Object)、空（Null）、未定义（Undefined）。
 
+
+
+变量声明
+
+let和var区别。
+
+- var会变量提升，都是global, let不会
+- 其次，当你使用 `var` 时，可以根据需要多次声明相同名称的变量，但是 `let` 不能。
+
 ```javascript
-//声明变量
-var a;
-var name="Gates", age=56, job="CEO";
+// 声明一个变量的语法是在 var 或 let 关键字之后加上这个变量的名字：
+
+let myName;
+let myAge;
+
 //JavaScript 拥有动态类型。这意味着相同的变量可用作不同的类型：
 
 //声明变量时可以确定其类型，如
@@ -77,7 +171,24 @@ var cars=   new Array;
 var person= new Object;
 ```
 
-## 数组 
+
+
+变量初始化
+
+一旦你定义了一个变量，你就能够初始化它。方法如下，在变量名之后跟上一个“=”，然后是数值：
+
+```scala
+myName = 'Chris';
+myAge = 37;
+
+// 你可以像这样在声明变量的时候给变量初始化：
+
+let myName = 'Chris';
+```
+
+
+
+### 数组 
 
 开头为0
 
@@ -90,187 +201,37 @@ cars[2]="Volvo";
 var cars=new Array("Audi","BMW","Volvo");
 // 或者
 var cars=["Audi","BMW","Volvo"];
-```
 
-## 对象
-
-对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义。属性由逗号分隔
-
-### 对象创建
-
-```javascript
-var person={
-    firstname : "Bill",
-    lastname  : "Gates",
-    id        :  5566
-};
-
-//创建对象
-person=new Object();
-person.firstname="Bill";
-person.lastname="Gates";
-person.age=56;
-person.eyecolor="blue";
-//或者
-person={firstname:"John",lastname:"Doe",age:50,eyecolor:"blue"};
-//或者对象构造器
-function person(firstname,lastname,age,eyecolor)
-{
-    this.firstname=firstname;
-    this.lastname=lastname;
-    this.age=age;
-    this.eyecolor=eyecolor;
+let sequence = [1, 1, 2, 3, 5, 8, 13];
+for (let i = 0; i < sequence.length; i++) {
+  console.log(sequence[i]);
 }
-var myFather=new person("Bill","Gates",56,"blue");
+sequence.length;
+myArray.push('Cardiff');
+let removedItem = myArray.pop();
 ```
 
-### 访问对象属性
+### 对象
 
-对象属性有两种寻址方式：
+见面向对象
 
-```javascript
-    name=person.lastname;
-    name=person["lastname"];
-```
-
-### 对象方法
-
-```javascript
-var person = {
-    firstName: "John",
-    lastName : "Doe",
-    id : 5566,
-    fullName : function() 
-	{
-       return this.firstName + " " + this.lastName;
-    }
-};
-document.getElementById("demo").innerHTML = person.fullName();
-```
-
-### 使用对象方法
-
-对象方法通过添加 () 调用 (作为一个函数)。
-
-```javascript
-name = person.fullName();
-```
-
-## Undefined 和 Null
+### Undefined 和 Null
 
 Undefined 这个值表示变量不含有值。
 
 可以通过将变量的值设置为 null 来清空变量。
 
-## 函数
+### 动态类型
 
-```javascript
-// 传统定义函数方式
-function myFunction(a,b)
-{
-    if (a>b)
-    {
-        return;
-    }
-    x=a+b
-}
+JavaScript 是一种“动态类型语言”，这意味着不同于其他一些语言 (译者注：如 C、JAVA)，您不需要指定变量将包含什么数据类型（例如 number 或 string）
 
-function Test () {
-  //
-}
+例如，如果你声明一个变量并给它一个带引号的值，浏览器就会知道它是一个字符串：
 
-const Test = function () {
-  //
-}
-
-// 使用箭头函数定义函数时可以省略 function 关键字
-const Test = (...params) => {
-  //
-}
-
-// 该函数只有一个参数时可以简写成：
-const Test = param => {
-  return param;
-}
-
-console.log(Test('hello'));   // hello
+```
+let myString = 'Hello';
 ```
 
-## if和循环
-
-### if else
-
-```javascript
-if (time<10)
-{
-    x="Good morning";
-}
-else if (time<20)
-{
-    x="Good day";
-}
-else
-{
-    x="Good evening";
-}
-```
-
-### swith语法
-
-```javascript
-var day=new Date().getDay();
-switch (day)
-{
-    case 6:
-        x="Today it's Saturday";
-        break;
-    case 0:
-        x="Today it's Sunday";
-        break;
-    default:
-        x="Looking forward to the Weekend";
-}
-```
-
-### for循环
-
-```javascript
-for (var i=0;i<cars.length;i++)
-{
-    document.write(cars[i] + "<br>");
-}
-
-for (var i=0,len=cars.length; i<len; i++)
-{
-    document.write(cars[i] + "<br>");
-}
-//循环遍历对象的属性
-var person={fname:"John",lname:"Doe",age:25};
-for (x in person)
-{
-    txt=txt + person[x];
-}
-```
-
-### while循环
-
-```javascript
-while (i<5)
-{
-    x=x + "The number is " + i + "<br>";
-    i++;
-}
-
-do
-{
-    x=x + "The number is " + i + "<br>";
-    i++;
-}
-while (i<5);
-//break; continue;
-```
-
-## 类型转化
+## 运算符
 
 ### typeof 操作符
 
@@ -321,6 +282,21 @@ function isDate(myDate) {
     return myDate.constructor.toString().indexOf("Date") > -1;
 }
 ```
+
+### 比较
+
+| 运算符 | 名称       | 作用                     | 示例          |
+| :----- | :--------- | :----------------------- | :------------ |
+| `===`  | 严格等于   | 测试左右值是否相同       | `5 === 2 + 4` |
+| `!==`  | 严格不等于 | 测试左右值是否**不**相同 | `5 !== 2 + 3` |
+
+### 逻辑运算符
+
+- `&&` — 逻辑与; 使得并列两个或者更多的表达式成为可能，只有当这些表达式每一个都返回`true`时，整个表达式才会返回`true.`
+- `||` — 逻辑或; 当两个或者更多表达式当中的任何一个返回 `true` 则整个表达式将会返回 `true`.
+- ! — 逻辑非; 对一个布尔值取反，非 true 返回 false，非 false 返回 true.
+
+## 类型转换
 
 ### 将数字转换为字符串
 
@@ -410,6 +386,188 @@ Number(d)          // 返回 1404568027739
 d = new Date();
 d.getTime()        // 返回 1404568027739
 ```
+
+
+
+## 面向对象
+
+### 对象
+
+对象由花括号分隔。在括号内部，对象的属性以名称和值对的形式 (name : value) 来定义。属性由逗号分隔
+
+### 对象创建
+
+```javascript
+var person={
+    firstname : "Bill",
+    lastname  : "Gates",
+    id        :  5566
+};
+
+//创建对象
+person=new Object();
+person.firstname="Bill";
+person.lastname="Gates";
+person.age=56;
+person.eyecolor="blue";
+//或者
+person={firstname:"John",lastname:"Doe",age:50,eyecolor:"blue"};
+//或者对象构造器
+function person(firstname,lastname,age,eyecolor)
+{
+    this.firstname=firstname;
+    this.lastname=lastname;
+    this.age=age;
+    this.eyecolor=eyecolor;
+}
+var myFather=new person("Bill","Gates",56,"blue");
+```
+
+### 访问对象属性
+
+对象属性有两种寻址方式：
+
+```javascript
+    name=person.lastname;
+    name=person["lastname"];
+```
+
+### 对象方法
+
+```javascript
+var person = {
+    firstName: "John",
+    lastName : "Doe",
+    id : 5566,
+    fullName : function() 
+	{
+       return this.firstName + " " + this.lastName;
+    }
+};
+document.getElementById("demo").innerHTML = person.fullName();
+```
+
+### 使用对象方法
+
+对象方法通过添加 () 调用 (作为一个函数)。
+
+```javascript
+name = person.fullName();
+```
+
+
+
+## 函数
+
+```javascript
+// 传统定义函数方式
+function myFunction(a,b)
+{
+    if (a>b)
+    {
+        return;
+    }
+    x=a+b
+}
+
+function Test () {
+  //
+}
+
+const Test = function () {
+  //
+}
+
+// 使用箭头函数定义函数时可以省略 function 关键字
+const Test = (...params) => {
+  //
+}
+
+// 该函数只有一个参数时可以简写成：
+const Test = param => {
+  return param;
+}
+
+console.log(Test('hello'));   // hello
+```
+
+
+
+## if和循环
+
+### if else
+
+```javascript
+if (time<10)
+{
+    x="Good morning";
+}
+else if (time<20)
+{
+    x="Good day";
+}
+else
+{
+    x="Good evening";
+}
+```
+
+### swith语法
+
+```javascript
+var day=new Date().getDay();
+switch (day)
+{
+    case 6:
+        x="Today it's Saturday";
+        break;
+    case 0:
+        x="Today it's Sunday";
+        break;
+    default:
+        x="Looking forward to the Weekend";
+}
+```
+
+### for循环
+
+```javascript
+for (var i=0;i<cars.length;i++)
+{
+    document.write(cars[i] + "<br>");
+}
+
+for (var i=0,len=cars.length; i<len; i++)
+{
+    document.write(cars[i] + "<br>");
+}
+//循环遍历对象的属性
+var person={fname:"John",lname:"Doe",age:25};
+for (x in person)
+{
+    txt=txt + person[x];
+}
+```
+
+### while循环
+
+```javascript
+while (i<5)
+{
+    x=x + "The number is " + i + "<br>";
+    i++;
+}
+
+do
+{
+    x=x + "The number is " + i + "<br>";
+    i++;
+}
+while (i<5);
+//break; continue;
+```
+
+
 
 ## try catch
 
