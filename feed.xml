@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-23T12:16:30+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6207. 统计定界子数组的数目</title><link href="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/" rel="alternate" type="text/html" title="6207. 统计定界子数组的数目" /><published>2022-10-16T00:00:00+08:00</published><updated>2022-10-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/16/6207.%20%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE</id><content type="html" xml:base="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-23T17:35:39+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6216. 使数组相等的最小开销</title><link href="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/" rel="alternate" type="text/html" title="6216. 使数组相等的最小开销" /><published>2022-10-23T00:00:00+08:00</published><updated>2022-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/23/6216.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80</id><content type="html" xml:base="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-cost-to-make-array-equal/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你两个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt; ，分别包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个 &lt;strong&gt;正&lt;/strong&gt; 整数。&lt;/p&gt;
+
+&lt;p&gt;你可以执行下面操作 &lt;strong&gt;任意&lt;/strong&gt; 次：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 中 &lt;strong&gt;任意&lt;/strong&gt; 元素增加或者减小 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;对第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个元素执行一次操作的开销是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost[i]&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;请你返回使 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 中所有元素 &lt;strong&gt;相等&lt;/strong&gt; 的 &lt;strong&gt;最少&lt;/strong&gt; 总开销。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,3,5,2], cost = [2,3,1,14]
+输出：8
+解释：我们可以执行以下操作使所有元素变为 2 ：
+- 增加第 0 个元素 1 次，开销为 2 。
+- 减小第 1 个元素 1 次，开销为 3 。
+- 减小第 2 个元素 3 次，开销为 1 + 1 + 1 = 3 。
+总开销为 2 + 3 + 3 = 8 。
+这是最小开销。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [2,2,2,2,2], cost = [4,2,8,1,3]
+输出：0
+解释：数组中所有元素已经全部相等，不需要执行额外的操作。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == nums.length == cost.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i], cost[i] &amp;lt;= 106&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minCost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6207. 统计定界子数组的数目</title><link href="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/" rel="alternate" type="text/html" title="6207. 统计定界子数组的数目" /><published>2022-10-16T00:00:00+08:00</published><updated>2022-10-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/16/6207.%20%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE</id><content type="html" xml:base="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/count-subarrays-with-fixed-bounds/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和两个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minK&lt;/code&gt; 以及 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maxK&lt;/code&gt; 。&lt;/p&gt;
@@ -728,105 +787,4 @@
 
 &lt;p&gt;要走互联网必须走internet gateway，它对整个vpc生效, public subnet可直接通过IGW与互联网互联，私有子网再通过NAT走公有子网是可以访问internet的，反向不能。&lt;/p&gt;
 
-&lt;p&gt;和互联网连接时都需要有个公网ip，这个是从amazon分配的。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS network</summary></entry><entry><title type="html">python项目环境</title><link href="https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83/" rel="alternate" type="text/html" title="python项目环境" /><published>2022-10-04T00:00:00+08:00</published><updated>2022-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83</id><content type="html" xml:base="https://mafulong.github.io/2022/10/04/python%E9%A1%B9%E7%9B%AE%E7%8E%AF%E5%A2%83/">&lt;h2 id=&quot;python项目环境&quot;&gt;python项目环境&lt;/h2&gt;
-
-&lt;h2 id=&quot;pip&quot;&gt;pip&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.runoob.com/w3cnote/python-pip-install-usage.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;以下是对系统python环境修改，如果是项目级别的，记住先venv后再venv里进行pip3的操作&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;你可以通过以下命令来判断是否已安装：&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# Python3.x 版本命令&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 可以alias pip=pip3&lt;/span&gt;
-pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-U&lt;/span&gt; pip &lt;span class=&quot;c&quot;&gt;# pip升级&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;指定pip也可以&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;pip2 &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;模块名
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;pip源修改 阿里源即可&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 清华源&lt;/span&gt;
-pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-
-&lt;span class=&quot;c&quot;&gt;# 或：&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 阿里源&lt;/span&gt;
-pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url https://mirrors.aliyun.com/pypi/simple/
-&lt;span class=&quot;c&quot;&gt;# 腾讯源&lt;/span&gt;
-pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url http://mirrors.cloud.tencent.com/pypi/simple
-&lt;span class=&quot;c&quot;&gt;# 豆瓣源&lt;/span&gt;
-pip config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;global.index-url http://pypi.douban.com/simple/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;requirements&quot;&gt;requirements&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;适用于 &lt;strong&gt;单虚拟环境的情况：为什么只适用于单虚拟环境？因为这种方式，会将环境中的依赖包全都加入，如果使用的全局环境，则下载的所有包都会在里面，不管是不时当前项目依赖的&lt;/strong&gt;&lt;/p&gt;
-
-  &lt;p&gt;非venv请不要用这个&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;查看当前pip install的&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip3 list &lt;span class=&quot;c&quot;&gt;# 输出当前列表&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更新requirements文件，每次pip install新的后都需要执行一次&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip freeze &amp;gt; requirements.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;使用requirements.txt安装依赖&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install ``-``r requirements.txt
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;venv--虚拟环境&quot;&gt;venv  虚拟环境&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://docs.python.org/zh-cn/3/library/venv.html#creating-virtual-environments&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-  &lt;p&gt;虚拟环境，和系统Python环境隔离，好处是互不影响，项目级别推荐。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;创建虚拟环境 (后面venv是名字，一个项目可以多个venv，这里就叫venv，不用起其他名字了)&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; venv venv
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;要使用虚拟环境就必须激活&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; ➜ &lt;span class=&quot;nb&quot;&gt;source &lt;/span&gt;venv/bin/activate
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;然后在命令行中就会出现&lt;/p&gt;
-
-&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;venv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt;  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;说明虚拟环境已经激活，进入到venv shell了&lt;/p&gt;
-
-&lt;p&gt;venv里有pip和Pip3提供, python3也是venv自己的，相当于一个新的shell，然后覆盖了一些python相关命令&lt;/p&gt;
-
-&lt;p&gt;要取消虚拟环境，使用&lt;/p&gt;
-
-&lt;div class=&quot;language-scss highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;venv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;deactivate&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;pycharm结合使用&quot;&gt;pycharm结合使用&lt;/h2&gt;
-
-&lt;p&gt;可通过venv命令行创建好python环境，然后使用pycharm设置里设置interpreter 来切换到venv。&lt;/p&gt;
-
-&lt;h2 id=&quot;example&quot;&gt;example&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;创建venv, 如果有就激活&lt;/li&gt;
-  &lt;li&gt;venv shell里pip requirement操作，安装和更新requirement文件&lt;/li&gt;
-  &lt;li&gt;pycharm设置interpreter&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Python" /><category term="Python" /><summary type="html">python项目环境</summary></entry></feed>
+&lt;p&gt;和互联网连接时都需要有个公网ip，这个是从amazon分配的。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS network</summary></entry></feed>
