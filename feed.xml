@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-23T17:35:39+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6216. 使数组相等的最小开销</title><link href="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/" rel="alternate" type="text/html" title="6216. 使数组相等的最小开销" /><published>2022-10-23T00:00:00+08:00</published><updated>2022-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/23/6216.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80</id><content type="html" xml:base="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-10-23T18:43:43+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6216. 使数组相等的最小开销</title><link href="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/" rel="alternate" type="text/html" title="6216. 使数组相等的最小开销" /><published>2022-10-23T00:00:00+08:00</published><updated>2022-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/23/6216.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80</id><content type="html" xml:base="https://mafulong.github.io/2022/10/23/6216.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E5%BC%80%E9%94%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-cost-to-make-array-equal/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你两个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cost&lt;/code&gt; ，分别包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个 &lt;strong&gt;正&lt;/strong&gt; 整数。&lt;/p&gt;
@@ -42,6 +42,10 @@
 
 &lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/circle/discuss/uO4WuN/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210231803876.png&quot; alt=&quot;image-20221023180324838&quot; /&gt;&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minCost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
@@ -57,6 +61,96 @@
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6217. 使数组相似的最少操作次数</title><link href="https://mafulong.github.io/2022/10/23/6217.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="6217. 使数组相似的最少操作次数" /><published>2022-10-23T00:00:00+08:00</published><updated>2022-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/23/6217.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/10/23/6217.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-make-arrays-similar/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你两个正整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; ，两个数组长度相等。&lt;/p&gt;
+
+&lt;p&gt;在一次操作中，你可以选择两个 &lt;strong&gt;不同&lt;/strong&gt; 的下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= i, j &amp;lt; nums.length&lt;/code&gt; ，并且：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[i] = nums[i] + 2&lt;/code&gt; 且&lt;/li&gt;
+  &lt;li&gt;令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[j] = nums[j] - 2&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果两个数组中每个元素出现的频率相等，我们称两个数组是 &lt;strong&gt;相似&lt;/strong&gt; 的。&lt;/p&gt;
+
+&lt;p&gt;请你返回将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似的最少操作次数。测试数据保证 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 一定能变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [8,12,6], target = [2,14,10]
+输出：2
+解释：可以用两步操作将 nums 变得与 target 相似：
+- 选择 i = 0 和 j = 2 ，nums = [10,12,4] 。
+- 选择 i = 1 和 j = 2 ，nums = [10,14,2] 。
+2 次操作是最少需要的操作次数。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,5], target = [4,1,3]
+输出：1
+解释：一步操作可以使 nums 变得与 target 相似：
+- 选择 i = 1 和 j = 2 ，nums = [1,4,3] 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,1,1,1,1], target = [1,1,1,1,1]
+输出：0
+解释：数组 nums 已经与 target 相似。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == nums.length == target.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i], target[i] &amp;lt;= 106&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 一定可以变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-make-arrays-similar/solution/by-endlesscheng-lusx/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210231835582.png&quot; alt=&quot;image-20221023183508545&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeSimilar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
+      
+      
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeSimilar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;      
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6207. 统计定界子数组的数目</title><link href="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/" rel="alternate" type="text/html" title="6207. 统计定界子数组的数目" /><published>2022-10-16T00:00:00+08:00</published><updated>2022-10-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/16/6207.%20%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE</id><content type="html" xml:base="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/count-subarrays-with-fixed-bounds/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
@@ -607,184 +701,4 @@
 
 &lt;p&gt;对象存储，主要操作对象是对象（Object）。以 S3 为例，主要接口有 PUT/GET/DELETE 等。和文件和对象存储相比，没有随机读写的接口。和文件存储相比，没有目录树的概念。协议更注重简洁。&lt;/p&gt;
 
-&lt;p&gt;因此对象存储适合一些比如TOS， AWS S3这样的，如果要改只能重新上传。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="OperationSystem" /><category term="OperationSystem" /><summary type="html">块存储和对象存储和文件存储</summary></entry><entry><title type="html">AWS network</title><link href="https://mafulong.github.io/2022/10/04/AWS-network/" rel="alternate" type="text/html" title="AWS network" /><published>2022-10-04T00:00:00+08:00</published><updated>2022-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/04/AWS%20network</id><content type="html" xml:base="https://mafulong.github.io/2022/10/04/AWS-network/">&lt;h1 id=&quot;aws-network&quot;&gt;AWS network&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/what-is-amazon-vpc.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Virtual Private Cloud (VPC)&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/configure-your-vpc.html&quot;&gt;VPC&lt;/a&gt; 是一个虚拟网络，与您在自己的数据中心中运行的传统网络极为相似。创建 VPC 后，您可以添加子网。翻译成中文是虚拟私有云。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;子网&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/configure-subnets.html&quot;&gt;子网&lt;/a&gt;是您的 VPC 内的 IP 地址范围。子网必须位于单个可用区中。在添加子网后，您可以在 VPC 中部署 Amazon 资源。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;IP 寻址&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;您可以将 IPv4 地址和 IPv6 地址分配到 VPC 和子网。您还可以将您的公有 IPv4 和 IPv6 GUA 地址带到 Amazon 并将其分配到 VPC 中的资源，例如 EC2 实例、NAT 网关和网络负载均衡器。创建 VPC 时，需要为其分配一个 IPv4 CIDR 块（一系列私有 IPv4 地址）、一个 IPv6 CIDR 块或同时分配两种 CIDR 块（双堆栈）。&lt;/p&gt;
-
-    &lt;p&gt;私有 IPv4 地址无法通过 Internet 访问。IPv6 地址具有全球唯一性，可以配置为保持私有或通过互联网进行访问。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;路由选择&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;使用&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Route_Tables.html&quot;&gt;路由表&lt;/a&gt;决定将来自您的子网或网关的网络流量定向到何处。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;网关和端点&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/extend-intro.html&quot;&gt;网关&lt;/a&gt;将您的 VPC 连到其他网络。例如，使用&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Internet_Gateway.html&quot;&gt;互联网网关&lt;/a&gt;将您的 VPC 连接到网络。使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/privatelink/privatelink-access-aws-services.html&quot;&gt;VPC 端点&lt;/a&gt;私下连接到 Amazon Web Services，无需使用互联网网关或 NAT 设备。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;对等连接&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/peering/&quot;&gt;VPC 对等连接&lt;/a&gt;在两个 VPC 中的资源之间路由流量。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;流量镜像&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;从网络接口&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/mirroring/&quot;&gt;复制网络流量&lt;/a&gt;，然后将其发送到安全和监控设备进行深度数据包检查。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;中转网关&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;将&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/extend-tgw.html&quot;&gt;中转网关&lt;/a&gt;用作中央枢纽，以在 VPC、VPN 连接和 Amazon Direct Connect 连接之间路由流量。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;VPC 流日志&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/flow-logs.html&quot;&gt;流日志&lt;/a&gt;捕获有关在 VPC 中传入和传出网络接口的 IP 流量的信息。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;VPN 连接&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;使用 &lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/vpn-connections.html&quot;&gt;Amazon Virtual Private Network (Amazon VPN)&lt;/a&gt; 将 VPC 连接到您的本地网络。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;工作原理&quot;&gt;工作原理&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.amazonaws.cn/vpc/latest/userguide/how-it-works.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ip-寻址&quot;&gt;IP 寻址&lt;/h2&gt;
-&lt;p&gt;创建 VPC 时，需要为其分配一个 IPv4 CIDR 块（一系列私有 IPv4 地址）、一个 IPv6 CIDR 块或同时分配两种 CIDR 块（双堆栈）。&lt;/p&gt;
-
-&lt;p&gt;私有 IPv4 地址无法通过 Internet 访问。IPv6 地址具有全球唯一性，可以配置为保持私有或通过互联网进行访问。&lt;/p&gt;
-
-&lt;p&gt;公有 IP 地址将从 Amazon 的公有 IP 地址池分配，它不与您的账户关联。在公有 IP 地址与您的实例取消关联后，该地址即释放回该池，并且不再可供您使用。您不能手动关联或取消关联公有 IP 地址。而是在某些情况下，我们从您的实例释放该公有 IP 地址，或向其分配新地址。有关更多信息，请参阅适用于 Linux 实例的 Amazon EC2 用户指南 中的公有 IP 地址。&lt;/p&gt;
-
-&lt;h2 id=&quot;访问-internet&quot;&gt;访问 Internet&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;私有网络不能访问互联网，需要互联网网关，私有网络内部之间可通信。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;原定设置 VPC 包含一个互联网网关，而且每个原定设置子网都是公有子网。您在默认子网中启动的每个实例都有一个私有 IPv4 地址和一个公有 IPv4 地址。这些实例可以通过 Internet 网关与 Internet 通信。通过互联网网关，您的实例可通过 Amazon EC2 网络边界连接到 Internet。&lt;/p&gt;
-
-&lt;p&gt;默认情况下，您启动到非默认子网中的每个实例都有一个私有 IPv4 地址，但没有公有 IPv4 地址，除非您在启动时特意指定一个，或者修改子网的公有 IP 地址属性。这些实例可以相互通信，但无法访问 Internet。&lt;/p&gt;
-
-&lt;p&gt;您可以通过以下方式为在非默认子网中启动的实例启用 Internet 访问：将一个互联网网关附加到该实例的 VPC（如果其 VPC 不是默认 VPC），然后将一个弹性 IP 地址与该实例相关联。&lt;/p&gt;
-
-&lt;p&gt;或者，您还可以使用网络地址转换 (NAT) 设备，以允许 VPC 中的实例发起到互联网的出站连接，但阻止来自互联网的未经请求的入站连接。NAT 将多个私有 IPv4 地址映射到一个公有 IPv4 地址。您可以使用弹性 IP 地址配置 NAT 设备，并通过互联网网关将其与互联网相连。您可以通过 NAT 设备将私有子网中的实例连接到互联网，NAT 设备会将来自实例的流量路由到互联网网关，并将所有响应路由到该实例。&lt;/p&gt;
-
-&lt;p&gt;如果您将 IPv6 CIDR 块与 VPC 关联并为实例分配 IPv6 地址，则实例可以通过互联网网关通过 IPv6 连接到互联网。或者，实例也可以使用仅出口互联网网关经由 IPv6 发起到互联网的出站连接。IPv6 流量独立于 IPv4 流量；您的路由表必须包含单独的 IPv6 流量路由。&lt;/p&gt;
-
-&lt;h1 id=&quot;连接-vpc-和网络&quot;&gt;连接 VPC 和网络&lt;/h1&gt;
-
-&lt;p&gt;您可以在两个 VPC 之间创建一个 &lt;em&gt;VPC 对等连接&lt;/em&gt;，然后通过此连接不公开地在这两个 VPC 之间路由流量。这两个 VPC 中的实例可以彼此通信，就像它们在同一网络中一样。&lt;/p&gt;
-
-&lt;p&gt;默认情况下，默认子网为公有子网，因为主路由表会将指定发往 Internet 的子网流量发送到 Internet 网关。&lt;/p&gt;
-
-&lt;h1 id=&quot;场景&quot;&gt;场景&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;带单个公有子网的 VPC&lt;/strong&gt;： 此场景的配置包含一个有单一公有子网的 Virtual Private Cloud (VPC)，以及一个 Internet 网关以启用 Internet 通信。如果您要运行单一层级且面向公众的 Web 应用程序，如博客或简单的网站，则我们建议您使用此配置。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;带有公有和私有子网的 VPC (NAT)&lt;/strong&gt;：这个场景的配置包括一个有公有子网和私有子网的 Virtual Private Cloud (VPC)。如果您希望运行面向公众的 Web 应用程序，并同时保留不可公开访问的后端服务器，我们建议您使用此场景。常用例子是一个多层网站，其 Web 服务器位于公有子网之内，数据库服务器则位于私有子网之内。您可以设置安全性和路由，以使 Web 服务器能够与数据库服务器建立通信。&lt;/p&gt;
-
-&lt;p&gt;公有子网中的实例可直接将出站流量发往 Internet，而私有子网中的实例不能这样做。但是，私有子网中的实例可使用位于公有子网中的网络地址转换 (NAT) 网关访问 Internet。数据库服务器可以使用 NAT 网关连接到 Internet 进行软件更新，但 Internet 不能建立到数据库服务器的连接。&lt;/p&gt;
-
-&lt;h1 id=&quot;security-groups安全组&quot;&gt;&lt;strong&gt;Security Groups（安全组）&lt;/strong&gt;&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/151419823&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;VPC 网络安全组标志 VPC 中的哪些流量可以发往 EC2 实例或从 EC2 发出。安全组指定具体的入向和出向流量规则，并精确到源地址（入向）和目的地址（出向）。这些安全组是与 EC2 实例而非子网关联的。
-默认情况下，流量只允许出，不允许入。&lt;/p&gt;
-
-&lt;p&gt;Security Group（SG）通过控制IP和端口来控制出站入站规则，可以用于EC2，RDS及下面将要用到的VPC Endpoint。&lt;/p&gt;
-
-&lt;h1 id=&quot;difference-between-internet-gateway-and-nat-gateway&quot;&gt;Difference between Internet Gateway and NAT Gateway&lt;/h1&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210041648324.png&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;参考&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Internet Gateway (IGW) allows instances with public IPs to access the internet.&lt;/li&gt;
-  &lt;li&gt;NAT Gateway (NGW) allows instances with no public IPs to access the internet.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;参考note-基础概念&quot;&gt;参考Note 基础概念&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6949072638145003556&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;大部分 AWS 服务都需要以 VPC 为基础进行构建，比如最常用的 EC2，ALB，及无服务器服务 ECS Fargate。 vb&lt;/p&gt;
-
-&lt;p&gt;当我们在一个 VPC 中创建 Subnet 时需要给 Subnet 选择一个 AZ（Availability Zone），一个 Subnet 只能选择建在一个 AZ 中。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;选择region&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;因为国内政策法规原因，AWS 在中国的服务与 AWS Global 服务略有不同。&lt;/p&gt;
-
-&lt;p&gt;AWS Global 的 Region 之间是通过主干网相连的，AWS 中国区的服务没有通过主干网与 AWS Global 相连，只有中国区内部两个 Region，北京和宁夏是相连接的。&lt;/p&gt;
-
-&lt;p&gt;在创建 VPC 时并不需要添写 AZ（Availability Zone）信息，VPC 只与 Region 有关。&lt;/p&gt;
-
-&lt;p&gt;Subnet 是最终承载大部分 AWS 服务的组件，比如 EC2， ECS Fargate，RDS。&lt;/p&gt;
-
-&lt;p&gt;Subnet 分为两种 Private Subnet 和 Public Subnet。&lt;/p&gt;
-
-&lt;p&gt;简单来说，不能直接访问 internet 的 Subnet 就是 Private Subnet，能直接访问 internet 的就是 Public Subnet。&lt;/p&gt;
-
-&lt;p&gt;Security Group（SG）通过控制IP和端口来控制出站入站规则，可以用于EC2，RDS及下面将要用到的VPC Endpoint。&lt;/p&gt;
-
-&lt;p&gt;VPC Endpoint用来直接连接VPC与AWS相关服务，比如RDS AIP,S3。&lt;/p&gt;
-
-&lt;p&gt;当系统安全要求比较高时，EC2处于的Subnet可能被限制，无法访问internet，这时EC2就无法访问AWS的一些服务，比如SSM。&lt;/p&gt;
-
-&lt;p&gt;这时我们可以利用VPC Endpoint把VPC和所需要访问的服务连接起来，然后EC2就可以不经internet访问到所需的服务。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6954169148318433288&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;RT（Route Table）与Subnet相关连，用来描述网络路由。IGW: Internet gateway IGW是一个独立的组件配置在VPC上，使得VPC可以访问internet&lt;/p&gt;
-
-&lt;p&gt;我们给VPC加了IGW之后，需要修改Subnet相关的路由，确保访问Internet的请求发送到IGW。&lt;/p&gt;
-
-&lt;p&gt;每个VPC中有一个默认的主RT，自动关联VPC内的每一个Subnet。我们现在为Subnet “ts-public-1”单独创建一个新的RT。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;新建的Subnet就是Private Subnet&lt;/li&gt;
-  &lt;li&gt;在Private Subnet中配置了到IGW的路由后，就变成Public Subnet&lt;/li&gt;
-  &lt;li&gt;Public Subnet中的EC2还要再配置一个Public IP或者EIP就可以访问Internet&lt;/li&gt;
-  &lt;li&gt;如果EC2可以访问internet，其关联的Security Group入站规则如果允许从internet访问，那么这个EC2就可以从internet中直接访问到。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;实践中我们把应用程序，数据库放在Private Subnet中，阻止从internet访问。把堡垒机和ALB（Application Load balancer）放在Public Subnet，允许从internet访问。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;一般我们会建两套Public Subnet和Private Subnet，分别放在不同的AZ中，防止其中一个AZ出问题。这时如果配置NAT，也需要在两个Public Subnet中各配置一个NAT。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;总结&quot;&gt;总结&lt;/h1&gt;
-
-&lt;p&gt;VPN里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。但如果有internet访问不到的实例或者数据库，则需建个私有子网，私有子网默认不能访问internet，internet也不能访问私有子网。&lt;/p&gt;
-
-&lt;p&gt;要走互联网必须走internet gateway，它对整个vpc生效, public subnet可直接通过IGW与互联网互联，私有子网再通过NAT走公有子网是可以访问internet的，反向不能。&lt;/p&gt;
-
-&lt;p&gt;和互联网连接时都需要有个公网ip，这个是从amazon分配的。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS network</summary></entry></feed>
+&lt;p&gt;因此对象存储适合一些比如TOS， AWS S3这样的，如果要改只能重新上传。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="OperationSystem" /><category term="OperationSystem" /><summary type="html">块存储和对象存储和文件存储</summary></entry></feed>
