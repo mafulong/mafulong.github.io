@@ -197,8 +197,8 @@ IAM (Identity Access Management) 由这些东西组成：
 
 - Users
 - Groups 用户组
-- Roles
-- Policy Documents 策略
+- Roles 角色可以分配给AWS服务，让AWS服务有访问其他AWS资源的权限。  举个例子，我们可以赋予EC2实例一个角色，让其有访问S3的读写权限（后面课程会有关于这一点的实操）
+- Policy Documents 策略。 策略具体定义了能访问哪些AWS资源，并且能执行哪些操作（比如List, Read, Write等）  策略的文档以JSON的格式展现
 
 ```
 // An example policy: allowing any access to any resource
@@ -214,13 +214,13 @@ IAM (Identity Access Management) 由这些东西组成：
 }
 ```
 
+
+
 IAM 是 Global的，不属于任何一个 region
 
 Root 账号是你第一次配置账号的时候创建的，它拥有完全的 Admin aceess
 
 新 User 刚创建时是没有权限的。
-
-
 
 
 
