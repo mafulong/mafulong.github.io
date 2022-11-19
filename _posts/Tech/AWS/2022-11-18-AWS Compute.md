@@ -66,3 +66,65 @@ Auto Scaling的构成组件：
 - 弹性伸缩组（ASG）只能在某一个AWS区域内运行，不能跨越多个区域
 - 如果启动配置（Launch Configuration）有更新，那么之后启动的新EC2实例会使用新的启动配置，而旧的EC2实例不受影响
 - 从AWS管理平台你可以直接删除一个弹性伸缩组（ASG）；从AWS CLI你只能先将最小的性能和需求的性能两个参数设置为0，才能删除这个弹性伸缩组。
+
+
+
+## ECS
+
+**Amazon Elastic Container Service (ECS)**是一个有高度扩展性的**容器管理服务**。它可以轻松运行、停止和管理集群上的Docker容器，你可以将容器安装在EC2实例上，或者使用**Fargate**来启动你的服务和任务。
+
+Amazon ECS可以在一个区域内的多个可用区中创建高可用的应用程序容器，你可以定义集群中运行的Docker镜像和服务。而且你可以充分利用AWS内部的**Amazon ECR (Elastic Container Registry)**或者外部的Registry（比如Docker Hub或自建的Registry）来存储和提取容器镜像。
+
+
+
+我们可以将标准化的代码、运行环境、系统工具等等打包成一个标准的集装箱，这个集装箱叫做**Docker镜像**（Docker Image）。这个Docker镜像的概念类似于EC2中的AMI (Amazon Machine Image)。
+
+这些镜像文件通常会通过Dockerfile来构建，并且最终存放到**注册表（Registry）**内。这个Registry可以理解为摆放集装箱的码头，我们在需要某个类型的集装箱的时候就到码头去取。这类Registry可以是Amazon的ECR，也可以是公网上的Docker Hub，或者自己私有的Registry。
+
+
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192204245.png)
+
+### ECS创建举例
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192208630.png)
+
+
+
+## **Lambda**
+
+使用**AWS Lambda**，你无需配置和管理任何服务器和应用程序就能运行你的代码。只需要上传代码，Lambda就会处理运行并且根据需要自动进行横向扩展。因此Lambda也被称为**无服务（Serverless）**函数。
+
+要让AWS Lambda的代码执行，需要设定一些触发器（比如CloudWatch Log，CloudWatch Event，API Gateway等），因此Lambda函数被认为是**事件驱动的（Event-Driven）**。
+
+在传统的应用部署过程中，我们往往需要安装操作系统 -> 安装应用程序 -> 配置环境并部署代码，而且往往还需要不定时地为操作系统和应用程序打补丁和进行维护。使用AWS Lambda就方便很多，只需要上传代码，AWS就会在需要的时候帮你运行。我们不再需要（也无法接触）任何操作系统层面的东西，也节省了非常多的部署时间，可以更专心地编写代码。
+
+
+
+### AWS Lambda的特点
+
+- 没有服务器/无服务，或者说真实的服务器由AWS管理
+- 只需要为运行的代码付费，不需要管理服务器和操作系统
+- **持续性/自动的性能伸缩**
+- 非常便宜
+- AWS只会在代码运行期间收取相应的费用，代码未运行时不产生任何费用
+- **代码的最长执行时间是15分钟，如果代码执行时间超过15分钟，则需要将1个代码细分为多个**
+
+### 触发器有哪些
+
+- **API Gateway**
+- **AWS IoT**
+- **CloudWatch Events** 比如cron job定时任务
+- CloudWatch Logs
+- CodeCommit
+- DynamoDB
+- S3
+- SNS
+- Cognito Sync Trigger
+- SQS应该也可以？
+
+
+
+## 参考
+
+[参考](http://www.cloudbin.cn/?tag=aws)
