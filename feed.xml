@@ -1,4 +1,172 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-11-18T23:42:44+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">自由泳</title><link href="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/" rel="alternate" type="text/html" title="自由泳" /><published>2022-11-10T00:00:00+08:00</published><updated>2022-11-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3</id><content type="html" xml:base="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/">&lt;h2 id=&quot;自由泳&quot;&gt;自由泳&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-11-19T21:44:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">AWS Compute</title><link href="https://mafulong.github.io/2022/11/18/AWS-Compute/" rel="alternate" type="text/html" title="AWS Compute" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Compute</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Compute/">&lt;h2 id=&quot;aws-compute&quot;&gt;AWS Compute&lt;/h2&gt;
+
+&lt;h2 id=&quot;ami&quot;&gt;AMI&lt;/h2&gt;
+
+&lt;p&gt;AMI: amazon machine image 就是一堆配置，比如什么系统，安装哪些附加软件。可使用AMI启动一个同配置的实例。 类似docker的image&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Amazon Machine Image (AMI)&lt;/strong&gt; 是亚马逊AWS提供的系统镜像，这个AMI包含了如下的信息：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;由实例的操作系统、应用程序和应用程序相关的配置组成的模板&lt;/li&gt;
+  &lt;li&gt;一个指定的需要在实例启动时附加到实例的卷的信息（比方说定义了使用8 GB的General Purpose SSD卷）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下图所示的是AMI的生命周期，你可以创建并注册一个AMI，并且可以使用这个AMI来创建一个EC2实例。同时你也可以将这个AMI复制到同一个AWS区域或者不同的AWS区域。你同样也可以注销这个AMI镜像。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211182358363.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;AMI是区域化的&lt;/strong&gt;，只能使用本区域的AMI来创建实例；但你可以将AMI从一个区域复制到另一个区域&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;弹性伸缩auto-scaling&quot;&gt;弹性伸缩（Auto Scaling）&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;亚马逊弹性伸缩（Auto Scaling）&lt;/strong&gt;能&lt;strong&gt;自动地&lt;/strong&gt;增加/减少EC2实例的数量，从而让你的应用程序一直能保持可用的状态。&lt;/p&gt;
+
+&lt;p&gt;你可以预定义Auto Scaling，使其在需求高峰期自动增加EC2实例，而在需求低谷自动减少EC2实例。这样不仅能让你的应用程序一直保持健康的状态，而且也节省了你为EC2实例所付出的费用。&lt;/p&gt;
+
+&lt;p&gt;Auto Scaling 适用于那些需求稳定的应用程序，同时也适用于在每小时、每天、甚至每周都有需求变化的应用程序。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Auto Scaling能保证你一直拥有一定数量的EC2实例来分担应用程序的负载&lt;/li&gt;
+  &lt;li&gt;Auto Scaling能带来更高的容错性、更好的可用性和更高的性价比&lt;/li&gt;
+  &lt;li&gt;你可以控制伸缩的策略来决定在什么时候终止和创建EC2实例，以处理动态变化的需求&lt;/li&gt;
+  &lt;li&gt;默认情况下，Auto Scaling能控制每一个可用区内所运行的实例数量尽量平均
+    &lt;ul&gt;
+      &lt;li&gt;为了达到这个目标，Auto Scaling在需要启动新实例的时候，会选择一个目前拥有运行实例最少的可用区&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Auto Scaling的构成组件：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211190006430.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;启动配置launch-configuration&quot;&gt;启动配置（Launch Configuration）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;启动配置是弹性伸缩组用来启动EC2实例的时候所使用的模板&lt;/li&gt;
+  &lt;li&gt;启动配置包含了镜像文件（AMI），实例类型、密钥对、安全组和挂载的存储设备&lt;/li&gt;
+  &lt;li&gt;一个启动配置可以关联多个Auto Scaling组&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;启动配置一经创建不能被更改，只能删除重建&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;启动配置中可以使用CloudWatch的基础监控（Basic Monitoring）或者详细监控（Detail Monitoring）&lt;/li&gt;
+  &lt;li&gt;Auto Scaling automatically creates a launch configuration directly from an EC2 instance.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;弹性伸缩组auto-scaling-group&quot;&gt;弹性伸缩组（Auto Scaling Group）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;弹性伸缩组（ASG）是弹性伸缩的核心，它包含了多个拥有类似配置/类型的EC2实例，这些实例被逻辑上认为是一样的&lt;/li&gt;
+  &lt;li&gt;弹性伸缩组需要的几个参数：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;启动配置（Launch Configuration）&lt;/strong&gt;：它决定了EC2使用什么模板，模板内容包括了镜像文件（AMI），实例类型、密钥对、安全组和挂载的存储设备&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;最小和最大的性能&lt;/strong&gt;：决定了在弹性伸缩的情况下，EC2实例数量的浮动范围&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;所需的性能&lt;/strong&gt;：决定了这个弹性伸缩组要保持的运作所需要的基本的EC2实例数量；如果没有填写，则默认为其数值等同于最小的性能&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;可用区和子网&lt;/strong&gt;：定义EC2实例启动时候所在的可用区和子网信息&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;参数和健康检查&lt;/strong&gt;：参数定义了何时启动新实例，何时终止旧实例；健康检查决定了实例的健康状态。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;如果一个EC2实例的健康状态变成“不健康”，那么ASG会终止这个EC2实例，并且自动启动一个新的EC2实例&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;弹性伸缩组（ASG）只能在某一个AWS区域内运行，不能跨越多个区域&lt;/li&gt;
+  &lt;li&gt;如果启动配置（Launch Configuration）有更新，那么之后启动的新EC2实例会使用新的启动配置，而旧的EC2实例不受影响&lt;/li&gt;
+  &lt;li&gt;从AWS管理平台你可以直接删除一个弹性伸缩组（ASG）；从AWS CLI你只能先将最小的性能和需求的性能两个参数设置为0，才能删除这个弹性伸缩组。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Compute</summary></entry><entry><title type="html">AWS MQ</title><link href="https://mafulong.github.io/2022/11/18/AWS-MQ/" rel="alternate" type="text/html" title="AWS MQ" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20MQ</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-MQ/">&lt;h2 id=&quot;aws-mq&quot;&gt;AWS MQ&lt;/h2&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS MQ</summary></entry><entry><title type="html">AWS Storage</title><link href="https://mafulong.github.io/2022/11/18/AWS-Storage/" rel="alternate" type="text/html" title="AWS Storage" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Storage</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Storage/">&lt;h2 id=&quot;aws-storage&quot;&gt;AWS Storage&lt;/h2&gt;
+
+&lt;h2 id=&quot;dynamodb&quot;&gt;dynamoDB&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://systemdesigns.blogspot.com/2016/01/dynamodb.html&quot;&gt;论文讲解&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://sides-share.s3.cn-north-1.amazonaws.com.cn/AWS+Webinar+2019/PDF/Amazon+DynamoDB+webinar.pdf&quot;&gt;深入探讨 Amazon DynamoDB 的设计模 式、流复制和全局表&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://techsummit.ctrip.com/pdf/songye.pdf&quot;&gt;AWS 如何实现数据跨区域同步&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.modb.pro/db/432414&quot;&gt;MongoDB 与 DynamoDB 正面交锋&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ebs&quot;&gt;EBS&lt;/h2&gt;
+
+&lt;h3 id=&quot;ebs的特点&quot;&gt;EBS的特点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;亚马逊EBS卷提供了&lt;strong&gt;高可用、可靠、持续性的块存储&lt;/strong&gt;，EBS可以依附到一个正在运行的EC2实例上&lt;/li&gt;
+  &lt;li&gt;如果你的EC2实例需要使用数据库或者文件系统，那么建议使用EBS作为首选的存储设备&lt;/li&gt;
+  &lt;li&gt;EBS卷的存活可以脱离EC2实例的存活状态。也就是说在终止一个实例的时候，你可以选择保留该实例所绑定的EBS卷&lt;/li&gt;
+  &lt;li&gt;EBS卷可以依附到&lt;strong&gt;同一个可用区（AZ）&lt;/strong&gt;内的任何实例上&lt;/li&gt;
+  &lt;li&gt;EBS卷可以被加密，如果进行了加密那么它存有的所有已有数据，传输的数据，以及制造的镜像都会被加密&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;EBS卷可以通过快照（Snapshot）来进行（增量）备份，这个快照会保存在S3 (Simple Storage System)上&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;你可以使用任何快照来创建一个基于该快照的EBS卷，并且随时将这个EBS卷应用到&lt;strong&gt;该区域&lt;/strong&gt;的任何实例上&lt;/li&gt;
+  &lt;li&gt;EBS卷创建的时候已经固定了可用区，并且&lt;strong&gt;只能给该可用区的实例使用&lt;/strong&gt;。如果需要在其他可用区使用该EBS，那么可以创建快照，并且使用该快照创建一个在其他可用区的新的EBS卷&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;快照还可以复制到其他的AWS区域&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ebs-elastic-block-storage小结&quot;&gt;EBS (Elastic Block Storage)小结&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EBS的不同类型，需要了解不同类型的EBS主要的使用场景
+    &lt;ul&gt;
+      &lt;li&gt;通用型SSD – GP2 (高达10,000 IOPS)，适用于启动盘，低延迟的应用程序等&lt;/li&gt;
+      &lt;li&gt;预配置型SSD – IO1 (超过10,000 IOPS)，适用于IO密集型的数据库&lt;/li&gt;
+      &lt;li&gt;吞吐量优化型HDD -ST1，适用于数据仓库，日志处理&lt;/li&gt;
+      &lt;li&gt;HDD Cold – SC1 – 适合较少使用的冷数据&lt;/li&gt;
+      &lt;li&gt;HDD, Magnetic&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;不能将EBS挂载到多个EC2实例上，一个EBS只能挂载到1个EC2实例上。
+    &lt;ul&gt;
+      &lt;li&gt;如果有共享数据盘的需求，请使用EFS (Elastic File System)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;根EBS卷默认是不能进行加密的，但可以使用第三方的加密工具（例如BitLocker）对其进行加密
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;除了根磁盘外的其他卷是可以加密的&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ebs快照snapshot小结&quot;&gt;EBS快照（Snapshot）小结&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;EBS的快照会被保存到S3（Simple Storage System）上&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;你可以对一个EBS卷创建一个快照，这个快照会被保存到S3上&lt;/em&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;快照实际上是&lt;/p&gt;
+
+    &lt;p&gt;增量备份&lt;/p&gt;
+
+    &lt;p&gt;，只有在上次进行快照之后更改的数据才会被添加的S3上&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;因此第一次快照所花费的时间比较长&lt;/li&gt;
+      &lt;li&gt;而第二次以后的快照所花费的时间相对短很多&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对加密的EBS卷创建快照，创建后的快照也会是加密的&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;从加密的快照恢复的EBS卷也会是加密的&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;你可以分享快照给其他账户或AWS市场，但仅限于这个快照是没有进行过加密的&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;要为一个作为根设备的EBS卷创建快照的话，建议停止这个实例再做快照&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;实例存储instance-store&quot;&gt;实例存储（Instance Store）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;实例存储也叫做&lt;strong&gt;短暂性存储（Ephemeral Storage）&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;实例存储的实例不能被停止（只能重启或终止），如果这个实例出现故障，那么在上面的所有数据将会丢失&lt;/li&gt;
+  &lt;li&gt;使用EBS的实例可以被停止，停止后EBS上的数据不会丢失&lt;/li&gt;
+  &lt;li&gt;重启使用实例存储的实例或者重启使用EBS的实例都不会导致数据丢失&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Storage</summary></entry><entry><title type="html">自由泳</title><link href="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/" rel="alternate" type="text/html" title="自由泳" /><published>2022-11-10T00:00:00+08:00</published><updated>2022-11-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3</id><content type="html" xml:base="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/">&lt;h2 id=&quot;自由泳&quot;&gt;自由泳&lt;/h2&gt;
 
 &lt;p&gt;记录些自由泳一些点睛之笔 以防忘记。&lt;/p&gt;
 
@@ -132,17 +300,7 @@
 
         &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">dynamoDB</title><link href="https://mafulong.github.io/2022/11/06/dynamoDB/" rel="alternate" type="text/html" title="dynamoDB" /><published>2022-11-06T00:00:00+08:00</published><updated>2022-11-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/06/dynamoDB</id><content type="html" xml:base="https://mafulong.github.io/2022/11/06/dynamoDB/">&lt;h2 id=&quot;dynamodb&quot;&gt;dynamoDB&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://systemdesigns.blogspot.com/2016/01/dynamodb.html&quot;&gt;论文讲解&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://sides-share.s3.cn-north-1.amazonaws.com.cn/AWS+Webinar+2019/PDF/Amazon+DynamoDB+webinar.pdf&quot;&gt;深入探讨 Amazon DynamoDB 的设计模 式、流复制和全局表&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://techsummit.ctrip.com/pdf/songye.pdf&quot;&gt;AWS 如何实现数据跨区域同步&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.modb.pro/db/432414&quot;&gt;MongoDB 与 DynamoDB 正面交锋&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">dynamoDB</summary></entry><entry><title type="html">1674. 使数组互补的最少操作次数</title><link href="https://mafulong.github.io/2022/11/04/1674.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="1674. 使数组互补的最少操作次数" /><published>2022-11-04T00:00:00+08:00</published><updated>2022-11-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/04/1674.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/11/04/1674.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">1674. 使数组互补的最少操作次数</title><link href="https://mafulong.github.io/2022/11/04/1674.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="1674. 使数组互补的最少操作次数" /><published>2022-11-04T00:00:00+08:00</published><updated>2022-11-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/04/1674.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/11/04/1674.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%BA%92%E8%A1%A5%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-moves-to-make-array-complementary/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个长度为 &lt;strong&gt;偶数&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;limit&lt;/code&gt; 。每一次操作，你可以将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 中的任何整数替换为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;limit&lt;/code&gt; 之间的另一个整数。&lt;/p&gt;
@@ -517,153 +675,4 @@ nums[3] + nums[0] = 3 + 1 = 4.
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6217. 使数组相似的最少操作次数</title><link href="https://mafulong.github.io/2022/10/23/6217.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="6217. 使数组相似的最少操作次数" /><published>2022-10-23T00:00:00+08:00</published><updated>2022-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/23/6217.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/10/23/6217.-%E4%BD%BF%E6%95%B0%E7%BB%84%E7%9B%B8%E4%BC%BC%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-make-arrays-similar/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你两个正整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; ，两个数组长度相等。&lt;/p&gt;
-
-&lt;p&gt;在一次操作中，你可以选择两个 &lt;strong&gt;不同&lt;/strong&gt; 的下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= i, j &amp;lt; nums.length&lt;/code&gt; ，并且：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[i] = nums[i] + 2&lt;/code&gt; 且&lt;/li&gt;
-  &lt;li&gt;令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums[j] = nums[j] - 2&lt;/code&gt; 。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果两个数组中每个元素出现的频率相等，我们称两个数组是 &lt;strong&gt;相似&lt;/strong&gt; 的。&lt;/p&gt;
-
-&lt;p&gt;请你返回将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似的最少操作次数。测试数据保证 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 一定能变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [8,12,6], target = [2,14,10]
-输出：2
-解释：可以用两步操作将 nums 变得与 target 相似：
-- 选择 i = 0 和 j = 2 ，nums = [10,12,4] 。
-- 选择 i = 1 和 j = 2 ，nums = [10,14,2] 。
-2 次操作是最少需要的操作次数。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,5], target = [4,1,3]
-输出：1
-解释：一步操作可以使 nums 变得与 target 相似：
-- 选择 i = 1 和 j = 2 ，nums = [1,4,3] 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,1,1,1,1], target = [1,1,1,1,1]
-输出：0
-解释：数组 nums 已经与 target 相似。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == nums.length == target.length&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i], target[i] &amp;lt;= 106&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 一定可以变得与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相似。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-make-arrays-similar/solution/by-endlesscheng-lusx/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210231835582.png&quot; alt=&quot;image-20221023183508545&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeSimilar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
-      
-      
-&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;makeSimilar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;      
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6207. 统计定界子数组的数目</title><link href="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/" rel="alternate" type="text/html" title="6207. 统计定界子数组的数目" /><published>2022-10-16T00:00:00+08:00</published><updated>2022-10-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/10/16/6207.%20%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE</id><content type="html" xml:base="https://mafulong.github.io/2022/10/16/6207.-%E7%BB%9F%E8%AE%A1%E5%AE%9A%E7%95%8C%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%95%B0%E7%9B%AE/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/count-subarrays-with-fixed-bounds/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和两个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minK&lt;/code&gt; 以及 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maxK&lt;/code&gt; 。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 的定界子数组是满足下述条件的一个子数组：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;子数组中的 &lt;strong&gt;最小值&lt;/strong&gt; 等于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minK&lt;/code&gt; 。&lt;/li&gt;
-  &lt;li&gt;子数组中的 &lt;strong&gt;最大值&lt;/strong&gt; 等于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maxK&lt;/code&gt; 。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;返回定界子数组的数目。&lt;/p&gt;
-
-&lt;p&gt;子数组是数组中的一个连续部分。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,3,5,2,7,5], minK = 1, maxK = 5
-输出：2
-解释：定界子数组是 [1,3,5] 和 [1,3,5,2] 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,1,1,1], minK = 1, maxK = 1
-输出：10
-解释：nums 的每个子数组都是一个定界子数组。共有 10 个子数组。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 &amp;lt;= nums.length &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i], minK, maxK &amp;lt;= 106&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;双指针&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;countSubarrays&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;minI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minK&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;# 清空窗口
-&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;minI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;minI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;maxI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minI&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
