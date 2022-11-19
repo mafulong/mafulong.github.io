@@ -1,7 +1,7 @@
 ---
 layout: post
 category: AWS
-title: AWS network
+title: AWS Network
 tags: AWS
 ---
 
