@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-11-19T21:44:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">AWS Compute</title><link href="https://mafulong.github.io/2022/11/18/AWS-Compute/" rel="alternate" type="text/html" title="AWS Compute" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Compute</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Compute/">&lt;h2 id=&quot;aws-compute&quot;&gt;AWS Compute&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-11-19T23:21:00+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">AWS Compute</title><link href="https://mafulong.github.io/2022/11/18/AWS-Compute/" rel="alternate" type="text/html" title="AWS Compute" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Compute</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Compute/">&lt;h2 id=&quot;aws-compute&quot;&gt;AWS Compute&lt;/h2&gt;
 
 &lt;h2 id=&quot;ami&quot;&gt;AMI&lt;/h2&gt;
 
@@ -70,7 +70,61 @@
   &lt;li&gt;弹性伸缩组（ASG）只能在某一个AWS区域内运行，不能跨越多个区域&lt;/li&gt;
   &lt;li&gt;如果启动配置（Launch Configuration）有更新，那么之后启动的新EC2实例会使用新的启动配置，而旧的EC2实例不受影响&lt;/li&gt;
   &lt;li&gt;从AWS管理平台你可以直接删除一个弹性伸缩组（ASG）；从AWS CLI你只能先将最小的性能和需求的性能两个参数设置为0，才能删除这个弹性伸缩组。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Compute</summary></entry><entry><title type="html">AWS MQ</title><link href="https://mafulong.github.io/2022/11/18/AWS-MQ/" rel="alternate" type="text/html" title="AWS MQ" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20MQ</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-MQ/">&lt;h2 id=&quot;aws-mq&quot;&gt;AWS MQ&lt;/h2&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS MQ</summary></entry><entry><title type="html">AWS Storage</title><link href="https://mafulong.github.io/2022/11/18/AWS-Storage/" rel="alternate" type="text/html" title="AWS Storage" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Storage</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Storage/">&lt;h2 id=&quot;aws-storage&quot;&gt;AWS Storage&lt;/h2&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ecs&quot;&gt;ECS&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Amazon Elastic Container Service (ECS)&lt;/strong&gt;是一个有高度扩展性的&lt;strong&gt;容器管理服务&lt;/strong&gt;。它可以轻松运行、停止和管理集群上的Docker容器，你可以将容器安装在EC2实例上，或者使用&lt;strong&gt;Fargate&lt;/strong&gt;来启动你的服务和任务。&lt;/p&gt;
+
+&lt;p&gt;Amazon ECS可以在一个区域内的多个可用区中创建高可用的应用程序容器，你可以定义集群中运行的Docker镜像和服务。而且你可以充分利用AWS内部的&lt;strong&gt;Amazon ECR (Elastic Container Registry)&lt;/strong&gt;或者外部的Registry（比如Docker Hub或自建的Registry）来存储和提取容器镜像。&lt;/p&gt;
+
+&lt;p&gt;我们可以将标准化的代码、运行环境、系统工具等等打包成一个标准的集装箱，这个集装箱叫做&lt;strong&gt;Docker镜像&lt;/strong&gt;（Docker Image）。这个Docker镜像的概念类似于EC2中的AMI (Amazon Machine Image)。&lt;/p&gt;
+
+&lt;p&gt;这些镜像文件通常会通过Dockerfile来构建，并且最终存放到&lt;strong&gt;注册表（Registry）&lt;/strong&gt;内。这个Registry可以理解为摆放集装箱的码头，我们在需要某个类型的集装箱的时候就到码头去取。这类Registry可以是Amazon的ECR，也可以是公网上的Docker Hub，或者自己私有的Registry。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192204245.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ecs创建举例&quot;&gt;ECS创建举例&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192208630.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;lambda&quot;&gt;&lt;strong&gt;Lambda&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;使用&lt;strong&gt;AWS Lambda&lt;/strong&gt;，你无需配置和管理任何服务器和应用程序就能运行你的代码。只需要上传代码，Lambda就会处理运行并且根据需要自动进行横向扩展。因此Lambda也被称为&lt;strong&gt;无服务（Serverless）&lt;/strong&gt;函数。&lt;/p&gt;
+
+&lt;p&gt;要让AWS Lambda的代码执行，需要设定一些触发器（比如CloudWatch Log，CloudWatch Event，API Gateway等），因此Lambda函数被认为是&lt;strong&gt;事件驱动的（Event-Driven）&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;在传统的应用部署过程中，我们往往需要安装操作系统 -&amp;gt; 安装应用程序 -&amp;gt; 配置环境并部署代码，而且往往还需要不定时地为操作系统和应用程序打补丁和进行维护。使用AWS Lambda就方便很多，只需要上传代码，AWS就会在需要的时候帮你运行。我们不再需要（也无法接触）任何操作系统层面的东西，也节省了非常多的部署时间，可以更专心地编写代码。&lt;/p&gt;
+
+&lt;h3 id=&quot;aws-lambda的特点&quot;&gt;AWS Lambda的特点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;没有服务器/无服务，或者说真实的服务器由AWS管理&lt;/li&gt;
+  &lt;li&gt;只需要为运行的代码付费，不需要管理服务器和操作系统&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;持续性/自动的性能伸缩&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;非常便宜&lt;/li&gt;
+  &lt;li&gt;AWS只会在代码运行期间收取相应的费用，代码未运行时不产生任何费用&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;代码的最长执行时间是15分钟，如果代码执行时间超过15分钟，则需要将1个代码细分为多个&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;触发器有哪些&quot;&gt;触发器有哪些&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;API Gateway&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;AWS IoT&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CloudWatch Events&lt;/strong&gt; 比如cron job定时任务&lt;/li&gt;
+  &lt;li&gt;CloudWatch Logs&lt;/li&gt;
+  &lt;li&gt;CodeCommit&lt;/li&gt;
+  &lt;li&gt;DynamoDB&lt;/li&gt;
+  &lt;li&gt;S3&lt;/li&gt;
+  &lt;li&gt;SNS&lt;/li&gt;
+  &lt;li&gt;Cognito Sync Trigger&lt;/li&gt;
+  &lt;li&gt;SQS应该也可以？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.cloudbin.cn/?tag=aws&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Compute</summary></entry><entry><title type="html">AWS MQ</title><link href="https://mafulong.github.io/2022/11/18/AWS-MQ/" rel="alternate" type="text/html" title="AWS MQ" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20MQ</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-MQ/">&lt;h2 id=&quot;aws-mq&quot;&gt;AWS MQ&lt;/h2&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS MQ</summary></entry><entry><title type="html">AWS Storage</title><link href="https://mafulong.github.io/2022/11/18/AWS-Storage/" rel="alternate" type="text/html" title="AWS Storage" /><published>2022-11-18T00:00:00+08:00</published><updated>2022-11-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/18/AWS%20Storage</id><content type="html" xml:base="https://mafulong.github.io/2022/11/18/AWS-Storage/">&lt;h2 id=&quot;aws-storage&quot;&gt;AWS Storage&lt;/h2&gt;
 
 &lt;h2 id=&quot;dynamodb&quot;&gt;dynamoDB&lt;/h2&gt;
 
@@ -166,7 +220,104 @@
   &lt;li&gt;实例存储的实例不能被停止（只能重启或终止），如果这个实例出现故障，那么在上面的所有数据将会丢失&lt;/li&gt;
   &lt;li&gt;使用EBS的实例可以被停止，停止后EBS上的数据不会丢失&lt;/li&gt;
   &lt;li&gt;重启使用实例存储的实例或者重启使用EBS的实例都不会导致数据丢失&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Storage</summary></entry><entry><title type="html">自由泳</title><link href="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/" rel="alternate" type="text/html" title="自由泳" /><published>2022-11-10T00:00:00+08:00</published><updated>2022-11-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3</id><content type="html" xml:base="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/">&lt;h2 id=&quot;自由泳&quot;&gt;自由泳&lt;/h2&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;aws-ebs-s3和efs的区别&quot;&gt;AWS EBS, S3和EFS的区别&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;AWS S3对于静态页面的托管、多媒体分发、版本管理、大数据分析、数据存档来说都非常有用。S3可以和AWS CloudFront结合使用而达到更快的上传和下载速度。&lt;/li&gt;
+  &lt;li&gt;AWS EBS是可以用来做数据库或托管应用程序的持续性文件系统，EBS具有很高的IO读写速度并且即插即用。 只能被单个EC2实例访问&lt;/li&gt;
+  &lt;li&gt;相比前面两种存储，AWS EFS是比较新的一项服务。它提供了可以在多个EC2实例之间共享的网络文件系统，功能类似于NAS设备。可以用EFS来处理大数据分析、多媒体处理和内容管理。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;s3&quot;&gt;S3&lt;/h2&gt;
+
+&lt;p&gt;Amazon &lt;strong&gt;Simple Storage Service (S3)&lt;/strong&gt; 是互联网存储解决方案，它提供了一个简单的Web接口，让其存储的数据和文件在互联网的任何地方给任何人访问。&lt;/p&gt;
+
+&lt;p&gt;文件对象存储。&lt;/p&gt;
+
+&lt;h3 id=&quot;s3基本特性&quot;&gt;S3基本特性&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;S3是&lt;strong&gt;对象存储&lt;/strong&gt;，可以在S3上存储各种类型的文件，它不是&lt;strong&gt;块存储&lt;/strong&gt;（EBS是块存储）&lt;/li&gt;
+  &lt;li&gt;文件大小可以从0 字节到5 TB
+    &lt;ul&gt;
+      &lt;li&gt;使用Single Operation上传只能上传&lt;em&gt;最大5 GB&lt;/em&gt;的文件&lt;/li&gt;
+      &lt;li&gt;使用分段上传（Multipart Upload）可以对文件进行分段上传，最大支持上传&lt;em&gt;5 TB&lt;/em&gt;的文件&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;S3的总存储空间是&lt;strong&gt;无限大&lt;/strong&gt;的&lt;/li&gt;
+  &lt;li&gt;文件存储在&lt;strong&gt;存储桶（Bucket）&lt;/strong&gt;内，可以理解存储桶就是一个文件夹&lt;/li&gt;
+  &lt;li&gt;S3的名字是需要&lt;strong&gt;全球唯一&lt;/strong&gt;的，不能与任何区域的任何人拥有的S3重名&lt;/li&gt;
+  &lt;li&gt;存储桶创建之后会生成一个URL，命名类似于https://s3-ap-northeast-1.amazonaws.com/aws_xiaopeiqing_com
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;S3是以HTTPS的形式展现的，而非HTTP&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;ap-northeast-1表示了当前桶所在的区域&lt;/li&gt;
+      &lt;li&gt;aws_xiaopeiqing_com表示了S3存储桶的名字，全球唯一&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;S3拥有99.99%（4个9）的可用性（Availability）
+    &lt;ul&gt;
+      &lt;li&gt;可用性可以理解为系统的uptime时间，即在一个自然年内（365天）有52.56分钟系统不可用&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;S3拥有99.999999999%（11个9）的持久性（Durability）
+    &lt;ul&gt;
+      &lt;li&gt;持久性可以认为是数据完整性/数据安全性，即在一千亿个存储在S3上的文件会有大概 1 个文件是不可读的&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;S3的存储桶创建的时候可以选择所在区域（Region），但不能选择可用区（AZ），AWS会负责S3的高可用、容灾问题
+    &lt;ul&gt;
+      &lt;li&gt;S3创建的时候可以选择某个AWS区域，一旦选择了就不能更改&lt;/li&gt;
+      &lt;li&gt;如果要在其他区域使用该S3的内容，可以使用&lt;strong&gt;跨区域复制&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;S3拥有不同的等级（Standard, Stantard-IA, Onezone-IA, RRS, Glacier）&lt;/li&gt;
+  &lt;li&gt;启用了&lt;strong&gt;版本控制（Version Control）&lt;/strong&gt;你可以恢复S3内的文件到之前的版本&lt;/li&gt;
+  &lt;li&gt;S3可以开启生命周期管理，对文件在不同的生命周期进行不同的操作
+    &lt;ul&gt;
+      &lt;li&gt;比如，文件在创建30天后迁移到便宜的S3等级（S3-IA），再经过30天进行归档（迁移到Glacier），再过30天就进行删除&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;要启用生命周期管理需要先启用版本控制功能&lt;/li&gt;
+  &lt;li&gt;S3支持加密功能&lt;/li&gt;
+  &lt;li&gt;使用访问控制列表（Access Control Lists）和桶策略（Bucket Policy）可以控制S3的访问安全&lt;/li&gt;
+  &lt;li&gt;在S3上成功上传了文件，你将会得到一个&lt;strong&gt;HTTP 200&lt;/strong&gt;的状态反馈&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;不同的s3存储类型&quot;&gt;不同的S3存储类型&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Standard – 默认的存储类：&lt;/strong&gt;如果上传对象时未注明则S3会分配这个类型的存储&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Standard – IA（Infrequently Accessed）：&lt;/strong&gt;用于保存不经常访问的数据，但是需要访问的时候也能很快地访问到。存储的价格比标准S3便宜，但是读取的费用比标准的S3高，也因为如此才要把不经常访问的数据放到这种类型的S3上。并且数据跨了多个AWS地理位置。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Intelligent_Tiering&lt;/strong&gt; 智能分层（S3 智能分层）: 这种储存类别将对象存储在两个访问层中，一个是频繁访问的层，一个是不频繁访问的层；如果对象&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;30&lt;/code&gt;天内未访问，则会被移动至不频繁访问的层，如果不频繁访问层中的对象被访问，则会被移动至频繁访问的层；频繁访问的层的存储费用与&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;STANDARD&lt;/code&gt;一样，不频繁访问层的存储费用与&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;STANDARD_IA&lt;/code&gt;一样，该储存类别的请求费用与&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;STANDARD&lt;/code&gt;一样，&lt;strong&gt;该储存类别有额外的监控费用&lt;/strong&gt;；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Onezone – IA：&lt;/strong&gt;同上，但数据只保存到一个AWS可用区内&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Glacier：&lt;/strong&gt;非常便宜，仅用于做归档。从Glacier读取数据需要花费3-5个小时。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Glacier Deep Archive:&lt;/strong&gt; S3 Glacier Deep Archive 是 Amazon S3 成本最低的存储类，支持每年可能访问一两次的数据的长期保留和数字预留。它是为客户设计的 – 特别是那些监管严格的行业，如金融服务、医疗保健和公共部门 – 为了满足监管合规要求，将数据集保留 7-10 年或更长时间。S3 Glacier Deep Archive 还可用于备份和灾难恢复使用案例，是成本效益高、易于管理的磁带系统替代，无论磁带系统是本地库还是非本地服务都是如此。S3 Glacier Deep Archive 是 Amazon S3 Glacier 的补充，后者适合存档，其中会定期检索数据并且每隔几分钟可能需要一些数据。存储在 S3 Glacier Deep Archive 中的所有对象都将接受复制并存储在至少三个地理分散的可用区中，受 99.999999999% 的持久性保护，并且可在 12 小时内恢复。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cloudfront-cdn&quot;&gt;CloudFront CDN&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Amazon CloudFront&lt;/strong&gt;是一种全球&lt;strong&gt;内容分发网络（CDN）&lt;/strong&gt;服务，可以安全地以低延迟和高传输速度向浏览者分发数据、视频、应用程序和API。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;边缘站点（Edge Location）&lt;/strong&gt;：边缘站点是内容缓存的地方，它存在于多个网络服务提供商的机房，它和AWS区域和可用区是完全不一样的概念。截至2018年中，AWS目前一共有100多个边缘站点。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;源（Origin）&lt;/strong&gt;：这是CDN缓存的内容所使用的源，源可以是一个S3存储桶，可以是一个EC2实例，一个弹性负载均衡器（ELB）或Route53，甚至可以是AWS之外的资源。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;分配（Distribution）&lt;/strong&gt;：AWS CloudFront创建后的名字&lt;/li&gt;
+  &lt;li&gt;分配分为两种类型，分别是
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Web Distribution&lt;/strong&gt;：一般的网站应用&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;RTMP (Real-Time Messaging Protocol)&lt;/strong&gt;：媒体流&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;你不只是可以从边缘站点读取数据，你还可以往边缘站点写入数据（比如上传一个文件），边缘站点会将你写入的数据同步到源上&lt;/li&gt;
+  &lt;li&gt;在CloudFront上的文件会被缓存在边缘节点，缓存的时间是&lt;strong&gt;TTL（Time To Live）&lt;/strong&gt;。文件存在超过这个时间，缓存会被自动清除&lt;/li&gt;
+  &lt;li&gt;如果在到达TTL时间之前，你希望更新文件，那么你也可以&lt;strong&gt;手动清除缓存&lt;/strong&gt;，但你将会被AWS&lt;strong&gt;收取一定的费用&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.cloudbin.cn/?p=1968&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Storage</summary></entry><entry><title type="html">自由泳</title><link href="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/" rel="alternate" type="text/html" title="自由泳" /><published>2022-11-10T00:00:00+08:00</published><updated>2022-11-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3</id><content type="html" xml:base="https://mafulong.github.io/2022/11/10/%E8%87%AA%E7%94%B1%E6%B3%B3/">&lt;h2 id=&quot;自由泳&quot;&gt;自由泳&lt;/h2&gt;
 
 &lt;p&gt;记录些自由泳一些点睛之笔 以防忘记。&lt;/p&gt;
 
