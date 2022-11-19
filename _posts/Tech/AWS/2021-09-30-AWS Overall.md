@@ -257,3 +257,10 @@ sqs是一对一，不能一对多，消息可持久化，不推只能等拉，�
 sns可一对多，不能持久化，push模型。
 
 sqs及aws笔记，更全， [link](http://www.cloudbin.cn/?p=2530)
+
+
+
+## 参考
+
+[参考](http://www.cloudbin.cn/?tag=aws)
+

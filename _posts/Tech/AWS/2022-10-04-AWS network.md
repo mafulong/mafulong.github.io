@@ -7,6 +7,8 @@ tags: AWS
 
 # AWS network
 
+## 名词解释
+
 [参考](https://docs.amazonaws.cn/vpc/latest/userguide/what-is-amazon-vpc.html)
 
 - **Virtual Private Cloud (VPC)**
@@ -51,22 +53,108 @@ tags: AWS
 
   使用 [Amazon Virtual Private Network (Amazon VPN)](https://docs.amazonaws.cn/vpc/latest/userguide/vpn-connections.html) 将 VPC 连接到您的本地网络。
 
+## VPC
+
+**Amazon Virtual Private Cloud (Amazon VPC)**允许你在已定义的虚拟网络内启动AWS资源。这个虚拟网络与你在数据中心中运行的传统网络极其相似，并会为你提供使用AWS的可扩展基础设施的优势。
+
+简单来说，VPC就是一个AWS用来隔离你的网络与其他客户网络的虚拟网络服务。在一个VPC里面，用户的数据会逻辑上地与其他AWS租户分离，用以保障数据安全。
+
+**可以简单地理解为一个VPC就是一个虚拟的数据中心**，在这个虚拟数据中心内我们可以创建不同的子网（公有网络和私有网络），搭建我们的网页服务器，应用服务器，数据库服务器等等服务。
+
+### VPC有如下特点
+
+- VPC内可以创建多个子网
+
+- 可以在选择的子网上启动EC2实例
+
+- 在每一个子网上分配自己规划的IP地址
+
+- 每一个子网配置自己的路由表
+
+- 创建一个Internet Gateway并且绑定到VPC上，让EC2实例可以访问互联网
+
+- VPC对你的AWS资源有更安全的保护
+
+- 部署针对实例的安全组（Security Group）
+
+- 部署针对子网的**网络控制列表（Network Access Control List）**
+
+- 一个VPC可以跨越多个可用区（AZ）
+
+- **一个子网只能在一个可用区（AZ）内**
+
+- 安全组（Security Group）是
+
+  有状态的
+
+  ，而网络控制列表（Network Access Control List）是
+
+  无状态的
+
+  - 有状态：如果入向流量被允许，则出向的响应流量会被自动允许
+  - 无状态：入向规则和出向规则需要分别单独配置，互不影响
+  - 具体的区别挨踢小茶会在后续的章节详细讲解
+
+- VPC的子网掩码范围是从/28到/16，不能设置在这个范围外的子网掩码
+
+- VPC可以通过Virtual Private Gateway (VGW) 来与企业本地的数据中心相连
+
+- VPC可以通过AWS PrivateLink访问其他AWS账户托管的服务（VPC终端节点服务）
 
 
 
+### VPC Peering
 
-# 工作原理
+**VPC Peering**可是两个VPC之间的网络连接，通过此连接，你可以使用IPv4地址在两个VPC之间传输流量。这两个VPC内的实例会和如果在同一个网络一样彼此通信。
+
+- 可以通过AWS内网将一个VPC与另一个VPC相连
+- 同一个AWS账号内的2个VPC可以进行VPC Peering
+- 不同AWS账号内的VPC也可以进行VPC Peering
+- 不支持VPC Transitive Peering
+  - 如果VPC A和VPC B做了Peering
+  - 而且VPC B和VPC C做了Peering
+  - 那么VPC A是**不能**和VPC C进行通信的
+  - 要通信，只能将VPC A和VPC C进行Peering
+
+### 默认VPC
+
+- 在每一个区域（Region），AWS都有一个默认的VPC
+- 在这个VPC里面所有子网都绑定了一个路由表，其中有默认路由（目的地址 0.0.0.0/0）到互联网
+- 所有在默认VPC内启动的EC2实例都可以直接访问互联网
+- 在默认VPC内启动的EC2实例都会被分配公网地址和私有地址
+
+如下图所示，我们在某一个区域内有一个VPC，这个VPC的网络是172.31.0.0/16
+
+在这个VPC内有2个子网，分别是172.31.0.0/20 和 172.31.16.0/20。这两个子网内都有一个EC2实例，每一个实例拥有一个该子网的私有地址（172.31.x.x）以及一个AWS分配的公网IP地址（203.0.113.x）。
+
+这两个实例关联了一个主路由表，该路由表拥有一个访问172.31.0.0/16 VPC内流量的路由条目；还有一个目的为 0.0.0.0/0 的默认路由条目，指向Internet网关。
+
+因此这两个实例都可以通过Internet网关访问外网。
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192248477.png)
+
+### VPC终端节点（VPC Endpoints）
+
+在一般的情况下，如果你需要访问S3服务，EC2实例或者DynamoDB的资源，你需要通过Internet公网来访问这些服务。有没有更快速、更安全的访问方式呢？
+
+**VPC终端节点（VPC Endpoints）**提供了这种可能性。
+
+VPC终端节点能建立VPC和一些AWS服务之间的高速、私密的“专线”。这个专线叫做PrivateLink，使用了这个技术，你无需再使用Internet网关、NAT网关、VPN或AWS Direct Connect连接就可以访问到一些AWS资源了！
+
+
+
+## 工作原理
 
 [参考](https://docs.amazonaws.cn/vpc/latest/userguide/how-it-works.html)
 
-## IP 寻址
+### IP 寻址
 创建 VPC 时，需要为其分配一个 IPv4 CIDR 块（一系列私有 IPv4 地址）、一个 IPv6 CIDR 块或同时分配两种 CIDR 块（双堆栈）。
 
 私有 IPv4 地址无法通过 Internet 访问。IPv6 地址具有全球唯一性，可以配置为保持私有或通过互联网进行访问。
 
 公有 IP 地址将从 Amazon 的公有 IP 地址池分配，它不与您的账户关联。在公有 IP 地址与您的实例取消关联后，该地址即释放回该池，并且不再可供您使用。您不能手动关联或取消关联公有 IP 地址。而是在某些情况下，我们从您的实例释放该公有 IP 地址，或向其分配新地址。有关更多信息，请参阅适用于 Linux 实例的 Amazon EC2 用户指南 中的公有 IP 地址。
 
-## 访问 Internet
+### 访问 Internet
 
 > 私有网络不能访问互联网，需要互联网网关，私有网络内部之间可通信。
 
@@ -80,17 +168,29 @@ tags: AWS
 
 如果您将 IPv6 CIDR 块与 VPC 关联并为实例分配 IPv6 地址，则实例可以通过互联网网关通过 IPv6 连接到互联网。或者，实例也可以使用仅出口互联网网关经由 IPv6 发起到互联网的出站连接。IPv6 流量独立于 IPv4 流量；您的路由表必须包含单独的 IPv6 流量路由。
 
-# 连接 VPC 和网络
-
-您可以在两个 VPC 之间创建一个 *VPC 对等连接*，然后通过此连接不公开地在这两个 VPC 之间路由流量。这两个 VPC 中的实例可以彼此通信，就像它们在同一网络中一样。
-
 
 
 默认情况下，默认子网为公有子网，因为主路由表会将指定发往 Internet 的子网流量发送到 Internet 网关。
 
 
 
-# 场景
+### NAT
+
+NAT的全程是“**Network Address Translation**”，中文解释是“**网络地址转换**”，它可以让整个机构只使用一个公有的IP地址出现在Internet上。
+
+NAT是一种把内部私有地址（192.168.1.x，10.x.x.x等）转换为Internet公有地址的协议，它一定程度上解决了公网地址不足的问题。
+
+- NAT实例需要创建在公有子网内
+
+
+
+
+
+**堡垒机（Bastion Host）**又叫做跳板机（Jump Box），主要用于运维人员远程登陆服务器的集中管理。运维人员首先登陆到这台堡垒机（公网），然后再通过堡垒机管理位于内网的所有服务器。
+
+堡垒机可以对运维人员的操作行为进行控制和审计，同时可以结合Token等技术达到更加安全的效果。
+
+## VPC场景
 
 **带单个公有子网的 VPC**： 此场景的配置包含一个有单一公有子网的 Virtual Private Cloud (VPC)，以及一个 Internet 网关以启用 Internet 通信。如果您要运行单一层级且面向公众的 Web 应用程序，如博客或简单的网站，则我们建议您使用此配置。
 
@@ -98,7 +198,7 @@ tags: AWS
 
 公有子网中的实例可直接将出站流量发往 Internet，而私有子网中的实例不能这样做。但是，私有子网中的实例可使用位于公有子网中的网络地址转换 (NAT) 网关访问 Internet。数据库服务器可以使用 NAT 网关连接到 Internet 进行软件更新，但 Internet 不能建立到数据库服务器的连接。
 
-# **Security Groups（安全组）**
+## **Security Groups（安全组）**
 
 [参考](https://zhuanlan.zhihu.com/p/151419823)
 
@@ -111,7 +211,24 @@ Security Group（SG）通过控制IP和端口来控制出站入站规则，可�
 
 
 
-# Difference between Internet Gateway and NAT Gateway
+## 网络ACL（NACL）
+
+**网络访问控制列表（NACL）**与安全组（Security Group）类似，它能在子网的层面控制所有入站和出站的流量，为VPC提供更加安全的保障。
+
+
+
+- 在你的**默认VPC**内会有一个默认的网络ACL（NACL），它会**允许**所有入向和出向的流量
+- 你可以创建一个自定义的网络ACL，在创建之初所有的入向和出向的流量都会被**拒绝**，除非进行手动更改
+- 对于所有VPC内的子网，每一个子网都需要关联一个网络ACL。如果没有关联任何网络ACL，那么子网会关联默认的网络ACL
+- 一个网络ACL可以关联多个子网，但一个子网只能关联一个网络ACL
+- 网络ACL包含了一系列（允许或拒绝）的规则，网络ACL会按顺序执行，一旦匹配就结束，不会再继续往下匹配
+- 网络ACL有入向和出向的规则，每一条规则都可以配置允许或者拒绝
+- 网络ACL是无状态的（安全组是有状态的）
+  - 被允许的入向流量的响应流量必须被精准的出向规则所允许（反之亦然）
+  - 一般至少需要允许临时端口（TCP 1024-65535）
+  - 关于临时端口的知识，可以参见[这里](https://docs.aws.amazon.com/zh_cn/AmazonVPC/latest/UserGuide/VPC_ACLs.html#VPC_ACLs_Ephemeral_Ports)
+
+## Difference between Internet Gateway and NAT Gateway
 
 <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202210041648324.png" style="zoom:67%;" />
 
@@ -120,7 +237,7 @@ Security Group（SG）通过控制IP和端口来控制出站入站规则，可�
 - Internet Gateway (IGW) allows instances with public IPs to access the internet.
 - NAT Gateway (NGW) allows instances with no public IPs to access the internet.
 
-# 参考Note 基础概念
+## 参考
 
 [参考](https://juejin.cn/post/6949072638145003556)
 
@@ -183,10 +300,25 @@ RT（Route Table）与Subnet相关连，用来描述网络路由。IGW: Internet
 
 
 
-# 总结
+[参考](http://www.cloudbin.cn/?tag=aws) 暂无Note
+
+## 总结
 
 VPC里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。但如果有internet访问不到的实例或者数据库，则需建个私有子网，私有子网默认不能访问internet，internet也不能访问私有子网。
 
 要走互联网必须走internet gateway，它对整个vpc生效, public subnet可直接通过IGW与互联网互联，私有子网再通过NAT走公有子网是可以访问internet的，反向不能。 
 
 和互联网连接时都需要有个公网ip，这个是从amazon分配的。
+
+
+
+## Route 53
+
+**Amazon Route 53**是一种高可用、高扩展性的云DNS服务。
+
+不同的DNS记录：
+
+- **CNAME** – CNAME （Canonical Name）可以将一个域名指向另一个域名。比如将aws.xiaopeiqing.com指向xiaopeiqing.com
+- Alias记录 – 和CNAME类似，又叫做别名记录，可以将一个域名指向另一个域名。
+  - **和CNAME最大的区别是，Alias可以应用在根域（Zone Apex）。即可以为xiaopeiqing.com的根域创建Alias记录，而不能创建CNAME**
+  - 别名记录可以节省你的时间，因为Route53会自动识别别名记录所指的记录中的更改。例如，假设example.com的一个别名记录指向位于lb1-1234.us-east-2.elb.amazonaws.com上的一个ELB负载均衡器。如果该负载均衡器的IP地址发生更改，Route53将在example.com的DNS应答中自动反映这些更改，而无需对包含example.com的记录的托管区域做出任何更改。 弹性负载均衡器（ELB）没有固定的IPv4地址，在使用ELB的时候永远使用它的DNS名字。很多场景下我们需要绑定DNS记录到ELB的endpoint地址，而不绑定任何IP
