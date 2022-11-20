@@ -139,7 +139,9 @@ AWS介绍视频: [youtube](https://www.youtube.com/watch?v=Z3SYDTMP3ME&ab_channe
 
 codeCommit类似github这样代码仓库。
 
+## Example: WordPress
 
+[link](http://www.cloudbin.cn/?p=2647)
 
 ## 考证
 
