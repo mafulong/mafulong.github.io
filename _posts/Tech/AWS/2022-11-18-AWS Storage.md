@@ -150,7 +150,64 @@ Amazon **Simple Storage Service (S3)** 是互联网存储解决方案，它提�
 
 
 
+## Multi-AZ高可用
 
+我们可以把AWS RDS数据库部署在多个**可用区（AZ）**内，以提供高可用性和故障转移支持。
+
+使用Multi-AZ部署模式，RDS会在不同的可用区内配置和维护一个主数据库和一个备用数据库，主数据库的数据会自动复制到备用数据库中。
+
+使用这种部署模式，可以为我们提供数据冗余，减少在系统备份期间的I/O冻结（上面有提到）。同时，更重要的是可以防止数据库实例的故障和单个可用区的故障。
+
+如下图所示，我们可以在两个可用区内分别部署主数据库和备用数据库。
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192338177.png)
+
+目前Multi-AZ支持以下数据库：
+
+- Oracle
+- PostgreSQL
+- MySQL
+- MariaDB
+- SQL Server
+
+值得注意的是，Aurora数据库本身就支持多可用区部署的高可用设置，因此不需要为Aurora数据库特别开启这个功能。
+
+在上次实验中我们有讲到，创建了RDS数据库之后我们会得到一个数据库的URL Endpoint。在开启Multi-AZ的情况下，这个URL Endpoints会根据主/备数据库的健康状态自动解析到IP地址。对于应用程序来说，我们只需要连接这个URL地址即可。
+
+**高可用的设置只是用来解决灾备的问题，并不能解决读取性能的问题；要提升数据库读取性能，我们需要用到Read Replicas。**
+
+
+
+### 只读副本（Read Replicas）
+
+我们可以在源数据库实例的基础上，复制一种新类型的数据库实例，称之为**只读副本（Read Replicas）**。我们对源数据库的任何更新，都会**异步**更新到只读副本中。
+
+因此，我们可以将应用程序的数据库读取功能转移到Read Replicas上，来减轻源数据库的负载。
+
+对于有大量读取需求的数据库，我们可以使用这种方式来进行灵活的数据库扩展，同时突破单个数据库实例的性能限制。
+
+Read Replicas还有如下的特点：
+
+- Read Replicas是用来提高读取性能的，不是用来做灾备的
+- 要创建Read Replicas需要源RDS实例开启了自动备份的功能
+- 可以为数据库创建最多**5个**Read Replicas
+- 可以为Read Replicas创建Read Replicas（如下图所示）
+- 每一个Read Replicas都有自己的URL Endpoint
+- 可以为一个启用了Multi-AZ的数据库创建Read Replicas
+- Read Replicas可以提升成为独立的数据库
+- 可以创建位于另一个区域（Region）的Read Replicas
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192340392.png)
+
+目前Read Replicas支持以下数据库：
+
+- Aurora
+- PostgreSQL
+- MySQL
+- MariaDB
+- Oracle
+
+https://amazonaws-china.com/cn/rds/details/read-replicas/
 
 ## 参考
 
