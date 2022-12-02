@@ -28,7 +28,8 @@ permalink: /about/
   - Mysql(frequent), Redis(frequent), Kafka(frequent), Elastic-Search(Basic).
   - Understand common network protocol, such as Http, WebSocket, Quic.
   - Understand common distributed components and protocols such as etcd.
-
 - 📫 [Blog:mafulong.github.io](https://mafulong.github.io)
 - 📝 [My Patent List(20+)](https://github.com/mafulong/mafulong/blob/main/files/zhuanli.csv)
 - 📝 [SCI Articles:《A Time and Location Correlation Incentive Scheme for Deeply Data Gathering in Crowdsourcing Networks》](https://www.hindawi.com/journals/wcmc/2018/8052620/)
+
+![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212022240558.jpg)
