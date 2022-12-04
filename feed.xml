@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-12-04T15:44:00+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6256. 将节点分成尽可能多的组</title><link href="https://mafulong.github.io/2022/12/04/6256.-%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84/" rel="alternate" type="text/html" title="6256. 将节点分成尽可能多的组" /><published>2022-12-04T00:00:00+08:00</published><updated>2022-12-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/04/6256.%20%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84</id><content type="html" xml:base="https://mafulong.github.io/2022/12/04/6256.-%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-12-04T18:17:24+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6256. 将节点分成尽可能多的组</title><link href="https://mafulong.github.io/2022/12/04/6256.-%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84/" rel="alternate" type="text/html" title="6256. 将节点分成尽可能多的组" /><published>2022-12-04T00:00:00+08:00</published><updated>2022-12-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/04/6256.%20%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84</id><content type="html" xml:base="https://mafulong.github.io/2022/12/04/6256.-%E5%B0%86%E8%8A%82%E7%82%B9%E5%88%86%E6%88%90%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%A4%9A%E7%9A%84%E7%BB%84/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/divide-nodes-into-the-maximum-number-of-groups/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个正整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; ，表示一个 &lt;strong&gt;无向&lt;/strong&gt; 图中的节点数目，节点编号从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 。&lt;/p&gt;
@@ -699,6 +699,22 @@ Version 3.2.2
 &lt;h3 id=&quot;一致性&quot;&gt;一致性&lt;/h3&gt;
 
 &lt;p&gt;强一致性和性能、可用性往往冲突。&lt;/p&gt;
+
+&lt;h4 id=&quot;时代编号&quot;&gt;时代编号&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;用于区分谁是新领导，谁是旧的，新领导说的算。投票赞成的一个有效依据就是没有其他更高时代编号&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;时代编号（epoch number）&lt;/strong&gt;（在Paxos中称为&lt;strong&gt;投票编号（ballot number）&lt;/strong&gt;，视图戳复制中的&lt;strong&gt;视图编号（view number）&lt;/strong&gt;，以及Raft中的&lt;strong&gt;任期号码（term number）&lt;/strong&gt;），并确保在每个时代中，领导者都是唯一的。&lt;/p&gt;
+
+&lt;p&gt;每次当现任领导被认为挂掉的时候，节点间就会开始一场投票，以选出一个新领导。这次选举被赋予一个递增的时代编号，因此时代编号是全序且单调递增的。如果两个不同的时代的领导者之间出现冲突（也许是因为前任领导者实际上并未死亡），那么带有更高时代编号的领导说了算。&lt;/p&gt;
+
+&lt;p&gt;在任何领导者被允许决定任何事情之前，必须先检查是否存在其他带有更高时代编号的领导者，它们可能会做出相互冲突的决定。&lt;/p&gt;
+
+&lt;p&gt;它必须从&lt;strong&gt;法定人数（quorum）&lt;/strong&gt;的节点中获取选票（参阅“&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/ch5.html#读写的法定人数&quot;&gt;读写的法定人数&lt;/a&gt;”）。对领导者想要做出的每一个决定，都必须将提议值发送给其他节点，并等待法定人数的节点响应并赞成提案。法定人数通常（但不总是）由多数节点组成【105】。只有在没有意识到任何带有更高时代编号的领导者的情况下，一个节点才会投票赞成提议。&lt;/p&gt;
+
+&lt;p&gt;因此，我们有两轮投票：第一次是为了选出一位领导者，第二次是对领导者的提议进行表决。关键在于，这两次投票的&lt;strong&gt;法定人群&lt;/strong&gt;必须相互&lt;strong&gt;重叠（overlap）&lt;/strong&gt; 如果一个提案的表决通过，则至少得有一个参与投票的节点也必须参加过最近的领导者选举【105】。因此，如果在一个提案的表决过程中没有出现更高的时代编号。那么现任领导者就可以得出这样的结论：没有发生过更高时代的领导选举，因此可以确定自己仍然在领导。然后它就可以安全地对提议值做出决定。&lt;/p&gt;
 
 &lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
 
