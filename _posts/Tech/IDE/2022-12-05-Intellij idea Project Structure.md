@@ -57,7 +57,7 @@ Modules
 
 Library
 
-- 项目级别的类库，和Module的关系？
+- 项目级别的类库，这里先加好，然后Module里加jar的话就可以直接选了，相当于统一管理。
 
 
 
@@ -81,13 +81,12 @@ Artifact
   explode 在这里你可以理解为展开，不压缩的意思。也就是 war、jar 等产出物没压缩前的目录结构。建议在开发的时候使用这种模式，便于修改了文件的效果立刻显现出来。默认情况下，IDEA 的 Modules 和 Artifacts 的 output 目录 已经设置好了，不需要更改，
   打成 war 包 的时候会自动在 WEB-INF 目录 下生产 classes 目录 ，然后把编译后的文件放进去。
 
-**下面Platform Settings和Project, Module都无关！**
+**最上面的截图下面Platform Settings和Project, Module都无关！**
 
 
 
 添加一个Lib方法
 
-1. 在project structure的Libraries加入lib
-2. 在Modules的Dependencies下添加lib
+1. 方法1： 更推荐。在project structure的Libraries加入lib，然后再走方法2，选择Project Lib即可。
+2. 方法2： 在Modules的Dependencies下添加lib
 
-需要先加入再添加？ 不一样吗？
