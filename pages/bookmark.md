@@ -64,6 +64,7 @@ permalink: /bookmark/
 - [Java 全栈知识](https://pdai.tech/md/outline/x-outline.html)
 - [Spring](https://potoyang.gitbook.io/spring-in-action-v4/1/1.3-fu-kan-spring-feng-jing-xian/1.3.1spring-mo-kuai)
 - [代码重工 java&spring 入门](https://www.wolai.com/nnRjHcUSv2mrRbFKZUpBMS) [这个也是，有 maven 等，都需要看](https://heavy_code_industry.gitee.io/code_heavy_industry/)
+- [前端](https://github.com/qianguyihao/Web)
 
 ## 软件使用
 
