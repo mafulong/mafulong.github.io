@@ -88,6 +88,7 @@ permalink: /bookmark/
 - popclip 选择文字后上面可显示快捷键。 [破解版下载网址](https://xclient.info/s/popclip.html#versions)， 还可以安装插件，比如欧陆词典Eudic, 下载后双击即可，[插件下载网址](https://pilotmoon.com/popclip/extensions/)
 - betterTouchTool, 免费触控板手势软件, 可选。
 - [MonitorControl Lite](https://github.com/MonitorControl/MonitorControlLite#readme) mac亮度条件软件，可以状态栏就开始调屏幕亮度了，亮度下限可以更低点。
+- Alfred 快速搜索
 
 ### android
 
