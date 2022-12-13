@@ -120,6 +120,13 @@ function updateName() {
 }
 ```
 
+```scala
+console.log('name:' + name + ',age:' + age); //传统写法
+console.log(`我是${name},age:${age}`); //ES6 写法。注意语法格式
+```
+
+
+
 ## 操作 HTML 元素
 
 如需从 JavaScript 访问某个 HTML 元素，您可以使用 document.getElementById(id) 方法。
@@ -140,20 +147,58 @@ document.getElementById("p2").style.color="blue";
 
 ```
 
+## 变量
+
+在 ES6 语法之前，统一使用`var`关键字来声明一个变量。比如：
+
+```javascript
+var name; // 定义一个名为 name 的变量。name是变量名。
+```
+
+在 ES6 语法及之后的版本里，可以使用 `const`、`let`关键字来定义一个变量
+
+```js
+const name; // 定义一个常量
+
+let age; // 定义一个变量
+```
+
+
+
+**变量初始化**
+
+一旦你定义了一个变量，你就能够初始化它。方法如下，在变量名之后跟上一个“=”，然后是数值：
+
+```scala
+myName = 'Chris';
+myAge = 37;
+
+// 你可以像这样在声明变量的时候给变量初始化：
+
+let myName = 'Chris';
+```
+
+变量不声明，直接赋值：（正常） ；只声明，不赋值：（注意，打印 undefined）；不声明，不赋值，直接使用：（会报错）
+
+
+
 ## 数据类型
 
-### 变量和基础数据类型
+### 数据类型
 
-字符串（String）、数字(Number)、布尔(Boolean)、数组(Array)、对象(Object)、空（Null）、未定义（Undefined）。
+#### JS 中一共有八种数据类型
+
+- **基本数据类型（值类型）**：String 字符串、Number 数值、BigInt 大型数值、Boolean 布尔值、Null 空值、Undefined 未定义、Symbol。
+- **引用数据类型（引用类型）**：Object 对象。
+
+注意：内置对象 Function、Array、Date、RegExp、Error 等都是属于 Object 类型。也就是说，除了那七种基本数据类型之外，其他的，都称之为 Object 类型。
 
 
 
-变量声明
+**数据类型之间最大的区别**：
 
-let和var区别。
-
-- var会变量提升，都是global, let不会
-- 其次，当你使用 `var` 时，可以根据需要多次声明相同名称的变量，但是 `let` 不能。
+- 基本数据类型：参数赋值的时候，传数值。
+- 引用数据类型：参数赋值的时候，传地址。
 
 ```javascript
 // 声明一个变量的语法是在 var 或 let 关键字之后加上这个变量的名字：
@@ -173,18 +218,75 @@ var person= new Object;
 
 
 
-变量初始化
+### String
 
-一旦你定义了一个变量，你就能够初始化它。方法如下，在变量名之后跟上一个“=”，然后是数值：
+字符串是由若干个字符组成的，这些字符的数量就是字符串的长度。我们可以通过字符串的 length 属性可以获取整个字符串的长度。
 
-```scala
-myName = 'Chris';
-myAge = 37;
+字符串型可以是引号中的任意文本，其语法为：双引号 `""` 或者单引号 `''`。
 
-// 你可以像这样在声明变量的时候给变量初始化：
+js中常用单引号，html中用双引号
 
-let myName = 'Chris';
+
+
+有了 ES6 语法，字符串拼接可以这样写：
+
+```javascript
+var name = 'qianguyihao';
+var age = '26';
+
+console.log('我是' + name + ',age:' + age); //传统写法
+console.log(`我是${name},age:${age}`); //ES6 写法。注意语法格式
+
+
+// 模板字符串支持换行
+const html = `<div>
+	<span>${result.name}</span>
+	<span>${result.age}</span>
+	<span>${result.sex}</span>
+</div>`;
+
+// 模板字符串中可以调用函数。字符串中调用函数的位置，将会显示函数执行后的返回值。
+function getName() {
+    return 'qianguyihao';
+}
+
+console.log(`www.${getName()}.com`); // 打印结果：www.qianguyihao.com
+
 ```
+
+### Number
+
+在 JS 中，只要是数，就是 Number 数值型的。无论整浮、浮点数（即小数）、无论大小、无论正负，都是 Number 类型的。
+
+#### 数值范围
+
+由于内存的限制，ECMAScript 并不能保存世界上所有的数值。
+
+- 最大值：`Number.MAX_VALUE`，这个值为： 1.7976931348623157e+308
+- 最小值：`Number.MIN_VALUE`，这个值为： 5e-324
+
+如果使用 Number 表示的变量超过了最大值，则会返回 Infinity。
+
+- 无穷大（正无穷）：Infinity
+- 无穷小（负无穷）：-Infinity
+
+注意：`typeof Infinity`的返回结果是 number。
+
+#### NaN
+
+**NaN**：是一个特殊的数字，表示 Not a Number，非数值。在进行数值运算时，如果得不到正常结果，就会返回 NaN。
+
+比如：
+
+```javascript
+console.log('abc' / 18); //结果是NaN
+```
+
+**Undefined 和任何数值计算的结果为 NaN。NaN 与任何值都不相等，包括 NaN 本身。**
+
+
+
+
 
 
 
@@ -219,7 +321,28 @@ let removedItem = myArray.pop();
 
 Undefined 这个值表示变量不含有值。
 
-可以通过将变量的值设置为 null 来清空变量。
+- case1：变量已声明，未赋值时
+
+- case2：变量未声明（未定义）时, 如果用 `typeof` 检查这个变量时，会返回 `undefined`
+
+- case3：函数无返回值时, 如果一个函数没有返回值，那么，这个函数的返回值就是 undefined。
+
+  或者，也可以这样理解：在定义一个函数时，如果末尾没有 return 语句，那么，其实就是 `return undefined`。
+
+- case4：调用函数时，未传参。调用函数时，如果没有传参，那么，这个参数的值就是 undefined。
+
+
+
+可以通过将变量的值设置为 null 来清空变量。**null 虽然是一个单独的数据类型，但null 相当于是一个 object，只不过地址为空（空指针）而已**。
+
+
+
+undefined 实际上是由 null 衍生出来的，所以`null == undefined`的结果为 true。
+
+- 任何值和 null 运算，null 可看做 0 运算。
+- 任何数据类型和 undefined 运算都是 NaN。
+
+
 
 ### 动态类型
 
@@ -290,6 +413,36 @@ function isDate(myDate) {
 | `===`  | 严格等于   | 测试左右值是否相同       | `5 === 2 + 4` |
 | `!==`  | 严格不等于 | 测试左右值是否**不**相同 | `5 !== 2 + 3` |
 
+```text
+== 	等于
+=== 全等于
+```
+
+
+
+`==`这个符号并不严谨，会做隐式转换，将不同的数据类型，**转为相同类型**进行比较。例如：
+
+```javascript
+console.log('6' == 6); // 打印结果：true。这里的字符串"6"会先转换为数字6，然后再进行比较
+console.log(true == '1'); // 打印结果：true
+console.log(0 == -0); // 打印结果：true
+
+console.log(null == 0); // 打印结果：false
+```
+
+```javascript
+console.log(undefined == null); //打印结果：true。
+```
+
+
+
+**全等在比较时，不会做类型转换**。如果要保证**完全等于**（即：不仅要判断取值相等，还要判断数据类型相同），我们就要用三个等号`===`。例如：
+
+```javascript
+console.log('6' === 6); //false
+console.log(6 === 6); //true
+```
+
 ### 逻辑运算符
 
 - `&&` — 逻辑与; 使得并列两个或者更多的表达式成为可能，只有当这些表达式每一个都返回`true`时，整个表达式才会返回`true.`
@@ -297,6 +450,25 @@ function isDate(myDate) {
 - ! — 逻辑非; 对一个布尔值取反，非 true 返回 false，非 false 返回 true.
 
 ## 类型转换
+
+### 显式类型转换
+
+- toString()
+- String()
+- Number()
+- parseInt(string)
+- parseFloat(string)
+- Boolean()
+
+### 隐式类型转换
+
+- isNaN ()
+- 自增/自减运算符：`++`、`—-`
+- 正号/负号：`+a`、`-a`
+- 加号：`+`
+- 运算符：`-`、`*`、`/`
+
+
 
 ### 将数字转换为字符串
 
@@ -386,6 +558,24 @@ Number(d)          // 返回 1404568027739
 d = new Date();
 d.getTime()        // 返回 1404568027739
 ```
+
+
+
+### 布尔值情况列举【重要】
+
+其他的数据类型都可以转换为 Boolean 类型。无论是隐式转换，还是显示转换，转换结果都是一样的。有下面几种情况：
+
+（1）情况一：数字 --> 布尔。 0 和 NaN的转换结果 false，其余的都是 true。比如 `Boolean(NaN)`的结果是 false。
+
+（2）情况二：字符串 ---> 布尔。空串的转换结果是false，其余的都是 true。全是空格的字符串，转换结果也是 true。字符串`'0'`的转换结果也是 true。
+
+（3）情况三：null 和 undefined 都会转换为 false。
+
+（4）情况四：引用数据类型会转换为 true。注意，空数组`[]`和空对象`{}`，**转换结果也是 true**，这一点，很多人都不知道。
+
+
+
+
 
 
 
@@ -957,3 +1147,26 @@ $("p").css({"background-color":"yellow","font-size":"200%"});
         }
     }
 ```
+
+# 千古 笔记
+
+> [参考](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/03-%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F.html#%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E3%80%90%E9%87%8D%E8%A6%81%E3%80%91)
+
+变量不声明，直接赋值：（正常） ；只声明，不赋值：（注意，打印 undefined）；不声明，不赋值，直接使用：（会报错）
+
+
+
+
+
+# ES6
+
+在 ES6 语法及之后的版本里，可以使用 `const`、`let`关键字来定义一个变量
+
+```js
+const name; // 定义一个常量
+
+let age; // 定义一个变量
+```
+
+如果你想定义一个常量，就用 const；如果你想定义一个变量，就用 let。
+
