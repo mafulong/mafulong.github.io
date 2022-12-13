@@ -252,6 +252,11 @@ function getName() {
 
 console.log(`www.${getName()}.com`); // 打印结果：www.qianguyihao.com
 
+
+var str = 'smyhvae';
+console.log(str.length); // 获取字符串的长度
+console.log(str[2]); // 获取字符串中的第3个字符（下标为2的字符）
+
 ```
 
 ### Number
@@ -294,7 +299,19 @@ console.log('abc' / 18); //结果是NaN
 
 开头为0
 
+- 获取字符串或者数组的长度，用arr.length属性
+- 数组添加头部元素: arr.unshift("a","b"....); 结尾用push()方法
+- 将数组元素连接成字符串： arr.join("连接符")
+- 当数组的存储空间不够时，数组会自动扩容。其它编程语言中数组的大小是固定的，不会自动扩容。
+- 如果访问数组中不存在的索引时，不会报错，会返回undefined。
+- 数组可以存储不同类型数据，其它编程语言中数组只能存储相同类型数据。
+- 数组分配的存储空间不一定是连续的。其它语言数组分配的存储空间是连续的。
+
 ```javascript
+let arr1 = []; // 创建一个空的数组
+
+let arr2 = [1, 2, 3]; // 创建带初始值的数组
+
 var cars=new Array();
 cars[0]="Audi";
 cars[1]="BMW";
@@ -312,6 +329,57 @@ sequence.length;
 myArray.push('Cardiff');
 let removedItem = myArray.pop();
 ```
+
+
+
+数组解构赋值，代码举例：
+
+```js
+let [a, b, c] = [1, 2, [3, 4]];
+```
+
+判断是否为数组
+
+```javascript
+布尔值 = Array.isArray(被检测的数组);
+```
+
+
+
+```scala
+const name = 'qianguyihao';
+console.log(Array.from(name)); // 打印结果是数组：["q","i","a","n","g","u","y","i","h","a","o"]
+```
+
+
+
+```scala
+// ES5语法
+arr.forEach(function (currentItem, currentIndex, currentArray) {
+	console.log(currentValue);
+});
+
+// ES6语法
+arr.forEach((currentItem, currentIndex, currentArray) => {
+	console.log(currentValue);
+});
+
+参数1：当前正在遍历的元素
+
+参数2：当前正在遍历的元素的索引
+
+参数3：正在遍历的数组
+
+注意，forEach() 没有返回值。也可以理解成：forEach() 的返回值是 undefined。
+forEach() 通过参数 2、参数 3 修改原数组：（标准做法。 如果你想在遍历数组的同时，去改变数组里的元素内容，那么，最好是用 map() 方法来做，不要用 forEach()方法，避免出现一些低级错误。
+
+// ES6语法
+const newArr = arr.map((currentItem, currentIndex, currentArray) => {
+    return newItem;
+});
+```
+
+
 
 ### 对象
 
@@ -353,6 +421,43 @@ JavaScript 是一种“动态类型语言”，这意味着不同于其他一些
 ```
 let myString = 'Hello';
 ```
+
+### 基本包装类型
+
+我们都知道，js 中的数据类型包括以下几种。
+
+- 基本数据类型：String、Number、Boolean、Null、Undefined
+- 引用数据类型：Object
+
+JS 为我们提供了三个**基本包装类**：
+
+- String()：将基本数据类型字符串，转换为 String 对象。
+- Number()：将基本数据类型的数字，转换为 Number 对象。
+- Boolean()：将基本数据类型的布尔值，转换为 Boolean 对象。
+
+通过上面这这三个包装类，我们可以**将基本数据类型的数据转换为对象**。
+
+
+
+```javascript
+let str1 = 'qianguyihao';
+let str2 = new String('qianguyihao');
+
+let num = new Number(3);
+
+let bool = new Boolean(true);
+
+console.log(typeof str1); // 打印结果：string
+console.log(typeof str2); // 注意，打印结果：object
+```
+
+**需要注意的是**：我们在实际应用中一般不会使用基本数据类型的**对象**。如果使用基本数据类型的对象，在做一些比较时可能会带来一些**不可预期**的结果。
+
+
+
+当我们对一些基本数据类型的值去调用属性和方法时，JS引擎会**临时使用包装类将基本数据类型转换为引用数据类型**（即“隐式类型转换”），这样的话，基本数据类型就有了属性和方法，然后再调用对象的属性和方法；调用完以后，再将其转换为基本数据类型。
+
+比如str.length
 
 ## 运算符
 
@@ -649,6 +754,8 @@ name = person.fullName();
 
 ## 函数
 
+### 定义
+
 ```javascript
 // 传统定义函数方式
 function myFunction(a,b)
@@ -679,7 +786,202 @@ const Test = param => {
 }
 
 console.log(Test('hello'));   // hello
+
+// 很少用，
+const 变量名/函数名  = new Function('形参1', '形参2', '函数体');
+const fun3 = new Function('a', 'b', 'console.log("我是函数内部的内容");  console.log(a + b);');
 ```
+
+### 实际参数和形式参数的个数，可以不同
+
+实际参数和形式参数的个数，可以不同。调用函数时，解析器不会检查实参的数量。
+
+- 如果实参个数 > 形参个数，则末尾的实参是多余的，不会被赋值，因为没有形参能接收它。
+- 如果实参个数 < 形参个数，则末尾的形参是多余的，值是 undefined，因为它没有接收到实参。（undefined参与运算时，表达式的运算结果为NaN）
+
+函数的实参可以是任意的数据类型。调用函数时，解析器不会检查实参类型，所以要注意，是否有可能会接收到非法的参数，如果有可能则需要对参数进行类型检查。
+
+函数体内可以没有返回值，也可以根据需要加返回值。语法格式：`return 函数的返回值`。
+
+
+
+### 类数组对象 arguments
+
+在调用函数时，浏览器每次都会传递进两个隐含的参数：
+
+- 1.函数的上下文对象 this
+- 2.**封装实参的对象** arguments
+
+```javascript
+function foo() {
+    console.log(arguments);
+    console.log(typeof arguments);
+}
+
+foo('a', 'b');
+```
+
+函数内的 arguments 是一个**类数组对象**，里面存储的是它接收到的**实参列表**。所有函数都内置了一个 arguments 对象，有个讲究的地方是：只有函数才有arguments。
+
+具体来说，在调用函数时，我们所传递的实参都会在 arguments 中保存。**arguments 代表的是所有实参**。
+
+arguments 的展示形式是一个**伪数组**。意思是，它和数组有点像，但它并不是数组。它具有以下特点：
+
+- 可以进行遍历；具有数组的 length 属性，可以获取长度。
+- 可以通过索引（从0开始计数）存储数据、获取和操作数据。比如，我们可以通过索引访问某个实参。
+- 不能调用数组的方法。比如push()、pop() 等方法都没有。
+- 即使我们不定义形参，也可以通过 arguments 来获取实参：arguments[0] 表示第一个实参、arguments[1] 表示第二个实参，以此类推。
+- 当我们不确定有多少个参数传递的时候，可以用 **arguments** 来获取。
+
+###  立即执行函数
+
+```scala
+(function() {
+  // 函数体
+})(a, b);
+```
+
+即执行函数往往只会执行一次。为什么呢？因为没有变量保存它，执行完了之后，就找不到它了。
+
+
+
+### This指向
+
+> - [this指向](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/25-this%E6%8C%87%E5%90%91.html#%E6%89%A7%E8%A1%8C%E6%9C%9F%E4%B8%8A%E4%B8%8B%E6%96%87)
+
+解析器在调用函数每次都会向函数内部传递进一个隐含的参数，这个隐含的参数就是 this，this 指向的是一个对象，这个对象我们称为函数执行的 上下文对象。
+
+
+
+在ES5语法中，根据函数的调用方式的不同，this 会指向不同的对象：
+
+1、以函数的形式（包括普通函数、定时器函数、立即执行函数）调用时，this 的指向永远都是 window。比如`fun();`相当于`window.fun();`
+
+2、以方法的形式调用时，this 指向调用方法的那个对象
+
+3、以构造函数的形式调用时，this 指向实例对象
+
+4、以事件绑定函数的形式调用时，this 指向**绑定事件的对象**
+
+5、使用 call 和 apply 调用时，this 指向指定的那个对象
+
+
+
+```scala
+//以函数形式调用，this是window
+fun(); //可以理解成 window.fun()
+
+function fun() {
+    console.log(this);
+    console.log(this.name);
+}
+
+打印结果：
+    Window
+    全局的name属性
+
+
+
+//以方法的形式调用，this是调用方法的对象
+obj2.sayName();
+```
+
+
+
+ES6 中的箭头函数并不使用上面的准则，而是会继承外层函数调用的 this 绑定（无论 this 绑定到什么）。
+
+
+
+#### call() 方法的作用
+
+可以通过函数.call方法调用函数。
+
+call() 方法的作用：可以**调用**一个函数，与此同时，它还可以改变这个函数内部的 this 指向。
+
+call() 方法的另一个应用：**可以实现继承**。之所以能实现继承，其实是利用了上面的作用。
+
+语法：
+
+```js
+fn1.call(想要将this指向哪里, 函数实参1, 函数实参2);
+```
+
+备注：第一个参数中，如果不需要改变 this 指向，则传 null。
+
+
+
+```js
+fn1.call(this); // this的指向并没有被改变，此时相当于 fn1();
+```
+
+
+
+通过 call() 实现继承：
+
+```js
+// 给 Father 增加 name 和 age 属性
+function Father(myName, myAge) {
+    this.name = myName;
+    this.age = myAge;
+}
+
+function Son(myName, myAge) {
+    // 【下面这一行，重要代码】
+    // 通过这一步，将 father 里面的 this 修改为 Son 里面的 this；另外，给 Son 加上相应的参数，让 Son 自动拥有 Father 里的属性。最终实现继承
+    Father.call(this, myName, myAge);
+}
+```
+
+
+
+
+
+#### apply() 方法的作用
+
+apply() 方法的作用：可以**调用**一个函数，与此同时，它还可以改变这个函数内部的 this 指向。这一点，和 call()类似。
+
+apply() 方法的应用： 由于 apply()需要传递数组
+
+
+
+语法：
+
+```js
+fn1.apply(想要将this指向哪里, [函数实参1, 函数实参2]);
+```
+
+
+
+备注：第一个参数中，如果不需要改变 this 指向，则传 null。
+
+到这里可以看出， call() 和 apply() 方法的作用是相同的。唯一的区别在于，apply() 里面传入的**实参，必须是数组（或者伪数组）**。
+
+主要是个Math.max这样用的。使用场景较少，知道即可。
+
+
+
+#### bind() 方法的作用【常用】
+
+bind() 方法**不会调用函数**，但是可以改变函数内部的 this 指向。
+
+把call()、apply()、bind()这三个方法做一下对比，你会发现：实际开发中， bind() 方法使用得最为频繁。如果有些函数，我们不需要立即调用，但是又想改变这个函数内部的this指向，此时用 bind() 是最为合适的。
+
+语法：
+
+```js
+新函数 = fn1.bind(想要将this指向哪里, 函数实参1, 函数实参2);
+```
+
+
+
+参数：
+
+- 第一个参数：在 fn1 函数运行时，指定 fn1 函数的this 指向。如果不需要改变 this 指向，则传 null。
+- 其他参数：fn1 函数的实参。
+
+解释：它不会调用 fn1 函数，但会返回 由指定this 和指定实参的**原函数拷贝**。可以看出， bind() 方法是有返回值的。
+
+
 
 
 
@@ -737,6 +1039,10 @@ for (x in person)
 {
     txt=txt + person[x];
 }
+forin不推荐用在数组上。数组应该用forof
+for(let value of arr) {
+	console.log(value);
+}
 ```
 
 ### while循环
@@ -757,7 +1063,34 @@ while (i<5);
 //break; continue;
 ```
 
+## 作用域
 
+> [参考](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/23-%E4%BD%9C%E7%94%A8%E5%9F%9F%E3%80%81%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87%E3%80%81%E5%87%BD%E6%95%B0%E6%8F%90%E5%8D%87.html#%E4%BD%9C%E7%94%A8%E5%9F%9F%EF%BC%88scope%EF%BC%89%E7%9A%84%E6%A6%82%E5%BF%B5%E5%92%8C%E5%88%86%E7%B1%BB)
+
+直接编写在 script 标签中的 JS 代码，都在全局作用域。全局作用域在页面打开时创建，在页面关闭时销毁。
+
+在全局作用域中有一个全局对象 window，它代表的是浏览器的窗口，由浏览器创建，我们可以直接使用。相关知识点如下：
+
+- 创建的**变量**都会作为 window 对象的属性保存。比如在全局作用域内写 `const a = 100`，这里的 `a` 等价于 `window.a`。
+- 创建的**函数**都会作为 window 对象的方法保存。
+- 无论是在函数外还是函数内，变量如果未经声明就赋值（意思是，如果不加var/let/const），这个变量是**全局变量**。
+
+JS在解析代码之前，有一个“**预处理**（预解析）”阶段，将当前 JS 代码中所有变量的定义和函数的定义，放到所有代码的最前面。
+
+- 使用 var 关键字声明的变量（ 比如 `var a = 1`），**会在所有的代码执行之前被声明**（但是不会赋值）。但是如果声明变量时不是用 var 关键字（比如直接写`a = 1`），则变量不会被声明提前。
+- 使用`函数声明`的形式创建的函数`function foo(){}`，**会被声明提前**。
+- 在JS的规则中，函数提升优先于变量提升。
+
+
+
+在函数作用域中，也有声明提前的现象：
+
+- 函数中，使用 var 关键字声明的变量，会在函数中所有代码执行之前被提前声明。
+- 函数中，没有 var 声明的变量都是**全局变量**，且并不会被提前声明。
+
+
+
+在 ES5 中没有块级作用域
 
 ## try catch
 
@@ -804,12 +1137,9 @@ parent.removeChild(child);
 
 ## 其他 小结
 
-- 字符串转换为数字用Number(str)或则和parseInt(str)/parseFloat(str)方法
+- 字符串转换为数字用Number(str)或者parseInt(str)/parseFloat(str)方法
 - 数字转换为字符串用var.toString()方法
-- 获取字符串或者数组的长度，用arr.length属性
-- 数组添加头部元素: arr.unshift("a","b"....); 结尾用push()方法
 - NaN： not a number
-- 将数组元素连接成字符串： arr.join("连接符")
 - 可以直接使用Math.方法名，如max(...), 
 - document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低
 - ByName()只用于表单元素，一般是单选和复选框
