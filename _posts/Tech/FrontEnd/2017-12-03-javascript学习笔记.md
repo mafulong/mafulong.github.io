@@ -693,13 +693,15 @@ d.getTime()        // 返回 1404568027739
 ### 对象创建
 
 ```javascript
+// 方式1：字面量 对象的字面量就是一个{}。里面的属性和方法均是键值对. key可以也可以没有引号
 var person={
     firstname : "Bill",
     lastname  : "Gates",
     id        :  5566
 };
 
-//创建对象
+// 方式2：工厂模式 new Object()。弊端： 使用工厂方法创建的对象，使用的构造函数都是 Object。所以创建的对象都是 Object 这个类型，就导致我们无法区分出多种不同类型的对象。
+
 person=new Object();
 person.firstname="Bill";
 person.lastname="Gates";
@@ -707,7 +709,7 @@ person.age=56;
 person.eyecolor="blue";
 //或者
 person={firstname:"John",lastname:"Doe",age:50,eyecolor:"blue"};
-//或者对象构造器
+//或者对象构造器 构造函数  推荐
 function person(firstname,lastname,age,eyecolor)
 {
     this.firstname=firstname;
@@ -717,6 +719,21 @@ function person(firstname,lastname,age,eyecolor)
 }
 var myFather=new person("Bill","Gates",56,"blue");
 ```
+
+**构造函数**：是一种特殊的函数，主要用来创建和初始化对象，也就是为对象的成员变量赋初始值。它与 `new` 一起使用才有意义。
+
+- 构造函数的创建方式和普通函数没有区别，不同的是构造函数习惯上首字母大写。
+- 构造函数和普通函数的区别就是**调用方式**的不同：普通函数是直接调用，而构造函数需要使用 new 关键字来调用。
+
+**this 的指向也有所不同**：
+
+- 1.以函数的形式调用时，this 永远都是 window。比如`fun();`相当于`window.fun();`
+- 2.以方法的形式调用时，this 是调用方法的那个对象
+- 3.以构造函数的形式调用时，this 是新创建的实例对象
+
+
+
+
 
 ### 访问对象属性
 
@@ -735,7 +752,7 @@ var person = {
     lastName : "Doe",
     id : 5566,
     fullName : function() 
-	{
+	  {
        return this.firstName + " " + this.lastName;
     }
 };
@@ -750,7 +767,45 @@ document.getElementById("demo").innerHTML = person.fullName();
 name = person.fullName();
 ```
 
+### instanceof
 
+使用 instanceof 可以检查**一个对象是否为一个类的实例**。
+
+**语法如下**：
+
+```javascript
+对象 instanceof 构造函数;
+```
+
+### 浅拷贝
+
+ES6 给我们提供了新的语法糖，通过 `Object.assgin()` 可以实现**浅拷贝**。
+
+`Object.assgin()` 在日常开发中，使用得相当频繁，非掌握不可。
+
+**语法**：
+
+```js
+// 语法1
+obj2 = Object.assgin(obj2, obj1);
+
+// 语法2
+Object.assign(目标对象, 源对象1, 源对象2...);
+```
+
+**解释**：将`obj1` 拷贝给 `obj2`。执行完毕后，obj2 的值会被更新。
+
+**作用**：将 obj1 的值追加到 obj2 中。如果对象里的属性名相同，会被覆盖。
+
+从语法2中可以看出，Object.assign() 可以将多个“源对象”拷贝到“目标对象”中。
+
+
+
+深拷贝其实就是将浅拷贝进行递归。
+
+### 原型
+
+原型就是父类 继承的父类。
 
 ## 函数
 
@@ -983,7 +1038,25 @@ bind() 方法**不会调用函数**，但是可以改变函数内部的 this 指
 
 
 
+### 闭包（closure）
 
+**闭包**：如果**外部作用域**有权访问另外一个**函数内部**的**局部变量**时，那就产生了闭包。这个内部函数称之为闭包函数。注意，这里强调的是访问**局部变量**。
+
+闭包代码举例：
+
+```js
+function fun1() {
+  const a = 10;
+  return function fun2() {
+    console.log(a);
+  };
+}
+fun1();
+// 调用外部函数，就能得到内部函数，并用 变量 result 接收
+const result = fun1();
+// 在 fun1函数的外部，执行了内部函数 fun2，并访问到了 fun2的内部变量a
+result(); // 10
+```
 
 ## if和循环
 
@@ -1141,12 +1214,9 @@ parent.removeChild(child);
 - 数字转换为字符串用var.toString()方法
 - NaN： not a number
 - 可以直接使用Math.方法名，如max(...), 
-- document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低
+- 
 - ByName()只用于表单元素，一般是单选和复选框
 - 两个特殊方法，document.title, document.body
-- 节点有三种：元素节点，属性节点，文本节点
-- 创建节点的流程：createElement(), createTextNode()，把文本节点插入元素节点 appendChild()，把组装好的节点插入到已有元素中:appendChild（）
-- obj.style.属性名只可以获得行内样式，是没办法获得内部样式和外部样式的。一般用getComputedStyle.属性名或者obj.style.cssText()="width:3px"等来写，后者可以写多个，css写法，前者驼峰样式，没有-了
 - html中onclick="f()", js中obj.click=f，前者是调用属性，后者是给属性赋值
 - 只执行最后一次window.onload=function(){ }
 - 事件绑定： obj.addEventListener("click",funcion,false);
@@ -1485,6 +1555,255 @@ $("p").css({"background-color":"yellow","font-size":"200%"});
 变量不声明，直接赋值：（正常） ；只声明，不赋值：（注意，打印 undefined）；不声明，不赋值，直接使用：（会报错）
 
 
+
+## 事件
+
+### 事件 绑定
+
+- [事件](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/35-%E4%BA%8B%E4%BB%B6%E7%AE%80%E4%BB%8B.html#%E4%BA%8B%E4%BB%B6%E7%AE%80%E4%BB%8B)
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212150003045.png)
+
+
+
+```scala
+    //这种事件绑定的方式，如果绑定多个，则后面的会覆盖掉前面的
+    btn.onclick = function () {
+        console.log("事件1");
+    }
+		// 方式2
+    element.addEventListener('click', function () {
+
+    }, false);
+    参数解释：
+
+    参数1：事件名的字符串(注意，没有on)
+
+    参数2：回调函数：当事件触发时，该函数会被执行
+
+    参数3：true表示捕获阶段触发，false表示冒泡阶段触发（默认）。如果不写，则默认为false。【重要】
+```
+
+也可以传入event参数。
+
+```html
+small.onmousemove = function (event) {}
+```
+
+### 事件的传播和事件冒泡
+
+- [事件的传播和事件冒泡](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/42-%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%BC%A0%E6%92%AD%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1.html#dom%E4%BA%8B%E4%BB%B6%E6%B5%81)
+
+事件传播的三个阶段是：事件捕获、事件冒泡和目标。
+
+- 事件捕获阶段：事件从祖先元素往子元素查找（DOM树结构），直到捕获到事件目标 target。在这个过程中，默认情况下，事件相应的监听函数是不会被触发的。
+- 事件目标：当到达目标元素之后，执行目标元素该事件相应的处理函数。如果没有绑定监听函数，那就不执行。
+- 事件冒泡阶段：事件从事件目标 target 开始，从子元素往冒泡祖先元素冒泡，直到页面的最上一级标签。
+
+
+
+捕获阶段，事件依次传递的顺序是：window --> document --> html--> body --> 父元素、子元素、目标元素。
+
+
+
+**事件冒泡**: 当一个元素上的事件被触发的时候（比如说鼠标点击了一个按钮），同样的事件将会在那个元素的所有**祖先元素**中被触发。这一过程被称为事件冒泡；这个事件从原始元素开始一直冒泡到DOM树的最上层。
+
+通俗来讲，冒泡指的是：**子元素的事件被触发时，父元素的同样的事件也会被触发**。取消冒泡就是取消这种机制。
+
+
+
+以下事件不冒泡：blur、focus、load、unload、onmouseenter、onmouseleave。意思是，事件不会往父元素那里传递。
+
+大部分情况下，冒泡都是有益的。当然，如果你想阻止冒泡，也是可以的。可以按下面的方法阻止冒泡。
+
+```javascript
+  event.stopPropagation();
+```
+
+
+
+可以用这个冒泡做一些[事件委托](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/43-%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98.html)  为父节点注册 click 事件，当子节点被点击的时候，click事件会从子节点开始**向父节点冒泡**。**父节点捕获到事件**之后，开始执行方法体里的内容：通过判断 event.target 拿到了被点击的子节点`<a>`。从而可以获取到相应的信息，并作处理。
+
+## Dom
+
+> [DOM](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/36-DOM%E7%AE%80%E4%BB%8B%E5%92%8CDOM%E6%93%8D%E4%BD%9C.html#%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5)
+
+**节点**（Node）：构成 HTML 网页的最基本单元。网页中的每一个部分都可以称为是一个节点，比如：html标签、属性、文本、注释、整个文档等都是一个节点。
+
+虽然都是节点，但是实际上他们的具体类型是不同的。常见节点分为四类：
+
+- 文档节点（文档）：整个 HTML 文档。整个 HTML 文档就是一个文档节点。
+- 元素节点（标签）：HTML标签。
+- 属性节点（属性）：元素的属性。
+- 文本节点（文本）：HTML标签中的文本内容（包括标签之间的空格、换行）。
+
+节点的类型不同，属性和方法也都不尽相同。所有的节点都是Object。
+
+**解析过程**： HTML加载完毕，渲染引擎会在内存中把HTML文档，生成一个DOM树，getElementById是获取内中DOM上的元素节点。然后操作的时候修改的是该元素的**属性**。
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212151021206.png)
+
+
+
+### 有三种方式可以获取DOM节点
+
+```javascript
+var div1 = document.getElementById("box1"); //方式一：通过 id 获取 一个 元素节点（为什么是一个呢？因为 id 是唯一的）
+
+var arr1 = document.getElementsByTagName("div"); //方式二：通过 标签名 获取 元素节点数组，所以有s
+
+var arr2 = document.getElementsByClassName("hehe"); //方式三：通过 类名 获取 元素节点数组，所以有s
+```
+
+document.querySelector()方法，querySelectorAll()方法选择器写法和css选择器写法一样，但效率低
+
+
+
+DOM的节点并不是孤立的，因此可以通过DOM节点之间的相对关系对它们进行访问。
+
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212151022606.png)
+
+
+
+获取父节点
+
+```javascript
+	节点.parentNode
+```
+
+获取所有的子节点
+
+（1）childNodes：标准属性。返回的是指定元素的子节点的集合（包括元素节点、所有属性、文本节点）
+（2）children：非标准属性。返回的是指定元素的子元素节点的集合。【重要】它只返回HTML节点，甚至不返回文本节点。
+
+
+
+创建节点的流程：createElement(), createTextNode()，把文本节点插入元素节点 appendChild()
+
+
+
+### 获取节点的属性值
+
+**方式1**：
+
+```javascript
+	元素节点.属性名;
+	元素节点[属性名];
+```
+
+**方式2**：
+
+```javascript
+	元素节点.getAttribute("属性名称");
+```
+
+### 设置节点的属性值
+
+方式1举例：（设置节点的属性值）
+
+```javascript
+    myNode.src = "images/2.jpg"   //修改src的属性值
+    myNode.className = "image2-box";  //修改class的name
+```
+
+方式2：
+
+```javascript
+	元素节点.setAttribute("属性名", "新的属性值");
+```
+
+方式2举例：（设置节点的属性值）
+
+```javascript
+    myNode.setAttribute("src","images/3.jpg");
+```
+
+
+
+**如果是节点的“原始属性”**（比如 普通标签的`class/className`属性、普通标签的`style`属性、普通标签的 title属性、img 标签的`src`属性、超链接的`href`属性等），**方式1和方式2是等价的**，可以混用。怎么理解混用呢？比如说：用 `div.title = '我是标题'`设置属性，用 `div.getAttribute('title')`获取属性，就是混用。
+
+但如果是节点的“非原始属性”，**这两种方式不能交换使用**，get值和set值必须使用同一种方法。
+
+
+
+### nodeType属性
+
+这里讲一下nodeType属性。
+
+- **nodeType == 1 表示的是元素节点**（标签） 。记住：在这里，元素就是标签。
+- nodeType == 2 表示是属性节点。
+- nodeType == 3 是文本节点。
+
+
+
+## style属性的获取和修改
+
+在DOM当中，如果想设置样式，有两种形式：
+
+- className（针对内嵌样式）
+- style（针对行内样式）
+
+需要注意的是：style是一个对象，只能获取**行内样式**，不能获取内嵌的样式和外链的样式。
+
+### 通过 js 读取/设置元素的样式 只能行内
+
+```javascript
+ 元素.style["属性"];  //格式
+
+ box.style["width"];  //举例
+
+box1.style.width = "300px";
+box1.style.backgroundColor = "red"; // 驼峰命名法
+```
+
+备注：我们通过style属性设置的样式都是**行内样式**，而行内样式有较高的优先级。但是如果在样式中的其他地方写了`!important`，则此时`!important`会有更高的优先级。
+
+
+
+### 通过 js 获取元素当前显示的样式 不只行内
+
+（1）w3c的做法：
+
+```javascript
+    window.getComputedStyle("要获取样式的元素", "伪元素");
+```
+
+两个参数都是必须要有的。参数二中，如果没有伪元素就用 null 代替（一般都传null）。
+
+（2）IE和opera的做法：
+
+```javascript
+    obj.currentStyle;
+```
+
+注意：
+
+- 如果当前元素没有设置该样式，则获取它的默认值。
+- 该方法会返回一个**对象**，对象中封装了当前元素对应的样式，可以通过`对象.样式名`来读取具体的某一个样式。
+- 通过currentStyle和getComputedStyle()读取到的样式都是只读的，不能修改，如果要修改必须通过style属性。
+
+
+
+```js
+    var div1 = document.getElementsByTagName("div")[0];
+
+    console.log(getStyle(div1, "width"));
+    console.log(getStyle(div1, "padding"));
+    console.log(getStyle(div1, "background-color"));
+
+    /*
+     * 兼容方法，获取元素当前正在显示的样式。
+     * 参数：
+     *      obj     要获取样式的元素
+     *.     name    要获取的样式名
+    */
+    function getStyle(ele, attr) {
+        if (window.getComputedStyle) {
+            return window.getComputedStyle(ele, null)[attr];
+        }
+        return ele.currentStyle[attr];
+    }
+```
 
 
 
