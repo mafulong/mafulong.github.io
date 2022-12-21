@@ -1208,6 +1208,10 @@ parent.removeChild(child);
 
 
 
+
+
+## 原型和原型链
+
 ## 其他 小结
 
 - 字符串转换为数字用Number(str)或者parseInt(str)/parseFloat(str)方法
@@ -1807,7 +1811,234 @@ box1.style.backgroundColor = "red"; // 驼峰命名法
 
 
 
+## BOM
+
+- [BOM](https://web.qianguyihao.com/04-JavaScript%E5%9F%BA%E7%A1%80/45-BOM%E7%AE%80%E4%BB%8B%E5%92%8Cnavigator.userAgent&History&Location.html#%E5%B8%B8%E8%A7%81%E6%A6%82%E5%BF%B5)
+
+- **BOM**：浏览器对象模型（Browser Object Model），操作**浏览器部分功能**的API。比如让浏览器自动滚动。
+
+```text
+location.href = 'https://xxx';
+```
+
+解释：获取当前页面的 url 路径（或者设置 url 路径）；或者跳转到指定路径。
+
+需要特别注意的是：window.location.href的赋值，并不会中断Javascript的执行立即进行页面跳转。因为 LocationChange 行为在浏览器内核中是起定时器异步执行的。异步执行的好处是为了防止代码调用过深，导致栈溢出，另外也是为了防止递归进入加载逻辑，导致状态紊乱，保证导航请求是顺序执行的。
+
+解决办法：在 location.href 的下一行，加上 return 即可。意思是，执行了 location.href 之后，就不要再继续往下执行了。
+
+
+
+```javascript
+ location.reload();
+```
+
+解释：用于重新加载当前页面，作用和刷新按钮一样。
+
+## 定时器
+
+- setInterval()：循环调用。将一段代码，**每隔一段时间**执行一次。（循环执行）
+- setTimeout()：延时调用。将一段代码，等待一段时间之后**再执行**。（只执行一次）
+
+每间隔一秒，将 数字 加1：
+
+```javascript
+   let num = 1;
+   setInterval(function () {
+       num ++;
+       console.log(num);
+   }, 1000);
+```
+
+
+
+定时器的返回值是作为这个定时器的**唯一标识**，可以用来清除定时器。具体方法是：假设定时器setInterval()的返回值是`参数1`，那么`clearInterval(参数1)`就可以清除定时器。
+
+setTimeout()的道理是一样的。
+
+
+
+# MDN
+
+> [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
+
+## 模块module
+
+> [Kingdom](https://en.wikipedia.org/wiki/%2B44_(band))
+
+可命名.mjs文件，和.js文件实际一样，但便于理解
+
+需要导出。类似
+
+```js
+export const name = 'square';
+
+export function draw(ctx, length, x, y, color) {}
+```
+
+需要导入。类似
+
+```scala
+import { name, draw, reportArea, reportPerimeter } from '/js-examples/modules/basic-modules/modules/square.mjs';
+```
+
+现在我们只需要将 main.mjs 模块应用到我们的 HTML 页面。这与我们将常规脚本应用于页面的方式非常相似，但有一些显着的差异。首先，你需要把 `type="module"` 放到 [``](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/script) 标签中，来声明这个脚本是一个模块：
+
+```
+<script type="module" src="main.mjs"></script>
+```
+
+
+
+支持重命名
+
+```js
+// inside module.mjs
+export {
+  function1 as newFunctionName,
+  function2 as anotherNewFunctionName
+};
+
+// inside main.mjs
+import { newFunctionName, anotherNewFunctionName } from '/modules/module.mjs';
+```
+
+
+
+```js
+// inside module.mjs
+export { function1, function2 };
+
+// inside main.mjs
+import { function1 as newFunctionName,
+         function2 as anotherNewFunctionName } from '/modules/module.mjs';
+```
+
+
+
+
+
+支持模块对象创建
+
+一个更好的解决方是，导入每一个模块功能到一个模块功能对象上。可以使用以下语法形式：
+
+```js
+import * as Module from '/modules/module.mjs';
+```
+
+这将获取 `module.mjs` 中所有可用的导出，并使它们可以作为对象模块的成员使用，从而有效地为其提供自己的命名空间。例如：
+
+```js
+Module.function1()
+Module.function2()
+etc.
+```
+
+## 原型
+
+> [原型（prototype）](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Object_prototypes#%E4%BD%BF%E7%94%A8_javascript_%E4%B8%AD%E7%9A%84%E5%8E%9F%E5%9E%8B)
+
+在传统的 OOP 中，首先定义“类”，此后创建对象实例时，类中定义的所有属性和方法都被复制到实例中。在 JavaScript 中并不如此复制——而是在对象实例和它的构造器之间建立一个链接（它是__proto__属性，是从构造函数的`prototype`属性派生的），之后通过上溯原型链，在构造器中找到这些属性和方法。
+
+理解对象的原型（可以通过 [`Object.getPrototypeOf(obj)`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/GetPrototypeOf)或者已被弃用的[`__proto__`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/proto)属性获得）与构造函数的 `prototype` 属性之间的区别是很重要的。前者是每个实例上都有的属性，后者是构造函数的属性。也就是说，`Object.getPrototypeOf(new Foobar())` 和 `Foobar.prototype` 指向着同一个对象。
+
+
+
+在 javascript 中，函数可以有属性。每个函数都有一个特殊的属性叫作**原型（prototype）**。
+
+prototype是个对象。`prototype` 属性的值是一个对象，我们希望被原型链下游的对象继承的属性和方法，都被储存在其中。
+
+原型对象是一个内部对象，应当使用 `__proto__` 访问）。`prototype` 属性包含（指向）一个对象，你在这个对象中定义需要被继承的成员。
+
+原型链中的方法和属性**没有**被复制到其他对象——它们被访问需要通过前面所说的“原型链”的方式。这是和构造器里直接声明定义方法的区别，构造器里的是每个实例都有一份。原型链里全部只有一份。
+
+
+
+每个实例对象都从原型中继承了一个 constructor 属性，该属性指向了用于构造此实例对象的构造函数。
+
+
+
+事实上，一种极其常见的对象定义模式是，在构造器（函数体）中定义属性、在 `prototype` 属性上定义方法。如此，构造器只包含属性定义，而方法则分装在不同的代码块，代码更具可读性。例如：
+
+```js
+// 构造器及其属性定义
+
+function Test(a,b,c,d) {
+  // 属性定义
+};
+
+// 定义第一个方法
+
+Test.prototype.x = function () { ... }
+
+// 定义第二个方法
+
+Test.prototype.y = function () { ... }
+
+// 等等……
+```
+
+
+
+Object.prototype的**proto**属性是一个访问器属性（一个getter函数和一个setter函数），它公开访问它的对象的内部[[Prototype]]（对象或null）。
+
+
+
+> [轻松理解JS 原型原型链](https://juejin.cn/post/6844903989088092174)
+
+1. js分为**函数对**象和**普通对象**，每个对象都有__proto__属性，但是只有函数对象才有prototype属性
+2. Object、Function都是js内置的**函数**, 类似的还有我们常用到的Array、RegExp、Date、Boolean、Number、String
+3. 属性__proto__是一个对象，它有两个属性，constructor和__proto__；
+4. 原型对象prototype有一个默认的constructor属性，用于记录实例是由哪个构造函数创建；
+
+
+
+```scala
+ function Person(name, age){ 
+    this.name = name;
+    this.age = age;
+ }
+ 
+ Person.prototype.motherland = 'China'
+ let person01 = new Person('小明', 18);
+```
+
+
+
+
+js之父在设计js原型、原型链的时候遵从以下两个准则
+1. Person.prototype.constructor == Person // **准则1：原型对象（即Person.prototype）的constructor指向构造函数本身**
+2. person01.__proto__ == Person.prototype // **准则2：实例（即person01）的__proto__和原型对象指向同一个地方**
+
+
+
+
+
+构造函数和原型可支持面向对象的特性。但不容易实现。下面是es6里的class笔记。
+
+
+
 # ES6
+
+> [参考](https://web.qianguyihao.com/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/01-ES5%E5%92%8CES6%E7%9A%84%E4%BB%8B%E7%BB%8D.html#%E5%89%8D%E8%A8%80)
+
+简单来说，ECMAScript 是 JS 的语言标准。当然，ECMAScript 还包括其他脚本语言的语言标准。
+
+ES6 是新的 JS 语法标准。**ES6 实际上是一个泛指，泛指 ES 2015 及后续的版本**。
+
+ES6 的改进如下：
+
+- ES6 之前的变量提升，会导致程序在运行时有一些不可预测性。而 ES6 中通过 let、const 变量优化了这一点。
+- ES6 增加了很多功能，比如：**常量、作用域、对象代理、异步处理、类、继承**等。这些在 ES5 中想实现，比较复杂，但是 ES6 对它们进行了封装。
+- ES6 之前的语法过于松散，实现相同的功能，不同的人可能会写出不同的代码。
+
+ES6 的目标是：让 JS 语言可以编写复杂的大型应用程序，成为企业级开发语言。
+
+
+
+
+
+
 
 在 ES6 语法及之后的版本里，可以使用 `const`、`let`关键字来定义一个变量
 
@@ -1818,4 +2049,6 @@ let age; // 定义一个变量
 ```
 
 如果你想定义一个常量，就用 const；如果你想定义一个变量，就用 let。
+
+
 
