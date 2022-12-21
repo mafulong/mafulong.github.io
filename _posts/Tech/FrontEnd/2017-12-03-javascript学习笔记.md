@@ -1479,11 +1479,9 @@ $("p").css("background-color","yellow");
 $("p").css({"background-color":"yellow","font-size":"200%"});
 ```
 
-# Jquery ajax淘汰
+# Jquery淘汰
 
 [参考](https://www.xiejiahe.com/blog/detail/59b35ad615c192bd11b90469)
-
-
 
 
 
@@ -1858,6 +1856,73 @@ setTimeout()的道理是一样的。
 
 
 
+
+
+## ES5严格模式
+
+> [ES5中的严格模式](https://web.qianguyihao.com/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/02-ES5%E4%B8%AD%E7%9A%84%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F.html#es%E7%9A%84%E5%87%A0%E4%B8%AA%E9%87%8D%E8%A6%81%E7%89%88%E6%9C%AC)
+
+使用
+
+- 针对整个文件：将`use strict`放在文件的第一行，则整个文件将以严格模式运行。
+- 针对单个函数：将`use strict`放在函数体的第一行，则整个函数以严格模式运行。
+
+语法和行为改变
+
+- 必须用var声明变量
+
+- 禁止自定义的函数中的this指向window
+
+- 创建eval作用域
+
+- 对象不能有重名的属性
+
+- 为了向将来Javascript的新版本过渡，严格模式新增了一些保留字：implements, interface, let, package, private, protected, public, static, yield。
+
+  
+
+
+
+在 ES6 语法及之后的版本里，可以使用 `const`、`let`关键字来定义一个变量
+
+```js
+const name; // 定义一个常量
+
+let age; // 定义一个变量
+```
+
+如果你想定义一个常量，就用 const；如果你想定义一个变量，就用 let。
+
+
+
+## Json
+
+```scala
+var a = {
+  b: 3,
+  c: "dd",
+};
+console.log(a);
+b = JSON.stringify(a);
+console.log(b);
+
+console.log(JSON.parse(b));
+```
+
+1、js对象(数组) --> json对象(数组)：
+
+```javascript
+	JSON.stringify(obj/arr)
+```
+
+2、json对象(数组) --> js对象(数组)：
+
+```javascript
+	JSON.parse(json)1
+```
+
+上面这两个方法是ES5中提供的。不需要Import新的包，js就支持
+
 # MDN
 
 > [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
@@ -2018,6 +2083,108 @@ js之父在设计js原型、原型链的时候遵从以下两个准则
 
 
 
+
+
+## 类
+
+> [JavaScript 中的类](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
+
+这里描述的特性并不是一种继承对象的新方式：在引擎的底层，这一特性使用的仍是原型。这只是一种更容易的创建原型链的方法。
+
+
+
+```scala
+class Person {
+
+  name;
+
+  constructor(name) {
+    this.name = name;
+  }
+
+  introduceSelf() {
+    console.log(`Hi! I'm ${this.name}`);
+  }
+
+}
+
+const giles = new Person('Giles');
+
+giles.introduceSelf(); // Hi! I'm Giles
+```
+
+构造函数使用 [`constructor`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/constructor) 关键字来声明。就像[在类声明外的构造函数](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Basics)一样，它会：
+
+- 创建一个新的对象
+- 将 `this` 绑定到这个新的对象，你可以在构造函数代码中使用 `this` 来引用它
+- 执行构造函数中的代码
+- 返回这个新的对象
+
+如果你不需要任何特殊的初始化内容，你可以省略构造函数，默认的构造函数会被自动生成
+
+
+
+**继承**
+
+对于上文给出的 Person 类，我们声明一个它的子类 Professor。
+
+注意extends, contructor里的super
+
+```scala
+
+
+class Professor extends Person {
+
+  teaches;
+
+  constructor(name, teaches) {
+    super(name);
+    this.teaches = teaches;
+  }
+
+  introduceSelf() {
+    console.log(`My name is ${this.name}, and I will be your ${this.teaches} professor.`);
+  }
+
+  grade(paper) {
+    const grade = Math.floor(Math.random() * (5 - 1) + 1);
+    console.log(grade);
+  }
+
+}
+```
+
+
+
+想要某些字段私有。可以用字段前面加#. 私有数据属性必须在类的声明中声明，而且其名称需以 `#` 开头。
+
+
+
+与私有数据属性一样，你也可以声明私有方法。而且名称也是以 `#` 开头，只能在类自己的方法中调用
+
+
+
+```scala
+class Student extends Person {
+
+  #year;
+
+  constructor(name, year) {
+    super(name);
+    this.#year = year;
+  }
+    somePublicMethod() {
+    this.#somePrivateMethod();
+  }
+
+  #somePrivateMethod() {
+    console.log('You called me?');
+  }
+}
+```
+
+
+
 # ES6
 
 > [参考](https://web.qianguyihao.com/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/01-ES5%E5%92%8CES6%E7%9A%84%E4%BB%8B%E7%BB%8D.html#%E5%89%8D%E8%A8%80)
@@ -2038,17 +2205,54 @@ ES6 的目标是：让 JS 语言可以编写复杂的大型应用程序，成为
 
 
 
-
-
-在 ES6 语法及之后的版本里，可以使用 `const`、`let`关键字来定义一个变量
+现在，有了 ES6 之后，我们可以使用对象解构的方式进行赋值。举例如下：
 
 ```js
-const name; // 定义一个常量
-
-let age; // 定义一个变量
+const person = { name: 'qianguyihao', age: 28, sex: '男' };
+let { name, age, sex } = person; // 对象的结构赋值
 ```
 
-如果你想定义一个常量，就用 const；如果你想定义一个变量，就用 let。
 
 
+
+
+ES6 在**函数扩展**方面，新增了很多特性。例如：
+
+- 箭头函数
+- 参数默认值
+- 参数结构赋值
+- 剩余参数
+- 扩展运算符
+- this 绑定
+- 尾调用
+
+
+
+```scala
+const fn2 = (a, b) => {
+    console.log('haha');
+    return a + b;
+};
+
+console.log(fn2(1, 2)); //输出结果：3
+```
+
+ES6 的箭头函数中：**箭头函数本身不绑定 this**，this 指向的是**箭头函数定义位置的 this**（也就是说，箭头函数在哪个位置定义的，this 就跟这个位置的 this 指向相同）。
+
+```scala
+function fn(param = 'hello') {
+    console.log(param);
+}
+```
+
+```scala
+const fn = (...args) => {
+    //当不确定方法的参数时，可以使用剩余参数
+    console.log(args[0]);
+    console.log(args[1]);
+    console.log(args[2]);
+    console.log(args[3]);
+};
+
+```
 
