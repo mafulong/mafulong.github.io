@@ -1923,6 +1923,90 @@ console.log(JSON.parse(b));
 
 上面这两个方法是ES5中提供的。不需要Import新的包，js就支持
 
+## 同源和跨域
+
+> [同源和跨域](https://web.qianguyihao.com/06-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9A%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/04-%E5%90%8C%E6%BA%90%E5%92%8C%E8%B7%A8%E5%9F%9F.html#%E5%90%8C%E6%BA%90%E5%92%8C%E8%B7%A8%E5%9F%9F)
+
+同源策略是浏览器的一种安全策略，所谓同源是指，域名，协议，端口完全相同。
+
+从我自己的网站访问别人网站的内容，就叫跨域。
+
+
+
+  同源策略限制以下几种行为：
+
+- Cookie、LocalStorage 和 IndexDB 无法读取
+- DOM和JS对象无法获得
+- AJAX 请求不能发送
+
+
+
+指当前域名不能请求其它域名的内容。解决跨域常见几种方式
+
+- iframe：处于安全性考虑，浏览器的开发厂商已经禁止了这种方式。
+- JSONP：script 标签的 src 属性传递数据。
+- 跨域资源共享（CORS） [参考](https://juejin.cn/post/6844903882083024910#heading-5)
+  - CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。
+  - 请求里有Origin, 服务端会校验。
+  - 请求header里有**Access-Control-Request-**xx
+  - 预检请求可以只有一次
+
+## Promise
+
+> [Promise](https://web.qianguyihao.com/06-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9A%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/05-Promise%E5%85%A5%E9%97%A8%E8%AF%A6%E8%A7%A3.html)
+
+**回调的缺点**
+
+回调的写法比较直观，不需要 return，层层嵌套即可。但也存在两个问题：
+
+- 如果嵌套过深，则会出现**回调地狱**的问题。
+- 不同的函数，回调的参数，在写法上可能不一致，导致不规范、且需要**单独记忆**。
+
+在 ES5 中，当进行多层嵌套回调时，会导致代码层次过多，很难进行后续维护和二次开发；而且会导致**回调地狱**的问题。ES6 中的 Promise 就可以解决这些问题。
+
+
+
+ES6 中的 Promise 是异步编程的一种方案。从语法上讲，Promise 是一个对象，它可以获取异步操作的消息。
+
+Promise 对象, 可以**用同步的表现形式来书写异步代码**（也就是说，代码看起来是同步的，但本质上的运行过程是异步的）。使用 Promise 主要有以下好处：
+
+- 1、可以很好地解决**回调地狱**的问题（避免了层层嵌套的回调函数）。
+- 2、语法简洁、可读性强，便于后期维护。
+- 3、Promise 对象提供了简洁的 API，使得管理异步操作更加容易。比如**多任务等待合并**。
+
+
+
+- [使用 Promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
+
+Promise 很棒的一点就是**链式调用**（**chaining**）。
+
+
+
+有可能会在一个回调失败之后继续使用链式操作，即，使用一个 `catch`，这对于在链式操作中抛出一个失败之后，再次进行新的操作会很有用。请阅读下面的例子：
+
+```js
+new Promise((resolve, reject) => {
+    console.log('初始化');
+
+    resolve();
+})
+.then(() => {
+    throw new Error('有哪里不对了');
+
+    console.log('执行「这个」”');
+})
+.catch(() => {
+    console.log('执行「那个」');
+})
+.then(() => {
+    console.log('执行「这个」，无论前面发生了什么');
+});
+```
+
+
+
+
+
 # MDN
 
 > [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
