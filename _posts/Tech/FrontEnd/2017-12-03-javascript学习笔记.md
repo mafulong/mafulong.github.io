@@ -2212,7 +2212,7 @@ giles.introduceSelf(); // Hi! I'm Giles
 
 对于上文给出的 Person 类，我们声明一个它的子类 Professor。
 
-注意extends, contructor里的super
+注意extends, constructor里的super
 
 ```scala
 
@@ -2266,6 +2266,18 @@ class Student extends Person {
   }
 }
 ```
+
+
+
+## 三个注意点：
+
+1.在ES6中类没有变量提升，所以必须先定义类，才能通过类实例化对象。
+
+2.类里面的共有属性和方法一定要加this调用。
+
+3.类里面的this指向问题
+
+constructor里面的this指向的是 创建的实例对象，方法里面的this指向这个方法的调用者
 
 
 
