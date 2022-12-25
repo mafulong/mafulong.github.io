@@ -1,4 +1,300 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-12-23T19:27:10+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Xbox跨服购买游戏绑卡、支付流程以及注意事项</title><link href="https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1-%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="alternate" type="text/html" title="Xbox跨服购买游戏绑卡、支付流程以及注意事项" /><published>2022-12-23T00:00:00+08:00</published><updated>2022-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1%E3%80%81%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9</id><content type="html" xml:base="https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1-%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">&lt;h2 id=&quot;xbox跨服购买游戏绑卡支付流程以及注意事项&quot;&gt;Xbox跨服购买游戏绑卡、支付流程以及注意事项&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2022-12-25T18:07:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6270. 每种字符至少取 K 个</title><link href="https://mafulong.github.io/2022/12/25/6270.-%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96-K-%E4%B8%AA/" rel="alternate" type="text/html" title="6270. 每种字符至少取 K 个" /><published>2022-12-25T00:00:00+08:00</published><updated>2022-12-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/25/6270.%20%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96%20K%20%E4%B8%AA</id><content type="html" xml:base="https://mafulong.github.io/2022/12/25/6270.-%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96-K-%E4%B8%AA/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/take-k-of-each-character-from-left-and-right/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个由字符 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;b&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;c&apos;&lt;/code&gt; 组成的字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 和一个非负整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。每分钟，你可以选择取走 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; &lt;strong&gt;最左侧&lt;/strong&gt; 还是 &lt;strong&gt;最右侧&lt;/strong&gt; 的那个字符。&lt;/p&gt;
+
+&lt;p&gt;你必须取走每种字符 &lt;strong&gt;至少&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 个，返回需要的 &lt;strong&gt;最少&lt;/strong&gt; 分钟数；如果无法取到，则返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;aabaaaacaabc&quot;, k = 2
+输出：8
+解释：
+从 s 的左侧取三个字符，现在共取到两个字符 &apos;a&apos; 、一个字符 &apos;b&apos; 。
+从 s 的右侧取五个字符，现在共取到四个字符 &apos;a&apos; 、两个字符 &apos;b&apos; 和两个字符 &apos;c&apos; 。
+共需要 3 + 5 = 8 分钟。
+可以证明需要的最少分钟数是 8 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;a&quot;, k = 1
+输出：-1
+解释：无法取到一个字符 &apos;b&apos; 或者 &apos;c&apos;，所以返回 -1 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= s.length &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 仅由字母 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;b&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;c&apos;&lt;/code&gt; 组成&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= k &amp;lt;= s.length&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;双指针。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeCharacters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;abc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6276. 统计同位异构字符串数目</title><link href="https://mafulong.github.io/2022/12/25/6276.-%E7%BB%9F%E8%AE%A1%E5%90%8C%E4%BD%8D%E5%BC%82%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/" rel="alternate" type="text/html" title="6276. 统计同位异构字符串数目" /><published>2022-12-25T00:00:00+08:00</published><updated>2022-12-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/25/6276.%20%E7%BB%9F%E8%AE%A1%E5%90%8C%E4%BD%8D%E5%BC%82%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE</id><content type="html" xml:base="https://mafulong.github.io/2022/12/25/6276.-%E7%BB%9F%E8%AE%A1%E5%90%8C%E4%BD%8D%E5%BC%82%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%95%B0%E7%9B%AE/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/count-anagrams/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; ，它包含一个或者多个单词。单词之间用单个空格 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos; &apos;&lt;/code&gt; 隔开。&lt;/p&gt;
+
+&lt;p&gt;如果字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; 中第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个单词是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 中第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个单词的一个 &lt;strong&gt;排列&lt;/strong&gt; ，那么我们称字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;t&lt;/code&gt; 是字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 的同位异构字符串。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;比方说，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;acb dfe&quot;&lt;/code&gt; 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;abc def&quot;&lt;/code&gt; 的同位异构字符串，但是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;def cab&quot;&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;adc bef&quot;&lt;/code&gt; 不是。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;请你返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 的同位异构字符串的数目，由于答案可能很大，请你将它对 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;109 + 7&lt;/code&gt; &lt;strong&gt;取余&lt;/strong&gt; 后返回。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;too hot&quot;
+输出：18
+解释：输入字符串的一些同位异构字符串为 &quot;too hot&quot; ，&quot;oot hot&quot; ，&quot;oto toh&quot; ，&quot;too toh&quot; 以及 &quot;too oht&quot; 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;aa&quot;
+输出：1
+解释：输入字符串只有一个同位异构字符串。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= s.length &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 只包含小写英文字母和空格 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos; &apos;&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;相邻单词之间由单个空格隔开。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;方法1： 大数阶乘除法，要用费马小定理。&lt;/p&gt;
+
+&lt;p&gt;方法2： 用comb换种思路，原来是阶乘相除，可以通过comb相乘，此时无除法。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BigIntDivide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mod_inverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 调用取模的乘幂运算, pow复杂度是log(exp)即log(MOD)
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;divide_mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&apos;&apos;&apos;
+        计算(a/b) % MOD, 除法变乘法，前提是b和MOD互为质数
+        &apos;&apos;&apos;&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 如果有多个b,比如a/b1/b2, 那就可以递归。a*mod_inverse(b1) % mod * mod_inverse(b2) % mod这样
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigIntDivide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod_inverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;divide_mods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]):&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&apos;&apos;&apos;
+        计算a /(b1*b2*b3) % MOD等形式，前提是b和MOD互为质数
+        &apos;&apos;&apos;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigIntDivide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mod_inverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Math1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+    &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;functools&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functools&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lru_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;factorial_mod_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factorial_mod_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;        
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;countAnagrams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos; &apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;factorial_mod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factorial_mod_cache&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calcu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BigIntDivide&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divide_mods&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factorial_mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;factorial_mod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()])&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# print(calcu(&quot;too&quot;))
+&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calcu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;方法2 &lt;a href=&quot;https://leetcode.cn/problems/count-anagrams/solution/python3pailiezuh-by-musing-clarkeeae-o2zg/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;countAnagrams&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;word&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;comb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6295. 最小化两个数组中的最大值</title><link href="https://mafulong.github.io/2022/12/25/6295.-%E6%9C%80%E5%B0%8F%E5%8C%96%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/" rel="alternate" type="text/html" title="6295. 最小化两个数组中的最大值" /><published>2022-12-25T00:00:00+08:00</published><updated>2022-12-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/25/6295.%20%E6%9C%80%E5%B0%8F%E5%8C%96%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC</id><content type="html" xml:base="https://mafulong.github.io/2022/12/25/6295.-%E6%9C%80%E5%B0%8F%E5%8C%96%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimize-the-maximum-of-two-arrays/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你两个数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr2&lt;/code&gt; ，它们一开始都是空的。你需要往它们中添加正整数，使它们满足以下条件：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr1&lt;/code&gt; 包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uniqueCnt1&lt;/code&gt; 个 &lt;strong&gt;互不相同&lt;/strong&gt; 的正整数，每个整数都 &lt;strong&gt;不能&lt;/strong&gt; 被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;divisor1&lt;/code&gt; &lt;strong&gt;整除&lt;/strong&gt; 。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr2&lt;/code&gt; 包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uniqueCnt2&lt;/code&gt; 个 &lt;strong&gt;互不相同&lt;/strong&gt; 的正整数，每个整数都 &lt;strong&gt;不能&lt;/strong&gt; 被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;divisor2&lt;/code&gt; &lt;strong&gt;整除&lt;/strong&gt; 。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arr2&lt;/code&gt; 中的元素 &lt;strong&gt;互不相同&lt;/strong&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;给你 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;divisor1&lt;/code&gt; ，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;divisor2&lt;/code&gt; ，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uniqueCnt1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uniqueCnt2&lt;/code&gt; ，请你返回两个数组中 &lt;strong&gt;最大元素&lt;/strong&gt; 的 &lt;strong&gt;最小值&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：divisor1 = 2, divisor2 = 7, uniqueCnt1 = 1, uniqueCnt2 = 3
+输出：4
+解释：
+我们可以把前 4 个自然数划分到 arr1 和 arr2 中。
+arr1 = [1] 和 arr2 = [2,3,4] 。
+可以看出两个数组都满足条件。
+最大值是 4 ，所以返回 4 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：divisor1 = 3, divisor2 = 5, uniqueCnt1 = 2, uniqueCnt2 = 1
+输出：3
+解释：
+arr1 = [1,2] 和 arr2 = [3] 满足所有条件。
+最大值是 3 ，所以返回 3 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：divisor1 = 2, divisor2 = 4, uniqueCnt1 = 8, uniqueCnt2 = 2
+输出：15
+解释：
+最终数组为 arr1 = [1,3,5,7,9,11,13,15] 和 arr2 = [2,6] 。
+上述方案是满足所有条件的最优解。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 &amp;lt;= divisor1, divisor2 &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= uniqueCnt1, uniqueCnt2 &amp;lt; 109&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 &amp;lt;= uniqueCnt1 + uniqueCnt2 &amp;lt;= 109&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;二分最大元素的可行值，得到的下界即为最大值的最小值。&lt;/p&gt;
+
+&lt;p&gt;判断过程中分为三类：保证在范围内有充足的数不是第一个数的倍数；不是第二个数的倍数；不为公倍数的数总数不少于总共要取的数。根据这三个条件即得到结果。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Math1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lcm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;math&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;gcd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gcd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gcd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minimizeSet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisor1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisor2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uniqueCnt1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uniqueCnt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lcm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Math1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lcm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;divisor1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisor2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;can&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisor1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# arr1能放的数量
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divisor2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# arr2能放的数量
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lcm&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# arr1和2都不能放的
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uniqueCnt1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uniqueCnt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uniqueCnt1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniqueCnt2&lt;/span&gt;
+        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bisect&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bisect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bisect_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniqueCnt1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uniqueCnt2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;can&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">react笔记</title><link href="https://mafulong.github.io/2022/12/24/react%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="react笔记" /><published>2022-12-24T00:00:00+08:00</published><updated>2022-12-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/24/react%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2022/12/24/react%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;react笔记&quot;&gt;react笔记&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://web.qianguyihao.com/13-React%E5%9F%BA%E7%A1%80/01-React%E4%BB%8B%E7%BB%8D.html&quot;&gt;React&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;react-介绍&quot;&gt;React 介绍&lt;/h2&gt;
+
+&lt;h3 id=&quot;react-是什么&quot;&gt;React 是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Facebook 开源的一个JS库。&lt;/li&gt;
+  &lt;li&gt;一个用于动态构建用户界面的JS库。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;react-的特点&quot;&gt;React 的特点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Declarative（声明式编码）&lt;/li&gt;
+  &lt;li&gt;Component-Based（组件化编码）&lt;/li&gt;
+  &lt;li&gt;Learn Once, Write Anywhere（支持客户端、服务器端渲染）&lt;/li&gt;
+  &lt;li&gt;高效的DOM Diff算法，最小化页面重绘&lt;/li&gt;
+  &lt;li&gt;单向数据流&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;react高效的原因&quot;&gt;React高效的原因&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;虚拟(virtual)DOM，不总是直接操作DOM&lt;/li&gt;
+  &lt;li&gt;高效的DOM Diff算法，最小化页面重绘（即“局部渲染”）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;虚拟DOM指的是：在真实DOM的上一层&lt;strong&gt;映射&lt;/strong&gt;一层虚拟DOM。我们操作的是映射关系，而不是真实的DOM。假设页面的样式做了修改（比如新增了一个标签），此时修改的是虚拟DOM的样式，真实的DOM并未发生变化。那什么时候，真实的DOM会发生变化呢？ 当我把所有的内容操作完之后，转化为真实的DOM，此时要打包统一的渲染页面，于是真实的DOM发生变化，然后渲染一次。 这样做的话，可以减少页面的渲染次数。&lt;/p&gt;
+
+&lt;p&gt;###&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">react笔记</summary></entry><entry><title type="html">模板引擎</title><link href="https://mafulong.github.io/2022/12/24/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/" rel="alternate" type="text/html" title="模板引擎" /><published>2022-12-24T00:00:00+08:00</published><updated>2022-12-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/24/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E</id><content type="html" xml:base="https://mafulong.github.io/2022/12/24/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/">&lt;h2 id=&quot;模板引擎&quot;&gt;模板引擎&lt;/h2&gt;
+
+&lt;h2 id=&quot;什么是模板引擎&quot;&gt;什么是模板引擎？&lt;/h2&gt;
+
+&lt;p&gt;JavaScript 的模板引擎是什么，求解释，有例子  ？ - 记得的回答 - 知乎 https://www.zhihu.com/question/53133191/answer/133637554&lt;/p&gt;
+
+&lt;p&gt;简单来讲，&lt;a href=&quot;https://www.zhihu.com/search?q=模板引擎&amp;amp;search_source=Entity&amp;amp;hybrid_search_source=Entity&amp;amp;hybrid_search_extra={&amp;quot;sourceType&amp;quot;%3A&amp;quot;answer&amp;quot;%2C&amp;quot;sourceId&amp;quot;%3A133811281}&quot;&gt;模板引擎&lt;/a&gt;就是为了让动态页面渲染的时候，可以简化字符串的拼接操作的东西。&lt;/p&gt;
+
+&lt;p&gt;比如jsp或者go template那样的。&lt;/p&gt;
+
+&lt;p&gt;模板引擎和html无绑定关系，比如go的go template.&lt;/p&gt;
+
+&lt;p&gt;jsp除外, jsp绑定了servlet容器。&lt;/p&gt;
+
+&lt;h2 id=&quot;freemarker&quot;&gt;Freemarker&lt;/h2&gt;
+
+&lt;p&gt;FreeMarker 是一款 &lt;em&gt;模板引擎&lt;/em&gt;： 即一种基于模板和要改变的数据， 并用来生成输出文本(HTML网页，电子邮件，配置文件，源代码等)的通用工具。 它不是面向最终用户的，而是一个Java类库，是一款程序员可以嵌入他们所开发产品的组件。&lt;/p&gt;
+
+&lt;p&gt;模板编写为FreeMarker Template Language (FTL)。它是简单的，专用的语言， &lt;em&gt;不是&lt;/em&gt; 像PHP那样成熟的编程语言。 那就意味着要准备数据在真实编程语言中来显示，比如数据库查询和业务运算， 之后模板显示已经准备好的数据。在模板中，你可以专注于如何展现数据， 而在模板之外可以专注于要展示什么数据。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">模板引擎</summary></entry><entry><title type="html">Xbox跨服购买游戏绑卡、支付流程以及注意事项</title><link href="https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1-%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="alternate" type="text/html" title="Xbox跨服购买游戏绑卡、支付流程以及注意事项" /><published>2022-12-23T00:00:00+08:00</published><updated>2022-12-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1%E3%80%81%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9</id><content type="html" xml:base="https://mafulong.github.io/2022/12/23/Xbox%E8%B7%A8%E6%9C%8D%E8%B4%AD%E4%B9%B0%E6%B8%B8%E6%88%8F%E7%BB%91%E5%8D%A1-%E6%94%AF%E4%BB%98%E6%B5%81%E7%A8%8B%E4%BB%A5%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">&lt;h2 id=&quot;xbox跨服购买游戏绑卡支付流程以及注意事项&quot;&gt;Xbox跨服购买游戏绑卡、支付流程以及注意事项&lt;/h2&gt;
 
 &lt;p&gt;转载自&lt;a href=&quot;https://bbs.a9vg.com/thread-8752673-1-1.html&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
 
@@ -353,579 +649,4 @@ explode 在这里你可以理解为展开，不压缩的意思。也就是 war�
 
 &lt;p&gt;mysql用的页是自己实现的，不是文件系统特有的。但文件系统可以把文件抽象成多个数据块，也就是说应用可以直接和数据块交互，直接记录数据库指针。此时磁盘类似一个数据空间。&lt;/p&gt;
 
-&lt;p&gt;不能把所有数据块指针放到内存里。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Mysql" /><category term="Mysql" /><summary type="html">mysql数据存储</summary></entry><entry><title type="html">typescript语法</title><link href="https://mafulong.github.io/2022/12/01/typescript%E8%AF%AD%E6%B3%95/" rel="alternate" type="text/html" title="typescript语法" /><published>2022-12-01T00:00:00+08:00</published><updated>2022-12-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/01/typescript%E8%AF%AD%E6%B3%95</id><content type="html" xml:base="https://mafulong.github.io/2022/12/01/typescript%E8%AF%AD%E6%B3%95/">&lt;h1 id=&quot;typescript语法&quot;&gt;typescript语法&lt;/h1&gt;
-
-&lt;h2 id=&quot;javascript-与-typescript-的区别&quot;&gt;JavaScript 与 TypeScript 的区别&lt;/h2&gt;
-
-&lt;p&gt;TypeScript 是 JavaScript 的超集，扩展了 JavaScript 的语法，因此现有的 JavaScript 代码可与 TypeScript 一起工作无需任何修改，TypeScript 通过类型注解提供编译时的静态类型检查。&lt;/p&gt;
-
-&lt;p&gt;TypeScript 是一种给 JavaScript 添加特性的语言扩展。增加的功能包括：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;类型批注和编译时类型检查&lt;/li&gt;
-  &lt;li&gt;类型推断&lt;/li&gt;
-  &lt;li&gt;类型擦除&lt;/li&gt;
-  &lt;li&gt;接口&lt;/li&gt;
-  &lt;li&gt;枚举&lt;/li&gt;
-  &lt;li&gt;Mixin&lt;/li&gt;
-  &lt;li&gt;泛型编程&lt;/li&gt;
-  &lt;li&gt;名字空间&lt;/li&gt;
-  &lt;li&gt;元组&lt;/li&gt;
-  &lt;li&gt;Await&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;支持es6标准。&lt;/p&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;p&gt;如果你的本地环境已经安装了 npm 工具，可以使用以下命令来安装。&lt;/p&gt;
-
-&lt;p&gt;使用国内镜像：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm config set registry https://registry.npmmirror.com
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;安装 typescript：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install -g typescript
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;安装完成后我们可以使用 &lt;strong&gt;tsc&lt;/strong&gt; 命令来执行 TypeScript 的相关代码，以下是查看版本号：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ tsc -v
-Version 3.2.2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;helloworld&quot;&gt;helloworld&lt;/h2&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Hello World!&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">typescript语法</summary></entry><entry><title type="html">AWS DynamoDB</title><link href="https://mafulong.github.io/2022/11/26/AWS-DynamoDB/" rel="alternate" type="text/html" title="AWS DynamoDB" /><published>2022-11-26T00:00:00+08:00</published><updated>2022-11-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/26/AWS%20DynamoDB</id><content type="html" xml:base="https://mafulong.github.io/2022/11/26/AWS-DynamoDB/">&lt;h2 id=&quot;aws-dynamodb&quot;&gt;AWS DynamoDB&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;http://systemdesigns.blogspot.com/2016/01/dynamodb.html&quot;&gt;论文讲解&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Dynamo在某些故障的场景中将牺牲一致性。&lt;/p&gt;
-
-&lt;p&gt;Dynamo的系统假设和要求：
-1）query model：对数据项简单的读，写是通过一个主键唯一性标识。状态存储为一个由唯一性键确定二进制对象。没有横跨多个数据项的操作，也不需要关系方案(relational schema)。这项规定是基于观察相当一部分Amazon的服务可以使用这个简单的查询模型，并不需要任何关系模式。Dynamo的目标应用程序需要存储的对象都比较小(通常小于1MB)。&lt;/p&gt;
-
-&lt;p&gt;2）ACID属性：ACID是一种保证数据库事务可靠地处理的属性。在数据库方面的，对数据的单一的逻辑操作被称作所谓的交易。Amazon的经验表明，在保证ACID的数据存储提往往有很差的可用性。Dynamo的目标应用程序是高可用性，弱一致性(ACID“中的C”)。Dynamo不提供任何数据隔离(Isolation)保证，只允许单一的关键更新。&lt;/p&gt;
-
-&lt;p&gt;3）efficiency：系统需运作在一般的commodity hardware上。Amazon平台的服务都有着严格的延时要求, 鉴于对状态的访问在服务操作中起着至关重要的作用，存储系统必须能够满足那些严格的SLA，服务必须能够通过配置Dynamo，使他们不断达到延时和吞吐量的要求。因此，必须在成本效率，可用性和耐用性保证之间做权衡。&lt;/p&gt;
-
-&lt;p&gt;提供get, put操作。&lt;/p&gt;
-
-&lt;p&gt;最终一致性。&lt;/p&gt;
-
-&lt;h3 id=&quot;partition&quot;&gt;Partition&lt;/h3&gt;
-
-&lt;p&gt;按key做partition, 一致性Hash。&lt;/p&gt;
-
-&lt;h3 id=&quot;replication&quot;&gt;Replication&lt;/h3&gt;
-
-&lt;p&gt;replica, 复制，用了NWR，让用户做一致性的选择。读数据时如果有不同版本，会所有版本数据都返回回去。&lt;/p&gt;
-
-&lt;h3 id=&quot;data-versioning&quot;&gt;Data Versioning&lt;/h3&gt;
-
-&lt;p&gt;多版本。Vector Clock 一个Vector Clock可以理解为一个&amp;lt;节点编号，计数器&amp;gt;对的列表。每一个版本的数据都会带上一个Vector Clock。Dynamo中，最重要的是要保证写操作的高可用性，即“Always Writeable”，这样就不可避免的牺牲掉数据的一致性。如上所述，Dynamo中并没有对数据做强一致性要求，而是采用的最终一致性(eventual consistency)。若不保证各个副本的强一致性，则用户在读取数据的时候很可能读到的不是最新的数据。Dynamo中将数据的增加或删除这种操作都视为一种增加操作，即每一次操作的结果都作为一份全新的数据保存，这样也就造成了一份数据会存在多个版本，分布在不同的节点上。这种情况类似于版本管理中的多份副本同时有多人在修改。多数情况下，系统会自动合并这些版本，一旦合并尝试失败，那么冲突的解决就交给应用层来解决。这时系统表现出来的现象就是，一个GET(KEY)操作，返回的不是单一的数据，而是一个多版本的数据列表，由用户决定如何合并。这其中的关键技术就是Vector Clock。&lt;/p&gt;
-
-&lt;p&gt;其实就是读修复。&lt;/p&gt;
-
-&lt;h3 id=&quot;failure-detection&quot;&gt;Failure Detection&lt;/h3&gt;
-
-&lt;p&gt;临时性故障，采用Hinted Handoff提示移交机制&lt;/p&gt;
-
-&lt;p&gt;为防止要写入节点宕机导致操作失败，采用提示移交机制将操作相关数据写入到随机节点，宕机节点恢复后可根据这些数据进行重放，最终获得数据一致性。&lt;/p&gt;
-
-&lt;p&gt;以N=3为例，如果在一次写操作时发现节点A挂了，那么本应该存在A上的副本就会发送到D上，同时在D中会记录这个副本的元信息（MetaData）。其中有个标示，表明这份数据是本应该存在A上的，一旦节点D之后检测到A从故障中恢复了，D就会将这个本属于A的副本回传给A，之后删除这份数据。Dynamo中称这种技术为“Hinted Handoff”。&lt;/p&gt;
-
-&lt;p&gt;另外为了应对整个机房掉线的故障，Dynamo中应用了一个很巧妙的方案。每次读写都会从”Preference List”列表中取出R或W个节点。那么只要在这个列表生成的时候，让其中的节点是分布于不同机房的，自然数据就写到了不同机房的节点上。&lt;/p&gt;
-
-&lt;p&gt;对于某节点非临时性故障，利用反熵得到丢失数据进行恢复。一些数据存储有后台进程，不断查找副本之间的数据差异，将任何缺少的数据从一个副本复制到另一个副本。和基于主节点复制的复制日志不同，此反熵过程不保证任何特定的顺序复制写入，并且会引入明显的同步滞后&lt;/p&gt;
-
-&lt;h3 id=&quot;表索引&quot;&gt;表、索引&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://sides-share.s3.cn-north-1.amazonaws.com.cn/AWS+Webinar+2019/PDF/Amazon+DynamoDB+webinar.pdf&quot;&gt;深入探讨 Amazon DynamoDB 的设计模 式、流复制和全局表&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261723281.png&quot; alt=&quot;image-20221126172356212&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;分区键和排序键共同唯一的标识一条记录&lt;/p&gt;
-
-&lt;p&gt;本地二级索引 Local Secondary Index (LSI) 单表上的。可以选择与表不同的排序键。同一个分区键。强一致性更新。&lt;/p&gt;
-
-&lt;p&gt;全局二级索引 - Global Secondary Index (GSI)  可以选择与表不同的分区键以及排序键 每个索引分区会对应所有的表分区&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261728526.png&quot; alt=&quot;image-20221126172812498&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;对比&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Global Secondary
-    &lt;ul&gt;
-      &lt;li&gt;索引的尺寸没有上限&lt;/li&gt;
-      &lt;li&gt;读写容量和表是独立的&lt;/li&gt;
-      &lt;li&gt;只支持最终一致性&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Index Local Secondary Index
-    &lt;ul&gt;
-      &lt;li&gt;索引保存在表的分区中，因此一个表 分区的尺寸的上限是10GB&lt;/li&gt;
-      &lt;li&gt;使用的是表上定义的RCU和WCU&lt;/li&gt;
-      &lt;li&gt;强一致性&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;其他&quot;&gt;其他&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors&quot;&gt;官网&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;begin_with这个操作要记得。其他后面看。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://techsummit.ctrip.com/pdf/songye.pdf&quot;&gt;AWS 如何实现数据跨区域同步&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;没啥子东西，数据操作优先同区域内，主要靠复制。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.modb.pro/db/432414&quot;&gt;MongoDB 与 DynamoDB 正面交锋&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;没啥东西&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/101965292&quot;&gt;通俗易懂之DynamoDB（一） —-分区键、排序键、GSI&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;getItem、query和scan&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;这三个操作都是查询操作，效率分别是：getItem &amp;gt; query &amp;gt; scan&lt;/p&gt;
-
-&lt;p&gt;getItem是根据primary key进行查询，可以理解为通过primary key在hashMap上查询，速度是最快的，缺点是必须知道primary key且只能查询单个，使用情况相对较少。&lt;/p&gt;
-
-&lt;p&gt;scan是全表扫描，是最慢的一个，理论上能不用就不用，只有实在走投无路才考虑全表扫描。&lt;/p&gt;
-
-&lt;p&gt;query是最常见的方式，在dynamoDB的使用中，我们唯一的目的就是写出高效的查询query。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS DynamoDB</summary></entry><entry><title type="html">无主复制系统</title><link href="https://mafulong.github.io/2022/11/26/%E6%97%A0%E4%B8%BB%E5%A4%8D%E5%88%B6%E7%B3%BB%E7%BB%9F/" rel="alternate" type="text/html" title="无主复制系统" /><published>2022-11-26T00:00:00+08:00</published><updated>2022-11-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/26/%E6%97%A0%E4%B8%BB%E5%A4%8D%E5%88%B6%E7%B3%BB%E7%BB%9F</id><content type="html" xml:base="https://mafulong.github.io/2022/11/26/%E6%97%A0%E4%B8%BB%E5%A4%8D%E5%88%B6%E7%B3%BB%E7%BB%9F/">&lt;p&gt;为什么需要复制数据？ - 允许系统在部分节点出现故障后继续工作（增加可用性） - 地理上保持数据离用户更近（减少延迟） - 扩展可以提供查询的机器数量（增加读吞吐）&lt;/p&gt;
-
-&lt;p&gt;复制算法： 1. 单主复制：所有客户端都将写入操作发送到主节点上，该节点负责将数据更改事件发送到其它副本。每个副本都可以接受读请求，但内容可能是过期值。 2. 多主复制：系统中存在多个主节点，每个都可以接受请求，客户端将写请求发送到其中一个主节点上，该节点负责将数据更改事件同步到其它主节点和自己的从节点。 3. 无主复制：客户端将写请求发送多个节点上，读取时从多个节点上并行读取，以此检测和纠正某些过期数据。&lt;/p&gt;
-
-&lt;p&gt;主从复制可参考 &lt;a href=&quot;https://iswade.github.io/database/replication/&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;无主复制&quot;&gt;无主复制&lt;/h2&gt;
-
-&lt;p&gt;单主、多主复制思路都是：客户端向一个主节点发写请求，而DB系统负责将写请求复制到其他副本。主节点决定写顺序，从节点按相同顺序应用主节点发送的写日志。&lt;/p&gt;
-
-&lt;p&gt;某些数据存储系统采用不同设计：放弃主节点，允许任何副本直接接受客户端的写。最早的复制数据系统就是无主节点的（或称之为去中心复制、无中心复制），但后来在关系数据库主导时代，这个想法几乎被忘却。在亚马逊将其用于其内部的Dynamo系统后，它再一次成为流行的DB架构。 Riak，Cassandra和Voldemort都是由Dynamo启发的无主复制模型的开源数据存储，所以这类数据库也被称为&lt;em&gt;Dynamo风格&lt;/em&gt;。&lt;/p&gt;
-
-&lt;p&gt;在一些无主实现中，客户端直接将写请求发到多副本，而另一些实现中，有一个协调者（coordinator）节点代表客户端进行写入，但与主节点的数据库不同，协调者不负责维护写入顺序。这种设计差异对DB使用方式有深远影响。&lt;/p&gt;
-
-&lt;p&gt;失效节点重新上线，而客户端开始读取它。节点失效期间发生的任何写入在该节点都尚未同步，因此读取可能得到过期数据。&lt;/p&gt;
-
-&lt;p&gt;为解决该问题，当一个客户端从DB读数据时，它不是向1个副本发送请求，而是并行发送到多副本。客户端可能会从不同节点获得不同响应，即来自一个节点的最新值和来自另一个节点的旧值。可利用版本号确定哪个值更新。&lt;/p&gt;
-
-&lt;h3 id=&quot;读修复和反熵&quot;&gt;读修复和反熵&lt;/h3&gt;
-
-&lt;p&gt;复制模型应确保所有数据最终复制到所有副本。在一个失效节点重新上线后，它如何赶上错过的写入呢？&lt;/p&gt;
-
-&lt;p&gt;Dynamo风格的数据存储系统常机制：&lt;/p&gt;
-
-&lt;h4 id=&quot;读修复read-repair&quot;&gt;读修复（Read repair）&lt;/h4&gt;
-
-&lt;p&gt;当客户端并行读取多副本时，可检测到过期的返回值。客户端可判断副本3是过期值，然后将新值写入该副本。适用于读密集场景&lt;/p&gt;
-
-&lt;h4 id=&quot;反熵过程anti-entropy-process&quot;&gt;反熵过程（Anti-entropy process）&lt;/h4&gt;
-
-&lt;p&gt;一些数据存储有后台进程，不断查找副本之间的数据差异，将任何缺少的数据从一个副本复制到另一个副本。和基于主节点复制的复制日志不同，此反熵过程不保证任何特定的顺序复制写入，并且会引入明显的同步滞后&lt;/p&gt;
-
-&lt;p&gt;并非所有系统都实现这俩方案。如Voldemort目前无反熵过程。若无反熵过程，由于【读修复】只在发生读取时才可能执行修复，那些很少访问的数据有可能在某些副本中已丢失而无法再检测到，从而降低了写的持久性。&lt;/p&gt;
-
-&lt;p&gt;反熵就是树形的hash，用于快速比较数据是否一致的。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.51cto.com/u_11440114/5550577&quot;&gt;&lt;strong&gt;无主复制系统(1)-节点故障时写DB&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://blog.51cto.com/u_11440114/5550582&quot;&gt;&lt;strong&gt;无主复制系统(2)-读写quorum&lt;/strong&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;TODO: 需要读下ddia.&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">为什么需要复制数据？ - 允许系统在部分节点出现故障后继续工作（增加可用性） - 地理上保持数据离用户更近（减少延迟） - 扩展可以提供查询的机器数量（增加读吞吐）</summary></entry><entry><title type="html">设计数据密集型应用</title><link href="https://mafulong.github.io/2022/11/26/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8/" rel="alternate" type="text/html" title="设计数据密集型应用" /><published>2022-11-26T00:00:00+08:00</published><updated>2022-11-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/26/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8</id><content type="html" xml:base="https://mafulong.github.io/2022/11/26/%E8%AE%BE%E8%AE%A1%E6%95%B0%E6%8D%AE%E5%AF%86%E9%9B%86%E5%9E%8B%E5%BA%94%E7%94%A8/">&lt;h1 id=&quot;设计数据密集型应用&quot;&gt;设计数据密集型应用&lt;/h1&gt;
-
-&lt;p&gt;相关读书笔记。&lt;/p&gt;
-
-&lt;h1 id=&quot;第一部分-数据系统的基石&quot;&gt;第一部分 数据系统的基石&lt;/h1&gt;
-
-&lt;p&gt;现今很多应用程序都是 &lt;strong&gt;数据密集型（data-intensive）&lt;/strong&gt; 的，而非 &lt;strong&gt;计算密集型（compute-intensive）&lt;/strong&gt; 的。&lt;/p&gt;
-
-&lt;p&gt;数据密集型应用通常由标准组件构建而成，标准组件提供了很多通用的功能；例如，许多应用程序都需要：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;存储数据，以便自己或其他应用程序之后能再次找到 （数据库（database））&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;记住开销昂贵操作的结果，加快读取速度（缓存（cache））&lt;/li&gt;
-  &lt;li&gt;允许用户按关键字搜索数据，或以各种方式对数据进行过滤（搜索索引（search indexes））&lt;/li&gt;
-  &lt;li&gt;向其他进程发送消息，进行异步处理（流处理（stream processing））&lt;/li&gt;
-  &lt;li&gt;定期处理累积的大批量数据（批处理（batch processing））&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;可靠性（Reliability）&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;系统在困境（adversity）（硬件故障、软件故障、人为错误）中仍可正常工作（正确完成功能，并能达到期望的性能水准）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;可扩展性（Scalability）&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;有合理的办法应对系统的增长（数据量、流量、复杂性）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;可维护性（Maintainability）&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;许多不同的人（工程师、运维）在不同的生命周期，都能高效地在系统上工作（使系统保持现有行为，并适应新的应用场景）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;硬件故障：&lt;/p&gt;
-
-&lt;p&gt;在拥有10000个磁盘的存储集群上，平均每天会有1个磁盘出故障。通常都是增加单个硬件的冗余度。&lt;/p&gt;
-
-&lt;p&gt;人们经常讨论&lt;strong&gt;纵向扩展（scaling up）&lt;/strong&gt;（&lt;strong&gt;垂直扩展（vertical scaling）&lt;/strong&gt;，转向更强大的机器）和&lt;strong&gt;横向扩展（scaling out）&lt;/strong&gt; （&lt;strong&gt;水平扩展（horizontal scaling）&lt;/strong&gt;，将负载分布到多台小机器上）之间的对立。跨多台机器分配负载也称为“&lt;strong&gt;无共享（shared-nothing）&lt;/strong&gt;”架构。可以在单台机器上运行的系统通常更简单，但高端机器可能非常贵，所以非常密集的负载通常无法避免地需要横向扩展。现实世界中的优秀架构需要将这两种方法务实地结合，因为使用几台足够强大的机器可能比使用大量的小型虚拟机更简单也更便宜。&lt;/p&gt;
-
-&lt;p&gt;跨多台机器部署&lt;strong&gt;无状态服务（stateless services）&lt;/strong&gt;非常简单，但将带状态的数据系统从单节点变为分布式配置则可能引入许多额外复杂度。出于这个原因，常识告诉我们应该将数据库放在单个节点上（纵向扩展），直到扩展成本或可用性需求迫使其改为分布式。&lt;/p&gt;
-
-&lt;p&gt;新的非关系型“NoSQL”数据存储在两个主要方向上存在分歧：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;文档数据库&lt;/strong&gt;的应用场景是：数据通常是自我包含的，而且文档之间的关系非常稀少。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;图形数据库&lt;/strong&gt;用于相反的场景：任意事物都可能与任何事物相关联。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;两大类存储引擎：&lt;strong&gt;日志结构（log-structured）&lt;/strong&gt; 的存储引擎，以及&lt;strong&gt;面向页面（page-oriented）&lt;/strong&gt; 的存储引擎（例如B树）。&lt;/p&gt;
-
-&lt;p&gt;日志一般是直接追加，读记录时读最新最后的一个值，前面的可后续压缩合并。&lt;/p&gt;
-
-&lt;p&gt;因为数据落到磁盘里，基本就两种方法，1. sstable，先内存后追加再不断合并； 2. 类似B树面向页，直接更新。  除此之外如果更新某个文件某一行，可能会导致后面的都变，因为offset变了，所以目前基本就这两种。为啥没hash,  磁盘哈希映射很难表现优秀。它需要大量的随机访问I/O，当它变满时增长是很昂贵的，并且散列冲突需要很多的逻辑&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;SSTable并发控制&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;由于写操作是以严格顺序的顺序附加到日志中的，所以常见的实现选择是只有一个写入器线程。数据文件段是附加的，或者是不可变的，所以它们可以被多个线程同时读取。&lt;/p&gt;
-
-&lt;p&gt;乍一看，只有追加日志看起来很浪费：为什么不更新文件，用新值覆盖旧值？但是只能追加设计的原因有几个：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;追加和分段合并是顺序写入操作，通常比随机写入快得多，尤其是在磁盘旋转硬盘上。在某种程度上，顺序写入在基于闪存的 &lt;strong&gt;固态硬盘（SSD）&lt;/strong&gt; 上也是优选的【4】。我们将在第83页的“&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/ch3.html#比较B-树和LSM-树&quot;&gt;比较B-树和LSM-树&lt;/a&gt;”中进一步讨论这个问题。&lt;/li&gt;
-  &lt;li&gt;如果段文件是附加的或不可变的，并发和崩溃恢复就简单多了。例如，您不必担心在覆盖值时发生崩溃的情况，而将包含旧值和新值的一部分的文件保留在一起。&lt;/li&gt;
-  &lt;li&gt;合并旧段可以避免数据文件随着时间的推移而分散的问题。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;B树&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;B树存储是面向页的，文件就是页组成的，磁盘是按页划分的，指针都是页的指针，页位置不会变。&lt;/p&gt;
-
-&lt;p&gt;通常，页面可以放置在磁盘上的任何位置；没有什么要求附近的键范围页面附近的磁盘上。如果查询需要按照排序顺序扫描大部分关键字范围，那么每个页面的布局可能会非常不方便，因为每个读取的页面都可能需要磁盘查找。因此，许多B树实现尝试布局树，使得叶子页面按顺序出现在磁盘上。但是，随着树的增长，维持这个顺序是很困难的。相比之下，由于LSM树在合并过程中一次又一次地重写存储的大部分，所以它们更容易使顺序键在磁盘上彼此靠近。&lt;/p&gt;
-
-&lt;p&gt;额外的指针已添加到树中。例如，每个叶子页面可以在左边和右边具有对其兄弟页面的引用，这允许不跳回父页面就能顺序扫描。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;比较B树和LSM树&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;尽管B树实现通常比LSM树实现更成熟，但LSM树由于其性能特点也非常有趣。根据经验，通常LSM树的写入速度更快，而B树的读取速度更快【23】。 LSM树上的读取通常比较慢，因为它们必须在压缩的不同阶段检查几个不同的数据结构和SSTables。&lt;/p&gt;
-
-&lt;p&gt;B树索引必须至少两次写入每一段数据：一次写入预先写入日志，一次写入树页面本身（也许再次分页）。即使在该页面中只有几个字节发生了变化，也需要一次编写整个页面的开销。&lt;/p&gt;
-
-&lt;p&gt;LSM树可以被压缩得更好，因此经常比B树在磁盘上产生更小的文件。 B树存储引擎会由于分割而留下一些未使用的磁盘空间：当页面被拆分或某行不能放入现有页面时，页面中的某些空间仍未被使用。由于LSM树不是面向页面的，并且定期重写SSTables以去除碎片，所以它们具有较低的存储开销，特别是当使用平坦压缩时&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;LSM写入快，B读快。&lt;/li&gt;
-  &lt;li&gt;B树写，一次要写log, 一次要更新页，页只能替换。&lt;/li&gt;
-  &lt;li&gt;LSM碎片少，压缩的好，存储开销小。&lt;/li&gt;
-  &lt;li&gt;LSM写入吞吐量大，需要合理配置压缩。&lt;/li&gt;
-  &lt;li&gt;LSM压缩可能会干扰读写。&lt;/li&gt;
-  &lt;li&gt;B树每个键只有一个位置，方便加锁。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;在高层次上，我们看到存储引擎分为两大类：优化 &lt;strong&gt;事务处理（OLTP）&lt;/strong&gt; 或 &lt;strong&gt;在线分析（OLAP）&lt;/strong&gt; 。这些用例的访问模式之间有很大的区别：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;OLTP系统通常面向用户，这意味着系统可能会收到大量的请求。为了处理负载，应用程序通常只访问每个查询中的少部分记录。应用程序使用某种键来请求记录，存储引擎使用索引来查找所请求的键的数据。磁盘寻道时间往往是这里的瓶颈。&lt;/li&gt;
-  &lt;li&gt;数据仓库和类似的分析系统会低调一些，因为它们主要由业务分析人员使用，而不是由最终用户使用。它们的查询量要比OLTP系统少得多，但通常每个查询开销高昂，需要在短时间内扫描数百万条记录。磁盘带宽（而不是查找时间）往往是瓶颈，列式存储是这种工作负载越来越流行的解决方案。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在OLTP方面，我们能看到两派主流的存储引擎：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;日志结构学派&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;只允许附加到文件和删除过时的文件，但不会更新已经写入的文件。 Bitcask，SSTables，LSM树，LevelDB，Cassandra，HBase，Lucene等都属于这个类别。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;就地更新学派&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;将磁盘视为一组可以覆写的固定大小的页面。 B树是这种哲学的典范，用在所有主要的关系数据库中和许多非关系型数据库。&lt;/p&gt;
-
-&lt;p&gt;日志结构的存储引擎是相对较新的发展。他们的主要想法是，他们系统地将随机访问写入顺序写入磁盘，由于硬盘驱动器和固态硬盘的性能特点，可以实现更高的写入吞吐量。在完成OLTP方面，我们通过一些更复杂的索引结构和为保留所有数据而优化的数据库做了一个简短的介绍。&lt;/p&gt;
-
-&lt;p&gt;然后，我们从存储引擎的内部绕开，看看典型数据仓库的高级架构。这一背景说明了为什么分析工作负载与OLTP差别很大：当您的查询需要在大量行中顺序扫描时，索引的相关性就会降低很多。相反，非常紧凑地编码数据变得非常重要，以最大限度地减少查询需要从磁盘读取的数据量。我们讨论了列式存储如何帮助实现这一目标。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;*向后兼容 (backward compatibility)*&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;新代码可以读旧数据。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;*向前兼容 (forward compatibility)*&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;旧代码可以读新数据。&lt;/p&gt;
-
-&lt;p&gt;服务器本身可以是另一个服务的客户端（例如，典型的Web应用服务器充当数据库的客户端）。这种方法通常用于将大型应用程序按照功能区域分解为较小的服务，这样当一个服务需要来自另一个服务的某些功能或数据时，就会向另一个服务发出请求。这种构建应用程序的方式传统上被称为 &lt;strong&gt;面向服务的体系结构（service-oriented architecture，SOA）&lt;/strong&gt; ，最近被改进和更名为 &lt;strong&gt;微服务架构&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;REST不是一个协议，而是一个基于HTTP原则的设计哲学【34,35】。它强调简单的数据格式，使用URL来标识资源，并使用HTTP功能进行缓存控制，身份验证和内容类型协商&lt;/p&gt;
-
-&lt;h1 id=&quot;第二部分-分布式数据&quot;&gt;第二部分 分布式数据&lt;/h1&gt;
-
-&lt;h2 id=&quot;复制&quot;&gt;复制&lt;/h2&gt;
-
-&lt;p&gt;三种流行的变更复制算法：&lt;strong&gt;单领导者（single leader）&lt;/strong&gt;，&lt;strong&gt;多领导者（multi leader）&lt;/strong&gt;和&lt;strong&gt;无领导者（leaderless）&lt;/strong&gt;。几乎所有分布式数据库都使用这三种方法之一。&lt;/p&gt;
-
-&lt;p&gt;对于异步复制系统而言，主库故障时有可能丢失数据。这可能是一个严重的问题，因此研究人员仍在研究不丢数据但仍能提供良好性能和可用性的复制方法。 例如，&lt;strong&gt;链式复制&lt;/strong&gt;【8,9】]是同步复制的一种变体，已经在一些系统（如Microsoft Azure存储【10,11】）中成功实现。&lt;/p&gt;
-
-&lt;h3 id=&quot;同步复制与异步复制&quot;&gt;同步复制与异步复制&lt;/h3&gt;
-
-&lt;p&gt;复制系统的一个重要细节是：复制是&lt;strong&gt;同步（synchronously）&lt;/strong&gt;发生还是&lt;strong&gt;异步（asynchronously）&lt;/strong&gt;发生。 （在关系型数据库中这通常是一个配置项，其他系统通常硬编码为其中一个）。&lt;/p&gt;
-
-&lt;p&gt;同步复制的优点是，从库保证有与主库一致的最新数据副本。如果主库突然失效，我们可以确信这些数据仍然能在从库上上找到。缺点是，如果同步从库没有响应（比如它已经崩溃，或者出现网络故障，或其它任何原因），主库就无法处理写入操作。主库必须阻止所有写入，并等待同步副本再次可用。&lt;/p&gt;
-
-&lt;p&gt;通常情况下，基于领导者的复制都配置为完全异步。 在这种情况下，如果主库失效且不可恢复，则任何尚未复制给从库的写入都会丢失。 这意味着即使已经向客户端确认成功，写入也不能保证 &lt;strong&gt;持久（Durable）&lt;/strong&gt; 。 然而，一个完全异步的配置也有优点：即使所有的从库都落后了，主库也可以继续处理写入。&lt;/p&gt;
-
-&lt;h3 id=&quot;复制日志的实现&quot;&gt;复制日志的实现&lt;/h3&gt;
-
-&lt;p&gt;基于主库的复制底层是如何工作的？实践中有好几种不同的复制方式&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;基于语句的复制，比如原始的sql。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;物理日志， WAL 非常底层：包含哪些磁盘块中的哪些字节发生了更改。这使复制与存储引擎紧密耦合&lt;/li&gt;
-  &lt;li&gt;逻辑日志复制（基于行）复制改动的行的数据，删除传id, insert传所有，update传更新内容&lt;/li&gt;
-  &lt;li&gt;基于触发器&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;处理节点宕机&quot;&gt;处理节点宕机&lt;/h3&gt;
-
-&lt;h4 id=&quot;从库失效追赶恢复&quot;&gt;从库失效：追赶恢复&lt;/h4&gt;
-
-&lt;p&gt;在其本地磁盘上，每个从库记录从主库收到的数据变更。如果从库崩溃并重新启动，或者，如果主库和从库之间的网络暂时中断，则比较容易恢复：从库可以从日志中知道，在发生故障之前处理的最后一个事务。因此，从库可以连接到主库，并请求在从库断开连接时发生的所有数据变更。&lt;/p&gt;
-
-&lt;h4 id=&quot;主库失效故障切换&quot;&gt;主库失效：故障切换&lt;/h4&gt;
-
-&lt;p&gt;主库失效处理起来相当棘手：其中一个从库需要被提升为新的主库，需要重新配置客户端，以将它们的写操作发送给新的主库，其他从库需要开始拉取来自新主库的数据变更。这个过程被称为&lt;strong&gt;故障切换&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;问题&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;异步复制可能会丢老主库最后写入&lt;/li&gt;
-  &lt;li&gt;主键重用什么的很麻烦&lt;/li&gt;
-  &lt;li&gt;老主库恢复可能有两个主 ，要强行杀死老的&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;复制延迟问题&quot;&gt;复制延迟问题&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;读己之写： 让用户提交一些数据，然后查看他们提交的内容。  写后立即读&lt;/li&gt;
-  &lt;li&gt;单调读： 从异步从库读取第二个异常例子是，用户可能会遇到 &lt;strong&gt;时光倒流（moving backward in time）&lt;/strong&gt;。如果用户从不同从库进行多次读取，就可能发生这种情况。同步延迟太大造成的。&lt;/li&gt;
-  &lt;li&gt;一致前缀读（consistent prefix reads）：如果一系列写入按某个顺序发生，那么任何人读取这些写入时，也会看见它们以同样的顺序出现。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;多主复制的应用场景&quot;&gt;多主复制的应用场景&lt;/h3&gt;
-
-&lt;p&gt;在单个数据中心内部使用多个主库很少是有意义的，因为好处很少超过复杂性的代价。 但在一些情况下，多活配置是也合理的。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;运维多个数据中心&lt;/li&gt;
-  &lt;li&gt;需要离线操作的客户端&lt;/li&gt;
-  &lt;li&gt;协同编辑&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;自定义冲突解决逻辑&quot;&gt;自定义冲突解决逻辑&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;写时执行&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;读时执行&lt;/strong&gt; 读修复&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;自动解决由于数据修改引起的冲突。有几行研究值得一提：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;无冲突复制数据类型（Conflict-free replicated datatypes）&lt;/strong&gt;（CRDT）【32,38】是可以由多个用户同时编辑的集合，映射，有序列表，计数器等的一系列数据结构，它们以合理的方式自动解决冲突。一些CRDT已经在Riak 2.0中实现【39,40】。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;可合并的持久数据结构（Mergeable persistent data structures）&lt;/strong&gt;【41】显式跟踪历史记录，类似于Git版本控制系统，并使用三向合并功能（而CRDT使用双向合并）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;可执行的转换（operational transformation）&lt;/strong&gt;[42]是Etherpad 【30】和Google Docs 【31】等合作编辑应用背后的冲突解决算法。它是专为同时编辑项目的有序列表而设计的，例如构成文本文档的字符列表。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;无主复制&quot;&gt;无主复制&lt;/h3&gt;
-
-&lt;p&gt;参考本人另一个博客。 尽管法定人数似乎保证读取返回最新的写入值，但在实践中并不那么简单。 Dynamo风格的数据库通常针对可以忍受最终一致性的用例进行优化。允许通过参数w和r来调整读取陈旧值的概率，但把它们当成绝对的保证是不明智的。&lt;/p&gt;
-
-&lt;h2 id=&quot;分区&quot;&gt;分区&lt;/h2&gt;
-
-&lt;p&gt;分区主要是为了&lt;strong&gt;可扩展性&lt;/strong&gt;。不同的分区可以放在不共享集群中的不同节点上&lt;/p&gt;
-
-&lt;p&gt;因此，大数据集可以分布在多个磁盘上，并且查询负载可以分布在多个处理器上。&lt;/p&gt;
-
-&lt;p&gt;对于在单个分区上运行的查询，每个节点可以独立执行对自己的查询，因此可以通过添加更多的节点来扩大查询吞吐量。大型，复杂的查询可能会跨越多个节点并行处理，尽管这也带来了新的困难。&lt;/p&gt;
-
-&lt;p&gt;大多数情况下，分区方案的选择与复制方案的选择是独立的&lt;/p&gt;
-
-&lt;p&gt;Key Range分区的缺点是某些特定的访问模式会导致热点。  由于偏斜和热点的风险，许多分布式数据存储使用散列函数来确定给定键的分区。&lt;/p&gt;
-
-&lt;p&gt;出于分区的目的，散列函数不需要多么强壮的加密算法：例如，Cassandra和MongoDB使用MD5，Voldemort使用Fowler-Noll-Vo函数。许多编程语言都有内置的简单哈希函数（它们用于哈希表），但是它们可能不适合分区：例如，在Java的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object.hashCode()&lt;/code&gt;和Ruby的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Object#hash&lt;/code&gt;，同一个键可能在不同的进程中有不同的哈希值&lt;/p&gt;
-
-&lt;p&gt;如今，大多数数据系统无法自动补偿这种高度偏斜的负载，因此应用程序有责任减少偏斜。例如，如果一个主键被认为是非常火爆的，一个简单的方法是在主键的开始或结尾添加一个随机数。只要一个两位数的十进制随机数就可以将主键分散为100种不同的主键,从而存储在不同的分区中。&lt;/p&gt;
-
-&lt;p&gt;然而，将主键进行分割之后，任何读取都必须要做额外的工作，因为他们必须从所有100个主键分布中读取数据并将其合并。此技术还需要额外的记录：只需要对少量热点附加随机数;对于写入吞吐量低的绝大多数主键来是不必要的开销。因此，您还需要一些方法来跟踪哪些键需要被分割。&lt;/p&gt;
-
-&lt;h3 id=&quot;分区和二级索引之间的相互作用&quot;&gt;分区和二级索引之间的相互作用&lt;/h3&gt;
-
-&lt;h4 id=&quot;同分区上的本地索引&quot;&gt;同分区上的本地索引&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;文档分区索引&lt;/strong&gt;也被称为&lt;strong&gt;本地索引（local index）&lt;/strong&gt;。  在这种索引方法中，每个分区是完全独立的：每个分区维护自己的二级索引，仅覆盖该分区中的文档。它不关心存储在其他分区的数据。无论何时您需要写入数据库（添加，删除或更新文档），只需处理包含您正在编写的文档ID的分区即可。&lt;/p&gt;
-
-&lt;p&gt;这种查询某个调节的id可能需要将查询发送到所有分区，并合并所有返回的结果。 这种查询分区数据库的方法有时被称为&lt;strong&gt;分散/聚集（scatter/gather）&lt;/strong&gt;，并且可能会使二级索引上的读取查询相当昂贵。即使并行查询分区，分散/聚集也容易导致尾部延迟放大（参阅“&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/ch1.html#实践中的百分位点&quot;&gt;实践中的百分位点&lt;/a&gt;”）。然而，它被广泛使用：MongoDB，Riak 【15】，Cassandra 【16】，Elasticsearch 【17】，SolrCloud 【18】和VoltDB 【19】都使用文档分区二级索引。&lt;/p&gt;
-
-&lt;h4 id=&quot;覆盖所有分区数据的全局索引&quot;&gt;覆盖所有分区数据的&lt;strong&gt;全局索引&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;全局索引&lt;/strong&gt;   我们可以构建一个覆盖所有分区数据的&lt;strong&gt;全局索引&lt;/strong&gt;，而不是给每个分区创建自己的次级索引（本地索引）。但是，我们不能只把这个索引存储在一个节点上，因为它可能会成为瓶颈，违背了分区的目的。全局索引也必须进行分区，但可以采用与主键不同的分区方式。  我们将这种索引称为&lt;strong&gt;关键词分区（term-partitioned）&lt;/strong&gt;，因为我们寻找的关键词决定了索引的分区方式。例如，一个关键词可能是：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;颜色：红色&lt;/code&gt;。&lt;strong&gt;关键词(Term)&lt;/strong&gt; 来源于来自全文搜索索引（一种特殊的次级索引），指文档中出现的所有单词。&lt;/p&gt;
-
-&lt;p&gt;关键词分区的全局索引优于文档分区索引的地方点是它可以使读取更有效率：不需要&lt;strong&gt;分散/收集&lt;/strong&gt;所有分区，客户端只需要向包含关键词的分区发出请求。全局索引的缺点在于写入速度较慢且较为复杂，因为写入单个文档现在可能会影响索引的多个分区（文档中的每个关键词可能位于不同的分区或者不同的节点上） 。&lt;/p&gt;
-
-&lt;p&gt;在实践中，对全局二级索引的更新通常是&lt;strong&gt;异步&lt;/strong&gt;的（也就是说，如果在写入之后不久读取索引，刚才所做的更改可能尚未反映在索引中）。例如，Amazon DynamoDB声称在正常情况下，其全局次级索引会在不到一秒的时间内更新，但在基础架构出现故障的情况下可能会有延迟【20】。&lt;/p&gt;
-
-&lt;h2 id=&quot;分区再平衡&quot;&gt;分区再平衡&lt;/h2&gt;
-
-&lt;p&gt;随着时间的推移，数据库会有各种变化。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;查询吞吐量增加，所以您想要添加更多的CPU来处理负载。&lt;/li&gt;
-  &lt;li&gt;数据集大小增加，所以您想添加更多的磁盘和RAM来存储它。&lt;/li&gt;
-  &lt;li&gt;机器出现故障，其他机器需要接管故障机器的责任。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;所有这些更改都需要数据和请求从一个节点移动到另一个节点。 将负载从集群中的一个节点向另一个节点移动的过程称为&lt;strong&gt;再平衡（reblancing）&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h4 id=&quot;反面教材hash-mod-n&quot;&gt;反面教材：hash mod N&lt;/h4&gt;
-
-&lt;p&gt;模$N$方法的问题是，如果节点数量N发生变化，大多数密钥将需要从一个节点移动到另一个节点。例如，假设$hash(key)=123456$。如果最初有10个节点，那么这个键一开始放在节点6上&lt;/p&gt;
-
-&lt;h4 id=&quot;键值-固定数量的分区-hash-slot&quot;&gt;键值 固定数量的分区 hash slot&lt;/h4&gt;
-
-&lt;p&gt;类似hash slot.&lt;/p&gt;
-
-&lt;p&gt;创建比节点更多的分区，并为每个节点分配多个分区。&lt;/p&gt;
-
-&lt;p&gt;如果一个节点被添加到集群中，新节点可以从当前每个节点中&lt;strong&gt;窃取&lt;/strong&gt;一些分区，直到分区再次公平分配。如果从集群中删除一个节点，则会发生相反的情况。&lt;/p&gt;
-
-&lt;p&gt;原则上，您甚至可以解决集群中的硬件不匹配问题：通过为更强大的节点分配更多的分区，可以强制这些节点承载更多的负载。在Riak 【15】，Elasticsearch 【24】，Couchbase 【10】和Voldemort 【25】中使用了这种再平衡的方法。&lt;/p&gt;
-
-&lt;h4 id=&quot;范围动态分区-hbase&quot;&gt;范围，动态分区 Hbase&lt;/h4&gt;
-
-&lt;p&gt;按键范围分区。一个节点对应多个分区，当分区大了就拆分，当小了就和相邻分区合并， 类似B树。&lt;/p&gt;
-
-&lt;p&gt;大型分区拆分后，可以将其中的一半转移到另一个节点，以平衡负载。在HBase中，分区文件的传输通过HDFS（底层分布式文件系统）来实现【3】。&lt;strong&gt;可以是不复制数据而直接挂载存储的&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;动态分区的一个优点是分区数量适应总数据量。如果只有少量的数据，少量的分区就足够了，所以开销很小;如果有大量的数据，每个分区的大小被限制在一个可配置的最大值&lt;/p&gt;
-
-&lt;p&gt;动态分区不仅适用于数据的范围分区，而且也适用于散列分区。从版本2.4开始，MongoDB同时支持范围和哈希分区，并且都是进行动态分割分区。&lt;/p&gt;
-
-&lt;h4 id=&quot;按节点比例分区-不常用&quot;&gt;按节点比例分区 不常用&lt;/h4&gt;
-
-&lt;p&gt;每个节点有固定的分区数量，当新节点加入，随机选择某个分区拆一半给新节点。&lt;/p&gt;
-
-&lt;h2 id=&quot;请求路由-服务发现&quot;&gt;请求路由 服务发现&lt;/h2&gt;
-
-&lt;p&gt;当客户想要发出请求时，如何知道要连接哪个节点？随着分区重新平衡，分区对节点的分配也发生变化。&lt;/p&gt;
-
-&lt;p&gt;这个问题可以概括为 &lt;strong&gt;服务发现(service discovery)&lt;/strong&gt; ，它不仅限于数据库。任何可通过网络访问的软件都有这个问题，特别是如果它的目标是高可用性（在多台机器上运行冗余配置）。&lt;/p&gt;
-
-&lt;p&gt;概括来说，这个问题有几种不同的方案（如图6-7所示）:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;请求任意节点做协调。&lt;/strong&gt;允许客户联系任何节点（例如，通过&lt;strong&gt;循环策略的负载均衡（Round-Robin Load Balancer）&lt;/strong&gt;）。如果该节点恰巧拥有请求的分区，则它可以直接处理该请求;否则，它将请求转发到适当的节点，接收回复并传递给客户端。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;加个路由层做负载均衡。&lt;/strong&gt; 首先将所有来自客户端的请求发送到路由层，它决定了应该处理请求的节点，并相应地转发。此路由层本身不处理任何请求；它仅负责分区的负载均衡。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;把路由信息放到客户端，客户端订阅。&lt;/strong&gt;要求客户端知道分区和节点的分配。在这种情况下，客户端可以直接连接到适当的节点，而不需要任何中介。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;许多分布式数据系统都依赖于一个独立的协调服务，比如ZooKeeper来跟踪集群元数据。 每个节点在ZooKeeper中注册自己，ZooKeeper维护分区到节点的可靠映射。 其他参与者（如路由层或分区感知客户端）可以在ZooKeeper中订阅此信息。 只要分区分配发生的改变，或者集群中添加或删除了一个节点，ZooKeeper就会通知路由层使路由信息保持最新状态。&lt;/p&gt;
-
-&lt;p&gt;例如，LinkedIn的Espresso使用Helix 【31】进行集群管理（依靠ZooKeeper），实现了如&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/img/fig6-8.png&quot;&gt;图6-8&lt;/a&gt;所示的路由层。 HBase，SolrCloud和Kafka也使用ZooKeeper来跟踪分区分配。 MongoDB具有类似的体系结构，但它依赖于自己的&lt;strong&gt;配置服务器（config server）&lt;/strong&gt; 实现和mongos守护进程作为路由层。&lt;/p&gt;
-
-&lt;p&gt;Cassandra和Riak采取不同的方法：他们在节点之间使用&lt;strong&gt;流言协议（gossip protocol）&lt;/strong&gt; 来传播群集状态的变化。请求可以发送到任意节点，该节点会转发到包含所请求的分区的适当节点（&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/ch6.html&quot;&gt;图6-7&lt;/a&gt;中的方法1）。这个模型在数据库节点中增加了更多的复杂性，但是避免了对像ZooKeeper这样的外部协调服务的依赖。&lt;/p&gt;
-
-&lt;p&gt;Couchbase不会自动重新平衡，这简化了设计。通常情况下，它配置了一个名为moxi的路由层，它会从集群节点了解路由变化【32】。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;当使用路由层或向随机节点发送请求时，客户端仍然需要找到要连接的IP地址。这些地址并不像分区的节点分布变化的那么快，所以使用DNS通常就足够了。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;分布式系统的麻烦&quot;&gt;分布式系统的麻烦&lt;/h2&gt;
-
-&lt;p&gt;单调钟适用于测量持续时间（时间间隔），例如超时或服务的响应时间：Linux上的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;clock_gettime(CLOCK_MONOTONIC)&lt;/code&gt;，和Java中的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System.nanoTime()&lt;/code&gt;都是单调时钟。这个名字来源于他们保证总是前进的事实（而时钟可以及时跳回）。&lt;/p&gt;
-
-&lt;p&gt;你可以在某个时间点检查单调钟的值，做一些事情，且稍后再次检查它。这两个值之间的差异告诉你两次检查之间经过了多长时间。但单调钟的绝对值是毫无意义的：它可能是计算机启动以来的纳秒数，或类似的任意值。特别是比较来自两台不同计算机的单调钟的值是没有意义的，因为它们并不是一回事。&lt;/p&gt;
-
-&lt;h2 id=&quot;一致性与共识&quot;&gt;一致性与共识&lt;/h2&gt;
-
-&lt;p&gt;强一致性也叫线性一致性。&lt;/p&gt;
-
-&lt;h3 id=&quot;dynamodb不能强一致性&quot;&gt;dynamoDB不能强一致性&lt;/h3&gt;
-
-&lt;p&gt;因为是无主复制系统，可能写时只有一个节点写入成功了，然后读的节点正好没有它，造成读不到。&lt;/p&gt;
-
-&lt;p&gt;除非所有节点都写，读所有节点，才可以强一致性。&lt;/p&gt;
-
-&lt;h3 id=&quot;一致性&quot;&gt;一致性&lt;/h3&gt;
-
-&lt;p&gt;强一致性和性能、可用性往往冲突。&lt;/p&gt;
-
-&lt;h4 id=&quot;时代编号&quot;&gt;时代编号&lt;/h4&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;用于区分谁是新领导，谁是旧的，新领导说的算。投票赞成的一个有效依据就是没有其他更高时代编号&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;时代编号（epoch number）&lt;/strong&gt;（在Paxos中称为&lt;strong&gt;投票编号（ballot number）&lt;/strong&gt;，视图戳复制中的&lt;strong&gt;视图编号（view number）&lt;/strong&gt;，以及Raft中的&lt;strong&gt;任期号码（term number）&lt;/strong&gt;），并确保在每个时代中，领导者都是唯一的。&lt;/p&gt;
-
-&lt;p&gt;每次当现任领导被认为挂掉的时候，节点间就会开始一场投票，以选出一个新领导。这次选举被赋予一个递增的时代编号，因此时代编号是全序且单调递增的。如果两个不同的时代的领导者之间出现冲突（也许是因为前任领导者实际上并未死亡），那么带有更高时代编号的领导说了算。&lt;/p&gt;
-
-&lt;p&gt;在任何领导者被允许决定任何事情之前，必须先检查是否存在其他带有更高时代编号的领导者，它们可能会做出相互冲突的决定。&lt;/p&gt;
-
-&lt;p&gt;它必须从&lt;strong&gt;法定人数（quorum）&lt;/strong&gt;的节点中获取选票（参阅“&lt;a href=&quot;https://vonng.gitbooks.io/ddia-cn/content/ch5.html#读写的法定人数&quot;&gt;读写的法定人数&lt;/a&gt;”）。对领导者想要做出的每一个决定，都必须将提议值发送给其他节点，并等待法定人数的节点响应并赞成提案。法定人数通常（但不总是）由多数节点组成【105】。只有在没有意识到任何带有更高时代编号的领导者的情况下，一个节点才会投票赞成提议。&lt;/p&gt;
-
-&lt;p&gt;因此，我们有两轮投票：第一次是为了选出一位领导者，第二次是对领导者的提议进行表决。关键在于，这两次投票的&lt;strong&gt;法定人群&lt;/strong&gt;必须相互&lt;strong&gt;重叠（overlap）&lt;/strong&gt; 如果一个提案的表决通过，则至少得有一个参与投票的节点也必须参加过最近的领导者选举【105】。因此，如果在一个提案的表决过程中没有出现更高的时代编号。那么现任领导者就可以得出这样的结论：没有发生过更高时代的领导选举，因此可以确定自己仍然在领导。然后它就可以安全地对提议值做出决定。&lt;/p&gt;
-
-&lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
-
-&lt;p&gt;https://vonng.gitbooks.io/ddia-cn/content/part-i.html&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">设计数据密集型应用</summary></entry><entry><title type="html">chrome右键菜单开发</title><link href="https://mafulong.github.io/2022/11/26/chrome%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%BC%80%E5%8F%91/" rel="alternate" type="text/html" title="chrome右键菜单开发" /><published>2022-11-26T00:00:00+08:00</published><updated>2022-11-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/11/26/chrome%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%BC%80%E5%8F%91</id><content type="html" xml:base="https://mafulong.github.io/2022/11/26/chrome%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E5%BC%80%E5%8F%91/">&lt;h2 id=&quot;chrome右键菜单开发&quot;&gt;chrome右键菜单开发&lt;/h2&gt;
-
-&lt;p&gt;请参考：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/6952384957360635911&quot;&gt;扩展浏览器右键菜单，加个谷歌搜索&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/550500152&quot;&gt;Chrome开发自定义右键菜单实现快速跳转到指定页面，一次多个菜单项目&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://blog.51cto.com/xingag/5847203&quot;&gt;Chrome 插件如何完成剪切板的操作&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;主要改manifest.json, index.js, content.js。&lt;/p&gt;
-
-&lt;p&gt;content.js运行在每个页面上，可选，除非有需要页面交互的才需要。&lt;/p&gt;
-
-&lt;p&gt;background.js是监听click事件的。&lt;/p&gt;
-
-&lt;p&gt;Demo code: 见个人github。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="TOOLS" /><category term="TOOLS" /><summary type="html">chrome右键菜单开发</summary></entry></feed>
+&lt;p&gt;不能把所有数据块指针放到内存里。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Mysql" /><category term="Mysql" /><summary type="html">mysql数据存储</summary></entry></feed>
