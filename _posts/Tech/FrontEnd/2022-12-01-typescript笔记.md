@@ -539,17 +539,418 @@ animal as Fish
 
 
 
+# 进阶
+
+## 类型别名
+
+类型别名用来给一个类型起个新名字。
+
+
+
+```ts
+type Name = string;
+type NameResolver = () => string;
+type NameOrResolver = Name | NameResolver;
+function getName(n: NameOrResolver): Name {
+    if (typeof n === 'string') {
+        return n;
+    } else {
+        return n();
+    }
+}
+```
+
+上例中，我们使用 `type` 创建类型别名。
+
+类型别名常用于联合类型。
+
+
+
+## 字符串字面量类型
+
+字符串字面量类型用来约束取值只能是某几个字符串中的一个。
+
+
+
+```ts
+type EventNames = 'click' | 'scroll' | 'mousemove';
+function handleEvent(ele: Element, event: EventNames) {
+    // do something
+}
+
+handleEvent(document.getElementById('hello'), 'scroll');  // 没问题
+handleEvent(document.getElementById('world'), 'dblclick'); // 报错，event 不能为 'dblclick'
+
+// index.ts(7,47): error TS2345: Argument of type '"dblclick"' is not assignable to parameter of type 'EventNames'.
+```
+
+上例中，我们使用 `type` 定了一个字符串字面量类型 `EventNames`，它只能取三种字符串中的一种。
+
+注意，**类型别名与字符串字面量类型都是使用 `type` 进行定义。**
+
+
+
+## 元组
+
+数组合并了相同类型的对象，而元组（Tuple）合并了不同类型的对象。
+
+元组起源于函数编程语言（如 F#），这些语言中会频繁使用元组。
+
+定义一对值分别为 `string` 和 `number` 的元组：
+
+```ts
+let tom: [string, number] = ['Tom', 25];
+```
+
+当赋值或访问一个已知索引的元素时，会得到正确的类型：
+
+```ts
+let tom: [string, number];
+tom[0] = 'Tom';
+tom[1] = 25;
+```
+
+也可以只赋值其中一项
+
+
+
+当添加越界的元素时，它的类型会被限制为元组中每个类型的联合类型：
+
+```ts
+let tom: [string, number];
+tom = ['Tom', 25];
+tom.push('male');
+tom.push(true);
+
+// Argument of type 'true' is not assignable to parameter of type 'string | number'.
+```
+
+
+
+## 枚举
+
+枚举（Enum）类型用于取值被限定在一定范围内的场景，比如一周只能有七天，颜色限定为红绿蓝等。
+
+枚举使用 `enum` 关键字来定义：
+
+```ts
+enum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+```
+
+枚举成员会被赋值为从 `0` 开始递增的数字，同时也会对枚举值到枚举名进行反向映射：
+
+```ts
+enum Days {Sun, Mon, Tue, Wed, Thu, Fri, Sat};
+
+console.log(Days["Sun"] === 0); // true
+console.log(Days["Mon"] === 1); // true
+console.log(Days["Tue"] === 2); // true
+console.log(Days["Sat"] === 6); // true
+
+console.log(Days[0] === "Sun"); // true
+console.log(Days[1] === "Mon"); // true
+console.log(Days[2] === "Tue"); // true
+console.log(Days[6] === "Sat"); // true
+```
+
+
+
+我们也可以给枚举项手动赋值：
+
+```ts
+enum Days {Sun = 7, Mon = 1, Tue, Wed, Thu, Fri, Sat};
+
+console.log(Days["Sun"] === 7); // true
+console.log(Days["Mon"] === 1); // true
+```
+
+未手动赋值的枚举项会接着上一个枚举项递增。如果未手动赋值的枚举项与手动赋值的重复了，TypeScript 是不会察觉到这一点的。所以使用的时候需要注意，最好不要出现这种覆盖的情况。
+
+
+
+## 类
+
+### 实例属性
+
+ES6 中实例的属性只能通过构造函数中的 `this.xxx` 来定义，ES7 提案中可以直接在类里面定义：
+
+```js
+class Animal {
+  name = 'Jack';
+
+  constructor() {
+    // ...
+  }
+}
+
+let a = new Animal();
+console.log(a.name); // Jack
+```
+
+### 静态属性
+
+ES7 提案中，可以使用 `static` 定义一个静态属性：
+
+```js
+class Animal {
+  static num = 42;
+
+  constructor() {
+    // ...
+  }
+}
+
+console.log(Animal.num); // 42
+```
+
+
+
+### public private 和 protected
+
+TypeScript 可以使用三种访问修饰符（Access Modifiers），分别是 `public`、`private` 和 `protected`。
+
+ 需要注意的是，TypeScript 编译之后的代码中，并没有限制 `private` 属性在外部的可访问性。
+
+
+
+### 构造函数参数可带访问属性
+
+修饰符和`readonly`还可以使用在构造函数参数中，等同于类中定义该属性同时给该属性赋值，使代码更简洁。
+
+```ts
+class Animal {
+  // public name: string;
+  public constructor(public name) {
+    // this.name = name;
+  }
+}
+```
+
+
+
+注意如果 `readonly` 和其他访问修饰符同时存在的话，需要写在其后面。
+
+```ts
+class Animal {
+  // public readonly name;
+  public constructor(public readonly name) {
+    // this.name = name;
+  }
+}
+```
+
+
+
+### 抽象类
+
+`abstract` 用于定义抽象类和其中的抽象方法。
+
+首先，抽象类是不允许被实例化的：
+
+```ts
+abstract class Animal {
+  public name;
+  public constructor(name) {
+    this.name = name;
+  }
+  public abstract sayHi();
+}
+```
+
+其次，抽象类中的抽象方法必须被子类实现
+
+
+
+## 类与接口
+
+实现（implements）是面向对象中的一个重要概念。一般来讲，一个类只能继承自另一个类，有时候不同类之间可以有一些共有的特性，这时候就可以把特性提取成接口（interfaces），用 `implements` 关键字来实现。这个特性大大提高了面向对象的灵活性。
+
+```ts
+interface Alarm {
+    alert(): void;
+}
+
+class Door {
+}
+
+class SecurityDoor extends Door implements Alarm {
+    alert() {
+        console.log('SecurityDoor alert');
+    }
+}
+```
+
+一个类可以实现多个接口：
+
+```ts
+interface Alarm {
+    alert(): void;
+}
+
+interface Light {
+    lightOn(): void;
+    lightOff(): void;
+}
+
+class Car implements Alarm, Light {
+    alert() {
+        console.log('Car alert');
+    }
+    lightOn() {
+        console.log('Car light on');
+    }
+    lightOff() {
+        console.log('Car light off');
+    }
+}
+```
+
+
+
+接口与接口之间可以是继承关系：
+
+```ts
+interface Alarm {
+    alert(): void;
+}
+
+interface LightableAlarm extends Alarm {
+    lightOn(): void;
+    lightOff(): void;
+}
+```
+
+
+
+常见的面向对象语言中，接口是不能继承类的，但是在 TypeScript 中却是可以的：
+
+```ts
+class Point {
+    x: number;
+    y: number;
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+interface Point3d extends Point {
+    z: number;
+}
+```
+
+
+
+## 泛型
+
+泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定类型的一种特性。
+
+泛型函数、泛型类、泛型接口、泛型类默认泛型
+
+```ts
+function createArray<T>(length: number, value: T): Array<T> {
+    let result: T[] = [];
+    for (let i = 0; i < length; i++) {
+        result[i] = value;
+    }
+    return result;
+}
+
+createArray<string>(3, 'x'); // ['x', 'x', 'x']
+
+// or 自动推算
+createArray(3, 'x'); // ['x', 'x', 'x']
+
+```
+
+
+
+定义泛型的时候，可以一次定义多个类型参数：
+
+```ts
+function swap<T, U>(tuple: [T, U]): [U, T] {
+    return [tuple[1], tuple[0]];
+}
+
+swap([7, 'seven']); // ['seven', 7]
+```
+
+
+
+当然也可以使用含有泛型的接口来定义函数的形状：
+
+```ts
+interface CreateArrayFunc {
+    <T>(length: number, value: T): Array<T>;
+}
+```
+
+
+
+与泛型接口类似，泛型也可以用于类的类型定义中：
+
+```ts
+class GenericNumber<T> {
+    zeroValue: T;
+    add: (x: T, y: T) => T;
+}
+
+let myGenericNumber = new GenericNumber<number>();
+myGenericNumber.zeroValue = 0;
+myGenericNumber.add = function(x, y) { return x + y; };
+```
+
+
+
+在 TypeScript 2.3 以后，我们可以为泛型中的类型参数指定默认类型。当使用泛型时没有在代码中直接指定类型参数，从实际值参数中也无法推测出时，这个默认类型就会起作用。
+
+```ts
+function createArray<T = string>(length: number, value: T): Array<T> {
+    let result: T[] = [];
+    for (let i = 0; i < length; i++) {
+        result[i] = value;
+    }
+    return result;
+}
+```
+
+
+
+## 声明合并
+
+如果定义了两个相同名字的函数、接口或类，那么它们会合并成一个类型：
+
+函数合并就是函数类型里提到的**重载**
+
+
+
+接口中的属性在合并时会简单的合并到一个接口中：
+
+```ts
+interface Alarm {
+    price: number;
+}
+interface Alarm {
+    weight: number;
+}
+```
+
+相当于：
+
+```ts
+interface Alarm {
+    price: number;
+    weight: number;
+}
+```
+
+注意，**合并的属性的类型必须是唯一的**
 
 
 
 
 
-
-
-
-
-
-
+类的合并与接口的合并规则一致。
 
 # 参考
 
