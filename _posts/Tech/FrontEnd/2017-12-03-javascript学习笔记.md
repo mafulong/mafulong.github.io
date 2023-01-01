@@ -2173,6 +2173,10 @@ js之父在设计js原型、原型链的时候遵从以下两个准则
 
 > [JavaScript 中的类](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
 
+### 类
+
+下面的是es6里提供的
+
 这里描述的特性并不是一种继承对象的新方式：在引擎的底层，这一特性使用的仍是原型。这只是一种更容易的创建原型链的方法。
 
 
@@ -2208,7 +2212,7 @@ giles.introduceSelf(); // Hi! I'm Giles
 
 
 
-**继承**
+### **继承**
 
 对于上文给出的 Person 类，我们声明一个它的子类 Professor。
 
@@ -2240,6 +2244,8 @@ class Professor extends Person {
 
 
 
+### 私有
+
 想要某些字段私有。可以用字段前面加#. 私有数据属性必须在类的声明中声明，而且其名称需以 `#` 开头。
 
 
@@ -2267,17 +2273,34 @@ class Student extends Person {
 }
 ```
 
+### 注意点
+
+1. 在ES6中类没有变量提升，所以必须先定义类，才能通过类实例化对象。
+
+2. 类里面的共有属性和方法一定要加this调用。
+
+3. 类里面的this指向问题。 constructor里面的this指向的是 创建的实例对象，方法里面的this指向这个方法的调用者
+4. 属性只能放到构造函数里，`this.xxx` 来定义。没有静态属性
 
 
-## 三个注意点：
 
-1.在ES6中类没有变量提升，所以必须先定义类，才能通过类实例化对象。
 
-2.类里面的共有属性和方法一定要加this调用。
 
-3.类里面的this指向问题
+### 静态方法
 
-constructor里面的this指向的是 创建的实例对象，方法里面的this指向这个方法的调用者
+使用 `static` 修饰符修饰的方法称为静态方法，它们不需要实例化，而是直接通过类来调用：
+
+```js
+class Animal {
+  static isAnimal(a) {
+    return a instanceof Animal;
+  }
+}
+
+let a = new Animal('Jack');
+Animal.isAnimal(a); // true
+a.isAnimal(a); // TypeError: a.isAnimal is not a function
+```
 
 
 
