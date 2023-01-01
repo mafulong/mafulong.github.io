@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>go基础语法 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/11/01/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/favicon.ico"><meta property="og:title" content="go基础语法"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="```gopackage main"><meta name="og:description" content="```gopackage main"><meta property="og:url" content="https://mafulong.github.io/2018/11/01/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-11-01"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/main.js"></script> <script data-ad-client="ca-pub-6116360096430004" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="go基础语法"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">go基础语法</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/11/01 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Go" title="Go">Go</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 12521 字，约 36 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>go基础语法 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/11/01/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/favicon.ico"><meta property="og:title" content="go基础语法"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="```gopackage main"><meta name="og:description" content="```gopackage main"><meta property="og:url" content="https://mafulong.github.io/2018/11/01/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-11-01"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/main.js"></script> <script data-ad-client="ca-pub-6116360096430004" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="go基础语法"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">go基础语法</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/11/01 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Go" title="Go">Go</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 12610 字，约 37 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
 
 <span class="k">import</span> <span class="p">(</span>
 	<span class="s">"fmt"</span>
 <span class="p">)</span>
-</code></pre></div></div><h2 id="go基本知识">go基本知识</h2><p>在 Printf 方法中，使用 %T 格式说明符（Format Specifier）</p><h4 id="包管理">包管理</h4><p>所有可执行的 Go 程序都必须包含一个 main 函数。这个函数是程序运行的入口。main 函数应该放置于 main 包中。</p><p>在 Go 中，任何以大写字母开头的变量或者函数都是被导出的名字。其它包只能访问被导出的函数和变量。</p><p>首字母大写表示Public，否则private，对包来说</p><p>导入了包，却不在代码中使用它，这在 Go 中是非法的。当这么做时，编译器是会报错的。其原因是为了避免导入过多未使用的包，从而导致编译时间显著增加。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
+</code></pre></div></div><h2 id="go基本知识">go基本知识</h2><p>在 Printf 方法中，使用 %T 格式说明符（Format Specifier）</p><h3 id="包管理">包管理</h3><p>所有可执行的 Go 程序都必须包含一个 main 函数。这个函数是程序运行的入口。main 函数应该放置于 main 包中。</p><p>在 Go 中，任何以大写字母开头的变量或者函数都是被导出的名字。其它包只能访问被导出的函数和变量。</p><p>首字母大写表示Public，否则private，对包来说</p><p>导入了包，却不在代码中使用它，这在 Go 中是非法的。当这么做时，编译器是会报错的。其原因是为了避免导入过多未使用的包，从而导致编译时间显著增加。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="n">main</span>
 
 <span class="k">import</span> <span class="p">(</span>  
     <span class="s">"geometry/rectangle"</span> 
@@ -22,18 +22,18 @@
 <span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
 <span class="p">}</span>
-</code></pre></div></div><h4 id="运行go程序">运行Go程序</h4><p>使用go run a.go</p><p>注意：这只会运行一个go文件，当引用其他go文件时，会出错，比如函数未定义，因此需要运行</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run *.go
-</code></pre></div></div><p>go install命令会安装程序，在工作区嗯bin目录下创建二进制文件，比如kitool,比如lift</p><h4 id="init-函数">init 函数</h4><p>所有包都可以包含一个 init 函数。init 函数不应该有任何返回值类型和参数，在我们的代码中也不能显式地调用它。</p><p>包的初始化顺序如下：</p><ol><li>首先初始化被导入的包。因此，首先初始化了 rectangle 包。</li><li>接着初始化了包级别的变量 rectLen 和 rectWidth。</li><li>调用 init 函数。</li><li>最后调用 main 函数。</li></ol><h2 id="变量常量及初始化">变量、常量及初始化</h2><p>golang是用C实现的，并且被称为下一代的C语言，但是golang跟C的差别还是很大的。它定义了一套很丰富的数据类型及数据结构，这些类型和结构或者是直接映射为C的数据类型，或者是用C struct来实现。</p><p>下面是 Go 支持的基本类型：</p><ul><li><p>bool</p></li><li><p>数字类型</p><p>int8, int16, int32, int64, int uint8, uint16, uint32, uint64, uint float32, float64 complex64, complex128</p></li><li>byte byte 是 uint8 的别名。</li><li>rune rune 是 int32 的别名。</li><li>string</li></ul><p>int：根据不同的底层平台（Underlying Platform），表示 32 或 64 位整型。除非对整型的大小有特定的需求，否则你通常应该使用 int 表示整型。</p><p>Go 有着非常严格的强类型特征。Go 没有自动类型提升或默认类型转换。只能强制转换</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/*
+</code></pre></div></div><h3 id="运行go程序">运行Go程序</h3><p>使用go run a.go</p><p>注意：这只会运行一个go文件，当引用其他go文件时，会出错，比如函数未定义，因此需要运行</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>go run *.go
+</code></pre></div></div><p>go install命令会安装程序，在工作区嗯bin目录下创建二进制文件，比如kitool,比如lift</p><h3 id="init-函数">init 函数</h3><p>所有包都可以包含一个 init 函数。init 函数不应该有任何返回值类型和参数，在我们的代码中也不能显式地调用它。</p><p>包的初始化顺序如下：</p><ol><li>首先初始化被导入的包。因此，首先初始化了 rectangle 包。</li><li>接着初始化了包级别的变量 rectLen 和 rectWidth。</li><li>调用 init 函数。</li><li>最后调用 main 函数。</li></ol><h2 id="变量常量及初始化">变量、常量及初始化</h2><p>golang是用C实现的，并且被称为下一代的C语言，但是golang跟C的差别还是很大的。它定义了一套很丰富的数据类型及数据结构，这些类型和结构或者是直接映射为C的数据类型，或者是用C struct来实现。</p><p>下面是 Go 支持的基本类型：</p><ul><li><p>bool</p></li><li><p>数字类型</p><p>int8, int16, int32, int64, int uint8, uint16, uint32, uint64, uint float32, float64 complex64, complex128</p></li><li>byte byte 是 uint8 的别名。</li><li>rune rune 是 int32 的别名。</li><li>string</li></ul><p>int：根据不同的底层平台（Underlying Platform），表示 32 或 64 位整型。除非对整型的大小有特定的需求，否则你通常应该使用 int 表示整型。</p><p>Go 有着非常严格的强类型特征。Go 没有自动类型提升或默认类型转换。只能强制转换</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/*
 变量
  */</span>
 
 <span class="k">func</span> <span class="n">variable</span><span class="p">()</span>  <span class="p">{</span>
 
-    <span class="c">//集体定义</span>
-    <span class="k">var</span><span class="p">{</span>
-        <span class="n">a</span><span class="o">=</span><span class="m">3</span>
-        <span class="n">b</span><span class="o">=</span><span class="m">4</span>
-    <span class="p">}</span>
+  <span class="c">//集体定义</span>
+  <span class="k">var</span><span class="p">{</span>
+    <span class="n">a</span><span class="o">=</span><span class="m">3</span>
+    <span class="n">b</span><span class="o">=</span><span class="m">4</span>
+  <span class="p">}</span>
 	<span class="c">//1. 指定类型</span>
 	<span class="c">// 有默认值</span>
 	<span class="k">var</span> <span class="n">a</span> <span class="kt">int</span>
@@ -46,7 +46,7 @@
 	<span class="k">var</span> <span class="n">b</span><span class="o">=</span><span class="m">3</span>
 	<span class="nb">println</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 
-	<span class="c">//3. 省略var</span>
+  <span class="c">//3. 省略var 就有:了</span>
 	<span class="n">c</span><span class="o">:=</span><span class="m">3</span>
 	<span class="nb">println</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 <span class="p">}</span>
@@ -55,7 +55,7 @@
 常量
  */</span>
  <span class="k">func</span> <span class="n">constVariable</span><span class="p">(){</span>
- 	<span class="k">const</span> <span class="n">a</span> <span class="kt">int</span><span class="o">=</span><span class="m">3</span><span class="p">;</span>
+ 	 <span class="k">const</span> <span class="n">a</span> <span class="kt">int</span><span class="o">=</span><span class="m">3</span><span class="p">;</span>
 	 <span class="c">//多类型简写</span>
 	 <span class="k">const</span> <span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="no">false</span><span class="p">,</span><span class="m">4</span>
 	 <span class="c">//可以做枚举</span>
@@ -82,12 +82,12 @@
         <span class="n">byte</span><span class="o">*</span>   <span class="n">str</span><span class="p">;</span>
         <span class="n">intgo</span>   <span class="n">len</span><span class="p">;</span>
 <span class="p">};</span>
-</code></pre></div></div><p>一个汉字3个字节。。。不知道为啥，本应该是4个字节的，这个到时再看下</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">printBytes</span><span class="p">(</span><span class="n">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div><p>一个汉字3个字节，这是因为在UTF-8编码规则中，一个中文占3个字节</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">printBytes</span><span class="p">(</span><span class="n">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">for</span> <span class="n">i</span><span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
         <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%x "</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></div><p>我们尝试输出 Señor 的字符，但却输出了错误的 S e Ã ± o r。 为什么程序分割 Hello World 时表现完美，但分割 Señor 就出现了错误呢？这是因为 ñ 的 Unicode 代码点（Code Point）是 U+00F1。它的 UTF-8 编码占用了 c3 和 b1 两个字节。它的 UTF-8 编码占用了两个字节 c3 和 b1。而我们打印字符时，却假定每个字符的编码只会占用一个字节，这是错误的。在 UTF-8 编码中，一个代码点可能会占用超过一个字节的空间。那么我们该怎么办呢？rune 能帮我们解决这个难题。</p><p>rune 是 Go 语言的内建类型，它也是 int32 的别称。在 Go 语言中，rune 表示一个代码点。代码点无论占用多少个字节，都可以用一个 rune 来表示。让我们修改一下上面的程序，用 rune 来打印字符。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">printChars</span><span class="p">(</span><span class="n">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+</code></pre></div></div><p>rune 是 Go 语言的内建类型，它也是 int32 的别称。在 Go 语言中，rune 表示一个代码点。代码点无论占用多少个字节，都可以用一个 rune 来表示。让我们修改一下上面的程序，用 rune 来打印字符。 rune就对应了utf8编码中的一个单位，utf8是变长编码，和unicode等定长不同</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">printChars</span><span class="p">(</span><span class="n">s</span> <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">runes</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">rune</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span><span class="o">:=</span> <span class="m">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">runes</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
         <span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"%c "</span><span class="p">,</span><span class="n">runes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
@@ -272,7 +272,7 @@
 	<span class="c">/*
 	闭包
 	 */</span>
-	<span class="c">//func getSequence() func() int {</span>
+	<span class="c">//func getSequence() func() int { // return值是func() int</span>
 	<span class="c">//	i:=0</span>
 	<span class="c">//	return func() int {</span>
 	<span class="c">//		i+=1</span>
@@ -323,7 +323,7 @@
 	<span class="c">/* 定义了长度的数组只能传给限制了相同数组长度的函数 */</span>
 
 <span class="p">}</span>
-</code></pre></div></div><p>指针的零值是 nil。</p><p><strong>不要向函数传递数组的指针，而应该使用切片</strong></p><p>假如我们想要在函数内修改一个数组，并希望调用函数的地方也能得到修改后的数组，一种解决方案是把一个指向数组的指针传递给这个函数。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">modify</span><span class="p">(</span><span class="n">sls</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>  
+</code></pre></div></div><p>指针的零值是 nil。</p><p><strong>不要向函数传递数组的指针，而应该使用切片</strong> 因为数组是数组拷贝。</p><p>假如我们想要在函数内修改一个数组，并希望调用函数的地方也能得到修改后的数组，一种解决方案是把一个指向数组的指针传递给这个函数。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="n">modify</span><span class="p">(</span><span class="n">sls</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>  
     <span class="n">sls</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">=</span> <span class="m">90</span>
 <span class="p">}</span>
 
@@ -436,13 +436,13 @@
 	<span class="c">//func printBook( book Books )</span>
 
 	<span class="c">//结构体指针</span>
-	<span class="c">//var struct_pointer *Books</span>
+	<span class="k">var</span> <span class="n">struct_pointer</span> <span class="o">*</span><span class="n">Books</span>
 	<span class="c">//使用结构体指针访问结构体成员，使用 "." 操作符：</span>
-	<span class="c">//struct_pointer.title;</span>
+	<span class="n">struct_pointer</span><span class="o">.</span><span class="n">title</span><span class="p">;</span>
 
 
 <span class="p">}</span>
-</code></pre></div></div><h2 id="方法">方法</h2><p>在调用方法的时候，值类型既可以调用<code class="language-plaintext highlighter-rouge">值接收者</code>的方法，也可以调用<code class="language-plaintext highlighter-rouge">指针接收者</code>的方法；指针类型既可以调用<code class="language-plaintext highlighter-rouge">指针接收者</code>的方法，也可以调用<code class="language-plaintext highlighter-rouge">值接收者</code>的方法。</p><p>也就是说，不管方法的接收者是什么类型，该类型的值和指针都可以调用，不必严格符合接收者的类型。</p><p>使用指针作为方法的接收者的理由：</p><ul><li>方法能够修改接收者指向的值。</li><li>避免在每次调用方法时复制该值，在值的类型为大型结构体时，这样做会更加高效。</li></ul><p>一般来说，指针接收器可以使用在：对方法内部的接收器所做的改变应该对调用者可见时。</p><p>指针接收器也可以被使用在如下场景：当拷贝一个结构体的代价过于昂贵时。考虑下一个结构体有很多的字段。在方法内使用这个结构体做为值接收器需要拷贝整个结构体，这是很昂贵的。在这种情况下使用指针接收器，结构体不会被拷贝，只会传递一个指针到方法内部使用。</p><p>在其他的所有情况，值接收器都可以被使用。</p><p>注意给值接收器传递指针，那也是更改不可见的，只有指针接收器才可以更改可见</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Employee</span> <span class="k">struct</span> <span class="p">{</span>
+</code></pre></div></div><h2 id="方法">方法</h2><p>在调用方法的时候，值类型既可以调用<code class="language-plaintext highlighter-rouge">值接收者</code>的方法，也可以调用<code class="language-plaintext highlighter-rouge">指针接收者</code>的方法；指针类型既可以调用<code class="language-plaintext highlighter-rouge">指针接收者</code>的方法，也可以调用<code class="language-plaintext highlighter-rouge">值接收者</code>的方法。</p><p>也就是说，不管方法的接收者是什么类型，该类型的值和指针都可以调用，不必严格符合接收者的类型。</p><p>使用指针作为方法的接收者的理由：</p><ul><li>方法能够修改接收者指向的值。</li><li>避免在每次调用方法时复制该值，在值的类型为大型结构体时，这样做会更加高效。</li></ul><p>一般来说，指针接收器可以使用在：对方法内部的接收器所做的改变应该对调用者可见时。</p><p>指针接收器也可以被使用在如下场景：当拷贝一个结构体的代价过于昂贵时。考虑下一个结构体有很多的字段。在方法内使用这个结构体做为值接收器需要拷贝整个结构体，这是很昂贵的。在这种情况下使用指针接收器，结构体不会被拷贝，只会传递一个指针到方法内部使用。</p><p>在其他的所有情况，值接收器都可以被使用。</p><p><strong>注意给值接收器传递指针，那也是更改不可见的，只有指针接收器才可以更改可见</strong>。能不能更改可见以接收器类型为准。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Employee</span> <span class="k">struct</span> <span class="p">{</span>
     <span class="n">name</span>     <span class="kt">string</span>
     <span class="n">salary</span>   <span class="kt">int</span>
     <span class="n">currency</span> <span class="kt">string</span>
@@ -464,7 +464,15 @@
     <span class="n">emp1</span><span class="o">.</span><span class="n">displaySalary</span><span class="p">()</span> <span class="c">// 调用 Employee 类型的 displaySalary() 方法</span>
 <span class="p">}</span>
 </code></pre></div></div><h2 id="可变参数">可变参数</h2><p>如果函数最后一个参数被记作 …T ，这时函数可以接受任意个 T 类型参数作为最后一个参数。</p><p>请注意只有函数的最后一个参数才允许是可变的。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="nb">append</span><span class="p">(</span><span class="n">slice</span> <span class="p">[]</span><span class="n">Type</span><span class="p">,</span> <span class="n">elems</span> <span class="o">...</span><span class="n">Type</span><span class="p">)</span> <span class="p">[]</span><span class="n">Type</span>
-</code></pre></div></div><p>传入后，当成一个数组，range访问就好了</p><h2 id="切片">切片</h2><p>slice类型的底层同样是一个C struct。</p><p>struct Slice { // must not move anything byte* array; // actual data uintgo len; // number of elements uintgo cap; // allocated number of elements };</p><p>append 函数的定义是 func append（s[]T，x … T）[]T。</p><p>我们可以认为，切片在内部可由一个结构体类型表示。这是它的表现形式，</p><p>是引用传递，要同步内容修改的</p><p>如果切片由数组支持，并且数组本身的长度是固定的，那么切片如何具有动态长度。以及内部发生了什么，当新的元素被添加到切片时，会创建一个新的数组。现有数组的元素被复制到这个新数组中，并返回这个新数组的新切片引用。现在新切片的容量是旧切片的两倍。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">slice</span> <span class="k">struct</span> <span class="p">{</span>  
+</code></pre></div></div><p>传入后，当成一个数组，range访问就好了</p><h2 id="切片slice">切片slice</h2><p>slice类型的底层同样是一个C struct。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>struct	Slice
+{				// must not move anything
+	byte*	array;		// actual data
+	uintgo	len;		// number of elements
+	uintgo	cap;		// allocated number of elements
+};
+
+
+</code></pre></div></div><p>append 函数的定义是<code class="language-plaintext highlighter-rouge"> func append（s[]T，x ... T）[]T</code>。</p><p>我们可以认为，切片在内部可由一个结构体类型表示。这是它的表现形式，</p><p><strong>是引用传递，要同步内容修改的</strong></p><p>当新的元素被添加到切片时，如果容量不够，会创建一个新的数组。现有数组的元素被复制到这个新数组中，并返回这个新数组的新切片引用。现在新切片的容量是旧切片的两倍。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">slice</span> <span class="k">struct</span> <span class="p">{</span>  
     <span class="n">Length</span>        <span class="kt">int</span>
     <span class="n">Capacity</span>      <span class="kt">int</span>
     <span class="n">ZerothElement</span> <span class="o">*</span><span class="kt">byte</span>
@@ -511,7 +519,7 @@
 <span class="p">}</span>
 
 <span class="c">/*
-范围 range
+遍历 range
  */</span>
 
 <span class="k">func</span> <span class="n">rangeStatement</span><span class="p">()</span>  <span class="p">{</span>
@@ -523,19 +531,29 @@
 	<span class="c">//这是我们使用range去求一个slice的和。使用数组跟这个很类似</span>
 	<span class="n">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="m">2</span><span class="p">,</span> <span class="m">3</span><span class="p">,</span> <span class="m">4</span><span class="p">}</span>
 	<span class="n">sum</span> <span class="o">:=</span> <span class="m">0</span>
+  <span class="c">// only value</span>
 	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">num</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">nums</span> <span class="p">{</span>
 		<span class="n">sum</span> <span class="o">+=</span> <span class="n">num</span>
 	<span class="p">}</span>
 
+  <span class="c">// index, value  </span>
+  <span class="n">nums</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"b"</span><span class="p">,</span> <span class="s">"c"</span><span class="p">}</span>
+	<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">nums</span><span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="c">// index, value</span>
+	<span class="p">}</span>
+  <span class="c">// only index</span>
+	<span class="k">for</span> <span class="n">k</span> <span class="o">:=</span> <span class="k">range</span> <span class="n">nums</span><span class="p">{</span>
+		<span class="nb">println</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="c">// only index</span>
+	<span class="p">}</span>
 
 <span class="p">}</span>
-</code></pre></div></div><h2 id="map">map</h2><p>map 的零值是 nil。如果你想添加元素到 nil map 中，会触发运行时 panic。因此 map 必须使用 make 函数初始化。</p><p>也就是说必须使用Make</p><p>获取 map 的长度使用 len 函数。</p><p>和 slices 类似，map 也是引用类型。当 map 被赋值为一个新变量的时候，它们指向同一个内部数据结构。因此，改变其中一个变量，就会影响到另一变量。</p><p>map 之间不能使用 == 操作符判断，== 只能用来检查 map 是否为 nil。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/*
+</code></pre></div></div><h2 id="map">map</h2><p>map 的零值是 nil。如果你想添加元素到 nil map 中，会触发运行时 panic。因此 map 必须使用 make 函数初始化。</p><p>也就是说必须使用<code class="language-plaintext highlighter-rouge">make</code></p><p>获取 map 的长度使用 len 函数。</p><p>和 slices 类似，map 也是引用类型。当 map 被赋值为一个新变量的时候，它们指向同一个内部数据结构。因此，改变其中一个变量，就会影响到另一变量。</p><p>map 之间不能使用 == 操作符判断，== 只能用来检查 map 是否为 nil。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/*
 map
  */</span>
 <span class="k">func</span> <span class="n">mapStatement</span><span class="p">()</span>  <span class="p">{</span>
 	<span class="c">/* 声明变量，默认 map 是 nil */</span>
 	<span class="c">//var map_variable map[key_data_type]value_data_type</span>
-	<span class="c">//nil map 不能用来存放键值对</span>
+	<span class="c">//nil map 不能用来存放键值对，会panic</span>
 
 	<span class="c">/* 使用 make 函数 */</span>
 	<span class="c">//map_variable := make(map[key_data_type]value_data_type)</span>
@@ -565,7 +583,7 @@ map
 	<span class="c">/*删除元素*/</span>
 	<span class="nb">delete</span><span class="p">(</span><span class="n">countryCapitalMap</span><span class="p">,</span> <span class="s">"France"</span><span class="p">)</span>
 <span class="p">}</span>
-</code></pre></div></div><h2 id="接口">接口</h2><p>接口的零值是 nil。对于值为 nil 的接口，其底层值（Underlying Value）和具体类型（Concrete Type）都为 nil。</p><p>类型断言</p><p>类型断言用于提取接口的底层值（Underlying Value）。</p><p>在语法 i.(T) 中，接口 i 的具体类型是 T，该语法用于获得接口的底层值。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div><h2 id="接口interface">接口interface</h2><p>接口的零值是 nil。对于值为 nil 的接口，其底层值（Underlying Value）和具体类型（Concrete Type）都为 nil。</p><p>类型断言</p><p>类型断言用于提取接口的底层值（Underlying Value）。</p><p>在语法 i.(T) 中，接口 i 的具体类型是 T，该语法用于获得接口的底层值。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="k">func</span> <span class="n">assert</span><span class="p">(</span><span class="n">i</span> <span class="k">interface</span><span class="p">{})</span> <span class="p">{</span>  
     <span class="n">s</span> <span class="o">:=</span> <span class="n">i</span><span class="o">.</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="c">//get the underlying int value from i</span>
     <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -575,14 +593,14 @@ map
  */</span>
 <span class="k">func</span> <span class="n">interfaceStatement</span><span class="p">()</span>  <span class="p">{</span>
 	<span class="c">/*
-		type Phone interface {
-		call()
+	type Phone interface {
+		call() //接口的方法声明
 	}
 
 	type NokiaPhone struct {
 	}
 
-	func (nokiaPhone NokiaPhone) call() {
+	func (nokiaPhone NokiaPhone) call() { //实现了这个接口
 		fmt.Println("I am Nokia, I can call you!")
 	}
 
@@ -605,7 +623,7 @@ map
 	}
 	 */</span>
 <span class="p">}</span>
-</code></pre></div></div><p>注意接口赋值问题</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Describer</span> <span class="k">interface</span> <span class="p">{</span>  
+</code></pre></div></div><p>注意接口赋值问题。</p><p>如果是A的指针类型了实现了接口B，那A的非指针对象是不能赋值给非指针对象B的，只能A的指针对象复制给非指针对象B。看是否实现时是区分是指针版本实现的还是非指针实现的，只有对应实现的才能子类转父类。如下。</p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">type</span> <span class="n">Describer</span> <span class="k">interface</span> <span class="p">{</span>  
     <span class="n">Describe</span><span class="p">()</span>
 <span class="p">}</span>
 <span class="k">type</span> <span class="n">Person</span> <span class="k">struct</span> <span class="p">{</span>  
@@ -647,7 +665,7 @@ map
     <span class="c">//d2 = a</span>
 
     <span class="n">d2</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">a</span> <span class="c">// 这是合法的</span>
-    <span class="c">// 因为在第 22 行，Address 类型的指针实现了 Describer 接口</span>
+    <span class="c">// 因为是Address 类型的指针实现了 Describer 接口</span>
     <span class="n">d2</span><span class="o">.</span><span class="n">Describe</span><span class="p">()</span>
 
 <span class="p">}</span>
@@ -698,7 +716,5 @@ map
 
  */</span>
 <span class="p">}</span>
-<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
 
-<span class="p">}</span>
 </code></pre></div></div></article><div class="share"><div class="share-component"></div></div><div class="comment"><div id="gitalk-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/gitalk/gitalk.css"> <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> <script> var gitalk = new Gitalk({ id: '/2018/11/01/go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95', clientID: '99d40aa8c51f2e320555', clientSecret: '08d7d01185f19e4e205adc2b36a6750d92d640c2', repo: 'blog-comment', owner: 'mafulong', admin: ['mafulong'], labels: ['gitment'], perPage: 50, }); gitalk.render('gitalk-container'); </script></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title mobile-hidden">Table of Contents</h3><div id="post-directory-module" class="mobile-hidden"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/jquery.toc.js"></script></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@master/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>
