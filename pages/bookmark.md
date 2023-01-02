@@ -61,6 +61,7 @@ permalink: /bookmark/
 - [算法通关手册](https://algo.itcharge.cn/07.Tree/03.Segment-Tree/01.Segment-Tree/)
 - [为什么这么设计](https://draveness.me/whys-the-design/) - 为什么这么设计系列文章
 - [Go 语言设计与实现](https://draveness.me/golang/) - Go 语言设计与实现
+- [7 天用 Go 从零实现 Web 框架 Gee 教程](https://geektutu.com/post/gee.html)
 - [Java 全栈知识](https://pdai.tech/md/outline/x-outline.html)
 - [Spring](https://potoyang.gitbook.io/spring-in-action-v4/1/1.3-fu-kan-spring-feng-jing-xian/1.3.1spring-mo-kuai)
 - [代码重工 java&spring 入门](https://www.wolai.com/nnRjHcUSv2mrRbFKZUpBMS) [这个也是，有 maven 等，都需要看](https://heavy_code_industry.gitee.io/code_heavy_industry/)
@@ -85,9 +86,9 @@ permalink: /bookmark/
 - Sequel Pro 数据库工具
 - HyperSwitch 应用多窗口切换而不是应用切换，可选
 - Spectacle 多窗口必装
-- popclip 选择文字后上面可显示快捷键。 [破解版下载网址](https://xclient.info/s/popclip.html#versions)， 还可以安装插件，比如欧陆词典Eudic, 下载后双击即可，[插件下载网址](https://pilotmoon.com/popclip/extensions/)
+- popclip 选择文字后上面可显示快捷键。 [破解版下载网址](https://xclient.info/s/popclip.html#versions)， 还可以安装插件，比如欧陆词典 Eudic, 下载后双击即可，[插件下载网址](https://pilotmoon.com/popclip/extensions/)
 - betterTouchTool, 免费触控板手势软件, 可选。
-- [MonitorControl Lite](https://github.com/MonitorControl/MonitorControlLite#readme) mac亮度条件软件，可以状态栏就开始调屏幕亮度了，亮度下限可以更低点。
+- [MonitorControl Lite](https://github.com/MonitorControl/MonitorControlLite#readme) mac 亮度条件软件，可以状态栏就开始调屏幕亮度了，亮度下限可以更低点。
 - Alfred 快速搜索
 
 ### android
