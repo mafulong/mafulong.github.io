@@ -118,6 +118,11 @@ permalink: /bookmark/
 - keep
 - 滴滴出行
 
+### chrome
+
+- [主题 Chuck Anderson](https://chrome.google.com/webstore/detail/chuck-anderson/gegkoiakifeoejnjkbnnojkkdoegeofp)
+- [主题 Super Color](https://chrome.google.com/webstore/detail/colors/lhbgjlhhonbdjfdoiklbbkejcipkbnac)
+
 ## 书签
 
 ### 理念
