@@ -9,6 +9,37 @@ tags: Go
 
 [Go 语言问题集(Go Questions)](https://www.bookstack.cn/books/qcrao-Go-Questions)
 
+
+
+
+
+```go
+	// 记法 <-chan<- 箭头一直朝左, 读取<-c1<-赋值
+	var c chan int
+	var c1 <-chan int
+	var c2 chan<- int
+	c = make(chan int, 1)
+	c1 = make(<-chan int, 2)
+
+	// 写入
+	c <- 3
+	// 读取
+	d := <-c1
+	<-c1
+
+	select {
+	case c <- 3:
+		return
+	case e := <-c:
+		println(e)
+		return
+	default:
+		return
+	}
+```
+
+
+
 ## Channel
 
 - CSP，Communicating Sequential Processes， 通信顺序处理。不要通过共享内存来通信，而要通过通信来实现内存共享。相比于内存共享（如mutex)，不需要考虑数据所有权，不需要保护结构的内部状态，不需要协调多个逻辑。
