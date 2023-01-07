@@ -3,6 +3,7 @@ layout: post
 category: FrontEnd
 title: javascript笔记
 tags: FrontEnd
+recent_update: true
 ---
 
 # 语法
