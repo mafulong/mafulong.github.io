@@ -46,6 +46,10 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 <script>
 $(document).ready(function() {
+  $("tr img").each(function() {
+    var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>";
+    $(this).wrapAll(strA);
+  });
   $("p img").each(function() {
     var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>";
     $(this).wrapAll(strA);
@@ -94,8 +98,8 @@ $(document).ready(function() {
 {% endif %}
 
 {% if page.mindmap %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/kityminder-core@dev/dist/kityminder.core.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mzlogin/kity@dev/dist/kity.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/kityminder-core@dev/dist/kityminder.core.css"> -->
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/mzlogin/kity@dev/dist/kity.min.js"></script>
 <script type="text/javascript"
   src="https://cdn.jsdelivr.net/gh/mzlogin/kityminder-core@dev/dist/kityminder.core.min.js"></script>
 <script>
@@ -132,7 +136,7 @@ $(document).ready(function() {
       {% endif %}
     });
   });
-</script>
+</script> -->
 {% endif %}
 
 <div style="display:none">
