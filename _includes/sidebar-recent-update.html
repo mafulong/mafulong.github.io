@@ -1,0 +1,10 @@
+<h3>Recent Updates</h3>
+<ul>
+    {% for post in site.posts %}
+        {% if post.recent_update== true %}
+          <h6 class="repo-list-name font16px">
+            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+          </h6>
+        {% endif %}
+    {% endfor %}
+</ul>
