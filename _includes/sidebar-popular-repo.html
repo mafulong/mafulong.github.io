@@ -1,13 +1,3 @@
-<h3>Recent Updates</h3>
-<ul>
-    {% for post in site.posts %}
-        {% if post.recent_update== true %}
-          <h6 class="repo-list-name font16px">
-            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-          </h6>
-        {% endif %}
-    {% endfor %}
-</ul>
 <h3>My Popular Repositories</h3>
 {% if site.github.public_repositories != false %}
 {% assign repos = site.github.public_repositories | sort: "stargazers_count" | reverse %}
