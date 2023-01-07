@@ -123,6 +123,10 @@ permalink: /bookmark/
 - [主题 Chuck Anderson](https://chrome.google.com/webstore/detail/chuck-anderson/gegkoiakifeoejnjkbnnojkkdoegeofp)
 - [主题 Super Color](https://chrome.google.com/webstore/detail/colors/lhbgjlhhonbdjfdoiklbbkejcipkbnac)
 
+### 其他好用软件
+
+- [好用程序员软件列表 包括各平台的](https://github.com/pseudoyu/yu-tools)
+
 ## 书签
 
 ### 理念
