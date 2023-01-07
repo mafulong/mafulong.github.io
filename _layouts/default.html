@@ -4,9 +4,8 @@ layout: compress
 
 {% assign assets_base_url = site.url %}
 {% if site.cdn.jsdelivr.enabled %}
-{% assign assets_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: '@master' %}
+{% assign assets_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: '@'| append: site.cdn.jsdelivr.branch %}
 {% endif %}
-{% assign assets_images_url = '<img src="' | append: assets_base_url | append: "/images" %}
 {% include header.html %}
-    {{ content | replace: '<img src="/images', assets_images_url }}
+    {{ content }}
 {% include footer.html %}
