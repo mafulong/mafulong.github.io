@@ -3,6 +3,7 @@ layout: post
 category: FrontEnd
 title: typescript笔记
 tags: FrontEnd
+recent_update: true
 ---
 
 # typescript笔记
