@@ -12,3 +12,6 @@ permalink: /gallery/
 ![](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212022241388.jpg)
 
 ![1111672918711_.pic](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202301051939882.jpg)
+
+
+![爱心](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202301201659485.jpg)
