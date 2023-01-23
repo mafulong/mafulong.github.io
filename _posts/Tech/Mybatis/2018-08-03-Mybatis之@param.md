@@ -3,6 +3,7 @@ layout: post
 category: Mybatis
 title: Mybatis之@param
 tags: Mybatis
+draft: true
 ---
 
 实现多参数传入

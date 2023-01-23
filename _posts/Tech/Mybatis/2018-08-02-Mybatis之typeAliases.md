@@ -3,6 +3,7 @@ layout: post
 category: Mybatis
 title: Mybatis之typeAliases
 tags: Mybatis
+draft: true
 ---
 
 - 自定义别名
