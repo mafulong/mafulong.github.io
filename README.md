@@ -4,7 +4,7 @@
 
 ## Usage
 
-无
+draft: true表示是草稿。
 
 ## Acknowledge
 
