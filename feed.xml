@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-01-28T21:50:48+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">2541. 使数组中所有元素相等的最小操作数 II</title><link href="https://mafulong.github.io/2023/01/28/2541.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0-II/" rel="alternate" type="text/html" title="2541. 使数组中所有元素相等的最小操作数 II" /><published>2023-01-28T00:00:00+08:00</published><updated>2023-01-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/28/2541.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0%20II</id><content type="html" xml:base="https://mafulong.github.io/2023/01/28/2541.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0-II/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-01-28T21:54:20+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">2541. 使数组中所有元素相等的最小操作数 II</title><link href="https://mafulong.github.io/2023/01/28/2541.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0-II/" rel="alternate" type="text/html" title="2541. 使数组中所有元素相等的最小操作数 II" /><published>2023-01-28T00:00:00+08:00</published><updated>2023-01-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/28/2541.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0%20II</id><content type="html" xml:base="https://mafulong.github.io/2023/01/28/2541.-%E4%BD%BF%E6%95%B0%E7%BB%84%E4%B8%AD%E6%89%80%E6%9C%89%E5%85%83%E7%B4%A0%E7%9B%B8%E7%AD%89%E7%9A%84%E6%9C%80%E5%B0%8F%E6%93%8D%E4%BD%9C%E6%95%B0-II/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-operations-to-make-array-equal-ii/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你两个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums2&lt;/code&gt; ，两个数组长度都是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; ，再给你一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。你可以对数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums1&lt;/code&gt; 进行以下操作：&lt;/p&gt;
@@ -62,6 +62,95 @@
         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">2547. 拆分数组的最小代价</title><link href="https://mafulong.github.io/2023/01/28/2547.-%E6%8B%86%E5%88%86%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/" rel="alternate" type="text/html" title="2547. 拆分数组的最小代价" /><published>2023-01-28T00:00:00+08:00</published><updated>2023-01-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/28/2547.%20%E6%8B%86%E5%88%86%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7</id><content type="html" xml:base="https://mafulong.github.io/2023/01/28/2547.-%E6%8B%86%E5%88%86%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E4%BB%A3%E4%BB%B7/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-cost-to-split-an-array/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 和一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;将数组拆分成一些非空子数组。拆分的 &lt;strong&gt;代价&lt;/strong&gt; 是每个子数组中的 &lt;strong&gt;重要性&lt;/strong&gt; 之和。&lt;/p&gt;
+
+&lt;p&gt;令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trimmed(subarray)&lt;/code&gt; 作为子数组的一个特征，其中所有仅出现一次的数字将会被移除。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;例如，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trimmed([3,1,2,4,3,4]) = [3,4,3,4]&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;子数组的 &lt;strong&gt;重要性&lt;/strong&gt; 定义为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k + trimmed(subarray).length&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;例如，如果一个子数组是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1,2,3,3,3,4,4]&lt;/code&gt; ，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trimmed([1,2,3,3,3,4,4]) = [3,3,3,4,4]&lt;/code&gt; 。这个子数组的重要性就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k + 5&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;找出并返回拆分 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 的所有可行方案中的最小代价。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;子数组&lt;/strong&gt; 是数组的一个连续 &lt;strong&gt;非空&lt;/strong&gt; 元素序列。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,1,2,1,3,3], k = 2
+输出：8
+解释：将 nums 拆分成两个子数组：[1,2], [1,2,1,3,3]
+[1,2] 的重要性是 2 + (0) = 2 。
+[1,2,1,3,3] 的重要性是 2 + (2 + 2) = 6 。
+拆分的代价是 2 + 6 = 8 ，可以证明这是所有可行的拆分方案中的最小代价。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,1,2,1], k = 2
+输出：6
+解释：将 nums 拆分成两个子数组：[1,2], [1,2,1] 。
+[1,2] 的重要性是 2 + (0) = 2 。
+[1,2,1] 的重要性是 2 + (2) = 4 。
+拆分的代价是 2 + 4 = 6 ，可以证明这是所有可行的拆分方案中的最小代价。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,1,2,1], k = 5
+输出：10
+解释：将 nums 拆分成一个子数组：[1,2,1,2,1].
+[1,2,1,2,1] 的重要性是 5 + (3 + 2) = 10 。
+拆分的代价是 10 ，可以证明这是所有可行的拆分方案中的最小代价。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums.length &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= nums[i] &amp;lt; nums.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= k &amp;lt;= 109&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;一维DP。&lt;/p&gt;
+
+&lt;p&gt;dp(i)表示以0…i的代价，求dp(n-1)。&lt;/p&gt;
+
+&lt;p&gt;用map维护出现不止一次的元素个数。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1e20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minCost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;# if i == n-1 and j == 2:
+&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;#     print(&quot;x&quot;)
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# print(dp)
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">树形DP和换根DP</title><link href="https://mafulong.github.io/2023/01/15/%E6%A0%91%E5%BD%A2DP%E5%92%8C%E6%8D%A2%E6%A0%B9DP/" rel="alternate" type="text/html" title="树形DP和换根DP" /><published>2023-01-15T00:00:00+08:00</published><updated>2023-01-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/15/%E6%A0%91%E5%BD%A2DP%E5%92%8C%E6%8D%A2%E6%A0%B9DP</id><content type="html" xml:base="https://mafulong.github.io/2023/01/15/%E6%A0%91%E5%BD%A2DP%E5%92%8C%E6%8D%A2%E6%A0%B9DP/">&lt;h2 id=&quot;树形dp和换根dp&quot;&gt;树形DP和换根DP&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://oi-wiki.org/dp/tree/&quot;&gt;oi wiki&lt;/a&gt;&lt;/p&gt;
@@ -737,83 +826,4 @@ arr1 = [1,2] 和 arr2 = [3] 满足所有条件。
 
 &lt;p&gt;FreeMarker 是一款 &lt;em&gt;模板引擎&lt;/em&gt;： 即一种基于模板和要改变的数据， 并用来生成输出文本(HTML网页，电子邮件，配置文件，源代码等)的通用工具。 它不是面向最终用户的，而是一个Java类库，是一款程序员可以嵌入他们所开发产品的组件。&lt;/p&gt;
 
-&lt;p&gt;模板编写为FreeMarker Template Language (FTL)。它是简单的，专用的语言， &lt;em&gt;不是&lt;/em&gt; 像PHP那样成熟的编程语言。 那就意味着要准备数据在真实编程语言中来显示，比如数据库查询和业务运算， 之后模板显示已经准备好的数据。在模板中，你可以专注于如何展现数据， 而在模板之外可以专注于要展示什么数据。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">模板引擎</summary></entry><entry><title type="html">Intellij idea Project Structure</title><link href="https://mafulong.github.io/2022/12/05/Intellij-idea-Project-Structure/" rel="alternate" type="text/html" title="Intellij idea Project Structure" /><published>2022-12-05T00:00:00+08:00</published><updated>2022-12-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/05/Intellij%20idea%20Project%20Structure</id><content type="html" xml:base="https://mafulong.github.io/2022/12/05/Intellij-idea-Project-Structure/">&lt;h2 id=&quot;intellij-idea-project-structure&quot;&gt;Intellij idea Project Structure&lt;/h2&gt;
-
-&lt;p&gt;mac上cmd+; 快捷键唤醒。File菜单栏也可以唤醒。&lt;/p&gt;
-
-&lt;h2 id=&quot;project和module区别&quot;&gt;Project和Module区别&lt;/h2&gt;
-
-&lt;p&gt;一个Project代表一个完整的APP，Module表示APP中的一些依赖库或独立开发的模块。比如可以新建一个library做为module。&lt;/p&gt;
-
-&lt;p&gt;一个模块为一个Module。&lt;/p&gt;
-
-&lt;h2 id=&quot;language-level和sdk区别&quot;&gt;Language level和sdk区别&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;限定项目编译检查时最低要求的 JDK 特性。 Language level &amp;lt;= sdk。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;当我们使用 JDK 8 的时候，我们只能向下兼容 JDK 8 及其以下的特性，所以只能选择 8 及其以下的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language level&lt;/code&gt;。所以当我们项目使用的是 JDK 8，但是代码却没有使用 JDK 8 的新特性，最多使用了 JDK 7 的特性的时候我们可以选择 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7 - Diamonds，ARM，multi-catch etc.&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;对此我们总结 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language level&lt;/code&gt;：限定项目编译检查时最低要求的 JDK 特性。&lt;/p&gt;
-
-&lt;p&gt;现在假设我们有一个项目代码使用的 JDK 8 新特性：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda&lt;/code&gt; 语法，但是 JDK 选择的却是 JDK 7，即使 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;language level&lt;/code&gt; 选择了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;8 - Lambdas，type annotation etc.&lt;/code&gt;，也是没有多大意义的，一样会编译报错。&lt;/p&gt;
-
-&lt;h2 id=&quot;project-structure设置&quot;&gt;Project Structure设置&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212052232428.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Project 项目级别的，下面每个Module还可以自己有&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Project Name&lt;/li&gt;
-  &lt;li&gt;SDK&lt;/li&gt;
-  &lt;li&gt;Language level&lt;/li&gt;
-  &lt;li&gt;编译输出路径&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Modules&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212052235310.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Souces：这里对Module的开发目录进行文件夹分类，就是说这个module里有什么内容，说明了不同性质的内容放在哪里。
-注意，这些不同内容的标记代表了一个标准Java工程的各项内容，IntelliJ就是根据这些标记来识别一个Java工程的各项内容的，比如，它会用javac去编译标记为Sources的源码，打包的时候会把标记为Resources的资源拷贝到jar包中，并且忽略标记为Exluded的内容。左边显示的是在选中内容的预览。&lt;/li&gt;
-  &lt;li&gt;Paths：为模块配置编译器输出路径，还可以指定与模块关联的外部JavaDocs和外部注释的位置。&lt;/li&gt;
-  &lt;li&gt;Dependencies：在此选项卡上，您可以定义模块的SDK并形成模块依赖关系列表。要将项目SDK与模块相关联，请选择Project SDK。请注意，如果稍后更改了项目SDK，模块SDK将相应更改。&lt;strong&gt;需要保证Dependencies下Add Library时为空，如果有就都Add selected.&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Library&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;项目级别的类库，这里先加好，然后Module里加jar的话就可以直接选了，相当于统一管理。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Facets&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212052245804.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;表示这个 module 有什么特征，比如 Web，Spring 和 Hibernate 等；&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Artifact&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202212052248695.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Artifact 是 maven 中的一个概念，表示某个 module 要如何打包，例如 war exploded、war、jar、ear 等等这种打包形式；
-一个 module 有了 Artifacts 就可以部署到应用服务器中了！
-在给项目配置 Artifacts 的时候有好多个 type 的选项，exploed 是什么意思？
-explode 在这里你可以理解为展开，不压缩的意思。也就是 war、jar 等产出物没压缩前的目录结构。建议在开发的时候使用这种模式，便于修改了文件的效果立刻显现出来。默认情况下，IDEA 的 Modules 和 Artifacts 的 output 目录 已经设置好了，不需要更改，
-打成 war 包 的时候会自动在 WEB-INF 目录 下生产 classes 目录 ，然后把编译后的文件放进去。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;最上面的截图下面Platform Settings和Project, Module都无关！&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;添加一个Lib方法&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;方法1： 更推荐。在project structure的Libraries加入lib，然后再走方法2，选择Project Lib即可。&lt;/li&gt;
-  &lt;li&gt;方法2： 在Modules的Dependencies下添加lib&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="IDE" /><category term="IDE" /><summary type="html">Intellij idea Project Structure</summary></entry></feed>
+&lt;p&gt;模板编写为FreeMarker Template Language (FTL)。它是简单的，专用的语言， &lt;em&gt;不是&lt;/em&gt; 像PHP那样成熟的编程语言。 那就意味着要准备数据在真实编程语言中来显示，比如数据库查询和业务运算， 之后模板显示已经准备好的数据。在模板中，你可以专注于如何展现数据， 而在模板之外可以专注于要展示什么数据。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">模板引擎</summary></entry></feed>
