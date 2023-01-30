@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-01-29T16:27:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6339. 将珠子放入背包中</title><link href="https://mafulong.github.io/2023/01/29/6339.-%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD/" rel="alternate" type="text/html" title="6339. 将珠子放入背包中" /><published>2023-01-29T00:00:00+08:00</published><updated>2023-01-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/29/6339.%20%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD</id><content type="html" xml:base="https://mafulong.github.io/2023/01/29/6339.-%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-01-30T21:00:21+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1664. 生成平衡数组的方案数</title><link href="https://mafulong.github.io/2023/01/30/1664.-%E7%94%9F%E6%88%90%E5%B9%B3%E8%A1%A1%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%A1%88%E6%95%B0/" rel="alternate" type="text/html" title="1664. 生成平衡数组的方案数" /><published>2023-01-30T00:00:00+08:00</published><updated>2023-01-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/30/1664.%20%E7%94%9F%E6%88%90%E5%B9%B3%E8%A1%A1%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%A1%88%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/01/30/1664.-%E7%94%9F%E6%88%90%E5%B9%B3%E8%A1%A1%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%A1%88%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/ways-to-make-a-fair-array/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 。你需要选择 &lt;strong&gt;恰好&lt;/strong&gt; 一个下标（下标从 &lt;strong&gt;0&lt;/strong&gt; 开始）并删除对应的元素。请注意剩下元素的下标可能会因为删除操作而发生改变。&lt;/p&gt;
+
+&lt;p&gt;比方说，如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [6,1,7,4,1]&lt;/code&gt; ，那么：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;选择删除下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; ，剩下的数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [6,7,4,1]&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;选择删除下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt; ，剩下的数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [6,1,4,1]&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;选择删除下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; ，剩下的数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [6,1,7,4]&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果一个数组满足奇数下标元素的和与偶数下标元素的和相等，该数组就是一个 &lt;strong&gt;平衡数组&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;请你返回删除操作后，剩下的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 是 &lt;strong&gt;平衡数组&lt;/strong&gt; 的 &lt;strong&gt;方案数&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [2,1,6,4]
+输出：1
+解释：
+删除下标 0 ：[1,6,4] -&amp;gt; 偶数元素下标为：1 + 4 = 5 。奇数元素下标为：6 。不平衡。
+删除下标 1 ：[2,6,4] -&amp;gt; 偶数元素下标为：2 + 4 = 6 。奇数元素下标为：6 。平衡。
+删除下标 2 ：[2,1,4] -&amp;gt; 偶数元素下标为：2 + 4 = 6 。奇数元素下标为：1 。不平衡。
+删除下标 3 ：[2,1,6] -&amp;gt; 偶数元素下标为：2 + 6 = 8 。奇数元素下标为：1 。不平衡。
+只有一种让剩余数组成为平衡数组的方案。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,1,1]
+输出：3
+解释：你可以删除任意元素，剩余数组都是平衡数组。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：nums = [1,2,3]
+输出：0
+解释：不管删除哪个元素，剩下数组都不是平衡数组。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums.length &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i] &amp;lt;= 104&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;找规律题&lt;/p&gt;
+
+&lt;p&gt;当删除某个下标后，新的偶数和 = 这个下标左边的偶数和 + 这个下标右边的奇数和&lt;/p&gt;
+
+&lt;p&gt;当删除某个下标后，新的奇数和 = 这个下标左边的奇数数和 + 这个下标右边的偶数数和&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;waysToMakeFair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;odd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;even&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;even&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;odd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# print(total, odd, even)
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;teven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;odd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;teven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;teven&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;# print(i, v, teven)
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;todd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;even&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;le&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;todd&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;todd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;c1&quot;&gt;# print(i, v, todd)
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6339. 将珠子放入背包中</title><link href="https://mafulong.github.io/2023/01/29/6339.-%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD/" rel="alternate" type="text/html" title="6339. 将珠子放入背包中" /><published>2023-01-29T00:00:00+08:00</published><updated>2023-01-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/01/29/6339.%20%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD</id><content type="html" xml:base="https://mafulong.github.io/2023/01/29/6339.-%E5%B0%86%E7%8F%A0%E5%AD%90%E6%94%BE%E5%85%A5%E8%83%8C%E5%8C%85%E4%B8%AD/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/put-marbles-in-bags/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;你有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 个背包。给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weights&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;weights[i]&lt;/code&gt; 是第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个珠子的重量。同时给你整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。&lt;/p&gt;
@@ -710,66 +795,4 @@
                     &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">6270. 每种字符至少取 K 个</title><link href="https://mafulong.github.io/2022/12/25/6270.-%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96-K-%E4%B8%AA/" rel="alternate" type="text/html" title="6270. 每种字符至少取 K 个" /><published>2022-12-25T00:00:00+08:00</published><updated>2022-12-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2022/12/25/6270.%20%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96%20K%20%E4%B8%AA</id><content type="html" xml:base="https://mafulong.github.io/2022/12/25/6270.-%E6%AF%8F%E7%A7%8D%E5%AD%97%E7%AC%A6%E8%87%B3%E5%B0%91%E5%8F%96-K-%E4%B8%AA/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/take-k-of-each-character-from-left-and-right/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个由字符 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;b&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;c&apos;&lt;/code&gt; 组成的字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 和一个非负整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 。每分钟，你可以选择取走 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; &lt;strong&gt;最左侧&lt;/strong&gt; 还是 &lt;strong&gt;最右侧&lt;/strong&gt; 的那个字符。&lt;/p&gt;
-
-&lt;p&gt;你必须取走每种字符 &lt;strong&gt;至少&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 个，返回需要的 &lt;strong&gt;最少&lt;/strong&gt; 分钟数；如果无法取到，则返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-1&lt;/code&gt; 。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;aabaaaacaabc&quot;, k = 2
-输出：8
-解释：
-从 s 的左侧取三个字符，现在共取到两个字符 &apos;a&apos; 、一个字符 &apos;b&apos; 。
-从 s 的右侧取五个字符，现在共取到四个字符 &apos;a&apos; 、两个字符 &apos;b&apos; 和两个字符 &apos;c&apos; 。
-共需要 3 + 5 = 8 分钟。
-可以证明需要的最少分钟数是 8 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：s = &quot;a&quot;, k = 1
-输出：-1
-解释：无法取到一个字符 &apos;b&apos; 或者 &apos;c&apos;，所以返回 -1 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= s.length &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 仅由字母 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;b&apos;&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;c&apos;&lt;/code&gt; 组成&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= k &amp;lt;= s.length&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;双指针。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;takeCharacters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;abc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;l&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;l&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
