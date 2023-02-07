@@ -5,7 +5,39 @@ title: AWS DynamoDB
 tags: AWS
 ---
 
-## AWS DynamoDB
+## 表、索引
+
+> [深入探讨 Amazon DynamoDB 的设计模 式、流复制和全局表](https://sides-share.s3.cn-north-1.amazonaws.com.cn/AWS+Webinar+2019/PDF/Amazon+DynamoDB+webinar.pdf)
+
+![image-20221126172356212](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261723281.png)
+
+分区键和排序键共同唯一的标识一条记录
+
+本地二级索引 Local Secondary Index (LSI) 单表上的。可以选择与表不同的排序键。同一个分区键。强一致性更新。
+
+
+全局二级索引 - Global Secondary Index (GSI)  可以选择与表不同的分区键以及排序键 每个索引分区会对应所有的表分区
+
+
+
+![image-20221126172812498](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261728526.png)
+
+
+
+对比
+
+- Global Secondary 
+  - 索引的尺寸没有上限 
+  - 读写容量和表是独立的 
+  - 只支持最终一致性
+- Index Local Secondary Index 
+  - 索引保存在表的分区中，因此一个表 分区的尺寸的上限是10GB 
+  - 使用的是表上定义的RCU和WCU 
+  - 强一致性
+
+
+
+## 实现
 
 > [论文讲解](http://systemdesigns.blogspot.com/2016/01/dynamodb.html)
 
@@ -62,37 +94,16 @@ replica, 复制，用了NWR，让用户做一致性的选择。读数据时如�
 
 
 
-### 表、索引
+## 事务
 
-> [深入探讨 Amazon DynamoDB 的设计模 式、流复制和全局表](https://sides-share.s3.cn-north-1.amazonaws.com.cn/AWS+Webinar+2019/PDF/Amazon+DynamoDB+webinar.pdf)
+> [官网wiki](https://docs.aws.amazon.com/zh_cn/amazondynamodb/latest/developerguide/transactions.html)
 
-![image-20221126172356212](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261723281.png)
+支持事务，所有操作必须成功完成，否则不会进行任何更改。
 
-分区键和排序键共同唯一的标识一条记录
+隔离级别：
 
-本地二级索引 Local Secondary Index (LSI) 单表上的。可以选择与表不同的排序键。同一个分区键。强一致性更新。
-
-
-
-全局二级索引 - Global Secondary Index (GSI)  可以选择与表不同的分区键以及排序键 每个索引分区会对应所有的表分区
-
-
-
-![image-20221126172812498](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211261728526.png)
-
-
-
-对比
-
-- Global Secondary 
-  - 索引的尺寸没有上限 
-  - 读写容量和表是独立的 
-  - 只支持最终一致性
-- Index Local Secondary Index 
-  - 索引保存在表的分区中，因此一个表 分区的尺寸的上限是10GB 
-  - 使用的是表上定义的RCU和WCU 
-  - 强一致性
-
+1. 可序列化
+2. 读已提交
 
 
 
@@ -102,7 +113,7 @@ replica, 复制，用了NWR，让用户做一致性的选择。读数据时如�
 
 > [官网](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors)
 
-begin_with这个操作要记得。其他后面看。
+begin_with这个操作要记得。其他后面看。begin_with是字符串前缀匹配，应该用了字典树等加速。
 
 
 
