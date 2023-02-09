@@ -15,7 +15,7 @@ tags: AWS
 
   [VPC](https://docs.amazonaws.cn/vpc/latest/userguide/configure-your-vpc.html) 是一个虚拟网络，与您在自己的数据中心中运行的传统网络极为相似。创建 VPC 后，您可以添加子网。翻译成中文是虚拟私有云。
 
-- **子网**
+- **子网** **Subnets**
 
   [子网](https://docs.amazonaws.cn/vpc/latest/userguide/configure-subnets.html)是您的 VPC 内的 IP 地址范围。子网必须位于单个可用区中。在添加子网后，您可以在 VPC 中部署 Amazon 资源。
 
@@ -25,27 +25,27 @@ tags: AWS
 
   私有 IPv4 地址无法通过 Internet 访问。IPv6 地址具有全球唯一性，可以配置为保持私有或通过互联网进行访问。
 
-- **路由选择**
+- **路由选择** 
 
   使用[路由表](https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Route_Tables.html)决定将来自您的子网或网关的网络流量定向到何处。
 
-- **网关和端点**
+- **网关和端点 ** **Gateways and endpoints**
 
   [网关](https://docs.amazonaws.cn/vpc/latest/userguide/extend-intro.html)将您的 VPC 连到其他网络。例如，使用[互联网网关](https://docs.amazonaws.cn/vpc/latest/userguide/VPC_Internet_Gateway.html)将您的 VPC 连接到网络。使用 [VPC 端点](https://docs.amazonaws.cn/vpc/latest/privatelink/privatelink-access-aws-services.html)私下连接到 Amazon Web Services，无需使用互联网网关或 NAT 设备。
 
-- **对等连接**
+- **对等连接** **Peering connections**
 
   使用 [VPC 对等连接](https://docs.amazonaws.cn/vpc/latest/peering/)在两个 VPC 中的资源之间路由流量。
 
-- **流量镜像**
+- **流量镜像** **Traffic Mirroring**
 
   从网络接口[复制网络流量](https://docs.amazonaws.cn/vpc/latest/mirroring/)，然后将其发送到安全和监控设备进行深度数据包检查。
 
-- **中转网关**
+- **中转网关 ** **Transit gateways**
 
   将[中转网关](https://docs.amazonaws.cn/vpc/latest/userguide/extend-tgw.html)用作中央枢纽，以在 VPC、VPN 连接和 Amazon Direct Connect 连接之间路由流量。
 
-- **VPC 流日志**
+- **VPC 流日志**  **VPC Flow Logs**
 
   [流日志](https://docs.amazonaws.cn/vpc/latest/userguide/flow-logs.html)捕获有关在 VPC 中传入和传出网络接口的 IP 流量的信息。
 
@@ -83,16 +83,10 @@ tags: AWS
 
 - **一个子网只能在一个可用区（AZ）内**
 
-- 安全组（Security Group）是
-
-  有状态的
-
-  ，而网络控制列表（Network Access Control List）是
-
-  无状态的
+- 安全组（Security Group）是有状态的，而网络控制列表（Network Access Control List）是无状态的
 
   - 有状态：如果入向流量被允许，则出向的响应流量会被自动允许
-  - 无状态：入向规则和出向规则需要分别单独配置，互不影响
+- 无状态：入向规则和出向规则需要分别单独配置，互不影响
   - 具体的区别挨踢小茶会在后续的章节详细讲解
 
 - VPC的子网掩码范围是从/28到/16，不能设置在这个范围外的子网掩码
@@ -110,7 +104,7 @@ tags: AWS
 - 可以通过AWS内网将一个VPC与另一个VPC相连
 - 同一个AWS账号内的2个VPC可以进行VPC Peering
 - 不同AWS账号内的VPC也可以进行VPC Peering
-- 不支持VPC Transitive Peering
+- 不支持VPC Transitive Peering 不支持传递
   - 如果VPC A和VPC B做了Peering
   - 而且VPC B和VPC C做了Peering
   - 那么VPC A是**不能**和VPC C进行通信的
@@ -133,7 +127,7 @@ tags: AWS
 
 ![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192248477.png)
 
-### VPC终端节点（VPC Endpoints）
+### VPC终端节点（VPC Endpoints）PrivateLink
 
 在一般的情况下，如果你需要访问S3服务，EC2实例或者DynamoDB的资源，你需要通过Internet公网来访问这些服务。有没有更快速、更安全的访问方式呢？
 
@@ -198,7 +192,7 @@ NAT是一种把内部私有地址（192.168.1.x，10.x.x.x等）转换为Interne
 
 公有子网中的实例可直接将出站流量发往 Internet，而私有子网中的实例不能这样做。但是，私有子网中的实例可使用位于公有子网中的网络地址转换 (NAT) 网关访问 Internet。数据库服务器可以使用 NAT 网关连接到 Internet 进行软件更新，但 Internet 不能建立到数据库服务器的连接。
 
-## **Security Groups（安全组）**
+## Security Groups（安全组）
 
 [参考](https://zhuanlan.zhihu.com/p/151419823)
 
@@ -322,3 +316,14 @@ VPC里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。�
 - Alias记录 – 和CNAME类似，又叫做别名记录，可以将一个域名指向另一个域名。
   - **和CNAME最大的区别是，Alias可以应用在根域（Zone Apex）。即可以为xiaopeiqing.com的根域创建Alias记录，而不能创建CNAME**
   - 别名记录可以节省你的时间，因为Route53会自动识别别名记录所指的记录中的更改。例如，假设example.com的一个别名记录指向位于lb1-1234.us-east-2.elb.amazonaws.com上的一个ELB负载均衡器。如果该负载均衡器的IP地址发生更改，Route53将在example.com的DNS应答中自动反映这些更改，而无需对包含example.com的记录的托管区域做出任何更改。 弹性负载均衡器（ELB）没有固定的IPv4地址，在使用ELB的时候永远使用它的DNS名字。很多场景下我们需要绑定DNS记录到ELB的endpoint地址，而不绑定任何IP
+
+### AWS Direct Connect
+
+AWS Direct Connect 是一种联网服务，提供了通过互联网连接到AWS 的替代方案。 使用AWS Direct Connect ，以前通过Internet 传输的数据将可以借助您的设施和AWS 之间的私有网络连接进行传输。
+
+不再需要通过网络提供商。
+
+AWS Direct Connect 通过标准的以太网光纤电缆将您的内部网络链接到 AWS Direct Connect 位置。电缆的一端接到您的路由器，另一端接到 AWS Direct Connect 路由器。有了这个连接，你可以创建*虚拟接口*直接公有公有访问AWS服务（例如，到 Amazon S3）或 Amazon VPC，绕过您的网络路径中的互联网服务提供商。网络 ACL 和安全组都允许 (因此可到达您的实例) 的发起 ping 的AWS Direct Connect位置提供访问AWS在与之关联的区域中。您可以将单个连接用于公有区域或AWS GovCloud (US)公有访问AWS所有其他公有区域中的服务。
+
+[参考](https://docs.aws.amazon.com/zh_cn/directconnect/latest/UserGuide/Welcome.html)
+
