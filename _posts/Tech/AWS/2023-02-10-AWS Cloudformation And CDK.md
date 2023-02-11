@@ -69,8 +69,11 @@ CDK和Cloud Formation很像，但一个区别是它可以用自己知道的一�
 
 CDK 把 CloudFormation 抽象了一层。它使用 TypeScript 等程序语言，把 CloudFormation 的模板包装成了一个领域专用语言（domain-specific language），CDK 的编译器会把这个语言再转译成 CloudFormation 模板。
 
+CDK更好用。但底层实际也是CloudFormation。
+
 
 
 CDK 教程： [官网](https://aws.amazon.com/cn/getting-started/guides/setup-cdk/module-three/?trk=31aeab24-3bd8-472c-a670-df09849e33f8&sc_channel=el)
 
 **cdk deploy** 命令会将您的 TypeScript 编译为 JavaScript，同时创建一个 CloudFormation 更改集来部署此更改。 
+
