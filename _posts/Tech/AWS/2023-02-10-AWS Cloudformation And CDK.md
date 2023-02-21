@@ -77,3 +77,73 @@ CDK 教程： [官网](https://aws.amazon.com/cn/getting-started/guides/setup-cd
 
 **cdk deploy** 命令会将您的 TypeScript 编译为 JavaScript，同时创建一个 CloudFormation 更改集来部署此更改。 
 
+
+
+## CDK教程
+
+### cdk命令
+
+```scala
+cdk diff        compare deployed stack with current state 将指定的堆栈及其依赖关系与已部署的堆栈或本地 CloudFormation 模板进行比较
+
+cdk deploy 命令会将您的 TypeScript 编译为 JavaScript，同时创建一个 CloudFormation 更改集来部署此更改。  deploy this stack to your default AWS account/region
+
+cdk synth       emits the synthesized CloudFormation template
+cdk init --language typescript
+cdk list (ls) 列出应用程序中的堆栈
+```
+
+cdk bootstrp只有在用一些kms等特殊资源时才有用
+
+
+
+
+
+自定义ts主要在lib文件夹中。
+
+## 基础设施
+
+
+
+在深入探讨代码的编写之前，我们需要解释和安装 **[AWS CDK 构造库模块](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)**。 构造可以代表单个 AWS 资源，例如 Amazon Simple Storage Service（Amazon S3）存储桶，也可以是由多个 AWS 相关资源组成的更高级别的抽象。 AWS 构造库由几个模块组成。 对于本教程，我们需要 Amazon EC2 模块，该模块中还包括对 Amazon VPC 的支持。
+
+要安装 Amazon EC2 模块，我们将使用 **npm**。 在项目目录中运行以下命令：
+
+```bash
+npm install @aws-cdk/aws-ec2
+```
+
+该命令安装所有必需的模块。如果查看您的 **package.json** 文件，就会看到该文件也添加到此处。
+
+
+
+事例code
+
+```scala
+import * as cdk from 'aws-cdk-lib';
+import { Construct } from 'constructs';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+// import * as sqs from 'aws-cdk-lib/aws-sqs';
+
+export class CdkDemoStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // The code that defines your stack goes here
+    // We have created the VPC object from the VPC class
+    new ec2.Vpc(this, 'mainVPC', {
+      // This is where you can define how many AZs you want to use
+      maxAzs: 2,
+      // This is where you can define the subnet configuration per AZ
+      subnetConfiguration: [
+         {
+           cidrMask: 24,
+           name: 'public-subnet',
+           subnetType: ec2.SubnetType.PUBLIC,
+         }
+      ]
+   });
+  }
+}
+```
+
