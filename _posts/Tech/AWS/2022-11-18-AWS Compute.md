@@ -91,7 +91,7 @@ Amazon ECS可以在一个区域内的多个可用区中创建高可用的应用�
 
 
 
-## **Lambda**
+## Lambda
 
 使用**AWS Lambda**，你无需配置和管理任何服务器和应用程序就能运行你的代码。只需要上传代码，Lambda就会处理运行并且根据需要自动进行横向扩展。因此Lambda也被称为**无服务（Serverless）**函数。
 
@@ -128,3 +128,68 @@ Amazon ECS可以在一个区域内的多个可用区中创建高可用的应用�
 ## 参考
 
 [参考](http://www.cloudbin.cn/?tag=aws)
+
+## Compute选型
+
+aws提供两种容器编排服务： ECS和EKS, k是kubernetes。 后者适合已经用了k8s的。
+
+AWS fargate就是serverless,  ECS/EKS 可集成在Fargate上或者EC2上。 container hosting platform
+
+Serverless: 允许在服务部署级别而不是服务器部署级别来管理应用部署。类似Faas。无需关注主机管理，服务运维。
+
+
+
+ECS vs EC2
+
+- ECS和EKS: aws负责容器管理，但customer依旧需要负责底层的ec2 instances.
+
+Fargate vs Lambda
+
+- Fargate is a Container as a Service (CaaS) offering, AWS Lambda is a Function as a Service (FaaS offering). 
+
+Fargate是类似k8s的工具，可以管理容器，进行编排。
+
+ECS vs Fargate
+
+- ECS delivers more control over the infrastructure, but the trade-off is the added management that comes with it. Fargate is the better option for ease of use as it takes infrastructure management out of the equation allowing you to focus on just the tasks to be run. ECS 提供了对基础设施的更多控制，但代价是随之而来的附加管理。Fargate 是易于使用的更好选择，因为它将基础设施管理排除在外，使您可以专注于要运行的任务。
+
+
+
+Serverless vs EC2/ECS:
+
+- If you want to deploy your workloads and applications without having to manage any EC2 instances, you can do that on AWS with serverless compute.
+- Serverless includes fargate, lambda.
+
+
+
+Serverless vs Lambda
+
+- the latter doesn't need the control of container
+
+
+
+两个方面
+
+- 是否要管理主机
+  - Yes: ecs, ec2
+  - No: fargate, lambda
+- 是否要管理容器,类似k8s的活。
+  - Yes: fargate, ecs, ec2.
+  - No: lambda
+
+
+
+
+
+虚拟机相比容器好处，重要的是资源隔离。
+
+- 拥有完整操作系统
+- 异质环境
+- 安全
+
+容器好处：
+
+- 速度和可移植性，启动只有几秒钟，虚拟机要几分钟
+- 可扩展性，通过编排器，自动扩展。
+- 模块化
+- 易于更新。
