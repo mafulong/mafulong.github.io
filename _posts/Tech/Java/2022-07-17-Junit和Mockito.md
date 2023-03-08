@@ -209,9 +209,13 @@ class MyControllerTest {
 
 你也可以通过创建一个类来实现org.junit.jupiter.api.extendWith中的一个或多个接口，然后用@ExtendWith将其添加到你的测试中，从而轻松定义你自己的自定义扩展。
 
-# Mockito
+# Mockito 低版本
 
 [Tutorial](https://www.baeldung.com/mockito-series)
+
+高版本兼容低版本。
+
+低版本不能mock静态、final等。
 
 ## 添加mockito
 
@@ -567,7 +571,7 @@ Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实
 
 
 
-# Mockito 高版本特性
+# Mockito 高版本特性 mockito-inline
 
 依赖上，一般是说要用 `mockito-inline` 替换 `mockito-core` 依赖。 实质上 `mockito-inline` 就是给 mockito-core 添加了两个插件配置
 
@@ -578,6 +582,12 @@ Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实
 
 
 注意mockito mock静态只对当前线程有效， 这点不如powermock
+
+支持mock静态、final等
+
+
+
+版本需要>= 2.7.6.
 
 ## Mock静态无参方法支持
 
@@ -621,11 +631,20 @@ theMock就是MockStatic返回的。
 
 [参考](https://www.baeldung.com/mockito-final)
 
-## Mock 自己new的对象
+```scala
+    MyList myList = new MyList();
+
+    MyList mock = mock(MyList.class);
+    when(mock.finalMethod()).thenReturn(1);
+```
+
+
+
+## Mock 代码里自己new的对象
 
 ```
         //mock代码中自己new的实例及“该实例的方法”        
-        MockedConstruction<NewObject> newObjectMocked = Mockito.mockConstruction(NewObject.class);        Mockito.when(obj.haha()).thenReturn("who am i ?");
+        MockedConstruction<NewObject> newObjectMocked = 	  Mockito.mockConstruction(NewObject.class);        Mockito.when(obj.haha()).thenReturn("who am i ?");
 
 ```
 
@@ -721,5 +740,52 @@ PowerMockito.doReturn("tom").when(studentServiceUnderTest, "processKeyword", any
 
 
 
+# 特殊场景梳理
 
-# 
+## Mock
+
+### final变量和方法
+
+use mockito 高版本。
+
+[refer](https://www.baeldung.com/mockito-final)
+
+### static方法
+
+use mockito 高版本
+
+[refer](https://www.baeldung.com/mockito-mock-static-methods)
+
+### private变量和方法
+
+VisibleForTesting
+
+[refer](https://developer.android.com/reference/androidx/annotation/VisibleForTesting)
+
+还可以用反射进行invoke private method.
+
+## Test 测试
+
+### final变量和方法
+
+Todo
+
+### Protected方法
+
+继承这个类即可。
+
+### private变量和方法
+
+VisibleForTesting
+
+[refer](https://developer.android.com/reference/androidx/annotation/VisibleForTesting)
+
+### 抛出异常
+
+If verify it doesn't throw exception.The test case will fail when it find exception. Just throw it directly.
+
+Otherwise,  org.junit.jupiter.api.assertThrowsExactly 可以判断它是否抛出了异常。
+
+### 忽略异常
+
+@SneakyThrows 注解。 lombok的。 
