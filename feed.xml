@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-05T11:59:34+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1487. 保证文件名唯一</title><link href="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/" rel="alternate" type="text/html" title="1487. 保证文件名唯一" /><published>2023-03-03T00:00:00+08:00</published><updated>2023-03-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/03/1487.%20%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80</id><content type="html" xml:base="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-08T23:06:51+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">k8s</title><link href="https://mafulong.github.io/2023/03/08/k8s/" rel="alternate" type="text/html" title="k8s" /><published>2023-03-08T00:00:00+08:00</published><updated>2023-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/08/k8s</id><content type="html" xml:base="https://mafulong.github.io/2023/03/08/k8s/">&lt;h2 id=&quot;k8s&quot;&gt;k8s&lt;/h2&gt;
+
+&lt;p&gt;Kubernetes（有时也称为 K8s）是一个广受欢迎的开源平台，可以跨越网络资源集群来编排容器运行时系统。不论有无 Docker，均可使用 Kubernetes。&lt;/p&gt;
+
+&lt;p&gt;Kubernetes 最初由 Google 开发，该公司需要一种全新方式来每周大规模运行数十亿个容器。2014 年，Kubernetes 由 Google 以开源形式发布，现被广泛认为是容器和分布式应用部署领域的市场领导者和行业标准编排工具。&lt;a href=&quot;https://queue.acm.org/detail.cfm?id=2898444&quot;&gt;Google 表示&lt;/a&gt;，Kubernetes 的“主要设计目标是简化复杂分布式系统的部署与管理，同时仍然受益于容器带来的更高利用率。”&lt;/p&gt;
+
+&lt;p&gt;Kubernetes 将一系列容器捆绑成一组，并在同一台机器上进行管理，以减少网络开销并提高资源使用效率。例如，应用服务器、Redis 缓存和 SQL 数据库便是此此类容器集。Docker 容器的特点是每个容器一个进程。&lt;/p&gt;
+
+&lt;h2 id=&quot;有了容器为何需要k8s&quot;&gt;有了容器为何需要k8s&lt;/h2&gt;
+
+&lt;p&gt;Docker 提供容器的生命周期管理和，&lt;a href=&quot;https://link.segmentfault.com/?enc=IMFQZ%2BeeI7dBtplzfKTw3Q%3D%3D.QrUq9Oz3A4oa%2FwDSC9RDPSISW7u34lI46PhRGInHHOd%2FKKe2YyzXmnKCZGw9CC0hpYMMItTK6AbXm9HYoRZOa%2BtgNwetTCKuJGbbTcKQNFYN%2BlWlCIRn74EYt%2F1F3aPyKA%2BfIIibdZ9su%2FMIH%2FRvPzUKfJOThlhxIyD2kjiU%2Fvu7oza%2BKL88Kk%2FGxDx2X9VfEc4fdK5wG1oU3iJ908sMJiptGxQIBfacr%2BUM52e20DvJL1hYtzoNKoDQfv4On%2FOW2jrjskVIsJWpnTrGE5bc%2FJrfSHU0PHMTc2%2BS1ztWR7neofBwAWqTnjMyJoZqKtE5&quot;&gt;Docker&lt;/a&gt; 镜像构建运行时容器。它的主要优点是将将软件/应用程序运行所需的设置和依赖项打包到一个容器中，从而实现了可移植性等优点。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://link.segmentfault.com/?enc=W81xiwGoNRkvUPq6WfcWfg%3D%3D.KxqHDaD%2B%2BR2FaIDFTlmkFD756ZnXYK2ioDgLAwRRq2JjkLmkagG3T2%2BjXlwt%2Byi%2Bpv%2BL84c%2FuffzfvOX1auNr2bqdSSokkIoVL1OCHAyS8P8sB8GLoYna5%2B%2FvBqtDP59%2FmlGrala2AmkscHWKr7M7gTvRZBRtmRfWLswIJXeDLFAYSeyTjskXGU6uy45eiiDlLHI6%2B9sZLmf3a9UfYRcxM5vq47c%2FY9eTnRQu7%2Bal3nFanU2bjFCeg91DLprZi9qwrq40VKU8104ofE9iFZ96ljUk25mFBf5sXRbv0QJ14Doi2542WRqrtfuOTxc3a4J&quot;&gt;Kubernetes&lt;/a&gt; 用于关联和编排在多个主机上运行的容器。&lt;/p&gt;
+
+&lt;p&gt;尽管Docker为容器化的应用程序提供了开放标准，但随着容器越来越多出现了一系列新问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如何协调和调度这些容器?&lt;/li&gt;
+  &lt;li&gt;如何在升级应用程序时不会中断服务?&lt;/li&gt;
+  &lt;li&gt;如何监视应用程序的运行状况?&lt;/li&gt;
+  &lt;li&gt;如何批量重新启动容器里的程序?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;解决这些问题需要容器编排技术，可以将众多机器抽象，对外呈现出一台超大机器。现在业界比较流行的有：k8s、Mesos、Docker Swarm。&lt;/p&gt;
+
+&lt;p&gt;在业务发展初期只有几个微服务，这时用 Docker 就足够了，但随着业务规模逐渐扩大，容器越来越多，运维人员的工作越来越复杂，这个时候就需要编排系统解救opers。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202303082229567.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;k8s架构&quot;&gt;k8s架构&lt;/h2&gt;
+
+&lt;p&gt;K8s总体来说是主从架构模式Master - Slave架构，master节点负责调度、管理，slave节点负责具体程序的运行和节点服务，在K8s里面，主节点一般叫做master node，从节点叫做worker node。所有的主节点和从节点一起组成了K8s集群，在集群里面master和slave都可以是多个，是一个多主多从的集群架构。&lt;/p&gt;
+
+&lt;h3 id=&quot;21-k8s-master-node核心组件&quot;&gt;2.1 K8s Master Node核心组件&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;API Server&lt;/strong&gt;：作用是K8s的请求入口提供能力，API Server组件负责接收K8s所有的命令请求，不管是UI控制台还是命令行都会经过API Server组件，API Server负责接收具体的命令请求，去通知其它组件工作。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Scheduler&lt;/strong&gt;：是K8s调度所有worker节点的调度组件，当K8s需要部署服务时，通过Scheduler调度组件来负责调度具体的Worker Node节点来进行服务的部署工作。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Controller Manager&lt;/strong&gt;：监控K8s所有的Worker Node，对工作节点的性能和工作状态监控，例如某个节点的服务挂了以后，Controller Manager组件就会立马感知到，然后通知Scheduler组件去调度选择Worker Node来重新部署服务。Controller Manager是由多个Controller组成：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node Controller&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Service Controller&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Volume Controller&lt;/code&gt;等&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;etcd&lt;/strong&gt;：K8s默认的数据信息存储服务，是一个基于Raft算法的分布式KV服务器，类似于ZK功能。etcd存储了K8s的关心配置和用户配置数据。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;22-k8s-worker-node核心组件&quot;&gt;2.2 K8s Worker Node核心组件&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kubelet：工作节点的监视器，并且负责和Master Node进行通信，定时的向Master Node上报工作节点的服务状态，并且负责接收Master Node发来的各种命令。&lt;/li&gt;
+  &lt;li&gt;Kube Proxy：工作节点的网络代理组件，负责基础通信能力。&lt;/li&gt;
+  &lt;li&gt;Container Runtime：工作节点的运行时环境。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;3k8s核心概念&quot;&gt;3.K8s核心概念&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-deployment&quot;&gt;3.1 Deployment&lt;/h3&gt;
+
+&lt;p&gt;Deployment负责创建和更新应用程序的实例，创建Deployment后，K8s的Master节点会将应用程序实例调度到集群中各个Worker节点上。Pod是K8s最小的编排单位，K8s要支持弹性扩容、负载均衡就得需要一个Controller来管理，Deployment就是来控制和编排应用程序。 在Deployment的配置文件里面可以指定需要部署的Pod标签、Pod个数等。&lt;/p&gt;
+
+&lt;h3 id=&quot;32-pod&quot;&gt;3.2 Pod&lt;/h3&gt;
+
+&lt;p&gt;Pod是K8s编排容器的最小逻辑单元，Pod也相当于是一个逻辑主机的概念负责管理具体的应用实例，包括1个或多个Docker容器，一般是一对一关系。 Pod同样也有yaml配置文件，在配置文件里面可以配置暴露的端口、服务标签、镜像信息等。&lt;/p&gt;
+
+&lt;h3 id=&quot;33-service&quot;&gt;3.3 Service&lt;/h3&gt;
+
+&lt;p&gt;Service是K8s里面的一个抽象的概念，Service是一组Pod的逻辑集合，给这些Pod提供服务发现、负载的能力。 虽然每一个Pod都有自己的IP和端口，但是Pod的IP并不会暴露给外部；访问Pod必须通过Service，Service提供流量的接收。Service可以通过配置Type来对外暴露访问入口，默认是ClusterIP模式(在几群的内部IP上公开Servcie)，除了这个默认模式外，还提供NodePort、LoadBalancer等。 Service同样提供了yaml文件配置，可以配置例如暴露端口、Pod的选择等。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Container" /><category term="Container" /><summary type="html">k8s</summary></entry><entry><title type="html">1487. 保证文件名唯一</title><link href="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/" rel="alternate" type="text/html" title="1487. 保证文件名唯一" /><published>2023-03-03T00:00:00+08:00</published><updated>2023-03-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/03/1487.%20%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80</id><content type="html" xml:base="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/making-file-names-unique/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的字符串数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names&lt;/code&gt; 。你将会在文件系统中创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个文件夹：在第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 分钟，新建名为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names[i]&lt;/code&gt; 的文件夹。&lt;/p&gt;
@@ -704,221 +766,4 @@
    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Cloudformation</summary></entry><entry><title type="html">AWS IAM</title><link href="https://mafulong.github.io/2023/02/09/AWS-IAM/" rel="alternate" type="text/html" title="AWS IAM" /><published>2023-02-09T00:00:00+08:00</published><updated>2023-02-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/02/09/AWS%20IAM</id><content type="html" xml:base="https://mafulong.github.io/2023/02/09/AWS-IAM/">&lt;h2 id=&quot;aws-iam&quot;&gt;AWS IAM&lt;/h2&gt;
-
-&lt;p&gt;首先要知道, AWS 提供了许许多多种类的服务或者说资源供我们使用, 这些资源挂在我们的 AWS 账户下, 这个账户就是我们第一次用 AWS 时用邮箱和密码申请的, 以后我们所有的资源申请, 账单费用都会挂到这个户头.&lt;/p&gt;
-
-&lt;p&gt;那么 IAM 算什么呢? IAM 不是 AWS 的专有名词, 它是一个通用概念, 全称是 Identity and Access Management, 其要解决的两个问题就是身份认证 (Authtication) 和授权 (Authorization). 为此 AWS IAM 设计了用户, 角色, 用户组, 权限策略等概念和机制&lt;/p&gt;
-
-&lt;p&gt;IAM (Identity Access Management) 由这些东西组成：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Users&lt;/li&gt;
-  &lt;li&gt;Groups 用户组&lt;/li&gt;
-  &lt;li&gt;Roles 角色可以分配给AWS服务，让AWS服务有访问其他AWS资源的权限。  举个例子，我们可以赋予EC2实例一个角色，让其有访问S3的读写权限（后面课程会有关于这一点的实操）&lt;/li&gt;
-  &lt;li&gt;Policy Documents 策略。 策略具体定义了能访问哪些AWS资源，并且能执行哪些操作（比如List, Read, Write等）  策略的文档以JSON的格式展现&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// An example policy: allowing any access to any resource
-{
-  &quot;Version&quot;: &quot;2012-10-17&quot;
-  &quot;Statement&quot;: [
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: &quot;*&quot;,
-      &quot;Resource&quot;: &quot;*&quot;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;IAM 是 Global的，不属于任何一个 region&lt;/p&gt;
-
-&lt;h2 id=&quot;iam-entities&quot;&gt;IAM Entities&lt;/h2&gt;
-
-&lt;p&gt;首先 IAM 为了能够同时照顾到 “人” 和 “非人“ 这两类资源访问者, 使用了一个概念叫做 Entity(实体), 目前 IAM 里有两种 Entity: IAM User 和 IAM Role. 一般来说公司可以为每个程序员创建一个 IAM User 的实体, 让他们能够访问 AWS Console做一些权限之内的事情; 而对于非人的程序, 一般的实践则是创建 IAM Role, 然后令这程序 “假装”(Assume) 这个角色, 这样它就有了这个角色的权限, 一个 IAM Role 可以让很多程序一起假装, 不过要想假装 Role 的话, 必须得是 AWS 里的资源才行, 这是当然的, 像上面第三个例子, 公网的设备想访问我们的存储资源, 首先要通过 API Gateway, 由 API Gateway 来完成这个假装动作.&lt;/p&gt;
-
-&lt;h2 id=&quot;users&quot;&gt;Users&lt;/h2&gt;
-
-&lt;p&gt;在 AWS 里，一个 IAM user 和 unix 下的一个用户几乎等价。你可以创建任意数量的用户，为其分配登录 AWS management console 所需要的密码，以及使用 AWS CLI（或其他使用 AWS SDK 的应用）所需要的密钥。你可以赋予用户管理员的权限，使其能够任意操作 AWS 的所有服务，也可以依照 Principle of least privilege，只授权合适的权限。下面是使用 AWS CLI 创建一个用户的示例：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;saws&amp;gt; aws iam create-user --user-name tyrchen
-{
-    &quot;User&quot;: {
-        &quot;CreateDate&quot;: &quot;2015-11-03T23:05:05.353Z&quot;,
-        &quot;Arn&quot;: &quot;arn:aws:iam::&amp;lt;ACCOUNT-ID&amp;gt;:user/tyrchen&quot;,
-        &quot;UserName&quot;: &quot;tyrchen&quot;,
-        &quot;UserId&quot;: &quot;AIDAISBVIGXYRRQLDDC3A&quot;,
-        &quot;Path&quot;: &quot;/&quot;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;当然，这样创建的用户是没有任何权限的，甚至无法登录，你可以用下面的命令进一步为用户关联群组，设置密码和密钥：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;saws&amp;gt; aws iam add-user-to-group --user-name --group-name
-saws&amp;gt; aws iam create-login-profile --user-name --password
-saws&amp;gt; aws iam create-access-key --user-name
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;IAM User 创建了之后, 就可以将这个实体给到某个员工让他使用, 第一次给员工时可能是将用户名和初始密码告知他, 员工登陆后可以自行修改密码. 这里用户名 + 密码就是这个 IAM User 的认证信息 (Credentials), 不过 Credentials 可不光是只有用户名 + 密码这一种形式, 还可以是 Access Key ID + Secret Acces Key 的形式, 更进一步的, 还可以是 MFA 的形式. 用户名 + 密码一般用于员工认为登陆 AWS Console 界面, Access Key 则一般用于 AWS CLI, 用户脚本这种程序访问方式. 用户或者程序通过提供 Credentials 来向 AWS IAM 证明自己, 获得合法身份 (Identity), IAM 根据这个身份来做进一步的权限审查.&lt;/p&gt;
-
-&lt;h2 id=&quot;groups&quot;&gt;Groups&lt;/h2&gt;
-
-&lt;p&gt;群组（groups）也等同于常见的 unix group。将一个用户添加到一个群组里，可以自动获得这个群组所具有的权限。在一家小的创业公司里，其 AWS 账号下可能会建立这些群组：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Admins：拥有全部资源的访问权限&lt;/li&gt;
-  &lt;li&gt;Devs：拥有大部分资源的访问权限，但可能不具备一些关键性的权限，如创建用户&lt;/li&gt;
-  &lt;li&gt;Ops：拥有部署的权限&lt;/li&gt;
-  &lt;li&gt;Stakeholders：拥有只读权限，一般给 manager 查看信息之用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;还需要为其添加 policy：&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;saws&amp;gt; aws iam attach-group-policy --group-name --policy-arn&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;在前面的例子和这个例子里，我们都看到了 ARN 这个关键字。ARN 是 Amazon Resource Names 的缩写，在 AWS 里，创建的任何资源有其全局唯一的 ARN。ARN 是一个很重要的概念，它是访问控制可以到达的最小粒度。在使用 AWS SDK 时，我们也需要 ARN 来操作对应的资源。&lt;/p&gt;
-
-&lt;p&gt;群组中授权增加、删除或者修改时，这些变更都会适用于所有用户。有些时候最好不要将授权直接分配给用户。&lt;/p&gt;
-
-&lt;h2 id=&quot;roles&quot;&gt;Roles&lt;/h2&gt;
-
-&lt;p&gt;角色（roles）类似于用户，但没有任何访问凭证（密码或者密钥），它一般被赋予某个资源（包括用户）&lt;/p&gt;
-
-&lt;p&gt;对于非人的程序, 一般的实践则是创建 IAM Role, 然后令这程序 “假装”(Assume) 这个角色, 这样它就有了这个角色的权限, 一个 IAM Role 可以让很多程序一起假装, 不过要想假装 Role 的话, 必须得是 AWS 里的资源才行&lt;/p&gt;
-
-&lt;p&gt;Credentials 就是认证信息，比如用户名+密码 或者AccessID + Secret Access Key等。&lt;/p&gt;
-
-&lt;p&gt;在 Credentials 这一点上, IAM Role 和 IAM User 不同, 因为 IAM Role 没有 Credentials, 或者准确地说是没有固定的 Credentials, 实际上当假装一个角色来获得对某资源的访问权时, 临时的 Credentials 会被生成, 但这是 AWS IAM 底层的实现机理, 从用户这一面上从来不需要操心配置角色的 Credentials, 所以我们就可以按照角色没有 Credentials 来理解. 至于为什么角色没有 Credentials, 那是因为角色只能由 AWS 自身的其他资源所假装, 比如由 EC2, Lambda 来假装, 而当你已经取得了这些资源的操作权限时, 你实际上已经通过 IAM User 的用户名密码或者 Access Key 证明了自己的身份, 所以再假装某个角色的时候, 就不需要再证明身份了.&lt;/p&gt;
-
-&lt;p&gt;虽然说我们部署在 EC2 里的程序, 一般是通过假装角色来获得对某资源的访问权限, 但是 AWS IAM 并不关心你创建的 IAM User 是给人用还是给程序用, 我们给程序创建一个 IAM User, 然后将其 Access Key 嵌到程序代码中令其获得对资源的访问权限也是可以的. 我们可以根据自己的场景灵活决定.&lt;/p&gt;
-
-&lt;p&gt;场景&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;自己公司的员工想访问 AWS Console 查看所在项目组的基础设施
-    &lt;ol&gt;
-      &lt;li&gt;AWS User. 可以通过Group管理。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;AWS 账户里的 EC2/Lambda 实例想访问同账户下的一台 RDS
-    &lt;ol&gt;
-      &lt;li&gt;给EC2添加Role。User也行，但要AK,SK啥的不方便&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;公网里用户的手机想要访问我们的后端存储(借助 API Gateway)
-    &lt;ol&gt;
-      &lt;li&gt;借助API Gateway, 给它加Role&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;AWS IAM 并不关心你创建的 IAM User 是给人用还是给程序用。&lt;/p&gt;
-
-&lt;p&gt;另外 角色也可以给User, 但基本都是使用角色进行跨账户访问。 系统管理员可以创建角色，在一个账户中授权给用户，可以在另一个账户中访问资源。&lt;/p&gt;
-
-&lt;p&gt;那权限挂在User上还是角色上？可以看下面这个例子。角色不该轻易给User。&lt;/p&gt;
-
-&lt;p&gt;一个用户可能在应用中将数据存储到AWS S3 bucket中。为了保护应用数据的完整性，用户并没有被给予授权来直接对bucket进行编写。在这样的例子中，在运行应用的AWS EC2实例中使用角色将有助于分配授权。&lt;/p&gt;
-
-&lt;h2 id=&quot;root-user&quot;&gt;Root User&lt;/h2&gt;
-
-&lt;p&gt;Root 账号是你第一次配置账号的时候创建的，它拥有完全的 Admin aceess&lt;/p&gt;
-
-&lt;p&gt;新 User 刚创建时是没有权限的。&lt;/p&gt;
-
-&lt;p&gt;AWS 官方建议 root 用户的唯一用途, 就是&lt;a href=&quot;https://link.zhihu.com/?target=https%3A//docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html%23lock-away-credentials&quot;&gt;用来创建你的第一个 IAM 用户&lt;/a&gt;, 把这第一个 IAM 用户设置为管理员, 然后以后的工作都用这个管理员用户来进行.&lt;/p&gt;
-
-&lt;h2 id=&quot;权限-policy&quot;&gt;权限 Policy&lt;/h2&gt;
-
-&lt;p&gt;AWS 下的权限都通过 policy document 描述&lt;/p&gt;
-
-&lt;p&gt;policy 是用 JSON 来描述的，主要包含 Statement，也就是这个 policy 拥有的权限的陈述，一言以蔽之，即：&lt;strong&gt;谁&lt;/strong&gt;在什么&lt;strong&gt;条件&lt;/strong&gt;下能对哪些&lt;strong&gt;资源&lt;/strong&gt;的哪些&lt;strong&gt;操作&lt;/strong&gt;进行&lt;strong&gt;处理&lt;/strong&gt;。也就是所谓的撰写 policy 的&lt;strong&gt;PARCE&lt;/strong&gt;原则：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Principal：谁&lt;/li&gt;
-  &lt;li&gt;Action：哪些操作&lt;/li&gt;
-  &lt;li&gt;Resource：哪些资源&lt;/li&gt;
-  &lt;li&gt;Condition：什么条件&lt;/li&gt;
-  &lt;li&gt;Effect：怎么处理（Allow/Deny）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;下面讲讲 policy 的执行规则，它也是几乎所有访问控制方案的通用规则：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;默认情况下，一切资源的一切行为的访问都是 Deny&lt;/li&gt;
-  &lt;li&gt;如果在 policy 里显式 Deny，则最终的结果是 Deny&lt;/li&gt;
-  &lt;li&gt;否则，如果在 policy 里是 Allow，则最终结果是 Allow&lt;/li&gt;
-  &lt;li&gt;否则，最终结果是 Deny&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;我们看一个允许对 S3 进行只读操作的 policy：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
-  &quot;Version&quot;: &quot;2012-10-17&quot;,
-  &quot;Statement&quot;: [
-    {
-      &quot;Effect&quot;: &quot;Allow&quot;,
-      &quot;Action&quot;: [
-        &quot;s3:Get*&quot;,
-        &quot;s3:List*&quot;
-      ],
-      &quot;Resource&quot;: &quot;*&quot;
-    }
-  ]
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;其中，Effect 是 Allow，允许 policy 中所有列出的权限，Resource 是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*&lt;/code&gt;，代表任意 S3 的资源，Action 有两个：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s3:Get*&lt;/code&gt;和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s3:List*&lt;/code&gt;，允许列出 S3 下的资源目录，及获取某个具体的 S3 Object。&lt;/p&gt;
-
-&lt;p&gt;在这个 policy 里，Principal 和 Condition 都没有出现。如果对资源的访问没有任何附加条件，是不需要 Condition 的；而这条 policy 的使用者是用户相关的 principal（users, groups, roles），当其被添加到某个用户身上时，自然获得了 principal 的属性，所以这里不必指明，也不能指明。&lt;/p&gt;
-
-&lt;p&gt;policy支持variable. 允许用户在 policy 里使用 AWS 预置的一些变量，比如&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;${aws:username}&lt;/code&gt;。 可以实现用户只能访问S3自己文件夹这样的能力。&lt;/p&gt;
-
-&lt;h2 id=&quot;best-practices&quot;&gt;Best Practices&lt;/h2&gt;
-
-&lt;p&gt;每年的&lt;a href=&quot;https://reinvent.awsevents.com/&quot;&gt; AWS re:invent &lt;/a&gt;大会，都会有一个 session：Top 10 AWS IAM Best Practices，感兴趣的读者可以去&lt;a href=&quot;https://www.youtube.com/results?search_query=Top+10+AWS+IAM+Best+Practices&quot;&gt; YouTube 搜索&lt;/a&gt;。&lt;a href=&quot;https://www.youtube.com/watch?v=_wiGpBQGCjU&quot;&gt; 2015 年的 top 10（top 11）&lt;/a&gt;如下：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;users: create individual users&lt;/li&gt;
-  &lt;li&gt;permissions: Grant least priviledge&lt;/li&gt;
-  &lt;li&gt;groups: manage permissions with groups&lt;/li&gt;
-  &lt;li&gt;conditions: restrict priviledged access further with conditions&lt;/li&gt;
-  &lt;li&gt;auditing: enable cloudTrail to get logs of API calls&lt;/li&gt;
-  &lt;li&gt;password: configure a strong password policy&lt;/li&gt;
-  &lt;li&gt;rotate: rotate security credentials regularly.&lt;/li&gt;
-  &lt;li&gt;MFA: enable MFA (Multi-Factor Authentication) for priviledged users&lt;/li&gt;
-  &lt;li&gt;sharing: use IAM roles to share access&lt;/li&gt;
-  &lt;li&gt;roles: use IAM roles for EC2 instances&lt;/li&gt;
-  &lt;li&gt;root: reduce or remove use of root&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;这 11 条 best practices 很清晰，我就不详细解释了。&lt;/p&gt;
-
-&lt;p&gt;按照上面的原则，如果一个用户只需要访问 AWS management console，那么不要为其创建密钥；反之，如果一个用户只使用 AWS CLI，则不要为其创建密码。一切不必要的，都是多余的——这就是安全之道。&lt;/p&gt;
-
-&lt;p&gt;一个由来已久的信息安全原则就是用户应该且只能拥有他们执行的职责的授权。这也就是最小授权原则，旨在最小化可信用户对于信息系统产生的不利影响。&lt;/p&gt;
-
-&lt;p&gt;在授权给群组时，也应该使用最小授权。只授权给有需要的群组的成员。如果一些群组成员需要额外的授权，然后创建额外的群组，并为他们分配额外的授权。需要额外授权的用户可以分配到这两个群组中。IAM群组和角色可以让系统管理员按需为用户和应用授权。&lt;/p&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;定义群组管理类似的用户。用户都是需要密码等认证的。&lt;/li&gt;
-  &lt;li&gt;用户上没有policy，都通过群组管理&lt;/li&gt;
-  &lt;li&gt;定义角色保护应用，比如只想某EC2访问，就给EC2加角色，而不是加User上。&lt;/li&gt;
-  &lt;li&gt;角色比User的一个好处就是不需要认证信息，因为本身就是AWS自带认证信息。所以给非人的资源一般都是角色。当然EC2也可以是User，访问时需要AK,SK啥的，不如角色方便。&lt;/li&gt;
-  &lt;li&gt;角色分给User目的就是使用角色进行跨账户访问。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.infoq.cn/article/aws-iam-dive-in&quot;&gt;AWS 系列：深入了解 IAM 和访问控制&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/432934574&quot;&gt;AWS IAM 深入理解&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS IAM</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="AWS" /><category term="AWS" /><summary type="html">AWS Cloudformation</summary></entry></feed>
