@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-10T20:11:28+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Electron笔记</title><link href="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Electron笔记" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;electron笔记&quot;&gt;Electron笔记&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-11T12:19:47+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Electron笔记</title><link href="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Electron笔记" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;electron笔记&quot;&gt;Electron笔记&lt;/h1&gt;
 
 &lt;h2 id=&quot;electron是什么&quot;&gt;Electron是什么？&lt;/h2&gt;
 
@@ -13,12 +13,215 @@
   &lt;li&gt;&lt;a href=&quot;https://www.electronjs.org/zh/docs/latest/tutorial/installation&quot;&gt;安装electron&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;入门&quot;&gt;入门&lt;/h2&gt;
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;electron&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;electron&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;运行&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;electron&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;js&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;入门文件读写&quot;&gt;入门、文件读写&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_hello_world.html&quot;&gt;Electron - Hello World&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;main.js进行窗口创建。设置主进程&lt;/p&gt;
+
+&lt;p&gt;窗口创建时就是load一个index.html。 html里可以有js，比如view.js。这个就是渲染进程。&lt;/p&gt;
+
+&lt;p&gt;渲染进程也可以进行文件读写和进行http请求。&lt;a href=&quot;https://www.w3schools.cn/electron/electron_native_node_libraries.html&quot;&gt;参考&lt;/a&gt; 本身就是个nodejs。&lt;/p&gt;
+
+&lt;p&gt;渲染进程可以用主进程一样的东西，只不过此时用的是remote的electron。&lt;/p&gt;
+
+&lt;h2 id=&quot;进程模型&quot;&gt;进程模型&lt;/h2&gt;
+
+&lt;h3 id=&quot;chrome进程模型&quot;&gt;chrome进程模型&lt;/h3&gt;
+
+&lt;p&gt;chrome默认会启动主进程，和两个子进程，然后每打开一个标签页会启动两个进程，当页面加载完成其中一个进程会结束，只剩一个进程用于渲染和交互和网络请求，以后每个标签页都会重复这个过程。&lt;/p&gt;
+
+&lt;h3 id=&quot;electron&quot;&gt;electron&lt;/h3&gt;
+
+&lt;p&gt;Electron 为我们提供了 2 个 IPC（进程间通信）模块，分别称为 &lt;strong&gt;ipcMain&lt;/strong&gt; 和 &lt;strong&gt;ipcRenderer&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ipcMain&lt;/strong&gt; 模块用于从主进程异步通信到渲染进程。 在主进程中使用时，该模块处理从渲染器进程（网页）发送的异步和同步消息。 从渲染器发送的消息将被发送到此模块。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ipcRenderer&lt;/strong&gt; 模块用于从渲染器进程到主进程的异步通信。 它提供了一些方法，因此您可以将同步和异步消息从渲染器进程（网页）发送到主进程。 您还可以接收来自主进程的回复。&lt;/p&gt;
+
+&lt;p&gt;我们将创建一个主进程和一个渲染器进程，它们将使用上述模块相互发送消息。&lt;/p&gt;
+
+&lt;p&gt;事例请参考&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_inter_process_communication.html&quot;&gt;Electron - 进程间通信&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;主进程&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Event handler for asynchronous incoming messages&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ipcMain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;asynchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;c1&quot;&gt;// Event emitter for sending asynchronous messages&lt;/span&gt;
+   &lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;asynchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Event handler for synchronous incoming messages&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ipcMain&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;synchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;c1&quot;&gt;// Synchronous event emmision&lt;/span&gt;
+   &lt;span class=&quot;nv&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;returnValue&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;sync&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;渲染进程&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Synchronous message emmiter and handler&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ipcRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sendSync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;synchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;sync&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;))&lt;/span&gt; 
+
+&lt;span class=&quot;c1&quot;&gt;// Async message handler&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ipcRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;asynchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Async message sender&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;ipcRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;asynchronous&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;async&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;小结&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;send函数是异步的&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sendSync是同步的&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;只能渲染进程给主进程主动 同步/异步推消息，然后主进程根据情况同步/异步回消息。对于同步消息只能同步回。 个人理解 待确定&lt;/p&gt;
+
+&lt;p&gt;建议不要在渲染器进程上执行繁重/阻塞任务的计算。 始终使用 IPC 将这些任务委托给主进程。 这有助于保持应用程序的速度。&lt;/p&gt;
+
+&lt;h2 id=&quot;系统ui&quot;&gt;系统UI&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对话框、菜单等&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_system_dialogs.html&quot;&gt;Electron - 系统对话框&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;electro&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt; 
+   &lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fs&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;f&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt; 
+   &lt;span class=&quot;nv&quot;&gt;dialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;showOpenDialog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xxxx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;....&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;打开文件对话框只能在主进程里操作。渲染进程发消息给主进程，主进程打开对话框选文件，然后文件内容发给渲染进程。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_menus.html&quot;&gt;Electron - 菜单&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;桌面应用程序带有两种类型的菜单——&lt;strong&gt;应用程序菜单&lt;/strong&gt;（在顶部栏）和&lt;strong&gt;上下文菜单&lt;/strong&gt;（右键菜单）。&lt;/p&gt;
+
+&lt;p&gt;我们将使用两个模块 - &lt;em&gt;Menu&lt;/em&gt; 和 &lt;em&gt;MenuItem&lt;/em&gt; 模块。 请注意，&lt;em&gt;Menu&lt;/em&gt; 和 &lt;em&gt;MenuItem&lt;/em&gt; 模块仅在主进程中可用。 要在渲染器进程中使用这些模块，您需要 &lt;em&gt;remote&lt;/em&gt; 模块。&lt;/p&gt;
+
+&lt;p&gt;可以是系统菜单，也可以是鼠标右键菜单，可以替换的。如果是鼠标右键菜单是在渲染进程里。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_system_tray.html&quot;&gt;Electron - 系统托盘&lt;/a&gt; 系统托盘是应用程序窗口之外的菜单。 在 MacOS 和 Ubuntu 上，它位于屏幕的右上角。 在 Windows 上，它位于右下角。 我们可以使用 Electron 在系统托盘中为我们的应用程序创建菜单。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;系统托盘操作在渲染进城里。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_defining_shortcuts.html&quot;&gt;Electron - 定义快捷方式&lt;/a&gt; 快捷方式，快捷键&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;nv&quot;&gt;globalShortcut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;CommandOrControl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;O&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;ipcRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;openFil&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Event sent.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+            
+            &lt;span class=&quot;nv&quot;&gt;ipcRenderer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;fileDat&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+               &lt;span class=&quot;nv&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+         &lt;span class=&quot;o&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;调试&quot;&gt;调试&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_environment_variables.html&quot;&gt;Electron - 环境变量&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;序号&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;变量 &amp;amp; 说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;ELECTRON_ENABLE_LOGGING&lt;/strong&gt;将 Chrome 的内部日志打印到控制台。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;ELECTRON_ENABLE_STACK_DUMPING&lt;/strong&gt;在 Electron 崩溃时将堆栈跟踪打印到控制台。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;3&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;ELECTRON_DEFAULT_ERROR_MODE&lt;/strong&gt;Electron 崩溃时显示 Windows 的崩溃对话框。&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export ELECTRON_ENABLE_LOGGING=true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_debugging.html&quot;&gt;Electron - 调试&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我们有两个进程运行我们的应用程序 — 主进程和渲染器进程。&lt;/p&gt;
+
+&lt;p&gt;由于渲染器进程是在我们的浏览器窗口中执行的，我们可以使用 Chrome 开发工具对其进行调试。&lt;/p&gt;
+
+&lt;p&gt;要调试在主进程中执行的 JavaScript，您需要使用外部调试器并使用 &lt;em&gt;–debug&lt;/em&gt; 或 &lt;em&gt;–debug-brk&lt;/em&gt; 开关启动 Electron。 请参考原文。可用vscode。可以加断点。&lt;/p&gt;
+
+&lt;h2 id=&quot;打包&quot;&gt;打包&lt;/h2&gt;
+
+&lt;p&gt;打包成mac.app 或者win.exe等。&lt;/p&gt;
+
+&lt;p&gt;参考  &lt;a href=&quot;https://www.electronjs.org/zh/docs/latest/tutorial/%E6%89%93%E5%8C%85%E6%95%99%E7%A8%8B&quot;&gt;打包您的应用程序&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;forge使用&lt;/p&gt;
+
+&lt;p&gt;安装&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@electron&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cli&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;npx&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;electron&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;forge&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;打包&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;make&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;该脚本最终运行了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;electron-forge make&lt;/code&gt; 命令。&lt;/p&gt;
+
+&lt;p&gt;npm run用了package.json转成了上述命令。&lt;/p&gt;
+
+&lt;p&gt;然后就可以看到app了。&lt;/p&gt;
 
 &lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.electronjs.org/zh/docs/latest/&quot;&gt;Electron&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.electronjs.org/zh/docs/latest/&quot;&gt;Electron&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/how_electron_works.html&quot;&gt;w3school Electron 的工作原理&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">Electron笔记</summary></entry><entry><title type="html">构建打包工具webpack</title><link href="https://mafulong.github.io/2023/03/10/%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7webpack/" rel="alternate" type="text/html" title="构建打包工具webpack" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7webpack</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/%E6%9E%84%E5%BB%BA%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7webpack/">&lt;h2 id=&quot;构建打包工具webpack&quot;&gt;构建打包工具webpack&lt;/h2&gt;
 
 &lt;p&gt;本质上，&lt;strong&gt;webpack&lt;/strong&gt; 是一个用于现代 JavaScript 应用程序的 &lt;em&gt;静态模块打包工具&lt;/em&gt;。当 webpack 处理应用程序时，它会在内部从一个或多个入口点构建一个 &lt;a href=&quot;https://webpack.docschina.org/concepts/dependency-graph/&quot;&gt;依赖图(dependency graph)&lt;/a&gt;，然后将你项目中所需的每一个模块组合成一个或多个 &lt;em&gt;bundles&lt;/em&gt;，它们均为静态资源，用于展示你的内容。&lt;/p&gt;
