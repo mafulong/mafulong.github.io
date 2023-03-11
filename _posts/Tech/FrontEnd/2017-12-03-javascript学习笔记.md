@@ -38,6 +38,8 @@ alert("我的第一个 JavaScript");
 
 调用顺序：HTML 元素是按其在页面中出现的次序调用的，如果用 JavaScript 来管理页面上的元素（更精确的说法是使用 [文档对象模型](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model) DOM），若 JavaScript 加载于欲操作的 HTML 元素之前，则代码将出错。
 
+
+
 JavaScript 调用于文档头处，解析 HTML 文档体之前。这样做是有隐患的，需要使用一些结构来避免错误发生。
 
 
@@ -292,10 +294,6 @@ console.log('abc' / 18); //结果是NaN
 
 
 
-
-
-
-
 ### 数组 
 
 开头为0
@@ -384,7 +382,7 @@ const newArr = arr.map((currentItem, currentIndex, currentArray) => {
 
 ### 对象
 
-见面向对象
+见 章节 面向对象
 
 ### Undefined 和 Null
 
@@ -724,15 +722,13 @@ var myFather=new person("Bill","Gates",56,"blue");
 **构造函数**：是一种特殊的函数，主要用来创建和初始化对象，也就是为对象的成员变量赋初始值。它与 `new` 一起使用才有意义。
 
 - 构造函数的创建方式和普通函数没有区别，不同的是构造函数习惯上首字母大写。
-- 构造函数和普通函数的区别就是**调用方式**的不同：普通函数是直接调用，而构造函数需要使用 new 关键字来调用。
+- 构造函数和普通函数的区别就是**调用方式**的不同：普通函数是直接调用，而**构造函数需要使用 new 关键字来调用。**
 
 **this 的指向也有所不同**：
 
 - 1.以函数的形式调用时，this 永远都是 window。比如`fun();`相当于`window.fun();`
 - 2.以方法的形式调用时，this 是调用方法的那个对象
 - 3.以构造函数的形式调用时，this 是新创建的实例对象
-
-
 
 
 
@@ -917,7 +913,7 @@ arguments 的展示形式是一个**伪数组**。意思是，它和数组有点
 
 3、以构造函数的形式调用时，this 指向实例对象
 
-4、以事件绑定函数的形式调用时，this 指向**绑定事件的对象**
+4、以事件绑定函数的形式调用时，this 指向**绑定事件的对象**。 例子？
 
 5、使用 call 和 apply 调用时，this 指向指定的那个对象
 
@@ -940,6 +936,9 @@ function fun() {
 
 //以方法的形式调用，this是调用方法的对象
 obj2.sayName();
+
+// 事件绑定形式
+todo?
 ```
 
 
@@ -1209,17 +1208,12 @@ parent.removeChild(child);
 
 
 
-
-
-## 原型和原型链
-
 ## 其他 小结
 
 - 字符串转换为数字用Number(str)或者parseInt(str)/parseFloat(str)方法
 - 数字转换为字符串用var.toString()方法
 - NaN： not a number
 - 可以直接使用Math.方法名，如max(...), 
-- 
 - ByName()只用于表单元素，一般是单选和复选框
 - 两个特殊方法，document.title, document.body
 - html中onclick="f()", js中obj.click=f，前者是调用属性，后者是给属性赋值
@@ -1492,7 +1486,7 @@ $("p").css({"background-color":"yellow","font-size":"200%"});
 ### get
 ```javascript
     var xmlhttp=new XMLHttpRequest();
-	xmlhttp.open("GET","/test/GetSearchTips?sear="+thisnode.value,true);
+	  xmlhttp.open("GET","/test/GetSearchTips?sear="+thisnode.value,true);
     xmlhttp.send();
 ```
 
@@ -1952,7 +1946,7 @@ console.log(JSON.parse(b));
   - 请求header里有**Access-Control-Request-**xx
   - 预检请求可以只有一次
 
-## Promise
+## Promise 异步编程
 
 > [Promise](https://web.qianguyihao.com/06-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9A%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B/05-Promise%E5%85%A5%E9%97%A8%E8%AF%A6%E8%A7%A3.html)
 
@@ -2013,8 +2007,6 @@ new Promise((resolve, reject) => {
 > [参考](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises)
 
 ## 模块module
-
-> [Kingdom](https://en.wikipedia.org/wiki/%2B44_(band))
 
 可命名.mjs文件，和.js文件实际一样，但便于理解
 
@@ -2174,7 +2166,7 @@ js之父在设计js原型、原型链的时候遵从以下两个准则
 
 > [JavaScript 中的类](https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
 
-### 类
+### 类 ES6 class
 
 下面的是es6里提供的
 
