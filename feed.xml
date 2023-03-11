@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-11T13:11:35+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Electron笔记</title><link href="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Electron笔记" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;electron笔记&quot;&gt;Electron笔记&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-11T22:52:31+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Electron笔记</title><link href="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Electron笔记" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/Electron%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;electron笔记&quot;&gt;Electron笔记&lt;/h1&gt;
 
 &lt;h2 id=&quot;electron是什么&quot;&gt;Electron是什么？&lt;/h2&gt;
 
@@ -34,7 +34,16 @@
 
 &lt;p&gt;窗口创建时就是load一个index.html。 html里可以有js，比如view.js。这个就是渲染进程。&lt;/p&gt;
 
-&lt;p&gt;渲染进程也可以进行文件读写和进行http请求。&lt;a href=&quot;https://www.w3schools.cn/electron/electron_native_node_libraries.html&quot;&gt;参考&lt;/a&gt; 本身就是个nodejs。&lt;/p&gt;
+&lt;p&gt;渲染进程也可以进行文件读写和进行http请求。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_file_handling.html&quot;&gt;Electron - 文件处理&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://www.w3schools.cn/electron/electron_native_node_libraries.html&quot;&gt;Electron - 原生节点库&lt;/a&gt; os，网络模块&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;渲染进程可以用主进程一样的东西，只不过此时用的是remote的electron。&lt;/p&gt;
 
@@ -238,6 +247,56 @@ export ELECTRON_DEFAULT_ERROR_MODE=true
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.runoob.com/w3cnote/webpack-tutorial.html&quot;&gt;Webpack 入门教程&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;config-新版已可无-仅介绍&quot;&gt;config (新版已可无 仅介绍)&lt;/h2&gt;
+
+&lt;p&gt;从单纯使用作为开发工具的角度，为了降低操作的复杂度webpack提供了webpack.config.js配置文件。当然还有更简单的webpackv4.0.0开始，可以不用引入配置文件，就可以实现打包。官方在持续的降低复杂度，但是从多掌握点知识的角度即如何做到由术入道，还是需要多关注的如何在大项目（复杂度高）的项目中怎么灵活使用配置文件。&lt;/p&gt;
+
+&lt;p&gt;现在已经有了webpack v5，不用引入配置了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;初始webpack.config.js&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;entry:源码的入口文件，webpack打包的第一步&lt;/li&gt;
+  &lt;li&gt;output:输入目录，即源码经过webpack处理之后，最终生成的文件&lt;/li&gt;
+  &lt;li&gt;loader:处理非javascript文件（webpack自身只理解javascipt）&lt;/li&gt;
+  &lt;li&gt;plugin:在webpack的构建过程中处理其他任务，优化输出结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//入口文件&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;&apos;./src/index.js&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//导出目录&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;filename:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;&apos;bundle.js&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 打包后文件的名字&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;path.join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;__&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;dirname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;&apos;dist&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 打包文件的目录&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//loader 模块和规则定义&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rules:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;test:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;/.css$/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//规则 要求css结尾&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;use:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;style-loader&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;css&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;//plugin&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CleanWebpackPlugin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;loader vs plugin&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;loader:loader让webpack去处理那些非JavaScript文件(webpack自身只理解javascript)。loader可以将所有类型的文件转换成webpack能处理的有效模块。然后利用webpack的打包能力，对它们进行处理。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;plugin:插件可以用于执行其他范围更广的任务，插件的范围包括，打包优化，代码压缩，甚至可以重新定义环境中的变量。插件的目的是用于解决loader无法实现的其他事。&lt;/p&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">构建打包工具webpack</summary></entry><entry><title type="html">跨平台技术总结</title><link href="https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" rel="alternate" type="text/html" title="跨平台技术总结" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">&lt;h2 id=&quot;跨平台技术总结&quot;&gt;跨平台技术总结&lt;/h2&gt;
 
 &lt;ul&gt;
@@ -368,7 +427,7 @@ git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mi
 &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/opt/homebrew/Library/Taps/homebrew/homebrew-core&quot;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;remote&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;github&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Homebrew&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;homebrew&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;core&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;参考&quot;&gt;参考&lt;/h1&gt;
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://sspai.com/post/56009&quot;&gt;程序员 Homebrew 使用指北&lt;/a&gt;&lt;/li&gt;
