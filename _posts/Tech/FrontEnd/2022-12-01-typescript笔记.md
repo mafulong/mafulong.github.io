@@ -343,6 +343,23 @@ interface Person {
 }
 ```
 
+基于interface声明新变量的技巧
+
+```scala
+p = Person{
+  id: 1,
+  name: "name"
+}
+
+以下都是 可以的，会根据id,name这些fieldname匹配对应的值，同时支持别名，比如id1是id的别名。
+const {id} = p
+console.log(id)
+const {name} = p
+const {id, name} = p
+const {id: id1} = p
+console.log(id1)
+```
+
 
 
 
