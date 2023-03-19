@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-19T13:29:57+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1615. 最大网络秩</title><link href="https://mafulong.github.io/2023/03/18/1615.-%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9/" rel="alternate" type="text/html" title="1615. 最大网络秩" /><published>2023-03-18T00:00:00+08:00</published><updated>2023-03-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/18/1615.%20%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9</id><content type="html" xml:base="https://mafulong.github.io/2023/03/18/1615.-%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-03-19T22:50:27+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">service mesh</title><link href="https://mafulong.github.io/2023/03/19/service-mesh/" rel="alternate" type="text/html" title="service mesh" /><published>2023-03-19T00:00:00+08:00</published><updated>2023-03-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/19/service%20mesh</id><content type="html" xml:base="https://mafulong.github.io/2023/03/19/service-mesh/">&lt;h2 id=&quot;service-mesh&quot;&gt;service mesh&lt;/h2&gt;
+
+&lt;p&gt;在TCP出现之后，机器之间的网络通信不再是一个难题，以GFS/BigTable/MapReduce为代表的分布式系统得以蓬勃发展。这时，分布式系统特有的通信语义又出现了，如熔断策略、负载均衡、服务发现、认证和授权、quota限制、trace和监控等等，于是服务根据业务需求来实现一部分所需的通信语义。&lt;/p&gt;
+
+&lt;p&gt;service mesh就实现了这种通信语义。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://pic2.zhimg.com/80/v2-e5660d35a311467c3323f10ebf2fb9a5_1440w.webp&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;服务网格是一个基础设施层，用于处理服务间通信。云原生应用有着复杂的服务拓扑，服务网格保证请求在这些拓扑中可靠地穿梭。在实际应用当中，服务网格通常是由一系列轻量级的网络代理组成的，它们与应用程序部署在一起，但对应用程序透明。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Service Mesh&lt;/code&gt;目的是解决系统架构微服务化后的服务间通信和治理问题。&lt;/strong&gt; 服务网格由&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sidecar&lt;/code&gt;节点组成，这个模式的精髓在于实现了数据面（业务逻辑）和控制面的解耦。具体到&lt;a href=&quot;https://so.csdn.net/so/search?q=微服务&amp;amp;spm=1001.2101.3001.7020&quot;&gt;微服务&lt;/a&gt;架构中，即给每一个微服务实例同步部署一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sidecar&lt;/code&gt;。可以sidecar形式和应用程序部署到一起。&lt;/p&gt;
+
+&lt;p&gt;Service Mesh具有如下优点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;屏蔽分布式系统通信的复杂性(负载均衡、服务发现、认证授权、监控追踪、流量控制等等)，服务只用关注业务逻辑；&lt;/li&gt;
+  &lt;li&gt;真正的语言无关，服务可以用任何语言编写，只需和Service Mesh通信即可；&lt;/li&gt;
+  &lt;li&gt;对应用透明，Service Mesh组件可以单独升级；&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/61901608&quot;&gt;什么是 Service Mesh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="DistributedSystem" /><category term="DistributedSystem" /><summary type="html">service mesh</summary></entry><entry><title type="html">go泛型</title><link href="https://mafulong.github.io/2023/03/19/go%E6%B3%9B%E5%9E%8B/" rel="alternate" type="text/html" title="go泛型" /><published>2023-03-19T00:00:00+08:00</published><updated>2023-03-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/19/go%E6%B3%9B%E5%9E%8B</id><content type="html" xml:base="https://mafulong.github.io/2023/03/19/go%E6%B3%9B%E5%9E%8B/">&lt;h2 id=&quot;go泛型&quot;&gt;go泛型&lt;/h2&gt;
+
+&lt;p&gt;在go 1.18里得到支持。&lt;/p&gt;
+
+&lt;h2 id=&quot;helloworld&quot;&gt;HelloWorld&lt;/h2&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+	&lt;span class=&quot;s&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sumValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;// 泛型调用&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;// 可以自动根据类型，编译器推导出类型&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sumValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;&quot;a&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+		&lt;span class=&quot;s&quot;&gt;&quot;b&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;其中 int&lt;/td&gt;
+      &lt;td&gt;float32 也可以用以下代码替代&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Number&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;float32&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sumValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;使用场景&quot;&gt;使用场景&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ian Lance Taylor&lt;/code&gt; 的 &lt;a href=&quot;https://go.dev/blog/when-generics&quot;&gt;When To Use Generics&lt;/a&gt; 中列出了泛型的典型使用场景，归结为三种主要情况：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;使用内置的容器类型，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;slices&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;maps&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;channels&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;实现通用的数据结构，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;linked list&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tree&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;编写一个函数，其实现对许多类型来说都是一样的，比如一个排序函数&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;实现方式&quot;&gt;实现方式&lt;/h2&gt;
+
+&lt;h3 id=&quot;泛型一般实现方式&quot;&gt;泛型一般实现方式&lt;/h3&gt;
+
+&lt;h4 id=&quot;虚拟方法表&quot;&gt;虚拟方法表&lt;/h4&gt;
+
+&lt;p&gt;在编译器中实现泛型的一种方法是使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt;。泛型函数被修改成只接受指针作为参数的方式。然后，这些值被分配到堆上，这些值的指针被传递给泛型函数。这样做是因为指针看起来总是一样的，不管它指向的是什么类型。&lt;/p&gt;
+
+&lt;p&gt;如果这些值是对象，而泛型函数需要调用这些对象的方法，它就不能再这样做了。该函数只有一个指向对象的指针，不知道它们的方法在哪里。因此，它需要一个可以查询方法的内存地址的表格：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt;。这种所谓的动态调度已经被 Go 和 Java 等语言中的接口所使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt; 不仅可以用来实现泛型，还可以用来实现其他类型的多态性。然而，推导这些指针和调用虚拟函数要比直接调用函数慢，而且使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt; 会阻止编译器进行优化。&lt;/p&gt;
+
+&lt;h4 id=&quot;单态化-monomorphization&quot;&gt;单态化 Monomorphization&lt;/h4&gt;
+
+&lt;p&gt;一个更简单的方法是单态化（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Monomorphization&lt;/code&gt;），编译器为每个被调用的数据类型生成一个泛型函数的副本。&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;](&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;larger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;由于上面显示的max函数是用两个整数调用的，编译器在对代码进行单态化时将为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int&lt;/code&gt; 生成一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max&lt;/code&gt; 的副本。&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;larger&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maxInt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;最大的优势是，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Monomorphization&lt;/code&gt; 带来的运行时性能明显好于使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt;。直接方法调用不仅更有效率，而且还能适用整个编译器的优化链。不过，这样做的代价是编译时长，为所有相关类型生成泛型函数的副本是非常耗时的。&lt;/p&gt;
+
+&lt;h3 id=&quot;go实现方式&quot;&gt;Go实现方式&lt;/h3&gt;
+
+&lt;p&gt;这两种方法中哪一种最适合 Go？快速编译很重要，但运行时性能也很重要。为了满足这些要求，Go 团队决定在实现泛型时混合两种方法。&lt;/p&gt;
+
+&lt;p&gt;Go 使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Monomorphization&lt;/code&gt;，但试图减少需要生成的函数副本的数量。它不是为每个类型创建一个副本，而是为内存中的每个布局生成一个副本：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;float64&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; 和其他所谓的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;值类型&quot;&lt;/code&gt; 在内存中看起来都不一样，因此泛型函数将为所有这些类型复制副本。&lt;/p&gt;
+
+&lt;p&gt;与值类型相反，指针和接口在内存中总是有相同的布局。编译器将为指针和接口的调用生成一个泛型函数的副本。就像 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt; 一样，泛型函数接收指针，因此需要一个表来动态地查找方法地址。在 Go 实现中的字典与虚拟方法表的性能特点相同。&lt;/p&gt;
+
+&lt;p&gt;这种混合方法的好处是，你在使用值类型的调用中获得了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Monomorphization&lt;/code&gt; 的性能优势，而只在使用指针或接口的调用中付出了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Virtual Method Table&lt;/code&gt; 的成本。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Go" /><category term="Go" /><summary type="html">go泛型</summary></entry><entry><title type="html">1615. 最大网络秩</title><link href="https://mafulong.github.io/2023/03/18/1615.-%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9/" rel="alternate" type="text/html" title="1615. 最大网络秩" /><published>2023-03-18T00:00:00+08:00</published><updated>2023-03-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/18/1615.%20%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9</id><content type="html" xml:base="https://mafulong.github.io/2023/03/18/1615.-%E6%9C%80%E5%A4%A7%E7%BD%91%E7%BB%9C%E7%A7%A9/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximal-network-rank/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 座城市和一些连接这些城市的道路 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;roads&lt;/code&gt; 共同组成一个基础设施网络。每个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;roads[i] = [ai, bi]&lt;/code&gt; 都表示在城市 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ai&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bi&lt;/code&gt; 之间有一条双向道路。&lt;/p&gt;
@@ -642,153 +769,4 @@ git -C &quot;$(brew --repo homebrew/core)&quot; remote set-url origin https://mi
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://sspai.com/post/56009&quot;&gt;程序员 Homebrew 使用指北&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac brew</summary></entry><entry><title type="html">k8s</title><link href="https://mafulong.github.io/2023/03/08/k8s/" rel="alternate" type="text/html" title="k8s" /><published>2023-03-08T00:00:00+08:00</published><updated>2023-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/08/k8s</id><content type="html" xml:base="https://mafulong.github.io/2023/03/08/k8s/">&lt;h2 id=&quot;k8s&quot;&gt;k8s&lt;/h2&gt;
-
-&lt;p&gt;Kubernetes（有时也称为 K8s）是一个广受欢迎的开源平台，可以跨越网络资源集群来编排容器运行时系统。不论有无 Docker，均可使用 Kubernetes。&lt;/p&gt;
-
-&lt;p&gt;Kubernetes 最初由 Google 开发，该公司需要一种全新方式来每周大规模运行数十亿个容器。2014 年，Kubernetes 由 Google 以开源形式发布，现被广泛认为是容器和分布式应用部署领域的市场领导者和行业标准编排工具。&lt;a href=&quot;https://queue.acm.org/detail.cfm?id=2898444&quot;&gt;Google 表示&lt;/a&gt;，Kubernetes 的“主要设计目标是简化复杂分布式系统的部署与管理，同时仍然受益于容器带来的更高利用率。”&lt;/p&gt;
-
-&lt;p&gt;Kubernetes 将一系列容器捆绑成一组，并在同一台机器上进行管理，以减少网络开销并提高资源使用效率。例如，应用服务器、Redis 缓存和 SQL 数据库便是此此类容器集。Docker 容器的特点是每个容器一个进程。&lt;/p&gt;
-
-&lt;h2 id=&quot;有了容器为何需要k8s&quot;&gt;有了容器为何需要k8s&lt;/h2&gt;
-
-&lt;p&gt;Docker 提供容器的生命周期管理和，&lt;a href=&quot;https://link.segmentfault.com/?enc=IMFQZ%2BeeI7dBtplzfKTw3Q%3D%3D.QrUq9Oz3A4oa%2FwDSC9RDPSISW7u34lI46PhRGInHHOd%2FKKe2YyzXmnKCZGw9CC0hpYMMItTK6AbXm9HYoRZOa%2BtgNwetTCKuJGbbTcKQNFYN%2BlWlCIRn74EYt%2F1F3aPyKA%2BfIIibdZ9su%2FMIH%2FRvPzUKfJOThlhxIyD2kjiU%2Fvu7oza%2BKL88Kk%2FGxDx2X9VfEc4fdK5wG1oU3iJ908sMJiptGxQIBfacr%2BUM52e20DvJL1hYtzoNKoDQfv4On%2FOW2jrjskVIsJWpnTrGE5bc%2FJrfSHU0PHMTc2%2BS1ztWR7neofBwAWqTnjMyJoZqKtE5&quot;&gt;Docker&lt;/a&gt; 镜像构建运行时容器。它的主要优点是将将软件/应用程序运行所需的设置和依赖项打包到一个容器中，从而实现了可移植性等优点。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://link.segmentfault.com/?enc=W81xiwGoNRkvUPq6WfcWfg%3D%3D.KxqHDaD%2B%2BR2FaIDFTlmkFD756ZnXYK2ioDgLAwRRq2JjkLmkagG3T2%2BjXlwt%2Byi%2Bpv%2BL84c%2FuffzfvOX1auNr2bqdSSokkIoVL1OCHAyS8P8sB8GLoYna5%2B%2FvBqtDP59%2FmlGrala2AmkscHWKr7M7gTvRZBRtmRfWLswIJXeDLFAYSeyTjskXGU6uy45eiiDlLHI6%2B9sZLmf3a9UfYRcxM5vq47c%2FY9eTnRQu7%2Bal3nFanU2bjFCeg91DLprZi9qwrq40VKU8104ofE9iFZ96ljUk25mFBf5sXRbv0QJ14Doi2542WRqrtfuOTxc3a4J&quot;&gt;Kubernetes&lt;/a&gt; 用于关联和编排在多个主机上运行的容器。&lt;/p&gt;
-
-&lt;p&gt;尽管Docker为容器化的应用程序提供了开放标准，但随着容器越来越多出现了一系列新问题：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如何协调和调度这些容器?&lt;/li&gt;
-  &lt;li&gt;如何在升级应用程序时不会中断服务?&lt;/li&gt;
-  &lt;li&gt;如何监视应用程序的运行状况?&lt;/li&gt;
-  &lt;li&gt;如何批量重新启动容器里的程序?&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;解决这些问题需要容器编排技术，可以将众多机器抽象，对外呈现出一台超大机器。现在业界比较流行的有：k8s、Mesos、Docker Swarm。&lt;/p&gt;
-
-&lt;p&gt;在业务发展初期只有几个微服务，这时用 Docker 就足够了，但随着业务规模逐渐扩大，容器越来越多，运维人员的工作越来越复杂，这个时候就需要编排系统解救opers。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202303082229567.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;k8s架构&quot;&gt;k8s架构&lt;/h2&gt;
-
-&lt;p&gt;K8s总体来说是主从架构模式Master - Slave架构，master节点负责调度、管理，slave节点负责具体程序的运行和节点服务，在K8s里面，主节点一般叫做master node，从节点叫做worker node。所有的主节点和从节点一起组成了K8s集群，在集群里面master和slave都可以是多个，是一个多主多从的集群架构。&lt;/p&gt;
-
-&lt;h3 id=&quot;21-k8s-master-node核心组件&quot;&gt;2.1 K8s Master Node核心组件&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;API Server&lt;/strong&gt;：作用是K8s的请求入口提供能力，API Server组件负责接收K8s所有的命令请求，不管是UI控制台还是命令行都会经过API Server组件，API Server负责接收具体的命令请求，去通知其它组件工作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Scheduler&lt;/strong&gt;：是K8s调度所有worker节点的调度组件，当K8s需要部署服务时，通过Scheduler调度组件来负责调度具体的Worker Node节点来进行服务的部署工作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Controller Manager&lt;/strong&gt;：监控K8s所有的Worker Node，对工作节点的性能和工作状态监控，例如某个节点的服务挂了以后，Controller Manager组件就会立马感知到，然后通知Scheduler组件去调度选择Worker Node来重新部署服务。Controller Manager是由多个Controller组成：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node Controller&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Service Controller&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Volume Controller&lt;/code&gt;等&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;etcd&lt;/strong&gt;：K8s默认的数据信息存储服务，是一个基于Raft算法的分布式KV服务器，类似于ZK功能。etcd存储了K8s的关心配置和用户配置数据。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;22-k8s-worker-node核心组件&quot;&gt;2.2 K8s Worker Node核心组件&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Kubelet：工作节点的监视器，并且负责和Master Node进行通信，定时的向Master Node上报工作节点的服务状态，并且负责接收Master Node发来的各种命令。&lt;/li&gt;
-  &lt;li&gt;Kube Proxy：工作节点的网络代理组件，负责基础通信能力。&lt;/li&gt;
-  &lt;li&gt;Container Runtime：工作节点的运行时环境。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;3k8s核心概念&quot;&gt;3.K8s核心概念&lt;/h2&gt;
-
-&lt;h3 id=&quot;31-deployment&quot;&gt;3.1 Deployment&lt;/h3&gt;
-
-&lt;p&gt;Deployment负责创建和更新应用程序的实例，创建Deployment后，K8s的Master节点会将应用程序实例调度到集群中各个Worker节点上。Pod是K8s最小的编排单位，K8s要支持弹性扩容、负载均衡就得需要一个Controller来管理，Deployment就是来控制和编排应用程序。 在Deployment的配置文件里面可以指定需要部署的Pod标签、Pod个数等。&lt;/p&gt;
-
-&lt;h3 id=&quot;32-pod&quot;&gt;3.2 Pod&lt;/h3&gt;
-
-&lt;p&gt;Pod是K8s编排容器的最小逻辑单元，Pod也相当于是一个逻辑主机的概念负责管理具体的应用实例，包括1个或多个Docker容器，一般是一对一关系。 Pod同样也有yaml配置文件，在配置文件里面可以配置暴露的端口、服务标签、镜像信息等。&lt;/p&gt;
-
-&lt;h3 id=&quot;33-service&quot;&gt;3.3 Service&lt;/h3&gt;
-
-&lt;p&gt;Service是K8s里面的一个抽象的概念，Service是一组Pod的逻辑集合，给这些Pod提供服务发现、负载的能力。 虽然每一个Pod都有自己的IP和端口，但是Pod的IP并不会暴露给外部；访问Pod必须通过Service，Service提供流量的接收。Service可以通过配置Type来对外暴露访问入口，默认是ClusterIP模式(在几群的内部IP上公开Servcie)，除了这个默认模式外，还提供NodePort、LoadBalancer等。 Service同样提供了yaml文件配置，可以配置例如暴露端口、Pod的选择等。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Container" /><category term="Container" /><summary type="html">k8s</summary></entry><entry><title type="html">1487. 保证文件名唯一</title><link href="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/" rel="alternate" type="text/html" title="1487. 保证文件名唯一" /><published>2023-03-03T00:00:00+08:00</published><updated>2023-03-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/03/1487.%20%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80</id><content type="html" xml:base="https://mafulong.github.io/2023/03/03/1487.-%E4%BF%9D%E8%AF%81%E6%96%87%E4%BB%B6%E5%90%8D%E5%94%AF%E4%B8%80/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/making-file-names-unique/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的字符串数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names&lt;/code&gt; 。你将会在文件系统中创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个文件夹：在第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 分钟，新建名为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names[i]&lt;/code&gt; 的文件夹。&lt;/p&gt;
-
-&lt;p&gt;由于两个文件 &lt;strong&gt;不能&lt;/strong&gt; 共享相同的文件名，因此如果新建文件夹使用的文件名已经被占用，系统会以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(k)&lt;/code&gt; 的形式为新文件夹的文件名添加后缀，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; 是能保证文件名唯一的 &lt;strong&gt;最小正整数&lt;/strong&gt; 。&lt;/p&gt;
-
-&lt;p&gt;返回长度为 &lt;em&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt;&lt;/em&gt; 的字符串数组，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ans[i]&lt;/code&gt; 是创建第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 个文件夹时系统分配给该文件夹的实际名称。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：names = [&quot;pes&quot;,&quot;fifa&quot;,&quot;gta&quot;,&quot;pes(2019)&quot;]
-输出：[&quot;pes&quot;,&quot;fifa&quot;,&quot;gta&quot;,&quot;pes(2019)&quot;]
-解释：文件系统将会这样创建文件名：
-&quot;pes&quot; --&amp;gt; 之前未分配，仍为 &quot;pes&quot;
-&quot;fifa&quot; --&amp;gt; 之前未分配，仍为 &quot;fifa&quot;
-&quot;gta&quot; --&amp;gt; 之前未分配，仍为 &quot;gta&quot;
-&quot;pes(2019)&quot; --&amp;gt; 之前未分配，仍为 &quot;pes(2019)&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：names = [&quot;gta&quot;,&quot;gta(1)&quot;,&quot;gta&quot;,&quot;avalon&quot;]
-输出：[&quot;gta&quot;,&quot;gta(1)&quot;,&quot;gta(2)&quot;,&quot;avalon&quot;]
-解释：文件系统将会这样创建文件名：
-&quot;gta&quot; --&amp;gt; 之前未分配，仍为 &quot;gta&quot;
-&quot;gta(1)&quot; --&amp;gt; 之前未分配，仍为 &quot;gta(1)&quot;
-&quot;gta&quot; --&amp;gt; 文件名被占用，系统为该名称添加后缀 (k)，由于 &quot;gta(1)&quot; 也被占用，所以 k = 2 。实际创建的文件名为 &quot;gta(2)&quot; 。
-&quot;avalon&quot; --&amp;gt; 之前未分配，仍为 &quot;avalon&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：names = [&quot;onepiece&quot;,&quot;onepiece(1)&quot;,&quot;onepiece(2)&quot;,&quot;onepiece(3)&quot;,&quot;onepiece&quot;]
-输出：[&quot;onepiece&quot;,&quot;onepiece(1)&quot;,&quot;onepiece(2)&quot;,&quot;onepiece(3)&quot;,&quot;onepiece(4)&quot;]
-解释：当创建最后一个文件夹时，最小的正有效 k 为 4 ，文件名变为 &quot;onepiece(4)&quot;。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 4：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：names = [&quot;wano&quot;,&quot;wano&quot;,&quot;wano&quot;,&quot;wano&quot;]
-输出：[&quot;wano&quot;,&quot;wano(1)&quot;,&quot;wano(2)&quot;,&quot;wano(3)&quot;]
-解释：每次创建文件夹 &quot;wano&quot; 时，只需增加后缀中 k 的值即可。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 5：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：names = [&quot;kaido&quot;,&quot;kaido(1)&quot;,&quot;kaido&quot;,&quot;kaido(1)&quot;]
-输出：[&quot;kaido&quot;,&quot;kaido(1)&quot;,&quot;kaido(2)&quot;,&quot;kaido(1)(1)&quot;]
-解释：注意，如果含后缀文件名被占用，那么系统也会按规则在名称后添加新的后缀 (k) 。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= names.length &amp;lt;= 5 * 10^4&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= names[i].length &amp;lt;= 20&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;names[i]&lt;/code&gt; 由小写英文字母、数字和/或圆括号组成。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;set去重，维护一个name的最小可用数字。只在错误时移动。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getFolderNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;{}({})&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac brew</summary></entry></feed>
