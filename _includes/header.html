@@ -79,9 +79,10 @@
   <script src="{{ assets_base_url }}/assets/vendor/jquery/dist/jquery.min.js"></script>
   <script src="{{ assets_base_url }}/assets/js/jquery-ui.js"></script>
   <script src="{{ assets_base_url }}/assets/js/main.js"></script>
-
+  {% if site.google.adsense.header%}
   <script data-ad-client="ca-pub-6116360096430004" async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  {% endif %}
 </head>
 
 <body class="{{ page.class }}" data-mz="{{ page.class }}">
