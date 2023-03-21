@@ -24,19 +24,26 @@ layout: default
 <section class="container content">
     <div class="columns">
         <div class="column three-fourths">
+          <div class="mobile-visible">
+            {% include sidebar-categories-cloud.html %}
+          </div>
             <article class="article-content markdown-body">
                 {{ content }}
             </article>
-            <div class="share">
+            <div class="share mobile-hidden">
                 {% include sns-share.html %}
             </div>
-            <div class="comment">
+            <div class="comment mobile-hidden">
                 {% include comments.html %}
             </div>
         </div>
         <div class="column one-fourth">
+          <div >
             {% include sidebar-search.html %}
+          </div>
+          <div class="mobile-hidden">
             {% include sidebar-categories-nav.html %}
+          </div>
         </div>
     </div>
 </section>
