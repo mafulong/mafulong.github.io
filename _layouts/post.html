@@ -46,21 +46,26 @@ layout: default
 <div class="columns">
   <div class="column three-fourths" >
     {% include content-header-ad.html %}
+    <div class="mobile-visible">
+    {% include sidebar-post-nav.html %}
+    </div>
     <article class="article-content markdown-body">
     {{ content }}
     <!-- {% include copyright.html %} -->
     </article>
-    <div class="share">
+    <div class="share mobile-hidden">
       {% include sns-share.html %}
     </div>
     {% include content-footer-ad.html %}
-    <div class="comment">
+    <div class="comment mobile-hidden">
       {% include comments.html %}
     </div>
   </div>
   <div class="column one-fourth">
     {% include sidebar-search.html %}
+    <div class="mobile-hidden">
     {% include sidebar-post-nav.html %}
+    </div>
     {% include sidebar-recent-update.html %}
   </div>
 </div>
