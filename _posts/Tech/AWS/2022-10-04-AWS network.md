@@ -5,7 +5,7 @@ title: AWS Network
 tags: AWS
 ---
 
-# AWS network
+# AWS VPC
 
 ## 名词解释
 
@@ -306,9 +306,11 @@ VPC里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。�
 
 
 
-## Route 53
+# Route 53
 
 **Amazon Route 53**是一种高可用、高扩展性的云DNS服务。
+
+Amazon Route 53 是一种托管域名系统 (DNS) 服务，它可帮助您为您的域名注册和管理 DNS 记录。您可以使用 Route 53 将您的域名映射到您的 VPC 内的资源，如 ELB 和 Amazon S3。
 
 不同的DNS记录：
 
@@ -317,11 +319,17 @@ VPC里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。�
   - **和CNAME最大的区别是，Alias可以应用在根域（Zone Apex）。即可以为xiaopeiqing.com的根域创建Alias记录，而不能创建CNAME**
   - 别名记录可以节省你的时间，因为Route53会自动识别别名记录所指的记录中的更改。例如，假设example.com的一个别名记录指向位于lb1-1234.us-east-2.elb.amazonaws.com上的一个ELB负载均衡器。如果该负载均衡器的IP地址发生更改，Route53将在example.com的DNS应答中自动反映这些更改，而无需对包含example.com的记录的托管区域做出任何更改。 弹性负载均衡器（ELB）没有固定的IPv4地址，在使用ELB的时候永远使用它的DNS名字。很多场景下我们需要绑定DNS记录到ELB的endpoint地址，而不绑定任何IP
 
-### AWS Direct Connect
+# AWS Direct Connect
+
+AWS Direct Connect 是一种专用网络连接服务，它允许您通过私有连接连接到 AWS 服务。您可以使用 Direct Connect 将您的本地数据中心与您的 VPC 直接连接起来，实现更安全、更高带宽的网络连接。
+
+
+
+
 
 AWS Direct Connect 是一种联网服务，提供了通过互联网连接到AWS 的替代方案。 使用AWS Direct Connect ，以前通过Internet 传输的数据将可以借助您的设施和AWS 之间的私有网络连接进行传输。
 
-不再需要通过网络提供商。
+**不再需要通过网络提供商。** 描述的是本地IT数据中心和VPC连接。通过物理专线连接。
 
 AWS Direct Connect 通过标准的以太网光纤电缆将您的内部网络链接到 AWS Direct Connect 位置。电缆的一端接到您的路由器，另一端接到 AWS Direct Connect 路由器。有了这个连接，你可以创建*虚拟接口*直接公有公有访问AWS服务（例如，到 Amazon S3）或 Amazon VPC，绕过您的网络路径中的互联网服务提供商。网络 ACL 和安全组都允许 (因此可到达您的实例) 的发起 ping 的AWS Direct Connect位置提供访问AWS在与之关联的区域中。您可以将单个连接用于公有区域或AWS GovCloud (US)公有访问AWS所有其他公有区域中的服务。
 
