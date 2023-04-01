@@ -127,15 +127,71 @@ tags: AWS
 
 ![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202211192248477.png)
 
-### VPC终端节点（VPC Endpoints）PrivateLink
+### VPC终端节点（VPC Endpoints）
 
 在一般的情况下，如果你需要访问S3服务，EC2实例或者DynamoDB的资源，你需要通过Internet公网来访问这些服务。有没有更快速、更安全的访问方式呢？
 
 **VPC终端节点（VPC Endpoints）**提供了这种可能性。
 
+### PrivateLink
+
 VPC终端节点能建立VPC和一些AWS服务之间的高速、私密的“专线”。这个专线叫做PrivateLink，使用了这个技术，你无需再使用Internet网关、NAT网关、VPN或AWS Direct Connect连接就可以访问到一些AWS资源了！
 
+PrivateLink 是一种 Amazon Web Services (AWS) 的服务，它允许 AWS 中的服务与 VPC 内的资源进行安全、高速的连接，而无需通过公共 Internet。使用 PrivateLink，您可以将 AWS 中的服务（如 Amazon S3、Amazon EC2 等）作为一个私有端点，直接连接到 VPC 中的资源，从而实现私有、安全、低延迟的通信。
 
+PrivateLink 使用 AWS VPC 内部的私有 IP 地址进行通信，这意味着您可以直接访问 AWS 中的服务，而不需要通过 NAT 网关或 VPN 连接。这样不仅可以提高通信的速度和稳定性，还可以提高安全性，因为数据和流量不会经过公共 Internet，不会受到网络威胁的影响。
+
+使用 PrivateLink 时，您需要为要连接的 AWS 服务启用 PrivateLink，并在 VPC 中配置 VPC 端点。一旦配置完成，您就可以直接从 VPC 中的资源访问 AWS 服务，而不需要暴露公共 IP 地址。此外，PrivateLink 还支持跨账户连接，这意味着您可以将 AWS 服务连接到不同的 VPC 中的资源，从而实现更高的灵活性和可扩展性。
+
+### vpc peering
+
+VPC Peering 是指连接两个或多个 VPC 的网络连接。它允许您在不通过公共 Internet 的情况下直接路由流量到其他 VPC，从而实现跨 VPC 通信。这种通信是私有、安全和高效的。
+
+VPC Peering 通常用于以下情况：
+
+- 允许不同 VPC 之间的资源进行互操作，以便跨多个 VPC 进行应用程序部署
+- 实现基于 VPC 的多租户环境中的网络隔离，以确保租户之间的数据和流量不会相互干扰
+- 扩展 VPC 中的可用 IP 地址范围，以满足需要更多 IP 地址的资源的要求，而不必更改 VPC CIDR
+
+在 VPC Peering 中，不同 VPC 之间的流量不会经过公共互联网，因此通信速度更快，并且更加安全。但需要注意的是，VPC Peering 是一种单向连接，这意味着必须分别设置每个 VPC 之间的连接，才能实现完全的互通性。
+
+
+
+限制： ip 有overlap不能用。
+
+### private link 和 vpc peering区别
+
+VPC Peering 和 PrivateLink 都可以用于在 AWS 中建立安全、私有的网络连接，但它们的使用场景略有不同。
+
+VPC Peering 主要用于连接不同 VPC 之间的网络，从而实现跨 VPC 通信。而 PrivateLink 主要用于连接 AWS 服务与 VPC 内的资源进行安全、高速的连接。
+
+
+
+vpc peering是免费的，没有private link安全。
+
+private link是收费的，更安全。
+
+
+
+So when would you use VPC Peering versus PrivateLink?
+
+VPC Peering is a good choice if you want to interconnect two or more VPCs within your company. You may also use it for integrating closely with trusted partners.
+
+For sharing specific services with customers and partners, PrivateLink may be a better choice. It limits your exposure by providing access to a specific service rather than your entire network.
+
+You'll also need to use PrivateLink in a few specific scenarios:
+
+- Connecting securely to AWS services from within a VPC
+- Connecting services in VPCs with overlapping IP ranges
+- Connecting securely to on-premise services from your VPCs
+
+### 服务不一定都在vpc里
+
+服务不一定都在vpc里，比如公开可访问的s3。 但大部分服务都可以单独配置在vpc里，然后通过内部网络访问。
+
+AWS 服务并不都在 VPC 中。AWS 提供的一些基础服务，如 Amazon S3、Amazon DynamoDB、Amazon SQS 等，都是通过公共网络提供的，您可以使用公共网络连接这些服务。
+
+但是，大多数 AWS 服务都可以通过 Amazon VPC 进行访问，这意味着您可以将这些服务部署在您的 VPC 中，并通过 VPC 内部网络进行访问。例如，Amazon EC2 实例、Amazon RDS 数据库、Amazon ElastiCache 等服务都可以在 VPC 中部署，从而实现更安全、可靠的网络连接。
 
 ## 工作原理
 
@@ -322,8 +378,6 @@ Amazon Route 53 是一种托管域名系统 (DNS) 服务，它可帮助您为您
 # AWS Direct Connect
 
 AWS Direct Connect 是一种专用网络连接服务，它允许您通过私有连接连接到 AWS 服务。您可以使用 Direct Connect 将您的本地数据中心与您的 VPC 直接连接起来，实现更安全、更高带宽的网络连接。
-
-
 
 
 
