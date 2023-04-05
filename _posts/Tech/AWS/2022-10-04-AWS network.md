@@ -362,6 +362,21 @@ VPC里多个AZ, 每个AZ都需要至少一个子网，默认是公有子网。�
 
 
 
+# 跨账号访问aws service总结
+
+比如 本账号lambda访问另一个账号的DDB
+
+Lambda 跨账号访问另一个账号中的 DynamoDB 表，一共有以下几种方法：
+
+1. 使用 assumeRole API：Lambda 函数在执行时使用 assumeRole API 切换到具有访问目标账号 DynamoDB 表权限的 IAM 角色。这种方法的优点是简单易用，只需要在代码中调用 assumeRole API 即可。缺点是需要进行额外的 IAM 角色配置和权限管理，同时存在一定的安全风险，因为将 IAM 凭证直接硬编码到代码中可能会导致安全问题。
+2. 使用 VPC Peering：通过建立 VPC Peering 连接，将源账号和目标账号的 VPC 相互连接起来，实现 Lambda 函数对 DynamoDB 表的访问。这种方法的优点是简单易用，可以通过 AWS 控制台完成配置，同时具有较高的安全性。缺点是需要进行 VPC 配置和管理，且无法实现跨区域访问。
+3. 使用 PrivateLink：通过在目标账号中创建一个 PrivateLink 终端节点，将 DynamoDB 表以私有方式暴露给源账号中的 Lambda 函数，实现跨账号访问。这种方法的优点是高度安全，可以通过 AWS PrivateLink 在私有网络中实现数据的加密传输，同时支持跨区域访问。缺点是需要进行较为复杂的 VPC 和 PrivateLink 配置，且可能需要进行网络安全设置和管理。
+4. 使用 AWS Resource Access Manager（RAM）：通过使用 RAM，可以在多个 AWS 账号之间共享资源，并授予其他 AWS 账号访问这些资源的权限。Lambda 函数可以将 RAM 中的资源授权给目标账号，从而实现对 DynamoDB 表的访问。这种方法的优点是可以实现资源共享和管理，并且具有高度的可扩展性。缺点是需要进行 RAM 的配置和管理，且可能需要进行跨账号 IAM 角色的授权和管理。
+
+
+
+一般来说，如果需要实现高度安全性和数据隔离，且需要支持跨区域访问，推荐使用 PrivateLink；如果只是需要简单快速地实现跨账号访问，可以选择使用 assumeRole API 或 VPC Peering。如果需要进行资源共享和管理，可以考虑使用 AWS RAM。
+
 # Route 53
 
 **Amazon Route 53**是一种高可用、高扩展性的云DNS服务。
