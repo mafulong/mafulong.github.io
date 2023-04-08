@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-04-06T17:55:00+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">iterm和zsh技巧</title><link href="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/" rel="alternate" type="text/html" title="iterm和zsh技巧" /><published>2023-04-05T00:00:00+08:00</published><updated>2023-04-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7</id><content type="html" xml:base="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/">&lt;h2 id=&quot;iterm技巧&quot;&gt;iterm技巧&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-04-08T16:10:50+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1017. 负二进制转换</title><link href="https://mafulong.github.io/2023/04/08/1017.-%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/" rel="alternate" type="text/html" title="1017. 负二进制转换" /><published>2023-04-08T00:00:00+08:00</published><updated>2023-04-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/08/1017.%20%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2</id><content type="html" xml:base="https://mafulong.github.io/2023/04/08/1017.-%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/convert-to-base-2/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; ，以二进制字符串的形式返回该整数的 &lt;strong&gt;负二进制（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;base -2&lt;/code&gt;）&lt;/strong&gt;表示。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意，&lt;/strong&gt;除非字符串就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;0&quot;&lt;/code&gt;，否则返回的字符串中不能含有前导零。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 2
+输出：&quot;110&quot;
+解释：(-2)2 + (-2)1 = 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 3
+输出：&quot;111&quot;
+解释：(-2)2 + (-2)1 + (-2)0 = 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 4
+输出：&quot;100&quot;
+解释：(-2)2 = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= n &amp;lt;= 109&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;负二进制的表达。&lt;/p&gt;
+
+&lt;p&gt;和二进制一样，但记得要处理下-1，每一位可能是-1,0,1，要把-1转换下，变成1.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baseNeg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;0&apos;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 变成正数
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;延伸&lt;/p&gt;
+
+&lt;p&gt;转负三进制怎么办&lt;/p&gt;
+
+&lt;p&gt;b=-3即可。它可以转任意进制。处理好负数即可。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">iterm和zsh技巧</title><link href="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/" rel="alternate" type="text/html" title="iterm和zsh技巧" /><published>2023-04-05T00:00:00+08:00</published><updated>2023-04-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7</id><content type="html" xml:base="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/">&lt;h2 id=&quot;iterm技巧&quot;&gt;iterm技巧&lt;/h2&gt;
 
 &lt;h2 id=&quot;iterm配置同步&quot;&gt;iterm配置同步&lt;/h2&gt;
 
@@ -671,58 +731,4 @@ export ELECTRON_DEFAULT_ERROR_MODE=true
   &lt;li&gt;
     &lt;p&gt;plugin:插件可以用于执行其他范围更广的任务，插件的范围包括，打包优化，代码压缩，甚至可以重新定义环境中的变量。插件的目的是用于解决loader无法实现的其他事。&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">构建打包工具webpack</summary></entry><entry><title type="html">跨平台技术总结</title><link href="https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" rel="alternate" type="text/html" title="跨平台技术总结" /><published>2023-03-10T00:00:00+08:00</published><updated>2023-03-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93</id><content type="html" xml:base="https://mafulong.github.io/2023/03/10/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">&lt;h2 id=&quot;跨平台技术总结&quot;&gt;跨平台技术总结&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;移动端： React Native，Flutter，Weex；&lt;/li&gt;
-  &lt;li&gt;小程序端： Taro，Uniapp；&lt;/li&gt;
-  &lt;li&gt;桌面端： NW.js，Electron，Flutter for desktop，Tauri，Wails，&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;桌面&quot;&gt;桌面&lt;/h3&gt;
-
-&lt;h3 id=&quot;electron&quot;&gt;Electron&lt;/h3&gt;
-
-&lt;p&gt;Electron最初是针对Atom代码编辑器所开发的，这是一个开源的框架，开发方为GitHub。它使用了最新的Node.js，允许开发者编写跨平台桌面UI，支持多种受欢迎的Web技术：HTML、CSS和JavaScript。微软、Facebook、Stack和Docker等多家公司都在使用Electron。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;优点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;它依赖于每一个Web开发者都已经熟知的Web标准，让你可以用它编写桌面软件。&lt;/li&gt;
-  &lt;li&gt;它允许开发者专注于核心功能，它去负责软件开发中复杂的部分&lt;/li&gt;
-  &lt;li&gt;它为桌面应用提供了多种核心功能，例如自动更新、崩溃报告、安装器创建工具和一些具体的系统功能&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;缺点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;没有内置的MVC，无法完全支持Chrome平台。&lt;/p&gt;
-
-&lt;h3 id=&quot;nw&quot;&gt;NW&lt;/h3&gt;
-
-&lt;p&gt;NW或Node Webkit可以使用HTML、CSS3、JavaScript以及WebGL等现代Web技术帮你开发跨平台软件。它针对所有Node.js的API和大多数第三方模块提供了支持，你可以用它创建Windows、Mac OS X和Linux软件。这个框架非常适合想要使用Web技术创建桌面程序的开发者。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;优点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;有着大量的程序和游戏demo&lt;/li&gt;
-  &lt;li&gt;提供了优秀的社区支持，可以轻松的找到各种问题的解决方式&lt;/li&gt;
-  &lt;li&gt;相比Electron，其功能更加丰富，也更加成熟&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;缺点：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Electron一些处理复杂工作的功能，NW.js并未提供，例如自动更新和崩溃报告。而且使用NW.js需要你付出更多努力，并且准备额外的模块。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/7154348142350041101&quot;&gt;浅谈基于Web的跨平台桌面应用开发&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://juejin.cn/post/7154348142350041101&quot;&gt;浅谈基于Web的跨平台桌面应用开发&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://www.lanqiao.cn/questions/4931/&quot;&gt;9个最佳跨平台开发框架及工具&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">跨平台技术总结</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="FrontEnd" /><category term="FrontEnd" /><summary type="html">构建打包工具webpack</summary></entry></feed>

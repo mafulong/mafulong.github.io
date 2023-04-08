@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15711 字，约 45 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15992 字，约 46 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -792,6 +792,15 @@ deque(['Michael', 'Terry', 'Graham'])
 </span>    <span class="c1"># 如果想找个某个位置为True,可以传key函数并且找True的值。
 </span>
 </code></pre></div></div>
+<h3 id="有负数的除法求模-不同语言可能不同">有负数的除法求模 不同语言可能不同</h3>
+<p>比如a 除以 b，求对应商和余数。不同语言可能不同</p>
+<p>计算-7 Mod 4</p>
+<p>那么：a = -7；b = 4；</p>
+<p>第一步：求整数商c，c应该是-1.75，如进行求模运算c = -2（向负无穷方向舍入），求余运算则c = -1（向0方向舍入）；</p>
+<p>第二步：计算模和余数的公式相同，但因c的值不同，求模时r = 1，求余时r = -3。</p>
+<p>当符号不一致时，结果不一样。求模运算结果的符号和b一致，求余运算结果的符号和a一致。</p>
+<p>在C/C++, C#, JAVA, PHP这几门主流语言中，%运算符都是做取余运算，而在python中的%是做取模运算。</p>
+<p><strong>python求商是向负无穷靠近，而其他是靠近0.</strong></p>
 <h3 id="python负数补码">python负数补码</h3>
 <blockquote><p><a href="https://www.runoob.com/w3cnote/python-negative-storage.html">参考</a></p></blockquote>
 <p>python负数不是存的补码，是-的原码，因此要求补码的话需要和0xffffffff与一下</p>
