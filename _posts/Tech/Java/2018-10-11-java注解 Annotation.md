@@ -82,3 +82,140 @@ public @interface FruitName {
     String value() default "";
 }
 ```
+
+## 注解列表
+
+### java注解
+
+1. @Override: 表示该方法是重写父类的方法。
+2. @Deprecated: 表示该方法已经过时，不推荐使用，但仍然可以使用。
+3. @SuppressWarnings: 抑制警告信息。
+4. @FunctionalInterface: 表示该接口是一个函数式接口。
+5. @SafeVarargs: 表示方法使用了可变长度参数，并且对参数的类型安全性进行了验证。
+6. @Retention: 表示注解的保留策略。
+7. @Target: 表示注解的作用对象。
+8. @Documented: 表示注解应该包含在生成的文档中。
+9. @Inherited: 表示注解可以被继承。
+10. @SuppressWarnings: 表示抑制编译器警告。
+11. @FunctionalInterface: 表示函数式接口。
+12. @SafeVarargs: 表示可变参数类型安全。
+13. @Retention: 表示注解的保留策略。
+14. @Target: 表示注解的作用对象。
+15. @Documented: 表示注解应该包含在生成的文档中。
+16. @Inherited: 表示注解可以被继承。
+17. @Repeatable: 表示注解可以重复使用。
+18. @Native: 表示方法的实现是由本地代码实现的。
+19. @SuppressWarnings: 表示抑制编译器警告。
+20. @FunctionalInterface: 表示函数式接口。
+21. @SafeVarargs: 表示可变参数类型安全。
+22. @Retention: 表示注解的保留策略。
+23. @Target: 表示注解的作用对象。
+24. @Documented: 表示注解应该包含在生成的文档中。
+25. @Inherited: 表示注解可以被继承。
+26. @Repeatable: 表示注解可以重复使用。
+27. @Native: 表示方法的实现是由本地代码实现的。
+
+### spring注解
+
+1. @Component: 用于标识一个普通的Java对象为一个Spring Bean。
+2. @Service: 用于标识一个业务逻辑层的Bean。
+3. @Repository: 用于标识一个数据访问层的Bean。
+4. @Controller: 用于标识一个控制器层的Bean。
+5. @Configuration: 用于标识一个类为Spring配置类。
+6. @Bean: 用于标识一个方法返回值为一个Bean实例。
+7. @Autowired: 用于自动装配一个Bean。
+8. @Qualifier: 用于指定自动装配的Bean的名称。
+9. @Resource: 用于注入一个Bean。
+10. @Value: 用于注入一个值。
+11. @RequestMapping: 用于映射请求路径和处理方法。
+12. @PathVariable: 用于获取请求路径中的参数。
+13. @RequestParam: 用于获取请求参数。
+14. @ResponseBody: 用于返回JSON或XML格式的数据。
+15. @ExceptionHandler: 用于处理异常。
+16. @Transactional: 用于标识一个方法或类为事务方法或类。
+17. @Async: 用于标识一个方法为异步方法。
+18. @Scheduled: 用于定时任务。
+19. @PostConstruct: 用于在Bean初始化后执行的方法。
+20. @PreDestroy: 用于在Bean销毁前执行的方法。
+
+### Guice注解
+
+1. @Inject: 用于标记需要注入依赖的构造方法、字段或方法。
+2. @Named: 用于标记需要注入的依赖，通过名称来指定具体的实现类。
+3. @Singleton: 用于标记一个类为单例，每次注入时都返回同一个实例。
+4. @Provides: 用于标记一个方法为提供依赖的方法。
+5. @ScopeAnnotation: 用于标记一个注解为作用域注解，该注解可以用于自定义作用域。
+6. @Assisted: 用于标记需要通过工厂方法注入的依赖。
+7. @AssistedInject: 用于标记需要通过工厂方法注入的类，自动生成工厂方法。
+8. @ImplementedBy: 用于标记一个接口的默认实现类。
+9. @Interceptor: 用于标记一个类为拦截器。
+10. @InterceptorBinding: 用于标记一个注解为拦截器绑定注解。
+
+### Spring MVC注解
+
+1. @Controller: 用于标识一个类为控制器类。
+2. @RestController: 用于标识一个类为RESTful风格的控制器类。
+3. @RequestMapping: 用于映射请求路径和处理方法。
+4. @GetMapping: 用于映射GET请求。
+5. @PostMapping: 用于映射POST请求。
+6. @PutMapping: 用于映射PUT请求。
+7. @DeleteMapping: 用于映射DELETE请求。
+8. @PatchMapping: 用于映射PATCH请求。
+9. @PathVariable: 用于获取请求路径中的参数。
+10. @RequestParam: 用于获取请求参数。
+11. @RequestBody: 用于获取请求体中的数据。
+12. @ResponseBody: 用于返回JSON或XML格式的数据。
+13. @ResponseStatus: 用于指定返回的HTTP状态码。
+14. @ExceptionHandler: 用于处理异常。
+15. @ModelAttribute: 用于绑定请求参数到模型中。
+16. @SessionAttribute: 用于将模型属性保存到会话中。
+17. @ModelAttribute: 用于绑定模型属性到请求中。
+
+### Lombok 注解
+
+1. @Getter/@Setter: 用于自动生成getter/setter方法。
+2. @ToString: 用于自动生成toString方法。
+3. @EqualsAndHashCode: 用于自动生成equals和hashCode方法。
+4. @NoArgsConstructor/@AllArgsConstructor: 用于自动生成无参/有参构造函数。
+5. @RequiredArgsConstructor: 用于自动生成必要的参数构造函数。
+6. @Data: 用于自动生成getter/setter、toString、equals和hashCode方法。
+7. @Builder: 用于自动生成Builder模式。
+8. @SneakyThrows: 用于在方法中抛出受检异常，但不需要显式捕获。
+9. @Slf4j: 用于自动生成Slf4j的Logger对象。
+10. @Value: 用于生成不可变的JavaBean。
+11. @Delegate: 用于为某个字段自动生成委托方法。
+12. @Cleanup: 用于自动释放资源。
+
+### JetBrains 注解
+
+JetBrains是一家开发IDE（集成开发环境）的软件公司，他们开发的IDE工具（如IntelliJ IDEA、PyCharm、RubyMine等）在支持Java开发的同时，也提供了许多有用的Java注解库，其中常用的注解包括：
+
+1. @NotNull：标注属性、方法参数、方法返回值不能为null。
+2. @Nullable：标注属性、方法参数、方法返回值可以为null。
+3. @Contract：用于描述方法的行为契约。
+4. @TestOnly：标注仅用于测试的方法。
+5. @Deprecated：标注已经过时的方法或类。
+6. @SuppressWarnings：标注告知编译器忽略特定的警告信息。
+7. @ReadOnly：标注集合类型的参数或返回值只读，不能修改。
+8. @Mutable：标注集合类型的参数或返回值可变，可以修改。
+
+### Junit注解
+
+1. @Test: 用于标识测试方法。
+2. @Before: 用于标识在测试方法执行之前需要执行的方法。
+3. @After: 用于标识在测试方法执行之后需要执行的方法。
+4. @BeforeClass: 用于标识在所有测试方法执行之前需要执行的方法。
+5. @AfterClass: 用于标识在所有测试方法执行之后需要执行的方法。
+6. @Ignore: 用于标识忽略某个测试方法。
+7. @RunWith: 用于指定测试运行器。
+8. @Rule: 用于添加测试规则。
+9. @FixMethodOrder: 用于控制测试方法执行的顺序。
+10. @Parameterized: 用于指定参数化测试。
+
+### Mockito注解
+
+1. @Mock：用于创建一个mock对象。
+2. @InjectMocks：用于将mock对象注入到被测试的类中。
+3. @Spy：用于创建一个真实的对象，并对其中某些方法进行mock操作。
+4. @Captor：用于捕获mock对象中的参数。
+5. @RunWith(MockitoJUnitRunner.class)：用于指定Mockito运行器。
