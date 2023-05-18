@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 15992 字，约 46 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 16110 字，约 47 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -494,6 +494,13 @@ sorted(s, key=lambda x: (x.isdigit(),x.isdigit() and int(x) % 2 == 0,x.isupper()
 
 <span class="nb">zip</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'c'</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">'d'</span><span class="p">)]</span>
+  
+  
+  
+<span class="n">旋转矩阵zip挺好用的</span>
+<span class="n">顺时针</span><span class="err">：</span><span class="n">matrix</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">逆时针</span><span class="err">：</span><span class="n">matrix</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">转置</span><span class="err">：</span><span class="n">matrix</span><span class="p">[:]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">matrix</span><span class="p">))</span>  
 </code></pre></div></div>
 <h3 id="max-min-sum-any-all">max, min, sum, any, all</h3>
 <p>max([1,2,3])</p>
