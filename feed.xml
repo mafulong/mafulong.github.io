@@ -1,4 +1,139 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-05-18T09:56:36+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java构建工具ant</title><link href="https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant/" rel="alternate" type="text/html" title="Java构建工具ant" /><published>2023-05-07T00:00:00+08:00</published><updated>2023-05-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant</id><content type="html" xml:base="https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant/">&lt;h2 id=&quot;java构建工具ant&quot;&gt;Java构建工具ant&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-05-23T15:09:50+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">mac automator</title><link href="https://mafulong.github.io/2023/05/23/mac-automator/" rel="alternate" type="text/html" title="mac automator" /><published>2023-05-23T00:00:00+08:00</published><updated>2023-05-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/23/mac%20automator</id><content type="html" xml:base="https://mafulong.github.io/2023/05/23/mac-automator/">&lt;h1 id=&quot;mac-automator&quot;&gt;mac automator&lt;/h1&gt;
+
+&lt;p&gt;Automator允许你选择八中不同类型的行为（Action）：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;工作流（Workflow）：最简单的形式，是一个在Automator内部运行的文件；&lt;/li&gt;
+  &lt;li&gt;应用程序（Application）：比较常用的形式，允许你创建一个单独的App，并且可以将文件拖到其图标上触发相应动作；&lt;/li&gt;
+  &lt;li&gt;服务（Service）：在服务菜单中创建一个流程，从当前应用程序或Finder接收文本或文件；&lt;/li&gt;
+  &lt;li&gt;打印插件（Print Plugins）：在任何应用程序的打印界面中接收将要被打印文件的PDF文件，并且对其进行工作流处理；&lt;/li&gt;
+  &lt;li&gt;文件夹（Folder）：赋给Finder文件夹的工作流程，对文件夹中的文件执行工作流程操作；&lt;/li&gt;
+  &lt;li&gt;日历提醒（Calendar Alarms）：由日历中的事件触发相应工作流，不接收任何输入；&lt;/li&gt;
+  &lt;li&gt;图像捕捉插件（Image Capture Plug-ins）：在“图像捕捉”中可用的工作流程，它们将图像文件作为输入用来接收；&lt;/li&gt;
+  &lt;li&gt;听写命令（Dictation Commands）：可以将一些命令直接“说”给Mac，然后执行相应工作流。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;工作流编辑&quot;&gt;工作流编辑&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202305231305381.png&quot; alt=&quot;image-20230523130455587&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;左边是一些可以选的action，选中拖拽到右边即可。&lt;/p&gt;
+
+&lt;p&gt;工作流操作以主窗口中的排列顺序来线性执行，每一步的输出都是下一步操作的输入，因此你需要确保每一个操作的顺序排列是正确的。在测试的时候，你可以点击工具栏中的“步进”按钮来一步一步的跟踪调试。如果需要执行从头至尾的完整流程，则点击“运行”按钮。&lt;/p&gt;
+
+&lt;p&gt;工作流可以在不接收任何输入的条件下运行，当然你也可以创建一个工作流提示需要的输入信息。&lt;/p&gt;
+
+&lt;h2 id=&quot;automator变量&quot;&gt;Automator变量&lt;/h2&gt;
+
+&lt;p&gt;如果以上就是Automator所能够做的，那已经很强大了。但还可以更强大。比如说变量栏，允许你将其中一个步骤的输出保存下来，然后可以往后面的步骤传下去。举个例子，你可以创建一个工作流获取网页上的复制文本，然后保存，继而可以在后续的Email操作步骤中，将复制文本赋给Email中的正文部分。或者可以抓取一个网页的URL地址然后传给文本文件。&lt;/p&gt;
+
+&lt;h2 id=&quot;automator删除&quot;&gt;automator删除&lt;/h2&gt;
+
+&lt;p&gt;默认在这个文件夹&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Volumes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mafulong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Library&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Services&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;不知道在哪就 根目录下&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;*.workflow&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;automator例子&quot;&gt;automator例子&lt;/h1&gt;
+
+&lt;h2 id=&quot;实现一个截图工具自动上传&quot;&gt;实现一个截图工具自动上传&lt;/h2&gt;
+
+&lt;p&gt;创建类型： 快速操作。&lt;/p&gt;
+
+&lt;p&gt;输入: no input&lt;/p&gt;
+
+&lt;p&gt;选择action: 运行shell&lt;/p&gt;
+
+&lt;p&gt;然后shell里就&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;创建文件&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;#!/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bash&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urandom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;env&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LC_CTYPE&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Z0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;png&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&apos;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d_%H&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;_$filename&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$filename&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fullname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;$filename&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;截图, 保存到文件里&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;screencapture&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$fullname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;xxx&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;curl上传文件&lt;/li&gt;
+  &lt;li&gt;删除创建的随机文件。&lt;/li&gt;
+  &lt;li&gt;设置剪贴板。比如&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pbcopy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;mac系统设置里的快捷键选general然后选中创建好的工作流，设置快捷键。&lt;/p&gt;
+
+&lt;h1 id=&quot;mac快捷指令&quot;&gt;mac快捷指令&lt;/h1&gt;
+
+&lt;p&gt;是新mac系统支持的一个操作。可以在菜单栏显示快捷指令。&lt;/p&gt;
+
+&lt;p&gt;可以将automator的导入进来。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.huxiu.com/article/441978.html&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac automator</summary></entry><entry><title type="html">mac的finder里直接打开iterm</title><link href="https://mafulong.github.io/2023/05/23/mac%E7%9A%84finder%E9%87%8C%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80iterm/" rel="alternate" type="text/html" title="mac的finder里直接打开iterm" /><published>2023-05-23T00:00:00+08:00</published><updated>2023-05-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/23/mac%E7%9A%84finder%E9%87%8C%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80iterm</id><content type="html" xml:base="https://mafulong.github.io/2023/05/23/mac%E7%9A%84finder%E9%87%8C%E7%9B%B4%E6%8E%A5%E6%89%93%E5%BC%80iterm/">&lt;h2 id=&quot;mac的finder里直接打开iterm&quot;&gt;mac的finder里直接打开iterm&lt;/h2&gt;
+
+&lt;p&gt;github repo: https://github.com/mafulong/openWithIterm&lt;/p&gt;
+
+&lt;p&gt;在mac finder里使用iterm打开当前目录&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;打开Script Editor&lt;/li&gt;
+  &lt;li&gt;新建文件&lt;/li&gt;
+  &lt;li&gt;输入以下内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Finder&quot;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pathList&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quoted&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;form&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;POSIX&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;front&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;System Events&quot;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;exists&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;processes&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;iTerm2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;then&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;open -a iTerm &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pathList&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;application&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;iTerm&quot;&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;open -a iTerm &quot;&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;activate&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;session&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;cd &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pathList&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt;
+			
+		&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tell&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文件 -&amp;gt; 导出。选择应用程序，勾选仅运行。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202305231508359.png&quot; alt=&quot;image-20230523145416151&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;finder里cmd+鼠标选中创建的app，拖拽到工具栏。 如果要删除，也是cmd+鼠标拖拽出来进行删除。&lt;/li&gt;
+  &lt;li&gt;设置图标和重命名，不需要重新拖拽。设置图标的话，右键-&amp;gt;显示简洁。然后用新图拖拽到图标上即可。细节请看参考2。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac的finder里直接打开iterm</summary></entry><entry><title type="html">Java构建工具ant</title><link href="https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant/" rel="alternate" type="text/html" title="Java构建工具ant" /><published>2023-05-07T00:00:00+08:00</published><updated>2023-05-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant</id><content type="html" xml:base="https://mafulong.github.io/2023/05/07/Java%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7ant/">&lt;h2 id=&quot;java构建工具ant&quot;&gt;Java构建工具ant&lt;/h2&gt;
 
 &lt;p&gt;&lt;strong&gt;1、什么是ant&lt;/strong&gt;：ant是构建工具
 &lt;strong&gt;2、什么是构建&lt;/strong&gt;：概念到处可查到，形象来说，你要把代码从某个地方拿来，编译，再拷贝到某个地方去等等操作，当然不仅与此，但是主要用来干这个
@@ -782,100 +917,4 @@ D = Delete，删除操作&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-reverse-operations/&quot;&gt;2612. 最少翻转操作数&lt;/a&gt; 在线BFS&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-visited-cells-in-a-grid/&quot;&gt;2617. 网格图中最少访问的格子数&lt;/a&gt; DP+在线BFS求最短路径&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">在线BFS求不能离线图的最短路径</summary></entry><entry><title type="html">1017. 负二进制转换</title><link href="https://mafulong.github.io/2023/04/08/1017.-%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/" rel="alternate" type="text/html" title="1017. 负二进制转换" /><published>2023-04-08T00:00:00+08:00</published><updated>2023-04-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/08/1017.%20%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2</id><content type="html" xml:base="https://mafulong.github.io/2023/04/08/1017.-%E8%B4%9F%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/convert-to-base-2/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; ，以二进制字符串的形式返回该整数的 &lt;strong&gt;负二进制（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;base -2&lt;/code&gt;）&lt;/strong&gt;表示。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注意，&lt;/strong&gt;除非字符串就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;0&quot;&lt;/code&gt;，否则返回的字符串中不能含有前导零。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 2
-输出：&quot;110&quot;
-解释：(-2)2 + (-2)1 = 2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 3
-输出：&quot;111&quot;
-解释：(-2)2 + (-2)1 + (-2)0 = 3
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 4
-输出：&quot;100&quot;
-解释：(-2)2 = 4
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= n &amp;lt;= 109&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;负二进制的表达。&lt;/p&gt;
-
-&lt;p&gt;和二进制一样，但记得要处理下-1，每一位可能是-1,0,1，要把-1转换下，变成1.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;baseNeg2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&apos;0&apos;&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 变成正数
-&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;延伸&lt;/p&gt;
-
-&lt;p&gt;转负三进制怎么办&lt;/p&gt;
-
-&lt;p&gt;b=-3即可。它可以转任意进制。处理好负数即可。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">iterm和zsh技巧</title><link href="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/" rel="alternate" type="text/html" title="iterm和zsh技巧" /><published>2023-04-05T00:00:00+08:00</published><updated>2023-04-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7</id><content type="html" xml:base="https://mafulong.github.io/2023/04/05/iterm%E5%92%8Czsh%E6%8A%80%E5%B7%A7/">&lt;h2 id=&quot;iterm技巧&quot;&gt;iterm技巧&lt;/h2&gt;
-
-&lt;h2 id=&quot;iterm配置同步&quot;&gt;iterm配置同步&lt;/h2&gt;
-
-&lt;p&gt;使用了我的dotfile, 请参考dotfile/app下的readme进行同步。&lt;/p&gt;
-
-&lt;h2 id=&quot;iterm多profile&quot;&gt;iterm多profile&lt;/h2&gt;
-
-&lt;p&gt;profile: dev, 创建tab时边触发dev命令，进入到开发机里。同时tab和指针是红色的。快捷键Ctrl+CMD+E。其他就和default没任何区别&lt;/p&gt;
-
-&lt;p&gt;HotKey window: 快捷键 option+i.&lt;/p&gt;
-
-&lt;p&gt;是个半透明的shell窗口。&lt;/p&gt;
-
-&lt;h2 id=&quot;快捷键&quot;&gt;快捷键&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;参考
-my shell
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;zsh插件&quot;&gt;zsh插件&lt;/h2&gt;
-
-&lt;h3 id=&quot;vi-mode&quot;&gt;vi-mode&lt;/h3&gt;
-
-&lt;p&gt;vim输入模式，非常强大，不用多说。&lt;/p&gt;
-
-&lt;h3 id=&quot;zsh-autosuggestions&quot;&gt;&lt;a href=&quot;https://link.zhihu.com/?target=https%3A//github.com/zsh-users/zsh-autosuggestions&quot;&gt;zsh-autosuggestions&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;在输入命令的过程中根据你的历史记录显示你可能想要输入的命令，按 tab 补全。&lt;/p&gt;
-
-&lt;p&gt;不过 tab 键似乎与 zsh 的补全有冲突，不过没关系。&lt;/p&gt;
-
-&lt;p&gt;cd XX，也可以用tab，然后关键词来筛选了。&lt;/p&gt;
-
-&lt;p&gt;对于不是下面显示的suggestion，用右键进行确认。 比如下面这样&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202304050053697.png&quot; alt=&quot;image-20230405005342629&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">iterm技巧</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">在线BFS求不能离线图的最短路径</summary></entry></feed>
