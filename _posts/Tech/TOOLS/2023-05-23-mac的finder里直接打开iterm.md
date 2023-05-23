@@ -48,3 +48,19 @@ end tell
 
 - finder里cmd+鼠标选中创建的app，拖拽到工具栏。 如果要删除，也是cmd+鼠标拖拽出来进行删除。
 - 设置图标和重命名，不需要重新拖拽。设置图标的话，右键->显示简洁。然后用新图拖拽到图标上即可。细节请看参考2。
+
+
+## 安装
+
+```scala
+git clone https://github.com/mafulong/openWithIterm.git
+cd openWithIterm
+mkdir /Applications/111mafulong
+mv openIterm.app /Applications/111mafulong/
+open /Applications/111mafulong/
+```
+
+然后拖拽安装即可。
+
+此时图标是正确的。
+
