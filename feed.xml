@@ -1,4 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-05-23T15:16:54+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">mac automator</title><link href="https://mafulong.github.io/2023/05/23/mac-automator/" rel="alternate" type="text/html" title="mac automator" /><published>2023-05-23T00:00:00+08:00</published><updated>2023-05-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/23/mac%20automator</id><content type="html" xml:base="https://mafulong.github.io/2023/05/23/mac-automator/">&lt;h1 id=&quot;mac-automator&quot;&gt;mac automator&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-05-30T13:42:03+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1529. 最少的后缀翻转次数</title><link href="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="1529. 最少的后缀翻转次数" /><published>2023-05-30T00:00:00+08:00</published><updated>2023-05-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/30/1529.%20%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-suffix-flips/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 、下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的二进制字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 。你自己有另一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的二进制字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; ，最初每一位上都是 0 。你想要让 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相等。&lt;/p&gt;
+
+&lt;p&gt;在一步操作，你可以选择下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= i &amp;lt; n&lt;/code&gt;）并翻转在 &lt;strong&gt;闭区间&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[i, n - 1]&lt;/code&gt; 内的所有位。翻转意味着 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;0&apos;&lt;/code&gt; 变为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;1&apos;&lt;/code&gt; ，而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;1&apos;&lt;/code&gt; 变为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;0&apos;&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;返回使 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相等需要的最少翻转次数。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：target = &quot;10111&quot;
+输出：3
+解释：最初，s = &quot;00000&quot; 。
+选择下标 i = 2: &quot;00000&quot; -&amp;gt; &quot;00111&quot;
+选择下标 i = 0: &quot;00111&quot; -&amp;gt; &quot;11000&quot;
+选择下标 i = 1: &quot;11000&quot; -&amp;gt; &quot;10111&quot;
+要达成目标，需要至少 3 次翻转。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：target = &quot;101&quot;
+输出：3
+解释：最初，s = &quot;000&quot; 。
+选择下标 i = 0: &quot;000&quot; -&amp;gt; &quot;111&quot;
+选择下标 i = 1: &quot;111&quot; -&amp;gt; &quot;100&quot;
+选择下标 i = 2: &quot;100&quot; -&amp;gt; &quot;101&quot;
+要达成目标，需要至少 3 次翻转。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：target = &quot;00000&quot;
+输出：0
+解释：由于 s 已经等于目标，所以不需要任何操作
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == target.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target[i]&lt;/code&gt; 为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;0&apos;&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;1&apos;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;可以倒着想。对于当前字符，如果其在 target 中的值与前一个字符的值不同，则一定有一次对当前位置的翻转操作。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minFlips&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">mac automator</title><link href="https://mafulong.github.io/2023/05/23/mac-automator/" rel="alternate" type="text/html" title="mac automator" /><published>2023-05-23T00:00:00+08:00</published><updated>2023-05-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/23/mac%20automator</id><content type="html" xml:base="https://mafulong.github.io/2023/05/23/mac-automator/">&lt;h1 id=&quot;mac-automator&quot;&gt;mac automator&lt;/h1&gt;
 
 &lt;p&gt;Automator允许你选择八中不同类型的行为（Action）：&lt;/p&gt;
 
@@ -866,68 +926,4 @@ D = Delete，删除操作&lt;/p&gt;
 &lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">在线BFS求不能离线图的最短路径</title><link href="https://mafulong.github.io/2023/04/12/%E5%9C%A8%E7%BA%BFBFS%E6%B1%82%E4%B8%8D%E8%83%BD%E7%A6%BB%E7%BA%BF%E5%9B%BE%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="alternate" type="text/html" title="在线BFS求不能离线图的最短路径" /><published>2023-04-12T00:00:00+08:00</published><updated>2023-04-12T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/12/%E5%9C%A8%E7%BA%BFBFS%E6%B1%82%E4%B8%8D%E8%83%BD%E7%A6%BB%E7%BA%BF%E5%9B%BE%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84</id><content type="html" xml:base="https://mafulong.github.io/2023/04/12/%E5%9C%A8%E7%BA%BFBFS%E6%B1%82%E4%B8%8D%E8%83%BD%E7%A6%BB%E7%BA%BF%E5%9B%BE%E7%9A%84%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/">&lt;h2 id=&quot;在线bfs求不能离线图的最短路径&quot;&gt;在线BFS求不能离线图的最短路径&lt;/h2&gt;
-
-&lt;p&gt;离线BFS就是先建图，然后在这个图上BFS，求最短路径之类的。&lt;/p&gt;
-
-&lt;p&gt;但如果点已经是n^5了，那边可能就非常多，事先建图，再BFS必然超时。&lt;/p&gt;
-
-&lt;p&gt;所谓在线BFS就是不需要建图，通过api逐渐bfs，可以要动态的消除图上的边。比如某些点已经访问过了，那遍历其它点时，如果有和访问过的点的边也不该访问，减少遍历时间。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-reverse-operations/solution/python-zai-xian-bfs-jie-jue-bian-shu-hen-y58m/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;不预先建图，而是通过两个函数 &lt;strong&gt;setUsed&lt;/strong&gt; 和 &lt;strong&gt;findUnused&lt;/strong&gt; 来在线寻找边。其中数据是一个list，每个item是个点，点可能和其他有边。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;setUsed(u)：&lt;strong&gt;将 u 位置标记为已经访问过&lt;/strong&gt;。&lt;/li&gt;
-  &lt;li&gt;findUnused(u): &lt;strong&gt;找到和 u 邻接的一个未访问过的点。如果不存在, 返回None&lt;/strong&gt;。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这个可以用python3的sortedcontainer解决，也可以用并查集。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Sortedcontainer: index list。
-    &lt;ul&gt;
-      &lt;li&gt;setUsed = remove, findUnused = 二分查找&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/981377660LMT/algorithm-study/blob/master/22_%E4%B8%93%E9%A2%98/implicit_graph/RangeFinder/Finder-%E6%9C%89%E5%BA%8F%E5%88%97%E8%A1%A8.py&quot;&gt;代码模板&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;并查集。farther=parent，如果是负数，表示它是根，-2表示有两个点的集合，-3表示3个，2表示parent是2。
-    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-reverse-operations/solution/jian-dan-pu-ji-yi-xia-kuai-yi-dian-de-ds-czb4/&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;setUsed = union(u, u+1) 此时findUnused(u)就等于findUnused(u+1)了&lt;/li&gt;
-      &lt;li&gt;删除一段区间的，就是把这段元素都setUnsed.&lt;/li&gt;
-      &lt;li&gt;findUnused(u) = 找个等于根的，不用O(n)遍历，因为setUsed给压缩加速这过程了。同时记录个left,right左边界和右边界&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;https://github.com/981377660LMT/algorithm-study/blob/master/22_%E4%B8%93%E9%A2%98/implicit_graph/RangeFinder/Finder-%E5%B9%B6%E6%9F%A5%E9%9B%86.py&quot;&gt;代码模板&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;并查集比sortedcontainer更快&lt;/li&gt;
-  &lt;li&gt;线段树也可以解决。区间更新，max树，区间里二分查找第一个大于等于x的节点。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在线BFS求最短路径模板，不需要visit，因为findUnused不会返回已经访问过的节点。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;popleft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;next_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findUnused&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;setUsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;时间复杂度 o(nlogn) n是节点数。如果离线bfs会o(n2)，假如每个点都有个边。&lt;/p&gt;
-
-&lt;p&gt;实际不用这么麻烦。直接裸写就行。&lt;a href=&quot;https://leetcode.cn/problems/minimum-reverse-operations/solution/liang-chong-zuo-fa-ping-heng-shu-bing-ch-vr0z/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;应用&quot;&gt;应用&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-reverse-operations/&quot;&gt;2612. 最少翻转操作数&lt;/a&gt; 在线BFS&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-visited-cells-in-a-grid/&quot;&gt;2617. 网格图中最少访问的格子数&lt;/a&gt; DP+在线BFS求最短路径&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Algorithms" /><category term="Algorithms" /><summary type="html">在线BFS求不能离线图的最短路径</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
