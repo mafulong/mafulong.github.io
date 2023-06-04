@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-06-04T11:38:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">1529. 最少的后缀翻转次数</title><link href="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="1529. 最少的后缀翻转次数" /><published>2023-05-30T00:00:00+08:00</published><updated>2023-05-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/30/1529.%20%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-06-04T12:22:46+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">6472. 查询后矩阵的和</title><link href="https://mafulong.github.io/2023/06/04/6472.-%E6%9F%A5%E8%AF%A2%E5%90%8E%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/" rel="alternate" type="text/html" title="6472. 查询后矩阵的和" /><published>2023-06-04T00:00:00+08:00</published><updated>2023-06-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/06/04/6472.%20%E6%9F%A5%E8%AF%A2%E5%90%8E%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C</id><content type="html" xml:base="https://mafulong.github.io/2023/06/04/6472.-%E6%9F%A5%E8%AF%A2%E5%90%8E%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/sum-of-matrix-after-queries/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 和一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的 &lt;strong&gt;二维数组&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries[i] = [typei, indexi, vali]&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;一开始，给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n x n&lt;/code&gt; 矩阵，所有元素均为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 。每一个查询，你需要执行以下操作之一：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;typei == 0&lt;/code&gt; ，将第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;indexi&lt;/code&gt; 行的元素全部修改为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vali&lt;/code&gt; ，覆盖任何之前的值。&lt;/li&gt;
+  &lt;li&gt;如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;typei == 1&lt;/code&gt; ，将第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;indexi&lt;/code&gt; 列的元素全部修改为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vali&lt;/code&gt; ，覆盖任何之前的值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;请你执行完所有查询以后，返回矩阵中所有整数的和。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306041221105.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 3, queries = [[0,0,1],[1,2,2],[0,2,3],[1,0,4]]
+输出：23
+解释：上图展示了每个查询以后矩阵的值。所有操作执行完以后，矩阵元素之和为 23 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306041221221.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：n = 3, queries = [[0,0,4],[0,1,2],[1,0,1],[0,2,3],[1,2,1]]
+输出：17
+解释：上图展示了每一个查询操作之后的矩阵。所有操作执行完以后，矩阵元素之和为 17 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n &amp;lt;= 104&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= queries.length &amp;lt;= 5 * 104&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries[i].length == 3&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= typei &amp;lt;= 1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= indexi &amp;lt; n&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= vali &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;如果对同一行反复操作，那么只有最后一次对这行的操作会计入答案。列同理。&lt;/p&gt;
+
+&lt;p&gt;倒序处理。存已经处理过的行和列。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;matrixSumQueries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;reversed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 后面（&amp;gt;i）没有对这一行/列的操作
+&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;# 这一行/列还剩下 n-len(vis[type^1]) 个可以填入的格子
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;vis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 标记操作过
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">1529. 最少的后缀翻转次数</title><link href="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="1529. 最少的后缀翻转次数" /><published>2023-05-30T00:00:00+08:00</published><updated>2023-05-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/05/30/1529.%20%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/05/30/1529.-%E6%9C%80%E5%B0%91%E7%9A%84%E5%90%8E%E7%BC%80%E7%BF%BB%E8%BD%AC%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-suffix-flips/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 、下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的二进制字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 。你自己有另一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的二进制字符串 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; ，最初每一位上都是 0 。你想要让 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 相等。&lt;/p&gt;
@@ -743,107 +802,4 @@ D.pop()            // 返回 -1。仍然没有栈。
                 &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">在线文档协同编辑</title><link href="https://mafulong.github.io/2023/04/26/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91/" rel="alternate" type="text/html" title="在线文档协同编辑" /><published>2023-04-26T00:00:00+08:00</published><updated>2023-04-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/04/26/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91</id><content type="html" xml:base="https://mafulong.github.io/2023/04/26/%E5%9C%A8%E7%BA%BF%E6%96%87%E6%A1%A3%E5%8D%8F%E5%90%8C%E7%BC%96%E8%BE%91/">&lt;h2 id=&quot;在线文档协同编辑&quot;&gt;在线文档协同编辑&lt;/h2&gt;
-
-&lt;p&gt;OT 的英文全称是 Operational transformation，是一种处理协同编辑的算法。&lt;/p&gt;
-
-&lt;p&gt;它常用于实现协同文档的底层算法，支持多个用户同时编辑文档，不会因为并发修改导致冲突，而使结果不一致或数据丢失。&lt;/p&gt;
-
-&lt;h2 id=&quot;冲突的处理方式&quot;&gt;冲突的处理方式&lt;/h2&gt;
-
-&lt;p&gt;假设 A 和 B 在同时编辑同一个内容，我们处理冲突的方式有：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;加锁&lt;/strong&gt;。用户 A 在编辑时，就锁住文档，只能 A 进行更新。用户 B 就不能编辑，或编辑后提交修改被服务器丢弃；&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;覆盖&lt;/strong&gt;。谁最后修改，就全量使用他的修改，更早一些的其他人的修改会被丢弃。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;用户自行处理冲突&lt;/strong&gt;。就像 git merge 导致的冲突一样，会提示哪个地方被同时修改了，让合并者手动选择使用哪一个修改；&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;使用一致性算法&lt;/strong&gt;。比如我们要介绍的 OT 算法，可以让用户编辑进行算法处理进行调整，在多个客户端生成一致的修改结果。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;对于在线协同文档，&lt;/p&gt;
-
-&lt;p&gt;加锁体验太差，一个人在编辑时其他人就要干等着。&lt;/p&gt;
-
-&lt;p&gt;覆盖则是导致用户的修改来回彼此覆盖，辛苦编辑的内容突然被别人覆盖掉了心情低落。&lt;/p&gt;
-
-&lt;p&gt;自行处理冲突则需要额外的操作步骤和成本，实时性很差，不适合高频同时修改的场景。&lt;/p&gt;
-
-&lt;p&gt;一致性算法是最好的选择，对用户最友好，不过带来了实现的复杂。&lt;/p&gt;
-
-&lt;h2 id=&quot;使用-ot&quot;&gt;使用 OT&lt;/h2&gt;
-
-&lt;p&gt;OT 算法可以解决一致性问题，我们来看看 OT 到底做了什么。&lt;/p&gt;
-
-&lt;p&gt;同样，原始内容是 “12”。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;用户 A 在末尾添加 “A”，本地变成 “12A”，并发送 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert(2, A)&lt;/code&gt;，这个操作计作 OA；&lt;/li&gt;
-  &lt;li&gt;用户 B 在末尾添加 “B”，本地变成 “12B”，并发送 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert(2, B)&lt;/code&gt;，这个操作计作 OB；&lt;/li&gt;
-  &lt;li&gt;用户 A 收到 OB，执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transform(OA, OB)&lt;/code&gt;，得到修正后的操作 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert(3, B)&lt;/code&gt;，记为 OB’，相比 OB，它将插入位置从 2 修正为 3，于是 “12A” 变成了 “12AB”；&lt;/li&gt;
-  &lt;li&gt;用户 B 则收到 OA，同样执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transform(OA, OB)&lt;/code&gt;，得到修正操作 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;insert(2, A)&lt;/code&gt;，记为 O1’，让内容从 “12A” 变成 “12AB”。transform 方法会同时产生 OA’ 和 OB’。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;最后，用户 A  和用户 B 看到的是 &lt;strong&gt;一致&lt;/strong&gt; 的 “12AB”。&lt;/p&gt;
-
-&lt;p&gt;这里的核心在于这个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfrom&lt;/code&gt; 方法，它能够对操作进行修正。transform 没有固定实现，要根据实际需求自行实现。&lt;/p&gt;
-
-&lt;p&gt;假如我们把 A 提交的行为叫做 A，B 提交的行为叫做 B，现在后台就是一个简单的转发功能，告诉 A 的是 B，告诉 B 的是 A，然后就出现问题了。所以后台应该更聪明一点，它应该学会一个招术，那就是把每个人提交的行为转变一下再告诉别人，其实这个技术就是 OT 算法。&lt;/p&gt;
-
-&lt;p&gt;OT 算法全名叫 &lt;strong&gt;Operation Transformation&lt;/strong&gt;，你看从名字就对应了上面我说的转变算法。
-假设我们的 OT 算法的转换功能叫 transform，那 transform（A，B）= A’,B’。
-也就是说你输入两个先后执行的行为，它会告诉你两个转换过后的行为，然后把 A’行为告诉 B，把 B’行为告诉 A，这样大家再应用就相安无事了。&lt;/p&gt;
-
-&lt;p&gt;这里实际抽象一下，用户永远就只有两个人，一个是自己，一个是服务端，只是服务端的操作可能来自很多人，如果不这样抽象，那一个个进行冲突处理可能会让你觉得无法理解。&lt;/p&gt;
-
-&lt;h2 id=&quot;ot-算法的实现&quot;&gt;OT 算法的实现&lt;/h2&gt;
-
-&lt;p&gt;所有对文本的操作都可以抽象成三个原子行为：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;R = Retain，保持操作
-I = Insert，插入操作
-D = Delete，删除操作&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;那之前的行为&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;第 3 个字符行后面插入了一个 ‘d’&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;就会变成&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;R(3), I(‘d’)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;核心&lt;/p&gt;
-
-&lt;p&gt;你输入两个先后执行的行为，它会告诉你两个转换过后的行为，然后把 A’行为告诉 B，把 B’行为告诉 A，这样大家再应用就相安无事了。&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c1&quot;&gt;// produces two operations A&apos; and B&apos; (in an array) such that&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// `apply(apply(S, A), B&apos;) = apply(apply(S, B), A&apos;)`. This function is the&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// heart of OT.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;A和B原子操作只有三种，根据排列组合，最多只会有 9 种情况。 分别处理即可。&lt;/p&gt;
-
-&lt;p&gt;比如A是插入，则遍历位置对应字符，判断A是Insert，则B对这个字符进行Retain，相当于延后B的字符串处理，索引S对应需要加一。&lt;/p&gt;
-
-&lt;h2 id=&quot;时序&quot;&gt;时序&lt;/h2&gt;
-
-&lt;p&gt;不是基于时间先后。&lt;/p&gt;
-
-&lt;p&gt;而是要基于版本。&lt;/p&gt;
-
-&lt;h2 id=&quot;服务器设计&quot;&gt;服务器设计&lt;/h2&gt;
-
-&lt;p&gt;服务器中维护了一系列历史的修改版本，例如 r1,r2,r3,…r100,…r110&lt;/p&gt;
-
-&lt;p&gt;假如某个客户端提交的变化 C,是基于 R100 的，这时候，我们需要不停的产生变化 newC = follow(R101,C)  , 然后 newC =  follow(R102,newC)，不断执行，最后要得到针对 r110 这个版本的 newC 变化，推送到各个客户端&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://juejin.cn/post/7137846657474887711&quot;&gt;协同编辑中使用的 OT 算法是什么？&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">在线文档协同编辑</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
