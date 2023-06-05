@@ -166,93 +166,93 @@ for(循环n次) {
         return getPath(path, i, k)+" "+getPath(path, k, j)+" ";
     }
 }
-</code></pre></div></div></li></ul><p><strong>Floyd优缺点分析</strong>：</p><p>优点：比较容易容易理解，可以算出任意两个节点之间的最短距离，代码编写简单。</p><p>缺点：时间复杂度比较高(n3)，不适合计算大量数据，当数据稍微大点儿的时候就可以选择其他的算法来解决问题了，不然也会是超时。</p><p><strong>Floyd算法与Dijkstra算法的不同</strong></p><ol><li>Floyd算法是求任意两点之间的距离，是多源最短路，而Dijkstra(迪杰斯特拉)算法是求一个顶点到其他所有顶点的最短路径，是单源最短路。</li><li>Floyd算法属于动态规划，我们在写核心代码时候就是相当于推dp状态方程，Dijkstra(迪杰斯特拉)算法属于贪心算法。</li><li>Dijkstra(迪杰斯特拉)算法时间复杂度一般是o(n^2),Floyd算法时间复杂度是o(n^3),Dijkstra(迪杰斯特拉)算法比Floyd算法块。</li><li>Floyd算法可以算带负权的，而Dijkstra(迪杰斯特拉)算法是不可以算带负权的。并且Floyd算法不能算负权回路。</li></ol><h2 id="bellman-ford">Bellman-Ford</h2><p>求单源最短路，可以判断有无负权回路（若有，则不存在最短路），可以处理边为负的情况。时效性较好，时间复杂度O（VE）。</p><p>与Dijkstra算法不同的是，在Bellman-Ford算法中，边的权值可以为负数。</p><p>首先介绍一下松弛计算。如下图：</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv1/v1/58.png" alt="image-20210125182546414" /></p><p>松弛计算之前，点B的值是8，但是点A的值加上边上的权重2，得到5，比点B的值（8）小，所以，点B的值减小为5。这个过程的意义是，找到了一条通向B点更短的路线，且该路线是先经过点A，然后通过权重为2的边，到达点B。</p><p>算法思想：</p><ol><li>遍历所有的边并relax，共计V-1次</li><li>最后一次遍历，如果还能relax 则有负权回路</li></ol><p>​</p><pre><code class="language-python3"># Bellman-Ford implementation from MIT 6006 course lesson #17
-import math
-import networkx as nx
+</code></pre></div></div></li></ul><p><strong>Floyd优缺点分析</strong>：</p><p>优点：比较容易容易理解，可以算出任意两个节点之间的最短距离，代码编写简单。</p><p>缺点：时间复杂度比较高(n3)，不适合计算大量数据，当数据稍微大点儿的时候就可以选择其他的算法来解决问题了，不然也会是超时。</p><p><strong>Floyd算法与Dijkstra算法的不同</strong></p><ol><li>Floyd算法是求任意两点之间的距离，是多源最短路，而Dijkstra(迪杰斯特拉)算法是求一个顶点到其他所有顶点的最短路径，是单源最短路。</li><li>Floyd算法属于动态规划，我们在写核心代码时候就是相当于推dp状态方程，Dijkstra(迪杰斯特拉)算法属于贪心算法。</li><li>Dijkstra(迪杰斯特拉)算法时间复杂度一般是o(n^2),Floyd算法时间复杂度是o(n^3),Dijkstra(迪杰斯特拉)算法比Floyd算法块。</li><li>Floyd算法可以算带负权的，而Dijkstra(迪杰斯特拉)算法是不可以算带负权的。并且Floyd算法不能算负权回路。</li></ol><h2 id="bellman-ford">Bellman-Ford</h2><p>求单源最短路，可以判断有无负权回路（若有，则不存在最短路），可以处理边为负的情况。时效性较好，时间复杂度O（VE）。</p><p>与Dijkstra算法不同的是，在Bellman-Ford算法中，边的权值可以为负数。</p><p>首先介绍一下松弛计算。如下图：</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv1/v1/58.png" alt="image-20210125182546414" /></p><p>松弛计算之前，点B的值是8，但是点A的值加上边上的权重2，得到5，比点B的值（8）小，所以，点B的值减小为5。这个过程的意义是，找到了一条通向B点更短的路线，且该路线是先经过点A，然后通过权重为2的边，到达点B。</p><p>算法思想：</p><ol><li>遍历所有的边并relax，共计V-1次</li><li>最后一次遍历，如果还能relax 则有负权回路</li></ol><p>​</p><div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Bellman-Ford implementation from MIT 6006 course lesson #17
+</span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="n">nx</span>
 
-# utility: Graph
-class Graph:
-    def __init__(self, vertices):
-        self.V = vertices
-        self.edges = []
+<span class="c1"># utility: Graph
+</span><span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vertices</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">vertices</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
     
-    def add_edge(self, edge):
-        self.edges.append(edge)
+    <span class="k">def</span> <span class="nf">add_edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">edges</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
 
 
-def bellmanFord(graph, s):
+<span class="k">def</span> <span class="nf">bellmanFord</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
 
-    d = dict.fromkeys(graph.V, math.inf) # distance pair 
-                                         # will have default value of Infinity
-    pi = dict.fromkeys(graph.V, None) # map of parent vertex
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">V</span><span class="p">,</span> <span class="n">math</span><span class="p">.</span><span class="n">inf</span><span class="p">)</span> <span class="c1"># distance pair 
+</span>                                         <span class="c1"># will have default value of Infinity
+</span>    <span class="n">pi</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">graph</span><span class="p">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="c1"># map of parent vertex
+</span>    
+    <span class="c1"># initialize
+</span>    <span class="n">d</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
     
-    # initialize
-    d[s] = 0
+    <span class="k">def</span> <span class="nf">relax</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span>
+            <span class="n">pi</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span>
     
-    def relax(u, v, w):
-        if d[v] &gt; d[u] + w:
-            d[v] = d[u] + w
-            pi[v] = u
-    
-    # The length of the longest simple path(path w/o cycle) would be |V| - 1.
-    # For example, you need 2 edges to connect 3 vertices.
-    # Otherwise, there exists a negative cycle.
-    for i in graph.V[:-1]:
-        for u, v, w in graph.edges:
-            relax(u, v, w)
+    <span class="c1"># The length of the longest simple path(path w/o cycle) would be |V| - 1.
+</span>    <span class="c1"># For example, you need 2 edges to connect 3 vertices.
+</span>    <span class="c1"># Otherwise, there exists a negative cycle.
+</span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">.</span><span class="n">V</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">.</span><span class="n">edges</span><span class="p">:</span>
+            <span class="n">relax</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
             
-    for u, v, w in graph.edges:
-        # even after relaxing all the edges for |V| - 1 times,
-        # we still have the posibillity to improve the existing path
-        # this means there are negative cycles
-        if d[v] &gt; d[u] + w:
-            return f'there exists a negetive cycle!'
+    <span class="k">for</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="c1"># even after relaxing all the edges for |V| - 1 times,
+</span>        <span class="c1"># we still have the posibillity to improve the existing path
+</span>        <span class="c1"># this means there are negative cycles
+</span>        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">d</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s">'there exists a negetive cycle!'</span>
                 
-    return d, pi
+    <span class="k">return</span> <span class="n">d</span><span class="p">,</span> <span class="n">pi</span>
 
-def shortest_path(s, t):
-    try:
-        d, pi = bellmanFord(g, s)
-    except ValueError:
-        return 'you can\'t find shortest path if the graph has negative cycle!'
+<span class="k">def</span> <span class="nf">shortest_path</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">,</span> <span class="n">pi</span> <span class="o">=</span> <span class="n">bellmanFord</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">'you can</span><span class="se">\'</span><span class="s">t find shortest path if the graph has negative cycle!'</span>
     
-    path = [t]
-    current = t
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">t</span>
     
-    # if parent pointer is None,
-    # then it's the source vertex
-    while pi[current]:
-        path.insert(0, pi[current])
-        # set current to parent
-        current = pi[current]
+    <span class="c1"># if parent pointer is None,
+</span>    <span class="c1"># then it's the source vertex
+</span>    <span class="k">while</span> <span class="n">pi</span><span class="p">[</span><span class="n">current</span><span class="p">]:</span>
+        <span class="n">path</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pi</span><span class="p">[</span><span class="n">current</span><span class="p">])</span>
+        <span class="c1"># set current to parent
+</span>        <span class="n">current</span> <span class="o">=</span> <span class="n">pi</span><span class="p">[</span><span class="n">current</span><span class="p">]</span>
     
-    if s not in path:
-        return f'unable to find shortest path staring from "{s}" to "{t}"'
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s">'unable to find shortest path staring from "</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s">" to "</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s">"'</span>
     
-    return f'{" &gt; ".join(path)}'
+    <span class="k">return</span> <span class="sa">f</span><span class="s">'</span><span class="si">{</span><span class="s">" &gt; "</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="si">}</span><span class="s">'</span>
 
-g = Graph(['A', 'B', 'C', 'D', 'E'])
+<span class="n">g</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">([</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">])</span>
 
-# graph with negative cycle
-nc_edges = [('A', 'B', 5), ('B', 'C', -1), ('C', 'D', 2), ('D', 'B', -2), ('C', 'E', 4)]
+<span class="c1"># graph with negative cycle
+</span><span class="n">nc_edges</span> <span class="o">=</span> <span class="p">[(</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="s">'B'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">'C'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">'D'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">'C'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
 
-# w/o negative cycles
-edges = [\
-    ('A', 'B', 10), ('A', 'C', 3), ('B', 'C', 1), ('C', 'B', 4), \
-    ('B', 'D', 2), ('C', 'D', 8), ('D', 'E', 7), ('E', 'D', 9), ('C', 'E', 2)]
+<span class="c1"># w/o negative cycles
+</span><span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>\
+    <span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s">'B'</span><span class="p">,</span> <span class="s">'C'</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s">'C'</span><span class="p">,</span> <span class="s">'B'</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> \
+    <span class="p">(</span><span class="s">'B'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s">'C'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="s">'D'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s">'E'</span><span class="p">,</span> <span class="s">'D'</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="s">'C'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">,</span> <span class="mi">2</span><span class="p">)]</span>
 
-# used for both finding shortest path and drawing graph
-current_edge_group = edges
+<span class="c1"># used for both finding shortest path and drawing graph
+</span><span class="n">current_edge_group</span> <span class="o">=</span> <span class="n">edges</span>
 
-for edge in current_edge_group:
-    g.add_edge(edge)
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">current_edge_group</span><span class="p">:</span>
+    <span class="n">g</span><span class="p">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">)</span>
 
-print( shortest_path('A', 'E') )
+<span class="k">print</span><span class="p">(</span> <span class="n">shortest_path</span><span class="p">(</span><span class="s">'A'</span><span class="p">,</span> <span class="s">'E'</span><span class="p">)</span> <span class="p">)</span>
 
-G = nx.DiGraph()
-G.add_weighted_edges_from(current_edge_group)
-nx.draw(G, with_labels = True, node_color='b', font_color='w')
-</code></pre><p><strong>补充</strong> : 考虑：为什么要循环V-1次？ 答：因为最短路径肯定是个简单路径，不可能包含回路的， 如果包含回路，且回路的权值和为正的，那么去掉这个回路，可以得到更短的路径 如果回路的权值是负的，那么肯定没有解了</p><p>图有n个点，又不能有回路 所以最短路径最多n-1边</p><p>又因为每次循环，至少relax一边 所以最多n-1次就行了</p><h2 id="总结">总结</h2><p>floyd-warshall for k, for i , for j. 更新a[i][j]</p><p>bellman-ford n-1次relax, 每次relax遍历所有边， 对&lt;u, v&gt;, d[v] = min(d[v], d[u] + weight), 最后判断是否有个边存在d[v] &gt; d[u] + weight即有负边O(V*E)</p><h2 id="模板">模板</h2><div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="p">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">G</span><span class="p">.</span><span class="n">add_weighted_edges_from</span><span class="p">(</span><span class="n">current_edge_group</span><span class="p">)</span>
+<span class="n">nx</span><span class="p">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">with_labels</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s">'b'</span><span class="p">,</span> <span class="n">font_color</span><span class="o">=</span><span class="s">'w'</span><span class="p">)</span>
+</code></pre></div></div><p><strong>补充</strong> : 考虑：为什么要循环V-1次？ 答：因为最短路径肯定是个简单路径，不可能包含回路的， 如果包含回路，且回路的权值和为正的，那么去掉这个回路，可以得到更短的路径 如果回路的权值是负的，那么肯定没有解了</p><p>图有n个点，又不能有回路 所以最短路径最多n-1边</p><p>又因为每次循环，至少relax一边 所以最多n-1次就行了</p><h2 id="总结">总结</h2><p>floyd-warshall for k, for i , for j. 更新a[i][j]</p><p>bellman-ford n-1次relax, 每次relax遍历所有边， 对&lt;u, v&gt;, d[v] = min(d[v], d[u] + weight), 最后判断是否有个边存在d[v] &gt; d[u] + weight即有负边O(V*E)</p><h2 id="模板">模板</h2><div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Graph</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">start</span><span class="p">):</span>
         <span class="s">'''
         重要的是定义成本，可能是路径，可能是花费, 如果有限制次数，也可以将次数也算进成本里
