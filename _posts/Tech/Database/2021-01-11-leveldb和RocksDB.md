@@ -39,7 +39,7 @@ LevelDB的一些核心逻辑如下，
 
 Manifest文件记录各个SSTable各个文件的管理信息，比如该SST文件处于哪个Level，文件名称叫啥，最小key和最大key各自是多少，如下图所示，
 
-![img](https://soulmachine.gitbooks.io/system-design/content/images/leveldb/manifest.png)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306071208765.png)
 
 ## Log文件
 
@@ -47,7 +47,7 @@ Log文件主要作用是系统发生故障时，能够保证不会丢失数据�
 
 每个Log文件由多个block组成，每个block大小为32K，读取和写入以block为基本单位。下图所示的Log文件包含3个Block，
 
-![img](https://soulmachine.gitbooks.io/system-design/content/images/leveldb/log.png)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306071208145.png)
 
 ### SSTable
 
@@ -78,7 +78,7 @@ LevelDB删除一条记录时，也不会修改SST文件，而是用一个特殊�
 
 读操作使用了如下几个手段进行优化：
 
-- MemTable + SkipList (跳表的查找插入删除都是o(logn))
+- MemTable， 底层是SkipList (跳表的查找插入删除都是o(logn))
 - Binary Search(通过 manifest 文件，存了每个key到offset)
 - 页缓存
 - bloom filter (判断一个key是否在SST里使用布隆过滤器)
