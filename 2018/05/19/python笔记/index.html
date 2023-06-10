@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 16110 字，约 47 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 17069 字，约 49 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -850,6 +850,66 @@ a&amp;0xffffffff  相当于只保留32位以内的数字
     print(bin32ToInt(a))
 </code></pre></div></div>
 <h2 id="面向对象">面向对象</h2>
+<h3 id="类">类</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+</span> 
+<span class="k">class</span> <span class="nc">Employee</span><span class="p">:</span>
+   <span class="s">'所有员工的基类'</span>
+   <span class="n">empCount</span> <span class="o">=</span> <span class="mi">0</span>
+ 
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">salary</span><span class="p">):</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+      <span class="bp">self</span><span class="p">.</span><span class="n">salary</span> <span class="o">=</span> <span class="n">salary</span>
+      <span class="n">Employee</span><span class="p">.</span><span class="n">empCount</span> <span class="o">+=</span> <span class="mi">1</span>
+   
+   <span class="k">def</span> <span class="nf">displayCount</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+     <span class="k">print</span> <span class="s">"Total Employee %d"</span> <span class="o">%</span> <span class="n">Employee</span><span class="p">.</span><span class="n">empCount</span>
+ 
+   <span class="k">def</span> <span class="nf">displayEmployee</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">"Name : "</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>  <span class="s">", Salary: "</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">salary</span>
+ 
+<span class="k">print</span> <span class="s">"Employee.__doc__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__doc__</span>
+<span class="k">print</span> <span class="s">"Employee.__name__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__name__</span>
+<span class="k">print</span> <span class="s">"Employee.__module__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__module__</span>
+<span class="k">print</span> <span class="s">"Employee.__bases__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__bases__</span>
+<span class="k">print</span> <span class="s">"Employee.__dict__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__dict__</span>
+</code></pre></div></div>
+<p><strong>继承语法</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class 派生类名(基类名)
+    ...
+</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+</span> 
+<span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>        <span class="c1"># 定义父类
+</span>   <span class="n">parentAttr</span> <span class="o">=</span> <span class="mi">100</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">"调用父类构造函数"</span>
+ 
+   <span class="k">def</span> <span class="nf">parentMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">'调用父类方法'</span>
+ 
+   <span class="k">def</span> <span class="nf">setAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+      <span class="n">Parent</span><span class="p">.</span><span class="n">parentAttr</span> <span class="o">=</span> <span class="n">attr</span>
+ 
+   <span class="k">def</span> <span class="nf">getAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">"父类属性 :"</span><span class="p">,</span> <span class="n">Parent</span><span class="p">.</span><span class="n">parentAttr</span>
+ 
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span> <span class="c1"># 定义子类
+</span>   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">"调用子类构造方法"</span>
+ 
+   <span class="k">def</span> <span class="nf">childMethod</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">print</span> <span class="s">'调用子类方法'</span>
+ 
+<span class="n">c</span> <span class="o">=</span> <span class="n">Child</span><span class="p">()</span>          <span class="c1"># 实例化子类
+</span><span class="n">c</span><span class="p">.</span><span class="n">childMethod</span><span class="p">()</span>      <span class="c1"># 调用子类的方法
+</span><span class="n">c</span><span class="p">.</span><span class="n">parentMethod</span><span class="p">()</span>     <span class="c1"># 调用父类方法
+</span><span class="n">c</span><span class="p">.</span><span class="n">setAttr</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>       <span class="c1"># 再次调用父类的方法 - 设置属性值
+</span><span class="n">c</span><span class="p">.</span><span class="n">getAttr</span><span class="p">()</span>          <span class="c1"># 再次调用父类的方法 - 获取属性值
+</span>
+</code></pre></div></div>
 <h3 id="python的__new__和__init__的区别">python的__new__和__init__的区别</h3>
 <p>概括：简言之，_new_作用于_init_之前。前者可以决定是否调用后者，或者说可以决定调用哪个类的_init_方法。</p>
 <p>解释一：首先要知道在面向对象编程中，实例化基本遵循创建实例对象、初始化实例对象、最后返回实例对象这么一个过程。Python 中的 <em>new</em> 方法负责创建一个实例对象，<em>init</em> 方法负责将该实例对象进行初始化；​</p>
