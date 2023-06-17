@@ -147,3 +147,32 @@ export class CdkDemoStack extends cdk.Stack {
 }
 ```
 
+# 使用former2进行资源配置导出
+
+这是一个AWS 账号里现成资源导出成CDK/cloudformation的开源工具。
+
+https://github.com/iann0036/former2
+
+
+
+需要再mac本地上运行，而不用他们提供的外部开放网站，这样更安全。
+
+
+
+如何本地运行？
+
+1. mac上启动docker. 
+
+2. ```scala
+   git clone git@github.com:iann0036/former2.git
+   cd former2
+   docker build -t former2_local:1.0 .
+   docker run --name former2 -p $host_port:80 -d former2_local:1.0
+   ```
+
+3. docker软件里open broswer. 会进入127.0.0.1:xxx的一个网址。
+
+4. 然后aws账号里创建一个iam user,授予读的权限。iam user里的安全凭证下面点击访问密钥，创建一个ak, sk。
+
+5. 然后填入进行scan。scan后就可以看资源，选中，然后点击左上角的generate 就可以看到生成的代码了。
+
