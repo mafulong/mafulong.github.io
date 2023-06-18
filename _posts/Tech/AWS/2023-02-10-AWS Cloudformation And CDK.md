@@ -88,7 +88,7 @@ cdk diff        compare deployed stack with current state 将指定的堆栈及�
 
 cdk deploy 命令会将您的 TypeScript 编译为 JavaScript，同时创建一个 CloudFormation 更改集来部署此更改。  deploy this stack to your default AWS account/region
 
-cdk synth       emits the synthesized CloudFormation template
+cdk synth       emits the synthesized CloudFormation template 输出cloudFormation的diff.
 cdk init --language typescript
 cdk list (ls) 列出应用程序中的堆栈
 ```
@@ -146,6 +146,12 @@ export class CdkDemoStack extends cdk.Stack {
   }
 }
 ```
+
+app.ts 是所有代码的入口点。通常任何额外的代码都可以通过在扩展 DeploymentStack 类的其他文件中创建类来组织为堆栈
+
+## Cdk toolkit for vscode
+
+[link](https://docs.aws.amazon.com/toolkit-for-vscode/latest/userguide/setup-toolkit.html#setup-prereq)
 
 # 使用former2进行资源配置导出
 
