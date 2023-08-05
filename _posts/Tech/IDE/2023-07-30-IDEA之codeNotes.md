@@ -20,7 +20,7 @@ tags: IDE
 - 在编辑器使用弹出菜单项(上下文菜单项)插入笔记内容可以把选择的笔记内容插入到编辑器。
 - 笔记本的工具窗口上的按钮导出 JSON/导入 JSON支持导入或者导出笔记。
 - 笔记本的工具窗口上的按钮导出 Markdown支持把选择的笔记导出为Markdown格式。
-- File | Settings | Tools | 笔记本: 支持自定义Markdown模板。
+- `File | Settings | Tools | 笔记本`: 支持自定义Markdown模板。
 
 Plugin: [link](https://plugins.jetbrains.com/plugin/16998-notebook)
 
