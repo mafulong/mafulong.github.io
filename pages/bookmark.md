@@ -90,6 +90,7 @@ permalink: /bookmark/
 - betterTouchTool, 免费触控板手势软件, 可选。
 - [MonitorControl Lite](https://github.com/MonitorControl/MonitorControlLite#readme) mac 亮度条件软件，可以状态栏就开始调屏幕亮度了，亮度下限可以更低点。
 - Alfred 快速搜索
+- 剪贴板历史管理工具 开源 https://github.com/TermiT/Flycut 快捷键shift+cmd+v.
 
 ### android
 
