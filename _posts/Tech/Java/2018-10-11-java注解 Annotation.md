@@ -176,15 +176,41 @@ public @interface FruitName {
 1. @Getter/@Setter: 用于自动生成getter/setter方法。
 2. @ToString: 用于自动生成toString方法。
 3. @EqualsAndHashCode: 用于自动生成equals和hashCode方法。
-4. @NoArgsConstructor/@AllArgsConstructor: 用于自动生成无参/有参构造函数。
-5. @RequiredArgsConstructor: 用于自动生成必要的参数构造函数。
+4. @NoArgsConstructor/@AllArgsConstructor: 用于自动生成无参/有参构造函数。可以同时用，同时加多个构造函数。AllArgsConstructor它能够自动生成一个包含所有字段作为参数的构造函数， 会对非final字段也生效。
+5. @RequiredArgsConstructor: 用于自动生成必要的参数构造函数。只对final的类字段生产构造函数。
 6. @Data: 用于自动生成getter/setter、toString、equals和hashCode方法。
-7. @Builder: 用于自动生成Builder模式。
-8. @SneakyThrows: 用于在方法中抛出受检异常，但不需要显式捕获。
-9. @Slf4j: 用于自动生成Slf4j的Logger对象。
-10. @Value: 用于生成不可变的JavaBean。
+7. @Value: 用于生成不可变的JavaBean。将自动生成 getter 方法、equals 方法、hashCode 方法等，以及一个不可变的构造函数。`@Value` 注解会默认将所有字段都标记为 `final` 和 `private`。
+8. @Builder: 用于自动生成Builder模式。
+9. @SneakyThrows: 用于在方法中抛出受检异常，但不需要显式捕获。
+10. @Slf4j: 用于自动生成Slf4j的Logger对象。
 11. @Delegate: 用于为某个字段自动生成委托方法。
 12. @Cleanup: 用于自动释放资源。
+
+```scala
+import lombok.Getter;
+import lombok.Setter;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@Getter
+@Setter
+@EqualsAndHashCode(exclude = "age")
+@ToString(exclude = "age") // exclude排除字段
+public class Person {
+    private String firstName;
+    private String lastName;
+    @Getter(AccessLevel.NONE) // 这将排除 age 字段的 getter 方法
+    private int age;
+}
+
+
+其他
+
+@AllArgsConstructor(access = AccessLevel.PRIVATE) // 将生成具有 private 访问权限的构造函数
+
+可以和guice结合，比如对所有final变量自动guide注入，可以使用
+@AllArgsConstructor(onConstructor = @__(@Inject))
+```
 
 ### JetBrains 注解
 
