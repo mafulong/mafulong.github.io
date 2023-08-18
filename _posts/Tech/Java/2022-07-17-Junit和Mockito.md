@@ -22,7 +22,7 @@ tags: Java
 - @After：会在每一个测试方法运行后被执行一次
 - @Ignore：所修饰的测试方法会被测试运行器忽略
 - @RunWith：可以更改测试运行器 org.junit.runner.Runner
-- Parameters：参数化注解
+- @Parameters：参数化注解
 
 例子
 
@@ -209,17 +209,37 @@ class MyControllerTest {
 
 你也可以通过创建一个类来实现org.junit.jupiter.api.extendWith中的一个或多个接口，然后用@ExtendWith将其添加到你的测试中，从而轻松定义你自己的自定义扩展。
 
-# Mockito 低版本
+
+
+import不同
+
+**JUnit 4 导入示例：**
+
+```
+javaCopy code
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+```
+
+**JUnit 5 导入示例：**
+
+```
+javaCopy code
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+```
+
+# Mockito-core 低版本
 
 [Tutorial](https://www.baeldung.com/mockito-series)
 
 高版本兼容低版本。
 
-低版本不能mock静态、final等。
+低版本**不能mock静态、final、私有方法**
 
 ## 添加mockito
-
-
 
 ```xml
       <dependency>
@@ -228,27 +248,13 @@ class MyControllerTest {
           <version>1.9.5</version>
           <scope>test</scope>
       </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.11</version>
-        <scope>test</scope>
-      </dependency>
-
 ```
 
 
 
 ```java
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 ```
-
-
-
-指定包名 Mockito
-
-
 
 测试类加相关注解
 
@@ -263,9 +269,10 @@ public class UserServiceUnitTest {
 Junit4:
 
 ```java
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class) 不支持对静态方法的Mock和Stub。
 
-@RunWith(PowerMockRunner.class)
+@RunWith(PowerMockRunner.class) 这个可以mock静态方法 包括Mock静态方法、final类、构造函数等。
+适用于需要Mock静态方法、final类等特殊场景的测试。
 ```
 
 ##  创建 Mock 对象
@@ -288,13 +295,11 @@ public void createMockObject() {
 
 
 
-when需要在mock对象上操作！！
+Mockito.when需要在mock对象上操作！！
 
-包名冲突的可以用Mockito.when来操作
+只有调用mock对象的方法才是走的mock逻辑，其它new出来的对象还不是mock的。
 
-只有调用mock对象的方法才是走的mock逻辑，实际对象还不是mock的。
-
-## 配置 Mock 对象
+## 配置 Mock 对象 when和return
 
 当我们有了一个 Mock 对象后, 我们可以定制它的具体的行为. 例如:
 
@@ -321,27 +326,11 @@ public void configMockObject() {
 }
 ```
 
-我们使用 **when(...).thenReturn(...)** 方法链来定义一个行为, 例如 "when(mockedList.add("one")).thenReturn(true)" 表示: **当调用了mockedList.add("one"), 那么返回 true.**. 并且要注意的是, **when(...).thenReturn(...)** 方法链不仅仅要匹配方法的调用, 而且要方法的参数一样才行.
+使用 **when(...).thenReturn(...)** 方法链来定义一个行为, 例如 "when(mockedList.add("one")).thenReturn(true)" 表示: **当调用了mockedList.add("one"), 那么返回 true.**. 并且要注意的是, **when(...).thenReturn(...)** 方法链不仅仅要匹配方法的调用, 而且要方法的参数一样才行. 可以用Mockito.any()期待参数匹配。
 
-而且有趣的是, **when(​...).thenReturn(​...)** 方法链可以指定多个返回值, 当这样做后, 如果多次调用指定的方法, 那么这个方法会依次返回这些值. 例如 "when(i.next()).thenReturn("Hello,").thenReturn("Mockito!");", 这句代码表示: 第一次调用 i.next() 时返回 "Hello,", 第二次调用 i.next() 时返回 "Mockito!".
+ **when(​...).thenReturn(​...)** 方法链可以指定多个返回值, 当这样做后, 如果多次调用指定的方法, 那么这个方法会依次返回这些值. 
 
-上面的例子我们展示了方法调用返回值的定制, 那么我们可以指定一个抛出异常吗? 当然可以的, 例如:
-
-```reasonml
-@Test(expected = NoSuchElementException.class)
-public void testForIOException() throws Exception {
-    Iterator i = mock(Iterator.class);
-    when(i.next()).thenReturn("Hello,").thenReturn("Mockito!"); // 1
-    String result = i.next() + " " + i.next(); // 2
-    Assert.assertEquals("Hello, Mockito!", result);
-
-    doThrow(new NoSuchElementException()).when(i).next(); // 3
-    i.next(); // 4
-}
-```
-
-上面代码的第一第二步我们已经很熟悉了, 接下来第三部我们使用了一个新语法: `doThrow(ExceptionX).when(x).methodCall`, 它的含义是: 当调用了 x.methodCall 方法后, 抛出异常 ExceptionX.
-因此 doThrow(new NoSuchElementException()).when(i).next() 的含义就是: 当第三次调用 i.next() 后, 抛出异常 NoSuchElementException.(因为 i 这个迭代器只有两个元素)
+支持手动抛出异常Mockito.doThrow: `doThrow(ExceptionX).when(x).methodCall`, 它的含义是: 当调用了 x.methodCall 方法后, 抛出异常 ExceptionX.
 
 
 
@@ -349,55 +338,23 @@ public void testForIOException() throws Exception {
 
 Mockito.mock() 并不是mock一整个类，而是根据传进去的一个类，mock出属于这个类的一个对象，并且返回这个mock对象；而传进去的这个类本身并没有改变，用这个类new出来的对象也没有受到任何改变！
 
+mock出来的对象并不会自动替换掉正式代码里面的对象，你必须要有某种方式把mock对象应用到正式代码里面。一般是构造函数传入或者自动注入。
 
+mock后直接生效 默认是无限次数。
 
-mock出来的对象并不会自动替换掉正式代码里面的对象，你必须要有某种方式把mock对象应用到正式代码里面
+对于一个mock对象，我们可以指定返回值和执行特定的动作，当然，也可以不指定，如果不指定的话，一个mock对象的所有非void方法都将返回默认值：int、long类型方法将返回0，boolean方法将返回false，对象方法将返回null等等；而void方法将什么都不做。
 
+## 特殊case: 对于手动new而不是依赖注入的Mock
 
+[参考](https://stackoverflow.com/questions/5920153/test-class-with-a-new-call-in-it-with-mockito) 
 
-mock后直接生效 默认是无限次数
+1. 改写prod逻辑，改成用工厂生成，这样就可以Mock这个工厂了
 
+2. 把new 的那个函数给mock掉。
 
+   
 
-## 对于手动new而不是依赖注入的Mock
-
-[参考](https://stackoverflow.com/questions/5920153/test-class-with-a-new-call-in-it-with-mockito)
-
-```java
-public class TestedClass {
-  public LoginContext login(String user, String password) {
-    LoginContext lc = new LoginContext("login", callbackHandler);
-  }
-}
-```
-
-1. Mock 生成这个动作new, 改成用工厂生成，这样就可以Mock这个工厂了
-
-   You can use a factory to create the login context. Then you can mock the factory and return whatever you want for your test.
-
-```java
-// 新方法
-  public LoginContext login(String user, String password) {
-    LoginContext lc = loginContextFactory.createLoginContext();
-  }
-
-
-public interface LoginContextFactory {
-  public LoginContext createLoginContext();
-}
-```
-
-
-
-1. mock部分方法，改写有new的方法逻辑， 用spy
-
-   ```java
-   TestedClass tc = spy(new TestedClass());
-   LoginContext lcMock = mock(LoginContext.class);
-   when(tc.login(anyString(), anyString())).thenReturn(lcMock);
-   ```
-
-## 校验 Mock 对象的方法调用
+### 校验 Mock 对象的方法调用
 
 Mockito 会追踪 Mock 对象的所用方法调用和调用方法时所传递的参数. 我们可以通过 verify() 静态方法来来校验指定的方法调用是否满足断言. 语言描述有一点抽象, 下面我们仍然以代码来说明一下.
 
@@ -474,14 +431,19 @@ public void testSpy() {
     Assert.assertEquals(spy.get(1), "two");
 
     Assert.assertEquals(spy.size(), 100);
+  
+  
+    //方式2：spy一个已存在的对象
+    List spy2 = Mockito.spy(new ArrayList<>());
 }
 ```
 
 这个例子中我们实例化了一个 LinkedList 对象, 然后使用 spy() 方法对 list 对象进行部分模拟. 接着我们使用 **when(...).thenReturn(...)** 方法链来规定 spy.size() 方法返回值是 100. 随后我们给 spy 添加了两个元素, 然后再 调用 spy.get(0) 获取第一个元素.
+
 这里有意思的地方是: 因为我们没有定制 add("one"), add("two"), get(0), get(1), 因此通过 spy 调用这些方法时, 实际上是委派给 list 对象来调用的.
 然而我们 定义了 spy.size() 的返回值, 因此当调用 spy.size() 时, 返回 100.
 
-## Spy和mock 对比，Stub
+### Spy和mock 对比，Stub存根
 
 spy 和 mock不同，不同点是：
 
@@ -490,11 +452,35 @@ spy 和 mock不同，不同点是：
 
 mock默认是返回默认值的。
 
+假如想要只有调用`dao`层的某方法时它的返回值是什么，而其它正常，这个过程就是**Stub**. 可以对spy对象的某个方法进行存根以指定返回值且避免调用此方法实际逻辑。
 
 
-**假定**调用`dao`层的某方法时它的返回值是什么，这个过程就是**Stub**
 
-## 执行特定动作 (替换成另一个方法)
+### 问题: 存根后也调用了实际逻辑
+
+对spy对象的某个方法进行存根时有什么特殊要求吗？为什么我有时明明做了存根操作，方法的实际逻辑还是会被调用？
+
+1. 存根要求：使用doXXX(x).when(spy).m1()的方式而不是whenXXX(spy.m1()).thenXXX(x)的方式。
+2. 实际逻辑为什么会被调用：因为使用了whenXXX(spy.m1()).thenXXX(x)存根方式。
+
+[参考链接](https://juejin.cn/post/6975525979418525709#heading-8)
+
+定义存根方法的方式:
+
+- Mockito.when(foo.sum()).thenXXX(...);
+  - 即对foo.sum()方法存根。
+  - 注意：
+    - foo对象应该是一个mock对象。spy对象不建议使用此方式进行存根。因为当代码执行到when(foo.sum())时。foo.sum()方法会首先执行。导致sum()方法的实际代码逻辑被执行。（sum()的实际代码逻辑是否会被执行要看被spy对象的类型，当被spy对象是一个mock对象或者接口时不会执行-这些类型也没有实际代码逻辑可以执行。当被spy对象一个具体的对象时则实际代码逻辑会被执行）
+- Mockito.doXXX(...).when(foo).sum();
+  - 即对foo.sum()方法存根。
+  - 可以存根void方法。
+  - foo对象可以是一个mock对象，也可以是一个spy对象。
+
+
+
+## 将某方法替换成另一个方法，替换实现
+
+通过doAnswer方法，生成替换，里面取Arguments手动转化来做某些事情。
 
 ```java
 public class LoginPresenterTest {
@@ -504,9 +490,9 @@ public class LoginPresenterTest {
        UserManager mockUserManager = Mockito.mock(UserManager.class);
        PasswordValidator mPasswordValidator = Mockito.mock(PasswordValidator.class);
        Mockito.when(mPasswordValidator.verifyPassword(Mockito.anyString())).thenReturn(true);
-​
+
        loginPresenter = new LoginPresenter(mockUserManager, mPasswordValidator);
-​
+
        Mockito.doAnswer(new Answer() {
            @Override
            public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -525,19 +511,11 @@ public class LoginPresenterTest {
 }
 ```
 
-通过doAnswer方法，生成替换，里面取Arguments手动转化来做某些事情。
+## 注解@Mock @Spy
 
-## 注解
+@Mock用于代替Mockito.mock创建mock对象。 用在类字段上。
 
-@Mock用于代替Mockito.mock创建mock对象。
-
-
-
-spy 对应注解 @Spy，和 @Mock 是一样用的。
-
-
-
-对于@Spy，如果发现修饰的变量是 null，会自动调用类的无参构造函数来初始化。
+spy 对应注解 @Spy，和 @Mock 是一样用的。部分mock。对于@Spy，如果发现修饰的变量是 null，会自动调用类的无参构造函数来初始化。
 
 所以下面两种写法是等价的：
 
@@ -555,7 +533,7 @@ private ExampleService spyExampleService = new ExampleService();
 
 根据 JUnit 单测隔离 ，当 Mockito 和 JUnit 配合使用时，也会将非static变量或者非单例隔离开。
 
-比如使用 @Mock 修饰的 mock 对象在不同的单测中会被隔离开。
+比如使用 @Mock 修饰的 mock 对象在不同的单测中会被隔离开。不管一个测试做什么，都不会影响其他测试。
 
 ## 实现原理-继承
 
@@ -571,7 +549,7 @@ Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实
 
 
 
-# Mockito 高版本特性 mockito-inline
+# Mockito-inline(Mockito-core的升级版)
 
 依赖上，一般是说要用 `mockito-inline` 替换 `mockito-core` 依赖。 实质上 `mockito-inline` 就是给 mockito-core 添加了两个插件配置
 
@@ -581,15 +559,26 @@ Mockito使用继承的方式实现mock的，用CGLIB生成mock对象代替真实
 
 
 
-注意mockito mock静态只对当前线程有效， 这点不如powermock
+注意mockito mock静态只对当前线程有效， 这点不如powermock。
 
 支持mock静态、final等
 
 
 
-版本需要>= 2.7.6.
+如果你需要使用`mockito-inline`模块提供的额外功能，你需要显式地将它导入到项目中，而不是默认包含在`mockito-core`中。
 
-## Mock静态无参方法支持
+```scala
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-inline</artifactId>
+    <version>版本号</version>
+    <scope>test</scope>
+</dependency>
+```
+
+
+
+## Mock无参的静态方法
 
 ```java
 @Test
@@ -605,17 +594,17 @@ void givenStaticMethodWithNoArgs_whenMocked_thenReturnsMockSuccessfully() {
 }
 ```
 
-从 Mockito 3.4.0 开始，我们可以使用*Mockito.mockStatic(Class<T> classToMock)*方法来模拟对静态方法调用的调用。**此方法为我们的类型返回一个\*MockedStatic\*对象，它是一个作用域模拟对象。**
+从 Mockito 3.4.0 开始，我们可以使用`Mockito.mockStatic(Class<T> classToMock)`方法来模拟对静态方法调用的调用。**此方法为我们的类型返回一个MockedStatic对象，它是一个作用域模拟对象。**
 
 因此，在我们上面的单元测试中，*实用程序*变量表示具有线程局部显式范围的模拟。**请务必注意，作用域模拟必须由激活模拟的实体关闭。**这就是为什么我们在 try-with-resources 构造中定义我们的模拟，以便在我们完成作用域块时自动关闭模拟。
 
 ## Mock带参数的静态方法
 
-我们通常用的 Mockito.when(T methodCall) 的参数是一个方法调用的返回值，所以当 Mock 带参数的静态方法时与 Mockito.when(obj.foo(1, 2)).thenReturn(34)) 的用法是不一样的，MockedStatic.when() 的参数需要放一个 () -> 对象.of(anyInt(), anyInt(), anyInt()) 这样的 Lambda. 
+我们通常用的 `Mockito.when(T methodCall) `的参数是一个方法调用的返回值，所以当 Mock 带参数的静态方法时与` Mockito.when(obj.foo(1, 2)).thenReturn(34)) `的用法是不一样的，MockedStatic.when() 的参数需要放一个 () -> 对象.of(anyInt(), anyInt(), anyInt()) 这样的 Lambda. 
 
 
 
-比如原来是函数A(b int)
+比如要mock静态函数A(b int)
 
 ```java
 theMock.when(() -> 类.A(any())).thenReturn(xxx);
@@ -625,9 +614,9 @@ theMock就是MockStatic返回的。
 
 对静态方法调用的 verify 也要用 theMock 的 verify() 方法，而不是 Mockito.verify()。
 
-## Mock final类和方法
+## Mock final类和final方法
 
-和正常无区别
+和mock一般方法无区别
 
 [参考](https://www.baeldung.com/mockito-final)
 
@@ -640,7 +629,7 @@ theMock就是MockStatic返回的。
 
 
 
-## Mock 代码里自己new的对象
+## Mock 构造函数 Mock代码里自己new的对象
 
 ```
         //mock代码中自己new的实例及“该实例的方法”        
@@ -658,11 +647,28 @@ theMock就是MockStatic返回的。
 
 
 
+**PowerMockito is a PowerMock's extension API to support Mockito**. The PowerMock framework provides a class called PowerMockito used to create mock objects and initiates verification and expectation. The PowerMockito provides the functionality to work with the Java reflection API.
+
+
+
+是PowerMock的一部分。
+
 ## 使用
 
 [参考](https://juejin.cn/post/6850418110105649166)
 
 开头包是PowerMockito
+
+```scala
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({SchoolManageProxy.class, RedisUtils.class, StudentService.class})
+// @PowerMockIgnore({"javax.management.*", "javax.net.ssl.*"})
+@SuppressStaticInitializationFor({"cn.ganzhiqiang.ares.unittest.SchoolManageProxy"})
+public class StudentServiceTest {
+...
+```
+
+
 
 ### mock对Redis的静态调用
 
@@ -738,54 +744,112 @@ PowerMockito.doReturn("tom").when(studentServiceUnderTest, "processKeyword", any
 
 
 
+# 其他
 
+## @VisibleForTesting
 
-# 特殊场景梳理
+`@VisibleForTesting`是Google Guava库中的一个注解，用于标识方法、构造函数、字段等在单元测试中可见，但在正常的类使用过程中应该被视为“仅限测试使用”。
 
-## Mock
+`@VisibleForTesting`注解仅仅是一个用于表明可见性意图的注解，它不会改变方法的实际访问权限。因此，将`@VisibleForTesting`注解标注在`private`方法上并不会使该方法在测试中变为可访问，也不会直接影响对该方法的`mock`操作。
 
-### final变量和方法
+```scala
+import com.google.common.annotations.VisibleForTesting;
 
-use mockito 高版本。
+public class MyService {
+    private SomeDependency dependency;
 
-[refer](https://www.baeldung.com/mockito-final)
+    @VisibleForTesting
+    protected void setDependency(SomeDependency dependency) {
+        this.dependency = dependency;
+    }
 
-### static方法
+    public void doSomething() {
+        // 使用 dependency 进行操作...
+    }
+}
 
-use mockito 高版本
+```
 
-[refer](https://www.baeldung.com/mockito-mock-static-methods)
-
-### private变量和方法
-
-VisibleForTesting
-
-[refer](https://developer.android.com/reference/androidx/annotation/VisibleForTesting)
-
-还可以用反射进行invoke private method.
-
-## Test 测试
-
-### final变量和方法
-
-Todo
-
-### Protected方法
-
-继承这个类即可。
-
-### private变量和方法
-
-VisibleForTesting
-
-[refer](https://developer.android.com/reference/androidx/annotation/VisibleForTesting)
-
-### 抛出异常
+## 严重是否抛出异常
 
 If verify it doesn't throw exception.The test case will fail when it find exception. Just throw it directly.
 
 Otherwise,  org.junit.jupiter.api.assertThrowsExactly 可以判断它是否抛出了异常。
 
-### 忽略异常
+## @InjectMock
 
-@SneakyThrows 注解。 lombok的。 
+> [参考](https://juejin.cn/post/6975525979418525709#heading-4)
+
+被@InjectMocks注解的对象就是要被我们测试的对象，它会被自动的实例化。且其包含的成员变量会被相应的@Mock注解的对象自动赋值。
+
+- 允许快速的mock和spy注入。
+- 最大限度地减少重复的mock和spy注入代码。
+
+
+
+**Mockito 将尝试仅通过构造函数注入、setter 注入或属性注入依次注入mock对象。如果任一策略失败，则 Mockito不会报告失败**；策略细节[参考](https://juejin.cn/post/6975525979418525709#heading-6)
+
+
+
+被测对象`foo`内如果包含`Bar`类型的成员变量，此时Mockito会自动将`bar`注入到`foo`中被`@InjectMocks`注解的对象`foo`在调用其方法时会执行其实际的代码逻辑。
+
+```scala
+
+public class Foo {
+
+    private Bar bar;
+
+    public int sum(int a, int b) {
+        return bar.add(a, b);
+    }
+}
+
+public class Bar {
+
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+
+
+//注意我们使用了MockitoJUnitRunner
+@RunWith(MockitoJUnitRunner.class)
+public class MockitoTest {
+  	//foo 对象内部的成员变量会自动被 @Mock 注解的生成的对象注入。
+    @InjectMocks
+    private Foo foo;
+
+  	//bar 对象会自动的注入到 @InjectMocks 注解的对象的成员变量中去。
+    @Mock
+    private Bar bar;
+
+    @Test
+    public void mockTest() {
+      	//先对mock对象的待测方法进行存根，当真正执行到mock对象的此方法时
+      	//会直接返回存根的结果而不会调用mock对象的实际代码
+        Mockito.when(bar.add(1, 2)).thenReturn(7);
+        
+      	int result = foo.sum(1, 2);
+      	//验证是否是存根返回的值
+        Assert.assertEquals(7, result);
+    }
+}
+
+```
+
+
+
+使用注解是做java单测的最佳实践。
+
+- 使用@InjectMocks注解，同时结合在类上使用注解@RunWith(MockitoJUnitRunner.class)。我们的原则是尽量使用注解的方式创建测试相关的对象。
+- 使用@Mock而不是Mockito.mock()方法创建mock对象。
+- 使用@Spy而不是Mockito.spy()方法创建spy对象。当然在某个具体测试方法内你发现@Spy不能方便的满足你的需求时请使用Mockito.spy()的方式。
+
+# 总结
+
+mockito-core支持mock public方法，不支持static, final, private方法。
+
+mockito-inline额外支持mock static/final方法/final类，mock构造方法。
+
+powerMockito最好用，啥都支持，也支持Mock private方法，但只能与Junit4集成，不能用于Junit5。
+
