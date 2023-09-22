@@ -11,3 +11,6 @@ tags: Tools
 
 https://sourceforge.net/projects/goldendict/files/
 
+
+
+不好用。
