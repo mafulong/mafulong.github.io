@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-10-28T20:08:53+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">100097. 合法分组的最少组数</title><link href="https://mafulong.github.io/2023/10/23/100097.-%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0/" rel="alternate" type="text/html" title="100097. 合法分组的最少组数" /><published>2023-10-23T00:00:00+08:00</published><updated>2023-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/10/23/100097.%20%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/10/23/100097.-%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-10-29T19:10:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">100108. 收集所有金币可获得的最大积分</title><link href="https://mafulong.github.io/2023/10/29/100108.-%E6%94%B6%E9%9B%86%E6%89%80%E6%9C%89%E9%87%91%E5%B8%81%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%A7%AF%E5%88%86/" rel="alternate" type="text/html" title="100108. 收集所有金币可获得的最大积分" /><published>2023-10-29T00:00:00+08:00</published><updated>2023-10-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/10/29/100108.%20%E6%94%B6%E9%9B%86%E6%89%80%E6%9C%89%E9%87%91%E5%B8%81%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%A7%AF%E5%88%86</id><content type="html" xml:base="https://mafulong.github.io/2023/10/29/100108.-%E6%94%B6%E9%9B%86%E6%89%80%E6%9C%89%E9%87%91%E5%B8%81%E5%8F%AF%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%A7%AF%E5%88%86/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximum-points-after-collecting-coins-from-all-nodes/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 处现有一棵由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 个节点组成的无向树，节点编号从 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n - 1&lt;/code&gt; 。给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n - 1&lt;/code&gt; 的二维 &lt;strong&gt;整数&lt;/strong&gt; 数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edges&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edges[i] = [ai, bi]&lt;/code&gt; 表示在树上的节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ai&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bi&lt;/code&gt; 之间存在一条边。另给你一个下标从 &lt;strong&gt;0&lt;/strong&gt; 开始、长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coins&lt;/code&gt; 和一个整数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coins[i]&lt;/code&gt; 表示节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 处的金币数量。&lt;/p&gt;
+
+&lt;p&gt;从根节点开始，你必须收集所有金币。要想收集节点上的金币，必须先收集该节点的祖先节点上的金币。&lt;/p&gt;
+
+&lt;p&gt;节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 上的金币可以用下述方法之一进行收集：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;收集所有金币，得到共计 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coins[i] - k&lt;/code&gt; 点积分。如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coins[i] - k&lt;/code&gt; 是负数，你将会失去 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abs(coins[i] - k)&lt;/code&gt; 点积分。&lt;/li&gt;
+  &lt;li&gt;收集所有金币，得到共计 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;floor(coins[i] / 2)&lt;/code&gt; 点积分。如果采用这种方法，节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 子树中所有节点 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;j&lt;/code&gt; 的金币数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;coins[j]&lt;/code&gt; 将会减少至 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;floor(coins[j] / 2)&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;返回收集 &lt;strong&gt;所有&lt;/strong&gt; 树节点的金币之后可以获得的最大积分。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202310291908394.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：edges = [[0,1],[1,2],[2,3]], coins = [10,10,3,3], k = 5
+输出：11                        
+解释：
+使用第一种方法收集节点 0 上的所有金币。总积分 = 10 - 5 = 5 。
+使用第一种方法收集节点 1 上的所有金币。总积分 = 5 + (10 - 5) = 10 。
+使用第二种方法收集节点 2 上的所有金币。所以节点 3 上的金币将会变为 floor(3 / 2) = 1 ，总积分 = 10 + floor(3 / 2) = 11 。
+使用第二种方法收集节点 3 上的所有金币。总积分 =  11 + floor(1 / 2) = 11.
+可以证明收集所有节点上的金币能获得的最大积分是 11 。 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202310291908560.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入：edges = [[0,1],[0,2]], coins = [8,4,4], k = 0
+输出：16
+解释：
+使用第一种方法收集所有节点上的金币，因此，总积分 = (8 - 0) + (4 - 0) + (4 - 0) = 16 。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == coins.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= coins[i] &amp;lt;= 104&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;edges.length == n - 1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= edges[i][0], edges[i][1] &amp;lt; n&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= k &amp;lt;= 104&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;解题关键在于题目里隐含的操作二最多执行17次，这样会降低复杂度。&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;maximumPoints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaultdict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+        &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functools&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lru_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs_p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs_p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coins&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt;
+
+            &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;graph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs_p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;op&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs_p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">100097. 合法分组的最少组数</title><link href="https://mafulong.github.io/2023/10/23/100097.-%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0/" rel="alternate" type="text/html" title="100097. 合法分组的最少组数" /><published>2023-10-23T00:00:00+08:00</published><updated>2023-10-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/10/23/100097.%20%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2023/10/23/100097.-%E5%90%88%E6%B3%95%E5%88%86%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%91%E7%BB%84%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-groups-to-create-a-valid-assignment/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 。&lt;/p&gt;
@@ -705,81 +790,4 @@ gradle build
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;更新完配置后，就可以idea的右边gradle插件的那个刷新按钮点击下。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Gradle</summary></entry><entry><title type="html">Guava</title><link href="https://mafulong.github.io/2023/08/10/Guava/" rel="alternate" type="text/html" title="Guava" /><published>2023-08-10T00:00:00+08:00</published><updated>2023-08-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/08/10/Guava</id><content type="html" xml:base="https://mafulong.github.io/2023/08/10/Guava/">&lt;h2 id=&quot;guava&quot;&gt;Guava&lt;/h2&gt;
-
-&lt;h2 id=&quot;什么是-guava&quot;&gt;什么是 Guava？&lt;/h2&gt;
-
-&lt;p&gt;Guava 是由 Google 提供的一个开源 Java 库，旨在提供一组丰富的工具类和函数，用于增强 Java 编程的便利性和效率。它涵盖了众多领域，从集合操作到并发编程，再到字符串处理和文件操作，Guava 提供了多种实用的功能，使得编写高质量的 Java 代码变得更加简单。&lt;/p&gt;
-
-&lt;p&gt;Guava 在英语中读作 /ˈɡwɑːvə/，类似于“瓜瓦”。&lt;/p&gt;
-
-&lt;h2 id=&quot;功能&quot;&gt;功能&lt;/h2&gt;
-
-&lt;p&gt;Guava 主要模块的一些功能和特点：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;集合（Collections）：&lt;/strong&gt; 提供了许多强大的集合类，如不可变集合、多集合、双向映射等，以及各种便捷的集合操作和转换。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;并发（Concurrency）：&lt;/strong&gt; 提供了用于多线程编程的工具和实用类，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ListenableFuture&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Futures&lt;/code&gt; 等，使并发编程更加容易。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;缓存（Caches）：&lt;/strong&gt; 提供了可配置的本地缓存实现，可以用于缓存常用的计算结果，以提高性能。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;字符串处理（Strings）：&lt;/strong&gt; 提供了字符串处理相关的工具类，如拆分、连接、填充、截取等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;原生类型操作（Primitives）：&lt;/strong&gt; 提供了操作原生数据类型的工具类，如处理数字、布尔值等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;数学运算（Math）：&lt;/strong&gt; 提供了精确数学运算的工具类，如处理分数、多项式等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;I/O 操作（IO）：&lt;/strong&gt; 提供了更简化的 I/O 操作，如文件处理、流处理、字符集转换等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;反射（Reflection）：&lt;/strong&gt; 提供了更容易使用的反射 API，帮助处理类的元数据和反射操作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;事件总线（EventBus）：&lt;/strong&gt; 提供了事件发布-订阅模型，用于组件之间的解耦和通信。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;日期时间（Time）：&lt;/strong&gt; 提供了对日期和时间的处理工具类，支持日期比较、格式化、解析等操作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;国际化（Internationalization）：&lt;/strong&gt; 提供了针对国际化的工具类，如字符集处理、文本处理等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;辅助工具（Utilities）：&lt;/strong&gt; 提供了一些通用的实用工具类，如抛出异常、预置条件检查、排序等。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;常用类&quot;&gt;常用类&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Immutable Collections（不可变集合）：&lt;/strong&gt; Guava 提供了一系列不可变集合类，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImmutableList&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImmutableSet&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ImmutableMap&lt;/code&gt; 等，用于创建不可变的集合对象，以保证数据的不可变性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Lists、Sets、Maps：&lt;/strong&gt; Guava 的集合工具类提供了丰富的方法来操作列表、集合和映射，如创建、合并、拆分、过滤等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Multiset 和 Multimap：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multiset&lt;/code&gt; 表示元素可重复的集合，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Multimap&lt;/code&gt; 表示一个键对多个值的映射。这些类提供了处理重复元素和多值映射的能力。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;BiMap 和 Table：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BiMap&lt;/code&gt; 表示一种双向映射，允许通过键和值进行双向查找。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Table&lt;/code&gt; 表示一个由两个键索引的二维表。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Range 和 RangeSet：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Range&lt;/code&gt; 表示一个范围，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RangeSet&lt;/code&gt; 表示一组不相交的范围。这些类在处理范围和区间时很有用。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Optional：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Optional&lt;/code&gt; 类用于表示可能存在或可能不存在的值，避免了使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;，提供了更安全的空值处理。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Preconditions：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Preconditions&lt;/code&gt; 类提供了一组静态方法，用于进行前置条件检查，帮助检查方法参数的有效性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Cache：&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cache&lt;/code&gt; 类提供了本地缓存功能，可用于缓存常用的计算结果，以提高性能。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Charsets 和 CharStreams：&lt;/strong&gt; 提供了字符集和字符流的工具类，用于处理字符编码和字符流的操作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Joiner 和 Splitter：&lt;/strong&gt; 用于将字符串拼接为一串，或将字符串拆分为多个元素。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Strings：&lt;/strong&gt; 提供了字符串处理的工具类，如填充、截取、修剪、格式化等操作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Iterables 和 Iterators：&lt;/strong&gt; 提供了处理迭代器和可迭代对象的工具类，如遍历、过滤、映射等操作。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Functional Programming：&lt;/strong&gt; Guava 提供了一些函数式编程支持，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Function&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Predicate&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Supplier&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Files：&lt;/strong&gt; 提供了文件操作的工具类，如递归地列出文件、创建临时文件等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;EventBus：&lt;/strong&gt; 提供了事件发布-订阅模型，用于组件之间的解耦和通信。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;如何开始使用-guava&quot;&gt;如何开始使用 Guava&lt;/h2&gt;
-
-&lt;p&gt;要开始使用 Guava，您需要在项目中引入相应的依赖。在 Gradle 或 Maven 中，您可以添加以下依赖：&lt;/p&gt;
-
-&lt;p&gt;Gradle：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groovyCopy code
-dependencies {
-    implementation &apos;com.google.guava:guava:30.1-jre&apos;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Maven：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;xmlCopy code
-&amp;lt;dependency&amp;gt;
-    &amp;lt;groupId&amp;gt;com.google.guava&amp;lt;/groupId&amp;gt;
-    &amp;lt;artifactId&amp;gt;guava&amp;lt;/artifactId&amp;gt;
-    &amp;lt;version&amp;gt;30.1-jre&amp;lt;/version&amp;gt;
-&amp;lt;/dependency&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;guava-注解&quot;&gt;Guava 注解&lt;/h2&gt;
-
-&lt;p&gt;以下是一些常用的 Guava 注解：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;@Nullable：&lt;/strong&gt; 标记某个元素可以为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;，用于提醒开发人员对可能的空值进行处理。这个注解可用于方法参数、方法返回值和字段上。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@NonNull：&lt;/strong&gt; 标记某个元素不应该为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;null&lt;/code&gt;，用于强制要求开发人员对空值进行检查。这个注解可用于方法参数、方法返回值和字段上。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;@VisibleForTesting：&lt;/strong&gt; 表示一个方法或字段是为了测试而暴露出来的，不应该在正式代码中使用。这个注解用于标记为了测试目的而提供的方法。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Guava</summary></entry></feed>
+&lt;p&gt;更新完配置后，就可以idea的右边gradle插件的那个刷新按钮点击下。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Gradle</summary></entry></feed>
