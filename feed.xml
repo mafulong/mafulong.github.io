@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-11-11T19:12:43+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">mac操控手机</title><link href="https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA/" rel="alternate" type="text/html" title="mac操控手机" /><published>2023-11-09T00:00:00+08:00</published><updated>2023-11-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA</id><content type="html" xml:base="https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA/">&lt;h2 id=&quot;mac操控手机&quot;&gt;mac操控手机&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2023-11-11T19:46:25+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">765. 情侣牵手</title><link href="https://mafulong.github.io/2023/11/11/765.-%E6%83%85%E4%BE%A3%E7%89%B5%E6%89%8B/" rel="alternate" type="text/html" title="765. 情侣牵手" /><published>2023-11-11T00:00:00+08:00</published><updated>2023-11-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/11/11/765.%20%E6%83%85%E4%BE%A3%E7%89%B5%E6%89%8B</id><content type="html" xml:base="https://mafulong.github.io/2023/11/11/765.-%E6%83%85%E4%BE%A3%E7%89%B5%E6%89%8B/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/couples-holding-hands/description/?envType=daily-question&amp;amp;envId=2023-11-11&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 对情侣坐在连续排列的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2n&lt;/code&gt; 个座位上，想要牵到对方的手。&lt;/p&gt;
+
+&lt;p&gt;人和座位由一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;row&lt;/code&gt; 表示，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;row[i]&lt;/code&gt; 是坐在第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i &lt;/code&gt;个座位上的人的 &lt;strong&gt;ID&lt;/strong&gt;。情侣们按顺序编号，第一对是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(0, 1)&lt;/code&gt;，第二对是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(2, 3)&lt;/code&gt;，以此类推，最后一对是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(2n-2, 2n-1)&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;返回 &lt;em&gt;最少交换座位的次数，以便每对情侣可以并肩坐在一起&lt;/em&gt;。 &lt;em&gt;每次&lt;/em&gt;交换可选择任意两人，让他们站起来交换座位。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: row = [0,2,1,3]
+输出: 1
+解释: 只需要交换row[1]和row[2]的位置即可。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: row = [3,2,0,1]
+输出: 0
+解释: 无需交换座位，所有的情侣都已经可以手牵手了。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;提示:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2n == row.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 &amp;lt;= n &amp;lt;= 30&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 是偶数&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= row[i] &amp;lt; 2n&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;row&lt;/code&gt; 中所有元素均&lt;strong&gt;无重复&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;It could save one exchange operation for one cycle.&lt;/p&gt;
+
+&lt;p&gt;Find the number of cycles.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minSwapsCouples&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UnionFind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;union&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cnt&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">mac操控手机</title><link href="https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA/" rel="alternate" type="text/html" title="mac操控手机" /><published>2023-11-09T00:00:00+08:00</published><updated>2023-11-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA</id><content type="html" xml:base="https://mafulong.github.io/2023/11/09/mac%E6%93%8D%E6%8E%A7%E6%89%8B%E6%9C%BA/">&lt;h2 id=&quot;mac操控手机&quot;&gt;mac操控手机&lt;/h2&gt;
 
 &lt;h2 id=&quot;scrcpy&quot;&gt;Scrcpy&lt;/h2&gt;
 
@@ -609,76 +663,4 @@ nums = [1,3,4] 是美丽数组。
 &lt;/span&gt;                    &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;duplicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">Apache Commons</title><link href="https://mafulong.github.io/2023/08/10/Apache-Commons/" rel="alternate" type="text/html" title="Apache Commons" /><published>2023-08-10T00:00:00+08:00</published><updated>2023-08-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2023/08/10/Apache%20Commons</id><content type="html" xml:base="https://mafulong.github.io/2023/08/10/Apache-Commons/">&lt;h2 id=&quot;什么是-apache-commons&quot;&gt;什么是 Apache Commons？&lt;/h2&gt;
-
-&lt;p&gt;Apache Commons 是由 Apache 软件基金会维护的一组开源 Java 库，目的是提供实用工具类和函数，用于增强 Java 编程的便利性和效率。这些库涵盖了众多领域，从集合操作到输入输出、数学计算、字符串处理等，都提供了丰富的功能，帮助开发人员更轻松地编写高质量的 Java 代码。&lt;/p&gt;
-
-&lt;h2 id=&quot;常用类&quot;&gt;常用类&lt;/h2&gt;
-
-&lt;p&gt;常用的 Apache Commons 库及其常用类的简要介绍：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Lang：&lt;/strong&gt; 提供了一系列操作字符串、对象、数组等的实用工具类，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StringUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ObjectUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ArrayUtils&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Collections：&lt;/strong&gt; 提供了各种集合操作的实用工具类，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CollectionUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MapUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ListUtils&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons IO：&lt;/strong&gt; 提供了处理输入输出操作的工具类，如文件读写、流操作、文件过滤等，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FileUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IOUtils&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Math：&lt;/strong&gt; 提供了一系列数学计算的工具类，如矩阵计算、统计分析、线性代数等，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MathUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Statistics&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Codec：&lt;/strong&gt; 提供了各种编码和解码的工具类，如 Base64、MD5、SHA 等，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DigestUtils&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Base64&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Validator：&lt;/strong&gt; 提供了用于验证用户输入的工具类，如邮箱、URL、日期等，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Validator&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UrlValidator&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Compress：&lt;/strong&gt; 提供了对压缩和解压缩文件格式的支持，如 ZIP、Tar 等，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Archiver&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Compressor&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Configuration：&lt;/strong&gt; 提供了读取和写入配置文件的工具类，支持多种配置格式，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Configuration&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PropertiesConfiguration&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Pool：&lt;/strong&gt; 提供了对象池的实现，用于管理和重用对象资源，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ObjectPool&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GenericObjectPool&lt;/code&gt; 等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Commons Lang3、Commons Collections4 等：&lt;/strong&gt; 这些是 Apache Commons 中的更新版本，提供了更多功能和改进，推荐使用。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;依赖引入&quot;&gt;依赖引入&lt;/h2&gt;
-
-&lt;p&gt;常见的 Apache Commons 库及其 Gradle 依赖示例：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Commons Lang:&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groovyCopy code
-dependencies {
-    implementation group: &apos;org.apache.commons&apos;, name: &apos;commons-lang3&apos;, version: &apos;3.12.0&apos;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;在这个示例中，我们引入了 Commons Lang3 库的版本 3.12.0。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Commons Collections:&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groovyCopy code
-dependencies {
-    implementation group: &apos;org.apache.commons&apos;, name: &apos;commons-collections4&apos;, version: &apos;4.4&apos;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;在这个示例中，我们引入了 Commons Collections4 库的版本 4.4。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Commons IO:&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groovyCopy code
-dependencies {
-    implementation group: &apos;org.apache.commons&apos;, name: &apos;commons-io&apos;, version: &apos;2.11.0&apos;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;在这个示例中，我们引入了 Commons IO 库的版本 2.11.0。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Commons Math:&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;groovyCopy code
-dependencies {
-    implementation group: &apos;org.apache.commons&apos;, name: &apos;commons-math3&apos;, version: &apos;3.6.1&apos;
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;结语&quot;&gt;结语&lt;/h2&gt;
-
-&lt;p&gt;Apache Commons 是 Java 开发者的利器，提供了丰富的实用工具类和函数，帮助您更轻松地编写高质量的 Java 代码。通过合理地选择并使用不同的 Apache Commons 库，您可以在项目中节省时间、降低开发难度，并提高代码的可读性和可维护性。愿您在使用 Apache Commons 库时能够充分发挥其潜力，为您的项目带来更大的价值。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">什么是 Apache Commons？</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
