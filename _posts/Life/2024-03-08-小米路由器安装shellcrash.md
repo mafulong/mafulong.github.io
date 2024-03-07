@@ -20,3 +20,18 @@ tags: Life
 
 
 
+```scala
+curl -o a.yaml "clash订阅链接"
+
+```
+
+然后crash本地导入。不能下载，会timeout.
+
+
+
+你设备的 SSH 密码设置为**admin**，用户名为**root**，并永久开启 SSH；
+
+```scala
+ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
+```
+
