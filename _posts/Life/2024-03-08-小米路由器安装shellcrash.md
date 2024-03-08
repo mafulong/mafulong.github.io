@@ -184,6 +184,19 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellClash@master' && sh -c "$
 
 - CLASH面板管理地址：**http://192.168.31.1:9999/ui**
 
+# uu加速器安装
+
+可以在shellcrash安装后再进行，不冲突。
+
+
+
+首先，先挂载overlay，具体参考[https://qust.me/post/hong-mi-ax6 ... h%E5%8F%AF%E9%80%89](https://qust.me/post/hong-mi-ax6-jie-suo-ssh-an-zhuang-shi-yong-shellclash-jiao-cheng/#第五步-固化-ssh可选)
+其次，按照官方教程下载安装即可[https://router.uu.163.com/app/ht ... c9304c215e129ca40e8](https://router.uu.163.com/app/html/online/baike_share.html?baike_id=5f963c9304c215e129ca40e8)
+
+
+
+- [参考1](https://www.right.com.cn/forum/thread-8276125-1-1.html)
+
 # 工具
 
 ## 路由器文件上传和下载
@@ -215,3 +228,4 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellClash@master' && sh -c "$
 ![顺序可能不同，大概内容相似就行](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403081148181.jpg)
 
 大文件上传下载： https://taoshu.in/transfer-big-file.html
+
