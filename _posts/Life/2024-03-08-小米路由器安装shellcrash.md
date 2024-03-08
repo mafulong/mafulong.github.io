@@ -15,6 +15,7 @@ tags: Life
 - [小米路由器后台](http://192.168.31.1/cgi-bin/luci/web)
 - [安装shellcrash参考](https://www.gaicas.com/redmi-ax6000.html)
 - [参考2](https://beyondkmp.com/2023/03/05/ax6000-ssh/)
+- [小米最新稳定版固件](http://www1.miwifi.com/miwifi_download.html)
 
 
 
@@ -187,6 +188,10 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellClash@master' && sh -c "$
 # uu加速器安装
 
 可以在shellcrash安装后再进行，不冲突。
+
+
+
+[米家自带安装方式](https://web.vip.miui.com/page/info/mio/mio/detail?postId=25337070&app_version=dev.20051)
 
 
 
