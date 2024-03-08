@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-08T13:52:30+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">小米路由器安装shellcrash</title><link href="https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash/" rel="alternate" type="text/html" title="小米路由器安装shellcrash" /><published>2024-03-08T00:00:00+08:00</published><updated>2024-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash</id><content type="html" xml:base="https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash/">&lt;h1 id=&quot;小米路由器安装shellcrash&quot;&gt;小米路由器安装shellcrash&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-08T20:53:58+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">小米路由器安装shellcrash</title><link href="https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash/" rel="alternate" type="text/html" title="小米路由器安装shellcrash" /><published>2024-03-08T00:00:00+08:00</published><updated>2024-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash</id><content type="html" xml:base="https://mafulong.github.io/2024/03/08/%E5%B0%8F%E7%B1%B3%E8%B7%AF%E7%94%B1%E5%99%A8%E5%AE%89%E8%A3%85shellcrash/">&lt;h1 id=&quot;小米路由器安装shellcrash&quot;&gt;小米路由器安装shellcrash&lt;/h1&gt;
 
 &lt;p&gt;路由器安装了shellcrash后就自带梯子了。然后就可以通过http://192.168.31.1:9999/ui/#/proxies 管理节点切换等。&lt;/p&gt;
 
@@ -30,11 +30,20 @@
 
 &lt;h2 id=&quot;固件降级&quot;&gt;固件降级&lt;/h2&gt;
 
-&lt;p&gt;首先，登陆小米路由器的后台。依次点击&lt;strong&gt;常用设置&lt;/strong&gt;-&lt;strong&gt;系统状态&lt;/strong&gt;，检查路由器的系统版本是否为&lt;strong&gt;1.2.08&lt;/strong&gt;版。&lt;/p&gt;
+&lt;p&gt;首先，登陆小米路由器的后台。依次点击&lt;strong&gt;常用设置&lt;/strong&gt;-&lt;strong&gt;系统状态&lt;/strong&gt;，检查路由器的系统版本&lt;/p&gt;
 
 &lt;p&gt;若路由器当前版本为其他版本，请先点击&lt;strong&gt;手动升级&lt;/strong&gt;，并将路由器 💾 &lt;strong&gt;&lt;a href=&quot;https://www.icloud.com/iclouddrive/006hgOdY5pn3MJ1czZViTDPBA#redmi-ax6000-1.2.8&quot;&gt;稳定版固件&lt;/a&gt;&lt;/strong&gt; 上传至设备，进行手动升级/降级操作。&lt;/p&gt;
 
 &lt;p&gt;需要利用老版本的漏洞才能开启ssh, 所以需要手动降级。&lt;/p&gt;
+
+&lt;p&gt;如果显示“不允许降级”，就把网址最后面数字改成0或者2试试。&lt;/p&gt;
+
+&lt;p&gt;其他降级版本&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;固件：&lt;a href=&quot;https://beyondkmp.com/image/ax6000_ssh/miwifi_rb06_firmware_7ddeb_1.0.60.bin&quot;&gt;Redmi AX6000 1.0.60&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;1.0.67的也可以降级的。 不要用1.2.128版本，那个没有5g wifi，固件问题。&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;获取token&quot;&gt;获取token&lt;/h2&gt;
 
@@ -140,23 +149,26 @@ reboot
     &lt;p&gt;路由器安装在/data目录下，另一个可选项是/usrdisk&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
+    &lt;p&gt;选择 “路由设备配置局域网透明代理”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
     &lt;p&gt;安装yard面板&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;若你的订阅链接为 SS/SSR/VMESS 格式，可以点击下面链接，进行订阅链接转换。&lt;a href=&quot;https://acl4ssr-sub.github.io/&quot;&gt;订阅链接转换&lt;/a&gt;。 最好直接用clash的订阅链接。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;如果订阅链接的文件下不下来，就vim创建编辑个yaml文件在tmp目录下，然后手动复制进去。或者curl下载订阅链接的文件。&lt;/p&gt;
+    &lt;p&gt;如果订阅链接的文件下不下来，就vim创建编辑个yaml文件在tmp目录下，然后手动复制进去。或者curl下载订阅链接的文件放到/tmp下，然后/tmp运行crash, 自动检测导入。推荐用后者。clash打开后会自动识别当前目录的yaml文件，进而使用这个配置文件。&lt;/p&gt;
 
     &lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;curl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;yaml&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;clash订阅链接&quot;&lt;/span&gt;
   
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;clash打开后会自动识别当前目录的yaml文件，进而使用这个配置文件。&lt;/p&gt;
+    &lt;p&gt;CLASH面板管理地址：&lt;strong&gt;http://192.168.31.1:9999/ui&lt;/strong&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;CLASH面板管理地址：&lt;strong&gt;http://192.168.31.1:9999/ui&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;crash启动服务，会自动下载clash核心。&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -164,14 +176,82 @@ reboot
 
 &lt;p&gt;可以在shellcrash安装后再进行，不冲突。&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://web.vip.miui.com/page/info/mio/mio/detail?postId=25337070&amp;amp;app_version=dev.20051&quot;&gt;米家自带安装方式&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;步骤&quot;&gt;步骤&lt;/h2&gt;
 
-&lt;p&gt;首先，先挂载overlay，具体参考&lt;a href=&quot;https://qust.me/post/hong-mi-ax6-jie-suo-ssh-an-zhuang-shi-yong-shellclash-jiao-cheng/#第五步-固化-ssh可选&quot;&gt;https://qust.me/post/hong-mi-ax6 … h%E5%8F%AF%E9%80%89&lt;/a&gt;
-其次，按照官方教程下载安装即可&lt;a href=&quot;https://router.uu.163.com/app/html/online/baike_share.html?baike_id=5f963c9304c215e129ca40e8&quot;&gt;https://router.uu.163.com/app/ht … c9304c215e129ca40e8&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.right.com.cn/forum/thread-8276125-1-1.html&quot;&gt;参考1&lt;/a&gt;&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.right.com.cn/forum/thread-8276125-1-1.html&quot;&gt;参考1&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;dist源备份。 /etc/opkg/distfeeds.conf&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_core&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;releases&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;18.06&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SNAPSHOT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;targets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mediatek&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mt7986&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_base&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;releases&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;18.06&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;SNAPSHOT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aarch64_cortex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;挂载overlay使用opkg安装openwrt软件包&quot;&gt;&lt;strong&gt;挂载overlay使用opkg安装openwrt软件包&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;https://www.right.com.cn/forum/thread-8274490-1-4.html&lt;/p&gt;
+
+&lt;p&gt;在SSH脚本/data/auto_ssh/auto_ssh.sh最后一行添加如下内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Mount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;/data/overlay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;/data/overlay/upper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;/data/overlay/work&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;work&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;preinit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sh&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fopivot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;work&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rom&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Fixup&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;miwifi&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;misc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DO&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overlay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instead&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uci&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;defaults&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/* may be already removed
+/bin/mount -o noatime,move /rom/data /data 2&amp;gt;&amp;amp;-
+/bin/mount -o noatime,move /rom/etc /etc 2&amp;gt;&amp;amp;-
+/bin/mount -o noatime,move /rom/ini /ini 2&amp;gt;&amp;amp;-
+/bin/mount -o noatime,move /rom/userdisk /userdisk 2&amp;gt;&amp;amp;-
+
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编辑/etc/opkg/distfeeds.conf，替换为下列内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_base&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;snapshots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aarch64_cortex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_luci&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;snapshots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aarch64_cortex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;luci&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_packages&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;snapshots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aarch64_cortex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;openwrt_routing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;://&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;openwrt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;snapshots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aarch64_cortex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a53&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;routing&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后更新软件包列表&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;opkg&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;添加挂载脚本后重启路由器，opkg就可以正常使用了。&lt;/p&gt;
+
+&lt;p&gt;重启&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;reboot&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;安装uu&quot;&gt;&lt;strong&gt;安装UU&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;SSH连接后，按顺序输入&lt;/strong&gt;
+wget http://uu.gdl.netease.com/uuplugin-script/202012111056/install.sh -O install.sh
+/bin/sh install.sh openwrt $(uname -m)&lt;/p&gt;
+
+&lt;h2 id=&quot;设定开机自启&quot;&gt;&lt;strong&gt;设定开机自启&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;先给执行权限，一定要给不然不能启动脚本&lt;/strong&gt; 键入&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;chmod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sbin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uu&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;uuplugin_monitor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后在/data/auto_ssh/auto_ssh.sh最后一行添加如下内容：&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sbin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uu&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;uuplugin_monitor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;这一步sleep是让系统组件加载完成后再启动UU，否则可能连不上网。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;完成后就可以用UU主机加速app绑定了，如果不放心可以多重启几次试一下开机自启是否正常使用。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;重启连ssh，输ps看看有没有uu或者sleep 50，有就是可以了。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;工具&quot;&gt;工具&lt;/h1&gt;
 
@@ -197,11 +277,18 @@ reboot
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scp /Users/jesse/Desktop/xqsystem.lua root@192.168.3.1:/usr/lib/lua/luci/controller/admin/&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;测试文件传输效果，直接在路由器ip后面加 /cgi-bin/luci/api/xqsystem/token
-如果文件传进去了会这样显示则代表成功&lt;/p&gt;
+如果文件传进去了会这样显示则代表成功。 &lt;strong&gt;试了会404，还是scp吧&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403081148181.jpg&quot; alt=&quot;顺序可能不同，大概内容相似就行&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;大文件上传下载： https://taoshu.in/transfer-big-file.html&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Life" /><category term="Life" /><summary type="html">小米路由器安装shellcrash</summary></entry><entry><title type="html">路由器配置</title><link href="https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="路由器配置" /><published>2024-03-05T00:00:00+08:00</published><updated>2024-03-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE/">&lt;h2 id=&quot;路由器配置&quot;&gt;路由器配置&lt;/h2&gt;
+&lt;p&gt;大文件上传下载： https://taoshu.in/transfer-big-file.html&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oHostKeyAlgorithms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rsa&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;31.1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;auto_ssh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;auto_ssh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;auto-ssh&quot;&gt;auto ssh&lt;/h2&gt;
+
+&lt;p&gt;https://fastly.jsdelivr.net/gh/lemoeo/AX6S@main/auto_ssh.sh&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Life" /><category term="Life" /><summary type="html">小米路由器安装shellcrash</summary></entry><entry><title type="html">路由器配置</title><link href="https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="路由器配置" /><published>2024-03-05T00:00:00+08:00</published><updated>2024-03-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2024/03/05/%E8%B7%AF%E7%94%B1%E5%99%A8%E9%85%8D%E7%BD%AE/">&lt;h2 id=&quot;路由器配置&quot;&gt;路由器配置&lt;/h2&gt;
 
 &lt;h2 id=&quot;路由器有线桥接&quot;&gt;路由器有线桥接&lt;/h2&gt;
 
