@@ -50,7 +50,7 @@ ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
 
 ## 固件降级
 
-首先，登陆小米路由器的后台。依次点击**常用设置**-**系统状态**，检查路由器的系统版本是否为**1.2.08**版。
+首先，登陆小米路由器的后台。依次点击**常用设置**-**系统状态**，检查路由器的系统版本
 
 若路由器当前版本为其他版本，请先点击**手动升级**，并将路由器 💾 **[稳定版固件](https://www.icloud.com/iclouddrive/006hgOdY5pn3MJ1czZViTDPBA#redmi-ax6000-1.2.8)** 上传至设备，进行手动升级/降级操作。
 
@@ -59,6 +59,17 @@ ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
 需要利用老版本的漏洞才能开启ssh, 所以需要手动降级。
 
 
+
+如果显示“不允许降级”，就把网址最后面数字改成0或者2试试。
+
+
+
+
+
+其他降级版本
+
+- 固件：[Redmi AX6000 1.0.60](https://beyondkmp.com/image/ax6000_ssh/miwifi_rb06_firmware_7ddeb_1.0.60.bin) 
+- 1.0.67的也可以降级的。 不要用1.2.128版本，那个没有5g wifi，固件问题。
 
 ## 获取token
 
@@ -170,37 +181,122 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellClash@master' && sh -c "$
 
 - 路由器安装在/data目录下，另一个可选项是/usrdisk
 
+- 选择 “路由设备配置局域网透明代理”
+
 - 安装yard面板
 
 - 若你的订阅链接为 SS/SSR/VMESS 格式，可以点击下面链接，进行订阅链接转换。[订阅链接转换](https://acl4ssr-sub.github.io/)。 最好直接用clash的订阅链接。
 
-- 如果订阅链接的文件下不下来，就vim创建编辑个yaml文件在tmp目录下，然后手动复制进去。或者curl下载订阅链接的文件。
+- 如果订阅链接的文件下不下来，就vim创建编辑个yaml文件在tmp目录下，然后手动复制进去。或者curl下载订阅链接的文件放到/tmp下，然后/tmp运行crash, 自动检测导入。推荐用后者。clash打开后会自动识别当前目录的yaml文件，进而使用这个配置文件。
 
   ```scala
   curl -o a.yaml "clash订阅链接"
   
   ```
 
-- clash打开后会自动识别当前目录的yaml文件，进而使用这个配置文件。
-
 - CLASH面板管理地址：**http://192.168.31.1:9999/ui**
+
+- crash启动服务，会自动下载clash核心。
 
 # uu加速器安装
 
 可以在shellcrash安装后再进行，不冲突。
 
+## 步骤
+
+[参考1](https://www.right.com.cn/forum/thread-8276125-1-1.html)
+
+dist源备份。 /etc/opkg/distfeeds.conf
+
+```scala
+src/gz openwrt_core http://downloads.openwrt.org/releases/18.06-SNAPSHOT/targets/mediatek/mt7986/packages
+src/gz openwrt_base http://downloads.openwrt.org/releases/18.06-SNAPSHOT/packages/aarch64_cortex-a53/base
+```
+
+## **挂载overlay使用opkg安装openwrt软件包**
+
+https://www.right.com.cn/forum/thread-8274490-1-4.html
+
+在SSH脚本/data/auto_ssh/auto_ssh.sh最后一行添加如下内容：
+
+```scala
+#Mount overlay
+[ -e /data/overlay ] || mkdir /data/overlay
+[ -e /data/overlay/upper ] || mkdir /data/overlay/upper
+[ -e /data/overlay/work ] || mkdir /data/overlay/work
+mount --bind /data/overlay /overlay
+. /lib/functions/preinit.sh
+fopivot /overlay/upper /overlay/work /rom 1
+
+#Fixup miwifi misc, and DO NOT use /overlay/upper/etc instead, /etc/uci-defaults/* may be already removed
+/bin/mount -o noatime,move /rom/data /data 2>&-
+/bin/mount -o noatime,move /rom/etc /etc 2>&-
+/bin/mount -o noatime,move /rom/ini /ini 2>&-
+/bin/mount -o noatime,move /rom/userdisk /userdisk 2>&-
 
 
-[米家自带安装方式](https://web.vip.miui.com/page/info/mio/mio/detail?postId=25337070&app_version=dev.20051)
+```
+
+编辑/etc/opkg/distfeeds.conf，替换为下列内容：
+
+```scala
+src/gz openwrt_base http://downloads.openwrt.org/snapshots/packages/aarch64_cortex-a53/base
+src/gz openwrt_luci http://downloads.openwrt.org/snapshots/packages/aarch64_cortex-a53/luci
+src/gz openwrt_packages http://downloads.openwrt.org/snapshots/packages/aarch64_cortex-a53/packages
+src/gz openwrt_routing http://downloads.openwrt.org/snapshots/packages/aarch64_cortex-a53/routing
+```
+
+然后更新软件包列表
+
+```scala
+opkg update
+```
 
 
 
-首先，先挂载overlay，具体参考[https://qust.me/post/hong-mi-ax6 ... h%E5%8F%AF%E9%80%89](https://qust.me/post/hong-mi-ax6-jie-suo-ssh-an-zhuang-shi-yong-shellclash-jiao-cheng/#第五步-固化-ssh可选)
-其次，按照官方教程下载安装即可[https://router.uu.163.com/app/ht ... c9304c215e129ca40e8](https://router.uu.163.com/app/html/online/baike_share.html?baike_id=5f963c9304c215e129ca40e8)
+添加挂载脚本后重启路由器，opkg就可以正常使用了。
 
 
 
-- [参考1](https://www.right.com.cn/forum/thread-8276125-1-1.html)
+重启
+
+```scala
+reboot
+```
+
+## **安装UU**
+
+**SSH连接后，按顺序输入**
+wget http://uu.gdl.netease.com/uuplugin-script/202012111056/install.sh -O install.sh
+/bin/sh install.sh openwrt $(uname -m)
+
+
+
+## **设定开机自启**
+
+**先给执行权限，一定要给不然不能启动脚本** 键入
+
+```scala
+chmod +x /usr/sbin/uu/uuplugin_monitor.sh
+```
+
+然后在/data/auto_ssh/auto_ssh.sh最后一行添加如下内容：
+
+```scala
+sleep 50 && /bin/sh /usr/sbin/uu/uuplugin_monitor.sh &
+```
+
+
+
+**这一步sleep是让系统组件加载完成后再启动UU，否则可能连不上网。**
+
+**完成后就可以用UU主机加速app绑定了，如果不放心可以多重启几次试一下开机自启是否正常使用。**
+
+**重启连ssh，输ps看看有没有uu或者sleep 50，有就是可以了。**
+
+
+
+
 
 # 工具
 
@@ -228,9 +324,23 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellClash@master' && sh -c "$
 `scp /Users/jesse/Desktop/xqsystem.lua root@192.168.3.1:/usr/lib/lua/luci/controller/admin/`
 
 测试文件传输效果，直接在路由器ip后面加 /cgi-bin/luci/api/xqsystem/token
-如果文件传进去了会这样显示则代表成功
+如果文件传进去了会这样显示则代表成功。 **试了会404，还是scp吧**
 
 ![顺序可能不同，大概内容相似就行](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403081148181.jpg)
 
 大文件上传下载： https://taoshu.in/transfer-big-file.html
+
+
+
+```scala
+scp -oHostKeyAlgorithms=+ssh-rsa root@192.168.31.1:/data/auto_ssh/auto_ssh.sh ./
+```
+
+
+
+## auto ssh
+
+https://fastly.jsdelivr.net/gh/lemoeo/AX6S@main/auto_ssh.sh
+
+
 
