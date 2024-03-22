@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Life
-title: 小米路由器安装shellcrash
+title: 小米路由器安装shellcrash和uu加速器
 tags: Life
 ---
 
