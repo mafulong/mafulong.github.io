@@ -1,4 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-22T16:39:45+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">驾驶学习</title><link href="https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="驾驶学习" /><published>2024-03-14T00:00:00+08:00</published><updated>2024-03-14T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/">&lt;h1 id=&quot;驾驶学习&quot;&gt;驾驶学习&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-23T19:20:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">3080. 执行操作标记数组中的元素</title><link href="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/" rel="alternate" type="text/html" title="3080. 执行操作标记数组中的元素" /><published>2024-03-23T00:00:00+08:00</published><updated>2024-03-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/23/3080.%20%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/mark-elements-on-array-by-performing-queries/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的正整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;同时给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 的二维操作数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries[i] = [indexi, ki]&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;一开始，数组中的所有元素都 &lt;strong&gt;未标记&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;你需要依次对数组执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 次操作，第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 次操作中，你需要执行：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果下标 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;indexi&lt;/code&gt; 对应的元素还没标记，那么标记这个元素。&lt;/li&gt;
+  &lt;li&gt;然后标记 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ki&lt;/code&gt; 个数组中还没有标记的 &lt;strong&gt;最小&lt;/strong&gt; 元素。如果有元素的值相等，那么优先标记它们中下标较小的。如果少于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ki&lt;/code&gt; 个未标记元素存在，那么将它们全部标记。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;请你返回一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m&lt;/code&gt; 的数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;answer&lt;/code&gt; ，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;answer[i]&lt;/code&gt;是第 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; 次操作后数组中还没标记元素的 &lt;strong&gt;和&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;nums = [1,2,2,1,2,3,1], queries = [[1,2],[3,3],[4,2]]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;[8,3,0]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我们依次对数组做以下操作：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;标记下标为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 的元素，同时标记 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt; 个未标记的最小元素。标记完后数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [***1***,***2***,2,***1***,2,3,1]&lt;/code&gt; 。未标记元素的和为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2 + 2 + 3 + 1 = 8&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;标记下标为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; 的元素，由于它已经被标记过了，所以我们忽略这次标记，同时标记最靠前的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; 个未标记的最小元素。标记完后数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [***1***,***2***,***2***,***1***,***2***,3,***1***]&lt;/code&gt; 。未标记元素的和为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;3&lt;/code&gt; 。&lt;/li&gt;
+  &lt;li&gt;标记下标为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4&lt;/code&gt; 的元素，由于它已经被标记过了，所以我们忽略这次标记，同时标记最靠前的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2&lt;/code&gt; 个未标记的最小元素。标记完后数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [***1***,***2***,***2***,***1***,***2***,***3***,***1***]&lt;/code&gt; 。未标记元素的和为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;nums = [1,4,2,3], queries = [[0,1]]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;[7]&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;我们执行一次操作，将下标为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; 处的元素标记，并且标记最靠前的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; 个未标记的最小元素。标记完后数组为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums = [***1***,4,***2***,3]&lt;/code&gt; 。未标记元素的和为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;4 + 3 = 7&lt;/code&gt; 。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n == nums.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m == queries.length&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= m &amp;lt;= n &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= nums[i] &amp;lt;= 105&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;queries[i].length == 2&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= indexi, ki &amp;lt;= n - 1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
+
+&lt;p&gt;sorted list&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sortedcontainers&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;unmarkedSumArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sortedcontainers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SortedList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;enumerate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;marked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;marked&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;marked&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;marked&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;need_del&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cur&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">驾驶学习</title><link href="https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="驾驶学习" /><published>2024-03-14T00:00:00+08:00</published><updated>2024-03-14T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/03/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/">&lt;h1 id=&quot;驾驶学习&quot;&gt;驾驶学习&lt;/h1&gt;
 
 &lt;h1 id=&quot;交规&quot;&gt;交规&lt;/h1&gt;
 
@@ -1610,68 +1691,4 @@ Someone left their bag on the table! 有人把他们的包留在了桌子上&lt;
 
 &lt;p&gt;石炭+ 聚合物-》 碳钢纤维&lt;/p&gt;
 
-&lt;p&gt;聚合物和纯水晶 -&amp;gt; 电路板&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Life" /><category term="Life" /><summary type="html">xbox帕鲁</summary></entry><entry><title type="html">信用卡</title><link href="https://mafulong.github.io/2024/02/07/%E4%BF%A1%E7%94%A8%E5%8D%A1/" rel="alternate" type="text/html" title="信用卡" /><published>2024-02-07T00:00:00+08:00</published><updated>2024-02-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/02/07/%E4%BF%A1%E7%94%A8%E5%8D%A1</id><content type="html" xml:base="https://mafulong.github.io/2024/02/07/%E4%BF%A1%E7%94%A8%E5%8D%A1/">&lt;h2 id=&quot;信用卡&quot;&gt;信用卡&lt;/h2&gt;
-
-&lt;h2 id=&quot;介绍&quot;&gt;介绍&lt;/h2&gt;
-
-&lt;h3 id=&quot;机场cip-云闪付&quot;&gt;机场CIP 云闪付&lt;/h3&gt;
-
-&lt;p&gt;此类服务由机场方的空港易行提供，机场CIP快速安检及休息室内容包括：&lt;strong&gt;协办值机、机场快速安检通道、机场贵宾休息室&lt;/strong&gt;（记住，不含餐饮餐食）。&lt;/p&gt;
-
-&lt;p&gt;快速安检，机场休息室。&lt;/p&gt;
-
-&lt;p&gt;兑换：云闪付-&amp;gt; 权益精选。&lt;/p&gt;
-
-&lt;p&gt;和VIP区别。&lt;/p&gt;
-
-&lt;p&gt;　VIP：独立候机楼/候机口，独立办登机牌柜台，安检前休息室（方便送机），独立安检通道，安检后小车送到登机口。一般需预约。VIP一般是针对私银用户，普通人接触不到。&lt;/p&gt;
-
-&lt;p&gt;CIP还是需要先自己值机的。可以找CIP的一个人陪着去。&lt;/p&gt;
-
-&lt;p&gt;记住CIP休息室 一般是安检前的！&lt;/p&gt;
-
-&lt;p&gt;安检后可能同时有休息室，也可能没有。&lt;/p&gt;
-
-&lt;p&gt;质量没有龙腾的好&lt;/p&gt;
-
-&lt;h3 id=&quot;高铁贵宾厅-非龙腾-云闪付&quot;&gt;高铁贵宾厅 非龙腾 云闪付&lt;/h3&gt;
-
-&lt;p&gt;高铁休息室。&lt;/p&gt;
-
-&lt;p&gt;兑换：云闪付-&amp;gt; 权益精选。&lt;/p&gt;
-
-&lt;h3 id=&quot;龙腾贵宾厅&quot;&gt;龙腾贵宾厅&lt;/h3&gt;
-
-&lt;p&gt;需要自己办完值机，安检后候机时使用。有点心、餐饮。&lt;/p&gt;
-
-&lt;h2 id=&quot;信用卡权益&quot;&gt;信用卡权益&lt;/h2&gt;
-
-&lt;p&gt;光大移动中青旅联名信用卡&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;接送机
-    &lt;ul&gt;
-      &lt;li&gt;一年一次。&lt;/li&gt;
-      &lt;li&gt;阳光惠生活里搜高端，进高端尊享礼遇。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;龙腾机场
-    &lt;ul&gt;
-      &lt;li&gt;一年3个点。&lt;/li&gt;
-      &lt;li&gt;阳光惠生活里搜高端，进高端尊享礼遇。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;广发信用卡&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;龙腾机场/龙腾高铁&lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;上海虹桥-cip使用&quot;&gt;上海虹桥 CIP使用&lt;/h2&gt;
-
-&lt;p&gt;参考：https://post.smzdm.com/p/650367/&lt;/p&gt;
-
-&lt;p&gt;值机在安检前。值机时可以看到CIP贵宾休息室。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Life" /><category term="Life" /><summary type="html">信用卡</summary></entry></feed>
+&lt;p&gt;聚合物和纯水晶 -&amp;gt; 电路板&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Life" /><category term="Life" /><summary type="html">xbox帕鲁</summary></entry></feed>
