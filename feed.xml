@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-23T19:24:16+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">3080. 执行操作标记数组中的元素</title><link href="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/" rel="alternate" type="text/html" title="3080. 执行操作标记数组中的元素" /><published>2024-03-23T00:00:00+08:00</published><updated>2024-03-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/23/3080.%20%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-23T20:28:22+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">3080. 执行操作标记数组中的元素</title><link href="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/" rel="alternate" type="text/html" title="3080. 执行操作标记数组中的元素" /><published>2024-03-23T00:00:00+08:00</published><updated>2024-03-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/23/3080.%20%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/03/23/3080.-%E6%89%A7%E8%A1%8C%E6%93%8D%E4%BD%9C%E6%A0%87%E8%AE%B0%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/mark-elements-on-array-by-performing-queries/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个长度为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 下标从 &lt;strong&gt;0&lt;/strong&gt; 开始的正整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 。&lt;/p&gt;
@@ -527,6 +527,38 @@
   &lt;li&gt;变道、停路边、进隧道、下地库等情况都要养成开灯的习惯，提高安全性。&lt;/li&gt;
   &lt;li&gt;下车时用离车门较远的手开门，以减少开门事故的发生。&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Ni4y1d7MG/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;事故分析&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前面车有刹车，说明可能有鬼探头等，不论你在变道还是其他都要减速观察。尤其左侧、右侧的车停下来&lt;/li&gt;
+  &lt;li&gt;非接触性事故，怎么划分责任公平？比如你占用了车道影响了电动车摔倒。
+    &lt;ul&gt;
+      &lt;li&gt;有的城市是影响交通的车辆负主要责任&lt;/li&gt;
+      &lt;li&gt;有的是操作不当的负主要责任&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;“让速不让道”是啥意思？宁可撞上去，也不让道！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;别人并道相撞，宁可减速撞上去也不让道。否则由于让道你撞了别人别的车就是你的责任了。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1y34y1z7oi/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;事故视频集合&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不要频繁变换车道，这样才安全。&lt;/li&gt;
+  &lt;li&gt;遇到事故首先刹车，而不是打方向&lt;/li&gt;
+  &lt;li&gt;不是绝对的让速不让道，比如大货车、高速相撞，为了自己安全只能让道。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;视频待看&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://space.bilibili.com/22649032&quot;&gt;链接&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;内循环外循环&quot;&gt;内循环外循环&lt;/h2&gt;
 
