@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-24T23:20:01+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">100268. 最长公共后缀查询</title><link href="https://mafulong.github.io/2024/03/24/100268.-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2/" rel="alternate" type="text/html" title="100268. 最长公共后缀查询" /><published>2024-03-24T00:00:00+08:00</published><updated>2024-03-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/24/100268.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/03/24/100268.-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-25T11:58:16+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">100268. 最长公共后缀查询</title><link href="https://mafulong.github.io/2024/03/24/100268.-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2/" rel="alternate" type="text/html" title="100268. 最长公共后缀查询" /><published>2024-03-24T00:00:00+08:00</published><updated>2024-03-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/24/100268.%20%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/03/24/100268.-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%90%8E%E7%BC%80%E6%9F%A5%E8%AF%A2/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/longest-common-suffix-queries/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;相关企业&lt;/p&gt;
@@ -904,15 +904,41 @@
 
 &lt;p&gt;曲线驾驶，方向盘左右线延伸到车盖上，形成的点扫马路牙子即可，右转就用左边的点扫。&lt;/p&gt;
 
+&lt;h2 id=&quot;转弯和掉头&quot;&gt;转弯和掉头&lt;/h2&gt;
+
+&lt;p&gt;斑马线终点过肩膀开始打方向盘。转弯和掉头都是。转弯也可以肩膀过停止线时打方向盘，掉头必须过了人行道终点线再打方向盘。&lt;/p&gt;
+
+&lt;p&gt;小左转打一个90度&lt;/p&gt;
+
+&lt;p&gt;大左转打90度，不够再加4分之一。&lt;/p&gt;
+
+&lt;p&gt;掉头，直接打满。&lt;/p&gt;
+
+&lt;p&gt;左转转大弯，右转转小弯。&lt;/p&gt;
+
+&lt;p&gt;转弯时，不同类型的道路，车主进入的道路是不同的。&lt;/p&gt;
+
+&lt;p&gt;1、如果是双车道的道路，车辆转弯后，需要进入外侧的车道，也就是右侧车道。&lt;/p&gt;
+
+&lt;p&gt;2、如果是三车道的道路，车辆在转弯后，尽量进入中间的车道。&lt;/p&gt;
+
+&lt;p&gt;3、如果是四车道的道路，车主驾驶车辆转弯后，尽量进入右数的第二车道。&lt;/p&gt;
+
+&lt;p&gt;左转的话转弯半径都是够的，直接进入最左侧车道。右转同理，直接进入最右侧车道。这是驾校要教的，没得商量。调头要看具体情况。主干道转弯半径也是够的，进入最左侧车道。某些小路转弯半径不够（甚至还要倒一把），只能进入最右侧车道，那么就在最右侧车道行驶好了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;总体原则是，减少变道次数，减少对其它车辆的影响。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;转弯半径到哪个车道就去哪个车道。掉头也是！掉头一般是最右侧，因为转弯幅度大。&lt;/strong&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;侧方停车&quot;&gt;侧方停车&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192321228.png&quot; alt=&quot;image-20240319232119193&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;倒车入库&quot;&gt;倒车入库&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192323655.png&quot; alt=&quot;image-20240319232311618&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403201605709.png&quot; alt=&quot;image-20240320160530663&quot; style=&quot;zoom: 50%;&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;肌肉记忆&quot;&gt;肌肉记忆&lt;/h2&gt;
+&lt;h2 id=&quot;肌肉记忆-防御性驾驶&quot;&gt;肌肉记忆 防御性驾驶&lt;/h2&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1T4421A7YN/?spm_id_from=333.788.recommend_more_video.15&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;新手开车要反复训练的8种肌肉记忆，关键时刻靠本能就能避免事故&lt;/a&gt;&lt;/p&gt;
@@ -958,7 +984,11 @@
 &lt;p&gt;视频待看&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://space.bilibili.com/22649032&quot;&gt;链接&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://space.bilibili.com/22649032&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;看不见的地方就存在危险，减速，随时刹停。&lt;/li&gt;
+  &lt;li&gt;不要紧跟前车，挡我视线。要找有好视野的车位置。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;内循环外循环&quot;&gt;内循环外循环&lt;/h2&gt;
@@ -1106,6 +1136,10 @@
 &lt;p&gt;超车只能从左侧超越。因为驾驶员在左边，左边超车，驾驶员能观察到相对行驶车道有无来车。而右方超车驾驶员是看不到前方是否来车或速度慢的车辆。&lt;/p&gt;
 
 &lt;p&gt;机动车超车时，应当提前开启左转向灯、变换使用远、近光灯或者鸣喇叭。夜间视线不佳，应该变换使用远、近光灯提醒其他车辆。&lt;/p&gt;
+
+&lt;h2 id=&quot;踩刹车&quot;&gt;踩刹车&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403251154821.png&quot; alt=&quot;image-20240325115425781&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;买车&quot;&gt;买车&lt;/h1&gt;
 
