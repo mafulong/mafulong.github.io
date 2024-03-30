@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-29T13:40:49+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">879. 盈利计划</title><link href="https://mafulong.github.io/2024/03/25/879.-%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92/" rel="alternate" type="text/html" title="879. 盈利计划" /><published>2024-03-25T00:00:00+08:00</published><updated>2024-03-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/25/879.%20%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92</id><content type="html" xml:base="https://mafulong.github.io/2024/03/25/879.-%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-03-30T16:30:18+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">879. 盈利计划</title><link href="https://mafulong.github.io/2024/03/25/879.-%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92/" rel="alternate" type="text/html" title="879. 盈利计划" /><published>2024-03-25T00:00:00+08:00</published><updated>2024-03-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/03/25/879.%20%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92</id><content type="html" xml:base="https://mafulong.github.io/2024/03/25/879.-%E7%9B%88%E5%88%A9%E8%AE%A1%E5%88%92/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/profitable-schemes/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;集团里有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n&lt;/code&gt; 名员工，他们可以完成各种各样的工作创造利润。&lt;/p&gt;
@@ -1097,6 +1097,26 @@
   &lt;li&gt;车辆停靠路边，没做预警，被追尾则次责&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;strong&gt;礼让行人&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;有行人在人行道路边和人行道上就需要礼让行人。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形1：骑行人不算行人。&lt;/strong&gt;如果驾车人下车推行，则视为行人，机动车此时必须礼让，否则就算违章。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形2：停车示意行人通过，但他不通过。&lt;/strong&gt; 已经停车让行，停车超过3s，但是行人能走却不走，此时机动车司机可以通过手势等方式（但不能鸣笛）示意行人先通过。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形3：行人在机动车道以外等待。&lt;/strong&gt; 行人在机动车道和非机动车道的分离线外侧等待、还没进入机动车道的时候（就算已经在斑马线上也没关系），机动车可以在确保安全的前提下，慢行通过。&lt;/p&gt;
+
+    &lt;p&gt;（注：如果行人是在道路中心双黄线处等待，此时他所面向的机动车必须停车礼让）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;情形4：行人在道路另一幅行走。&lt;/strong&gt; 行人在道路另一幅的人行横道行走、还没抵达道路中心双黄线时，在道路这一幅的机动车可以在确保安全的前提下，慢行通过。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;情形5：行人已经走过本车道，本车已在行人身后&lt;/strong&gt;。 停车让行，等行人经过机动车所在的车道之后（也就是不需要等到行人走完整条斑马线，只要机动车已经在行人身后即可），机动车可以在确保安全的前提下，慢行通过。&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h1 id=&quot;开车技能&quot;&gt;开车技能&lt;/h1&gt;
 
 &lt;h2 id=&quot;车距&quot;&gt;车距&lt;/h2&gt;
@@ -1233,7 +1253,32 @@
 
 &lt;p&gt;&lt;strong&gt;转弯半径到哪个车道就去哪个车道。掉头也是！掉头一般是最右侧，因为转弯幅度大。&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;右转弯观察&lt;/strong&gt;。右转最复杂，不像左转只需要观察前方和左后方。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;T型路口
+    &lt;ul&gt;
+      &lt;li&gt;辅路到主路，此时对面没车道，观察左侧，右后方。&lt;/li&gt;
+      &lt;li&gt;主路到辅路，右转可能绿化带后是非机动车道，转大弯暴露视野、减速右转。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;十字路口
+    &lt;ul&gt;
+      &lt;li&gt;先看左边、前方、右边和右后视镜。右边是为了减少右后视镜的盲区。&lt;/li&gt;
+      &lt;li&gt;假如对面车道直行，挡住了左边来车，就不用看左边了。&lt;/li&gt;
+      &lt;li&gt;在停止线时开始看左，不要看太早。左边来车时，绿灯的小路口前5秒、大路口的前10秒就会走光车，避开车流再右转。&lt;/li&gt;
+      &lt;li&gt;绿灯不用看左边，因为左边一定是红灯等待。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;借道 怎么打转向灯？&lt;/strong&gt;需要打灯，前方障碍物借道过去也需要打灯。 先左向灯、再右向灯。影响其他车辆驾驶就需要打灯。&lt;/p&gt;
+
 &lt;h2 id=&quot;停车&quot;&gt;停车&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;路口停车&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;路口停车，可以停到车盖刚好盖住停止线。再往前点可以车前盖和斑马线重合&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;侧方停车&lt;/strong&gt;&lt;/p&gt;
 
