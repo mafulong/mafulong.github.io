@@ -178,7 +178,7 @@ https://github.com/iann0036/former2
 
 3. docker软件里open broswer. 会进入127.0.0.1:xxx的一个网址。
 
-4. 然后aws账号里创建一个iam user,授予读的权限。iam user里的安全凭证下面点击访问密钥，创建一个ak, sk。
+4. 然后aws账号里创建一个iam user,授予读的权限。iam user里的安全凭证下面点击访问密钥，创建一个ak, sk。Access keys are long-term credentials for an IAM user or the AWS account root user. You can use access keys to sign programmatic requests to the AWS CLI or AWS API (directly or using the AWS SDK). For more information, see [Signing AWS API requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html). Access keys consist of two parts: an access key ID (for example, `AKIAIOSFODNN7EXAMPLE`) and a secret access key (for example, `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`). You must use both the access key ID and secret access key together to authenticate your requests.
 
 5. 然后填入进行scan。scan后就可以看资源，选中，然后点击左上角的generate 就可以看到生成的代码了。
 
