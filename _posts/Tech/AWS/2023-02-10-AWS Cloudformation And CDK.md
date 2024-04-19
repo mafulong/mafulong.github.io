@@ -93,13 +93,15 @@ cdk init --language typescript
 cdk list (ls) 列出应用程序中的堆栈
 ```
 
-cdk bootstrp只有在用一些kms等特殊资源时才有用
-
-
-
 
 
 自定义ts主要在lib文件夹中。
+
+
+
+cdk bootstrap: [link](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html)
+
+- *Bootstrapping* is the process of preparing an [environment](https://docs.aws.amazon.com/cdk/v2/guide/environments.html) for deployment. Bootstrapping is a one-time action that you must perform for every environment that you deploy resources into.
 
 ## 基础设施
 
