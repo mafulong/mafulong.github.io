@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Life
+category: DailyLife
 title: 小米路由器安装shellcrash和uu加速器
 tags: Life
 ---
