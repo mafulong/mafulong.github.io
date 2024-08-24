@@ -11,7 +11,7 @@ layout: default
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">{% if page.cate1 %}{{ page.cate1 }} - {% endif %}{% if page.cate2 %}{{ page.cate2 }} - {% endif %}{{ page.title }}</h1>
+        <h1 class="collection-header">{% if page.category %}{{ page.category }} - {% endif %}{% if page.cate2 %}{{ page.cate2 }} - {% endif %}{{ page.title }}</h1>
         <div class="collection-info">
           {% if page.url != '/wiki/' %}
           <span class="meta-info">
@@ -19,10 +19,10 @@ layout: default
             <a href="{{ site.url }}/wiki/" title="Wiki">Wiki</a>
           </span>
           {% endif %}
-          {% if page.cate1 %}
+          {% if page.category %}
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="{{ site.url }}/wiki/#{{ page.cate1 | downcase | replace: ' ', '-'}}" title="{{ page.cate1 }}">{{ page.cate1 }}</a>
+            <a href="{{ site.url }}/wiki/#{{ page.category | downcase | replace: ' ', '-'}}" title="{{ page.category }}">{{ page.category }}</a>
           </span>
           {% endif %}
         </div>
@@ -54,7 +54,6 @@ layout: default
   <div class="column one-fourth">
     {% include sidebar-search.html %}
     {% include sidebar-post-nav.html %}
-    {% include sidebar-detail-ad.html %}
   </div>
 </div>
 </section>
