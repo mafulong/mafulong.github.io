@@ -9,6 +9,7 @@ menu: 维基
 permalink: /wiki/
 ---
 
+
 {% case site.components.wiki.view %}
 
 {% when 'list' %}
@@ -32,7 +33,7 @@ permalink: /wiki/
 {% for group in item_grouped %}
 ### {{ group.name }}
 {% assign cate_items = group.items | sort: 'title' %}
-{% assign item2_grouped = cate_items | group_by: 'cate1' | sort: 'name' %}
+{% assign item2_grouped = cate_items | group_by: 'cate2' | sort: 'name' %}
 {% for sub_group in item2_grouped %}
 {% assign name_len = sub_group.name | size %}
 {% if name_len > 0 -%}
