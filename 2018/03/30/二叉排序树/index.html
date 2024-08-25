@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>二叉排序树 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/03/30/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="二叉排序树"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="参考文章"><meta name="og:description" content="参考文章"><meta property="og:url" content="https://mafulong.github.io/2018/03/30/%E4%BA%8C%E5%8F%89%E6%8E%92%E5%BA%8F%E6%A0%91/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-03-30"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="二叉排序树"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">二叉排序树</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/03/30 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Algorithms" title="Algorithms">Algorithms</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 9173 字，约 27 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><p><a href="https://blog.csdn.net/yixianfeng41/article/details/52802855">参考文章</a></p><p>定义一个二叉排序树结构：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">typedef</span> <span class="kt">int</span> <span class="n">DataType</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">BST_Node</span> <span class="p">{</span>
+    <span class="n">DataType</span> <span class="n">data</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">BST_Node</span> <span class="o">*</span><span class="n">lchild</span><span class="p">,</span> <span class="o">*</span><span class="n">rchild</span><span class="p">;</span>
+<span class="p">}</span><span class="n">BST_T</span><span class="p">,</span> <span class="o">*</span><span class="n">BST_P</span><span class="p">;</span>
+</code></pre></div></div><p>建立二叉排序树，用到Insert_BST方法，在后面：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">CreateBST</span><span class="p">(</span><span class="n">BST_P</span> <span class="o">*</span><span class="n">T</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">Insert_BST</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="二叉排序树查找">二叉排序树查找</h2><p>要在二叉树中找出查找最大最小元素是极简单的事情，从根节点一直往左走，直到无路可走就可得到最小值；从根节点一直往右走，直到无路可走，就可以得到最大值。</p><p>查找最小关键字：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BST_P</span> <span class="nf">SearchMin</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">root</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="k">else</span>  <span class="c1">//一直往左孩子找，直到没有左孩子的结点  </span>
+        <span class="k">return</span> <span class="n">SearchMin</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div><p>查找最大关键字：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BST_P</span> <span class="nf">SearchMax</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">root</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">rchild</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="k">else</span>  <span class="c1">//一直往右孩子找，直到没有右孩子的结点  </span>
+        <span class="k">return</span> <span class="n">SearchMax</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div><p>递归版查找（找到返回关键字的结点指针，没找到返回NULL）：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BST_P</span> <span class="nf">Search_BST</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">root</span><span class="p">,</span> <span class="n">DataType</span> <span class="n">key</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="c1">//查找右子树  </span>
+        <span class="k">return</span> <span class="n">Search_BST</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="c1">//查找左子树  </span>
+        <span class="k">return</span> <span class="n">Search_BST</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div><p>非递归版查找：</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BST_P</span> <span class="nf">Search_BST</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">root</span><span class="p">,</span> <span class="n">DataType</span> <span class="n">key</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">BST_P</span> <span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> 
+    <span class="p">{</span>       
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span>  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="o">?</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">:</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="二叉排序树插入">二叉排序树插入</h2><p>插入新元素时，可以从根节点开始，遇键值较大者就向左，遇键值较小者就向右，一直到末端，就是插入点。</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Insert_BST</span><span class="p">(</span><span class="n">BST_P</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">DataType</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">//初始化插入节点</span>
+    <span class="n">BST_P</span> <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">BST_P</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">BST_Node</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">;</span>
+    <span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="c1">//空树时，直接作为根节点</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">//是否存在，已存在则返回，不插入</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Search_BST</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span> 
+
+    <span class="c1">//进行插入，首先找到要插入的位置的父节点</span>
+    <span class="n">BST_P</span> <span class="n">tnode</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">troot</span> <span class="o">=</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">troot</span><span class="p">)</span>
+    <span class="p">{</span>       
+        <span class="n">tnode</span> <span class="o">=</span> <span class="n">troot</span><span class="p">;</span>
+        <span class="n">troot</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">troot</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="o">?</span> <span class="n">troot</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">:</span> <span class="n">troot</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">tnode</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">tnode</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="n">tnode</span><span class="o">-&gt;</span><span class="n">rchild</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div><div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 递归插入
+</span><span class="k">def</span> <span class="nf">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">()</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">val</span><span class="p">:</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span>
+    <span class="k">return</span> <span class="n">root</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">insertTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div><h2 id="二叉排序树删除">二叉排序树删除</h2><h4 id="简单方法">简单方法</h4><p>二叉树的删除操作有一个技巧, 即在查找到需要删除的节点 X; 接着我们找到要么在它的左子树中的最大元素节点 M、要么在它的右子树中的最小元素节点 M, 并交换(M,X). 此时, M 节点必然至多只有一个孩子; 最后一个步骤就是用 M 的子节点代替 M 节点就完成了. 所以, 所有的删除操作最后都会归结为删除一个至多只有一个孩子的节点, 而我们删除这个节点后, 用它的孩子替换就好了</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="nc">Node</span> <span class="nf">deleteNode</span><span class="o">(</span><span class="nc">Node</span> <span class="n">root</span><span class="o">,</span><span class="kt">int</span> <span class="n">a</span><span class="o">){</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">==</span><span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">==</span><span class="n">a</span><span class="o">){</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+                <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">==</span><span class="kc">null</span><span class="o">){</span>
+                <span class="k">return</span> <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+            <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                <span class="nc">Node</span> <span class="n">t</span><span class="o">=</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+                <span class="k">while</span> <span class="o">(</span><span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">!=</span><span class="kc">null</span><span class="o">){</span>
+                    <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="na">left</span><span class="o">;</span>
+                <span class="o">}</span>
+                <span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+                <span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="na">data</span><span class="o">;</span>
+                <span class="n">t</span><span class="o">.</span><span class="na">data</span><span class="o">=</span><span class="n">b</span><span class="o">;</span>
+                <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">=</span><span class="n">deleteNode</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span><span class="n">a</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">data</span><span class="o">&lt;</span><span class="n">a</span><span class="o">){</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">=</span><span class="n">deleteNode</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span><span class="n">a</span><span class="o">);</span>
+        <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+            <span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">=</span><span class="n">deleteNode</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span><span class="n">a</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></div></div><div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">deleteTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">TreeNode</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">if</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">root</span><span class="p">.</span><span class="n">right</span>
+        <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">root</span><span class="p">.</span><span class="n">left</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">replaceNode</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="n">right</span>
+            <span class="k">while</span> <span class="n">replaceNode</span><span class="p">.</span><span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">replaceNode</span> <span class="o">=</span> <span class="n">replaceNode</span><span class="p">.</span><span class="n">left</span>
+            <span class="n">root</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">replaceNode</span><span class="p">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">replaceNode</span><span class="p">.</span><span class="n">val</span><span class="p">,</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span>
+            <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">deleteTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">val</span><span class="p">:</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">deleteTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">right</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">root</span><span class="p">.</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">val</span><span class="p">:</span>
+        <span class="n">root</span><span class="p">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">deleteTreeNode</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">left</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">root</span>
+
+</code></pre></div></div><h4 id="一般方法">一般方法</h4><p>对于二叉排序树中的节点A，对它的删除分为两种情况：</p><ol><li>如果A只有一个子节点，就直接将A的子节点连至A的父节点上，并将A删除；</li><li>如果A有两个子节点，我们就以右子树内的最小节点取代A，怎么得最小节点，前有有说。这个最小节点肯定没有左孩子，将右孩子赋值给它的父母</li><li>如果是叶子节点，直接赋值为NULL就好了</li></ol><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">DeleteBSTNode</span><span class="p">(</span><span class="n">BST_P</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">DataType</span> <span class="n">data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">BST_P</span> <span class="n">p</span> <span class="o">=</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="n">parent</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">data</span><span class="p">)</span> <span class="c1">//找到要删除的节点了</span>
+    <span class="p">{</span>
+        <span class="cm">/* It's a leaf node */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">)</span> 
+            <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="c1">// 只有一个左节点</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="o">&amp;&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">)</span> 
+            <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">;</span>
+
+        <span class="c1">// 只有一个右节点</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="o">&amp;&amp;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">)</span> 
+            <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+
+        <span class="c1">//左右节点都不空</span>
+        <span class="k">else</span> 
+        <span class="p">{</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+            <span class="cm">/* the s without left child */</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">)</span>
+                <span class="n">s</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">;</span>
+            <span class="cm">/* the s have left child */</span>
+            <span class="k">else</span> 
+            <span class="p">{</span>
+                <span class="cm">/* find the smallest node in the left subtree of s */</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">s</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">)</span> 
+                <span class="p">{</span>
+                    <span class="cm">/* record the parent node of s */</span>
+                    <span class="n">parent</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+                    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="n">parent</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">=</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+                <span class="n">s</span><span class="o">-&gt;</span><span class="n">lchild</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">;</span>
+                <span class="n">s</span><span class="o">-&gt;</span><span class="n">rchild</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="o">*</span><span class="n">root</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="c1">//向右找</span>
+        <span class="n">DeleteBSTNode</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">),</span> <span class="n">data</span><span class="p">);</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="c1">//向左找</span>
+        <span class="n">DeleteBSTNode</span><span class="p">(</span><span class="o">&amp;</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">),</span> <span class="n">data</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="二叉树遍历">二叉树遍历</h2><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MidOrderTraverse</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">T</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">MidOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">);</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">T</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="n">MidOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">PreOrderTraverse</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">T</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">T</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+        <span class="n">PreOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">);</span>
+        <span class="n">PreOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">PostOrderTraverse</span><span class="p">(</span><span class="n">BST_P</span> <span class="n">T</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">PostOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">lchild</span><span class="p">);</span>
+        <span class="n">PostOrderTraverse</span><span class="p">(</span><span class="n">T</span><span class="o">-&gt;</span><span class="n">rchild</span><span class="p">);</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">T</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="测试">测试</h2><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">17</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">25</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">22</span><span class="p">};</span>  
+
+    <span class="n">BST_P</span> <span class="n">root</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="c1">//创建二叉排序树</span>
+    <span class="n">CreateBST</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Create BST: "</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">pre order traverse: "</span><span class="p">);</span>
+    <span class="n">PreOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">post order traverse: "</span><span class="p">);</span>
+    <span class="n">PostOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">//在二叉排序树中查找节点12.</span>
+    <span class="n">BST_P</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Search_BST</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Search Data: "</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"查找结果：</span><span class="se">\n</span><span class="s">"</span> <span class="o">&lt;&lt;</span> <span class="s">"指针："</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="s">"指针的值："</span> <span class="o">&lt;&lt;</span> <span class="n">result</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">//在二叉排序树中插入9</span>
+    <span class="n">Insert_BST</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Insert Data: "</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">pre order traverse: "</span><span class="p">);</span>
+    <span class="n">PreOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">post order traverse: "</span><span class="p">);</span>
+    <span class="n">PostOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">//删除二叉排序树中的节点12</span>
+    <span class="n">DeleteBSTNode</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">Delete Data: "</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">pre order traverse: "</span><span class="p">);</span>
+    <span class="n">PreOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">post order traverse: "</span><span class="p">);</span>
+    <span class="n">PostOrderTraverse</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="自己复习又写一遍的全部代码">自己复习又写一遍的全部代码</h2><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string&gt;
+#include&lt;vector&gt;
+#include&lt;queue&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+
+<span class="k">struct</span> <span class="nc">t</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">data</span><span class="p">;</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">left</span><span class="p">,</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+	<span class="n">t</span><span class="p">()</span><span class="o">:</span><span class="n">left</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span><span class="n">right</span><span class="p">(</span><span class="nb">NULL</span><span class="p">){</span>
+		
+	<span class="p">}</span>
+	<span class="n">t</span><span class="p">(</span><span class="kt">int</span> <span class="n">d</span><span class="p">)</span> <span class="o">:</span><span class="n">data</span><span class="p">(</span><span class="n">d</span><span class="p">),</span><span class="n">left</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">right</span><span class="p">(</span><span class="nb">NULL</span><span class="p">){</span>
+
+	<span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">t</span><span class="o">*</span> <span class="nf">searchMin</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">searchMin</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="n">t</span><span class="o">*</span> <span class="nf">searchMax</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">searchMax</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">t</span><span class="o">*</span> <span class="nf">searchKey</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="o">&gt;</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">searchKey</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="n">searchKey</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="n">t</span><span class="o">*</span> <span class="nf">searchKey1</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&gt;</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">insertNode</span><span class="p">(</span><span class="n">t</span> <span class="o">*&amp;</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">data</span><span class="p">);</span>
+<span class="n">t</span><span class="o">*</span> <span class="nf">createTree</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">root</span> <span class="o">=</span><span class="nb">NULL</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">insertNode</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">insertNode</span><span class="p">(</span><span class="n">t</span> <span class="o">*&amp;</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">t</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">root</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//找它的父节点</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">searchKey</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">data</span><span class="p">))</span> <span class="p">{</span>
+		<span class="c1">//里面有这个节点就别插了</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">father</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+	<span class="n">t</span> <span class="o">*</span><span class="n">t1</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">father</span> <span class="o">=</span> <span class="n">t1</span><span class="p">;</span>
+		<span class="n">t1</span> <span class="o">=</span> <span class="n">data</span> <span class="o">&gt;</span> <span class="n">t1</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">?</span> <span class="n">t1</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">:</span> <span class="n">t1</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">father</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span>
+		<span class="n">father</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+	<span class="k">else</span>
+		<span class="n">father</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+
+	<span class="c1">//while</span>
+<span class="p">}</span>
+
+
+<span class="kt">void</span> <span class="nf">deleteNode</span><span class="p">(</span><span class="n">t</span> <span class="o">*&amp;</span><span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">==</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">root</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+		<span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+		<span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">==</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+				<span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>	
+				<span class="n">root</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
+			<span class="p">}</span>
+			<span class="k">else</span> <span class="p">{</span>
+				<span class="n">t</span> <span class="o">*</span><span class="n">t2</span><span class="p">,</span> <span class="o">*</span><span class="n">t3</span><span class="o">=</span><span class="nb">NULL</span><span class="p">;</span>
+				<span class="n">t2</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+				<span class="k">while</span> <span class="p">(</span><span class="n">t2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="p">{</span>
+					<span class="n">t3</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
+					<span class="n">t2</span> <span class="o">=</span> <span class="n">t2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+				<span class="p">}</span>
+				<span class="n">t3</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">t2</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+				<span class="n">t2</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+				<span class="n">t2</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+				<span class="n">t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+				<span class="n">root</span> <span class="o">=</span> <span class="n">t2</span><span class="p">;</span>
+				<span class="k">delete</span> <span class="n">p</span><span class="p">;</span>
+
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">deleteNode</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">data</span> <span class="o">&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">deleteNode</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">visitlvr</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">visitlvr</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+		<span class="n">visitlvr</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">visitvlr</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+		<span class="n">visitvlr</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+		<span class="n">visitvlr</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">visitlrv</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">visitlrv</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+		<span class="n">visitlrv</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">data</span> <span class="o">&lt;&lt;</span> <span class="s">" "</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">void</span> <span class="nf">visitTree</span><span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">tree</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">visitlvr</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="n">visitvlr</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="n">visitlrv</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">freopen</span><span class="p">(</span><span class="s">"D:/in.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">a</span><span class="p">;</span>
+		<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span><span class="p">;</span>
+		<span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="n">t</span><span class="o">*</span> <span class="n">tree</span><span class="o">=</span><span class="n">createTree</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+	<span class="n">visitTree</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+
+	<span class="n">deleteNode</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+	<span class="n">visitTree</span><span class="p">(</span><span class="n">tree</span><span class="p">);</span>
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="floor">floor()</h2><p>floor(key)：小于等于键的最大键</p><p>如果键小于根节点的键，那么 floor(key) 一定在左子树中；</p><p>如果键大于根节点的键，需要先判断右子树中是否存在 floor(key)，如果存在就找到，否则根节点就是 floor(key)。</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Key</span> <span class="nf">floor</span><span class="o">(</span><span class="nc">Key</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Node</span> <span class="n">x</span> <span class="o">=</span> <span class="n">floor</span><span class="o">(</span><span class="n">root</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="na">key</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="nc">Node</span> <span class="nf">floor</span><span class="o">(</span><span class="nc">Node</span> <span class="n">x</span><span class="o">,</span> <span class="nc">Key</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">cmp</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nf">floor</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+    <span class="nc">Node</span> <span class="n">t</span> <span class="o">=</span> <span class="n">floor</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">t</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">t</span> <span class="o">:</span> <span class="n">x</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div><h2 id="rank">rank()</h2><p>rank(key) 返回 key 的排名。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>如果键和根节点的键相等，返回左子树的节点数；
+如果小于，递归计算在左子树中的排名；
+如果大于，递归计算在右子树中的排名，并加上左子树的节点数，再加上 1（根节点）。
+</code></pre></div></div><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">rank</span><span class="o">(</span><span class="nc">Key</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">rank</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">root</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">int</span> <span class="nf">rank</span><span class="o">(</span><span class="nc">Key</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Node</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">cmp</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nf">size</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="k">else</span> <span class="nf">if</span> <span class="o">(</span><span class="n">cmp</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span>
+        <span class="k">return</span> <span class="nf">rank</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">x</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">size</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">left</span><span class="o">)</span> <span class="o">+</span> <span class="n">rank</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">x</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div><h2 id="deletemin">deleteMin()</h2><p>令指向最小节点的链接指向最小节点的右子树。</p><div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteMin</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">deleteMin</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="nc">Node</span> <span class="nf">deleteMin</span><span class="o">(</span><span class="nc">Node</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="na">right</span><span class="o">;</span>
+    <span class="n">x</span><span class="o">.</span><span class="na">left</span> <span class="o">=</span> <span class="n">deleteMin</span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+    <span class="n">recalculateSize</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>html笔记 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2017/12/03/html%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="html笔记"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="如何理解HTML?"><meta name="og:description" content="如何理解HTML?"><meta property="og:url" content="https://mafulong.github.io/2017/12/03/html%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2017-12-03"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="html笔记"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">html笔记</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2017/12/03 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#FrontEnd" title="FrontEnd">FrontEnd</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 7834 字，约 23 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h1 id="如何理解html">如何理解HTML?</h1><p><strong>Web标准包括三个方面</strong>：</p><ul><li>结构标准（HTML）：用于对网页元素进行整理和分类。</li><li>表现标准（CSS）：用于设置网页元素的版式、颜色、大小等外观样式。</li><li>行为标准（JS）：用于定义网页的交互和行为。</li></ul><p>HTML 不是一种编程语言，是一种描述性的<strong>标记语言</strong>。</p><p><strong>作用</strong>：HTML是负责描述文档<strong>语义</strong>的语言。</p><p>HTML 格式的文件是一个纯本文文件（就是用txt文件改名而成），用一些标签来描述语义，这些标签在浏览器页面上是无法直观看到的，所以称之为“超文本标记语言”。</p><p>比如，面试的时候问你，<code class="language-plaintext highlighter-rouge">&lt;h1&gt;</code> 标签有什么作用？</p><ul><li>正确答案：给文本增加主标题的语义。</li><li>错误答案：给文字加粗、加黑、变大。</li></ul><p>之前的HTMl很混乱，还有些样式的标签，比如粗体<code class="language-plaintext highlighter-rouge">&lt;b&gt;</code> 等，新一代的html都废弃这些了，使之专门负责语义。</p><p><strong>语义化的意义是什么</strong></p><ul><li>开发者容易理解，便于维护。</li><li>机器（搜索引擎、读屏软件等）容易理解结构</li><li>有助于 SEO</li></ul><p>HTML 相当于人的身体组织结构</p><h1 id="笔记">笔记</h1><ul><li><a href="https://web.qianguyihao.com/01-HTML/03-%E5%88%9D%E8%AF%86HTML.html#_1%E3%80%81%E6%96%87%E6%A1%A3%E5%A3%B0%E6%98%8E%E5%A4%B4">文档声明头</a></li><li><a href="https://web.qianguyihao.com/01-HTML/03-%E5%88%9D%E8%AF%86HTML.html#_4%E3%80%81-body-%E6%A0%87%E7%AD%BE">计算机编码介绍</a> unicode是4字节表示，ansi是2字节，utf-8是变长。中文除utf8外还可以gbk仅包含常用中文。追求速度就后者，字节少，快，但不全。</li><li><p>HTML中所有的<strong>文字之间</strong>，如果有空格、换行、tab都将被折叠为一个空格显示。</p></li><li><a href="https://web.qianguyihao.com/01-HTML/07-html%E6%A0%87%E7%AD%BE%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89.html#frame-%EF%BC%9A%E6%A1%86%E6%9E%B6">iframe</a></li></ul><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+    <span class="c">&lt;!--使用样式表--&gt;</span>
+    <span class="c">&lt;!--head部分链接样式表--&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"mystyle.css"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--单个文件特殊样式--&gt;</span>
+    <span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
+        <span class="nt">body</span> <span class="p">{</span><span class="nl">background-color</span><span class="p">:</span> <span class="m">#63ff52</span>
+        <span class="p">}</span>
+        <span class="nt">p</span> <span class="p">{</span><span class="nl">margin-left</span><span class="p">:</span> <span class="m">20px</span><span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+    <span class="c">&lt;!--内联样式见下--&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="c">&lt;!--标题--&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>mafulong<span class="nt">&lt;/h1&gt;</span>
+<span class="c">&lt;!--水平线--&gt;</span>
+    <span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+<span class="c">&lt;!--链接--&gt;</span>
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.baidu.com"</span><span class="nt">&gt;</span>Baidu<span class="nt">&lt;/a&gt;</span>
+<span class="c">&lt;!--折行--&gt;</span>
+    <span class="nt">&lt;br&gt;</span>
+<span class="c">&lt;!--图片--&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg"</span> <span class="na">width=</span><span class="s">"120"</span> <span class="na">height=</span><span class="s">"130"</span><span class="nt">/&gt;</span>
+<span class="c">&lt;!--段落--&gt;</span>
+    <span class="nt">&lt;p&gt;</span>mafulong<span class="nt">&lt;/p&gt;</span>
+<span class="c">&lt;!--样式--&gt;</span>
+    <span class="c">&lt;!--背景颜色；对齐方式； 字体； 字体大小； 字体颜色--&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"background-color: green"</span><span class="nt">&gt;</span>mafulong<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p</span> <span class="na">style=</span><span class="s">"text-align: center; color: blue; font-family: Arial; font-size: 20px"</span><span class="nt">&gt;</span>mafulong<span class="nt">&lt;/p&gt;</span>
+<span class="c">&lt;!--文本格式化标签--&gt;</span>
+    <span class="c">&lt;!--粗体--&gt;</span>
+    <span class="nt">&lt;b&gt;</span>mafulong<span class="nt">&lt;/b&gt;</span>
+    <span class="c">&lt;!--斜体--&gt;</span>
+    <span class="nt">&lt;i&gt;</span>mafulong<span class="nt">&lt;/i&gt;</span>
+    <span class="nt">&lt;q&gt;</span>引用<span class="nt">&lt;/q&gt;</span>
+    <span class="nt">&lt;blockquote&gt;</span>自动缩进的长引用<span class="nt">&lt;/blockquote&gt;</span>
+    <span class="nt">&lt;var&gt;</span>数学变量，斜体表示<span class="nt">&lt;/var&gt;</span>
+<span class="c">&lt;!--联系信息--&gt;</span>
+    <span class="nt">&lt;address&gt;</span>斜体表示<span class="nt">&lt;/address&gt;</span>
+<span class="c">&lt;!--代码--&gt;</span>
+    <span class="nt">&lt;pre&gt;</span>
+        <span class="nt">&lt;code&gt;</span>
+            保持代码格式，不删除空格
+        <span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/pre&gt;</span>
+<span class="c">&lt;!--html可定义专属注释--&gt;</span>
+    <span class="c">&lt;!--[if IE 8]&gt;
+    .... some HTML here ....
+    &lt;![endif]--&gt;</span>
+<span class="c">&lt;!--表格--&gt;</span>
+    <span class="c">&lt;!--空的单元格要输入&amp;nbsp--&gt;</span>
+    <span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- 表头 --&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Name<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>Telephone<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="c">&lt;!--table row--&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="c">&lt;!--table data--&gt;</span>
+            <span class="nt">&lt;td&gt;</span>12<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>323<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>fj<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>df<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="c">&lt;!--列表--&gt;</span>
+    <span class="c">&lt;!--有序列表--&gt;</span>
+    <span class="nt">&lt;ol&gt;</span>
+        <span class="nt">&lt;li&gt;</span>1<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ol&gt;</span>
+    <span class="c">&lt;!--有序列表--&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>。<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="c">&lt;!--自定义列表 --&gt;</span>
+    <span class="nt">&lt;dl&gt;</span>
+        <span class="nt">&lt;dt&gt;</span>Coffee<span class="nt">&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>- black hot drink<span class="nt">&lt;/dd&gt;</span>
+        <span class="nt">&lt;dt&gt;</span>Milk<span class="nt">&lt;/dt&gt;</span>
+        <span class="nt">&lt;dd&gt;</span>- white cold drink<span class="nt">&lt;/dd&gt;</span>
+    <span class="nt">&lt;/dl&gt;</span>
+<span class="c">&lt;!-- 图片 --&gt;</span>
+	<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"pulpit.jpg"</span> <span class="na">alt=</span><span class="s">"Pulpit rock"</span> <span class="na">width=</span><span class="s">"304"</span> <span class="na">height=</span><span class="s">"228"</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 点击图片跳转 --&gt;</span>
+    <span class="nt">&lt;p&gt;</span>无边框的图片链接:
+    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.runoob.com/html/html-tutorial.html"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;img</span> <span class="na">border=</span><span class="s">"0"</span> <span class="na">src=</span><span class="s">"smiley.gif"</span> <span class="na">alt=</span><span class="s">"HTML 教程"</span> <span class="na">width=</span><span class="s">"32"</span> <span class="na">height=</span><span class="s">"32"</span><span class="nt">&gt;&lt;/a&gt;&lt;/p&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+
+
+
+</code></pre></div></div><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fieldset，legend 是表单的语义化。
+</code></pre></div></div><ul><li><a href="https://web.qianguyihao.com/01-HTML/07-html%E6%A0%87%E7%AD%BE%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89.html#%E8%A1%A8%E5%8D%95%E7%9A%84%E8%AF%AD%E4%B9%89%E5%8C%96">label标签</a> 将文字绑定到一个input上，避免点文字和点radio等分离，使其作为一个整体。</li></ul><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+    <span class="c">&lt;!--style:标签名.类名 小标签名--&gt;</span>
+    <span class="c">&lt;!--或者： #id 小标签名--&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nt">renshen</span> <span class="p">{</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="m">#63ff52</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="c">&lt;!--分类行内元素：span--&gt;</span>
+<span class="nt">&lt;p&gt;</span>我的母亲有 <span class="nt">&lt;span</span> <span class="na">style=</span><span class="s">"color: blue"</span><span class="nt">&gt;</span>蓝色<span class="nt">&lt;/span&gt;</span> 的眼睛。<span class="nt">&lt;/p&gt;</span>
+
+<span class="c">&lt;!--分类块级元素：div--&gt;</span>
+<span class="c">&lt;!--利用div做布局工具--&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"color: #0000ff"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>这是一个在 div 元素中的标题。<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span>这是一个在 div 元素中的文本。<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!--类用.引用， id用#引用--&gt;</span>
+<span class="c">&lt;!--header,nav,section,footer--&gt;</span>
+<span class="c">&lt;!--html5自己带元素，定义style引用时不需要用#，直接用，如header{}--&gt;</span>
+<span class="c">&lt;!--Bootstrap响应式CSS框架，适配显示器--&gt;</span>
+<span class="nt">&lt;renshen&gt;</span>
+    <span class="nt">&lt;p&gt;</span>人生啊<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/renshen&gt;</span>
+<span class="c">&lt;!--表单--&gt;</span>
+<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"a.html"</span> <span class="na">method=</span><span class="s">"get"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--通过name提交--&gt;</span>
+    <span class="c">&lt;!--&lt;fieldset&gt; 元素组合表单中的相关数据
+&lt;legend&gt; 元素为 &lt;fieldset&gt; 元素定义标题。
+--&gt;</span>
+    <span class="nt">&lt;fieldset&gt;</span>
+        <span class="nt">&lt;legend&gt;</span>Personal information:<span class="nt">&lt;/legend&gt;</span>
+        Name: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">size=</span><span class="s">"30"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+        E-mail: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">size=</span><span class="s">"30"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+        Date of birth: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">size=</span><span class="s">"10"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/fieldset&gt;</span>
+    First name<span class="nt">&lt;br/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">""</span> <span class="na">firstname</span> <span class="na">value=</span><span class="s">"wahh"</span> <span class="na">autofocus</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"sex"</span> <span class="na">value=</span><span class="s">"male"</span><span class="nt">/&gt;</span>female
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"sex"</span> <span class="na">value=</span><span class="s">"female"</span><span class="nt">/&gt;</span>male
+
+    <span class="c">&lt;!-- submit定义了提交按钮。
+    当用户单击确认按钮时，表单的内容会被传送到服务器。表单的动作属性 action 定义了服务端的文件名。
+    action 属性会对接收到的用户输入数据进行相关的处理: --&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Submit"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!--下拉列表--&gt;</span>
+    <span class="c">&lt;!-- 还有optiongroup可以2层选择那样 --&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">name=</span><span class="s">"cars"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"volvo"</span><span class="nt">&gt;</span>Volvo<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"saab"</span><span class="nt">&gt;</span>Saab<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"fiat"</span><span class="nt">&gt;</span>Fiat<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"audi"</span><span class="nt">&gt;</span>Audi<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+    <span class="c">&lt;!--textarea--&gt;</span>
+    <span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">"message"</span> <span class="na">rows=</span><span class="s">"10"</span> <span class="na">cols=</span><span class="s">"30"</span><span class="nt">&gt;</span>
+    The cat was playing in the garden.
+    <span class="nt">&lt;/textarea&gt;</span>
+    <span class="c">&lt;!--button--&gt;</span>
+    <span class="c">&lt;!-- 下面两种实现效果一样 --&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">onclick=</span><span class="s">"alert('Hello World!')"</span><span class="nt">&gt;</span>Click Me!<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"Hello world!"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre></div></div><h1 id="速查">速查</h1><h2 id="参考手册">参考手册</h2><ul><li><a href="https://www.runoob.com/tags/html-reference.html">HTML 参考手册</a></li></ul><h2 id="html基本文档">HTML基本文档</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;title&gt;</span>文档标题<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+可见文本...
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div><h2 id="基本标签basic-tags">基本标签（Basic Tags）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;h1&gt;</span>最大的标题<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;h2&gt;</span> . . . <span class="nt">&lt;/h2&gt;</span>
+<span class="nt">&lt;h3&gt;</span> . . . <span class="nt">&lt;/h3&gt;</span>
+<span class="nt">&lt;h4&gt;</span> . . . <span class="nt">&lt;/h4&gt;</span>
+<span class="nt">&lt;h5&gt;</span> . . . <span class="nt">&lt;/h5&gt;</span>
+<span class="nt">&lt;h6&gt;</span>最小的标题<span class="nt">&lt;/h6&gt;</span>
+ 
+<span class="nt">&lt;p&gt;</span>这是一个段落。<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;br&gt;</span> （换行）
+<span class="nt">&lt;hr&gt;</span> （水平线）
+<span class="c">&lt;!-- 这是注释 --&gt;</span>
+</code></pre></div></div><h2 id="文本格式化formatting">文本格式化（Formatting）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;b&gt;</span>粗体文本<span class="nt">&lt;/b&gt;</span>
+<span class="nt">&lt;code&gt;</span>计算机代码<span class="nt">&lt;/code&gt;</span>
+<span class="nt">&lt;em&gt;</span>强调文本<span class="nt">&lt;/em&gt;</span>
+<span class="nt">&lt;i&gt;</span>斜体文本<span class="nt">&lt;/i&gt;</span>
+<span class="nt">&lt;kbd&gt;</span>键盘输入<span class="nt">&lt;/kbd&gt;</span> 
+    H5已废弃
+<span class="nt">&lt;pre&gt;</span>预格式化文本<span class="nt">&lt;/pre&gt;</span>
+<span class="nt">&lt;small&gt;</span>更小的文本<span class="nt">&lt;/small&gt;</span>
+<span class="nt">&lt;strong&gt;</span>重要的文本<span class="nt">&lt;/strong&gt;</span>
+ 
+<span class="nt">&lt;abbr&gt;</span> （缩写）
+    The<span class="nt">&lt;abbr</span> <span class="na">title=</span><span class="s">"World Health Organization"</span><span class="nt">&gt;</span>WHO<span class="nt">&lt;/abbr&gt;</span> was founded in 1948.
+<span class="nt">&lt;address&gt;</span> （联系信息）
+    就是斜体
+<span class="nt">&lt;bdo&gt;</span> （文字方向）
+<span class="nt">&lt;blockquote&gt;</span> （从另一个源引用的部分）
+<span class="nt">&lt;cite&gt;</span> （工作的名称）
+<span class="nt">&lt;del&gt;</span> （删除的文本）
+<span class="nt">&lt;ins&gt;</span> （插入的文本）
+<span class="nt">&lt;sub&gt;</span> （下标文本）
+<span class="nt">&lt;sup&gt;</span> （上标文本）
+</code></pre></div></div><h2 id="链接links">链接（Links）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>普通的链接：<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.example.com/"</span><span class="nt">&gt;</span>链接文本<span class="nt">&lt;/a&gt;</span>
+图像链接： <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"http://www.example.com/"</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">"URL"</span> <span class="na">alt=</span><span class="s">"替换文本"</span><span class="nt">&gt;&lt;/a&gt;</span>
+邮件链接： <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mailto:webmaster@example.com"</span><span class="nt">&gt;</span>发送e-mail<span class="nt">&lt;/a&gt;</span>
+书签：
+<span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">"tips"</span><span class="nt">&gt;</span>提示部分<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#tips"</span><span class="nt">&gt;</span>跳到提示部分<span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div><blockquote><p><a href="https://www.runoob.com/html/html-links.html">参考</a></p></blockquote><p>可以超链接可以设置html锚点到某个元素。</p><h2 id="图片images">图片（Images）</h2><p>必须有src和alt属性</p><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"URL"</span> <span class="na">alt=</span><span class="s">"替换文本"</span> <span class="na">height=</span><span class="s">"42"</span> <span class="na">width=</span><span class="s">"42"</span><span class="nt">&gt;</span>
+</code></pre></div></div><h2 id="样式区块stylessections">样式/区块（Styles/Sections）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">"text/css"</span><span class="nt">&gt;</span>
+<span class="nt">h1</span> <span class="p">{</span><span class="nl">color</span><span class="p">:</span><span class="no">red</span><span class="p">;}</span>
+<span class="nt">p</span> <span class="p">{</span><span class="nl">color</span><span class="p">:</span><span class="no">blue</span><span class="p">;}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;div&gt;</span>文档中的块级元素<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;span&gt;</span>文档中的内联元素<span class="nt">&lt;/span&gt;</span>
+</code></pre></div></div><h2 id="无序列表">无序列表</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>项目<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>项目<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</code></pre></div></div><h2 id="有序列表">有序列表</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;ol&gt;</span>
+    <span class="nt">&lt;li&gt;</span>第一项<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>第二项<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+</code></pre></div></div><h2 id="定义列表">定义列表</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dl&gt;</span>
+  <span class="nt">&lt;dt&gt;</span>项目 1<span class="nt">&lt;/dt&gt;</span>
+    <span class="nt">&lt;dd&gt;</span>描述项目 1<span class="nt">&lt;/dd&gt;</span>
+  <span class="nt">&lt;dt&gt;</span>项目 2<span class="nt">&lt;/dt&gt;</span>
+    <span class="nt">&lt;dd&gt;</span>描述项目 2<span class="nt">&lt;/dd&gt;</span>
+<span class="nt">&lt;/dl&gt;</span>
+</code></pre></div></div><h2 id="表格tables">表格（Tables）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;table</span> <span class="na">border=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;tr&gt;</span>
+    <span class="nt">&lt;th&gt;</span>表格标题<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;th&gt;</span>表格标题<span class="nt">&lt;/th&gt;</span>
+  <span class="nt">&lt;/tr&gt;</span>
+  <span class="nt">&lt;tr&gt;</span>
+    <span class="nt">&lt;td&gt;</span>表格数据<span class="nt">&lt;/td&gt;</span>
+    <span class="nt">&lt;td&gt;</span>表格数据<span class="nt">&lt;/td&gt;</span>
+  <span class="nt">&lt;/tr&gt;</span>
+<span class="nt">&lt;/table&gt;</span>
+</code></pre></div></div><h2 id="框架iframe">框架（Iframe）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;iframe</span> <span class="na">src=</span><span class="s">"demo_iframe.htm"</span><span class="nt">&gt;&lt;/iframe&gt;</span>
+</code></pre></div></div><h2 id="表单forms">表单（Forms）</h2><p>每个输入元素必须有一个name属性</p><p>在form规定action, submit提交就执行，method规定post还是get, 默认是get</p><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"demo_form.php"</span> <span class="na">method=</span><span class="s">"post/get"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"email"</span> <span class="na">size=</span><span class="s">"40"</span> <span class="na">maxlength=</span><span class="s">"50"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">checked=</span><span class="s">"checked"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">checked=</span><span class="s">"checked"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Send"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"reset"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;select&gt;</span>
+<span class="nt">&lt;option&gt;</span>苹果<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;option</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>香蕉<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;option&gt;</span>樱桃<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;textarea</span> <span class="na">name=</span><span class="s">"comment"</span> <span class="na">rows=</span><span class="s">"60"</span> <span class="na">cols=</span><span class="s">"20"</span><span class="nt">&gt;&lt;/textarea&gt;</span>
+ 
+<span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div><blockquote><p><a href="https://www.runoob.com/html/html-forms.html">参考</a></p></blockquote><p>表单是一个包含表单元素的区域。</p><p>表单元素是允许用户在表单中输入内容，比如：文本域（textarea）、下拉列表（select）、单选框（radio-buttons）、复选框（checkbox） 等等。</p><p>我们可以使用 <strong>form</strong> 标签来创建表单</p><p>input也可以脱离form使用，不过可能需要结合ajax等。</p><h2 id="实体entities">实体（Entities）</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="ni">&amp;lt;</span> 等同于 <span class="nt">&lt;</span>
+<span class="err">&amp;</span><span class="na">gt</span><span class="err">;</span> <span class="na">等同于</span> <span class="nt">&gt;</span>
+<span class="ni">&amp;#169;</span> 等同于 ©
+</code></pre></div></div><h2 id="事件">事件</h2><p><a href="https://www.runoob.com/tags/ref-eventattributes.html">参考</a></p><ul><li><code class="language-plaintext highlighter-rouge">onclick</code>：用户点击 HTML 元素。</li><li><code class="language-plaintext highlighter-rouge">onchange</code>：HTML 元素改变. <code class="language-plaintext highlighter-rouge">onchange</code> 事件会在域的内容改变时发生。<code class="language-plaintext highlighter-rouge">onchange</code> 事件也可用于单选框与复选框改变后触发的事件。</li><li><code class="language-plaintext highlighter-rouge">onload</code>：浏览器已完成页面的加载。</li><li><code class="language-plaintext highlighter-rouge">onmouseover</code>：用户在一个HTML元素上移动鼠标。</li><li><code class="language-plaintext highlighter-rouge">onmouseout</code>：用户从一个HTML元素上移开鼠标。</li><li><code class="language-plaintext highlighter-rouge">onkeydown</code>：用户按下键盘按键。</li></ul></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>

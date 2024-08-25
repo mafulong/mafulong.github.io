@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>MySQL命令和SQL &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/03/26/Mysql%E5%91%BD%E4%BB%A4%E5%92%8CSQL/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="MySQL命令和SQL"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="linux的mysql安装及配置"><meta name="og:description" content="linux的mysql安装及配置"><meta property="og:url" content="https://mafulong.github.io/2018/03/26/Mysql%E5%91%BD%E4%BB%A4%E5%92%8CSQL/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-03-26"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="MySQL命令和SQL"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">MySQL命令和SQL</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/03/26 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Mysql" title="Mysql">Mysql</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 4364 字，约 13 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="linux的mysql安装及配置">linux的mysql安装及配置</h2><h3 id="安装">安装</h3><p><a href="https://tecadmin.net/install-mysql-server-on-debian9-stretch/">How To Install MySQL on Debian 9 </a></p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update 
+<span class="nb">sudo </span>apt upgrade
+
+wget http://repo.mysql.com/mysql-apt-config_0.8.9-1_all.deb
+<span class="nb">sudo </span>dpkg <span class="nt">-i</span> mysql-apt-config_0.8.9-1_all.deb
+
+<span class="nb">sudo </span>apt update 
+<span class="nb">sudo </span>apt <span class="nb">install </span>mysql-server
+
+<span class="nb">sudo </span>systemctl restart mysql
+
+mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div><h3 id="mysql更改密码和创建用户">mysql更改密码和创建用户</h3><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>UPDATE user SET Password <span class="o">=</span> PASSWORD<span class="o">(</span><span class="s1">'newpass'</span><span class="o">)</span> WHERE user <span class="o">=</span> <span class="s1">'root'</span><span class="p">;</span>
+FLUSH PRIVILEGES<span class="p">;</span>
+<span class="k">select </span>host,user,password from user <span class="p">;</span>
+<span class="c"># 创建admin用户可远程也可本地访问，超级用户</span>
+CREATE USER <span class="s1">'admin'</span>@<span class="s1">'localhost'</span> IDENTIFIED BY <span class="s1">'1234'</span><span class="p">;</span>
+CREATE USER <span class="s1">'admin'</span>@<span class="s1">'%'</span> IDENTIFIED BY <span class="s1">'1234'</span><span class="p">;</span>
+GRANT ALL ON <span class="k">*</span>.<span class="k">*</span> TO <span class="s1">'admin'</span>@<span class="s1">'localhost'</span> WITH GRANT OPTION<span class="p">;</span>
+GRANT ALL ON <span class="k">*</span>.<span class="k">*</span> TO <span class="s1">'admin'</span>@<span class="s1">'%'</span> WITH GRANT OPTION<span class="p">;</span>
+FLUSH PRIVILEGES<span class="p">;</span>
+</code></pre></div></div><p><a href="https://www.yiibai.com/mysql/grant.html">grant</a></p><h3 id="查看默认端口号">查看默认端口号</h3><p><a href="https://www.cnblogs.com/tianlangshu/p/5665290.html">查看并修改默认端口号</a></p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show global variables like <span class="s1">'port'</span><span class="p">;</span>
+</code></pre></div></div><h3 id="mysql远程连接">mysql远程连接</h3><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql <span class="nt">-h</span> 192.168.5.116 <span class="nt">-P</span> 3306 <span class="nt">-u</span> root <span class="nt">-p123456</span>
+</code></pre></div></div><h3 id="配置可远程连接">配置可远程连接</h3><p><a href="https://www.cnblogs.com/skyWings/p/5952795.html">配置mysql允许远程链接</a></p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>update user <span class="nb">set </span>host <span class="o">=</span> <span class="s1">'%'</span> where user <span class="o">=</span> <span class="s1">'root'</span><span class="p">;</span>
+<span class="k">select </span>host, user from user<span class="p">;</span>
+</code></pre></div></div><p>还需要修改bind-address 在/etc/mysql/mysql.conf.d目录下的mysqld.cnf文件</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bind-address=0.0.0.0
+</code></pre></div></div><h3 id="mysql重启或关闭">mysql重启或关闭</h3><p><a href="https://www.cnblogs.com/linjiqin/p/3544472.html">mysql重启或关闭</a></p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>service mysqld restart 
+service mysqld stop
+</code></pre></div></div><h2 id="符号的作用">符号`的作用</h2><p>区分关键字，防止表名或者列名与关键字区分</p><h2 id="dos启动和关闭mysql服务">DOS启动和关闭mysql服务</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>net start查看都有哪些服务被开启
+net start MySQL57forMFL
+net stop MySQL57forMFL
+</code></pre></div></div><h2 id="dos连接数据库">DOS连接数据库</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql -h 127.0.0.1 -u -p
+需要管理员权限
+</code></pre></div></div><h2 id="登陆">登陆</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span>
+</code></pre></div></div><p>root为用户名 ，后让你输入密码</p><h2 id="创建用户">创建用户</h2><p>添加用户的方法为通过SQL的 GRANT 命令，你下命令会给指定数据库TUTORIALS添加用户 zara ，密码为 zara123</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">SELECT</span><span class="p">,</span><span class="k">INSERT</span><span class="p">,</span><span class="k">UPDATE</span><span class="p">,</span><span class="k">DELETE</span><span class="p">,</span><span class="k">CREATE</span><span class="p">,</span><span class="k">DROP</span>
+    <span class="o">-&gt;</span> <span class="k">ON</span> <span class="n">TUTORIALS</span><span class="p">.</span><span class="o">*</span>
+    <span class="o">-&gt;</span> <span class="k">TO</span> <span class="s1">'zara'</span><span class="o">@</span><span class="s1">'localhost'</span>
+    <span class="o">-&gt;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">'zara123'</span><span class="p">;</span>
+</code></pre></div></div><h2 id="管理数据库">管理数据库</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">USE</span> <span class="err">数据库名</span> <span class="p">:</span>
+<span class="err">选择要操作的</span><span class="n">Mysql</span><span class="err">数据库，使用该命令后所有</span><span class="n">Mysql</span><span class="err">命令都只针对该数据库。</span>
+<span class="k">SHOW</span> <span class="n">DATABASES</span><span class="p">:</span> 
+<span class="err">列出</span> <span class="n">MySQL</span> <span class="err">数据库管理系统的数据库列表。</span>
+<span class="k">SHOW</span> <span class="n">TABLES</span><span class="p">:</span>
+<span class="err">显示指定数据库的所有表，使用该命令前需要使用</span> <span class="n">use</span> <span class="err">命令来选择要操作的数据库。</span>
+<span class="k">SHOW</span> <span class="n">COLUMNS</span> <span class="k">FROM</span> <span class="err">数据表</span><span class="p">:</span>
+<span class="err">显示数据表的属性，属性类型，主键信息</span> <span class="err">，是否为</span> <span class="k">NULL</span><span class="err">，默认值等其他信息。</span>
+<span class="k">SHOW</span> <span class="k">INDEX</span> <span class="k">FROM</span> <span class="err">数据表</span><span class="p">:</span>
+<span class="err">显示数据表的详细索引信息，包括</span><span class="k">PRIMARY</span> <span class="k">KEY</span><span class="err">（主键）。</span>
+<span class="k">SHOW</span> <span class="k">TABLE</span> <span class="n">STATUS</span> <span class="k">LIKE</span> <span class="p">[</span><span class="k">FROM</span> <span class="n">db_name</span><span class="p">]</span> <span class="p">[</span><span class="k">LIKE</span> <span class="s1">'pattern'</span><span class="p">]</span> <span class="err">\</span><span class="k">G</span><span class="p">:</span> 
+<span class="err">该命令将输出</span><span class="n">Mysql</span><span class="err">数据库管理系统的性能及统计信息。</span>
+</code></pre></div></div><h2 id="数据库基本操作">数据库基本操作</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="k">database</span> <span class="n">dbname</span><span class="p">;</span>
+<span class="k">show</span> <span class="n">databases</span><span class="p">;</span>
+<span class="k">drop</span> <span class="k">database</span> <span class="n">dbname</span><span class="p">;</span>
+<span class="n">use</span> <span class="n">dbname</span><span class="p">;</span>
+</code></pre></div></div><h2 id="存储引擎">存储引擎</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>show engines;
+show engines \g;
+</code></pre></div></div><p>安装版mysql默认是InnoDB,免安装版是MyISAM</p><p>常用的三种：</p><ol><li>MyISAM：不支持事物，不支持外键，速度快，适合对事务完整性没有要求并以访问为主的应用</li><li>InnoDB：在事务上有优势，支持提交，回滚等，但占用更多磁盘空间，会频繁更新，适合需要实现并发控制的应用</li><li>MEMORY：使用内存来存储数据，速度快，但在安全上没有保障，适合数据小、快速访问的应用</li></ol><h2 id="数据类型">数据类型</h2><ol><li>tinyint;smallint;mediumint;int/integer;bigint</li><li>float; double; dec(m,d)/decimal(m,d); bit(m)</li><li>date; datetime; timestamp; time; year</li><li>char(m); varchar(m) 经常变化选择varchar</li></ol><h2 id="表的操作">表的操作</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="n">tabel</span> <span class="n">t1</span><span class="p">(</span>
+    <span class="n">id</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">查看表结构</span>
+<span class="k">describe</span> <span class="n">tablename</span><span class="p">;</span>
+
+<span class="err">查看表详细定义</span>
+<span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="n">tablename</span><span class="p">;</span>
+<span class="err">尾部加\</span><span class="k">g</span><span class="err">格式化</span>
+
+<span class="k">drop</span> <span class="k">table</span> <span class="n">tablename</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="n">oldtablename</span> <span class="k">rename</span> <span class="n">newtablename</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">table</span> <span class="k">add</span> <span class="n">id2</span> <span class="nb">int</span><span class="p">;</span> <span class="o">//</span><span class="err">最后位置加字段</span>
+            <span class="k">add</span> <span class="n">id2</span> <span class="nb">int</span> <span class="k">first</span><span class="p">;</span> <span class="o">//</span><span class="err">第一个位置加字段</span>
+            <span class="k">add</span> <span class="n">id2</span> <span class="nb">int</span> <span class="k">after</span> <span class="n">id</span><span class="p">;</span> <span class="o">//</span><span class="err">指定位置</span>
+            <span class="k">drop</span> <span class="n">id2</span><span class="p">;</span><span class="o">//</span><span class="k">delete</span>
+            <span class="k">modify</span> <span class="n">id2</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="o">//</span><span class="err">修改类型</span>
+            <span class="n">change</span> <span class="n">id2</span> <span class="n">id3</span> <span class="err">新的数据类型</span><span class="o">//</span> <span class="n">id2</span><span class="err">改为</span><span class="n">id3</span>
+            <span class="k">modify</span> <span class="n">id</span> <span class="nb">int</span> <span class="k">after</span> <span class="n">id2</span><span class="p">;</span><span class="o">//</span><span class="err">修改顺序</span><span class="n">id2</span><span class="err">之后</span>
+            <span class="n">modidy</span> <span class="n">id</span> <span class="nb">int</span> <span class="k">first</span><span class="o">//</span><span class="err">第一位置</span>
+</code></pre></div></div><h2 id="约束">约束</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">not</span> <span class="k">null</span>
+<span class="k">default</span>
+<span class="k">unique</span><span class="p">(</span><span class="n">uk</span><span class="p">)</span>
+<span class="k">primary</span> <span class="k">key</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span>
+<span class="n">auto_increment</span>
+<span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">fk</span><span class="p">)</span>
+
+<span class="k">constraint</span> <span class="n">name</span> <span class="p">...</span>
+<span class="err">可以不命名</span>
+
+<span class="n">auto_increment</span> <span class="err">只有一个整数类型字段可以设置</span>
+<span class="k">foreign</span> <span class="k">key</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">references</span> <span class="n">tablename</span><span class="p">(</span><span class="n">id2</span><span class="p">)</span>
+
+</code></pre></div></div><h2 id="索引的操作">索引的操作</h2><ul><li>InnoDB和MyISAM支持BTREE索引，MEMORY支持hash索引</li></ul><p>普通索引</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="k">table</span> <span class="n">t</span><span class="p">(</span>
+    <span class="n">id</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">name</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="k">index</span><span class="o">/</span><span class="k">key</span> <span class="n">indexname</span><span class="p">(</span><span class="n">id</span><span class="p">)</span> <span class="k">asc</span><span class="o">/</span><span class="k">desc</span>
+    <span class="err">默认是</span><span class="k">asc</span>
+<span class="p">)</span>
+
+<span class="o">/</span> 
+
+<span class="k">create</span> <span class="k">index</span><span class="o">/</span><span class="k">key</span> <span class="n">indexname</span> <span class="k">on</span> <span class="n">tablename</span><span class="p">(</span><span class="n">id</span> <span class="k">asc</span><span class="p">)</span>
+
+<span class="o">/</span>
+
+<span class="k">alter</span> <span class="k">table</span> <span class="n">tablename</span> <span class="k">add</span> <span class="k">index</span><span class="o">/</span><span class="k">key</span> <span class="n">indexname</span><span class="p">(</span><span class="n">id</span> <span class="k">asc</span><span class="p">)</span>
+
+<span class="err">检验是否创建成功用</span><span class="k">show</span> <span class="k">create</span> <span class="k">table</span> <span class="n">tablename</span> <span class="err">\</span><span class="k">g</span>
+<span class="err">检验是否启用用</span><span class="k">explain</span> <span class="k">select</span><span class="p">....</span>
+</code></pre></div></div><p>唯一性索引（索引的值唯一）</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unique index/key....
+</code></pre></div></div><p>全文索引(主要关联char , varchar , text等字段，只支持myisam的)</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fulltext index...
+</code></pre></div></div><p>多列索引</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>index indexname (id asc,id2 desc)
+</code></pre></div></div><p>删除索引</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drop index indexname on tablename
+</code></pre></div></div><h2 id="视图的操作">视图的操作</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>create view viewname as select...
+
+show tables;
+
+show create view viewname;
+
+drop view viewname;
+
+create or replace view ....
+
+alter view as ....
+
+</code></pre></div></div><p>视图来自多个基本表时，不允许添加和删除数据</p><h2 id="触发器">触发器</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="k">trigger</span> <span class="n">triggername</span>
+    <span class="k">before</span><span class="o">/</span><span class="k">after</span> <span class="k">delete</span><span class="o">/</span><span class="k">insert</span><span class="o">/</span><span class="k">update</span>
+        <span class="k">on</span> <span class="n">tablename</span>
+            <span class="p">[</span><span class="k">for</span> <span class="k">each</span> <span class="k">row</span><span class="p">]</span>
+    <span class="k">begin</span>
+    <span class="p">...</span>
+    <span class="k">end</span>
+
+<span class="k">show</span> <span class="n">triggers</span> <span class="err">\</span><span class="k">g</span>
+
+<span class="k">drop</span> <span class="k">trigger</span> <span class="n">tirggername</span><span class="p">;</span>
+
+</code></pre></div></div><h2 id="数据的操作">数据的操作</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">insert</span> <span class="k">into</span> <span class="n">tablename</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">id2</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">tablename</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">id2</span><span class="p">)</span> <span class="k">values</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span>
+                                    <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="o">//</span><span class="err">以上时一次性插入多条记录</span>
+
+<span class="k">insert</span> <span class="k">into</span> <span class="n">tablename</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">id2</span><span class="p">)</span> <span class="k">select</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="k">from</span> <span class="n">tablename2</span><span class="p">;</span>
+
+<span class="k">update</span> <span class="n">tablename</span>
+    <span class="k">set</span> <span class="n">id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">id2</span><span class="o">=</span><span class="mi">4</span>
+    <span class="k">where</span><span class="p">....</span>
+
+<span class="k">delete</span> <span class="k">from</span> <span class="n">tablename</span> <span class="k">where</span> <span class="p">...</span>
+</code></pre></div></div><h2 id="单表记录查询">单表记录查询</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">distinct</span> <span class="n">id</span> <span class="k">from</span> <span class="n">tablename</span><span class="p">;</span>
+
+<span class="n">concat</span><span class="p">()</span><span class="err">用来连接字符串</span>
+
+<span class="k">select</span> <span class="n">concat</span><span class="p">(</span><span class="n">ename</span><span class="p">,</span><span class="s1">'年薪'</span><span class="p">,</span><span class="n">sal</span><span class="o">*</span><span class="mi">12</span><span class="p">)</span> <span class="k">from</span><span class="p">...</span>
+<span class="k">select</span> <span class="p">...</span><span class="k">as</span> <span class="err">换名</span>
+<span class="err">或者</span><span class="k">select</span> <span class="n">a</span> <span class="n">b</span><span class="p">,</span><span class="k">c</span> <span class="k">from</span><span class="p">....</span><span class="err">这里是</span><span class="n">a</span><span class="err">换成</span><span class="n">b</span>
+
+<span class="k">where</span> <span class="err">有</span><span class="k">is</span> <span class="k">null</span><span class="p">,</span> <span class="k">in</span><span class="p">,</span> <span class="k">like</span><span class="err">等</span>
+<span class="err">还有</span><span class="k">and</span> <span class="k">or</span> <span class="n">xor</span> <span class="k">not</span><span class="err">或者</span><span class="o">&amp;&amp;</span> <span class="o">||</span> <span class="n">xor</span> <span class="o">!</span>
+<span class="err">还有</span><span class="k">between</span> <span class="p">.</span> <span class="k">and</span> <span class="p">.</span>
+<span class="k">in</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="k">c</span><span class="p">)</span>
+
+<span class="k">like</span>
+<span class="o">%</span><span class="err">匹配多个字符</span>
+<span class="n">_</span><span class="err">匹配一个字符</span>
+</code></pre></div></div><p>注意：如果in的集合中有NULL,则使用not in没有任何查询结果</p><p>排序查询</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">order</span> <span class="k">by</span> <span class="n">id</span> <span class="k">asc</span><span class="p">,</span><span class="n">id2</span> <span class="k">desc</span>
+</code></pre></div></div><p>限制数据记录查询数量</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="p">...</span><span class="k">where</span><span class="p">..</span><span class="k">order</span> <span class="k">by</span><span class="p">...</span>
+    <span class="k">limit</span> <span class="err">起始偏移量，行数</span>
+<span class="o">/</span>
+    <span class="k">limit</span> <span class="mi">0</span><span class="err">，</span> <span class="err">行数</span>
+<span class="err">默认</span><span class="mi">0</span><span class="err">开始</span>
+
+</code></pre></div></div><p>统计函数</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">count</span><span class="p">()</span><span class="err">忽略</span><span class="k">null</span>
+<span class="k">avg</span><span class="p">()</span>
+<span class="k">sum</span><span class="p">()</span>
+<span class="k">max</span><span class="p">()</span>
+<span class="k">min</span><span class="p">()</span>
+</code></pre></div></div><p>分组查询(查询每个分组随机一条记录)</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>group by id,id2
+</code></pre></div></div><p>如要要引用分组的记录元素，用select GROUP_CONCAT(ID)..group by id2,group_concat()输出的是一个列表，逗号相隔的</p><p>having限定分组查询</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>group by...
+having..
+</code></pre></div></div><h2 id="多表数据记录查询">多表数据记录查询</h2><ul><li>union</li><li>内连接，舍弃不匹配的记录</li><li>左外连接，包括左边表中不匹配的记录</li></ul><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">自然连接</span>
+<span class="k">select</span> <span class="p">...</span><span class="k">from</span> <span class="n">t1</span> <span class="k">join</span> <span class="n">t2</span> <span class="k">on</span> <span class="n">id</span>
+<span class="err">等值连接</span>
+<span class="n">t1</span> <span class="k">join</span> <span class="n">t2</span> <span class="k">on</span> <span class="n">a</span><span class="o">=</span><span class="n">b</span>
+
+<span class="k">outer</span> <span class="k">join</span>
+<span class="k">left</span> <span class="k">join</span>
+<span class="k">right</span> <span class="k">join</span>
+</code></pre></div></div><p>子查询</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">where</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">id2</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="k">select</span> <span class="n">id3</span><span class="p">,</span><span class="n">id4</span> <span class="k">from</span><span class="p">...)</span>
+<span class="o">//</span><span class="err">单行返回结果</span>
+
+<span class="err">多行用</span><span class="k">in</span><span class="p">,</span><span class="k">any</span><span class="p">,</span><span class="k">all</span>
+</code></pre></div></div><p>exists</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">where</span> <span class="k">exists</span><span class="p">(...)</span>
+</code></pre></div></div><h2 id="存储过程和函数">存储过程和函数</h2><p>函数必须有返回值，存储过程没有，参数类型也多于函数参数类型</p><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">create</span> <span class="k">procedure</span> <span class="n">procname</span><span class="p">()</span>
+<span class="k">begin</span>
+<span class="p">..</span>
+<span class="k">end</span>
+
+<span class="n">para</span><span class="p">:</span> <span class="k">in</span><span class="o">/</span><span class="k">out</span><span class="o">/</span><span class="k">inout</span> <span class="n">id</span> <span class="k">type</span><span class="p">;</span> <span class="k">in</span><span class="o">/</span><span class="k">out</span><span class="err">这些可以没有</span>
+
+<span class="k">create</span> <span class="k">function</span> <span class="p">...</span>
+</code></pre></div></div><p>DELIMITER \(作用：把提交符号设置为\) ； 以免存储过程里有;当提交了</p><h2 id="sql学习">SQL学习</h2><p>请参考: https://www.nowcoder.com/ta/sql</p></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>

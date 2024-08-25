@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>shell程序设计 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/08/30/shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="shell程序设计"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="Shell程序的变量"><meta name="og:description" content="Shell程序的变量"><meta property="og:url" content="https://mafulong.github.io/2018/08/30/shell%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-08-30"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="shell程序设计"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">shell程序设计</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/08/30 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Linux" title="Linux">Linux</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 5980 字，约 18 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="shell程序的变量">Shell程序的变量</h2><h4 id="shell中的变量和变量赋值">shell中的变量和变量赋值</h4><p>shell 变量定义由字母开始，可以包含数字，字母和下划线，例如 var1, username,pass_word等。</p><p>变量的赋值可以在程序运行中进行，也可以在变量定义时进行，例如UNIX=“SYSTEM V”,如果字符串中间没有空格和制表符，则可以不要双引号。</p><p>值得注意的是B-shell中等号＝的两边是不允许有空格的。</p><h4 id="shell中变量的访问和参数替换">shell中变量的访问和参数替换</h4><p>在shell程序中，或者是shell命令中，使用操作符$来对shell变量进行访问。例如，要显示某个变量时，可以输入：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $  echo  $UNIX  （系统将会显示SYSTEM V ）
+</code></pre></div></div><p>在某些场合下，为了明确表示对shell变量的引用，可以用花括弧{ }或者双引号将变量括起来，例如：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  $  echo  ${UNIX}
+  $  echo  ${UNIX}Aaaaaa
+  $  echo “$UNIX”  is very good
+</code></pre></div></div><h4 id="shell数组">shell数组</h4><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array_name=(value0 value1 value2 value3)
+</code></pre></div></div><h4 id="shell中引号的说明">shell中引号的说明:</h4><p>单引号‘’、 双引号“”、 反引号`</p><p>（a）单引号’ ：使用单引号时，shell将一对单引号之间的内容看成是纯粹的字符串信息，一对单引号之间可以包含更多的单引号。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>you＝”kkk”
+echo  ‘this is just a ‘test’, can $you tell me the time ?’
+</code></pre></div></div><p>将会显示this is just a ‘test’, can $you tell me the time ?， 它不会将$you替换成“kkk“， 同时‘test’也是作为字符串内容来处理的。</p><p>（b）双引号“ ： 它将双引号之间的特殊字符作为shell中的含义来解释。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ file=unixshell
+$ echo “the content of  ‘date’  is in  $file”
+</code></pre></div></div><p>这个例子将会显示 the content of wed Aug 16 16:20:12 is in unixshell，这个例子中，’date’被解释成了当前时间的返回值，$file被解释成了unixshell字符串。</p><p>(c）反引号` 用它来赋值时，表示变量中保存的是执行对应命令的结果。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  name=`whoami`
+  echo $name
+</code></pre></div></div><p>这个时候显示的不是字符串whoami，而是执行字符串whoami的返回结果，当然，要先保证字符串是一个合法的命令。</p><h4 id="变量的定义域">变量的定义域</h4><p>同其他的编程语言如C，pascal一样，shell的变量也有局部变量和全局变量的区别。通常在一个shell程序中，通过形如var1=abc方式定义的都是局部变量，只能在该shell程序的进程中起作用，要定义全局变量，需要在局部变量定义之后使用export 命令来将这个变量声明为全局的: export $var1</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$  var1=csu
+$  echo  $var1     
+$  sh              
+$  echo  $var1     
+$  exit            
+$  echo  $var1
+$  export $var1
+$  sh
+$  echo  $var1
+</code></pre></div></div><h4 id="shell中命令的位置变量">Shell中命令的位置变量</h4><p>位置参数是一种在调用shell程序的命令行中按照各自的位置决定的变量，是在程序名之后输入的参数。位置参数之间用空格分隔，shell取第一个位置参数替换程序文件中的$1，第二个替换$2，依次类推。$0是一个特殊的变量，它的内容是当前这个shell程序的文件名，所以，$0不是一个位置参数，在显示当前所有的位置参数时是不包括$0的。</p><h4 id="预定义变量">预定义变量</h4><p>$# 位置参数的个数</p><p>$? 前一个命令返回的状态值</p><h4 id="shell中的变量替换">Shell中的变量替换</h4><p>在shell编程中，有时候会遇到这种情况，一个变量在尚未赋值的时候，就被程序进行了输出处理，这样输出的变量将会得到一个空字符串的结果。为了避免这种情况的发生，shell中引入了变量替换的概念，在变量没有赋值的时候可以用一个预先定义的字符串来替换。</p><p>替换的形式有三种，列举如下：</p><ul><li>$ {var:-word} 表示如果var已经被赋值，则取它的值，否则取word的值，但var不改变。</li><li>$ {var:=word} 表示如果var已经被赋值，则取它的值，否则取word的值，同时将word赋给 var。</li><li>$ {var:+word} 表示如果var已经被赋值，则取它的值，否则var变量置为空。</li></ul><h2 id="运算符">运算符</h2><h3 id="关系运算符--算术">关系运算符 &amp; 算术</h3><p>关系运算符只支持数字，不支持字符串，除非字符串的值是数字。</p><p>下表列出了常用的关系运算符，假定变量 a 为 10，变量 b 为 20：</p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">a</span><span class="o">=</span>10
+<span class="nv">b</span><span class="o">=</span>20
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$a</span> + <span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"a + b : </span><span class="nv">$val</span><span class="s2">"</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$a</span> - <span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"a - b : </span><span class="nv">$val</span><span class="s2">"</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$a</span> <span class="se">\*</span> <span class="nv">$b</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"a * b : </span><span class="nv">$val</span><span class="s2">"</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$b</span> / <span class="nv">$a</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"b / a : </span><span class="nv">$val</span><span class="s2">"</span>
+
+<span class="nv">val</span><span class="o">=</span><span class="sb">`</span><span class="nb">expr</span> <span class="nv">$b</span> % <span class="nv">$a</span><span class="sb">`</span>
+<span class="nb">echo</span> <span class="s2">"b % a : </span><span class="nv">$val</span><span class="s2">"</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">==</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"a 等于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">!=</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"a 不等于 b"</span>
+<span class="k">fi
+
+
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-eq</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2"> : a 等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -eq </span><span class="nv">$b</span><span class="s2">: a 不等于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-ne</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -ne </span><span class="nv">$b</span><span class="s2">: a 不等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -ne </span><span class="nv">$b</span><span class="s2"> : a 等于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-gt</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -gt </span><span class="nv">$b</span><span class="s2">: a 大于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -gt </span><span class="nv">$b</span><span class="s2">: a 不大于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-lt</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -lt </span><span class="nv">$b</span><span class="s2">: a 小于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -lt </span><span class="nv">$b</span><span class="s2">: a 不小于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-ge</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -ge </span><span class="nv">$b</span><span class="s2">: a 大于或等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -ge </span><span class="nv">$b</span><span class="s2">: a 小于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-le</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -le </span><span class="nv">$b</span><span class="s2">: a 小于或等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> -le </span><span class="nv">$b</span><span class="s2">: a 大于 b"</span>
+<span class="k">fi</span>
+</code></pre></div></div><h3 id="布尔运算符">布尔运算符</h3><p>下表列出了常用的布尔运算符，假定变量 a 为 10，变量 b 为 20：</p><table><thead><tr><th style="text-align: left">运算符</th><th style="text-align: left">说明</th><th style="text-align: left">举例</th></tr></thead><tbody><tr><td style="text-align: left">!</td><td style="text-align: left">非运算，表达式为 true 则返回 false，否则返回 true。</td><td style="text-align: left">[ ! false ] 返回 true。</td></tr><tr><td style="text-align: left">-o</td><td style="text-align: left">或运算，有一个表达式为 true 则返回 true。</td><td style="text-align: left">[ $a -lt 20 -o $b -gt 100 ] 返回 true。</td></tr><tr><td style="text-align: left">-a</td><td style="text-align: left">与运算，两个表达式都为 true 才返回 true。</td><td style="text-align: left">[ $a -lt 20 -a $b -gt 100 ] 返回 false。</td></tr></tbody></table><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">!=</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2"> : a 不等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> == </span><span class="nv">$b</span><span class="s2">: a 等于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-lt</span> 100 <span class="nt">-a</span> <span class="nv">$b</span> <span class="nt">-gt</span> 15 <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 100 且 </span><span class="nv">$b</span><span class="s2"> 大于 15 : 返回 true"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 100 且 </span><span class="nv">$b</span><span class="s2"> 大于 15 : 返回 false"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-lt</span> 100 <span class="nt">-o</span> <span class="nv">$b</span> <span class="nt">-gt</span> 100 <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 100 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 true"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 100 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 false"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="nt">-lt</span> 5 <span class="nt">-o</span> <span class="nv">$b</span> <span class="nt">-gt</span> 100 <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 5 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 true"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> 小于 5 或 </span><span class="nv">$b</span><span class="s2"> 大于 100 : 返回 false"</span>
+<span class="k">fi</span>
+</code></pre></div></div><h3 id="逻辑运算符">逻辑运算符</h3><p>以下介绍 Shell 的逻辑运算符，假定变量 a 为 10，变量 b 为 20:</p><table><thead><tr><th style="text-align: left">运算符</th><th style="text-align: left">说明</th><th style="text-align: left">举例</th></tr></thead><tbody><tr><td style="text-align: left">&amp;&amp;</td><td style="text-align: left">逻辑的 AND</td><td style="text-align: left">[[ $a -lt 100 &amp;&amp; $b -gt 100 ]] 返回 false</td></tr><tr><td style="text-align: left">||</td><td style="text-align: left">逻辑的 OR</td><td style="text-align: left">[[ $a -lt 100 || $b -gt 100 ]] 返回 true</td></tr></tbody></table><h3 id="字符串运算符">字符串运算符</h3><p>下表列出了常用的字符串运算符，假定变量 a 为 “abc”，变量 b 为 “efg”：</p><table><thead><tr><th style="text-align: left">运算符</th><th style="text-align: left">说明</th><th style="text-align: left">举例</th></tr></thead><tbody><tr><td style="text-align: left">=</td><td style="text-align: left">检测两个字符串是否相等，相等返回 true。</td><td style="text-align: left">[ $a = $b ] 返回 false。</td></tr><tr><td style="text-align: left">!=</td><td style="text-align: left">检测两个字符串是否不相等，不相等返回 true。</td><td style="text-align: left">[ $a != $b ] 返回 true。</td></tr><tr><td style="text-align: left">-z</td><td style="text-align: left">检测字符串长度是否为0，为0返回 true。</td><td style="text-align: left">[ -z $a ] 返回 false。</td></tr><tr><td style="text-align: left">-n</td><td style="text-align: left">检测字符串长度是否不为 0，不为 0 返回 true。</td><td style="text-align: left">[ -n “$a” ] 返回 true。</td></tr><tr><td style="text-align: left">$</td><td style="text-align: left">检测字符串是否为空，不为空返回 true。</td><td style="text-align: left">[ $a ] 返回 true。</td></tr></tbody></table><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">a</span><span class="o">=</span><span class="s2">"abc"</span>
+<span class="nv">b</span><span class="o">=</span><span class="s2">"efg"</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">=</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> = </span><span class="nv">$b</span><span class="s2"> : a 等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> = </span><span class="nv">$b</span><span class="s2">: a 不等于 b"</span>
+<span class="k">fi
+if</span> <span class="o">[</span> <span class="nv">$a</span> <span class="o">!=</span> <span class="nv">$b</span> <span class="o">]</span>
+<span class="k">then
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2"> : a 不等于 b"</span>
+<span class="k">else
+   </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$a</span><span class="s2"> != </span><span class="nv">$b</span><span class="s2">: a 等于 b"</span>
+<span class="k">fi</span>
+</code></pre></div></div><h3 id="文件测试运算符">文件测试运算符</h3><p>文件测试运算符用于检测 Unix 文件的各种属性。</p><p>属性检测描述如下：</p><table><thead><tr><th style="text-align: left">操作符</th><th style="text-align: left">说明</th><th style="text-align: left">举例</th></tr></thead><tbody><tr><td style="text-align: left">-b file</td><td style="text-align: left">检测文件是否是块设备文件，如果是，则返回 true。</td><td style="text-align: left">[ -b $file ] 返回 false。</td></tr><tr><td style="text-align: left">-c file</td><td style="text-align: left">检测文件是否是字符设备文件，如果是，则返回 true。</td><td style="text-align: left">[ -c $file ] 返回 false。</td></tr><tr><td style="text-align: left">-d file</td><td style="text-align: left">检测文件是否是目录，如果是，则返回 true。</td><td style="text-align: left">[ -d $file ] 返回 false。</td></tr><tr><td style="text-align: left">-f file</td><td style="text-align: left">检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</td><td style="text-align: left">[ -f $file ] 返回 true。</td></tr><tr><td style="text-align: left">-g file</td><td style="text-align: left">检测文件是否设置了 SGID 位，如果是，则返回 true。</td><td style="text-align: left">[ -g $file ] 返回 false。</td></tr><tr><td style="text-align: left">-k file</td><td style="text-align: left">检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。</td><td style="text-align: left">[ -k $file ] 返回 false。</td></tr><tr><td style="text-align: left">-p file</td><td style="text-align: left">检测文件是否是有名管道，如果是，则返回 true。</td><td style="text-align: left">[ -p $file ] 返回 false。</td></tr><tr><td style="text-align: left">-u file</td><td style="text-align: left">检测文件是否设置了 SUID 位，如果是，则返回 true。</td><td style="text-align: left">[ -u $file ] 返回 false。</td></tr><tr><td style="text-align: left">-r file</td><td style="text-align: left">检测文件是否可读，如果是，则返回 true。</td><td style="text-align: left">[ -r $file ] 返回 true。</td></tr><tr><td style="text-align: left">-w file</td><td style="text-align: left">检测文件是否可写，如果是，则返回 true。</td><td style="text-align: left">[ -w $file ] 返回 true。</td></tr><tr><td style="text-align: left">-x file</td><td style="text-align: left">检测文件是否可执行，如果是，则返回 true。</td><td style="text-align: left">[ -x $file ] 返回 true。</td></tr><tr><td style="text-align: left">-s file</td><td style="text-align: left">检测文件是否为空（文件大小是否大于0），不为空返回 true。</td><td style="text-align: left">[ -s $file ] 返回 true。</td></tr><tr><td style="text-align: left">-e file</td><td style="text-align: left">检测文件（包括目录）是否存在，如果是，则返回 true。</td><td style="text-align: left">[ -e $file ] 返回 true。</td></tr></tbody></table><h2 id="条件控制语句">条件控制语句</h2><h3 id="if语句">if语句</h3><p><strong>注意：</strong>条件表达式要放在方括号之间，并且要有空格，例如: <strong>[$a==$b]</strong> 是错误的，必须写成 <strong>[ $a == $b ]</strong>。</p><p>if语句的分支可以有 无分支条件语句，二分支条件语句，多分支条件语句。 无分支条件语句格式如下：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if  [condition]  
+then
+    命令1
+    命令2
+    …
+    命令n
+fi
+</code></pre></div></div><p>当条件condition为真时，执行then后面的所有命令，condition为假则执行fi后面的语句。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [condition1]
+    then
+ elif [contition2]
+    then
+ elif [condition3]
+     then
+     …
+else
+   command_n
+ fi
+
+</code></pre></div></div><p>例：假设一个连续运行系统，将建立错误记录文件errorfile 并不断写入错误信息。现在要求编写一个shell程序来产生定时错误日志文件datelog,能在datelog 中体现每个时间段中的错误信息</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># checkerr.sh To check error information with time stamp !!!
+date &gt;&gt; datelog
+if test –r errorfile
+   then cat errorfile &gt;&gt; datelog
+            rm errorfile
+else
+   echo “No error occurs during this hour!“ &gt;&gt; datelog
+fi
+
+</code></pre></div></div><h3 id="case">case</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> case语句的语法为：
+  case word in
+    模式1 ） 命令 ；；
+    模式2 ） 命令 ；；
+    模式3 ） 命令 ；；
+  esac
+</code></pre></div></div><p>注意，在case中，每个命名命令的结束用；；表示模式匹配已经完成，不再匹配其他的模式，相当于C中的break。</p><p>例：编写一段shell程序，根据执行时获取的当前时间显示不同的问候信息</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># hello.sh
+hour = `date +%H`
+case $hour in
+0[1-9] | 1[01] )  echo “Good morining !!” ;;
+1[234567] ) echo “Good afternoon !!” ;;
+*) echo “Good evening !! ” ;;
+esac
+
+</code></pre></div></div><h2 id="循环语句">循环语句</h2><h3 id="for">for</h3><p>for的语法格式为：</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  for var
+   in list-of-vars
+  do
+     command1
+     command2
+     …
+     commandn
+  done
+</code></pre></div></div><p>for的语法说明为：shell程序扫描变量列表list-of-vars，将其中的每一个字依次存放在var中，并执行do和done之间的语句。如果list-of-vars中有n个字，则这个for循环将执行n次。</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd $HOME
+ for dir in cc work
+ do
+    echo “…. In $dir….”
+    cd $dir
+    for file in *.[c]
+       do ls –l $file
+    done
+  cd
+done 
+</code></pre></div></div><h3 id="while">while</h3><p>while循环 while － do － done结构</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    while  [condition]
+    do
+        command1
+        command2
+        ….. 
+    done
+</code></pre></div></div><h3 id="until">until</h3><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>until  [condition]
+    do
+    command1
+    commandn
+    done
+</code></pre></div></div><h2 id="函数">函数</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function name
+{
+    若干命令行
+}
+</code></pre></div></div><p>函数使用：</p><ol><li>调用函数之前，必须先定义函数。</li><li>函数的参数的传递：functionname para1 para2 ….</li><li>在函数内部参数的读取：$0-$9 , $@（所有参数） $#（参数总个数）</li><li>函数的返回值：可能使用return命令返回数字值；要返回字符串值，可以字符串保存在一个全局性的变量中，该变量在函数结束后能被外界使用；如果没有使用return命令，则函数返回值是函数中最后执行的一条命令的退出状态码。</li><li>变量使用：函数内部声明的变量默认为全局变量，使用local关键字声明的变量为局部变量（如 local var=“var”）。如果局部变量与全局变量同名，则在函数内部局部变量覆盖全局变量。</li><li>返回值的获取，当执行完函数后，函数的返回值被存放在$?中，可以通过它来获取函数的返回值。</li></ol><p>举例</p><div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#HELLO.sh</span>
+<span class="k">function </span>hello<span class="o">(</span> <span class="o">)</span>
+  <span class="o">{</span>    
+       echo “hi”
+  <span class="o">}</span>
+hello
+<span class="nb">echo</span> <span class="nv">$?</span>
+
+funWithParam<span class="o">(){</span>
+    <span class="nb">echo</span> <span class="s2">"第一个参数为 </span><span class="nv">$1</span><span class="s2"> !"</span>
+    <span class="nb">echo</span> <span class="s2">"第二个参数为 </span><span class="nv">$2</span><span class="s2"> !"</span>
+    <span class="nb">echo</span> <span class="s2">"第十个参数为 </span><span class="nv">$10</span><span class="s2"> !"</span>
+    <span class="nb">echo</span> <span class="s2">"第十个参数为 </span><span class="k">${</span><span class="nv">10</span><span class="k">}</span><span class="s2"> !"</span>
+    <span class="nb">echo</span> <span class="s2">"第十一个参数为 </span><span class="k">${</span><span class="nv">11</span><span class="k">}</span><span class="s2"> !"</span>
+    <span class="nb">echo</span> <span class="s2">"参数总数有 </span><span class="nv">$# </span><span class="s2">个!"</span>
+    <span class="nb">echo</span> <span class="s2">"作为一个字符串输出所有参数 </span><span class="nv">$*</span><span class="s2"> !"</span>
+<span class="o">}</span>
+funWithParam 1 2 3 4 5 6 7 8 9 34 73
+</code></pre></div></div><h2 id="脚本调试">脚本、调试</h2><p>脚本开头加</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/env bash  # 指定执行shell是谁，这个是bash,是从env里找bash然后执行
+# set -x # 用于调试
+</code></pre></div></div><p>检测命令是否有结果的</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker -v
+if [[ $? != 0 ]]; then
+	echo "安装docker环境..."
+fi
+</code></pre></div></div><p>读取输入</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    read yes
+    if [ $yes=='y' ];then
+        echo "设置完成"
+        exit
+    fi
+</code></pre></div></div><p>link</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s "$from" "$to"
+</code></pre></div></div><p>列表循环</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  for pkg in ${pkgs[*]}
+  do
+    echo ${pkg}
+    brew install ${pkg}
+  done
+</code></pre></div></div></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>
