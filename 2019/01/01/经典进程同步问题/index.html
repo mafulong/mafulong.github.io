@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>经典进程同步问题 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2019/01/01/%E7%BB%8F%E5%85%B8%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="经典进程同步问题"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="生产者消费者问题描述：使用一个缓冲区来保存物品，只有缓冲区没有满，生产者才可以放入物品；只有缓冲区不为空，消费者才可以拿走物品。"><meta name="og:description" content="生产者消费者问题描述：使用一个缓冲区来保存物品，只有缓冲区没有满，生产者才可以放入物品；只有缓冲区不为空，消费者才可以拿走物品。"><meta property="og:url" content="https://mafulong.github.io/2019/01/01/%E7%BB%8F%E5%85%B8%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E9%97%AE%E9%A2%98/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2019-01-01"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="经典进程同步问题"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">经典进程同步问题</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2019/01/01 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#OperationSystem" title="OperationSystem">OperationSystem</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 4857 字，约 14 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="生产者消费者">生产者消费者</h2><p>问题描述：使用一个缓冲区来保存物品，只有缓冲区没有满，生产者才可以放入物品；只有缓冲区不为空，消费者才可以拿走物品。</p><p>因为缓冲区属于临界资源，因此需要使用一个互斥量 mutex 来控制对缓冲区的互斥访问。</p><p>为了同步生产者和消费者的行为，需要记录缓冲区中物品的数量。数量可以使用信号量来进行统计，这里需要使用两个信号量：empty 记录空缓冲区的数量，full 记录满缓冲区的数量。其中，empty 信号量是在生产者进程中使用，当 empty 不为 0 时，生产者才可以放入物品；full 信号量是在消费者进程中使用，当 full 信号量不为 0 时，消费者才可以取走物品。</p><p>注意，不能先对缓冲区进行加锁，再测试信号量。也就是说，不能先执行 down(mutex) 再执行 down(empty)。如果这么做了，那么可能会出现这种情况：生产者对缓冲区加锁后，执行 down(empty) 操作，发现 empty = 0，此时生产者睡眠。消费者不能进入临界区，因为生产者对缓冲区加锁了，也就无法执行 up(empty) 操作，empty 永远都为 0，那么生产者和消费者就会一直等待下去，造成死锁。</p><ul><li>一个semaphore锁定资源，两个semaphore用于计数empty和full, 之所以单独semaphore，是可以进行阻塞而不需要不停重试。</li></ul><div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define N 100
+</span><span class="k">typedef</span> <span class="kt">int</span> <span class="n">semaphore</span><span class="p">;</span>
+<span class="n">semaphore</span> <span class="n">mutex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">semaphore</span> <span class="n">empty</span> <span class="o">=</span> <span class="n">N</span><span class="p">;</span>
+<span class="n">semaphore</span> <span class="n">full</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">producer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">){</span>
+        <span class="kt">int</span> <span class="n">item</span> <span class="o">=</span> <span class="n">produce_item</span><span class="p">();</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">);</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+        <span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">full</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">consumer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">){</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">full</span><span class="p">);</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">item</span> <span class="o">=</span> <span class="n">remove_item</span><span class="p">();</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">);</span>
+        <span class="n">consume_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div><h2 id="读写者">读写者</h2><h3 id="读者优先">读者优先</h3><p>允许多个进程同时对数据进行读操作，但是不允许读和写以及写和写操作同时发生。</p><p>一个整型变量 count 记录在对数据进行读操作的进程数量，一个互斥量 count_mutex 用于对 count 加锁，一个互斥量 data_mutex 用于对读写的数据加锁。</p><p>这个是读者优先，也就是写者会挨饿。关键在于只要有读者就不能写了</p><p><a href="https://blog.csdn.net/c1194758555/article/details/52805918">参考</a></p><p>读者优先:</p><ol><li>写者、读者互斥访问文件资源。</li><li>多个读者可以同时访问文件资源。</li><li>只允许一个写者访问文件资源。</li></ol><p>具体实现:</p><ol><li>设置信号量fileSrc实现读写者对临界资源的访问。</li><li>设置计数器readCount来统计访问临界资源的读者数目，设置信号量count_mutex完成对readCount计数器资源的互斥访问。</li></ol><div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//读者数量</span>
+<span class="n">semaphore</span> <span class="n">count_mutex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护读者数量count</span>
+<span class="n">semaphore</span> <span class="n">data_mutex</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//每次写和第一次读用</span>
+
+
+<span class="kt">void</span> <span class="nf">reader</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span> <span class="c1">//申请读者队列计数器</span>
+        <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data_mutex</span><span class="p">);</span> <span class="c1">// 第一个读者需要对数据进行加锁，防止写进程访问</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span> <span class="c1">//释放读者计数器资源</span>
+        <span class="n">read</span><span class="p">();</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span> <span class="c1">//申请读者队列计数器</span>
+        <span class="n">count</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data_mutex</span><span class="p">);</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">count_mutex</span><span class="p">);</span> <span class="c1">//释放读者计数器资源</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">writer</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data_mutex</span><span class="p">);</span>
+        <span class="n">write</span><span class="p">();</span>
+        <span class="n">up</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data_mutex</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div><h3 id="写者优先">写者优先</h3><p>写者优先:</p><ol><li>写者线程的优先级高于读者线程。</li><li>当有写者到来时应该阻塞读者线程的队列。</li><li>当有一个写者正在写时或在阻塞队列时应当阻塞读者进程的读操作，直到所有写者进程完成写操作时放开读者进程。</li><li>当没有写者进程时读者进程应该能够同时读取文件。</li></ol><p>具体实现:</p><ol><li>通过添加信号量read实现写者到来时能够打断读者进程。（主要是有个信号量控制只要有写的等待时就阻塞新增读, 这就是信号量read存在的意义）</li><li>设置信号量fileSrc实现读写者对临界资源的访问。</li><li>设置计数器writeCount来统计当前阻塞的写者进程的数目，设置信号量writeCountSignal完成对writeCount计数器资源的互斥访问。（实现写队列，拆成两端)</li><li>设置计数器readCount来统计访问临界资源的读者数目，设置信号量readCountSignal完成对readCount计数器资源的互斥访问。</li></ol><p><a href="https://blog.csdn.net/c1194758555/article/details/52805918">参考</a></p><p>但如何搞个写队列，完全阻塞其他读请求，因此要有个写队列，把获取read和fileSrc分成两段，前段申请read，增加writeCount以及阻塞在申请fileSrc, 申请到fileSrc后就到了后半段，因此需要writeCount</p><p>相比读者优先，增加writeCount和writeCountSignal在写过程里保证写优先，第一次写时申请read信号量，之所以用read是因为不能多次写，所以read不同于fileSrc</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*初始化读者、写者队列为0，初始化令牌资源、读写计数器资源的初始值为1*/</span>
+<span class="kt">int</span> <span class="n">readCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">writeCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">semaphore</span> <span class="n">readCountSignal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护readCount</span>
+<span class="n">semaphore</span> <span class="n">writeCountSignal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护writeCount</span>
+<span class="n">semaphore</span> <span class="n">read</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//读写都竞争，每次增加读者数需要它，第一次写需要它</span>
+<span class="n">semaphore</span> <span class="n">fileSrc</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护文件，每次写和第一次读用</span>
+ 
+<span class="n">reader</span><span class="p">()</span>
+<span class="p">{</span>
+      <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+     <span class="p">{</span>
+        <span class="n">wait</span><span class="p">(</span><span class="n">read</span><span class="p">);</span>            <span class="c1">//申请令牌</span>
+        <span class="n">wait</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span> <span class="c1">//申请读者队列计数器</span>
+ 
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">readCount</span><span class="p">)</span>         <span class="c1">//如果读者队列为空，申请文件资源</span>
+           <span class="n">wait</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span> 
+        <span class="n">readCount</span><span class="o">++</span><span class="p">;</span>
+ 
+        <span class="n">signal</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span> <span class="c1">//释放读者计数器资源</span>
+        <span class="n">signal</span><span class="p">(</span><span class="n">read</span><span class="p">);</span>            <span class="c1">//释放令牌</span>
+  
+        <span class="p">...</span>
+        <span class="n">perform</span> <span class="n">read</span> <span class="n">operation</span> <span class="c1">//执行临界区代码     </span>
+        <span class="p">...</span>
+ 
+        <span class="n">wait</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span>   <span class="c1">//申请读者计数器资源</span>
+        <span class="n">readCount</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">readCount</span><span class="p">)</span>          <span class="c1">//如果读者队列为空，释放文件资源</span>
+          <span class="n">signal</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>
+        <span class="n">signal</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span> <span class="c1">//释放读者计数器资源</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="n">writer</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+     <span class="p">{</span>
+       <span class="n">wait</span><span class="p">(</span><span class="n">writeCountSignal</span><span class="p">);</span>  <span class="c1">//申请写者计数器资源</span>
+       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">writeCount</span><span class="p">)</span>          <span class="c1">//如果写者队列为空则申请令牌</span>
+         <span class="n">wait</span><span class="p">(</span><span class="n">read</span><span class="p">);</span>
+       <span class="n">writeCount</span><span class="o">++</span><span class="p">;</span>
+       <span class="n">signal</span><span class="p">(</span><span class="n">writeCountSignal</span><span class="p">);</span> <span class="c1">//释放写者计数器资源</span>
+       <span class="n">wait</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>               <span class="c1">//申请文件资源</span>
+ 
+       <span class="p">...</span>
+       <span class="n">perform</span> <span class="n">write</span> <span class="n">operation</span>   <span class="c1">//执行临界区代码</span>
+       <span class="p">...</span>
+ 
+       <span class="n">signal</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>          <span class="c1">//释放文件资源</span>
+       <span class="n">wait</span><span class="p">(</span><span class="n">writeCountSignal</span><span class="p">);</span>   <span class="c1">//申请写者计数器资源</span>
+       <span class="n">writeCount</span><span class="o">--</span><span class="p">;</span>
+       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">writeCount</span><span class="p">)</span>           <span class="c1">//如果写者队列为空则释放令牌</span>
+          <span class="n">signal</span><span class="p">(</span><span class="n">read</span><span class="p">);</span>
+       <span class="n">signal</span><span class="p">(</span><span class="n">writeCountSignal</span><span class="p">);</span> <span class="c1">//释放写者计数器资源</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+
+
+</code></pre></div></div><h3 id="公平竞争">公平竞争</h3><p>公平竞争：</p><ol><li>优先级相同。</li><li>写者、读者互斥访问。</li><li>只能有一个写者访问临界区。</li><li>可以有多个读者同时访问临界资源。</li></ol><p>具体实现：</p><ol><li>设置file信号量实现对临界资源的互斥访问。</li><li>设置计数器readCount实现多个读者访问临界资源，通过设置信号量readCountSignal实现对readCount计数器的互斥访问。</li><li>设置信号量keySignal实现读者和写者的公平竞争（令牌）。</li><li>设置信号量OneSignal实现只有读者队列或写者阻塞在keySignal（对令牌资源的访问控制）。</li></ol><p><a href="https://blog.csdn.net/c1194758555/article/details/52805918">参考</a></p><p>主要是每个读和这个写都有一样的机会，有个共同的信号量，同时只有一个写，得有个信号量对写控制只有一个才行。</p><p>相比读者优先，就是写和读外面有个竞争keySignal,然后写最外面再来个竞争OneSignal.</p><div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* 读者队列初始值为0，其他资源初始值为1*/</span>
+<span class="kt">int</span> <span class="n">readCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">semaphore</span> <span class="n">readCountSignal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护readCount</span>
+<span class="n">semaphore</span> <span class="n">keySignal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//每次增加读者数，每次写都用，保证公平</span>
+<span class="n">semaphore</span> <span class="n">OneSignal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//只有写用，用来保证只有一个写，最外层</span>
+<span class="n">semaphore</span> <span class="n">fileSrc</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//保护文件，每次写和第一次读用</span>
+ 
+<span class="n">reader</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">wait</span><span class="p">(</span><span class="n">keySignal</span><span class="p">);</span>        <span class="c1">//申请令牌</span>
+      <span class="n">wait</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span>  <span class="c1">//申请计数器资源</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">readCount</span><span class="p">)</span>          <span class="c1">//为零则申请文件资源</span>
+         <span class="n">wait</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>
+      <span class="n">readCount</span><span class="o">++</span><span class="p">;</span>
+      <span class="n">signal</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span> <span class="c1">//释放计数器资源</span>
+      <span class="n">signal</span><span class="p">(</span><span class="n">keySignale</span><span class="p">);</span>      <span class="c1">//释放令牌</span>
+ 
+      <span class="p">...</span>
+      <span class="n">perform</span> <span class="n">read</span> <span class="n">operation</span>  <span class="c1">//执行临界区代码</span>
+      <span class="p">...</span>
+  
+      <span class="n">wait</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span>  <span class="c1">//申请计数器资源</span>
+      <span class="n">readCount</span><span class="o">--</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">readCount</span><span class="p">)</span>                <span class="c1">//为零则释放文件资源</span>
+         <span class="n">signal</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>
+    <span class="n">signal</span><span class="p">(</span><span class="n">readCountSignal</span><span class="p">);</span> <span class="c1">//释放读者计数器资源</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="n">writer</span><span class="p">()</span>
+<span class="p">{</span>
+     <span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span>
+     <span class="p">{</span>
+        <span class="n">wait</span><span class="p">(</span><span class="n">OneSignal</span><span class="p">);</span>     <span class="c1">//申请令牌资源</span>
+        <span class="n">wait</span><span class="p">(</span><span class="n">keySignal</span><span class="p">);</span>     <span class="c1">//申请令牌</span>
+        <span class="n">wait</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>       <span class="c1">//申请文件资源</span>
+ 
+        <span class="p">...</span>
+        <span class="n">perform</span> <span class="n">write</span> <span class="n">operation</span> <span class="c1">//执行临界区代码</span>
+        <span class="p">...</span>
+ 
+        <span class="n">signal</span><span class="p">(</span><span class="n">fileSrc</span><span class="p">);</span>   <span class="c1">//释放文件资源</span>
+        <span class="n">signal</span><span class="p">(</span><span class="n">keysignal</span><span class="p">);</span> <span class="c1">//释放令牌</span>
+        <span class="n">signal</span><span class="p">(</span><span class="n">OneSignal</span><span class="p">);</span> <span class="c1">//释放令牌资源</span>
+     <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div><h2 id="哲学家进餐">哲学家进餐</h2><p><a href="https://blog.csdn.net/Yun_Ge/article/details/89177918">参考</a></p><p>五个哲学家共用一张圆桌，分别坐在周围的五张椅子上，在桌子上有五只碗和五只筷子，他们的生活方式是交替地进行思考和进餐。平时，一个哲学家进行思考，饥饿时便试图取用其左右最靠近他的筷子，只有在他拿到两只筷子时才能进餐。进餐毕，放下筷子继续思考。</p><p>能引起死锁的情况。假如五位哲学家同时饥饿而都拿起的左边的筷子，就会使五个信号量chopstick都为0，当他们试图去拿右手边的筷子时，都将无筷子而陷入无限期的等待。</p><p><strong>为避免死锁，可以使用以下三种策略</strong>：</p><p><strong>策略一</strong>：至多只允许四个哲学家同时进餐，以保证至少有一个哲学家能够进餐，最终总会释放出他所使用过的两支筷子，从而可使更多的哲学家进餐。定义信号量count，只允许4个哲学家同时进餐，这样就能保证至少有一个哲学家可以就餐。</p><p><strong>策略二</strong>：仅当哲学家的左右两支筷子都可用时，才允许他拿起筷子进餐。可以利用AND 型信号量机制实现，也可以利用信号量的保护机制实现。利用信号量的保护机制实现的思想是通过记录型信号量mutex对取左侧和右侧筷子的操作进行保护，使之成为一个原子操作，这样可以防止死锁的出现。</p><p><strong>策略三</strong>：规定奇数号的哲学家先拿起他左边的筷子，然后再去拿他右边的筷子；而偶数号的哲学家则先拿起他右边的筷子，然后再去拿他左边的筷子。按此规定，将是1、2号哲学家竞争1号筷子，3、4号哲学家竞争3号筷子。即五个哲学家都竞争奇数号筷子，获得后，再去竞争偶数号筷子，最后总会有一个哲学家能获得两支筷子而进餐。</p><h2 id="p1p2p3缓冲区问题">P1P2P3缓冲区问题</h2><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv1/v1/52.png" alt="image" /> <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/40a95234541c006c9a00530c419af9f0.png" alt="image" /> <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/cd538f2647487706473de5174b6fde24.png" alt="image" /></p><h2 id="理发师问题">理发师问题</h2><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/0b852ce35c0dcb1ce87a07fabf4b9602.png" alt="image" /> <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@master/images/2772c0453da878e36362b9b3eb4b8e99.png" alt="image" /></p></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>

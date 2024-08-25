@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>react笔记 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2022/12/24/react%E7%AC%94%E8%AE%B0/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="react笔记"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="react笔记"><meta name="og:description" content="react笔记"><meta property="og:url" content="https://mafulong.github.io/2022/12/24/react%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2022-12-24"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="react笔记"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">react笔记</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2022/12/24 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#FrontEnd" title="FrontEnd">FrontEnd</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 13260 字，约 38 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h1 id="react笔记">react笔记</h1><blockquote><p><a href="https://web.qianguyihao.com/13-React%E5%9F%BA%E7%A1%80/01-React%E4%BB%8B%E7%BB%8D.html">React</a></p></blockquote><h2 id="react-介绍">React 介绍</h2><h3 id="react-是什么">React 是什么</h3><ul><li>Facebook 开源的一个JS库。</li><li>一个用于动态构建用户界面的JS库。</li><li>不是一个MCV框架，构建可复用web组件，侧重UI</li></ul><h3 id="react-的特点">React 的特点</h3><ul><li>Declarative（声明式编码）</li><li>Component-Based（组件化编码）</li><li>Learn Once, Write Anywhere（支持客户端、服务器端渲染）</li><li>高效的DOM Diff算法，最小化页面重绘。虚拟(virtual)DOM，不总是直接操作DOM</li><li>单向数据流 React是单向的从数据到视图的渲染，非双向数据绑定</li></ul><h3 id="react高效的原因">React高效的原因</h3><ul><li>虚拟(virtual)DOM，不总是直接操作DOM</li><li>高效的DOM Diff算法，最小化页面重绘（即“局部渲染”）。</li></ul><p>虚拟DOM指的是：在真实DOM的上一层<strong>映射</strong>一层虚拟DOM。我们操作的是映射关系，而不是真实的DOM。假设页面的样式做了修改（比如新增了一个标签），此时修改的是虚拟DOM的样式，真实的DOM并未发生变化。那什么时候，真实的DOM会发生变化呢？ 当我把所有的内容操作完之后，转化为真实的DOM，此时要打包统一的渲染页面，于是真实的DOM发生变化，然后渲染一次。 这样做的话，可以减少页面的渲染次数。</p><h2 id="jsx和组件">JSX和组件</h2><p>react 使用 JSX 来替代常规的 JavaScript。</p><p>JSX 是一个看起来很像 XML 的 JavaScript 语法扩展。</p><p>如果碰见jsx或者tsx文件，就是用了jsx语法。其中tsx是typescript+jsx</p><p>我们不需要一定使用 JSX，但它有以下优点：</p><ul><li>JSX 执行更快，因为它在编译为 JavaScript 代码后进行了优化。</li><li>它是类型安全的，在编译过程中就能发现错误。</li><li>使用 JSX 编写模板更加简单快速。</li></ul><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span></code></pre></div></div><p>我们推荐在 React 中使用 JSX 来描述用户界面。</p><p>每个return jsx的叫组件。</p><p>对于原生的react代码，每次创建元素很麻烦，所以我们提出了用jsx语法代替，此时代码中return的<code class="language-plaintext highlighter-rouge">&lt;div&gt;&lt;/div&gt;</code>就是一种jsx语法。jsx语法需要注意的点在于：</p><ol><li>对于jsx中的标签内如果需要传值，主要要使用{}包裹，如果使用”“,则默认会传一个string的值，容易造成错误</li><li>对于传入的对象，我们需要用包裹，此时第一层是用来表示这里面是js代码，第二层用来表示这个是个对象</li><li>jsx其实就是一种语法模板，他用来翻译react中书写的代码，而用来将jsx语法翻译的工具叫做babel-loader,而babel-loader被webpack内置了，因为我们用的脚手架其实就是webpack的打包，所以默认我们就可以写jsx语法而不报错。</li></ol><p>###</p><p>JSX 允许在大括号中嵌入任何表达式，所以我们可以在 map() 中这样使用：</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="nc">NumberList</span><span class="o">(</span><span class="n">props</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">const</span> <span class="n">numbers</span> <span class="k">=</span> <span class="nv">props</span><span class="o">.</span><span class="py">numbers</span><span class="o">;</span>
+  <span class="nf">return</span> <span class="o">(</span>
+    <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+      <span class="o">{</span><span class="nv">numbers</span><span class="o">.</span><span class="py">map</span><span class="o">((</span><span class="n">number</span><span class="o">)</span> <span class="k">=&gt;</span>
+        <span class="o">&lt;</span><span class="nc">ListItem</span> <span class="n">key</span><span class="o">={</span><span class="nv">number</span><span class="o">.</span><span class="py">toString</span><span class="o">()}</span>
+                  <span class="n">value</span><span class="o">={</span><span class="n">number</span><span class="o">}</span> <span class="o">/&gt;</span>
+ 
+      <span class="o">)}</span>
+    <span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+  <span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div><p>如果想在jsx里加注释，就{}包起来，</p><p>想加console.log，也是这样包起来。 {}其实是返回了一个值，这个值作为jsx里用的。</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">return</span> <span class="o">(</span>
+  <span class="o">{</span><span class="nv">console</span><span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="ss">'x</span><span class="n">x</span><span class="o">')}</span>
+  <span class="o">{</span><span class="nv">console</span><span class="o">.</span><span class="py">log</span><span class="o">('</span><span class="mi">234</span><span class="o">')}</span>
+  <span class="o">)</span>
+</code></pre></div></div><p>每个组件就对应了一个html元素。html元素的属性会传递成组件的元素。</p><h2 id="hello-world">Hello world</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Document<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="c">&lt;!-- 引入React相关的js库 --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"./libs/react.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"./libs/react-dom.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"./libs/babel.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"myContainer"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- 注意，这一行的 type 是写 "text/babel"，而不是 "text/javascript" --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/babel"</span><span class="nt">&gt;</span>
+
+      <span class="c1">//页面中的真实容器元素</span>
+      <span class="kd">var</span> <span class="nx">containDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">myContainer</span><span class="dl">"</span><span class="p">);</span>
+
+      <span class="c1">//1、创建虚拟DOM对象</span>
+      <span class="kd">var</span> <span class="nx">vDom</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">React</span><span class="o">!&lt;</span><span class="sr">/div&gt;; /</span><span class="o">/</span> <span class="nx">不是字符串</span><span class="p">,</span> <span class="nx">不能加引号</span>
+
+      <span class="c1">//2、渲染虚拟DOM对象（将虚拟DOM对象渲染到页面元素中）</span>
+      <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">vDom</span><span class="p">,</span> <span class="nx">containDiv</span><span class="p">);</span> <span class="c1">// 参数1：虚拟DOM对象；参数2：页面中的容器</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div><h2 id="react安装">React安装</h2><div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/react@16/umd/react.development.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/react-dom@16/umd/react-dom.development.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!-- 生产环境中不建议使用 --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://unpkg.com/babel-standalone@6.15.0/babel.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div></div><h2 id="自定义组件参数渲染">自定义组件参数渲染</h2><p>自定义组件两种方式，函数式组件和类组件。</p><p>以下代码实现了显示时间的时钟，react拿Date渲染。</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Clock</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">现在是</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">toLocaleTimeString</span><span class="p">()}.</span><span class="o">&lt;</span><span class="sr">/h2</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="kd">function</span> <span class="nx">tick</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Clock</span> <span class="nx">date</span><span class="o">=</span><span class="p">{</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()}</span> <span class="sr">/&gt;</span><span class="err">,
+</span>    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="nx">setInterval</span><span class="p">(</span><span class="nx">tick</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</code></pre></div></div><p>除了函数外我们还可以创建一个 React.Component 的 ES6 类，该类封装了要展示的元素，需要注意的是在 render() 方法中，需要使用 <strong>this.props</strong> 替换 <strong>props</strong>：</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Clock</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="nx">world</span><span class="o">!&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">现在是</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">toLocaleTimeString</span><span class="p">()}.</span><span class="o">&lt;</span><span class="sr">/h2</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="kd">function</span> <span class="nx">tick</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">Clock</span> <span class="nx">date</span><span class="o">=</span><span class="p">{</span><span class="k">new</span> <span class="nb">Date</span><span class="p">()}</span> <span class="sr">/&gt;</span><span class="err">,
+</span>    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="nx">setInterval</span><span class="p">(</span><span class="nx">tick</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+
+</code></pre></div></div><h2 id="复合组件">复合组件</h2><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">Name</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">网站名称</span><span class="err">：</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span><span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Url</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">网站地址</span><span class="err">：</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">url</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span><span class="p">}</span>
+<span class="kd">function</span> <span class="nx">Nickname</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">网站小名</span><span class="err">：</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">nickname</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span><span class="p">}</span>
+<span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Name</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">菜鸟教程</span><span class="dl">"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Url</span> <span class="nx">url</span><span class="o">=</span><span class="dl">"</span><span class="s2">http://www.runoob.com</span><span class="dl">"</span> <span class="o">/&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Nickname</span> <span class="nx">nickname</span><span class="o">=</span><span class="dl">"</span><span class="s2">Runoob</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+<span class="p">}</span>
+ 
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+     <span class="o">&lt;</span><span class="nx">App</span> <span class="o">/&gt;</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></div><h2 id="有状态的组件定时刷新等">有状态的组件(定时刷新等)</h2><blockquote><p><a href="https://www.runoob.com/react/react-state.html">React State(状态)</a></p><p>其实就是组件可以实现定时刷新等功能，不用操作DOM</p></blockquote><h3 id="定时功能">定时功能</h3><p>React 把组件看成是一个状态机（State Machines）。通过与用户的交互，实现不同状态，然后渲染 UI，让用户界面和数据保持一致。</p><p>React 里，只需更新组件的 state，然后根据新的 state 重新渲染用户界面（不要操作 DOM）。</p><p>注意必须要用react api来更新state，如果直接this.state赋值不会重绘。state其实就是一个Object可以多层结构 自定义。</p><p>每次调用<code class="language-plaintext highlighter-rouge">this.setState</code>就重绘一次。</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Clock</span> <span class="k">extends</span> <span class="nv">React</span><span class="o">.</span><span class="py">Component</span> <span class="o">{</span>
+  <span class="nf">constructor</span><span class="o">(</span><span class="n">props</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nf">super</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="py">state</span> <span class="k">=</span> <span class="o">{</span><span class="n">date</span><span class="k">:</span> <span class="kt">new</span> <span class="kt">Date</span><span class="o">()};</span>
+  <span class="o">}</span>
+  <span class="c1">// 挂载，注册定时任务</span>
+  <span class="nf">componentDidMount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="py">timerID</span> <span class="k">=</span> <span class="nf">setInterval</span><span class="o">(</span>
+      <span class="o">()</span> <span class="k">=&gt;</span> <span class="k">this</span><span class="o">.</span><span class="py">tick</span><span class="o">(),</span>
+      <span class="mi">1000</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+  <span class="c1">// 卸载定时任务</span>
+  <span class="nf">componentWillUnmount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nf">clearInterval</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="py">timerID</span><span class="o">);</span>
+  <span class="o">}</span>
+ 
+  <span class="nf">tick</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="py">setState</span><span class="o">({</span>
+      <span class="n">date</span><span class="k">:</span> <span class="kt">new</span> <span class="kt">Date</span><span class="o">()</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
+ 
+  <span class="nf">render</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nf">return</span> <span class="o">(</span>
+      <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">h1</span><span class="o">&gt;</span><span class="nc">Hello</span><span class="o">,</span> <span class="n">world</span><span class="o">!&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;</span><span class="n">现在是</span> <span class="o">{</span><span class="k">this</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">date</span><span class="o">.</span><span class="py">toLocaleTimeString</span><span class="o">()}.&lt;/</span><span class="n">h2</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+ 
+<span class="nv">ReactDOM</span><span class="o">.</span><span class="py">render</span><span class="o">(</span>
+  <span class="o">&lt;</span><span class="nc">Clock</span> <span class="o">/&gt;,</span>
+  <span class="nv">document</span><span class="o">.</span><span class="py">getElementById</span><span class="o">(</span><span class="ss">'exampl</span><span class="n">e</span><span class="o">')</span>
+<span class="o">);</span>
+</code></pre></div></div><p>每当 Clock 组件第一次加载到 DOM 中的时候，我们都想生成定时器，这在 React 中被称为<strong>挂载</strong>。</p><p>同样，每当 Clock 生成的这个 DOM 被移除的时候，我们也会想要清除定时器，这在 React 中被称为<strong>卸载</strong>。</p><p>代码解析：</p><ul><li><strong>componentDidMount()</strong> 与 <strong>componentWillUnmount()</strong> 方法被称作生命周期钩子。</li><li>在组件输出到 DOM 后会执行 <strong>componentDidMount()</strong> 钩子，我们就可以在这个钩子上设置一个定时器。</li><li>this.timerID 为定时器的 ID，我们可以在 <strong>componentWillUnmount()</strong> 钩子中卸载定时器。</li></ul><h3 id="数据自顶向下流动">数据自顶向下流动</h3><p>父组件或子组件都不能知道某个组件是有状态还是无状态，并且它们不应该关心某组件是被定义为一个函数还是一个类。</p><p>这就是为什么状态通常被称为局部或封装。 除了拥有并设置它的组件外，其它组件不可访问。</p><h2 id="state-和-props-组件参数传递">State 和 Props 组件参数传递</h2><blockquote><p><a href="https://www.runoob.com/react/react-props.html">State 和 Props</a> 组件的参数传递、父组件传递给子组件</p></blockquote><p>state 和 props 主要的区别在于 <strong>props</strong> 是不可变的，而 state 可以根据与用户交互来改变。这就是为什么有些容器组件需要定义 state 来更新和修改数据。 而子组件只能通过 props 来传递数据。</p><h3 id="使用props">使用props</h3><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">HelloMessage</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span> <span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">!&lt;</span><span class="sr">/h1&gt;</span><span class="err">;
+</span><span class="p">}</span>
+ 
+<span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">HelloMessage</span> <span class="nx">name</span><span class="o">=</span><span class="dl">"</span><span class="s2">Runoob</span><span class="dl">"</span><span class="o">/&gt;</span><span class="p">;</span>
+ 
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+    <span class="nx">element</span><span class="p">,</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+
+</code></pre></div></div><p>设置默认props属性</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">HelloMessage</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="c1">// default props</span>
+<span class="nx">HelloMessage</span><span class="p">.</span><span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Runoob</span><span class="dl">'</span>
+<span class="p">};</span>
+ 
+<span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nx">HelloMessage</span><span class="o">/&gt;</span><span class="p">;</span>
+ 
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="nx">element</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+</code></pre></div></div><h5 id="props是只读的">props是只读的</h5><p>所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。</p><h3 id="组合使用-state-和-props">组合使用 state 和 props</h3><p>在应用中组合使用 state 和 props 。我们可以在父组件中设置 state， 并通过在子组件上使用 props 将其传递到子组件上。在 render 函数中, 我们设置 name 和 site 来获取父组件传递过来的数据。</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">WebSite</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">super</span><span class="p">();</span>
+ 
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">菜鸟教程</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">site</span><span class="p">:</span> <span class="dl">"</span><span class="s2">https://www.runoob.com</span><span class="dl">"</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">Name</span> <span class="nx">name</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">site</span><span class="o">=</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">site</span><span class="p">}</span> <span class="sr">/</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+ 
+ 
+ 
+<span class="kd">class</span> <span class="nx">Name</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div><h3 id="props-验证">Props 验证</h3><p>比如验证是String类型才行。</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">MyTitle</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="nx">Hello</span><span class="p">,</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">title</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+ 
+<span class="nx">MyTitle</span><span class="p">.</span><span class="nx">propTypes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">title</span><span class="p">:</span> <span class="nx">PropTypes</span><span class="p">.</span><span class="nx">string</span>
+<span class="p">};</span>
+</code></pre></div></div><p>Props 验证使用 <strong>propTypes</strong>，它可以保证我们的应用组件被正确使用，React.PropTypes 提供很多验证器 (validator) 来验证传入数据是否有效。当向 props 传入无效数据时，JavaScript 控制台会抛出警告。</p><h2 id="react-事件处理-按钮等逻辑">React 事件处理 按钮等逻辑</h2><blockquote><p><a href="https://www.runoob.com/react/react-event-handle.html">React 事件处理</a> 按钮等逻辑</p></blockquote><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Popper</span> <span class="k">extends</span> <span class="nv">React</span><span class="o">.</span><span class="py">Component</span><span class="o">{</span>
+    <span class="nf">constructor</span><span class="o">(){</span>
+        <span class="nf">super</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="py">state</span> <span class="k">=</span> <span class="o">{</span><span class="n">name</span><span class="o">:'</span><span class="nc">Hello</span> <span class="n">world</span><span class="o">!'};</span>
+    <span class="o">}</span>
+    <span class="c1">// onclick执行逻辑</span>
+    <span class="nf">preventPop</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">e</span><span class="o">){</span>    <span class="c1">//事件对象e要放在最后</span>
+        <span class="nv">e</span><span class="o">.</span><span class="py">preventDefault</span><span class="o">();</span>
+        <span class="nf">alert</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nf">render</span><span class="o">(){</span>
+        <span class="nf">return</span> <span class="o">(</span>
+            <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">hello</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+                <span class="o">{</span><span class="cm">/* 通过 bind() 方法传递参数。 */</span><span class="o">}</span>
+                <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">"https://reactjs.org"</span> <span class="n">onClick</span><span class="o">={</span><span class="k">this</span><span class="o">.</span><span class="py">preventPop</span><span class="o">.</span><span class="py">bind</span><span class="o">(</span><span class="k">this</span><span class="o">,</span><span class="k">this</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">name</span><span class="o">)}&gt;</span><span class="nc">Click</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div><p>子组件如何给父组件传递消息？ <a href="https://www.runoob.com/react/react-forms-events.html">参考</a></p><p>当你需要从子组件中更新父组件的 <strong>state</strong> 时，你需要在父组件通过创建事件句柄 (<strong>handleChange</strong>) ，并作为 prop (<strong>updateStateProp</strong>) 传递到你的子组件上。实例如下：</p><div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Content</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span>  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+              <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span> <span class="o">=</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">updateStateProp</span><span class="p">}</span><span class="o">&gt;</span><span class="nx">点我</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>              <span class="o">&lt;</span><span class="nx">h4</span><span class="o">&gt;</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">myDataProp</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/h4</span><span class="err">&gt;
+</span>           <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">class</span> <span class="nx">HelloMessage</span> <span class="kd">extends</span> <span class="nx">React</span><span class="p">.</span><span class="nx">Component</span> <span class="p">{</span>
+  <span class="kd">constructor</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">super</span><span class="p">(</span><span class="nx">props</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">state</span> <span class="o">=</span> <span class="p">{</span><span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Hello Runoob!</span><span class="dl">'</span><span class="p">};</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">handleChange</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">setState</span><span class="p">({</span><span class="na">value</span><span class="p">:</span> <span class="dl">'</span><span class="s1">菜鸟教程</span><span class="dl">'</span><span class="p">})</span>
+  <span class="p">}</span>
+  <span class="nx">render</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">state</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="nx">Content</span> <span class="nx">myDataProp</span> <span class="o">=</span> <span class="p">{</span><span class="nx">value</span><span class="p">}</span> 
+              <span class="nx">updateStateProp</span> <span class="o">=</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">handleChange</span><span class="p">}</span><span class="o">&gt;&lt;</span><span class="sr">/Content</span><span class="err">&gt;
+</span>           <span class="o">&lt;</span><span class="sr">/div&gt;</span><span class="err">;
+</span>  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">ReactDOM</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span>
+  <span class="o">&lt;</span><span class="nx">HelloMessage</span> <span class="o">/&gt;</span><span class="p">,</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">example</span><span class="dl">'</span><span class="p">)</span>
+<span class="p">);</span>
+
+</code></pre></div></div><h2 id="react-条件渲染">React 条件渲染</h2><blockquote><p><a href="https://www.runoob.com/react/react-conditional-rendering.html">React 条件渲染</a></p></blockquote><p>在jsx里定义条件或者变量来渲染可以不同的结果。</p><p>变量控制：</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nf">render</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">const</span> <span class="n">isLoggedIn</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">isLoggedIn</span><span class="o">;</span>
+ 
+    <span class="n">let</span> <span class="n">button</span> <span class="k">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="nf">if</span> <span class="o">(</span><span class="n">isLoggedIn</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">button</span> <span class="k">=</span> <span class="o">&lt;</span><span class="nc">LogoutButton</span> <span class="n">onClick</span><span class="o">={</span><span class="k">this</span><span class="o">.</span><span class="py">handleLogoutClick</span><span class="o">}</span> <span class="o">/&gt;;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">button</span> <span class="k">=</span> <span class="o">&lt;</span><span class="nc">LoginButton</span> <span class="n">onClick</span><span class="o">={</span><span class="k">this</span><span class="o">.</span><span class="py">handleLoginClick</span><span class="o">}</span> <span class="o">/&gt;;</span>
+    <span class="o">}</span>
+ 
+    <span class="nf">return</span> <span class="o">(</span>
+      <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nc">Greeting</span> <span class="n">isLoggedIn</span><span class="o">={</span><span class="n">isLoggedIn</span><span class="o">}</span> <span class="o">/&gt;</span>
+        <span class="o">{</span><span class="n">button</span><span class="o">}</span>
+      <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">);</span>
+</code></pre></div></div><p>三目运算符</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">render</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">const</span> <span class="n">isLoggedIn</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">isLoggedIn</span><span class="o">;</span>
+  <span class="nf">return</span> <span class="o">(</span>
+    <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+      <span class="o">{</span><span class="n">isLoggedIn</span> <span class="o">?</span> <span class="o">(</span>
+        <span class="o">&lt;</span><span class="nc">LogoutButton</span> <span class="n">onClick</span><span class="o">={</span><span class="k">this</span><span class="o">.</span><span class="py">handleLogoutClick</span><span class="o">}</span> <span class="o">/&gt;</span>
+      <span class="o">)</span> <span class="k">:</span> <span class="o">(</span>
+        <span class="kt">&lt;LoginButton</span> <span class="kt">onClick</span><span class="o">={</span><span class="kt">this.handleLoginClick</span><span class="o">}</span> <span class="kt">/&gt;</span>
+      <span class="o">)}</span>
+    <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+  <span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div><h2 id="react-列表--keys">React 列表 &amp; Keys</h2><blockquote><p><a href="https://www.runoob.com/react/react-lists-and-keys.html">React 列表 &amp; Keys</a></p></blockquote><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span> <span class="nc">NumberList</span><span class="o">(</span><span class="n">props</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">const</span> <span class="n">numbers</span> <span class="k">=</span> <span class="nv">props</span><span class="o">.</span><span class="py">numbers</span><span class="o">;</span>
+  <span class="n">const</span> <span class="n">listItems</span> <span class="k">=</span> <span class="nv">numbers</span><span class="o">.</span><span class="py">map</span><span class="o">((</span><span class="n">number</span><span class="o">)</span> <span class="k">=&gt;</span>
+    <span class="o">&lt;</span><span class="n">li</span> <span class="n">key</span><span class="o">={</span><span class="nv">number</span><span class="o">.</span><span class="py">toString</span><span class="o">()}&gt;</span> <span class="nc">Keys</span> <span class="n">可以在</span> <span class="nc">DOM</span> <span class="n">中的某些元素被增加或删除的时候帮助</span> <span class="nc">React</span> <span class="n">识别哪些元素发生了变化</span><span class="err">。</span><span class="n">因此你应当给数组中的每一个元素赋予一个确定的标识</span><span class="err">。</span>
+      <span class="o">{</span><span class="n">number</span><span class="o">}</span>
+    <span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span>
+  <span class="o">);</span>
+  <span class="nf">return</span> <span class="o">(</span>
+    <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;{</span><span class="n">listItems</span><span class="o">}&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+  <span class="o">);</span>
+<span class="o">}</span>
+ 
+<span class="n">const</span> <span class="n">numbers</span> <span class="k">=</span> <span class="o">[</span><span class="err">1</span>, <span class="err">2</span>, <span class="err">3</span>, <span class="err">4</span>, <span class="err">5</span><span class="o">];</span>
+<span class="nv">ReactDOM</span><span class="o">.</span><span class="py">render</span><span class="o">(</span>
+  <span class="o">&lt;</span><span class="nc">NumberList</span> <span class="n">numbers</span><span class="o">={</span><span class="n">numbers</span><span class="o">}</span> <span class="o">/&gt;,</span>
+  <span class="nv">document</span><span class="o">.</span><span class="py">getElementById</span><span class="o">(</span><span class="ss">'exampl</span><span class="n">e</span><span class="o">')</span>
+<span class="o">);</span>
+
+</code></pre></div></div><p>Keys 可以在 DOM 中的某些元素被增加或删除的时候帮助 React 识别哪些元素发生了变化。因此你应当给数组中的每一个元素赋予一个确定的标识。</p><h2 id="react-组件-api">React 组件 API</h2><blockquote><p><a href="https://www.runoob.com/react/react-component-api.html">React 组件 API</a></p></blockquote><ul><li>设置状态：setState 合并nextState和当前state，并重新渲染组件。<ul><li>setState是React事件处理函数中和请求回调函数中触发UI更新的主要方法。合并指如果json两个key，可以只操作一个而不影响另一个Key。</li><li>另外注意setState()并不会立即改变this.state，而是创建一个即将处理的state。setState()并不一定是同步的，为了提升性能React会批量执行state和DOM渲染。</li></ul></li><li>替换状态：replaceState 不合并。</li><li>设置属性：setProps 设置属性，合并。</li><li>替换属性：replaceProps 替换属性</li><li>强制更新：forceUpdate<ul><li>forceUpdate()方法会使组件调用自身的render()方法重新渲染组件，组件的子组件也会调用自己的render()。但是，组件重新渲染时，依然会读取this.props和this.state，如果状态没有改变，那么React只会更新DOM。</li><li>forceUpdate()方法适用于this.props和this.state之外的组件重绘（如：修改了this.state后），通过该方法通知React需要调用render()</li><li>一般来说，应该尽量避免使用forceUpdate()，而仅从this.props和this.state中读取状态并由React触发render()调用。</li></ul></li><li>获取DOM节点：findDOMNode<ul><li>返回值：DOM元素DOMElement</li><li>如果组件已经挂载到DOM中，该方法返回对应的本地浏览器 DOM 元素。当<strong>render</strong>返回<strong>null</strong> 或 <strong>false</strong>时，<strong>this.findDOMNode()</strong>也会返回<strong>null</strong>。从DOM 中读取值的时候，该方法很有用，如：获取表单字段的值和做一些 DOM 操作。</li></ul></li></ul><h2 id="react-组件生命周期">React 组件生命周期</h2><blockquote><p><a href="https://www.runoob.com/react/react-component-life-cycle.html">React 组件生命周期</a></p></blockquote><ul><li>Mounting(挂载)：已插入真实 DOM</li><li>Updating(更新)：正在被重新渲染</li><li>Unmounting(卸载)：已移出真实 DOM</li></ul><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202303152334216.png" alt="img" /></p><ul><li><code class="language-plaintext highlighter-rouge">componentDidMount()</code>: 在组件挂载后（插入 DOM 树中）立即调用。</li><li><code class="language-plaintext highlighter-rouge">componentDidUpdate()</code>: 在重绘后会被立即调用。</li><li><code class="language-plaintext highlighter-rouge">componentWillUnmount()</code>: 在组件卸载及销毁之前直接调用。</li></ul><p>例子</p><ul><li><a href="https://www.runoob.com/react/react-ajax.html">React AJAX</a> 使用ajax请求服务端数据，挂载时开始异步请求数据，并设置回调，如果请求有结果了，就setState重绘，卸载时取消进行中的请求。</li></ul><h2 id="react-表单">React 表单</h2><blockquote><p><a href="https://www.runoob.com/react/react-forms-events.html">React 表单</a></p></blockquote><p>HTML 表单元素与 React 中的其他 DOM 元素有所不同,因为表单元素生来就保留一些内部状态。</p><p>在 HTML 当中，像 <code class="language-plaintext highlighter-rouge">&lt;input&gt;, &lt;textarea&gt;, 和 &lt;select&gt;</code> 这类表单元素会维持自身状态，并根据用户输入进行更新。但在React中，可变的状态通常保存在组件的状态属性中，并且只能用 setState() 方法进行更新。</p><p>每个组件对应了一个html元素。html元素的属性会传递成组件的元素。</p><p>因此input value应该就是组件里state里的某个值，然后react 监听onchange，onchang时也同步更新state里value的值。相当于组件就变成了一个html表单元素。</p><p>例子：在实例中我们设置了输入框 input 值 <strong>value = {this.state.data}</strong>。在输入框值发生变化时我们可以更新 state。我们可以使用 <strong>onChange</strong> 事件来监听 input 的变化，并修改 state。</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HelloMessage</span> <span class="k">extends</span> <span class="nv">React</span><span class="o">.</span><span class="py">Component</span> <span class="o">{</span>
+  <span class="nf">constructor</span><span class="o">(</span><span class="n">props</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nf">super</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="py">state</span> <span class="k">=</span> <span class="o">{</span><span class="n">value</span><span class="k">:</span> <span class="kt">'Hello</span> <span class="kt">Runoob!'</span><span class="o">};</span>
+      <span class="k">this</span><span class="o">.</span><span class="py">handleChange</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="py">handleChange</span><span class="o">.</span><span class="py">bind</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+  <span class="o">}</span>
+ 
+  <span class="nf">handleChange</span><span class="o">(</span><span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="py">setState</span><span class="o">({</span><span class="n">value</span><span class="k">:</span> <span class="kt">event.target.value</span><span class="o">});</span>
+  <span class="o">}</span>
+  <span class="nf">render</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">var</span> <span class="n">value</span> <span class="k">=</span> <span class="k">this</span><span class="o">.</span><span class="py">state</span><span class="o">.</span><span class="py">value</span><span class="o">;</span>
+    <span class="k">return</span> <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">input</span> <span class="n">type</span><span class="o">=</span><span class="s">"text"</span> <span class="n">value</span><span class="o">={</span><span class="n">value</span><span class="o">}</span> <span class="n">onChange</span><span class="o">={</span><span class="k">this</span><span class="o">.</span><span class="py">handleChange</span><span class="o">}</span> <span class="o">/&gt;</span> 
+            <span class="o">&lt;</span><span class="n">h4</span><span class="o">&gt;{</span><span class="n">value</span><span class="o">}&lt;/</span><span class="n">h4</span><span class="o">&gt;</span>
+           <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="nv">ReactDOM</span><span class="o">.</span><span class="py">render</span><span class="o">(</span>
+  <span class="o">&lt;</span><span class="nc">HelloMessage</span> <span class="o">/&gt;,</span>
+  <span class="nv">document</span><span class="o">.</span><span class="py">getElementById</span><span class="o">(</span><span class="ss">'exampl</span><span class="n">e</span><span class="o">')</span>
+<span class="o">);</span>
+</code></pre></div></div><p>子组件想更新父组件的值，就让父组件传回到函数给子组件。</p><p>父组件想更新子组件的值，就属性传递即可。父组件每次重绘，都会重绘子组件。</p><h2 id="函数组件代替类组件">函数组件代替类组件</h2><blockquote><p><a href="https://juejin.cn/post/6979903503175008270">函数组件代替类组件</a></p></blockquote><p>函数组件可以代替类组件，因为函数组件语法更加简单易懂，但是也面临以下两个问题</p><ul><li><p>没有state</p><ul><li><p>React v16.8.0推出Hooks API，其中的 <code class="language-plaintext highlighter-rouge">useState</code> 可以解决这个问题</p><p><strong>注意</strong>： <code class="language-plaintext highlighter-rouge">useState</code> 不可以用 <code class="language-plaintext highlighter-rouge">if...else</code></p></li></ul></li><li><p>没有生命周期</p><ul><li><p>React v16.8.0推出Hooks API，其中的 <code class="language-plaintext highlighter-rouge">useEffect</code> 可以解决这个问题</p><p>默认每次渲染都会调用</p></li></ul></li></ul><p>Hook 是一个特殊的函数，它可以让你<strong>钩入</strong>React 的特性。例如，<code class="language-plaintext highlighter-rouge">useState</code> 是允许你在 React 函数组件中添加 state 的 Hook。</p><p>函数组件和类组件对比</p><ul><li>一般来说，类组件的性能消耗较函数式组件大，包括生成实例时使用的内存及shouldComponentUpdate不正确引起的不必要的更新。</li><li>类组件不能很好的压缩</li><li>实际开发中，类组件的生命周期常常包含一些不相关的逻辑</li></ul><h3 id="状态-usestate">状态 useState</h3><p><code class="language-plaintext highlighter-rouge">useState</code></p><p>state可以起别名，此时多次调用useState其实就设置了不同别名不同值。</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">React</span><span class="o">,</span> <span class="o">{</span> <span class="n">useState</span><span class="o">,</span> <span class="n">useEffect</span> <span class="o">}</span> <span class="n">from</span> <span class="s">"react"</span>
+
+<span class="n">const</span> <span class="nc">App</span> <span class="k">=</span> <span class="n">props</span> <span class="o">=&gt;{</span><span class="c1">//消除了this</span>
+    <span class="n">const</span> <span class="o">[</span><span class="kt">n</span>, <span class="kt">setN</span><span class="o">]</span> <span class="k">=</span> <span class="nv">React</span><span class="o">.</span><span class="py">useState</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span><span class="c1">//数组前面是读，后面是写，叫法无所谓</span>
+    <span class="n">const</span> <span class="n">onClick</span> <span class="k">=</span> <span class="o">()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+        <span class="nf">setN</span><span class="o">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="o">{</span>
+        <span class="o">&lt;</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="o">{</span><span class="n">n</span><span class="o">},</span>
+        <span class="o">&lt;</span><span class="n">button</span> <span class="n">onClick</span> <span class="k">=</span> <span class="o">{</span><span class="n">onClick</span><span class="o">}&gt;+</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">button</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div><p>以上方法比原先的setState要简便不少，但是麻烦的是如果有多个数据，需要多次useState而不能一次性传入多个值。</p><h3 id="生命周期-useeffect">生命周期 useEffect</h3><blockquote><p><a href="https://juejin.cn/post/6889441769164341261">useEffect</a></p></blockquote><p>effect（副作用）是react函数组件用来替代生命周期的函数。你可以把 <code class="language-plaintext highlighter-rouge">useEffect Hook</code> 看做 <code class="language-plaintext highlighter-rouge">componentDidMount</code>，<code class="language-plaintext highlighter-rouge">componentDidUpdate</code> 和 <code class="language-plaintext highlighter-rouge">componentWillUnmount</code> 这三个函数的组合。</p><p><code class="language-plaintext highlighter-rouge">useEffect</code> 接受一个函数作为参数，第二个参数表示什么时候调用它。 参数如下： <code class="language-plaintext highlighter-rouge">useEffect(callback[,[]])</code></p><p>第一个参数接受一个<code class="language-plaintext highlighter-rouge">callback</code>回调函数，里面可以写执行业务代码</p><p>第二个参数可省略，它接受一个数组，可以是空数组，也包含了<code class="language-plaintext highlighter-rouge">state</code>数据</p><p>可以模拟<code class="language-plaintext highlighter-rouge">componentDidMount</code> <code class="language-plaintext highlighter-rouge">componentDidUpdate</code> <code class="language-plaintext highlighter-rouge">componentWillUnmount</code></p><ul><li><p>当不传递第二个参数时，每次render都会执行一遍callback函数，相当于包含第一遍render的<code class="language-plaintext highlighter-rouge">componentDidUpdate</code></p></li><li><p>当传递第二个参数且是空数组时，只有第一次render才会执行callback，类似于<code class="language-plaintext highlighter-rouge">componentDidMount</code></p></li><li><p>不管是否传递第二个参数，只要在<code class="language-plaintext highlighter-rouge">callback</code>中return 一个函数，就相当于告诉react此组件挂掉之前执行什么操作，类似于<code class="language-plaintext highlighter-rouge">componentWillUnMount</code></p></li><li><p>可以监听指定是数据的变化，有变化就调用指定的函数。此时第二个参数是数组且不为空，比如</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">React</span><span class="o">.</span><span class="py">useEffect</span><span class="o">(()</span> <span class="k">=&gt;</span> <span class="o">{</span>
+    <span class="nv">console</span><span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="s">"state发生变化了"</span><span class="o">);</span>
+  <span class="o">},</span> <span class="o">[</span><span class="kt">state</span><span class="o">]);</span> <span class="c1">//这里传递了数组，里面是监控的数据，也可以多个变量</span>
+</code></pre></div></div></li></ul><h3 id="usecontext">useContext</h3><blockquote><p><a href="https://juejin.cn/post/6889344852279066632">参考</a></p></blockquote><p><code class="language-plaintext highlighter-rouge">context</code>（上下文）可以看成是扩大版的<code class="language-plaintext highlighter-rouge">props</code>，它可以将全局的数据通过<code class="language-plaintext highlighter-rouge">provider</code>接口传递value给局部的组件，让包围在<code class="language-plaintext highlighter-rouge">provider</code>中的局部组件可以获取到全局数据的读写接口</p><p>全局变量可以看成是全局的上下文</p><p>而上下文则是局部的全局变量，因为只有包围在<code class="language-plaintext highlighter-rouge">provider</code>中的局部组件才可以获取到这些全局变量的读写接口</p><p>设置一个父组件，一个子组件，通过useContext来传递state，并在子组件上设置一个按钮来改变全局state</p><p>这样子组件可以读父组件的state，他们其实就是state共享了。</p><p>父组件也可以读子组件设置的。</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">const</span> <span class="o">{</span> <span class="n">state</span><span class="o">,</span> <span class="n">setState</span> <span class="o">}</span> <span class="k">=</span> <span class="nf">useContext</span><span class="o">(</span><span class="n">X</span><span class="o">);</span><span class="c1">//拿到 名字为X的上下文的value，用两个变量来接收读写接口</span>
+</code></pre></div></div><h3 id="usereducer">useReducer</h3><blockquote><p><a href="https://juejin.cn/post/6889066250454958088">什么是useReducer</a></p></blockquote><p>Redux 的核心概念是，组件发出 action 与状态管理器通信。状态管理器收到 action 以后，使用 Reducer 函数算出新的state，Reducer 函数的形式是<code class="language-plaintext highlighter-rouge">(state, action) =&gt; newState</code></p><p><code class="language-plaintext highlighter-rouge">useReducer</code>用来引入 Reducer 功能。</p><h4 id="usereducer语法">useReducer语法</h4><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span>
+</code></pre></div></div><p>useReducer用来接收两个参数，分别是Reducer函数和初始state</p><p>useReducer 返回了一个数组，2个元素分别为 state 和 dispatch 方法。其中 state 在我们的例子中就是当前的 n 值，dispatch 方法接受一个参数，执行对应的 action。dispatch 执行后，对应的 state 会改变，组件会 rerender，来展示最新的状态。</p><p>reducer函数里面可以存放state的各种操作，它类似状态管理器（其实我觉得应该叫state数据管理器），通过dispatch函数的传递action，可以触发reducer函数内部运算操作，并返回当前state</p><p>一个dispatch例子</p><div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">定义加法和减法</span>
+<span class="n">const</span> <span class="n">reducer</span><span class="o">=(</span><span class="n">state</span><span class="o">,</span><span class="n">action</span><span class="o">)=&gt;{</span>
+	<span class="nf">if</span><span class="o">(</span><span class="nv">action</span><span class="o">.</span><span class="py">type</span><span class="o">===</span><span class="s">"add"</span><span class="o">){</span>
+    	<span class="k">return</span> <span class="o">{</span>
+        	<span class="n">n</span><span class="k">:</span><span class="kt">state.n+</span><span class="err">1</span>
+        <span class="o">}</span>
+    <span class="o">}</span><span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="nv">action</span><span class="o">.</span><span class="py">type</span><span class="o">===</span><span class="s">"sub"</span><span class="o">){</span>
+    	<span class="k">return</span> <span class="o">{</span>
+        	<span class="n">n</span><span class="k">:</span><span class="kt">state.n-</span><span class="err">1</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div><p>其次，使用useReducer接收Reducer函数和一个初始state，并返回当前值state与dispatch函数</p><p>当触发事件时，使用dispatch传递action，让reducer计算出新的state</p><div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">App</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">initialState</span> <span class="o">=</span> <span class="p">{</span> <span class="na">n</span><span class="p">:</span> <span class="mi">1</span> <span class="p">};</span>
+  <span class="kd">const</span> <span class="p">[</span><span class="nx">state</span><span class="p">,</span> <span class="nx">dispatch</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useReducer</span><span class="p">(</span><span class="nx">reducer</span><span class="p">,</span> <span class="nx">initialState</span><span class="p">);</span> 
+<span class="c1">//使用useReducer接收reducer参数和初始state</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">state</span><span class="p">.</span><span class="nx">n</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">add</span><span class="dl">"</span> <span class="p">});</span>  <span class="c1">// 传递action</span>
+        <span class="p">}}</span>
+      <span class="o">&gt;</span>
+        <span class="nx">点击</span><span class="o">+</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">button</span>
+        <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+          <span class="nx">dispatch</span><span class="p">({</span> <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">sub</span><span class="dl">"</span> <span class="p">});</span><span class="c1">//传递action触发reducer函数</span>
+        <span class="p">}}</span>
+      <span class="o">&gt;</span>
+        <span class="nx">点击</span><span class="o">-</span>
+      <span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div><p>dispatch()是发出 Action 的唯一方法。它发出action后使reducer执行，并返回一个新的state。</p><h4 id="配合usecontext">配合useContext</h4><p>我们可以使用useContext配合useReducer来帮助我们完成一些数据、操作的流转</p><h2 id="参考">参考</h2><ul><li><a href="https://www.runoob.com/react/react-components.html">React 菜鸟教程</a></li></ul></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html><html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="google-site-verification" content="wVZecs0Awis41AZhX45RBAUlyk3nnpoOkebdIemwhxQ" /><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /><title>sql经典练习题 &mdash; Fulongのblog</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/primer-css/css/primer.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/collection.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/repo-card.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/sections/repo-list.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/components/boxed-group.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/common.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/globals/responsive.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/css/posts/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/octicons/octicons/octicons.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mzlogin/rouge-themes@master/dist/github.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/css/share.min.css"><link rel="canonical" href="https://mafulong.github.io/2018/05/01/sql%E7%BB%8F%E5%85%B8%E7%BB%83%E4%B9%A0%E9%A2%98/"><link rel="alternate" type="application/atom+xml" title="Fulongのblog" href="https://mafulong.github.io"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/favicon.ico"><meta property="og:title" content="sql经典练习题"><meta name="keywords" content="logbook, mafulong"><meta name="og:keywords" content="logbook, mafulong"><meta name="description" content="sql题目```sqluse fuxi;"><meta name="og:description" content="sql题目```sqluse fuxi;"><meta property="og:url" content="https://mafulong.github.io/2018/05/01/sql%E7%BB%8F%E5%85%B8%E7%BB%83%E4%B9%A0%E9%A2%98/"><meta property="og:site_name" content="Fulongのblog"><meta property="og:type" content="article"><meta property="og:locale" content="zh_CN" /><meta property="article:published_time" content="2018-05-01"> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/jquery/dist/jquery.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery-ui.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/main.js"></script></head><body class="" data-mz=""><header class="site-header"><div class="container"><h1><a href="https://mafulong.github.io/" title="Fulongのblog"><span class="octicon octicon-mark-github"></span> Fulongのblog</a></h1><button class="collapsed mobile-visible" type="button" onclick="toggleMenu();"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button><nav class="site-header-nav" role="navigation"> <a href="https://mafulong.github.io/" class=" site-header-nav-item" target="" title="Home">Home</a> <a href="https://mafulong.github.io/categories/" class=" site-header-nav-item" target="" title="Categories">Categories</a> <a href="https://mafulong.github.io/archives/" class=" site-header-nav-item" target="" title="Achieves">Achieves</a> <a href="https://mafulong.github.io/open-source" class=" site-header-nav-item" target="" title="Open-Source">Open-Source</a> <a href="https://mafulong.github.io/bookmark" class=" site-header-nav-item" target="" title="Bookmark">Bookmark</a> <a href="https://mafulong.github.io/about" class=" site-header-nav-item" target="" title="About">About</a></nav></div></header><section class="collection-head small geopattern" data-pattern-id="sql经典练习题"><div class="container"><div class="columns"><div class="column three-fourths"><div class="collection-title"><h1 class="collection-header">sql经典练习题</h1><div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/01 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Mysql" title="Mysql">Mysql</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 7401 字，约 22 分钟 </span></div></div></div><div class="column one-fourth mobile-hidden"><div class="collection-title"> <img style="height:72px;width:72px" src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/images/qrcode.jpg" alt="傻了吧" /></div></div></div></div></section><section class="container content"><div class="columns"><div class="column three-fourths" ><article class="article-content markdown-body"><h2 id="sql题目">sql题目</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">use</span> <span class="n">fuxi</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">STUDENT</span>
+<span class="p">(</span>
+  <span class="n">SNO</span>       <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">SNAME</span>     <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">SSEX</span>      <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">SBIRTHDAY</span> <span class="nb">DATETIME</span><span class="p">,</span>
+  <span class="k">CLASS</span>     <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">COURSE</span>
+<span class="p">(</span>
+  <span class="n">CNO</span>   <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">CNAME</span> <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">TNO</span>   <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">SCORE</span>
+<span class="p">(</span>
+  <span class="n">SNO</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>     <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">CNO</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>     <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">DEGREE</span> <span class="nb">NUMERIC</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">TEACHER</span>
+<span class="p">(</span>
+  <span class="n">TNO</span>       <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">TNAME</span>     <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">TSEX</span>      <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">TBIRTHDAY</span> <span class="nb">DATETIME</span>    <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">PROF</span>      <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">6</span><span class="p">),</span>
+  <span class="n">DEPART</span>    <span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span>
+<span class="p">);</span>
+</code></pre></div></div><h2 id="sql解答">sql解答</h2><div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="s1">'曾华'</span>
+  <span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1977-09-01'</span><span class="p">,</span> <span class="mi">95033</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="s1">'匡明'</span>
+  <span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1975-10-02'</span><span class="p">,</span> <span class="mi">95031</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">107</span><span class="p">,</span> <span class="s1">'王丽'</span>
+  <span class="p">,</span> <span class="s1">'女'</span><span class="p">,</span> <span class="s1">'1976-01-23'</span><span class="p">,</span> <span class="mi">95033</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s1">'李军'</span>
+  <span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1976-02-20'</span><span class="p">,</span> <span class="mi">95033</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="s1">'王芳'</span>
+  <span class="p">,</span> <span class="s1">'女'</span><span class="p">,</span> <span class="s1">'1975-02-10'</span><span class="p">,</span> <span class="mi">95031</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">STUDENT</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">SNAME</span><span class="p">,</span> <span class="n">SSEX</span><span class="p">,</span> <span class="n">SBIRTHDAY</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">103</span><span class="p">,</span> <span class="s1">'陆君'</span>
+  <span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1974-06-03'</span><span class="p">,</span> <span class="mi">95031</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">COURSE</span> <span class="p">(</span><span class="n">CNO</span><span class="p">,</span> <span class="n">CNAME</span><span class="p">,</span> <span class="n">TNO</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'3-105'</span><span class="p">,</span> <span class="s1">'计算机导论'</span><span class="p">,</span> <span class="mi">825</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">COURSE</span> <span class="p">(</span><span class="n">CNO</span><span class="p">,</span> <span class="n">CNAME</span><span class="p">,</span> <span class="n">TNO</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'3-245'</span><span class="p">,</span> <span class="s1">'操作系统'</span><span class="p">,</span> <span class="mi">804</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">COURSE</span> <span class="p">(</span><span class="n">CNO</span><span class="p">,</span> <span class="n">CNAME</span><span class="p">,</span> <span class="n">TNO</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'6-166'</span><span class="p">,</span> <span class="s1">'数据电路'</span><span class="p">,</span> <span class="mi">856</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">COURSE</span> <span class="p">(</span><span class="n">CNO</span><span class="p">,</span> <span class="n">CNAME</span><span class="p">,</span> <span class="n">TNO</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'9-888'</span><span class="p">,</span> <span class="s1">'高等数学'</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">103</span><span class="p">,</span> <span class="s1">'3-245'</span><span class="p">,</span> <span class="mi">86</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="s1">'3-245'</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="s1">'3-245'</span><span class="p">,</span> <span class="mi">68</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">103</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">92</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">88</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">76</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">64</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">107</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">91</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">101</span><span class="p">,</span> <span class="s1">'6-166'</span><span class="p">,</span> <span class="mi">85</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">107</span><span class="p">,</span> <span class="s1">'6-106'</span><span class="p">,</span> <span class="mi">79</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="s1">'3-105'</span><span class="p">,</span> <span class="mi">78</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">SCORE</span> <span class="p">(</span><span class="n">SNO</span><span class="p">,</span> <span class="n">CNO</span><span class="p">,</span> <span class="n">DEGREE</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="s1">'6-166'</span><span class="p">,</span> <span class="mi">81</span><span class="p">);</span>
+
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">TEACHER</span> <span class="p">(</span><span class="n">TNO</span><span class="p">,</span> <span class="n">TNAME</span><span class="p">,</span> <span class="n">TSEX</span><span class="p">,</span> <span class="n">TBIRTHDAY</span><span class="p">,</span> <span class="n">PROF</span><span class="p">,</span> <span class="n">DEPART</span><span class="p">)</span>
+<span class="k">VALUES</span> <span class="p">(</span><span class="mi">804</span><span class="p">,</span> <span class="s1">'李诚'</span><span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1958-12-02'</span><span class="p">,</span> <span class="s1">'副教授'</span><span class="p">,</span> <span class="s1">'计算机系'</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">TEACHER</span> <span class="p">(</span><span class="n">TNO</span><span class="p">,</span> <span class="n">TNAME</span><span class="p">,</span> <span class="n">TSEX</span><span class="p">,</span> <span class="n">TBIRTHDAY</span><span class="p">,</span> <span class="n">PROF</span><span class="p">,</span> <span class="n">DEPART</span><span class="p">)</span>
+<span class="k">VALUES</span> <span class="p">(</span><span class="mi">856</span><span class="p">,</span> <span class="s1">'张旭'</span><span class="p">,</span> <span class="s1">'男'</span><span class="p">,</span> <span class="s1">'1969-03-12'</span><span class="p">,</span> <span class="s1">'讲师'</span><span class="p">,</span> <span class="s1">'电子工程系'</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">TEACHER</span> <span class="p">(</span><span class="n">TNO</span><span class="p">,</span> <span class="n">TNAME</span><span class="p">,</span> <span class="n">TSEX</span><span class="p">,</span> <span class="n">TBIRTHDAY</span><span class="p">,</span> <span class="n">PROF</span><span class="p">,</span> <span class="n">DEPART</span><span class="p">)</span>
+<span class="k">VALUES</span> <span class="p">(</span><span class="mi">825</span><span class="p">,</span> <span class="s1">'王萍'</span><span class="p">,</span> <span class="s1">'女'</span><span class="p">,</span> <span class="s1">'1972-05-05'</span><span class="p">,</span> <span class="s1">'助教'</span><span class="p">,</span> <span class="s1">'计算机系'</span><span class="p">);</span>
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">TEACHER</span> <span class="p">(</span><span class="n">TNO</span><span class="p">,</span> <span class="n">TNAME</span><span class="p">,</span> <span class="n">TSEX</span><span class="p">,</span> <span class="n">TBIRTHDAY</span><span class="p">,</span> <span class="n">PROF</span><span class="p">,</span> <span class="n">DEPART</span><span class="p">)</span>
+<span class="k">VALUES</span> <span class="p">(</span><span class="mi">831</span><span class="p">,</span> <span class="s1">'刘冰'</span><span class="p">,</span> <span class="s1">'女'</span><span class="p">,</span> <span class="s1">'1977-08-14'</span><span class="p">,</span> <span class="s1">'助教'</span><span class="p">,</span> <span class="s1">'电子工程系'</span><span class="p">);</span>
+
+<span class="c1">-- 1、 查询Student表中的所有记录的Sname、Ssex和Class列。</span>
+<span class="k">select</span>
+  <span class="n">SNAME</span><span class="p">,</span>
+  <span class="n">SSEX</span><span class="p">,</span>
+  <span class="k">CLASS</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">;</span>
+
+<span class="c1">-- 2、 查询教师所有的单位即不重复的Depart列。</span>
+<span class="k">select</span> <span class="k">distinct</span> <span class="n">DEPART</span>
+<span class="k">from</span> <span class="n">TEACHER1</span><span class="p">;</span>
+
+<span class="c1">-- 3、 查询Student表的所有记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">;</span>
+
+<span class="c1">-- 4、 查询Score表中成绩在60到80之间的所有记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">DEGREE</span> <span class="o">&gt;</span> <span class="mi">60</span> <span class="k">and</span> <span class="n">DEGREE</span> <span class="o">&lt;</span> <span class="mi">80</span><span class="p">;</span>
+
+<span class="c1">-- 5、 查询Score表中成绩为85，86或88的记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">DEGREE</span> <span class="o">=</span> <span class="mi">85</span> <span class="k">or</span> <span class="n">DEGREE</span> <span class="o">=</span> <span class="mi">86</span> <span class="k">or</span> <span class="n">DEGREE</span> <span class="o">=</span> <span class="mi">88</span><span class="p">;</span>
+
+<span class="c1">-- 6、 查询Student表中“95031”班或性别为“女”的同学记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="k">CLASS</span> <span class="o">=</span> <span class="s1">'95031'</span> <span class="k">or</span> <span class="n">SSEX</span> <span class="o">=</span> <span class="s1">'女'</span><span class="p">;</span>
+
+<span class="c1">-- 7、 以Class降序查询Student表的所有记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">CLASS</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 8、 以Cno升序、Degree降序查询Score表的所有记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">CNO</span> <span class="k">asc</span><span class="p">,</span> <span class="n">DEGREE</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 9、 查询“95031”班的学生人数。</span>
+<span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="k">CLASS</span> <span class="o">=</span> <span class="s1">'95031'</span><span class="p">;</span>
+
+<span class="c1">-- 10、查询Score表中的最高分的学生学号和课程号。</span>
+<span class="k">select</span>
+  <span class="n">sno</span><span class="p">,</span>
+  <span class="n">CNO</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">DEGREE</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+  <span class="k">from</span> <span class="n">SCORE</span>
+<span class="p">);</span>
+
+<span class="c1">-- 11、查询‘3-105’号课程的平均分。</span>
+<span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">CNO</span> <span class="o">=</span> <span class="s1">'3-105'</span><span class="p">;</span>
+
+<span class="c1">-- 12、查询Score表中至少有5名学生选修的并以3开头的课程的平均分数。</span>
+<span class="k">select</span>
+  <span class="k">avg</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">),</span>
+  <span class="n">CNO</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">cno</span> <span class="k">like</span> <span class="s1">'3%'</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">CNO</span>
+<span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="c1">-- 13、查询最低分大于70，最高分小于90的Sno列。</span>
+<span class="k">select</span> <span class="n">SNO</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">SNO</span>
+<span class="k">having</span> <span class="k">min</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">70</span> <span class="k">and</span> <span class="k">max</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">90</span><span class="p">;</span>
+
+<span class="c1">-- 14、查询所有学生的Sname、Cno和Degree列。</span>
+<span class="k">select</span>
+  <span class="n">SNAME</span><span class="p">,</span>
+  <span class="n">CNO</span><span class="p">,</span>
+  <span class="n">DEGREE</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">,</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">STUDENT</span><span class="p">.</span><span class="n">SNO</span> <span class="o">=</span> <span class="n">SCORE</span><span class="p">.</span><span class="n">SNO</span><span class="p">;</span>
+
+<span class="c1">-- 15、查询所有学生的Sno、Cname和Degree列。</span>
+<span class="k">select</span>
+  <span class="n">SCORE</span><span class="p">.</span><span class="n">SNO</span><span class="p">,</span>
+  <span class="n">CNO</span><span class="p">,</span>
+  <span class="n">DEGREE</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">,</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">STUDENT</span><span class="p">.</span><span class="n">SNO</span> <span class="o">=</span> <span class="n">SCORE</span><span class="p">.</span><span class="n">SNO</span><span class="p">;</span>
+
+<span class="c1">-- 16、查询所有学生的Sname、Cname和Degree列。</span>
+<span class="k">SELECT</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">SNAME</span><span class="p">,</span>
+  <span class="n">B</span><span class="p">.</span><span class="n">CNAME</span><span class="p">,</span>
+  <span class="k">C</span><span class="p">.</span><span class="n">DEGREE</span>
+<span class="k">FROM</span> <span class="n">STUDENT</span> <span class="n">A</span>
+  <span class="k">JOIN</span> <span class="p">(</span><span class="n">COURSE</span> <span class="n">B</span><span class="p">,</span> <span class="n">SCORE</span> <span class="k">C</span><span class="p">)</span>
+    <span class="k">ON</span> <span class="n">A</span><span class="p">.</span><span class="n">SNO</span> <span class="o">=</span> <span class="k">C</span><span class="p">.</span><span class="n">SNO</span> <span class="k">AND</span> <span class="n">B</span><span class="p">.</span><span class="n">CNO</span> <span class="o">=</span> <span class="k">C</span><span class="p">.</span><span class="n">CNO</span><span class="p">;</span>
+
+<span class="c1">-- 17、查询“95033”班所选课程的平均分。</span>
+<span class="k">select</span> <span class="k">avg</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">sno</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">SNO</span>
+              <span class="k">from</span> <span class="n">STUDENT</span>
+              <span class="k">where</span> <span class="k">CLASS</span> <span class="o">=</span> <span class="s1">'95033'</span><span class="p">);</span>
+
+<span class="c1">-- 18、假设使用如下命令建立了一个grade表：</span>
+<span class="k">create</span> <span class="k">table</span> <span class="n">grade</span> <span class="p">(</span>
+  <span class="n">low</span>  <span class="nb">numeric</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+  <span class="n">upp</span>  <span class="nb">numeric</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+  <span class="n">rank</span> <span class="nb">char</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">grade</span> <span class="k">values</span> <span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">'A'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">grade</span> <span class="k">values</span> <span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">grade</span> <span class="k">values</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">79</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">grade</span> <span class="k">values</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">69</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">);</span>
+<span class="k">insert</span> <span class="k">into</span> <span class="n">grade</span> <span class="k">values</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">);</span>
+<span class="c1">-- 现查询所有同学的Sno、Cno和rank列。</span>
+<span class="k">SELECT</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">SNO</span><span class="p">,</span>
+  <span class="n">A</span><span class="p">.</span><span class="n">CNO</span><span class="p">,</span>
+  <span class="n">B</span><span class="p">.</span><span class="n">RANK</span>
+<span class="k">FROM</span> <span class="n">SCORE</span> <span class="n">A</span><span class="p">,</span> <span class="n">grade</span> <span class="n">B</span>
+<span class="k">WHERE</span> <span class="n">A</span><span class="p">.</span><span class="n">DEGREE</span> <span class="k">BETWEEN</span> <span class="n">B</span><span class="p">.</span><span class="n">LOW</span> <span class="k">AND</span> <span class="n">B</span><span class="p">.</span><span class="n">UPP</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">RANK</span><span class="p">;</span>
+
+<span class="c1">-- 19、查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">CNO</span> <span class="o">=</span> <span class="s1">'3-105'</span> <span class="k">and</span> <span class="n">DEGREE</span> <span class="o">&gt;</span> <span class="k">ALL</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">DEGREE</span>
+  <span class="k">from</span> <span class="n">SCORE</span>
+  <span class="k">where</span> <span class="n">SNO</span> <span class="o">=</span> <span class="s1">'109'</span>
+<span class="p">);</span>
+
+<span class="k">set</span> <span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">sql_mode</span> <span class="o">=</span> <span class="s1">'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'</span><span class="p">;</span>
+<span class="k">set</span> <span class="n">sql_mode</span> <span class="o">=</span> <span class="s1">'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'</span><span class="p">;</span>
+
+<span class="c1">-- 20、查询score中选学一门以上课程的同学中分数为非最高分成绩的记录</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">DEGREE</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">select</span> <span class="k">MAX</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+                <span class="k">from</span> <span class="n">SCORE</span><span class="p">)</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">SNO</span>
+<span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- 21、查询成绩高于学号为“109”、课程号为“3-105”的成绩的所有记录。</span>
+<span class="c1">-- 同19</span>
+
+<span class="c1">-- 22、查询和学号为108的同学同年出生的所有学生的Sno、Sname和Sbirthday列。</span>
+<span class="k">select</span>
+  <span class="n">SNO</span><span class="p">,</span>
+  <span class="n">SNAME</span><span class="p">,</span>
+  <span class="n">SBIRTHDAY</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="nb">year</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="nb">year</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span>
+  <span class="k">from</span> <span class="n">STUDENT</span>
+  <span class="k">where</span> <span class="n">SNO</span> <span class="o">=</span> <span class="s1">'108'</span>
+<span class="p">);</span>
+
+<span class="c1">-- 23、查询“张旭“教师任课的学生成绩。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">cno</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">CNO</span>
+  <span class="k">from</span> <span class="n">COURSE</span>
+    <span class="k">inner</span> <span class="k">join</span> <span class="n">TEACHER</span> <span class="k">on</span> <span class="n">COURSE</span><span class="p">.</span><span class="n">TNO</span> <span class="o">=</span> <span class="n">TEACHER</span><span class="p">.</span><span class="n">TNO</span> <span class="k">and</span> <span class="n">TNAME</span> <span class="o">=</span> <span class="s1">'张旭'</span>
+<span class="p">);</span>
+
+<span class="c1">-- 24、查询选修某课程的同学人数多于5人的教师姓名。</span>
+<span class="k">select</span> <span class="n">TNAME</span>
+<span class="k">from</span> <span class="n">TEACHER</span>
+<span class="k">where</span> <span class="n">TNO</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">TNO</span>
+  <span class="k">from</span> <span class="n">COURSE</span>
+  <span class="k">where</span> <span class="n">CNO</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">CNO</span>
+               <span class="k">from</span> <span class="n">SCORE</span>
+               <span class="k">group</span> <span class="k">by</span> <span class="n">CNO</span>
+               <span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="n">SNO</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- 25、查询95033班和95031班全体学生的记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="k">CLASS</span> <span class="k">in</span> <span class="p">(</span><span class="s1">'95033'</span><span class="p">,</span> <span class="s1">'95031'</span><span class="p">);</span>
+
+<span class="c1">-- 26、查询存在有85分以上成绩的课程Cno.</span>
+<span class="k">select</span> <span class="n">cno</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">group</span> <span class="k">by</span> <span class="n">CNO</span>
+<span class="k">having</span> <span class="k">MAX</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">85</span><span class="p">;</span>
+
+<span class="c1">-- 27、查询出“计算机系“教师所教课程的成绩表。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">CNO</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">CNO</span>
+              <span class="k">from</span> <span class="n">TEACHER</span><span class="p">,</span> <span class="n">COURSE</span>
+              <span class="k">where</span> <span class="n">DEPART</span> <span class="o">=</span> <span class="s1">'计算机系'</span> <span class="k">and</span> <span class="n">COURSE</span><span class="p">.</span><span class="n">TNO</span> <span class="o">=</span> <span class="n">TEACHER</span><span class="p">.</span><span class="n">TNO</span><span class="p">);</span>
+
+<span class="c1">-- 28、查询“计算机系”与“电子工程系“不同职称的教师的Tname和Prof</span>
+<span class="k">select</span>
+  <span class="n">tname</span><span class="p">,</span>
+  <span class="n">prof</span>
+<span class="k">from</span> <span class="n">TEACHER</span>
+<span class="k">where</span> <span class="n">depart</span> <span class="o">=</span> <span class="s1">'计算机系'</span> <span class="k">and</span> <span class="n">prof</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">prof</span>
+  <span class="k">from</span> <span class="n">TEACHER</span>
+  <span class="k">where</span> <span class="n">depart</span> <span class="o">=</span> <span class="s1">'电子工程系'</span>
+<span class="p">);</span>
+
+<span class="c1">-- 29、查询选修编号为“3-105“课程且成绩至少高于选修编号为“3-245”的同学的Cno、Sno和Degree,并按Degree从高到低次序排序。</span>
+<span class="k">select</span>
+  <span class="n">CNO</span><span class="p">,</span>
+  <span class="n">SNO</span><span class="p">,</span>
+  <span class="n">DEGREE</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">CNO</span> <span class="o">=</span> <span class="s1">'3-105'</span> <span class="k">and</span> <span class="n">DEGREE</span> <span class="o">&gt;</span> <span class="k">any</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">DEGREE</span>
+  <span class="k">from</span> <span class="n">SCORE</span>
+  <span class="k">where</span> <span class="n">CNO</span> <span class="o">=</span> <span class="s1">'3-245'</span>
+<span class="p">)</span>
+<span class="k">order</span> <span class="k">by</span> <span class="n">DEGREE</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 30、查询选修编号为“3-105”且成绩高于选修编号为“3-245”课程的同学的Cno、Sno和Degree.</span>
+<span class="k">SELECT</span> <span class="o">*</span>
+<span class="k">FROM</span> <span class="n">SCORE</span>
+<span class="k">WHERE</span> <span class="n">DEGREE</span> <span class="o">&gt;</span> <span class="k">ALL</span> <span class="p">(</span>
+  <span class="k">SELECT</span> <span class="n">DEGREE</span>
+  <span class="k">FROM</span> <span class="n">SCORE</span>
+  <span class="k">WHERE</span> <span class="n">CNO</span> <span class="o">=</span> <span class="s1">'3-245'</span>
+<span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">by</span> <span class="n">DEGREE</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 31、查询所有教师和同学的name、sex和birthday.</span>
+<span class="k">select</span>
+  <span class="n">TNAME</span>     <span class="n">name</span><span class="p">,</span>
+  <span class="n">TSEX</span>      <span class="n">sex</span><span class="p">,</span>
+  <span class="n">TBIRTHDAY</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">TEACHER</span>
+<span class="k">union</span>
+<span class="k">select</span>
+  <span class="n">sname</span>     <span class="n">name</span><span class="p">,</span>
+  <span class="n">SSEX</span>      <span class="n">sex</span><span class="p">,</span>
+  <span class="n">SBIRTHDAY</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">;</span>
+
+<span class="c1">-- 32、查询所有“女”教师和“女”同学的name、sex和birthday.</span>
+<span class="k">select</span>
+  <span class="n">TNAME</span>     <span class="n">name</span><span class="p">,</span>
+  <span class="n">TSEX</span>      <span class="n">sex</span><span class="p">,</span>
+  <span class="n">TBIRTHDAY</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">TEACHER</span>
+<span class="k">where</span> <span class="n">TSEX</span> <span class="o">=</span> <span class="s1">'女'</span>
+<span class="k">union</span>
+<span class="k">select</span>
+  <span class="n">sname</span>     <span class="n">name</span><span class="p">,</span>
+  <span class="n">SSEX</span>      <span class="n">sex</span><span class="p">,</span>
+  <span class="n">SBIRTHDAY</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="n">SSEX</span> <span class="o">=</span> <span class="s1">'女'</span><span class="p">;</span>
+
+<span class="c1">-- 33、查询成绩比该课程平均成绩低的同学的成绩表。</span>
+<span class="k">SELECT</span> <span class="n">A</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span> <span class="n">SCORE</span> <span class="n">A</span>
+<span class="k">WHERE</span> <span class="n">DEGREE</span> <span class="o">&lt;</span> <span class="p">(</span><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+                <span class="k">FROM</span> <span class="n">SCORE</span> <span class="n">B</span>
+                <span class="k">WHERE</span> <span class="n">A</span><span class="p">.</span><span class="n">CNO</span> <span class="o">=</span> <span class="n">B</span><span class="p">.</span><span class="n">CNO</span><span class="p">);</span>
+
+<span class="c1">-- 34、查询所有任课教师的Tname和Depart.</span>
+<span class="k">select</span>
+  <span class="n">TNAME</span><span class="p">,</span>
+  <span class="n">DEPART</span>
+<span class="k">from</span> <span class="n">TEACHER</span> <span class="n">a</span>
+<span class="k">where</span> <span class="k">exists</span><span class="p">(</span><span class="k">select</span> <span class="o">*</span>
+             <span class="k">from</span> <span class="n">COURSE</span> <span class="n">b</span>
+             <span class="k">where</span> <span class="n">a</span><span class="p">.</span><span class="n">TNO</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="n">TNO</span><span class="p">);</span>
+
+<span class="c1">-- 35、查询所有未讲课的教师的Tname和Depart.</span>
+<span class="k">select</span>
+  <span class="n">TNAME</span><span class="p">,</span>
+  <span class="n">DEPART</span>
+<span class="k">from</span> <span class="n">TEACHER</span> <span class="n">a</span>
+<span class="k">where</span> <span class="n">tno</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="k">select</span> <span class="n">tno</span>
+                  <span class="k">from</span> <span class="n">COURSE</span><span class="p">);</span>
+
+<span class="c1">-- 36、查询至少有2名男生的班号。</span>
+<span class="k">select</span> <span class="k">CLASS</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="n">SSEX</span> <span class="o">=</span> <span class="s1">'男'</span>
+<span class="k">group</span> <span class="k">by</span> <span class="k">CLASS</span>
+<span class="k">having</span> <span class="k">count</span><span class="p">(</span><span class="n">SSEX</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- 37、查询Student表中不姓“王”的同学记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="n">SNAME</span> <span class="k">not</span> <span class="k">like</span> <span class="nv">"王%"</span><span class="p">;</span>
+
+<span class="c1">-- 38、查询Student表中每个学生的姓名和年龄。</span>
+<span class="k">select</span>
+  <span class="n">SNAME</span><span class="p">,</span>
+  <span class="nb">year</span><span class="p">(</span><span class="n">now</span><span class="p">())</span> <span class="o">-</span> <span class="nb">year</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">;</span>
+
+<span class="c1">-- 39、查询Student表中最大和最小的Sbirthday日期值。</span>
+<span class="k">select</span> <span class="k">min</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">union</span>
+<span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span> <span class="n">birthday</span>
+<span class="k">from</span> <span class="n">STUDENT</span><span class="p">;</span>
+
+<span class="c1">-- 40、以班号和年龄从大到小的顺序查询Student表中的全部记录。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">order</span> <span class="k">by</span> <span class="k">CLASS</span> <span class="k">desc</span><span class="p">,</span> <span class="nb">year</span><span class="p">(</span><span class="n">now</span><span class="p">())</span> <span class="o">-</span> <span class="nb">year</span><span class="p">(</span><span class="n">SBIRTHDAY</span><span class="p">)</span> <span class="k">desc</span><span class="p">;</span>
+
+<span class="c1">-- 41、查询“男”教师及其所上的课程。</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">TEACHER</span><span class="p">,</span> <span class="n">COURSE</span>
+<span class="k">where</span> <span class="n">TSEX</span> <span class="o">=</span> <span class="s1">'男'</span> <span class="k">and</span> <span class="n">COURSE</span><span class="p">.</span><span class="n">TNO</span> <span class="o">=</span> <span class="n">TEACHER</span><span class="p">.</span><span class="n">TNO</span><span class="p">;</span>
+
+<span class="c1">-- 42、查询最高分同学的Sno、Cno和Degree列。</span>
+<span class="k">select</span>
+  <span class="n">sno</span><span class="p">,</span>
+  <span class="n">CNO</span><span class="p">,</span>
+  <span class="n">DEGREE</span>
+<span class="k">from</span> <span class="n">SCORE</span>
+<span class="k">where</span> <span class="n">DEGREE</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="k">max</span><span class="p">(</span><span class="n">DEGREE</span><span class="p">)</span>
+                <span class="k">from</span> <span class="n">SCORE</span><span class="p">);</span>
+
+<span class="c1">-- 43、查询和“李军”同性别的所有同学的Sname.</span>
+<span class="k">select</span> <span class="n">sname</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="n">SSEX</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span> <span class="n">SSEX</span>
+              <span class="k">from</span> <span class="n">STUDENT</span>
+              <span class="k">where</span> <span class="n">SNAME</span> <span class="o">=</span> <span class="s1">'李军'</span><span class="p">);</span>
+
+<span class="c1">-- 44、查询和“李军”同性别并同班的同学Sname.</span>
+<span class="k">select</span> <span class="n">sname</span>
+<span class="k">from</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="p">(</span><span class="n">SSEX</span><span class="p">,</span> <span class="k">CLASS</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="k">select</span>
+                         <span class="n">SSEX</span><span class="p">,</span>
+                         <span class="k">CLASS</span>
+                       <span class="k">from</span> <span class="n">STUDENT</span>
+                       <span class="k">where</span> <span class="n">SNAME</span> <span class="o">=</span> <span class="s1">'李军'</span><span class="p">);</span>
+
+<span class="c1">-- 45、查询所有选修“计算机导论”课程的“男”同学的成绩表</span>
+<span class="k">select</span> <span class="o">*</span>
+<span class="k">from</span> <span class="n">SCORE</span><span class="p">,</span> <span class="n">STUDENT</span>
+<span class="k">where</span> <span class="n">SCORE</span><span class="p">.</span><span class="n">SNO</span> <span class="o">=</span> <span class="n">STUDENT</span><span class="p">.</span><span class="n">SNO</span> <span class="k">and</span> <span class="n">SSEX</span> <span class="o">=</span> <span class="s1">'男'</span> <span class="k">and</span> <span class="n">CNO</span> <span class="o">=</span> <span class="p">(</span>
+  <span class="k">select</span> <span class="n">CNO</span>
+  <span class="k">from</span> <span class="n">COURSE</span>
+  <span class="k">where</span> <span class="n">CNAME</span> <span class="o">=</span> <span class="s1">'计算机导论'</span><span class="p">);</span>
+</code></pre></div></div></article><div class="share mobile-hidden"><div class="share-component"></div></div><div class="comment mobile-hidden"></div></div><div class="column one-fourth"><h3>Search</h3><div id="site_search"> <input style="width: 96%" type="text" id="search_box" placeholder="Search" /></div><ul id="search_results" style=" font-size: 14px; list-style-type: none; padding-top: 10px; padding-left: 10px; " ></ul><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/simple-jekyll-search.min.js"></script> <script type="text/javascript"> SimpleJekyllSearch({ searchInput: document.getElementById('search_box'), resultsContainer: document.getElementById('search_results'), json: 'https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/search_data.json', searchResultTemplate: '<li><a href="{url}" title="{title}">{title}</a></li>', noResultsText: 'No results found', limit: 20, fuzzy: false, exclude: ['Welcome'] }); window.onload = function(){ var query_text = window.location.search.substring(1); var vars = query_text.split("&"); for (var i=0;i<vars.length;i++) { var pair = vars[i].split("="); if(pair[0] == "search_text"){ var query = pair[1]; query = decodeURI(query); var search = document.getElementById('search_box'); search.value = query; var event = new InputEvent('keyup'); search.dispatchEvent(event); break } } } </script><h3 class="post-directory-title">Table of Contents</h3><div id="post-directory-module"><section class="post-directory"><dl></dl></section></div><script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/jquery.toc.js"></script><div class="mobile-hidden"><h3>Popular Posts</h3><ul><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/12/01/typescript%E7%AC%94%E8%AE%B0/">2022-12 typescript笔记</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2022/08/16/scala%E8%AF%AD%E6%B3%95/">2022-08 scala语法</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/12/26/etcd%E5%92%8Craft/">2021-12 etcd和raft</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/09/08/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/">2021-09 状态压缩</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/25/%E5%8D%9A%E5%BC%88%E8%AE%BA/">2021-01 博弈论</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2021/01/09/%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E5%92%8C%E5%8D%8F%E8%AE%AE/">2021-01 分布式算法和协议</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/Kafka%E5%8E%9F%E7%90%861-%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/">2020-12 kafka原理1-基础架构</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/12/08/ElasticSearch/">2020-12 ElasticSearch(ES)原理</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/29/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E6%80%BB%E7%BB%93/">2020-11 动态规划总结</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2020/11/12/%E7%BA%BF%E6%AE%B5%E6%A0%91/">2020-11 线段树</a></h6><h6 class="repo-list-name font16px"> <a href="https://mafulong.github.io/2017/12/03/javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">2017-12 javascript笔记</a></h6></ul></div></div></div></section><footer class="container"><div class="site-footer" role="contentinfo"><div class="copyright left mobile-block"> © 2015 <span title="Fulong Ma">Fulong Ma</span> <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a></div><ul class="site-footer-links right mobile-hidden"><li> <a href="https://www.privacypolicygenerator.info/live.php?token=cnfKULv1VpqenfUs021YVA90fPiK75Cw">Privacy Policy</a></li><li> <a href="https://www.termsfeed.com/live/9dccd944-1b18-436d-bd12-3dd799b1282a">Terms </a></li><li> <a href="javascript:window.scrollTo(0,0)">TOP</a></li></ul><a href="https://github.com/mafulong/mafulong.github.io" target="_blank" aria-label="view source code"> <span class="mega-octicon octicon-mark-github" title="GitHub"></span> </a><ul class="site-footer-links mobile-hidden"><li> <a href="https://mafulong.github.io/" title="Home" target="">Home</a></li><li> <a href="https://mafulong.github.io/categories/" title="Categories" target="">Categories</a></li><li> <a href="https://mafulong.github.io/archives/" title="Achieves" target="">Achieves</a></li><li> <a href="https://mafulong.github.io/open-source" title="Open-Source" target="">Open-Source</a></li><li> <a href="https://mafulong.github.io/bookmark" title="Bookmark" target="">Bookmark</a></li><li> <a href="https://mafulong.github.io/about" title="About" target="">About</a></li></ul><script async src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/busuanzi/2.3/busuanzi.pure.mini.js"></script><div class="mobile-hidden" style="margin-top:8px"> <span id="busuanzi_container_site_pv" style="display:none"> 本站访问量<span id="busuanzi_value_site_pv"></span>次 </span> <span id="busuanzi_container_site_uv" style="display:none"> / 本站访客数<span id="busuanzi_value_site_uv"></span>人 </span></div></div></footer><div class="tools-wrapper"> <a class="gotop" href="#" title="回到顶部"><span class="octicon octicon-arrow-up"></span></a></div><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script> <script> $(document).ready(function() { $("td img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); $("p img").each(function() { var strA = "<a href='" + this.src + "' itemscope=\"\" itemtype=\"http://schema.org/ImageObject\" itemprop=\"url\" data-fancybox=\"default\" rel=\"default\"></a>"; $(this).wrapAll(strA); }); }); </script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/vendor/share.js/dist/js/share.min.js"></script> <script src="https://cdn.jsdelivr.net/gh/mafulong/mafulong.github.io@built/assets/js/geopattern.js"></script> <script> jQuery(document).ready(function ($) { $('.geopattern').each(function () { $(this).geopattern($(this).data('pattern-id')); }); /* hljs.initHighlightingOnLoad(); */ }); </script><div style="display:none"> <script async src="https://www.googletagmanager.com/gtag/js?id=G-SS4VDLWLNC"></script> <script> window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-SS4VDLWLNC'); </script></div></body></html>
