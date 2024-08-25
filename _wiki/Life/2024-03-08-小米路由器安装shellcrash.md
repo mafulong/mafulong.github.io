@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: wiki
 category: DailyLife
 title: 小米路由器安装shellcrash和uu加速器
 tags: Life
