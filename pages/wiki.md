@@ -2,13 +2,12 @@
 layout: wiki
 title: Wiki
 description: 人越学越觉得自己无知
-keywords: 维基, Wiki
 comments: false
 copyright: false
-menu: 维基
 permalink: /wiki/
 ---
 
+> 个人学习笔记
 
 {% case site.components.wiki.view %}
 
@@ -30,15 +29,15 @@ permalink: /wiki/
 {%- assign item_count = sub_group.items | size -%}
 {%- assign item_index = 0 -%}
 
+<ol class="posts-list">
 {% for wiki in sub_group.items %}
 
-<ol class="posts-list">
 <li class="posts-list-item">
-<span class="posts-list-meta">{{ wiki.date | date:"%Y-%m-%d" }}</span>
+<!-- <span class="posts-list-meta">{{ wiki.date | date:"%Y-%m-%d" }}</span> -->
 <a class="posts-list-name" href="{{ site.url }}{{ post.url }}">{{ wiki.title }}</a>
 </li>
-</ol>
 {% endfor %}
+</ol>
 
 {% endfor %}
 {% endfor %}
