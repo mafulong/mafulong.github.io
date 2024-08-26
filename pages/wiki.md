@@ -34,7 +34,7 @@ permalink: /wiki/
 
 <li class="posts-list-item">
 <!-- <span class="posts-list-meta">{{ wiki.date | date:"%Y-%m-%d" }}</span> -->
-<a class="posts-list-name" href="{{ site.url }}{{ post.url }}">{{ wiki.title }}</a>
+<a class="posts-list-name" href="{{ site.url }}{{ wiki.url }}">{{ wiki.title }}</a>
 </li>
 {% endfor %}
 </ol>
