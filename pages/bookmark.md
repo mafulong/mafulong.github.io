@@ -70,7 +70,10 @@ permalink: /bookmark/
 ## 软件使用
 
 ### win10
-
+- Clash for Window
+- uTool: 类似mac得alfred，免费。
+- MSI afterburner小飞机: 系统监控软件可以在游戏时左上角显示帧率等信息
+- TrafficMoniter: 开源系统监控软件，在任务栏展示。
 - 控制台: cmder
 - Markdown: markdownPad2
 - win10store: 爱奇艺视频、搜狐视频
