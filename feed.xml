@@ -1,4 +1,285 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-10-15T18:49:20+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">理财必知经济学</title><link href="https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6/" rel="alternate" type="text/html" title="理财必知经济学" /><published>2024-10-09T00:00:00+08:00</published><updated>2024-10-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6</id><content type="html" xml:base="https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6/">&lt;h1 id=&quot;理财必知经济学&quot;&gt;理财必知经济学&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-10-19T22:03:48+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">python数据处理pandas</title><link href="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/" rel="alternate" type="text/html" title="python数据处理pandas" /><published>2024-10-15T00:00:00+08:00</published><updated>2024-10-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas</id><content type="html" xml:base="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/">&lt;h2 id=&quot;python数据处理pandas&quot;&gt;python数据处理pandas&lt;/h2&gt;
+
+&lt;h1 id=&quot;numpy&quot;&gt;Numpy&lt;/h1&gt;
+
+&lt;p&gt;NumPy 最重要的一个特点是其 N 维数组对象 ndarray，它是一系列同类型数据的集合，以 0 下标为开始进行集合中元素的索引。&lt;/p&gt;
+
+&lt;p&gt;ndarray 对象是用于存放同类型元素的多维数组。&lt;/p&gt;
+
+&lt;p&gt;ndarray 中的每个元素在内存中都有相同存储大小的区域。&lt;/p&gt;
+
+&lt;p&gt;ndarray 内部由以下内容组成：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个指向数据（内存或内存映射文件中的一块数据）的指针。&lt;/li&gt;
+  &lt;li&gt;数据类型或 dtype，描述在数组中的固定大小值的格子。&lt;/li&gt;
+  &lt;li&gt;一个表示数组形状（shape）的元组，表示各维度大小的元组。&lt;/li&gt;
+  &lt;li&gt;一个跨度元组（stride），其中的整数指的是为了前进到当前维度下一个元素需要”跨过”的字节数。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;  
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;,  &lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;,  &lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]])&lt;/span&gt;  
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;设置维度2&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ndmin&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;多数据类型&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;类型字段名可以用于存取实际的&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;列&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;age&apos;&lt;/span&gt;,&lt;span class=&quot;kt&quot;&gt;np.int8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)])&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;20&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;30&lt;/span&gt;,&lt;span class=&quot;o&quot;&gt;)],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;age&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;,&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;asarray&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;pandas&quot;&gt;Pandas&lt;/h1&gt;
+
+&lt;p&gt;Pandas 主要引入了两种新的数据结构：&lt;strong&gt;DataFrame&lt;/strong&gt; 和 &lt;strong&gt;Series&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Series&lt;/strong&gt;： 类似于一维数组或列表，是由一组数据以及与之相关的数据标签（索引）构成。Series 可以看作是 DataFrame 中的一列，也可以是单独存在的一维数据结构。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; 中的数据是有序的。&lt;/li&gt;
+      &lt;li&gt;可以将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; 视为带有索引的一维数组。&lt;/li&gt;
+      &lt;li&gt;索引可以是唯一的，但不是必须的。&lt;/li&gt;
+      &lt;li&gt;数据可以是标量、列表、NumPy 数组等。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;DataFrame&lt;/strong&gt;： 类似于一个二维表格，它是 Pandas 中最重要的数据结构。DataFrame 可以看作是由多个 Series 按列排列构成的表格，它既有行索引也有列索引，因此可以方便地进行行列选择、过滤、合并等操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 指定索引
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Google&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Runoob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Wiki&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;x&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;z&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 字典创建对象
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Google&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Runoob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Wiki&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sites&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myvar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 运算
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# 算术运算
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 所有元素乘以2
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 过滤
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;filtered_series&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 选择大于2的元素
+&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# 数学函数
+&lt;/span&gt;        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 对每个元素取平方根
+&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;# 统计
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;series&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 获取索引
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 获取值数组
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 获取描述统计信息
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 获取最大值和最小值的索引
+&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;max_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idxmax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;min_index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idxmin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+        &lt;span class=&quot;c1&quot;&gt;# 其他属性和方法
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 数据类型
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 形状
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 元素个数
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 前几个元素，默认是前 5 个
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 后几个元素，默认是后 5 个
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 求和
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 平均值
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 标准差
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 最小值
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 最大值
+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dataframe, 类似spark里的dataframe&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;       &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Google&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Runoob&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Wiki&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;创建DataFrame&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Site&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Age&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;5&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;, &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;7&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;8&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]],&lt;/span&gt;
+                          &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Column1&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Column2&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Column3&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;使用astype方法设置每列的数据类型&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Site&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Site&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Age&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Age&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;字典形式来创建&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;Sit&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Google&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Runoob&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Wiki&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;Ag&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;12&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+
+        &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;创建一个包含网站和年龄的二维ndarray&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;ndarray_data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Google&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Runoob&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;,
+            &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Wiki&apos;&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;使用DataFrame构造函数创建数据帧&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ndarray_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Site&apos;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Age&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;返回第一行&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;返回第二行&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;返回第一行和第二行&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]])&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DataFrame&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;的属性和方法&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;形状&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;列名&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;索引&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;前几行数据&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;默认是前&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;行&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;后几行数据&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;默认是后&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;行&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;数据信息&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;describe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;描述统计信息&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;求平均值&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;求和&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;通过列名访问&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Column1&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;通过属性访问&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;Name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;通过&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;访问&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;:&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;&apos;Column1&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;通过&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;访问&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;:&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;假设&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;Column&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;是第一列&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;访问单个元素&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Name&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;修改&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;Column1&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;10&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;11&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;添加新行&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;new_row&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;Column&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;Column&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;NewColum&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_row&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ignore_index&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;删除列&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dropped&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;Column&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;删除行&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;df_dropped&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;删除索引为&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;的行&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;matplotlib&quot;&gt;Matplotlib&lt;/h2&gt;
+
+&lt;p&gt;常用的 pyplot 函数：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plot()&lt;/code&gt;：用于绘制线图和散点图&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scatter()&lt;/code&gt;：用于绘制散点图&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bar()&lt;/code&gt;：用于绘制垂直条形图和水平条形图&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hist()&lt;/code&gt;：用于绘制直方图&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pie()&lt;/code&gt;：用于绘制饼图&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;imshow()&lt;/code&gt;：用于绘制图像&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subplots()&lt;/code&gt;：用于创建子图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;xpoints&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ypoints&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;, &lt;span class=&quot;err&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xpoints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ypoints&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;画单条线&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;画多条线&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;x2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;fmt2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;参数说明&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;点或线的节点&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;为&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;轴数据&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;为&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;轴数据&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;数据可以列表或数组&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;fmt&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;可选&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;定义基本格式&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;（&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;如颜色&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;、&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;标记和线条样式&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;）。&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kwargs&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;可选&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;用在二维平面图上&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;设置指定属性&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;如标签&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;线的宽度等&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
+
+
+
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;MA2&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;price&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;rolling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figsize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;ts&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;price&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;价格&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;ts&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;MA2&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MA2&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&apos;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;red&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;设置图表标题和标签&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;分时图与移动平均&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;线&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;时&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;间&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;ylabel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;&apos;价&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;格&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;展示图表&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Item\Metrics&lt;/th&gt;
+      &lt;th&gt;Avg&lt;/th&gt;
+      &lt;th&gt;p90&lt;/th&gt;
+      &lt;th&gt;P99&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;C (No display on Desktop)&lt;/td&gt;
+      &lt;td&gt;984.97&lt;/td&gt;
+      &lt;td&gt;1849.12&lt;/td&gt;
+      &lt;td&gt;3126.60&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;T1 (Display TB Widget on ATF)&lt;/td&gt;
+      &lt;td&gt;996.65&lt;/td&gt;
+      &lt;td&gt;1856.86&lt;/td&gt;
+      &lt;td&gt;3178.04&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Increased Latency&lt;/td&gt;
+      &lt;td&gt;11.68&lt;/td&gt;
+      &lt;td&gt;7.74&lt;/td&gt;
+      &lt;td&gt;51.44&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Increased Latency Percentage&lt;/td&gt;
+      &lt;td&gt;1.19%&lt;/td&gt;
+      &lt;td&gt;0.42%&lt;/td&gt;
+      &lt;td&gt;1.64%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Python" /><category term="Python" /><summary type="html">python数据处理pandas</summary></entry><entry><title type="html">理财必知经济学</title><link href="https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6/" rel="alternate" type="text/html" title="理财必知经济学" /><published>2024-10-09T00:00:00+08:00</published><updated>2024-10-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6</id><content type="html" xml:base="https://mafulong.github.io/2024/10/09/%E7%90%86%E8%B4%A2%E5%BF%85%E7%9F%A5%E7%BB%8F%E6%B5%8E%E5%AD%A6/">&lt;h1 id=&quot;理财必知经济学&quot;&gt;理财必知经济学&lt;/h1&gt;
 
 &lt;h1 id=&quot;基础知识&quot;&gt;基础知识&lt;/h1&gt;
 
@@ -908,7 +1189,92 @@ fields: f12,f14 (代码,名称)
     &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;quotation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;stocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;511130&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">股票知识</summary></entry><entry><title type="html">基金理财</title><link href="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/" rel="alternate" type="text/html" title="基金理财" /><published>2024-10-01T00:00:00+08:00</published><updated>2024-10-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/">&lt;h1 id=&quot;基金理财&quot;&gt;基金理财&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;a股港股美股&quot;&gt;A股港股美股&lt;/h1&gt;
+
+&lt;h2 id=&quot;指数&quot;&gt;指数&lt;/h2&gt;
+
+&lt;h3 id=&quot;a股&quot;&gt;A股&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;上证指数（SSE Composite Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 代表上海证券交易所上市股票的综合表现，是中国最具代表性的股市指数之一。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融、能源、工业、消费等传统行业占比较大，尤其是银行、保险等金融类公司权重较高。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;深证成指（SZSE Component Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 反映深圳证券交易所上市股票的整体走势，尤其侧重于深市主板的表现。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 相较于上证指数，深证成指更侧重于成长型行业，如信息技术、通信、消费电子等。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;沪深300指数（CSI 300 Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由沪深两市中市值最大、流动性最好的300家公司构成，是A股中投资者常用的代表指数之一。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 行业分布较为广泛，金融、消费、信息技术、工业、能源等均有较大比重，权重前几名常为金融和消费行业公司。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;中证500指数（CSI 500 Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由市值较小、但成长潜力较大的500家公司组成，主要代表中小企业的市场表现。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 中小市值公司占比较大，偏向信息技术、消费品、医药等成长性行业。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;港股&quot;&gt;港股&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;恒生指数（Hang Seng Index, HSI）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由香港交易所市值最大、最具代表性的50家公司组成，是香港市场的风向标。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融行业占主导，尤其是银行、保险公司。此外，房地产和大型科技公司（如腾讯）也占有较大比重。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;恒生科技指数（Hang Seng TECH Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 追踪30家在香港上市、业务重心为科技的公司，类似于美国的纳斯达克指数。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 信息技术、电子商务、金融科技等高科技行业为主，典型代表如腾讯、阿里巴巴、美团等。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;国企指数（H-shares Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由在香港上市的中国内地企业（H股）组成，反映中资企业在香港市场的表现。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 中资金融类公司（银行、保险）、能源公司占据较大权重，此外还有通信、房地产和消费类企业。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;美股&quot;&gt;美股&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;道琼斯工业平均指数（DJIA, Dow Jones Industrial Average）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括30家美国市值较大、业绩稳定的跨国公司，是美国传统行业的代表性指数。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融、工业、消费类公司占据主导地位，如高盛、波音、沃尔玛等。科技股比例较低。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;标普500指数（S&amp;amp;P 500 Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括500家美国市值最大、流动性最好的公司，被认为是美国股市最全面的代表性指数。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 权重前几名为科技公司，如苹果、微软、谷歌母公司Alphabet、亚马逊等。除了科技，医疗保健、金融、消费品等行业也有较大占比。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;纳斯达克综合指数（Nasdaq Composite Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 以科技股为主，追踪在纳斯达克交易所上市的所有公司，是全球科技股的风向标。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 信息技术、电子商务、社交媒体、半导体等高科技行业，典型代表如苹果、微软、亚马逊、特斯拉、英伟达等。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;罗素2000指数（Russell 2000 Index）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括市值较小的2000家公司，是美国小市值股票的代表性指数。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 偏向工业、医疗保健、消费品等行业，成长性较高。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">股票知识</summary></entry><entry><title type="html">基金理财</title><link href="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/" rel="alternate" type="text/html" title="基金理财" /><published>2024-10-01T00:00:00+08:00</published><updated>2024-10-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/">&lt;h1 id=&quot;基金理财&quot;&gt;基金理财&lt;/h1&gt;
 
 &lt;h1 id=&quot;基金&quot;&gt;基金&lt;/h1&gt;
 
@@ -1497,94 +1863,5 @@ fields: f12,f14 (代码,名称)
                 &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
                 &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">100290. 使矩阵满足条件的最少操作次数</title><link href="https://mafulong.github.io/2024/04/21/100290.-%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="100290. 使矩阵满足条件的最少操作次数" /><published>2024-04-21T00:00:00+08:00</published><updated>2024-04-21T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/04/21/100290.%20%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/04/21/100290.-%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-satisfy-conditions/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个大小为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m x n&lt;/code&gt; 的二维矩形 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid&lt;/code&gt; 。每次 &lt;strong&gt;操作&lt;/strong&gt; 中，你可以将 &lt;strong&gt;任一&lt;/strong&gt; 格子的值修改为 &lt;strong&gt;任意&lt;/strong&gt; 非负整数。完成所有操作后，你需要确保每个格子 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j]&lt;/code&gt; 的值满足：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果下面相邻格子存在的话，它们的值相等，也就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j] == grid[i + 1][j]&lt;/code&gt;（如果存在）。&lt;/li&gt;
-  &lt;li&gt;如果右边相邻格子存在的话，它们的值不相等，也就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j] != grid[i][j + 1]&lt;/code&gt;（如果存在）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;请你返回需要的 &lt;strong&gt;最少&lt;/strong&gt; 操作数目。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1,0,2],[1,0,2]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;0&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542313.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;矩阵中所有格子已经满足要求。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1,1,1],[0,0,0]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;3&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542473.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;将矩阵变成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[[1,0,1],[1,0,1]]&lt;/code&gt; ，它满足所有要求，需要 3 次操作：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[1][0]&lt;/code&gt; 变为 1 。&lt;/li&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[0][1]&lt;/code&gt; 变为 0 。&lt;/li&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[1][2]&lt;/code&gt; 变为 1 。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1],[2],[3]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;2&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542668.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这个矩阵只有一列，我们可以通过 2 次操作将所有格子里的值变为 1 。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n, m &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= grid[i][j] &amp;lt;= 9&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minimumOperations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][:])&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;# print(d)
-&lt;/span&gt;
-        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;functools&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functools&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lru_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;inf&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
