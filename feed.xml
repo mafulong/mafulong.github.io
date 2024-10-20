@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-10-20T11:29:57+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">python数据处理pandas</title><link href="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/" rel="alternate" type="text/html" title="python数据处理pandas" /><published>2024-10-15T00:00:00+08:00</published><updated>2024-10-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas</id><content type="html" xml:base="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/">&lt;h2 id=&quot;python数据处理pandas&quot;&gt;python数据处理pandas&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-10-20T16:56:24+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">python数据处理pandas</title><link href="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/" rel="alternate" type="text/html" title="python数据处理pandas" /><published>2024-10-15T00:00:00+08:00</published><updated>2024-10-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas</id><content type="html" xml:base="https://mafulong.github.io/2024/10/15/python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86pandas/">&lt;h2 id=&quot;python数据处理pandas&quot;&gt;python数据处理pandas&lt;/h2&gt;
 
 &lt;h1 id=&quot;numpy&quot;&gt;Numpy&lt;/h1&gt;
 
@@ -576,6 +576,53 @@
 
 &lt;p&gt;印花税是仅卖出时收取，其它买入和卖出时各收取一次。一次交易不要低于1500元，否则佣金就显得比较高。&lt;/p&gt;
 
+&lt;h2 id=&quot;集合竞价-除权除息&quot;&gt;集合竞价 除权除息&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;集合竞价&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;时间&lt;/strong&gt;：交易日中两次，9:15-9:25（盘前）、14:57-15:00（盘尾）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：一段时间内接收的买卖申报进行一次性集中撮合的竞价方式。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;盘前集合竞价&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;9:15-9:20&lt;/strong&gt;：可随意挂单、撤单（广告时段）。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;9:20-9:25&lt;/strong&gt;：仅能挂单，不可撤单。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;9:25&lt;/strong&gt;：得出开盘价。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;盘尾集合竞价&lt;/strong&gt;：14:57-15:00，得出收盘价，无广告时段。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;规则&lt;/strong&gt;：
+    &lt;ol&gt;
+      &lt;li&gt;价格优先，时间优先。&lt;/li&gt;
+      &lt;li&gt;最大成交量的价格作为最终竞价结果（即开盘价/收盘价）。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;注意事项&lt;/strong&gt;：
+    &lt;ol&gt;
+      &lt;li&gt;集合竞价中未成交订单延续至当天正常交易时段，但不会延续到次日。&lt;/li&gt;
+      &lt;li&gt;盘前集合竞价波动较大，散户介入风险较高；尾盘集合竞价波动相对较小。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;除权和除息&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;除权&lt;/strong&gt;：公司给持股者更多股票作为补偿，股票数量增加，股价降低。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;除息&lt;/strong&gt;：公司发放红利给股东，股东账户获得现金，股价相应降低。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;复权&lt;/strong&gt;：修正K线图以反映真实涨跌幅，消除他们的影响，修复K线图除权除息带来的影响&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;前复权&lt;/strong&gt;：保持最新股价不变，调整前面的K线。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;后复权&lt;/strong&gt;：保持最早股价不变，调整后面的K线。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;投资建议&lt;/strong&gt;：炒股建议用不复权或前复权，量化交易需谨慎，尤其在处理前复权时要注意股价变为负数的情况。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;查询除权除息股票&lt;/strong&gt;：使用代码”XR”和”XD”在交易软件中搜索当日进行除权或除息的股票。&lt;/p&gt;
+
 &lt;h2 id=&quot;k线和买卖&quot;&gt;K线和买卖&lt;/h2&gt;
 
 &lt;blockquote&gt;
@@ -650,6 +697,8 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;p&gt;&lt;strong&gt;支撑位和压力位的出现主要是之前有人在这相同价格套牢过，因此到了压力位或者支撑位他们想出货。&lt;/strong&gt; 如果彼时的成交量很大，就说明套牢的多。&lt;/p&gt;
+
 &lt;p&gt;&lt;strong&gt;跌破位&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
@@ -677,6 +726,10 @@
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;缺口&lt;/strong&gt;是指在价格图表中，某个交易时段的开盘价高于或低于前一个交易时段的最高价或最低价，从而形成了一个没有交易的“空白”区域。缺口通常出现在价格迅速变化的时期，可能是由于重大消息、市场情绪的剧烈变化或外部因素的影响。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;补缺口&lt;/strong&gt;是指在股票市场中，价格在形成缺口后，经过一段时间重新回到缺口的区域，填补了之前的“空白”价格区间的现象。也就是说，价格在缺口出现后，随着市场的波动，又回到了该缺口所在的价位，使得图表上不再有这个未被交易的“空白”。&lt;/p&gt;
 
 &lt;h2 id=&quot;大盘和板块股票分析&quot;&gt;大盘和板块，股票分析&lt;/h2&gt;
 
@@ -706,7 +759,11 @@
 
 &lt;p&gt;MA5 就是5日均线，相比MA10，MA10会更平滑些。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;尾盘买入法。&lt;/strong&gt; 2:30 的15分钟内放量上涨一般第二天上涨。选股技巧&lt;/p&gt;
+&lt;h2 id=&quot;股票分析&quot;&gt;股票分析&lt;/h2&gt;
+
+&lt;h3 id=&quot;尾盘买入法&quot;&gt;&lt;strong&gt;尾盘买入法&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;2:30 的15分钟内放量上涨一般第二天上涨。选股技巧&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1jZ421g7Rz/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;A股最强“尾盘15分钟买入法”，从未被套，堪称一绝！真正做到“一买就涨”！&lt;/a&gt;&lt;/p&gt;
@@ -738,6 +795,8 @@
 
 &lt;p&gt;接着次日高抛。&lt;/p&gt;
 
+&lt;h3 id=&quot;反转信号&quot;&gt;反转信号&lt;/h3&gt;
+
 &lt;p&gt;反转信号，也叫反包形态&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -753,56 +812,13 @@
 
 &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410052225588.png&quot; alt=&quot;image-20241005222552490&quot; /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;集合竞价-除权除息&quot;&gt;集合竞价 除权除息&lt;/h2&gt;
+&lt;h3 id=&quot;底底抬高&quot;&gt;底底抬高&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;集合竞价&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;看连续的几个大底部，如果是太高就是上升趋势。&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;时间&lt;/strong&gt;：交易日中两次，9:15-9:25（盘前）、14:57-15:00（盘尾）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：一段时间内接收的买卖申报进行一次性集中撮合的竞价方式。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;盘前集合竞价&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;9:15-9:20&lt;/strong&gt;：可随意挂单、撤单（广告时段）。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;9:20-9:25&lt;/strong&gt;：仅能挂单，不可撤单。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;9:25&lt;/strong&gt;：得出开盘价。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;盘尾集合竞价&lt;/strong&gt;：14:57-15:00，得出收盘价，无广告时段。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;规则&lt;/strong&gt;：
-    &lt;ol&gt;
-      &lt;li&gt;价格优先，时间优先。&lt;/li&gt;
-      &lt;li&gt;最大成交量的价格作为最终竞价结果（即开盘价/收盘价）。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;注意事项&lt;/strong&gt;：
-    &lt;ol&gt;
-      &lt;li&gt;集合竞价中未成交订单延续至当天正常交易时段，但不会延续到次日。&lt;/li&gt;
-      &lt;li&gt;盘前集合竞价波动较大，散户介入风险较高；尾盘集合竞价波动相对较小。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;k线图指标进阶&quot;&gt;K线图指标进阶&lt;/h2&gt;
 
-&lt;p&gt;&lt;strong&gt;除权和除息&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;除权&lt;/strong&gt;：公司给持股者更多股票作为补偿，股票数量增加，股价降低。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;除息&lt;/strong&gt;：公司发放红利给股东，股东账户获得现金，股价相应降低。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;复权&lt;/strong&gt;：修正K线图以反映真实涨跌幅，消除他们的影响，修复K线图除权除息带来的影响&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;前复权&lt;/strong&gt;：保持最新股价不变，调整前面的K线。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;后复权&lt;/strong&gt;：保持最早股价不变，调整后面的K线。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;投资建议&lt;/strong&gt;：炒股建议用不复权或前复权，量化交易需谨慎，尤其在处理前复权时要注意股价变为负数的情况。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;查询除权除息股票&lt;/strong&gt;：使用代码”XR”和”XD”在交易软件中搜索当日进行除权或除息的股票。&lt;/p&gt;
-
-&lt;h1 id=&quot;k线图指标进阶&quot;&gt;K线图指标进阶&lt;/h1&gt;
-
-&lt;h2 id=&quot;kdj&quot;&gt;KDJ&lt;/h2&gt;
+&lt;h3 id=&quot;kdj&quot;&gt;KDJ&lt;/h3&gt;
 
 &lt;p&gt;KDJ（随机指标）是一种非常敏感的技术分析工具，常用于短期行情分析，尤其是在震荡市场中表现出色。&lt;/p&gt;
 
@@ -882,6 +898,97 @@
 &lt;ul&gt;
   &lt;li&gt;看J低于20为买点，设置上次最低点或者80MA为止损，80MA均线为止盈。&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;macd&quot;&gt;MACD&lt;/h3&gt;
+
+&lt;p&gt;MACDFS就是MACD分时图的指标，同花顺就有。&lt;/p&gt;
+
+&lt;p&gt;MACD（指数平滑移动平均线，Moving Average Convergence Divergence）指标，可以帮助你更好地理解价格走势的动能变化以及趋势反转的潜在信号&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;MACD的组成部分&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;MACD由三部分组成：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;MACD线&lt;/strong&gt;（快线）：常见的设置是12周期EMA（指数移动平均线）减去26周期EMA。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;信号线&lt;/strong&gt;（慢线）：MACD线的9周期EMA。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;柱状图（Histogram）&lt;/strong&gt;：MACD线与信号线之间的差值。柱体高度表示MACD线与信号线的距离，正值时柱体向上，负值时柱体向下。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;MACD的计算&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;MACD线&lt;/strong&gt; = 12周期EMA - 26周期EMA&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;信号线&lt;/strong&gt; = MACD线的9周期EMA&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;柱状图&lt;/strong&gt; = MACD线 - 信号线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;MACD的常见设置&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;常用参数：12, 26, 9（默认值）&lt;/li&gt;
+  &lt;li&gt;可以根据市场波动性调整参数，短期交易者可能使用更短的周期如6, 19, 5，而长期投资者可能用更长的周期。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;MACD的使用方法&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;1) &lt;strong&gt;交叉信号&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;金叉（买入信号）&lt;/strong&gt;：当MACD线从下方向上穿过信号线时，表明市场趋势可能从下跌转为上涨，通常被视为买入信号。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;死叉（卖出信号）&lt;/strong&gt;：当MACD线从上方向下穿过信号线时，表明市场趋势可能从上涨转为下跌，通常被视为卖出信号。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;2) &lt;strong&gt;零轴判断&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;零轴之上&lt;/strong&gt;：如果MACD线和信号线都在零轴之上，说明市场处于上升趋势中。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;零轴之下&lt;/strong&gt;：如果两者都在零轴之下，则表明市场处于下降趋势中。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;3) &lt;strong&gt;柱状图的变化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;柱状图的变长或变短可以反映出动能的增强或减弱。柱体变长表示趋势动能增强，变短表示动能减弱。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;4) &lt;strong&gt;背离&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;顶背离&lt;/strong&gt;：价格创新高，但MACD未能创新高，表明市场上涨动能不足，可能预示着市场即将下跌。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;底背离&lt;/strong&gt;：价格创新低，但MACD未能创新低，表明市场下跌动能不足，可能预示着市场即将反转上涨。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;MACD指标的优点和缺点&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;优点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;能够平滑价格数据，去除市场噪音。&lt;/li&gt;
+  &lt;li&gt;在趋势市场中表现良好，能够抓住趋势的变化。&lt;/li&gt;
+  &lt;li&gt;结合柱状图的动能变化，能够给出更早的入场和离场信号。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;缺点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在震荡市场中容易产生假信号。&lt;/li&gt;
+  &lt;li&gt;属于滞后性指标，反应相对较慢，可能会错过最初的趋势变化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;抓顶背离一般没用。底背离成功率高一点。&lt;/p&gt;
+
+&lt;p&gt;下跌过程中底背离可能也会套牢。 应该出现两次底背离后再入场。&lt;/p&gt;
 
 &lt;h1 id=&quot;交易策略&quot;&gt;交易策略&lt;/h1&gt;
 
