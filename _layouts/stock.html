@@ -10,54 +10,73 @@ layout: default
 
 <section class="container content">
   <style>
-    table {
-        font-size: 12px; /* 可以根据需要调整字体大小 */
-    }
+table {
+  border-collapse: collapse;
+  width: 90%;
+  font-size: 12px; /* 可以根据需要调整字体大小 */
+  margin: 0 auto; 
+  border-spacing: 10px
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px; /* 增加单元格的内边距 */
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+.red { color: red; }
+.green { color: green; }
+.black { color: black; }
 </style>
-  <table border="1">
-    <thead>
-        <tr>
-            <th>ETF名称</th>
-            <th>涨跌幅</th>
-            <th>价格</th>
-        </tr>
-    </thead>
-    <tbody id="data-body">
-        <!-- 数据将被插入这里 -->
-    </tbody>
+
+
+
+
+<div>股债性价比: <span id="ratio"></span></div>
+
+<table border="1">
+  <thead>
+      <tr>
+          <th>名称</th>
+          <th>涨跌幅</th>
+          <th>价格</th>
+      </tr>
+  </thead>
+  <tbody id="data-body"></tbody>
 </table>
+
+
 <script>
-  console.log("成功了3");
   var url = 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f12,f14,f15,f16&secids=1.511130,1.513010,1.518880';
   var xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-          console.log("成功了2");
-          if (xhr.status === 200) {
-              console.log("成功了1");
-              var data = JSON.parse(xhr.responseText);
-              console.log(data);
-              if (data.rc === 0) {
-                  console.log("成功了");
-                  var rows = '';
-                  for (var i = 0; i < data.data.diff.length; i++) {
-                      var item = data.data.diff[i];
-                      rows += '<tr>' +
-                          '<td>' + item.f14 + '</td>' +
-                          '<td>' + item.f3 + '%</td>' +
-                          '<td>' + item.f2 + '</td>' +
-                          '<td>' + item.f16 + '</td>' +
-                          '<td>' + item.f15 + '</td>' +
-                          '<td>' + item.f12 + '</td>' +
-                          '</tr>';
-                  }
-                  document.getElementById('data-body').innerHTML = rows;
-              } else {
-                  console.error('数据请求失败:', data);
-              }
-          } else {
-              console.error('请求错误:', xhr.statusText);
+      if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          if (data.rc === 0) {
+              var rows = '';
+              var stockPrice, bondPrice;
+              
+              data.data.diff.forEach(function(item) {
+                  var percentage = ((item.f2 - item.f16) / (item.f15 - item.f16) * 100).toFixed(2);
+                  var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
+                  
+                  // 获取511130（股）和513010（债）的价格
+                  if (item.f12 === '511130') stockPrice = item.f2;
+                  if (item.f12 === '513010') bondPrice = item.f2;
+                  
+                  rows += '<tr>' +
+                      '<td>' + item.f14.replace('ETF', '') + '</td>' +
+                      '<td class="' + colorClass + '">' + item.f3 + '%</td>' +
+                      '<td>' + item.f2 + ' (' + percentage + '%)</td>' +
+                      '</tr>';
+              });
+              
+              // 计算股债性价比
+              var ratio = (stockPrice / bondPrice).toFixed(2);
+              document.getElementById('ratio').innerText = ratio;
+              document.getElementById('data-body').innerHTML = rows;
           }
       }
   };
@@ -73,11 +92,5 @@ layout: default
   <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.513010&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
   <h4> 黄金etf: 518880</h4>
   <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.518880&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
-
-  https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f12,f14,f9&secids=1.511130,1.513010,1.518880
-  1.511130
-
-
-  https://push2his.eastmoney.com/api/qt/stock/trends2/get?secid=0.000725&fields1=f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14&fields2=f51,f53,f54,f55,f56,f57,f58&iscr=0&iscca=0&ut=f057cbcbce2a86e2866ab8877db1d059&ndays=1
 </section>
 <!-- /section.content -->
