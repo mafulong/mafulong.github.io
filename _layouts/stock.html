@@ -56,8 +56,10 @@ xhr.onreadystatechange = function() {
                 var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
                 if (item.f12 === '511130') stockPrice = item.f2;
                 if (item.f12 === '513010') bondPrice = item.f2;
+                var stockLink = 'https://m.10jqka.com.cn/stockpage/sh_' + item.f12 + '/#&atab=geguNews';
+    
                 rows += '<tr>' +
-                    '<td>' + item.f14.replace('ETF', '') + '</td>' +
+                    '<td><a href="' + stockLink + '" target="_blank">' + item.f14.replace('ETF', '') + '</a></td>' +
                     '<td class="' + colorClass + '">' + item.f3 + '%</td>' +
                     '<td>' + item.f2 + ' (' + percentage + '%)</td>' +
                     '</tr>';
