@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+{% assign assets_base_url = site.url %}
+{% if site.cdn.jsdelivr.enabled %}
+{% assign assets_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: '@'| append: site.cdn.jsdelivr.branch %}
+{% endif %}
+<!-- / .banner -->
+<section class="container content">
+  <h4> 30年国债etf: 511130 </h4>
+  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.511130&timespan=1709688417" style="width: 100%; height: auto; max-width: 550px;">
+  <h4> 恒生科技30etf: 513010 </h4>
+  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.513010&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
+  <h4> 黄金etf: 518880</h4>
+  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.518880&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
+</section>
+<!-- /section.content -->
