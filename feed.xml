@@ -1,4 +1,221 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-03T17:18:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">读书笔记</title><link href="https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="读书笔记" /><published>2024-11-02T00:00:00+08:00</published><updated>2024-11-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;读书笔记&quot;&gt;读书笔记&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-03T22:33:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">回测backtrader</title><link href="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/" rel="alternate" type="text/html" title="回测backtrader" /><published>2024-11-03T00:00:00+08:00</published><updated>2024-11-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader</id><content type="html" xml:base="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/">&lt;h2 id=&quot;回测backtrader&quot;&gt;回测backtrader&lt;/h2&gt;
+
+&lt;p&gt;参考资料&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;https://github.com/WenmuZhou/crypto/blob/master/doc/backtrader/1%E3%80%81%E6%A6%82%E8%BF%B0.md&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;数据和策略&quot;&gt;数据和策略&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/WenmuZhou/crypto/blob/master/doc/backtrader/3%E3%80%81%E7%AD%96%E7%95%A5%E7%AF%87.md&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;  Strategy类的属性包含数据、cerebro实例、分析器、仓位等等。详细介绍如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;env:
+    &lt;ul&gt;
+      &lt;li&gt;策略生存的cerebro实例对象&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;datas:
+    &lt;ul&gt;
+      &lt;li&gt;加载的数据队列&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;dnames:
+    &lt;ul&gt;
+      &lt;li&gt;用数据名称访问数据的属性&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;broker:
+    &lt;ul&gt;
+      &lt;li&gt;经纪人&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;stats:
+    &lt;ul&gt;
+      &lt;li&gt;观察者队列&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;analyzers:
+    &lt;ul&gt;
+      &lt;li&gt;分析器队列&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;position:
+    &lt;ul&gt;
+      &lt;li&gt;data0的仓位，position中有两个重要的参数：size和price。size表示持仓量，price表示平均价格&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;  有关仓位的方法一共有6种，分别描述如下：&lt;/p&gt;
+
+&lt;p&gt;3.4.1 getsizer()
+  返回自动股本计算的Sizer实例对象。&lt;/p&gt;
+
+&lt;p&gt;3.4.2 setsizer(sizer)
+  替换默认的sizer&lt;/p&gt;
+
+&lt;p&gt;3.4.3 getsizing(data=None, isbuy=True)
+  返回当前sizer实例计算出的股本&lt;/p&gt;
+
+&lt;p&gt;3.4.4 getposition(data=None, broker=None)
+  返回指定经纪人指定数据上当前的仓位&lt;/p&gt;
+
+&lt;p&gt;3.4.5 getpositionbyname(name=None, broker=None)
+  返回指定经纪人中指定名称的仓位&lt;/p&gt;
+
+&lt;p&gt;3.4.6 getpositionsbyname(broker=None)
+  返回指定经纪人中仓位&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;通过notify_order(order)发出订单状态变化的通知
+通过notify_trade(trade)发出交易开始/更新/关闭的通知
+通过notify_cashvalue(cash, value)发出代理手中当前现金和资产的通知
+通过notify_fund(cash, value, fundvalue, shares)发出代理手中当前现金和资产，以及正在交易的资金和股票的通知
+通过notify_store(msg, *args, **kwargs)发出的事件通知（需要单独实现）
+在next方法中，Strategy可以通过以下操作来尝试盈利：
+使用buy方法，来做多或者减少/关闭空头交易
+使用sell方法，来做空或者减少/关闭多头交易
+使用close方法，来关闭一个现有的交易
+使用cancel方法，来取消一个尚未执行的订单
+当调用buy和sell方法后，都会生成订单，并且返回一个order（或者order子类）的实例，每个实例都包含有一个唯一的ref标识符，用于区分不同的order
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Backtrader对数据进行了对齐处理，按照起始时间最大的开始截取。因为我们选股是根据不同股票同一天的数据进行对比的，因此多出的时间就没有意义。&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;取第一个数据集&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;可以下面3中方式&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;取不是第一个的数据集可以用后两种方式&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;data0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;其实就是add_data的顺序&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;自动加了alias&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;line. 一个data可能有多个line，类似列的概念。&lt;/p&gt;
+
+&lt;p&gt;index 0是当前数据，index -1是昨天数据，这样依次递减。&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;今天收盘价&lt;/span&gt;
+ &lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;close&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;datas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;close&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;等同于&lt;/span&gt;
+ &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;datas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;lines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;])&lt;/span&gt;
+
+
+&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;dataclose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;当日的收盘价&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;dataclose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;昨天的收盘价&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;dataclose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;前天的收盘价&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;获取日期。&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+
+&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;datas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&apos;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;isoformat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;txt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;params定义常量，可以这样的元素或者dict形式&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;maperiod&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+              &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bprint&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;获取某个数据集的列表&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;datas&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;getlinealiases&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;&apos;close&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;&apos;low&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;hig&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;ope&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;volum&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;openinteres&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;datetim&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&apos;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;资金管理&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;broker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;getcash&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;获取余额&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;等同于getvalue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;https://www.cnblogs.com/sidianok/p/13554909.html&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;__init__里任何操作line的数据都会生成一个新的line， 并在next调用前更新完成。&lt;/li&gt;
+  &lt;li&gt;next里函数会读取这个line， 默认就是读line[0]的数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;indicator-和-plotting&quot;&gt;Indicator 和 Plotting&lt;/h2&gt;
+
+&lt;p&gt;When the logic gets really complicated and involves several operations it is usually much better to encapsulate that inside an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Indicator&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;当逻辑变得非常复杂并涉及多个操作时，通常最好将其封装在一个指示符中。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;指标绘图&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Declared &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Indicators&lt;/code&gt; get automatically plotted (if cerebro.plot is called) init里声明的指标将自动绘制（如果cerebro.plot被调用）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;lines&lt;/strong&gt; objects from operations DO NOT GET plotted (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;close_over_sma = self.data.close &amp;gt; self.sma&lt;/code&gt;) 不打印来自操作的&lt;strong&gt;lines&lt;/strong&gt;对象。 Strategy里init里的line.&lt;/li&gt;
+  &lt;li&gt;There is an auxiliary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LinePlotterIndicator&lt;/code&gt; which plots such operations if wished with the following approach  有一个辅助的LinePlotterIndicator，可根据需要使用以下方法绘制这些操作：　可手动画图。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;close_over_sma = self.data.close &amp;gt; self.sma
+LinePlotterIndicator(close_over_sma, name=&apos;Close_over_SMA&apos;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;　name参数为该指示符保留的单行命名&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyIndicator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Indicator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 在lines里面声明指标的名称，使用时可以用self.lines.sma或者self.l.sma
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;lines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;sma&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 相关参数
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;period&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# 如果指标可以一次性计算完，就可直接在__init__中完成计算；如果不能，就需要在next中计算，如果计算周期大于1，就需要加上addminperiod()方法，保证在next中计算时数据充足
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addminperiod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# 每个bar运行一次
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;datasum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fsum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lines&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sma&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datasum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;period&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上面是实现新指标计算的一般必须过程。在实现新指标过程中，也可以更改可视化的参数：&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyIndicator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Indicator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 画图的设置，详细的在可视化中介绍
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;plotinfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plotymargin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plothlines&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plotyticks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# Plot the line &quot;overunder&quot; (the only one) with dash style
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# ls stands for linestyle and is directly passed to matplotlib
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;plotlines&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;overunder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;--&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# 获取指标的名称列表
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_plotlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;plabels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;period&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;plabels&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;movav&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;notdefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;movav&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plabels&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/WenmuZhou/crypto/blob/master/doc/backtrader/8%E3%80%81%E5%8F%AF%E8%A7%86%E5%8C%96%E7%AF%87.md&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt; plot()函数原型如下：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;plot(plotter=None, numfigs=1, iplot=True, start=None, end=None, width=16, height=9, dpi=300, tight=True, use=None, **kwargs)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;plotter：默认为None，画图的实例对象。如果为None，在plot()内用kwargs参数创建。&lt;/li&gt;
+  &lt;li&gt;numfigs：多少张图。用时间进行划分，比如numfigs=2，时间是两年，每张图都只画出一年的图&lt;/li&gt;
+  &lt;li&gt;iplot：如果为True，并且在notebook上运行，图形在行内显示&lt;/li&gt;
+  &lt;li&gt;start：画图的起始时间&lt;/li&gt;
+  &lt;li&gt;end：画图的结束时间&lt;/li&gt;
+  &lt;li&gt;width：保存图像的宽度(inches)&lt;/li&gt;
+  &lt;li&gt;height：保存图像的高度(inches)&lt;/li&gt;
+  &lt;li&gt;dpi：分辨率&lt;/li&gt;
+  &lt;li&gt;tight：仅仅保存实际内容&lt;/li&gt;
+  &lt;li&gt;use：没有用到&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">回测backtrader</summary></entry><entry><title type="html">读书笔记</title><link href="https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="读书笔记" /><published>2024-11-02T00:00:00+08:00</published><updated>2024-11-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/11/02/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;读书笔记&quot;&gt;读书笔记&lt;/h1&gt;
 
 &lt;h1 id=&quot;日本蜡烛图技术a股实战技法&quot;&gt;日本蜡烛图技术A股实战技法&lt;/h1&gt;
 
@@ -285,7 +502,11 @@
 
 &lt;p&gt;除权价=股权登记日的收盘价/(1+每股送红股数或转增股数)&lt;/p&gt;
 
-&lt;p&gt;除权除息价=(股息登记日的收盘价-每股红利现金额)/(1+每股送红股数或转增股数)&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">量化交易</summary></entry><entry><title type="html">matplot库问题</title><link href="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="matplot库问题" /><published>2024-10-29T00:00:00+08:00</published><updated>2024-10-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;matplot库问题&quot;&gt;matplot库问题&lt;/h2&gt;
+&lt;p&gt;除权除息价=(股息登记日的收盘价-每股红利现金额)/(1+每股送红股数或转增股数)&lt;/p&gt;
+
+&lt;h2 id=&quot;网格交易&quot;&gt;网格交易&lt;/h2&gt;
+
+&lt;p&gt;https://juejin.cn/post/6844903998793728007&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">量化交易</summary></entry><entry><title type="html">matplot库问题</title><link href="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="matplot库问题" /><published>2024-10-29T00:00:00+08:00</published><updated>2024-10-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;matplot库问题&quot;&gt;matplot库问题&lt;/h2&gt;
 
 &lt;h1 id=&quot;字体问题&quot;&gt;字体问题&lt;/h1&gt;
 
@@ -2059,176 +2280,4 @@ fields: f12,f14 (代码,名称)
 
 &lt;p&gt;如果母公司在一家公司的持股比例只有30%，但拥 有实际控制权，那么被实际控制的公司也需要纳入合并报表范围。&lt;/p&gt;
 
-&lt;p&gt;票据类似欠条，可以认为是一个信用债。 有银行或者大企业做担保的那种欠条，也可以转让。会在财务报表上以应收账款条目出现。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">股票知识</summary></entry><entry><title type="html">基金理财</title><link href="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/" rel="alternate" type="text/html" title="基金理财" /><published>2024-10-01T00:00:00+08:00</published><updated>2024-10-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/10/01/%E5%9F%BA%E9%87%91%E7%90%86%E8%B4%A2/">&lt;h1 id=&quot;基金理财&quot;&gt;基金理财&lt;/h1&gt;
-
-&lt;h1 id=&quot;基金&quot;&gt;基金&lt;/h1&gt;
-
-&lt;p&gt;主要是4类: 货币型基金、债券型基金、股票型基金、混合型基金&lt;/p&gt;
-
-&lt;h2 id=&quot;债券基金&quot;&gt;债券基金&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;债券基金，官方解释是基金资产80%以上投资于债券的基金&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;买债券基金就是让债券基金的基金经理帮你筛选一揽子债券，然后投资收益归你，他收管理费。基金经理会将这些资金投资于各种债券，包括政府债券、企业债券等。这就省去了自己挑选债券的麻烦。&lt;/p&gt;
-
-&lt;p&gt;债券，就好像一张借条，写好了固定利率和到期期限。&lt;/p&gt;
-
-&lt;p&gt;时间一到，持有人拿着借条，就可以拿回本金和利息。&lt;/p&gt;
-
-&lt;p&gt;那是什么影响了&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=366630207&amp;amp;content_type=Answer&amp;amp;match_order=1&amp;amp;q=债权&amp;amp;zhida_source=entity&quot;&gt;债权&lt;/a&gt;的买卖量呢？是市场利率。&lt;/p&gt;
-
-&lt;p&gt;市场利率低的时候，企业的借钱成本更低，新发行的债券利率也随之下调。&lt;/p&gt;
-
-&lt;p&gt;这时候，大家都觉得债市上的老债利率更高，就去买，&lt;strong&gt;债券的价格就会涨&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;反之，当利率变高，&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=366630207&amp;amp;content_type=Answer&amp;amp;match_order=1&amp;amp;q=新发债券&amp;amp;zhida_source=entity&quot;&gt;新发债券&lt;/a&gt;利率更高，大家又跑去&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=366630207&amp;amp;content_type=Answer&amp;amp;match_order=1&amp;amp;q=发行人&amp;amp;zhida_source=entity&quot;&gt;发行人&lt;/a&gt;那买新债，债市上的老债没人买，价格就跌下来了。&lt;/p&gt;
-
-&lt;p&gt;市场利率，一般看十年期国债收益率就行了。这个DM债券通 软件上有。&lt;/p&gt;
-
-&lt;h3 id=&quot;提前看信用债和利率债涨跌&quot;&gt;提前看信用债和利率债涨跌&lt;/h3&gt;
-
-&lt;p&gt;通过这个方式看: https://www.xiaohongshu.com/discovery/item/6658714a000000001401a9d5?source=webshare&amp;amp;xhsshare=pc_web&amp;amp;xsec_token=ABJGFmaVgwNGdly9bTOZHnxQZoqWMvoH0v3tlgio0aINw=&amp;amp;xsec_source=pc_share&lt;/p&gt;
-
-&lt;p&gt;软件： Choice 免费 app。 使用其利率矩阵和信用矩阵。&lt;/p&gt;
-
-&lt;p&gt;红色下跌标识债券基金上涨。&lt;/p&gt;
-
-&lt;h3 id=&quot;票面利息&quot;&gt;票面利息&lt;/h3&gt;
-
-&lt;p&gt;债券的票息收益是债券持有人最主要的收益来源。债券在发布时，就会公布其票面利率和付息方式，持有人持有债券到期后，发行主体会偿还其本金和利息。除了&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=238463328&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=保值贴补&amp;amp;zhida_source=entity&quot;&gt;保值贴补&lt;/a&gt;债券和浮动利率债券，其他普通债券在债券的存续期内，利息都是固定的，持有人每持有一天就会计算一天的利息，就算是节假日，债券也是计息的。&lt;/p&gt;
-
-&lt;p&gt;债基的本质是基金，不同于货币基金，&lt;strong&gt;债基周末2天虽然有利息收益，但并不会在周末显示出来，而是周一晚上更新后才能看到，所以给人的感觉就像是周末没有收益。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;票面利息并不多。 10万的资金，一个周末也就多14块钱&lt;/p&gt;
-
-&lt;h3 id=&quot;利率债vs信用债&quot;&gt;&lt;strong&gt;利率债VS信用债&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;首先，利率债与信用债的债券品类不同&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;利率债&lt;/strong&gt;主要是国债、政策性金融债、&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=央行票据&amp;amp;zhida_source=entity&quot;&gt;央行票据&lt;/a&gt;以及地方政府债。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;信用债&lt;/strong&gt;主要是企业债、公司债、短期融资券、&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=中期票据&amp;amp;zhida_source=entity&quot;&gt;中期票据&lt;/a&gt;、分离交易可转债的纯债等品种。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;其次，从安全性来看，两者风险有所不同&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;利率债&lt;/strong&gt;是由中央政府、各地方政府、&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=政策性银行&amp;amp;zhida_source=entity&quot;&gt;政策性银行&lt;/a&gt;和央行等机构发行，有&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=国家信用&amp;amp;zhida_source=entity&quot;&gt;国家信用&lt;/a&gt;作隐形背书，一般体现为国家信用，&lt;strong&gt;&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=信用风险&amp;amp;zhida_source=entity&quot;&gt;信用风险&lt;/a&gt;极低，通俗理解就是违约不还钱的风险极低&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;信用债&lt;/strong&gt;的发行主体包括一般企业上市公司、城投平台、银行等其他金融机构等机构，&lt;strong&gt;因为主体资质差异导致主体隐含着信用风险有所差异，因而产生了一定的信用利差&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一般情况下，利率债的票面利息会比较低，而信用债因为存在信用风险，所以一般票面利息会高一点，以作为&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=240201890&amp;amp;content_type=Article&amp;amp;match_order=1&amp;amp;q=风险补偿&amp;amp;zhida_source=entity&quot;&gt;风险补偿&lt;/a&gt;&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h3 id=&quot;正回购和逆回购&quot;&gt;正回购和逆回购&lt;/h3&gt;
-
-&lt;p&gt;正回购就是央行从金融机构借钱，&lt;a href=&quot;https://zhida.zhihu.com/search?content_id=587064243&amp;amp;content_type=Answer&amp;amp;match_order=1&amp;amp;q=逆回购&amp;amp;zhida_source=entity&quot;&gt;逆回购&lt;/a&gt;就是央行借钱给金融机构。&lt;/p&gt;
-
-&lt;p&gt;国债逆回购，本质是一种以国债作为抵押物、进行短期借贷的行为。通过证券交易所，把闲钱按照一定的利率、一定的期限借给机构；机构则把“国债”抵押在交易所向投资者借钱，并到期支付利息。&lt;/p&gt;
-
-&lt;h2 id=&quot;基金-etf&quot;&gt;基金 etf&lt;/h2&gt;
-
-&lt;p&gt;联接C表示10%是现金，比正常etf利率低。&lt;/p&gt;
-
-&lt;h2 id=&quot;股票基金&quot;&gt;股票基金&lt;/h2&gt;
-
-&lt;p&gt;基金尾巴的A和C的区别：A类基金更适宜长期持有，以降低赎回费，进而减少总体投资成本。 C类基金则更适合短期操作或频繁交易，零申购费让交易更为灵活，免去了每次交易增加额外成本的担忧。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;指数类：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;广发创业板ETF联接C&lt;/p&gt;
-
-&lt;p&gt;易方达科创板100联接C&lt;/p&gt;
-
-&lt;p&gt;广发上证科创板50成份ETF联接C&lt;/p&gt;
-
-&lt;p&gt;易方达上证50指数增强A&lt;/p&gt;
-
-&lt;p&gt;易方达沪深300ETF联接C&lt;/p&gt;
-
-&lt;p&gt;富国中证港股通互联网ETF联接C&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;白酒：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;招商中证白酒161725（只有白酒）&lt;/p&gt;
-
-&lt;p&gt;鹏华中证白酒160632（白酒和啤酒）&lt;/p&gt;
-
-&lt;p&gt;光大消费主题股票008234（消费大杂烩）&lt;/p&gt;
-
-&lt;p&gt;天弘中证食品饮料指数001632（消费龙头）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;科技：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;金信稳健策略灵活配置混合007872（半导体设备）&lt;/p&gt;
-
-&lt;p&gt;东方人工智能主题混合017811（半导体设备）&lt;/p&gt;
-
-&lt;p&gt;创金合信芯片产业股票013340（算力芯片）&lt;/p&gt;
-
-&lt;p&gt;诺安成长混合320007（行业龙头）&lt;/p&gt;
-
-&lt;p&gt;银河创新成长混合014143（设备和芯片）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;新能源：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;广发中证汽车004854（全汽车板块指数）&lt;/p&gt;
-
-&lt;p&gt;汇添富中证新能源车501057（锂电池和特斯拉）&lt;/p&gt;
-
-&lt;p&gt;富国中证新能源汽车指数161028（锂电池）&lt;/p&gt;
-
-&lt;p&gt;天弘中证光伏产业指数011103（光伏设备）&lt;/p&gt;
-
-&lt;p&gt;广发高端制造股票010160（光伏产业链）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;医疗：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;中欧医疗健康003095 （医药产业）&lt;/p&gt;
-
-&lt;p&gt;广发医药卫生001180（全行业指数）&lt;/p&gt;
-
-&lt;p&gt;汇添富医药保健47000（医疗和制药）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;军工：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;富国军工主题混合005609（飞机和船）&lt;/p&gt;
-
-&lt;p&gt;易方达军工502003（航天和军工）&lt;/p&gt;
-
-&lt;p&gt;博时军工主题股票011592（军工产业链）&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;混合型：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;易方达中小盘110011（白酒和医疗）&lt;/p&gt;
-
-&lt;p&gt;易方达蓝筹股005827（白酒和港股）&lt;/p&gt;
-
-&lt;p&gt;汇添富价值精选519069（各行业的龙头股）&lt;/p&gt;
-
-&lt;p&gt;富国天惠成长混合161005（各传统行业混合）&lt;/p&gt;
-
-&lt;h1 id=&quot;工具&quot;&gt;工具&lt;/h1&gt;
-
-&lt;p&gt;几个获取风向的软件&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. 东方财富&lt;/strong&gt; - 综合类，看股票的软件，但是聚合整理了全网财经新闻报道，有个有趣的栏目是环球榜单，可查看10个全球性榜单。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. 格隆汇&lt;/strong&gt; - 偏行业分析类，会分析地产、能源、电力、国际贸易、电商互联网等多个行业动态。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3. 华尔街见闻&lt;/strong&gt; - 偏国际类，对国际财经报道较多，同时报道国内外前沿科技和互联网公司动态。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4. 新浪财经&lt;/strong&gt; - 综合类，是新浪网的财经门户，除了新闻，由于背靠新浪微博，聚集了一大批专家学者，他们的专栏观点也值得关注。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5. 雪球网&lt;/strong&gt; - 偏个人类，大V分享自己见解的地方，在分析财经新闻的文章中多有自己的相关从业经验分享，还会推荐书籍，很涨见识。&lt;/p&gt;
-
-&lt;p&gt;如果觉得APP看起来不方便，直接在电脑端看更为省力，栏目的网页布局也清晰。&lt;/p&gt;
-
-&lt;p&gt;如果觉得不够，&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;A. 东方财富类的还有&lt;/strong&gt; 同花顺、金融界、和讯网、财联社；&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;B. 华尔街见闻类的还有&lt;/strong&gt; 智通财经、英为财情、金十数据；&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;C. 新浪财经类的还有&lt;/strong&gt; 搜狐财经、网易财经、凤凰财经。&lt;/p&gt;
-
-&lt;p&gt;最后，我个人的习惯是，每天早上看一下各app的财经早餐和隔夜见闻类的栏目，就可以了解最新的国际国内新闻动态，等到下午下班时看格隆汇，能了解多个行业动态的影响，抽空看雪球网，了解大V的接地气看法。&lt;/p&gt;
-
-&lt;p&gt;早上看财联社， 这个国内政策获取的是最快的。 有个电报模块适合快速阅读。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Life" /><summary type="html">基金理财</summary></entry></feed>
+&lt;p&gt;票据类似欠条，可以认为是一个信用债。 有银行或者大企业做担保的那种欠条，也可以转让。会在财务报表上以应收账款条目出现。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">股票知识</summary></entry></feed>
