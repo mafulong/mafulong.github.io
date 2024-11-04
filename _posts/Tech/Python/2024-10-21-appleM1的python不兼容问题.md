@@ -28,17 +28,19 @@ tags: Python
 python -m site
 >>> /opt/homebrew/Caskroom/miniconda/base/lib/python3.8/site-packages
 
-#2.Download the Dylib file
-wget https://github.com/sqreen/PyMiniRacer/files/7575004/libmini_racer.dylib.zip
+# 1. 确定 site-packages 位置
+python -m site
 
-#3.Unzip The Dylib file
-unzip libmini_racer.dylib.zip
+# 2. 下载并解压 Dylib 文件
+wget https://github.com/sqreen/PyMiniRacer/files/7575004/libmini_racer.dylib.zip && unzip libmini_racer.dylib.zip
 
-#4. MV Dylib file to your site-packages
-mv libmini_racer.dylib /opt/homebrew/Caskroom/miniconda/base/lib/python3.8/site-packages/py_mini_racer/.
+# 3. 移动 Dylib 文件到 site-packages
+mv libmini_racer.dylib $(python -c "import site; print(site.getsitepackages()[0])")/py_mini_racer/.
 
-#5. Import Success.
->>> from py_mini_racer import MiniRacer
+# 4. 测试导入
+python -c "from py_mini_racer import MiniRacer"
+
+cd $(python -c "import site; print(site.getsitepackages()[0])")/py_mini_racer/.
 ```
 
 
