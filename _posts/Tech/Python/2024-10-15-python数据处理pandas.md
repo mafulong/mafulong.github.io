@@ -62,44 +62,50 @@ Pandas 主要引入了两种新的数据结构：**DataFrame** 和 **Series**。
   - 可以将 `Series` 视为带有索引的一维数组。
   - 索引可以是唯一的，但不是必须的。
   - 数据可以是标量、列表、NumPy 数组等。
-
-- **DataFrame**： 类似于一个二维表格，它是 Pandas 中最重要的数据结构。DataFrame 可以看作是由多个 Series 按列排列构成的表格，它既有行索引也有列索引，因此可以方便地进行行列选择、过滤、合并等操作。
+- 索引和索引标签不一样，一般索引是索引标签，但Series也可以s[idx]使用，其中idx从0开始递增，这个就是真正的索引。 
+  
 
 ```python
-        import pandas as pd
+a = [1, 2, 3]
+# 一个kv map
+# 索引是0开头的
+s = pd.Series(a)
+print(s)
+# 1,4,3是索引标签，和索引不一样！
+s = pd.Series(a, index=[1, 4, 3])
+print(s)
+print(s[1])
+# a,b,c,d为index
+s = pd.Series({'a': 1, 'b': 2, 'c': 3, 'd': 4})
+print(s)
+# 这是索引取值, 返回的还是个Series，不是索引标签取值
+print(s[1:4])
+# 索引标签取值
+print(s['a'])
+print(s['a':'d'])
+s['a'] = "哈哈哈"
+# 删除
+del s['a']
+s['a'] = "哈哈哈"
+s = s.drop(['a'])
+s['a'] = 3
+print(s)
+# 运算, value是数字才行
+s = s * 2
+print(s)
+# 过滤, 过滤value
+s = s[s > 2]
+print(s)
+print(s.sum())
+print(type(s.index))
+# numpy.ndarry
+print(type(s.values))
+s = s.astype('float64')
+print(s.dtype)
+```
 
-        a = [1, 2, 3]
-        myvar = pd.Series(a)
-        print(myvar)
-        print(myvar[1])
-        # 指定索引
-        a = ["Google", "Runoob", "Wiki"]
-        myvar = pd.Series(a, index=["x", "y", "z"])
-        print(myvar)
-        # 字典创建对象
-        sites = {1: "Google", 2: "Runoob", 3: "Wiki"}
-        myvar = pd.Series(sites)
-        print(myvar)
+```python
 
-        # 运算
-        # 算术运算
-        series = pd.Series([2,3,3,2])
-        result = series * 2  # 所有元素乘以2
-        print(result)
-        # 过滤
-        filtered_series = series[series > 2]  # 选择大于2的元素
-        # 数学函数
-        import numpy as np
-        result = np.sqrt(series)  # 对每个元素取平方根
-
-        # 统计
-        s = series
-
-        # 获取索引
-        index = s.index
-
-        # 获取值数组
-        values = s.values
 
         # 获取描述统计信息
         stats = s.describe()
@@ -122,9 +128,7 @@ Pandas 主要引入了两种新的数据结构：**DataFrame** 和 **Series**。
 
 ```
 
-
-
-
+**DataFrame**： 类似于一个二维表格，它是 Pandas 中最重要的数据结构。DataFrame 可以看作是由多个 Series 按列排列构成的表格，它既有行索引也有列索引，因此可以方便地进行行列选择、过滤、合并等操作。
 
 Dataframe, 类似spark里的dataframe
 
@@ -153,7 +157,8 @@ Dataframe, 类似spark里的dataframe
             ['Wiki', 13]
         ])
         # 使用DataFrame构造函数创建数据帧
-        df = pd.DataFrame(ndarray_data, columns=['Site', 'Age'])
+# 也可以加个index=[a,b,c]作为索引标签，默认是[0,1,2]
+        df = pd.DataFrame(ndarray_data, columns=['Site', 'Age']) 
         # 返回第一行
         print(df.loc[0])
         # 返回第二行
@@ -177,15 +182,34 @@ Dataframe, 类似spark里的dataframe
 
         # 通过属性访问
         print(df.Name)
-
+		
+这里的第一个参数是索引标签，不能数字索引来访问。
         # 通过 .loc[] 访问
         print(df.loc[:, 'Column1'])
 
         # 通过 .iloc[] 访问
         print(df.iloc[:, 0])  # 假设 'Column1' 是第一列
 
-        # 访问单个元素
-        print(df['Name'][0])
+        print(df.iloc[1, 0]) 两个参数都是数字索引行索引和列索引
+        print(df.loc['a', "Column1"])
+
+
+
+loc:
+
+使用标签（label）进行选择。
+可以用来选择行和列的名字，例如 df.loc[行标签, 列标签]。
+包括结束位置的值，即区间是闭合的。例如，df.loc[0:2] 会选择从行标签 0 到 2 的所有行。
+iloc:
+
+使用整数位置（integer position）进行选择。
+用于按位置选择数据，例如 df.iloc[行索引, 列索引]。
+不包括结束位置的值，即区间是开放的。例如，df.iloc[0:2] 只会选择行索引为 0 和 1 的行，不包括 2。
+
+
+
+        # 访问单个元素 后面的是索引标签。如果是数字索引请用iloc
+        print(df['Name']['a'])
 
 
         # 修改
@@ -199,7 +223,67 @@ Dataframe, 类似spark里的dataframe
         df_dropped = df.drop('Column1', axis=1)
         # 删除行
         df_dropped = df.drop(0)  # 删除索引为 0 的行
+
+
+，concat 函数用于将多个 DataFrame 或 Series 沿着特定轴（行或列）进行拼接。
+
+df1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+df2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]})
+沿着行方向拼接 DataFrame：变成4行
+result = pd.concat([df1, df2])
+变成4列
+result = pd.concat([df1, df2], axis=1)
+
+
+索引可以修改
+df_set = df.set_index('Column1')
+过滤
+
+df[df['column_name'] > value]	选择列中满足条件的行。
+
+
+
+
+# 索引和切片
+print(df[['Name', 'Age']])  # 提取多列
+print(df[1:3])               # 切片行
+print(df.loc[:, 'Name'])     # 提取单列
+print(df.loc[1:2, ['Name', 'Age']])  # 标签索引提取指定行列
+print(df.iloc[:, 1:])        # 位置索引提取指定列
+
+
+
+        df = pd.DataFrame([[1, 2, 3], [4, 5, 6], [7, 8, 9]],
+                          columns=['Column1', 'Column2', 'Column3'], index=['a', 'b', 'c'])
+        print(df)
+        print(df.loc[:])
+        print(df.loc['b':])
+        print(df['Column1'][0])
+        print(df['Column1']['a'])
+        # print(df['a'])
+        print(df.iloc[1, 0])
+        print(df.loc['a', "Column1"])
+        print(df)
+
+        # Row是个Dict, index是索引标签
+        for index, row in df.iterrows():
+            print(f'Index: {index}, A: {row["Column1"]}, B: {row["Column2"]}')
+        # index=True为包含索引
+        #  列名作为对象属性来访问, 推荐这个, 性能较快，但不知道列名就需要用上面那个
+        for row in df.itertuples(index=True):
+            print(f'Index: {row.Index}, A: {row.Column1}, B: {row.Column2}')
+        # 拿到列名 可for循环查看
+        print(df.columns)
+
+        # column_data是Series 这个列的所有数据，column_name就是列名
+        for column_name, column_data in df.items():
+            print(f'Column: {column_name}')
+            print(column_data)
 ```
+
+
+
+
 
 ## Matplotlib
 
