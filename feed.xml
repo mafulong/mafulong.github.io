@@ -1,4 +1,191 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-07T22:03:29+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">回测backtrader</title><link href="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/" rel="alternate" type="text/html" title="回测backtrader" /><published>2024-11-03T00:00:00+08:00</published><updated>2024-11-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader</id><content type="html" xml:base="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/">&lt;h2 id=&quot;回测backtrader&quot;&gt;回测backtrader&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-12T11:40:44+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">MongoDB基础使用</title><link href="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="MongoDB基础使用" /><published>2024-11-12T00:00:00+08:00</published><updated>2024-11-12T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">&lt;h2 id=&quot;mongodb基础使用&quot;&gt;MongoDB基础使用&lt;/h2&gt;
+
+&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
+
+&lt;p&gt;mac m1只支持4.4，否则cpu不兼容。&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pull&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;mongodb&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;27017&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;27017&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;~/mongo_data:/data/db&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;MONGO_INITDB_ROOT_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MONGO_INITDB_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;密码就是password&lt;/p&gt;
+
+&lt;h2 id=&quot;数据库操作软件&quot;&gt;数据库操作软件&lt;/h2&gt;
+
+&lt;p&gt;mongodb compass， 是一款mac的免费软件。&lt;/p&gt;
+
+&lt;h2 id=&quot;基本操作&quot;&gt;基本操作&lt;/h2&gt;
+
+&lt;p&gt;collection就是对应了一个 table,  更新插入会自动创建不存在的collection。 database也是这样。&lt;/p&gt;
+
+&lt;p&gt;操作的返回结果和输入都是dict形式，每个record都有一个_id属性，它在table里唯一。&lt;/p&gt;
+
+&lt;h3 id=&quot;连接&quot;&gt;连接&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;logging&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pymongo&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MongoClient&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;atexit&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# MongoDB 连接 URI（替换为你的数据库用户名、密码）
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;mongodb://admin:password@localhost:27017/?authSource=admin&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MongoClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 在程序退出时自动关闭 MongoDB 客户端
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;atexit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_db_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MongoDB client is None&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 选择数据库
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;trading&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 替换为你的数据库名称
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 替换为你的集合名称
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;
+
+  
+  
+  
+  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;使用&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_db_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# 插入多个文档
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Alice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Los Angeles&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Chicago&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert_many&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# 查询特定文档
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;# query = {&quot;name&quot;: &quot;John&quot;}
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# collection.delete_one(query)
+&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# query = {&quot;city&quot;: &quot;San Francisco&quot;}
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_many&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;查找&quot;&gt;查找&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;db.collection.find(query, projection)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;query&lt;/strong&gt;：用于查找文档的查询条件。默认为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt;，即匹配所有文档。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;projection&lt;/strong&gt;（可选）：指定返回结果中包含或排除的字段。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;查找单个文档&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;并只返回指定字段&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;就是存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;就是不存在&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;query的高级用法&lt;/p&gt;
+
+&lt;p&gt;1、使用比较操作符&lt;/p&gt;
+
+&lt;p&gt;MongoDB 支持多种比较操作符，如 &lt;strong&gt;$gt、$lt、$gte、$lte、$eq、$ne&lt;/strong&gt;  等。&lt;/p&gt;
+
+&lt;p&gt;查找年龄大于 25 的文档:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;db.myCollection.find({ age: { $gt: 25 } });
+
+判断要存在某个字段 可以$exists: True
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;2、使用逻辑操作符&lt;/p&gt;
+
+&lt;p&gt;MongoDB 支持多种逻辑操作符，如 &lt;strong&gt;$and、$or、$not、$nor&lt;/strong&gt; 等。&lt;/p&gt;
+
+&lt;p&gt;查找年龄大于 25 且城市为 “New York” 的文档:&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;$and&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;$gt:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;New&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;York&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;find返回的是个cursor, 可以直接遍历&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;插入&quot;&gt;插入&lt;/h3&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;insertOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;New&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;York&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;insertMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Bob&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;30&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;city:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Los&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Angeles&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Charlie&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;35&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;city:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Chicago&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;]);&lt;/span&gt;
+
+
+&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;方法在插入文档时表现得类似于&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;insertOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;如果文档包含&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;字段且已存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;则该文档会被更新&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;；&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;如果文档不包含&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;字段或&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;不存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;则会插入一个新文档&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;ObjectId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;60&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c72b2f9b1d8b5a5f8e2b2d&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;David&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;San&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Francisco&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;删除&quot;&gt;删除&lt;/h3&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;deleteOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;deleteMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;inactive&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;更新&quot;&gt;更新&lt;/h3&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;updateOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;// 过滤条件&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$set&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// 更新操作&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upsert&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;// 可选参数&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;updateMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;$lt:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// 过滤条件&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$set&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;status:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;active&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 更新操作&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upsert&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;// 可选参数&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">MongoDB基础使用</summary></entry><entry><title type="html">回测backtrader</title><link href="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/" rel="alternate" type="text/html" title="回测backtrader" /><published>2024-11-03T00:00:00+08:00</published><updated>2024-11-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader</id><content type="html" xml:base="https://mafulong.github.io/2024/11/03/%E5%9B%9E%E6%B5%8Bbacktrader/">&lt;h2 id=&quot;回测backtrader&quot;&gt;回测backtrader&lt;/h2&gt;
 
 &lt;p&gt;参考资料&lt;/p&gt;
 
@@ -2293,1090 +2480,4 @@ fields: f12,f14 (代码,名称)
 
 &lt;p&gt;中国的CPI（消费者价格指数）通常会在每月10日至12日左右发布。根据2024年的数据，中国统计局计划在每月的11日或12日发布前一个月的CPI数据。例如，2024年9月的CPI将在10月12日公布&lt;/p&gt;
 
-&lt;p&gt;美国的CPI（消费者价格指数）通常在每月的&lt;strong&gt;第二周&lt;/strong&gt;公布。具体时间为每月的&lt;strong&gt;11日或12日左右&lt;/strong&gt;，且通常是&lt;strong&gt;美东时间上午8:30&lt;/strong&gt;发布。例如，2024年10月的CPI将在10月10日早上8:30发布&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">TODO: 看幅图投资课程, https://www.futunn.com/learn/list/perspective-27333321205743632?global_content=%7B%22promote_id%22%3A13766,%22sub_promote_id%22%3A14%7D</summary></entry><entry><title type="html">股票理财</title><link href="https://mafulong.github.io/2024/10/04/%E8%82%A1%E7%A5%A8%E7%90%86%E8%B4%A2/" rel="alternate" type="text/html" title="股票理财" /><published>2024-10-04T00:00:00+08:00</published><updated>2024-10-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/04/%E8%82%A1%E7%A5%A8%E7%90%86%E8%B4%A2</id><content type="html" xml:base="https://mafulong.github.io/2024/10/04/%E8%82%A1%E7%A5%A8%E7%90%86%E8%B4%A2/">&lt;h1 id=&quot;股票知识&quot;&gt;股票知识&lt;/h1&gt;
-
-&lt;p&gt;亏钱吃面，赚钱吃肉。&lt;/p&gt;
-
-&lt;h2 id=&quot;股票分类交易时间和手续费&quot;&gt;股票分类、交易时间和手续费&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Vz42117Pp/?spm_id_from=333.999.0.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考视频&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041827225.png&quot; alt=&quot;image-20241004182630900&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A股股票代码简记：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;60xxxx&lt;/strong&gt;：上海主板&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;688xxx&lt;/strong&gt;：沪市科创板&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;00xxxx&lt;/strong&gt;：深圳主板&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;3Xxxxx&lt;/strong&gt;：深圳创业板&lt;/li&gt;
-  &lt;li&gt;8或者4开头： 北京a股&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;通过前两/三位判断所属板块。&lt;/p&gt;
-
-&lt;p&gt;上海证券交易所代码用SH表示，因此有些交易软件会在股票名称前面加SH，代表是上海的股票;深圳证券交易所代码用SZ表示，因此若有些软件在股票代码前加字母SZ，即表示是深市的股票&lt;/p&gt;
-
-&lt;p&gt;科创板和创业板上市门槛低，投资有风险。&lt;/p&gt;
-
-&lt;p&gt;A股涨跌幅限制简记：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;沪深A股&lt;/strong&gt;：10%&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;创业/科创/北证A股&lt;/strong&gt;：20%/20%/30%&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041831521.png&quot; alt=&quot;image-20241004183143487&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;股票交易简记：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;最小交易单位&lt;/strong&gt;：1手 = 100股&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;股价&lt;/strong&gt;：每股价格，最小波动0.01元&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;买卖单位&lt;/strong&gt;：按100股的整数倍交易&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;注意&lt;/strong&gt;：显示的价格是单股价格，不是一手价格。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041835429.png&quot; alt=&quot;image-20241004183346380&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;印花税是仅卖出时收取，其它买入和卖出时各收取一次。一次交易不要低于1500元，否则佣金就显得比较高。&lt;/p&gt;
-
-&lt;h2 id=&quot;集合竞价-除权除息&quot;&gt;集合竞价 除权除息&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;集合竞价&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;时间&lt;/strong&gt;：交易日中两次，9:15-9:25（盘前）、14:57-15:00（盘尾）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：一段时间内接收的买卖申报进行一次性集中撮合的竞价方式。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;盘前集合竞价&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;9:15-9:20&lt;/strong&gt;：可随意挂单、撤单（广告时段）。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;9:20-9:25&lt;/strong&gt;：仅能挂单，不可撤单。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;9:25&lt;/strong&gt;：得出开盘价。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;盘尾集合竞价&lt;/strong&gt;：14:57-15:00，得出收盘价，无广告时段。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;规则&lt;/strong&gt;：
-    &lt;ol&gt;
-      &lt;li&gt;价格优先，时间优先。&lt;/li&gt;
-      &lt;li&gt;最大成交量的价格作为最终竞价结果（即开盘价/收盘价）。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;注意事项&lt;/strong&gt;：
-    &lt;ol&gt;
-      &lt;li&gt;集合竞价中未成交订单延续至当天正常交易时段，但不会延续到次日。&lt;/li&gt;
-      &lt;li&gt;盘前集合竞价波动较大，散户介入风险较高；尾盘集合竞价波动相对较小。&lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;除权和除息&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;除权&lt;/strong&gt;：公司给持股者更多股票作为补偿，股票数量增加，股价降低。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;除息&lt;/strong&gt;：公司发放红利给股东，股东账户获得现金，股价相应降低。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;复权&lt;/strong&gt;：修正K线图以反映真实涨跌幅，消除他们的影响，修复K线图除权除息带来的影响&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;前复权&lt;/strong&gt;：保持最新股价不变，调整前面的K线。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;后复权&lt;/strong&gt;：保持最早股价不变，调整后面的K线。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;投资建议&lt;/strong&gt;：炒股建议用不复权或前复权，量化交易需谨慎，尤其在处理前复权时要注意股价变为负数的情况。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;查询除权除息股票&lt;/strong&gt;：使用代码”XR”和”XD”在交易软件中搜索当日进行除权或除息的股票。&lt;/p&gt;
-
-&lt;h2 id=&quot;k线和买卖&quot;&gt;K线和买卖&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1zK421h7mV/?spm_id_from=333.788&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;分时图与K线&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;分时图：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;把每分钟的最后一笔成交价连线，形成的曲线。&lt;strong&gt;白线&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;开盘价不等于昨天的收盘价，早上有个集合竞价来决定开盘价多少。&lt;/p&gt;
-
-&lt;p&gt;均价线：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;黄线，表示当天买入的均价。&lt;/li&gt;
-  &lt;li&gt;计算公式：当天该时刻之前所有成交价，以成交量为权重进行加权平均。&lt;/li&gt;
-  &lt;li&gt;白线高于均线，表示大部分人是赚的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1tTsre2ETQ/?spm_id_from=333.788.recommend_more_video.3&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt; ， 股价在均价线上时交易量大增，该买入。在均价线下时放量，该卖出。&lt;/p&gt;
-
-&lt;p&gt;K线图 也叫蜡烛图。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;表示每一天分时图的4个最重要的信息， 保留信息：最高价、最低价、开盘价、收盘价。&lt;/li&gt;
-  &lt;li&gt;形成上下有线条的矩形。&lt;/li&gt;
-  &lt;li&gt;红色表示收盘价高于开盘价，否则是绿色。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041854798.png&quot; alt=&quot;image-20241004184843577&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041925776.png&quot; alt=&quot;image-20241004192537748&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;买盘一定是低于卖盘的。否则就已经成交了。&lt;/p&gt;
-
-&lt;p&gt;如果涨的太快，可以直接以涨停价买入，它会以卖一价格成交，保证买的快。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410041930970.png&quot; alt=&quot;image-20241004193032930&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;外盘+ 内盘= 总手&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410042147516.png&quot; alt=&quot;image-20241004214654044&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;k线图关键点位&quot;&gt;K线图关键点位&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;支撑位&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：价格下跌时，可能会止跌反弹的价格水平。下方有较强的买盘支撑。&lt;/li&gt;
-  &lt;li&gt;判断
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;历史低点&lt;/strong&gt;：过去的价格低点往往形成支撑。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;均线支撑&lt;/strong&gt;：如50日、200日均线等长期均线常作为支撑位。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;成交密集区&lt;/strong&gt;：大量成交的区域容易成为支撑位。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;压力位&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：价格上涨时，可能会遇到阻力回落的价格水平。上方有较强的卖盘压力。&lt;/li&gt;
-  &lt;li&gt;判断
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;历史高点&lt;/strong&gt;：过去的价格高点常会形成压力位。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;均线阻力&lt;/strong&gt;：如20日均线等短期均线可能成为压力位。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;成交密集区&lt;/strong&gt;：过去价格上涨至成交量大的区域时，可能遇到卖压，形成压力。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;支撑位和压力位的出现主要是之前有人在这相同价格套牢过，因此到了压力位或者支撑位他们想出货。&lt;/strong&gt; 如果彼时的成交量很大，就说明套牢的多。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;跌破位&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：价格跌破支撑位，意味着市场可能继续下跌，可能引发更多抛售。&lt;/li&gt;
-  &lt;li&gt;判断
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;价格跌破支撑位&lt;/strong&gt;：例如跌破历史低点或关键均线。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;成交量增加&lt;/strong&gt;：跌破时如果伴随成交量放大，意味着更强的下跌信号。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;突破位&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;定义&lt;/strong&gt;：价格突破压力位，意味着市场可能继续上涨，可能引发更多买入。
-    &lt;ul&gt;
-      &lt;li&gt;分时图成交量会有个明显地放大&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;判断
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;价格突破压力位&lt;/strong&gt;：如突破历史高点或重要均线。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;成交量增加&lt;/strong&gt;：突破时伴随成交量增加，显示买盘力量强，突破信号更可靠。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;缺口&lt;/strong&gt;是指在价格图表中，某个交易时段的开盘价高于或低于前一个交易时段的最高价或最低价，从而形成了一个没有交易的“空白”区域。缺口通常出现在价格迅速变化的时期，可能是由于重大消息、市场情绪的剧烈变化或外部因素的影响。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;补缺口&lt;/strong&gt;是指在股票市场中，价格在形成缺口后，经过一段时间重新回到缺口的区域，填补了之前的“空白”价格区间的现象。也就是说，价格在缺口出现后，随着市场的波动，又回到了该缺口所在的价位，使得图表上不再有这个未被交易的“空白”。&lt;/p&gt;
-
-&lt;p&gt;跳空缺口指的就是连续两个交易日中相邻的两根K线，中间有一段价格区间是没有任何交易发生，且呈现不连续的空间现象&lt;/p&gt;
-
-&lt;p&gt;缺口的出现，通常代表着有利好或利空消息的出现，投资者愿意不计成本地买进或卖出，因此如果出现“缺口回补”，表示从原本强劲的态势稍稍出现转弱的信号。&lt;/p&gt;
-
-&lt;p&gt;在多头趋势出现的向上跳空缺口，一般具有支撑的作用，也代表趋势行情的强劲，但如果缺口被回补，则表示趋势有转弱的现象，且原本具有支撑的位置也不再有效。 如果是向下缺口，务必要坚决卖出以回避风险；如果是向上缺口且多日不补，后面有可能会迎来一波大行情，正所谓“缺口不补，后市如虎”。指数不同，大概率是会补缺口的。&lt;/p&gt;
-
-&lt;p&gt;缺口是一种重要的持续形态，预示着行情将继续沿着缺口形成的方向发展&lt;/p&gt;
-
-&lt;h2 id=&quot;大盘和板块股票分析&quot;&gt;大盘和板块，股票分析&lt;/h2&gt;
-
-&lt;p&gt;上证 000001&lt;/p&gt;
-
-&lt;p&gt;沪深300 000300&lt;/p&gt;
-
-&lt;p&gt;指数是为了顺势而为，上涨时再投入股票。&lt;/p&gt;
-
-&lt;p&gt;板块是为了追求热点。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410042158075.png&quot; alt=&quot;image-20241004215846044&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410042200557.png&quot; alt=&quot;image-20241004220000525&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;量比: 当日每分钟平均成交量：指当天自开盘以来的总成交量除以已经过去的分钟数。&lt;/p&gt;
-
-&lt;p&gt;短线：5天以内&lt;/p&gt;
-
-&lt;p&gt;中线：3个月以内&lt;/p&gt;
-
-&lt;p&gt;长线：6个月以上&lt;/p&gt;
-
-&lt;p&gt;股市的周均线是5日均线，因为周末不开盘。&lt;/p&gt;
-
-&lt;p&gt;多投排列: &lt;strong&gt;5日均线&lt;/strong&gt; &amp;gt; &lt;strong&gt;10日均线&lt;/strong&gt; &amp;gt; &lt;strong&gt;20日均线&lt;/strong&gt; 时，股票大概率处于上涨趋势。&lt;/p&gt;
-
-&lt;p&gt;MA5 就是5日均线，相比MA10，MA10会更平滑些。&lt;/p&gt;
-
-&lt;p&gt;EXPMA就是最近的权重高的均线。 MA30就是止跌线。&lt;/p&gt;
-
-&lt;h2 id=&quot;股票分析&quot;&gt;股票分析&lt;/h2&gt;
-
-&lt;h3 id=&quot;尾盘买入法&quot;&gt;&lt;strong&gt;尾盘买入法&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;2:30 的15分钟内放量上涨一般第二天上涨。选股技巧&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1jZ421g7Rz/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;A股最强“尾盘15分钟买入法”，从未被套，堪称一绝！真正做到“一买就涨”！&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;振幅5%以内，不能没有振幅&lt;/li&gt;
-  &lt;li&gt;流通市值200亿以内&lt;/li&gt;
-  &lt;li&gt;换手率3%以上，否则代表不活跃&lt;/li&gt;
-  &lt;li&gt;20天内有涨停板或者大阳线走势&lt;/li&gt;
-  &lt;li&gt;量比1.2以上，越高则当日成交量越多，关注度越高。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;把这些条件用于选股后一分钟涨速排序，1-3%的。 然后看K线图需要满足某一要求&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;突破压力位，成交量明显上涨&lt;/li&gt;
-  &lt;li&gt;主升浪趋势&lt;/li&gt;
-  &lt;li&gt;回踩支撑位。均线形成支撑。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;再看分时图2:30后15分钟内，&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;上升趋势&lt;/li&gt;
-  &lt;li&gt;回踩也没跌破均线黄线&lt;/li&gt;
-  &lt;li&gt;大量持续的买入&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;接着次日高抛。&lt;/p&gt;
-
-&lt;h3 id=&quot;反转信号&quot;&gt;反转信号&lt;/h3&gt;
-
-&lt;p&gt;反转信号，也叫反包形态&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1KW4y1M758/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;趋势反转常见信号，记住这个形态，以后抄底事半功倍&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一个实体较长的阴线，表示大跌。缩量。&lt;/li&gt;
-  &lt;li&gt;接着一个向下跳空的反转k线，可涨可跌&lt;/li&gt;
-  &lt;li&gt;一个阳线，超过了上上次阴线，并放量，超过了就是买入信号。&lt;/li&gt;
-  &lt;li&gt;并且，第一个阴线的开盘价就是止损点。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410052225588.png&quot; alt=&quot;image-20241005222552490&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;底底抬高&quot;&gt;底底抬高&lt;/h3&gt;
-
-&lt;p&gt;看连续的几个大底部，如果是抬高就是上升趋势。&lt;/p&gt;
-
-&lt;h3 id=&quot;估值方法&quot;&gt;估值方法&lt;/h3&gt;
-
-&lt;p&gt;市盈率市净率等估值见下面的《什么时候该卖出》。&lt;/p&gt;
-
-&lt;p&gt;股债收益比估值方法:  股债收益比是将股票市场的收益率（用市盈率的倒数来表示）与无风险的国债收益率进行比较。当股债收益比低于1时，表示股市可能被高估，投资国债更有吸引力；当股债收益比高于2时，表示股市可能被低估，股票投资更具性价比。&lt;strong&gt;局限性&lt;/strong&gt;：虽然股债收益比有助于大致判断市场估值，但其对股市的预测效果受到多个因素影响，如科技股市盈率较高，以及国债收益率的波动等。因此对大A有效，对美股无效，美股大盘主要是市值高的科技公司。&lt;/p&gt;
-
-&lt;h2 id=&quot;k线图指标进阶&quot;&gt;K线图指标进阶&lt;/h2&gt;
-
-&lt;h3 id=&quot;kdj&quot;&gt;KDJ&lt;/h3&gt;
-
-&lt;p&gt;KDJ（随机指标）是一种非常敏感的技术分析工具，常用于短期行情分析，尤其是在震荡市场中表现出色。&lt;/p&gt;
-
-&lt;p&gt;KDJ指标由三条线组成：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;K线&lt;/strong&gt;：反映短期市场变化的趋势线，一般周期较短（通常为9天）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;D线&lt;/strong&gt;：K线的移动平均线，反映市场趋势的相对稳定性，周期稍长。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;J线&lt;/strong&gt;：K线和D线的偏离程度，通常波动幅度最大，是超买超卖的敏感指标。 其实就是K减去D线，所以会一起交叉。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;K、D 值的取值范围为 0 到 100，J 值可以超出这个范围，表现出更大的波动性。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;金叉&lt;/strong&gt;：K线向上穿越D线，买入信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;死叉&lt;/strong&gt;：K线向下穿越D线，卖出信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;超买&lt;/strong&gt;：K值或D值超过80，尤其J值大于100，卖出信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;超卖&lt;/strong&gt;：K值或D值低于20，尤其J值小于0，买入信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;背离&lt;/strong&gt;：价格创新高或新低，KDJ未跟随，提示可能的趋势反转。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;KDJ的基本使用方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;(1) &lt;strong&gt;K线与D线的交叉&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;金叉（买入信号）&lt;/strong&gt;：当K线从下方向上穿过D线，意味着短期市场趋势可能上升，这是一个买入信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;死叉（卖出信号）&lt;/strong&gt;：当K线从上方向下穿过D线，意味着短期市场可能转为下跌，这是一个卖出信号。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(2) &lt;strong&gt;超买超卖&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;超买状态&lt;/strong&gt;：当K值或D值高于80，尤其是J值高于100时，表示市场进入超买状态，价格可能有回调风险，是卖出的时机。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;超卖状态&lt;/strong&gt;：当K值或D值低于20，尤其是J值低于0时，表示市场处于超卖状态，价格可能会反弹，是买入的时机。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(3) &lt;strong&gt;J线判断短期极端&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;J线波动较为剧烈，能够快速反映短期市场的极端变化。当J值过高或过低时，通常意味着市场短期内有可能出现反转。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;KDJ指标的高级使用技巧&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;(1) &lt;strong&gt;背离信号&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;顶背离（卖出信号）&lt;/strong&gt;：当价格创新高，但KDJ指标未创新高时，表示市场可能动能不足，是卖出信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;底背离（买入信号）&lt;/strong&gt;：当价格创新低，但KDJ指标未创新低时，表示空头力量减弱，市场可能反弹，是买入信号。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(2) &lt;strong&gt;不同市场的适用性&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;震荡市场&lt;/strong&gt;：&lt;strong&gt;KDJ在震荡市中表现出色，因为它可以及时捕捉超买和超卖的状态，适合短期的高抛低吸操作。&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;趋势市场&lt;/strong&gt;：在单边趋势中，KDJ可能会经常发出错误的买卖信号（尤其是频繁的交叉），因此最好结合其他趋势类指标（如MACD）来过滤信号。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(3) &lt;strong&gt;参数调整&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;KDJ 的标准参数为 9、3、3（即9天的K值计算周期、3天的D线平滑周期、3天的J线计算周期）。但在快速波动的市场中，可以根据实际情况适当调整参数，减少滞后或过度波动。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;注意钝化，就是连续上涨连续下跌它就不好使了，此时超买超卖信号要忽略。&lt;/p&gt;
-
-&lt;p&gt;为了提高KDJ的准确性，许多交易者会将其与其他技术指标结合使用：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;与MACD结合&lt;/strong&gt;：MACD 是一个趋势指标，而KDJ则是短期动量指标。可以先用MACD确认市场的整体趋势，再用KDJ寻找短期买卖点，以避免在强趋势中过早卖出。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;与成交量结合&lt;/strong&gt;：KDJ的信号在成交量放大的时候更为有效，成交量的配合可以帮助确认趋势的强度。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1jy4y1g7r2?spm_id_from=333.788.videopod.sections&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;看J低于20为买点，设置上次最低点或者80MA为止损，80MA均线为止盈。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;macd&quot;&gt;MACD&lt;/h3&gt;
-
-&lt;p&gt;MACDFS就是MACD分时图的指标，同花顺就有。&lt;/p&gt;
-
-&lt;p&gt;MACD（指数平滑移动平均线，Moving Average Convergence Divergence）指标，可以帮助你更好地理解价格走势的动能变化以及趋势反转的潜在信号&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;MACD的组成部分&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;MACD由三部分组成：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;MACD线&lt;/strong&gt;（快线 DIF）：常见的设置是12周期EMA（指数移动平均线）减去26周期EMA。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;信号线&lt;/strong&gt;（慢线 DEA）：MACD线的9周期EMA。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;柱状图（Histogram  DIF - DEA）&lt;/strong&gt;：MACD线与信号线之间的差值。柱体高度表示MACD线与信号线的距离，正值时柱体向上，负值时柱体向下。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;MACD的计算&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;MACD线&lt;/strong&gt; = 12周期EMA - 26周期EMA&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;信号线&lt;/strong&gt; = MACD线的9周期EMA&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;柱状图&lt;/strong&gt; = MACD线 - 信号线&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;MACD的常见设置&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;常用参数：12, 26, 9（默认值）&lt;/li&gt;
-  &lt;li&gt;可以根据市场波动性调整参数，短期交易者可能使用更短的周期如6, 19, 5，而长期投资者可能用更长的周期。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;MACD的使用方法&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;1) &lt;strong&gt;交叉信号&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;金叉（买入信号）&lt;/strong&gt;：当MACD线从下方向上穿过信号线时，表明市场趋势可能从下跌转为上涨，通常被视为买入信号。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;死叉（卖出信号）&lt;/strong&gt;：当MACD线从上方向下穿过信号线时，表明市场趋势可能从上涨转为下跌，通常被视为卖出信号。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;2) &lt;strong&gt;零轴判断&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;零轴之上&lt;/strong&gt;：如果MACD线和信号线都在零轴之上，说明市场处于上升趋势中。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;零轴之下&lt;/strong&gt;：如果两者都在零轴之下，则表明市场处于下降趋势中。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;3) &lt;strong&gt;柱状图的变化&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;柱状图的变长或变短可以反映出动能的增强或减弱。柱体变长表示趋势动能增强，变短表示动能减弱。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;4) &lt;strong&gt;背离&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;顶背离&lt;/strong&gt;：价格创新高，但MACD未能创新高，表明市场上涨动能不足，可能预示着市场即将下跌。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;底背离&lt;/strong&gt;：价格创新低，但MACD未能创新低，表明市场下跌动能不足，可能预示着市场即将反转上涨。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;MACD指标的优点和缺点&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;优点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;能够平滑价格数据，去除市场噪音。&lt;/li&gt;
-  &lt;li&gt;在趋势市场中表现良好，能够抓住趋势的变化。&lt;/li&gt;
-  &lt;li&gt;结合柱状图的动能变化，能够给出更早的入场和离场信号。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;缺点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;在震荡市场中容易产生假信号。不适合震荡行情。&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;属于滞后性指标，反应相对较慢，可能会错过最初的趋势变化。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;抓顶背离一般没用。底背离成功率高一点。&lt;/p&gt;
-
-&lt;p&gt;下跌过程中底背离可能也会套牢。 应该出现两次底背离后再入场。&lt;/p&gt;
-
-&lt;h3 id=&quot;rsi&quot;&gt;RSI&lt;/h3&gt;
-
-&lt;p&gt;RSI（相对强弱指数）的计算公式如下：&lt;/p&gt;
-
-&lt;p&gt;RSI=100−100/(1+RS). 其中，&lt;strong&gt;RS&lt;/strong&gt; 是相对强度（Relative Strength）的缩写，计算方式为：14天内平均上涨值和下跌值的差。 横盘等于1时，RSI为50.&lt;/p&gt;
-
-&lt;p&gt;RSI（相对强弱指数）是一个在0到100之间波动的技术指标，主要用于衡量证券的价格趋势和动能。它的基本应用包括判断超买、超卖以及市场趋势的强弱：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;RSI指标的基本概念&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;RSI值在&lt;strong&gt;50以上&lt;/strong&gt;时，表示多头趋势；&lt;strong&gt;50以下&lt;/strong&gt;时表示空头趋势。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;70以上&lt;/strong&gt;为超买区域，暗示市场可能存在过度上涨；&lt;strong&gt;30以下&lt;/strong&gt;为超卖区域，表明可能存在过度下跌。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;超买超卖之外的应用&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;RSI不仅仅是用于判断超买和超卖的工具，它还能像MACD一样用于趋势判断和信号确认。&lt;/li&gt;
-      &lt;li&gt;根据市场条件，RSI的超买超卖区间可以灵活调整，比如在强烈的多头或空头趋势下，超买线和超卖线可以适当修正（长期上涨趋势中RSI的超卖线可以提高到50，而下跌趋势中超买线可以下降到50）。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;背离&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;RSI与价格背离是一个重要的信号，表明当前的趋势可能正在减弱或即将发生反转。例如，当价格创新高但RSI未能跟随上涨，可能意味着上涨动能减弱，价格反转的可能性增大。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;平滑RSI&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;RSI指标对市场的短期波动非常敏感，可能会带来一些噪音。为了避免错误信号，可以给RSI添加一个简单的移动平均线（如9日均线），帮助平滑曲线，减少市场噪音。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;结合其他指标&lt;/strong&gt;：
-    &lt;ul&gt;
-      &lt;li&gt;RSI和MACD可以结合使用，RSI更灵敏，发出信号更快，但可能带来更多噪音，而MACD较为平滑，信号滞后但更具确定性。将两者结合使用，可以更好地确认市场趋势。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h1 id=&quot;读书笔记&quot;&gt;读书笔记&lt;/h1&gt;
-
-&lt;h2 id=&quot;股票魔法师--纵横天下股市的奥秘-mark-minervini&quot;&gt;股票魔法师  纵横天下股市的奥秘 (Mark Minervini）&lt;/h2&gt;
-
-&lt;p&gt;几乎所有处在积累期的股票都有 一个 共同的特点，那就是在稳固期其价格波动不断收窄，同时伴随着交易量明显的收 缩。我将这种现象称力 “波动收缩规律” (VCP)。 此时交易胜率高。&lt;/p&gt;
-
-&lt;p&gt;P159.&lt;/p&gt;
-
-&lt;p&gt;作为投资的第一法则，我希望看到每次价格收缩的幅度都在前一次的一半左 右，波动性在第 一次收缩时就达到最大值。随后随着卖家数量的减少，价格下跌 的 幅 度 会 较 前 一 次 有 所 减 少 ， 波 动 性 也 随 之 下 降 。 一般 大 多 数 V C P 会 由 2 ~ 4 次 收缩组成，有时也会达到6次。这种价格行 构成了一个固有模式，我将其称为&lt;/p&gt;
-
-&lt;p&gt;每日每周逐渐收紧的价格波动一般被认力是积极 的。同时，这段时间应该也伴随着交易量的显著缩小。在某些情况下，交易量会 被榨 干或者达到自股价 上涨以来的最低点。这是一 个很积极的 事情，特别是当它 发生在纠正期或稳固期之后，它在暗示市面上该股票的供给正在减少。处在积累 阶段的股票几乎都会显示出这种特点(价格波动收紧，交易量萎缩)。这就是你该 开始购买的时候了，我们称这类情况为买入的转折点。 一般来说，你的购买行为 都应该发生在转折点出现的时刻之后。&lt;/p&gt;
-
-&lt;p&gt;为什么会这样？ 因为套牢的盈亏平衡想出了，未入场的套利想出了，卖出就会股价下跌。 但股票被机构看中，把他们出的都给吃掉了，所以波动会变小。 这仅仅是供求关系的作用。你应该等到股票成功从 弱小的购买者手里过波到更强大的投资者的过程完成。&lt;/p&gt;
-
-&lt;p&gt;作为一个需要止损的投资 者，你也十分弱小。但成功的关键就是要做最后那个弱小的持有者;你希望在你 买入之前其他的弱小者都早已离场逃跑了。&lt;/p&gt;
-
-&lt;h1 id=&quot;交易策略&quot;&gt;交易策略&lt;/h1&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://bigquant.com/wiki/doc/6yep5yyw5lqk5pit5li65lua5lmi6kab55so5zug5a2q5oqv6lwe77yf-bKvWWkAF0x&quot;&gt;参考  需要继续学习&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;短线长线超短线&quot;&gt;短线长线超短线&lt;/h2&gt;
-
-&lt;p&gt;短线交易：分为日内短线和隔夜短线。（在前一天波动范围内的操作全部定义为日内短线）&lt;/p&gt;
-
-&lt;p&gt;短线交易要领：&lt;/p&gt;
-
-&lt;p&gt;1、日内短线：只做市场小周期明确的突破走势，突破就进（顺势快，逆势慢），走势不利快速止损，只主动开仓、平仓，不加码，不减仓，不参与调整。放量停滞或盈利回吐马上平仓，等待下一次机会。&lt;/p&gt;
-
-&lt;p&gt;2、隔夜短线：一般顺应当前日线级别的趋势进行。
-波段交易：分为日内波段和隔夜波段。（日内波段盈利能力最强的是趋势走势明确的品种和开盘出现假突破的品种）
-波段交易要领：1、找准进场时机，在行情形成的起点或趋势走势中整理结束的位置进场；2、盈利后计算风险，择机加码 ；&lt;/p&gt;
-
-&lt;p&gt;3、脱离成本后设好合理保护坚守头寸；4、出现双头或双底减仓移损保护利润，5、逆转确立果断离场反向试仓。
-中长线交易：按市场的大方向或基本面情况在合理的位置开仓并持有，直到持仓理由消失或市场大趋势逆转确立为止。&lt;/p&gt;
-
-&lt;p&gt;（一）根据个人条件和能力选择&lt;/p&gt;
-
-&lt;p&gt;1、兼职做交易的交易者，不要做日内交易，可选择短线（尽可能的累积和丰富交易经验）或中线；&lt;/p&gt;
-
-&lt;p&gt;2、经验不足的交易者，可在日内或短线上，少做多看多总结，用模拟单来验证和累积判断上的经验，用实战单来累积操作上的经验和培养操作技巧；&lt;/p&gt;
-
-&lt;p&gt;3、分析能力强、操作经验丰富、资金实力雄厚的交易者可选择中长线交易，并同时利用盘中短线或日内扩大资金利用率。&lt;/p&gt;
-
-&lt;p&gt;（二）根据市场运行状态和运行时间选择&lt;/p&gt;
-
-&lt;p&gt;四种操作模式虽然操作周期和原理不一样，但在操作中，仍然是单向强势趋势或振荡运行中成功率最高。所以，无论任何交易都要尽可能顺势而为，适应市场；&lt;/p&gt;
-
-&lt;p&gt;1、市场在箱体运行中，建议选择日内或超级短线；&lt;/p&gt;
-
-&lt;p&gt;2、市场在振荡上行中，在支撑位选择波段交易模式；在运行中根据最近几日强度可选择日内或短线模式；&lt;/p&gt;
-
-&lt;p&gt;3、重要反转形态形成时或长期盘整结束时，选择中长线交易模式；在运行中根据最近几日走势的强度可选择日内或短线模式；&lt;/p&gt;
-
-&lt;p&gt;4、节假日即将来临时，建议选择日内或短线交易模式；&lt;/p&gt;
-
-&lt;p&gt;5、即将面临重要阻力位和支撑位时，建议选择日内或短线交易模式；&lt;/p&gt;
-
-&lt;p&gt;6、临近重要商品和经济数据公布日时，建议选择日内或短线交易模式。&lt;/p&gt;
-
-&lt;p&gt;7、重大事件发生时，建议选择日内或短线交易模式；&lt;/p&gt;
-
-&lt;p&gt;8、价格走势加速运行时，建议选择日内或短线交易模式。&lt;/p&gt;
-
-&lt;p&gt;买入时机: https://www.joinquant.com/view/community/detail/6ae7f998403f8927278bb40050b554df?type=1&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;逆市而为,在大势下跌之时做短线抢反弹,或在个股已在高位掉头向下时抢反弹,等待你的很可能是漫长的套牢期。&lt;/li&gt;
-  &lt;li&gt;涨停板下谨慎跟入。&lt;/li&gt;
-  &lt;li&gt;　进行短线炒作一定要控制仓位。短线可能获利很高,但一旦预测失误,亏损也很大。投机所占资金的上限是你能够承受的最大损失。不要冒险把全部资金都用做投机交易。&lt;/li&gt;
-  &lt;li&gt;大市上升趋势初期出现利好消息,应及早介入。 大市上升趋势中期出现利好消息,应逢低买入。&lt;/li&gt;
-  &lt;li&gt;大市下跌趋势初期出现利好消息,可抢反弹。 但要设置止损，大多是散户为主。,缺乏机构主力,因此反弹时间不会太长,反弹空间也有限,短线操作者此时抢反弹应快进快出,并设好止损位。&lt;/li&gt;
-  &lt;li&gt;大市下跌趋势中期出现利好消息,可少量介入抢反弹。&lt;/li&gt;
-  &lt;li&gt;大市下跌趋势末期出现利好消息,可及时介入。 当大市处于下跌趋势末期时出现利好消息,会使股价提前结束调整进入下一轮升势,短线操作者可于股价结束调整、向上攀升时及时介入。&lt;/li&gt;
-  &lt;li&gt;大市上升趋势中期出现利空消息,可逢低买入。当大市处于上升趋势中期出现利空消息,将使股价回落,甚至暴跌,但因大市整体上升趋势已定,利空因素只能使股价出现短期回调,待利空出尽,股价仍会回升。&lt;/li&gt;
-  &lt;li&gt;大市下跌趋势末期出现利空消息,可逢低买入。当大市处于下跌趋势末期出现利空消息,将使股价进一步下跌,但由于大市已跌了很长时间或有了很大跌幅,再往下跌的空间已经很小,当利空出尽,股价就会见底回升,此时短线操作者可以逢低买入。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;股价上升且成交量稳步放大时买入。 利用此法时应注意：&lt;/p&gt;
-
-&lt;p&gt;　　①股价向上突破重要阻力位(如30日均线)时,成交量应明显放大。&lt;/p&gt;
-
-&lt;p&gt;　　②只有在成交量逐步放大或维持较高水平的配合下,上升趋势才可持久。否则只能说明是下跌途中的一次反弹而已。&lt;/p&gt;
-
-&lt;p&gt;低位突然放量时买入。应注意：&lt;/p&gt;
-
-&lt;p&gt;　　①突然放量时股价位置必须在相对低位（可从个股历史走势中确认）,买入信号才可靠。&lt;/p&gt;
-
-&lt;p&gt;　　②突然放量前的股价应在一个时间段内获得支撑,有跌不下去之感,股价呈平台整理形态,此区域成交量呈均匀缩量状态,突然放量才有效。&lt;/p&gt;
-
-&lt;p&gt;　　③注意低位放量区域与前一轮行情高点的距离。与前期高点距离越远,空头力量消耗得越充分,多头力量确认的可靠性越强。&lt;/p&gt;
-
-&lt;p&gt;低位放巨量时买入。应注意：&lt;/p&gt;
-
-&lt;p&gt;　　①放出巨量时股价应处于相对低位,如果大盘已有较大涨幅,个股也有超过一倍升幅之后出现的放巨量现象,应引起高度重视,这有可能是庄家在拉高出货。&lt;/p&gt;
-
-&lt;p&gt;上升趋势中,股价上涨必须有成交量配合,回调时成交量明显缩小,这样后市才会继续上涨。如果只见放量不见上涨,或上涨无量、下跌有量或看似调整但成交量却无明显萎缩,就要小心庄家出货的嫌疑或多空双方的较量在向空方倾斜。&lt;/p&gt;
-
-&lt;p&gt;市场情绪周期
-｜ 牛市——前4个阶段
-｜ 熊市——全6个阶段
-1、市场连续下跌，板块效应非常弱，热点持续性非常差，具体表现为涨停稀少，没有或很少 有连板个股、个股涨跌杂乱无章，超跌个股脉冲性冲高，悲观情绪蔓延。
-2、市场开始尝试拉升并封涨停，股性好的超跌龙头股在犹豫中开始出现连板个股，涨停股开 始增多。
-3、在连板个股持续大涨的带领下，出现板块效应，热点被市场认可，开始出现赚钱效应。
-4、市场灵魂个股在经历分歧、一致、再分歧、再一致这个过程后，带领板块从高潮到分化再 到挖掘补涨，其他热点出现，没有板块效应的个股封涨停也很容易，龙头个股开始以一字涨 停出现，市场情绪进入高涨。
-5、主流热点龙头开始滞涨，烂板和开板个股增多并持续出现，跟风个股开始低开或大幅低开， 强势股开始出现补跌，当日出现下跌 10%的大面个股，市场情绪开始谨慎。
-6、持续弱势个股有破位迹象出现，个股连续大跌或跌停连板股出现（通常是高位庄股），先跌个股开始出现止跌现象，市场情绪极度悲观。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;目前比较有效的因子还是PEG、小市值、ROE、换手率这些，择时可以建立在这些因子过滤的基础上进行，只是通过技术指标进行短线择时，其实相当于丢掉了一半的信息&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;分时策略&quot;&gt;分时策略&lt;/h2&gt;
-
-&lt;p&gt;开盘30分钟看最高点，然后判断收盘价和30分钟点的关系。&lt;/p&gt;
-
-&lt;h2 id=&quot;传统策略&quot;&gt;传统策略&lt;/h2&gt;
-
-&lt;p&gt;择时效果： &lt;a href=&quot;https://www.joinquant.com/view/community/detail/8b34b42b70685d6c0220fd8ecaed9583&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;在4个指数上都能跑赢指数本身的指标有两个，MA、RSI（这里不禁感慨难怪信仰均线的人不在少数，确实是广泛有效的指标）&lt;/li&gt;
-  &lt;li&gt;均线类指标统计长度（timeperiod）变现最好的参数基本就是一个月交易日个数&lt;/li&gt;
-  &lt;li&gt;择时指标开平仓普遍胜率不高，由此推测盈利主要来自于盈亏比&lt;/li&gt;
-  &lt;li&gt;趋势类指标效果整体优于反转类指标。 BOLL 布林带。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;网格交易不可用，资金利用率太低。&lt;/p&gt;
-
-&lt;p&gt;红利策略，主要是一些高股息率的股票。吃股票分红。&lt;/p&gt;
-
-&lt;p&gt;低波动异常策略&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;具体策略:选出表现(依据累积收益率、平均收益等)最佳的N只股票，定期淘汰最差的，选入最好的。每只股票的权重可以相同(如1/N)或不同。
-这样策略分成两个阶段:首先选出股票池中表现最好的N只买入，然后定期(每月)轮换。&lt;/li&gt;
-  &lt;li&gt;不行。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;配对交易&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;策略原理是有的股票相关性较高，当二者发生偏离时，做多低价的股票，做空高价的股票，等其回归而获利。
-具体来说，计算两只股票在一段时间内的收益以及收益均值，做多收益率低于均值的股票，做空收益率高于均值的股票。因为A股没有做空机制，就只玩单边做多了。
-具体实现，对于整个市场，用前10年-前6年的数据计算任意两只股票的相关性，找到相关性最高的两只股票。然后用近五年的数据回测。当某只股票高于两者平均收益率一定程度时，就买入股价低的那只，直到其收益率回归到二者均值。
-代码撸起来，先找相关性最高的股票对。&lt;/li&gt;
-  &lt;li&gt;亏的，不行&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;移动均线&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;单移动均线 25日均线年化收益率最大。年化10%&lt;/li&gt;
-  &lt;li&gt;双移动均线 Two Moving Average。短周期16，长周期55，止损线8%时年化收益率最高，15%。我发现这些策略都有个问题:是有表现非常好的股票，但提前是不知道整个市场里哪些股票适合这个策略的&lt;/li&gt;
-  &lt;li&gt;适合趋势跟踪策略。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;通道策略 &lt;a href=&quot;https://zwdnet.github.io/2022/01/18/%E9%87%8F%E5%8C%96%E6%8A%95%E8%B5%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0188%E2%80%94%E2%80%94%E5%AE%9E%E7%8E%B0%E7%BB%8F%E5%85%B8%E4%BA%A4%E6%98%93%E7%AD%96%E7%95%A5%E2%80%94%E2%80%94%E9%80%9A%E9%81%93/&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;年化14%。 还行&lt;/li&gt;
-  &lt;li&gt;到高点卖，到低点买&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;MACD策略&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不适合震荡行情。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;逆向交易策略&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;追跌杀涨，适合震荡行情&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;RSI策略&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;超过70卖，低于30买。&lt;/li&gt;
-  &lt;li&gt;策略问题是波动率高，风险大，不如macd或者均线。&lt;/li&gt;
-  &lt;li&gt;适合震荡行情&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;KDJ&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;适合震荡行情&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;布林线逆向交易&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;价格在一个范围内波动，这个范围是动态变的。上布林带是通过在 20 天移动平均线上方移动 2 个标准差构成的。&lt;/li&gt;
-  &lt;li&gt;穿越上轨买入，跌破下轨卖出。&lt;/li&gt;
-  &lt;li&gt;结果待定，适合止损。止损效果不错。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;横盘突破策略&quot;&gt;横盘突破策略&lt;/h2&gt;
-
-&lt;p&gt;汉斯123，&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;开盘30分钟后，根据开盘30分钟内的高点低点，如果突破高点就买入，然后尾盘5分钟前卖出。30分钟是用来消化分歧的，消化信息的。&lt;/li&gt;
-  &lt;li&gt;胜率低，年化不错。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;红利策略&quot;&gt;红利策略&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://xueqiu.com/1762638610/295207741&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;当股息率处于近10年50%以下历史分位时，表明该红利策略的性价比已经不高，可以考虑分批卖出止盈。&lt;/p&gt;
-
-&lt;p&gt;当月股息率低于近10年“危险值”，或者处于25%以下历史分位时，可以考虑清仓卖出止盈&lt;/p&gt;
-
-&lt;p&gt;红利策略相关企业基本都处于企业生命周期中的成长后期或成熟期，也可以参考PE估值法止盈。&lt;/p&gt;
-
-&lt;p&gt;当PE处于近十年50%以上历史分位值时，可能考虑逐步卖出分批止盈。&lt;/p&gt;
-
-&lt;p&gt;当PE高于近十年“危险值”或低于25%历史分位值时，可以考虑清仓卖出止盈&lt;/p&gt;
-
-&lt;h2 id=&quot;短线交易&quot;&gt;短线交易&lt;/h2&gt;
-
-&lt;p&gt;比如尾盘买入法。&lt;/p&gt;
-
-&lt;h2 id=&quot;打板教程&quot;&gt;打板教程&lt;/h2&gt;
-
-&lt;h2 id=&quot;全天候策略&quot;&gt;全天候策略&lt;/h2&gt;
-
-&lt;p&gt;也叫 桥水基金著名的“全天候”策略&lt;/p&gt;
-
-&lt;p&gt;每一类宏观经济状态都有资产表现较好。通过ETF，投资者可以做一个国内版的全天候指数，捕捉不同资产的上涨机会，以带动整个组合获得收益或者降低组合的下跌幅度，长期积累后获得一条平稳向上的收益曲线。&lt;/p&gt;
-
-&lt;p&gt;只要目光离开A股和房地产，你们会发现什么都在涨！&lt;/p&gt;
-
-&lt;p&gt;债券涨！商品涨！黄金涨！外围股市也在涨！&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://finance.sina.com.cn/realstock/company/sh601211/nc.shtml&quot;&gt;国泰君安&lt;/a&gt;研究所曾经推出自己的全天候指数。&lt;/p&gt;
-
-&lt;p&gt;该指数在2009年至2024年5月期间，平均年化收益率为8.7%，年度最大回撤平均在-4.3%，年度波动率平均在4.21%左右，夏普比率每年平均在2.01左右。&lt;/p&gt;
-
-&lt;p&gt;该策略涵盖了股票、债券、商品等多种资产，底层资产包括沪深300指数、标普500指数、十年国债、黄金、原油等，其中十年国债的投资比例基本在50%以上。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202410120008416.png&quot; alt=&quot;（来源：网络公开信息，数据截至2024年5月31日）&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;比如这个基金: https://www.efunds.com.cn/fund/110027.shtml&lt;/p&gt;
-
-&lt;p&gt;主流的杠铃策略左侧一般被认为是防守型资产，如高股息、大盘价值风格的ETF，杠铃右侧是高成长、高弹性的资产，如科技、成长风格的ETF，从而实现在市场震荡或者下行时抵抗波动，在市场上行或热点频发时灵活调仓，搏取成长赛道的收益。&lt;/p&gt;
-
-&lt;p&gt;桥水当家人达利奥(Dalio)在一次采访中，给普通人提供的简化版，美股比如标普500只占 30%，黄金和大宗商品各占 7.5%，剩下的 55%是&lt;a href=&quot;javascript:void(0);&quot;&gt;债券&lt;/a&gt;。中期40%，长期15%。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;7.5%大宗商品，我用的是南华商品指数&lt;/li&gt;
-  &lt;li&gt;7.5%黄金，我用的是人民币汇率调节后的上海金 SHFE 黄金价格&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;价值投资&quot;&gt;价值投资&lt;/h2&gt;
-
-&lt;p&gt;就是定投 低估值的。&lt;/p&gt;
-
-&lt;h2 id=&quot;趋势&quot;&gt;趋势&lt;/h2&gt;
-
-&lt;p&gt;得抓热点。&lt;/p&gt;
-
-&lt;h2 id=&quot;判断个股投资价值&quot;&gt;判断个股投资价值&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.futunn.com/learn/detail-learn-to-use-30-minutes-to-judge-the-investment-value-of-individual-stocks-1259-2109950058?global_content=%7B%22promote_id%22%3A13766%2C%22sub_promote_id%22%3A14%7D&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;一家公司的长期价值只取决于三个方面：行业空间、竞争格局和商业模式，你只有三十分钟，最易得到的资料是一到两份深度研究报告（新股可以看招股说明书），十分钟看行业空间，十分钟看竞争格局，十分钟看商业模式。&lt;/p&gt;
-
-&lt;p&gt;从「所处阶段、周期性、永续性」判断行业空间；从行业所处竞争阶段和企业的竞争地位判断竞争格；找到企业的核心商业模式，看其是否与竞争优势相匹配，是否能形成「正向反馈放大」阶段。&lt;/p&gt;
-
-&lt;p&gt;行业空间可以从三个维度来分析：所处阶段、永续性和周期性。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1、所处阶段：&lt;/strong&gt;判断该行业正处于哪一个发展阶段，包括：&lt;/p&gt;
-
-&lt;p&gt;空间看似很大但非常不确定的早期，比如氢能源车、第三代半导体、OLED、量子计算机&lt;/p&gt;
-
-&lt;p&gt;行业消费爆发、商业模式成型或者技术突破后的高速发展期，比如锂电、光伏、人工智能应用、部分医药行业、部分新消费行业&lt;/p&gt;
-
-&lt;p&gt;稳定增长期：大部分行业都处于这个阶段&lt;/p&gt;
-
-&lt;p&gt;发展停滞期：大部分所谓夕阳行业都处于这个阶段&lt;/p&gt;
-
-&lt;p&gt;前景不明期：未来有可能被替代或大众变小众的行业，比如传统的新住宅开发、传统的超市百货、纸媒&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2、周期性：&lt;/strong&gt;从宏观经济周期、行业库存周期、朱格拉周期的角度，判断该行业是否具有明显的周期性，以及该行业处于周期四阶段「上行期、下行期、低谷期、峰顶期」中的哪一个阶段。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3、永续性：&lt;/strong&gt;可以想象的未来（可以理解成15或20年后），该行业继续保持增长的概率如何。&lt;/p&gt;
-
-&lt;p&gt;比如消费电子的永续性比家电差，可选消费的永续性比必选消费差，化石能源的永续性比新能源差。白酒和调味品之所以估值高，正是因为永续性强。&lt;/p&gt;
-
-&lt;p&gt;基于「行业空间」判断有两种思路：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第一种是分档：&lt;/strong&gt;A档是处于高速发展期或稳定发展期，且周期性弱，有一定永续性的行业；C是指处于不确定的早期、发展停滞期和前景不明的行业，或强周期性行业，或弱周期中的下行期；B档是A、C档之外的其他行业。&lt;/p&gt;
-
-&lt;p&gt;A、B、C档，再结合后面的两个因素，判断值不值得继续研究。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;第二种思路是从自己的投资风格出发：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;成长型投资者，选择处于高速发展期的行业；&lt;/li&gt;
-  &lt;li&gt;稳健型投资者，选择处于稳定增长期且无周期性的行业；&lt;/li&gt;
-  &lt;li&gt;周期股投资者，选择强周期且处于上行期或低谷期的行业；&lt;/li&gt;
-  &lt;li&gt;超长线投资者，选择永续增长确定性强的行业。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;假设你手里没有任何股票，让你从这一支和所有的股票中选一支，你还会选择它吗？如果是，那就持有；如果是别的，那就换股；如果一个都选不出，那就清仓。&lt;/p&gt;
-
-&lt;h2 id=&quot;什么时候该卖出&quot;&gt;什么时候该卖出？&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.futunn.com/learn/detail-when-should-i-sell-it-pay-attention-to-this-signal-1259-2109760061?global_content=%7B%22promote_id%22%3A13766%2C%22sub_promote_id%22%3A14%7D&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;一派以格雷厄姆为代表，在低估时买入，价值回归后卖出，赚取估值差价；一派以巴菲特、芒格为代表，更强调以合理的价格买入优秀的公司，长期持有，赚增长的钱。&lt;/p&gt;
-
-&lt;p&gt;短期来看，价格向价值回归能产生不错的收益；但把眼光拉长，优秀企业的长期可持续增长才是收益的大头，是股票投资最根本的价值来源。正是在这个意义上，巴菲特师从格雷厄姆，却做到了青出于蓝而胜于蓝。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;若投资者并不着眼于长期收益，卖出就是合理的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;主流的估值方法包括市盈率PE、市净率PB、市销率PS、现金流贴现模型DCF、分部估值等估值模型，每种估值方法各有其优缺点，适用于不同类型的企业和企业的不同发展阶段。&lt;/p&gt;
-
-&lt;p&gt;比如市盈率PE，是最主流的估值指标，适用于盈利为正且盈利相对稳定的企业，比如消费、服务行业；&lt;strong&gt;市盈率 = 股票价格 / 每股收益（EPS），即一个股票的价格相对于每股收益的倍数。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;对于重资产行业，存在大量折旧摊销，当期利润不能代表未来利润，更适用于市净率PB估值法；对于周期性行业，如养猪业钢铁煤炭化工，盈利波动很大，市盈率指标很容易产生误导，市净率是更好的指标；&lt;strong&gt;市净率 = 股票价格 / 每股净资产，反映股价相对于公司净资产的倍数。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;对于现金流容易准确预测的企业，如创新药企业，市场多用现金流贴现模型进行估值。&lt;/p&gt;
-
-&lt;p&gt;市销率对于那种销售稳定的公 司非常有用，比如拼多多等。&lt;/p&gt;
-
-&lt;p&gt;在这个意义上，市盈率、市净率的高低本身并非判断估值高低的绝对标准，类似成长期的科技公司、尚未盈利的互联网公司等，市盈率通常很高，甚至为负，但并不能据此得出股票严重高估的结论。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;投资者能依仗的，更多地是参照历史估值水平得出一个相对模糊的结论。&lt;/strong&gt;比如一只股票的历史市盈率区间为15-50倍，当市盈率接近50倍时，即处于高估状态，若达到了70倍，不妨视作严重高估，就可以考虑卖出了。&lt;/p&gt;
-
-&lt;p&gt;原则，如果在某个价格我不打算买，我就可以卖。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;在这里提醒几个低估值陷阱，即什么不能买。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;一是赢家通吃行业中的非龙头玩家。&lt;/strong&gt;顾名思义，赢家通吃的行业只有赢家有投资价值，非龙头玩家成不了赢家，生存能力堪忧，估值再便宜也不能买入。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;二是夕阳产业中的非头部企业。&lt;/strong&gt;夕阳产业，行业缺乏增长空间，内部加速优胜劣汰，非头部企业生存空间大幅收窄，估值再便宜也不能买入。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;三是已过周期顶点的周期股。&lt;/strong&gt;如牛市高点时的券商股、猪价高点时的养猪股，在景气高点时，盈利能力大幅增长，导致市盈率处在很低的水平，看上去很便宜，但行业即将步入下滑阶段，企业盈利能力快速萎缩，此时买入，很容易被高位套牢。&lt;/p&gt;
-
-&lt;p&gt;以生猪养殖企业牧原股份为例，2019年9月5日动态市盈率超过400倍，但此时的股价仍处于相对低位；之后，随着猪肉价格上涨催动企业利润大幅增长，市盈率却一路走低，一度跌至9.93倍的低点，但此时的股价已屡创新高。&lt;/p&gt;
-
-&lt;p&gt;PEG是市盈增长率， 市盈率/盈利增速。 正常值为，多了就是估值过高。&lt;/p&gt;
-
-&lt;h2 id=&quot;交易行为&quot;&gt;交易行为&lt;/h2&gt;
-
-&lt;p&gt;「单因曝光效应」，让股民产生了一些奇怪的心理：&lt;/p&gt;
-
-&lt;p&gt;如果一个投资者空仓，他会精心选择一堆自选股，并非常谨慎地选择几支逢低买入；可一旦手中的股票被套牢，他自选股中其他的股票就瞬间消失，好像被套牢的这一支才是天底下最好的股票，他会慢慢地把手上全部资金像「葫芦娃救爷爷」一样，一笔笔地套进去。&lt;/p&gt;
-
-&lt;p&gt;这还只是开始，「单因曝光效应」会让投资者只关注被套牢的股票，脑子里只有一件事，这个股票什么时候可以解套？好像他来炒股的目的就是为了「解套」。&lt;/p&gt;
-
-&lt;p&gt;「合理估值」不是一个值，而是一个区间——区间以下买入为主，区间以上卖出为主，区间之内以持有为主。&lt;/p&gt;
-
-&lt;p&gt;一文说清「板块轮动上涨」的四大规律？&lt;/p&gt;
-
-&lt;p&gt;交易中的经典语句：&lt;strong&gt;做趋势的，死在震荡里；做震荡的，死在趋势里。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;典型错误行为1：追逐大涨的行情，追进去后仓位较大，直接被套。&lt;/strong&gt; 理性的做法是观察，并等待一个相当程度的回调，然后择机买入。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;典型错误行为2：仓位不一致，交易逻辑混乱。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;在交易中，我们强调一点的是，交易思想和交易行为要保持连续性。在一个范围之内，你的开仓、平仓、盈利点数、进出场判断，都要依靠一套固定的逻辑，在逻辑之内你的行为具有某种高度的确定性。&lt;/p&gt;
-
-&lt;h1 id=&quot;a股港股美股&quot;&gt;A股港股美股&lt;/h1&gt;
-
-&lt;h2 id=&quot;指数&quot;&gt;指数&lt;/h2&gt;
-
-&lt;p&gt;窄基指数是由特定行业或主题下面的成分股所构建的指数。因此， 窄基指数与特定行业或主题的股价表现高度相关，往往会出现独立于股 市大盘的行情。&lt;/p&gt;
-
-&lt;p&gt;宽基指数是指涵盖市场中大范围股票的指数，通常涵盖多个行业和不同规模的股票，代表了整体股市的表现。&lt;/p&gt;
-
-&lt;p&gt;A股&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;上证指数（SSE Composite Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 代表上海证券交易所上市股票的综合表现，是中国最具代表性的股市指数之一。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融、能源、工业、消费等传统行业占比较大，尤其是银行、保险等金融类公司权重较高。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;深证成指（SZSE Component Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 反映深圳证券交易所上市股票的整体走势，尤其侧重于深市主板的表现。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 相较于上证指数，深证成指更侧重于成长型行业，如信息技术、通信、消费电子等。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;沪深300指数（CSI 300 Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由沪深两市中市值最大、流动性最好的300家公司构成，是A股中投资者常用的代表指数之一。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 行业分布较为广泛，金融、消费、信息技术、工业、能源等均有较大比重，权重前几名常为金融和消费行业公司。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;中证500指数（CSI 500 Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由市值较小、但成长潜力较大的500家公司组成，主要代表中小企业的市场表现。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 中小市值公司占比较大，偏向信息技术、消费品、医药等成长性行业。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;港股&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;恒生指数（Hang Seng Index, HSI）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由香港交易所市值最大、最具代表性的50家公司组成，是香港市场的风向标。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融行业占主导，尤其是银行、保险公司。此外，房地产和大型科技公司（如腾讯）也占有较大比重。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;恒生科技指数（Hang Seng TECH Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 追踪30家在香港上市、业务重心为科技的公司，类似于美国的纳斯达克指数。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 信息技术、电子商务、金融科技等高科技行业为主，典型代表如腾讯、阿里巴巴、美团等。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;国企指数（H-shares Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 由在香港上市的中国内地企业（H股）组成，反映中资企业在香港市场的表现。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 中资金融类公司（银行、保险）、能源公司占据较大权重，此外还有通信、房地产和消费类企业。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;美股&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;道琼斯工业平均指数（DJIA, Dow Jones Industrial Average）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括30家美国市值较大、业绩稳定的跨国公司，是美国传统行业的代表性指数。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 金融、工业、消费类公司占据主导地位，如高盛、波音、沃尔玛等。科技股比例较低。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;标普500指数（S&amp;amp;P 500 Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括500家美国市值最大、流动性最好的公司，被认为是美国股市最全面的代表性指数。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 权重前几名为科技公司，如苹果、微软、谷歌母公司Alphabet、亚马逊等。除了科技，医疗保健、金融、消费品等行业也有较大占比。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;纳斯达克综合指数（Nasdaq Composite Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 以科技股为主，追踪在纳斯达克交易所上市的所有公司，是全球科技股的风向标。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 信息技术、电子商务、社交媒体、半导体等高科技行业，典型代表如苹果、微软、亚马逊、特斯拉、英伟达等。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;罗素2000指数（Russell 2000 Index）&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;&lt;strong&gt;简介&lt;/strong&gt;: 包括市值较小的2000家公司，是美国小市值股票的代表性指数。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;行业偏好&lt;/strong&gt;: 偏向工业、医疗保健、消费品等行业，成长性较高。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;关系&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;当遇到全球重大事件时，隔夜美股走势会对第二天的A股、港股有比较显著的影响，隔夜美股走势是重要参考指标。&lt;/li&gt;
-  &lt;li&gt;美股牛市时，A股不一定也是牛市；但A股牛市时，美股大概率也是牛市，也就是说A股的牛市开启，需要美股也同时处于比较好的上涨环境中。&lt;/li&gt;
-  &lt;li&gt;A股熊市时，美股不一定也熊市；但美股熊市时，A股大概率跟随下跌，考虑到当前美股点位及估值都处于历史高位，如果后续美股开启下跌行情，那么A股也将明显承压，所以我们需要密切关注美股未来的走势变化，提前做好资产配置预案。&lt;/li&gt;
-  &lt;li&gt;上证综指与恒生指数强相关，标普500指数也与恒生指数强相关，但上证综指和标普500指数之间相关性不强。&lt;/li&gt;
-  &lt;li&gt;因为美国股市比中国大陆股市和香港股市晚开盘，这里存在时差的问题，同时为了研究三大指数间的具体传导顺序及影响的时间跨度，我们分别计算各指数同步、滞后1天、滞后3天、滞后1月、滞后3月对其他股指的相关性系数。&lt;/li&gt;
-  &lt;li&gt;过去20年来，①上证综指与恒生指数强相关，且上证综指与恒生指数同步的相关性系数最高，领先或滞后的效应一般。②标普500指数与恒生指数强相关，滞后一日的标普500指数与恒生指数的相关性要强于两者同步的相关性，也强于上证综指与恒生指数的相关性，标普500指数的领先效应明显，即隔夜美股走势对第二天的港股具有明显参考意义，且美股走势在3个月内都对港股具有带动作用。③上证综指和标普500指数之间相关性不强，彼此走势相对独立。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;阿里巴巴、网易、百度、哔哩哔哩等13家在美上市中概股已相继在港实现二次上市。 他们有两次&lt;/p&gt;
-
-&lt;h2 id=&quot;行业&quot;&gt;行业&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;医药&lt;/li&gt;
-  &lt;li&gt;消费
-    &lt;ul&gt;
-      &lt;li&gt;必需品，白酒&lt;/li&gt;
-      &lt;li&gt;可选，白电冰箱空调，黑电电视机等。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;半导体&lt;/li&gt;
-  &lt;li&gt;银行
-    &lt;ul&gt;
-      &lt;li&gt;银行业的特点是稳!稳有两层含义:一是下跌的机会不多，二是上 涨的动力不大。过去10年，整个银行业的市盈率、市净率都处于一个非 常低的水平，但银行股票的股息率还不错。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;证券
-    &lt;ul&gt;
-      &lt;li&gt;证券行业的特点是股价弹性大。当股市处于熊市时，券商股业绩下 滑，估值下跌，形成“戴维斯双杀”。当股市处于牛市时，公司业绩上 涨，估值水平也上涨，形成“戴维斯双击”。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;股息率高：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;银行&lt;/li&gt;
-  &lt;li&gt;地产&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;公司的增长类型分类&quot;&gt;公司的增长类型分类&lt;/h2&gt;
-
-&lt;p&gt;缓慢增长型&lt;/p&gt;
-
-&lt;p&gt;这种类型的公司往往规模十分巨大、历史非常悠久，能够持续稳 定赢利，但增长非常缓慢，看上去非常乏味。这种公司并不是一开始 就变得增长缓慢的，在历史上也有过快速增长的时期，但是往往由于 整个行业进入成熟期或衰退期，作为行业龙头的它们也不可避免地受 到影响。&lt;/p&gt;
-
-&lt;p&gt;这种类型的公司往往出现在公用事业(水电燃气、交通运输等) 或成熟后期的行业等。比如，航空业的龙头企业中国国航。&lt;/p&gt;
-
-&lt;p&gt;商业银行也是如此。随着我国经济从高速增长转向高质量增长， 银行业也告别了2001-2010年的高速增长时代，逐步变成了缓慢增长型 公司。以工商银行为例，其利润同比增速逐步下滑，增长乏力&lt;/p&gt;
-
-&lt;p&gt;还有一类公司，其主营业务在行业初期属于快速增长型，但随着 行业的转变，它们逐渐变成了缓慢增长型的行业。百度(代码:BIDU.O)就属于这种类型的公司。&lt;/p&gt;
-
-&lt;p&gt;缓慢增长型公司的股息率相对较高，因为其没有更多的可扩张的 业务。 行业龙头、业绩稳定但 乏味，除了在整体牛市中能够跟随市场上涨外，大部分时间股价都处 于半死不活的状态，投资者难以赚到超额收益，但也不会亏很多钱。 这类股票一旦遇到熊市，股价会出现恐慌性下跌，估值很可能处于远 低于内在价值的水平，那么投资者在此时买入并享受估值修复的盈 利，是非常可期的。&lt;/p&gt;
-
-&lt;p&gt;稳定增长型&lt;/p&gt;
-
-&lt;p&gt;稳定增长型公司之所以能够 稳定增长，要么是因为行业还处于稳定增长阶段，要么是因为公司在 现有行业中找到了新的业务增长点。&lt;/p&gt;
-
-&lt;p&gt;比如招商银行(代码:600036)。虽然整体银行业属于缓慢增长 型行业，但招商银行作为国内商业银行的标杆性企业，通过在零售、 私人银行、金融科技等方面的持续投入和优化，营收和利润增长明显 超过行业平均水平。&lt;/p&gt;
-
-&lt;p&gt;美的集团、格力电器、海尔智家成为行业的前三 强。也算稳定增长型。&lt;/p&gt;
-
-&lt;p&gt;快速增长型&lt;/p&gt;
-
-&lt;p&gt;快速增长型公司股票是众多散户最爱的股票类型:市值规模较 小，但成长性高，每年业绩百分之几十增长(甚至更高)。&lt;/p&gt;
-
-&lt;p&gt;比如海天味业(代码:603288)是一家做调味品的上市公司，依靠海 天酱油迅速做大，并扩充至蚝油、酱类等其他调味品，成为国内调味 品行业的龙头企业。&lt;/p&gt;
-
-&lt;p&gt;拼多多也是&lt;/p&gt;
-
-&lt;p&gt;如果市场上大部分投资者都看好某个快速增长 型公司，那么反映在股价上必然是估值水平的提高;如果公司未来几 年增速达不到预期，那么股价势必会回调，从而对投资者造成亏损。&lt;/p&gt;
-
-&lt;p&gt;周期型&lt;/p&gt;
-
-&lt;p&gt;周期型公司都处于周期型行业，其收入和盈利没有稳定性，跟经 济的增长周期紧密相关，随之浮动。钢铁、煤炭、化工、有色金属、 机械、水泥、交通运输等都属于周期型行业，经济增长强劲时，这些&lt;/p&gt;
-
-&lt;p&gt;行业受益，收入和盈利都能出现大幅增长;当经济出现衰退时，行业 整体收缩，收入和盈利大幅下滑，可能出现亏损。&lt;/p&gt;
-
-&lt;h2 id=&quot;财务分析&quot;&gt;财务分析&lt;/h2&gt;
-
-&lt;p&gt;首先，财务语言中最基本的一组词汇，就是&lt;strong&gt;收入、利润、和现金流&lt;/strong&gt;。 &lt;strong&gt;利润是收入的质量，现金流是利润的质量。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;现金流: 利润是账面上的，是人为造出来的。而现金流是真实存在的，是需要进账、出账的。即便账面上赚了那么多利润，但是利润还没有变成现金进入他的账户，想用暂时也用不了。&lt;strong&gt;只有到账了的现金流，才是你真正的利润。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;上市公司有季度、半年、一年一次的报告。&lt;/p&gt;
-
-&lt;p&gt;财务报表细节虽然多，但其核心要义却很简单。简单来说，财务 报表包含三张大表:&lt;strong&gt;资产负债表、利润表和现金流量表。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;资产负债表&lt;/strong&gt;记录了一家企业某个时点(比如年末、季末)的总资 产、总负债、股东权益的分项和汇总数额，相当于公司的家底。我们 举个家庭的例子:资产负债表记录了你自己家庭有多少资产(包括银 行存款、房产、理财、股票、基金等)、借了多少负债(比如银行房 贷、信用卡借款)及自有本金&lt;/p&gt;
-
-&lt;p&gt;把资产负债表分成左右两列:左列是资产，右列是负债及 所有者权益。右列说明的是公司的资金来源:一部分是从外面借的钱 (负债)，另一部分是自有资金(股东权益)。这些钱通过经营和投 资，形成了左列的资产，即资金的去处。钱不会凭空消失，因此资金 的来源一定等于资金的去处。 所以 &lt;strong&gt;资产=负债+股东权益。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;经验丰富的投资人，对 于资产负债表的重视程度甚于利润表，毕竟利润表短期可操纵的空间 太大。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;利润表&lt;/strong&gt;，就是记录一家公司报告期内到底赚了多少钱，就像自己 的家庭一年有多少净收入，也就是这一年的收入减去当年的支出。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;现金流量表&lt;/strong&gt;其实就是一家公司的收入和支出的现金流水。利润不等于现金收入，比如可能部分钱还没打过来。现金流量表就是为了对资产负债表和利润表进行补充，从现 金流入和流出的视角来分别统计资产情况。&lt;/p&gt;
-
-&lt;p&gt;如果我们看上市公司的现金流量表，会发现它把现金流分成了三 类:经营活动产生的现金流量;投资活动产生的现金流量;筹资活动产 生的现金流量。每一种现金流量，都按照流入和流出分别统计并计算轧 差净额。&lt;/p&gt;
-
-&lt;p&gt;现金流量表到底看什么?我们先提出如下三个论点，作为我们分析 的“三观”。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;利润表好造假，但现金流量表往往很真实，很难造假。利润表是 公司的“面子”，而现金流量表是公司的“里子”。&lt;/li&gt;
-  &lt;li&gt;绝大部分企业破产的直接原因是现金流断裂，而不是净利润亏 损。如果公司一直赚钱(利润为正)，但现金流枯竭了，那么它会立刻 倒下。反过来，如果公司一直不赚钱，但现金流充裕，它就可以持续活 下去。从这个角度看，现金流比净利润重要。&lt;/li&gt;
-  &lt;li&gt;长期来看，如果某家公司的现金流和净利润的增长不能匹配，那 一定有猫腻。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;对于多个子公司的情况，会合并报表，就是将母公司报表与具有控制权的子公司的财务报表 一起合并。比如，母公司账上有10亿元货币资金，控股子公司A账上有 3亿元，控股子公司B有2亿元，则合并资产负债表上的货币资金有15亿 元。&lt;/p&gt;
-
-&lt;p&gt;如果母公司在一家公司的持股比例只有30%，但拥 有实际控制权，那么被实际控制的公司也需要纳入合并报表范围。&lt;/p&gt;
-
-&lt;p&gt;票据类似欠条，可以认为是一个信用债。 有银行或者大企业做担保的那种欠条，也可以转让。会在财务报表上以应收账款条目出现。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">股票知识</summary></entry></feed>
+&lt;p&gt;美国的CPI（消费者价格指数）通常在每月的&lt;strong&gt;第二周&lt;/strong&gt;公布。具体时间为每月的&lt;strong&gt;11日或12日左右&lt;/strong&gt;，且通常是&lt;strong&gt;美东时间上午8:30&lt;/strong&gt;发布。例如，2024年10月的CPI将在10月10日早上8:30发布&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="DailyLife" /><summary type="html">TODO: 看幅图投资课程, https://www.futunn.com/learn/list/perspective-27333321205743632?global_content=%7B%22promote_id%22%3A13766,%22sub_promote_id%22%3A14%7D</summary></entry></feed>
