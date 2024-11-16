@@ -27,7 +27,15 @@ layout: default
     .green { color: green; }
     .black { color: black; }
     #detail-container {
-      margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap; /* 自动换行 */
+        gap: 20px; /* 图片之间的间距 */
+        justify-content: space-between; /* 图片均匀分布 */
+    }
+    .detail-item {
+        flex: 1 1 calc(50% - 20px); /* 每个图片占50%宽度，减去间距 */
+        box-sizing: border-box; /* 确保宽度包括 padding 和 border */
+        max-width: calc(50% - 20px); /* 最大宽度控制 */
     }
     #detail-container img {
       width: 100%;
@@ -56,7 +64,6 @@ layout: default
         var data = JSON.parse(xhr.responseText);
         if (data.rc === 0) {
           var rows = '';
-          var stockPrice, bondPrice;
           data.data.diff.forEach(function(item) {
             var percentage = ((item.f2 - item.f16) / (item.f15 - item.f16) * 100).toFixed(2);
             var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
@@ -67,23 +74,20 @@ layout: default
                     '<td>' + item.f2 + ' (' + percentage + '%)</td>' +
                     '</tr>';
           });
-          var ratio = (stockPrice / bondPrice).toFixed(2);
           document.getElementById('data-body').innerHTML = rows;
         }
       }
     };
     xhr.send();
   </script>
-
-  <section id="detail-container"></section>
+  <div id="detail-container"></div>
   <script>
-    // 获取容器
     const container = document.getElementById('detail-container')
-    // 数据数组
     const etfData = [
       {
         name: "30年国债etf",
         code: "511130",
+          code_dc: "3"
       },
       {
         name: "恒生科技etf",
@@ -94,12 +98,9 @@ layout: default
         code: "518880",
       }
     ];
-    // 动态生成内容
     etfData.forEach(item => {
-      // 创建外层 div
       const etfItem = document.createElement('div');
       etfItem.className = 'detail-item';
-      // 创建标题和链接
       const title = document.createElement('h4');
       const link = document.createElement('a');
       link.href =  `https://m.10jqka.com.cn/stockpage/hs_${item.code}/#&atab=geguNews`;
@@ -107,13 +108,10 @@ layout: default
       link.textContent = `${item.name}: ${item.code}`;
       console.log(link)
       title.appendChild(link);
-      // 创建图片
       const img = document.createElement('img');
       img.src = `https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.${item.code}`;
-      // 添加到外层 div
       etfItem.appendChild(title);
       etfItem.appendChild(img);
-      // 添加到容器
       container.appendChild(etfItem);
     });
   </script>
