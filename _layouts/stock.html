@@ -116,10 +116,8 @@ layout: default
                   data.data.diff.forEach(function (item) {
                       var percentage = ((item.f2 - item.f16) / (item.f15 - item.f16) * 100).toFixed(2);
                       var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
-                      // var stockLink = 'https://m.10jqka.com.cn/stockpage/sh_' + item.f12 + '/#&atab=geguNews';
-                      var stockLink = ""
                       rows += '<tr>' +
-                          '<td><a href="' + stockLink + '" target="_blank">' + item.f14.replace('ETF', '') + '</a></td>' +
+                          '<td>' + item.f14 + '</td>' +
                           '<td class="' + colorClass + '">' + item.f3 + '%</td>' +
                           '<td>' + item.f2 + ' (' + percentage + '%)</td>' +
                           '</tr>';
