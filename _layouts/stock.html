@@ -6,78 +6,115 @@ layout: default
 {% if site.cdn.jsdelivr.enabled %}
 {% assign assets_base_url = "https://cdn.jsdelivr.net/gh/" | append: site.repository | append: '@'| append: site.cdn.jsdelivr.branch %}
 {% endif %}
-
 <section class="container content">
   <style>
-table {
-  border-collapse: collapse;
-  width: 90%;
-  font-size: 12px;
-  margin: 0 auto;
-  border-spacing: 10px;
-}
-th, td {
-  border: 1px solid black;
-  padding: 10px;
-  text-align: center;
-}
-th {
-  background-color: #f2f2f2;
-}
-.red { color: red; }
-.green { color: green; }
-.black { color: black; }
-</style>
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      font-size: 12px;
+      margin: 0 auto;
+      border-spacing: 10px;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .red { color: red; }
+    .green { color: green; }
+    .black { color: black; }
+    #detail-container {
+      margin-bottom: 20px;
+    }
+    #detail-container img {
+      width: 100%;
+      height: auto;
+      max-width: 500px;
+    }
+  </style>
 
-<div>股债性价比: <span id="ratio">NA</span></div>
-<table border="1">
-  <thead>
-      <tr>
-          <th>名称</th>
-          <th>涨跌幅</th>
-          <th>价格</th>
-      </tr>
-  </thead>
-  <tbody id="data-body"></tbody>
-</table>
+  <table>
+    <thead>
+    <tr>
+      <th>名称</th>
+      <th>今日涨跌幅</th>
+      <th>价格</th>
+    </tr>
+    </thead>
+    <tbody id="data-body"></tbody>
+  </table>
 
-<script>
-var url = 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f12,f14,f15,f16&secids=1.511130,1.513010,1.518880';
-var xhr = new XMLHttpRequest();
-xhr.open('GET', url, true);
-xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
+  <script>
+    var url = 'https://push2.eastmoney.com/api/qt/ulist.np/get?fltt=2&invt=2&fields=f2,f3,f12,f14,f15,f16&secids=1.511130,1.513010,1.518880,1.159915';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
         var data = JSON.parse(xhr.responseText);
         if (data.rc === 0) {
-            var rows = '';
-            var stockPrice, bondPrice;
-            data.data.diff.forEach(function(item) {
-                var percentage = ((item.f2 - item.f16) / (item.f15 - item.f16) * 100).toFixed(2);
-                var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
-                if (item.f12 === '511130') stockPrice = item.f2;
-                if (item.f12 === '513010') bondPrice = item.f2;
-                var stockLink = 'https://m.10jqka.com.cn/stockpage/sh_' + item.f12 + '/#&atab=geguNews';
-    
-                rows += '<tr>' +
+          var rows = '';
+          var stockPrice, bondPrice;
+          data.data.diff.forEach(function(item) {
+            var percentage = ((item.f2 - item.f16) / (item.f15 - item.f16) * 100).toFixed(2);
+            var colorClass = item.f3 > 0 ? 'red' : item.f3 < 0 ? 'green' : 'black';
+            var stockLink = 'https://m.10jqka.com.cn/stockpage/sh_' + item.f12 + '/#&atab=geguNews';
+            rows += '<tr>' +
                     '<td><a href="' + stockLink + '" target="_blank">' + item.f14.replace('ETF', '') + '</a></td>' +
                     '<td class="' + colorClass + '">' + item.f3 + '%</td>' +
                     '<td>' + item.f2 + ' (' + percentage + '%)</td>' +
                     '</tr>';
-            });
-            var ratio = (stockPrice / bondPrice).toFixed(2);
-            document.getElementById('ratio').innerText = ratio;
-            document.getElementById('data-body').innerHTML = rows;
+          });
+          var ratio = (stockPrice / bondPrice).toFixed(2);
+          document.getElementById('data-body').innerHTML = rows;
         }
-    }
-};
-xhr.send();
-</script>
+      }
+    };
+    xhr.send();
+  </script>
 
-
-  <h4> <a href="https://m.10jqka.com.cn/stockpage/hs_511130/#&atab=geguNews" target="_blank"> 30年国债etf: 511130 </a> </h4>
-  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.511130&timespan=1709688417" style="width: 100%; height: auto; max-width: 550px;">
-  <h4> <a href="https://m.10jqka.com.cn/stockpage/hs_513010/#&atab=geguNews" target="_blank"> 恒生科技etf: 513010 </a> </h4>
-  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.513010&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
-  <h4> <a href="https://m.10jqka.com.cn/stockpage/hs_518880/#&atab=geguNews" target="_blank"> 黄金etf: 518880 </a> </h4>
-  <img src="https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.518880&timespan=1729688498" style="width: 100%; height: auto; max-width: 550px;">
+  <section id="detail-container"></section>
+  <script>
+    // 获取容器
+    const container = document.getElementById('detail-container')
+    // 数据数组
+    const etfData = [
+      {
+        name: "30年国债etf",
+        code: "511130",
+      },
+      {
+        name: "恒生科技etf",
+        code: "513010",
+      },
+      {
+        name: "黄金etf",
+        code: "518880",
+      }
+    ];
+    // 动态生成内容
+    etfData.forEach(item => {
+      // 创建外层 div
+      const etfItem = document.createElement('div');
+      etfItem.className = 'detail-item';
+      // 创建标题和链接
+      const title = document.createElement('h4');
+      const link = document.createElement('a');
+      link.href =  `https://m.10jqka.com.cn/stockpage/hs_${item.code}/#&atab=geguNews`;
+      link.target = '_blank';
+      link.textContent = `${item.name}: ${item.code}`;
+      console.log(link)
+      title.appendChild(link);
+      // 创建图片
+      const img = document.createElement('img');
+      img.src = `https://webquotepic.eastmoney.com/GetPic.aspx?imageType=r&type=&nid=1.${item.code}`;
+      // 添加到外层 div
+      etfItem.appendChild(title);
+      etfItem.appendChild(img);
+      // 添加到容器
+      container.appendChild(etfItem);
+    });
+  </script>
 </section>
