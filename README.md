@@ -6,6 +6,9 @@
 
 draft: true表示是草稿。
 
+html验证器: https://www.site24x7.com/tools/html-markupvalidator.html
+
+
 ## Acknowledge
 
 博客主题基于 [Zhuang Ma's blog](https://github.com/mzlogin/mzlogin.github.io)，感谢
