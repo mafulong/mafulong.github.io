@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Python
-title: appleM1的python不兼容问题
+title: libmini_racer的mac不兼容问题
 tags: Python
 ---
 
@@ -11,7 +11,29 @@ tags: Python
 
 错误: 提示某dylib缺失。比如py_mini_racer 这个js运行库就依赖了这个dylib。 
 
+其他类似问题
 
+```
+  File "/Users/mafulong/.pyenv/versions/3.11.10/lib/python3.11/site-packages/py_mini_racer/py_mini_racer.py", line 178, in __init__
+    self.__class__.ext = _build_ext_handle()
+                         ^^^^^^^^^^^^^^^^^^^
+  File "/Users/mafulong/.pyenv/versions/3.11.10/lib/python3.11/site-packages/py_mini_racer/py_mini_racer.py", line 132, in _build_ext_handle
+    _ext_handle.mr_eval_context.argtypes = [
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mafulong/.pyenv/versions/3.11.10/lib/python3.11/ctypes/__init__.py", line 389, in __getattr__
+    func = self.__getitem__(name)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mafulong/.pyenv/versions/3.11.10/lib/python3.11/ctypes/__init__.py", line 394, in __getitem__
+    func = self._FuncPtr((name_or_ordinal, self))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: dlsym(0x6d2e0e10, mr_eval_context): symbol not found. Did you mean: 'mr_init_context'?
+Exception ignored in: <function MiniRacer.__del__ at 0x12584b420>
+Traceback (most recent call last):
+  File "/Users/mafulong/.pyenv/versions/3.11.10/lib/python3.11/site-packages/py_mini_racer/py_mini_racer.py", line 315, in __del__
+    self.ext.mr_free_context(getattr(self, "ctx", None))
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'mr_free_context'
+```
 
 
 
