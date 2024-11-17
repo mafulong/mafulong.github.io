@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-16T22:42:41+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">MongoDB基础使用</title><link href="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="MongoDB基础使用" /><published>2024-11-12T00:00:00+08:00</published><updated>2024-11-12T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">&lt;h2 id=&quot;mongodb基础使用&quot;&gt;MongoDB基础使用&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2024-11-17T20:19:52+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">MongoDB基础使用</title><link href="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="MongoDB基础使用" /><published>2024-11-12T00:00:00+08:00</published><updated>2024-11-12T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">&lt;h2 id=&quot;mongodb基础使用&quot;&gt;MongoDB基础使用&lt;/h2&gt;
 
 &lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
 
@@ -1629,6 +1629,27 @@ LinePlotterIndicator(close_over_sma, name=&apos;Close_over_SMA&apos;)
 &lt;p&gt;&lt;strong&gt;中证1000，去除创业板，去除科创板，连续4年的归属于母公司所有者的净利润&amp;gt;0元，股性评分&amp;gt;20，周k线dea&amp;gt;0 ，diff＞0，macd&amp;gt;0，市值从小到大排列&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;市盈率0&amp;lt;pe&amp;lt;30；市值小于200亿；筹码集中度90小于12；非亏损；剔除曾st；非停牌;非北交所；上市时间大于3年，非创业板；非科创板；非涨停板；非st市值从小到大排列&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;BOLL通道+多均线策略：https://www.joinquant.com/view/community/detail/6d11f71d4e546009e5598e98a3bdc00f?type=1
+1）选取3个不同（短，中，长）周期的均线n1,n2,n3;
+1）当收盘价&amp;gt;n1&amp;gt;n2&amp;gt;n3，且收盘价大于BOLL中轨时，买入 ;
+2）当收盘价&amp;lt; n1&amp;lt; n2&amp;lt; n3，且收盘价大于BOLL中轨时，卖出。
+BOLL通道+多均线策略在调好参数的情况下，基本上能在长期趋势行情中获利（以黄金AU8888.XSGE为例）。&lt;/p&gt;
+
+&lt;p&gt;红利的股票, 选高股息的。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;https://www.joinquant.com/view/community/detail/9bb57254451fd5f050c39f3a08d50db6?type=1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;筛选营业收入净利润同比增长高的公司。优先选取高管增持等相关投票。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如果成交量很大，股票确没涨那你就离这支股票越远越好。&lt;/p&gt;
+
+&lt;p&gt;每天开盘价下跌3个百分点就卖—有人做过统计，开盘下跌和拉尾盘的股票短期胜率很低&lt;/p&gt;
+
+&lt;p&gt;股票当天买完之后第二天才能卖，所以为了规避风险，策略中买股票的时间是每天的下午2点30分-2点50分 。在2点30分执行策略选股，或着是2点50分策略选股 在2点53分下单买入。对于股票卖出策略是，如果第二天股票下跌百分之五则直接卖出股票。如果上涨则不管，继续持有。在第三天和以后卖出规则就是每天开盘价下跌3个百分点就卖。可以有效止损。卖的时候最好5 秒撮合1次避免下跌过快未能及时卖出。包含撤单换价再挂单。&lt;/p&gt;
 
 &lt;h2 id=&quot;脚本api&quot;&gt;脚本API&lt;/h2&gt;
 
