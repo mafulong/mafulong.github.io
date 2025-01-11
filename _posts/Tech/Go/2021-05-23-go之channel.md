@@ -46,12 +46,12 @@ tags: Go
 
 - chan结构:
   - 一个循环数组（实际是循环链表），有发送、接收offset
-  - 等待接收和发送的goroutine队列（这些 goroutine 由于尝试读取 channel 或向 channel 发送数据而被阻塞）
+  - 等待接收和发送的goroutine队列（这些 goroutine 由于尝试读取 channel 或向 channel 发送数据而被阻塞） **是双向链表，每个元素就是goroutine的封装**。
   - mutex锁保护所有字段。
 
 - chan本质是值的拷贝，无论是从 sender goroutine 的栈到 chan buf，还是从 chan buf 到 receiver goroutine，或者是直接从 sender goroutine 到 receiver goroutine。
 
-- channel引发goroutine泄露：当且仅当goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。
+- channel引发goroutine泄露：当且仅当goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。程序运行过程中，对于一个 channel，如果没有任何 goroutine 引用了，gc 会对其进行回收操作，不会引起内存泄漏。
 
 - channel应用
   - 停止信号
@@ -130,7 +130,8 @@ tags: Go
 - channel关闭后读取可以读到零值
 
 - channel的happened-before
-  - channel close 一定 `happened before` receiver 得到通知。
+  
+  - channel close 一定 `happened before` receiver 得到通知。由于现代编译器、CPU 会做各种优化，包括编译器重排、内存重排等等，在并发代码里，happened-before 限制就非常重要了。
   
 - 关闭chan过程
   - 对于等待接收者而言，会收到一个相应类型的零值。对于等待发送者，会直接 panic。
