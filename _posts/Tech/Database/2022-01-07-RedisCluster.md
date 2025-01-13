@@ -5,6 +5,10 @@ title: RedisCluster
 tags: Database
 ---
 
+
+
+架构演进过程: 主从 -> sentinel -> cluster
+
 ## **Redis 主从架构** 一主多从
 
 单机的 redis，能够承载的 QPS 大概就在上万到几万不等。对于缓存来说，一般都是用来支撑**读高并发**的。因此架构做成主从(master-slave)架构，一主多从，主负责写，并且将数据复制到其它的 slave 节点，从节点负责读。所有的**读请求全部走从节点**。这样也可以很轻松实现水平扩容，**支撑读高并发**。
@@ -30,7 +34,7 @@ redis replication -> 主从架构 -> 读写分离 -> 水平扩容支撑读高并
 
 
 
-sentinel模式是建立在主从模式的基础上，如果只有一个Redis节点，sentinel就没有任何意义。
+sentinel模式是建立在主从模式的基础上，如果只有一个Redis节点，sentinel就没有任何意义。sentinel是单独一个集群。
 
 
 
@@ -50,7 +54,7 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 
 ## RedisCluster 分片 多主
 
-是一个去中心化架构，内置了16384个哈希槽。
+是一个去中心化架构，内置了16384个哈希槽。去掉了sentinel这种有中心化的。
 
 可以理解为n个主从架构组合在一起对外服务。Redis Cluster要求至少需要3个master才能组成一个集群，同时每个master至少需要有一个slave节点。
 
@@ -62,7 +66,7 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 
 
 
-key到某个server的过程是采用类一致性hash方式，即hash slot。
+key到某个server的过程是采用类一致性hash方式，即hash slot。它是在sdk上设置的。
 
 Redis把请求转发的逻辑放在了Smart Client中，要想使用Redis Cluster，必须升级Client SDK，**这个SDK中内置了请求转发的逻辑，所以业务开发人员同样不需要自己编写转发规则，Redis Cluster采用16384个槽位进行路由规则的转发。**
 
@@ -96,15 +100,23 @@ gossip可以在O(logN) 轮就可以将信息传播到所有的节点，为什么
 
 你转发了一个特别有意思的文章到朋友圈，然后你的朋友们都觉得还不错，于是就一传十、十传百这样的散播出去了，这就是朋友圈的裂变传播。
 
+
+
+
+
 ## Redis集群化方案对比
 
-### 主从和sentinel和cluster关系
+### 主从和sentinel和cluster架构关系
 
 主从是降低读压力，从节点提供读。
 
 sentinel是HA 高可用架构，master挂了，sentinel节点就从slave里选举新master。
 
 cluster重在大数据量，进行分片。可以说是sentinel和主从模式的结合体，通过cluster可以实现主从和master重选功能。
+
+
+
+架构演进过程: 主从 -> sentinel -> cluster
 
 ### cluster架构延伸
 
