@@ -57,7 +57,7 @@ Log文件主要作用是系统发生故障时，能够保证不会丢失数据�
 
 MemTable 是内存中的数据结构，存储的内容跟硬盘上的SSTable一样，只是格式不一样。Immutable MemTable的内存结构和Memtable是完全一样的，区别仅仅在于它是只读的，而MemTable则是允许写入和读取的。当MemTable写入的数据占用内存到达指定大小，则自动转换为Immutable Memtable，等待Dump到磁盘中，系统会自动生成一个新的MemTable供写操作写入新数据，理解了MemTable，那么Immutable MemTable自然不在话下。
 
-MemTable里的数据是按照key有序的，因此当插入新数据时，需要把这个key-value对插入到合适的位置上，以保持key有序性。MemTable底层的核心数据结构是一个跳表(Skip List)。跳表是红黑树的一种替代数据结构，具有更高的写入速度，而且实现起来更加简单，请参考[跳表(Skip List)](https://soulmachine.gitbooks.io/system-design/content/cn/appendix/skip-list.html)。
+MemTable里的数据是按照key有序的，因此当插入新数据时，需要把这个key-value对插入到合适的位置上，以保持key有序性。MemTable底层的核心数据结构是一个**跳表**(Skip List)。跳表是红黑树的一种替代数据结构，具有更高的写入速度，而且实现起来更加简单，请参考[跳表(Skip List)](https://soulmachine.gitbooks.io/system-design/content/cn/appendix/skip-list.html)。
 
 前面我们介绍了LevelDB的一些内存数据结构和文件，这里开始介绍一些动态操作，例如读取，写入，更新和删除数据，分层合并，错误恢复等操作。
 
@@ -91,6 +91,6 @@ LevelDB删除一条记录时，也不会修改SST文件，而是用一个特殊�
 和LevelDB的区别：
 
 - Leveldb是单线程合并文件，Rocksdb可以支持多线程合并文件，充分利用多核的特性，加快文件合并的速度，避免文件合并期间引起系统停顿；
-- Leveldb只有一个Memtable，若Memtable满了还没有来得及持久化，则会引起系统停顿，Rocksdb可以根据需要开辟多个Memtable；
+- Leveldb只有一个Memtable，若Memtable满了还没有来得及持久化，则会引起系统停顿，RocksDB可以根据需要开辟多个Memtable；
 - Leveldb只能获取单个K-V，Rocksdb支持一次获取多个K-V。
 - Levledb不支持备份，Rocksdb支持全量和备份。
