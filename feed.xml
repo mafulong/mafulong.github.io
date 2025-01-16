@@ -1,195 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-01-15T14:22:55+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">MongoDB基础使用</title><link href="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" rel="alternate" type="text/html" title="MongoDB基础使用" /><published>2024-11-12T00:00:00+08:00</published><updated>2024-11-12T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8</id><content type="html" xml:base="https://mafulong.github.io/2024/11/12/MongoDB%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">&lt;h2 id=&quot;mongodb基础使用&quot;&gt;MongoDB基础使用&lt;/h2&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;p&gt;mac m1只支持4.4，否则cpu不兼容。&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pull&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;mongodb&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;27017&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;27017&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;~/mongo_data:/data/db&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;MONGO_INITDB_ROOT_USERNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;admin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MONGO_INITDB_ROOT_PASSWORD&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;mongo&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;4&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;密码就是password&lt;/p&gt;
-
-&lt;h2 id=&quot;数据库操作软件&quot;&gt;数据库操作软件&lt;/h2&gt;
-
-&lt;p&gt;mongodb compass， 是一款mac的免费软件。&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;brew&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cask&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mongodb&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compass&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Applications&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MongoDB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;\&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;Compass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;app&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;基本操作&quot;&gt;基本操作&lt;/h2&gt;
-
-&lt;p&gt;collection就是对应了一个 table,  更新插入会自动创建不存在的collection。 database也是这样。&lt;/p&gt;
-
-&lt;p&gt;操作的返回结果和输入都是dict形式，每个record都有一个_id属性，它在table里唯一。&lt;/p&gt;
-
-&lt;h3 id=&quot;连接&quot;&gt;连接&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;logging&lt;/span&gt;
-
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pymongo&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MongoClient&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;atexit&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# MongoDB 连接 URI（替换为你的数据库用户名、密码）
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;mongodb://admin:password@localhost:27017/?authSource=admin&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MongoClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 在程序退出时自动关闭 MongoDB 客户端
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;atexit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;register&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_db_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stock&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MongoDB client is None&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 选择数据库
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;trading&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 替换为你的数据库名称
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# 替换为你的集合名称
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;
-
-  
-  
-  
-  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;使用&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_db_collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# 插入多个文档
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Alice&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Los Angeles&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;age&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;city&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Chicago&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insert_many&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;documents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 查询特定文档
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# query = {&quot;name&quot;: &quot;John&quot;}
-&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# collection.delete_one(query)
-&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# query = {&quot;city&quot;: &quot;San Francisco&quot;}
-&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_many&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;query&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;查找&quot;&gt;查找&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;db.collection.find(query, projection)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;query&lt;/strong&gt;：用于查找文档的查询条件。默认为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{}&lt;/code&gt;，即匹配所有文档。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;projection&lt;/strong&gt;（可选）：指定返回结果中包含或排除的字段。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;查找单个文档&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;并只返回指定字段&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;findOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; 
-&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;就是存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;就是不存在&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;query的高级用法&lt;/p&gt;
-
-&lt;p&gt;1、使用比较操作符&lt;/p&gt;
-
-&lt;p&gt;MongoDB 支持多种比较操作符，如 &lt;strong&gt;$gt、$lt、$gte、$lte、$eq、$ne&lt;/strong&gt;  等。&lt;/p&gt;
-
-&lt;p&gt;查找年龄大于 25 的文档:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;db.myCollection.find({ age: { $gt: 25 } });
-
-判断要存在某个字段 可以$exists: True
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;2、使用逻辑操作符&lt;/p&gt;
-
-&lt;p&gt;MongoDB 支持多种逻辑操作符，如 &lt;strong&gt;$and、$or、$not、$nor&lt;/strong&gt; 等。&lt;/p&gt;
-
-&lt;p&gt;查找年龄大于 25 且城市为 “New York” 的文档:&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;$and&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;$gt:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;25&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;New&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;York&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;find返回的是个cursor, 可以直接遍历&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;doc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;插入&quot;&gt;插入&lt;/h3&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;insertOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;New&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;York&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;insertMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Bob&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;30&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;city:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Los&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Angeles&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;name:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Charlie&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;35&lt;/span&gt;, &lt;span class=&quot;kt&quot;&gt;city:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Chicago&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;]);&lt;/span&gt;
-
-
-&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;方法在插入文档时表现得类似于&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;insertOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;如果文档包含&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;字段且已存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;则该文档会被更新&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;；&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;如果文档不包含&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;字段或&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;不存在&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;则会插入一个新文档&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;_id&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;ObjectId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;60&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c72b2f9b1d8b5a5f8e2b2d&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;David&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;San&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Francisco&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;删除&quot;&gt;删除&lt;/h3&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;deleteOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;deleteMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;inactive&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;更新&quot;&gt;更新&lt;/h3&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;updateOne&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Alice&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;// 过滤条件&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$set&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;age:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;26&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;// 更新操作&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upsert&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;// 可选参数&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;myCollection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;updateMany&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;$lt:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;30&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;// 过滤条件&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;$set&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;status:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;active&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 更新操作&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upsert&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;                  &lt;span class=&quot;c1&quot;&gt;// 可选参数&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Database" /><category term="Database" /><summary type="html">MongoDB基础使用</summary></entry><entry><title type="html">matplot库问题</title><link href="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="matplot库问题" /><published>2024-10-29T00:00:00+08:00</published><updated>2024-10-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;matplot库问题&quot;&gt;matplot库问题&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-01-16T17:40:50+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">matplot库问题</title><link href="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/" rel="alternate" type="text/html" title="matplot库问题" /><published>2024-10-29T00:00:00+08:00</published><updated>2024-10-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98</id><content type="html" xml:base="https://mafulong.github.io/2024/10/29/matplot%E5%BA%93%E9%97%AE%E9%A2%98/">&lt;h2 id=&quot;matplot库问题&quot;&gt;matplot库问题&lt;/h2&gt;
 
 &lt;h1 id=&quot;字体问题&quot;&gt;字体问题&lt;/h1&gt;
 
@@ -710,7 +519,1175 @@ AttributeError: &apos;NoneType&apos; object has no attribute &apos;mr_free_conte
       &lt;td&gt;1.64%&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Python" /><category term="Python" /><summary type="html">python数据处理pandas</summary></entry><entry><title type="html">100401. 放三个车的价值之和最大 II</title><link href="https://mafulong.github.io/2024/08/18/100401.-%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7-II/" rel="alternate" type="text/html" title="100401. 放三个车的价值之和最大 II" /><published>2024-08-18T00:00:00+08:00</published><updated>2024-08-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/08/18/100401.%20%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%20II</id><content type="html" xml:base="https://mafulong.github.io/2024/08/18/100401.-%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7-II/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Python" /><category term="Python" /><summary type="html">python数据处理pandas</summary></entry><entry><title type="html">驾驶学习</title><link href="https://mafulong.github.io/2024/10/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="驾驶学习" /><published>2024-10-14T00:00:00+08:00</published><updated>2024-10-14T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.github.io/2024/10/14/%E9%A9%BE%E9%A9%B6%E5%AD%A6%E4%B9%A0/">&lt;h1 id=&quot;驾驶学习&quot;&gt;驾驶学习&lt;/h1&gt;
+
+&lt;h1 id=&quot;交规&quot;&gt;交规&lt;/h1&gt;
+
+&lt;h2 id=&quot;路口标线&quot;&gt;路口、标线&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1xR4y147L1/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;交通知识:开车行驶路口交通规则十分钟大合集❗&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;左转弯待转区： 当左转是红灯，直行绿灯，才可以进，前轮不能过停止线，否则算闯红灯。调头一样。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;掉头需要过了人行道再掉头&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;禁止左转后不能调头&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;闯红灯3个条件&lt;/strong&gt;，扣分6 罚款200。如果不满足，停在路口 or 人行道算 停在禁止停车地方。三个条件：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;前轮超过停止线(非左转弯待转区等停止线)，拍照前身。不扣分不罚款。 但越过停止线后又倒了回来，扣2分，最好就是停下不要动！&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;后轮超过停止线，拍照车全身、后身。 扣2分。 如果停在路中间，扣6分。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;拍第三张照片，和第二张比对车位移，车有移动就算闯红灯。扣6分。拍第二和第三张照片时车不能动&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;因前车遮挡视线闯红灯可以去申请复议&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果是仅直行车道，闯红灯后右转是没用的！这样会判定为闯红灯+ 不按导向车道形式&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;前方道路拥堵，则不该越过停止线，即便是绿灯，否则2分200&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;让右原则，两个直行的，右边先，变道也是。发生事故则左边全责。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;右转让直行、让左转。路权问题。右转和掉头最没有路权。直行 &amp;gt; 左转 &amp;gt; 右转 &amp;gt; 掉头。发生事故，则路权小的全责。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;有倒三角和双虚线 表示减速让行。一般是辅路有。如果是白色双实线，就是停车让行。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1ia4y1o7qn/?spm_id_from=333.788.recommend_more_video.-1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;新手在红绿灯路口最困惑的5个问题，不懂乱走容易被罚，一定注意&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;假如车道都是右转的，没有直行和左转的，那红绿灯就是专用右转的，绿色才能右转&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV15Q4y1U7h5/?spm_id_from=333.788.recommend_more_video.-1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;行车等红绿灯也受罚，你得看清车道前是否有停止线哦&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;车前面没有停止线，则不能红灯是停，需要继续行驶&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV11V4y1879i/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;T型路口如何看信号灯行驶，开车除了会看导航还要会学路标路牌&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;车道没有指示箭头，则是混合车道，可以左转、也可以右转。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果只有一个方向，则一定要看红绿灯， 此时右转也需要看红绿灯，即使它是圆盘信号灯。否则红绿灯出现就没有意义了。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Y型路口， &lt;a href=&quot;https://www.bilibili.com/video/BV1124y1P7Y4/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;车道没有指示箭头，则是混合车道。地面没有导向标志时，如果是圆形红绿灯，则你的右转就相当于直行，不能闯红灯右转。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;五岔路口，&lt;a href=&quot;https://www.bilibili.com/video/BV1DJ4118767/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;对向的算直行，可能有两个。其它的都是转弯。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;主路辅路&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一般是桥墩或者绿化带隔离。辅路会有标识，这里右转这样，就可以和非机动车车道区分了。&lt;/li&gt;
+  &lt;li&gt;走辅路到路口看辅路的红绿灯。主路看主路的红绿灯。即使你是主路到辅路或者辅路到主路，也只看自己的。&lt;/li&gt;
+  &lt;li&gt;辅路可以左转右转。&lt;/li&gt;
+  &lt;li&gt;路口时，看其它辅助和主路是一起的，对面车道的辅路也是直行时再走。走直行车道，然后过路口了，选择车道时可以打右转向灯到右边的辅路。左转到左边的辅路，也是先左转，到车道了再右转向灯。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;新国标红绿灯&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;左转不亮看直行，右转不亮不用停。&lt;/li&gt;
+  &lt;li&gt;最复杂的情况是只有中间亮红灯时可以右转不可以直行和左转，中间亮绿灯所有车道都可以通行&lt;/li&gt;
+  &lt;li&gt;右转灯不亮的话表示可以走&lt;/li&gt;
+  &lt;li&gt;路由是箭头灯和圆形灯混合的话，右转也需要看红绿灯。可能4个红绿灯，中间两个控制直行，左右两个圆形的控制左转和右转。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1QN411z7RV/?spm_id_from=autoNext&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;开车上路必须要读懂的20种路面标线才能避免被扣分罚款&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;白色虚线和实线分隔同方向行驶的不同车道，虚线可变道，实线不可变道。&lt;/li&gt;
+  &lt;li&gt;黄色虚线和实线用于区分不同方向车道，黄虚线允许越线借道超车，黄实线禁止越线。&lt;/li&gt;
+  &lt;li&gt;禁止停车线表示路段禁止停车。路边黄色的&lt;/li&gt;
+  &lt;li&gt;菱形标线提醒即将到达人行横道，需要减速慢行。地上的菱形&lt;/li&gt;
+  &lt;li&gt;方向导向箭头指示车辆行驶方向。&lt;/li&gt;
+  &lt;li&gt;停止线出现在路口，判断是否需要看信号灯。人行道前的。&lt;/li&gt;
+  &lt;li&gt;导流线指示车辆必须按规定路线行驶，压线会被罚款扣分。黄色、白色，用于路口的。&lt;/li&gt;
+  &lt;li&gt;黄网格内禁止停车，常见于学校或单位门前。&lt;/li&gt;
+  &lt;li&gt;减速让行标线为倒三角加双虚线，提示减速让行。&lt;/li&gt;
+  &lt;li&gt;停车让行标线为三角加双停止线，提示停车让行。&lt;/li&gt;
+  &lt;li&gt;直行待行区出现在车辆密集的大路口，用于直行车辆延伸到路口中。&lt;strong&gt;在左转绿时，再进入&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;左转待转区出现在左转车道，用于同向直行放行时进入待转区。&lt;/li&gt;
+  &lt;li&gt;导向线引导对应车道按指定线路行驶，   也是路口的&lt;/li&gt;
+  &lt;li&gt;可变车道用于控制行驶方向，由LED指示牌控制。 锯子状的线。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403141840296.png&quot; alt=&quot;image-20240314184002258&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;鱼骨线提示减速行驶，中间为虚线可变道。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;错视觉标线和震荡标线用于提醒减速慢行。&lt;/li&gt;
+  &lt;li&gt;潮汐车道按时间段改变行驶方向。&lt;/li&gt;
+  &lt;li&gt;专用车道用于特定车辆，如公交专用车道。&lt;/li&gt;
+  &lt;li&gt;公交站标线前后30米范围内禁止停车。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1TL4y1x7WW/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;科普/常识/潮汐车道怎么走？&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;绿灯可走，红灯也可掉头，这个慎用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;路中间有菱形，表示前方有人行道。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1vv411M79y/?spm_id_from=333.788.recommend_more_video.7&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;路口特殊斑马线，掉头特殊扣分情况&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;斑马线竖着方向只能走车，横着方向只能走人。如果斑马线在路口，则只能竖着方向走车，车不能走横着的方向。不论掉头、左转、直行都不可以。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;左转车道也可能在最右边车道，这样设计目的主要是增大转弯半径，保证车辆一次顺利掉头。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;特殊车道&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1G54y167Zy/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;交通道路的上的特殊车道，你全都认识吗？&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;潮汐车道，看指示牌。是间隔双虚线。&lt;/li&gt;
+  &lt;li&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202405081114606.png&quot; alt=&quot;image-20240508111419450&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;可变车道，看指示牌&lt;/li&gt;
+  &lt;li&gt;应急车道，特殊情况才可以进否则6分200
+    &lt;ul&gt;
+      &lt;li&gt;车辆故障&lt;/li&gt;
+      &lt;li&gt;紧急病患&lt;/li&gt;
+      &lt;li&gt;特殊车辆比如消防车等&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;应急车道上紧急停车，需要三角警示牌 150m + 危险警报灯&lt;/li&gt;
+  &lt;li&gt;公交车道/非机动车道，罚款200&lt;/li&gt;
+  &lt;li&gt;多乘员通道，然后副驾驶无人则 3分200，需要2人及以上&lt;/li&gt;
+  &lt;li&gt;借道左转车道，会有个专门小红绿灯，看这个&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403141852857.png&quot; alt=&quot;image-20240314185247820&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;**可变车道，进车道前看方向，一般是直行，然后根据红绿灯，停止or通过 **&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;调头&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1A5411J7fa/?spm_id_from=autoNext&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;开车调头全是套路&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;黄色虚线可以掉头、转弯或超车。&lt;/li&gt;
+  &lt;li&gt;掉头位置在停车线之前，路口前有虚线，掉头无需看红绿灯，无论什么灯都可以掉头。要是实线就需要过了人行道再掉头。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;路边停车&quot;&gt;路边停车&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV17M4y1J7JQ/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;开车在路边停车注意哪些事项，花两分钟学习避免被罚&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;有停车位后者停车标志的停车注意事项&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;在没有禁止停车标志的路段，且有停车位时，可以在停车位内停车。&lt;/li&gt;
+  &lt;li&gt;注意停车位内没有其他标志或标线，停车方向没有要求，车头朝向任意方向均可。&lt;/li&gt;
+  &lt;li&gt;如果停车位内画有箭头，应按箭头指示停车，否则可能被罚款。&lt;/li&gt;
+  &lt;li&gt;特殊停车位如新能源车专用车位，只允许对应类型车辆停放。&lt;/li&gt;
+  &lt;li&gt;如果停车位上标有时间段，只能在规定时间段内停车，否则可能被罚款。&lt;/li&gt;
+  &lt;li&gt;有些停车位写有急停急走，这是给上下乘客的临时停车位，驾驶员不得离开车辆。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1mp4y1u7hh/?spm_id_from=333.788.recommend_more_video.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;开车路上什么地方不能停车，什么地方可以停车，3分钟时间告诉你&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;不能停车的地方：&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;黄色网格线上，如机关单位、公司和学校门口。&lt;/li&gt;
+      &lt;li&gt;导流线上，特别是在高速路匝道口。&lt;/li&gt;
+      &lt;li&gt;公交站台标线前后30米范围内。&lt;/li&gt;
+      &lt;li&gt;有禁停标志的路段，包括用黄色实线代替的路段。&lt;/li&gt;
+      &lt;li&gt;消防通道，违停可能导致罚款并延误救援。&lt;/li&gt;
+      &lt;li&gt;绿化带，违停可能面临高额罚款。&lt;/li&gt;
+      &lt;li&gt;人行横道、交叉路口、铁路道口、急弯路、桥梁隧道以及宽度不足4米的窄路的50米范围内。&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;可以停车的地方：&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;路边划有停车位的地方，但需注意黄色专用停车位、有时间限制的停车位和箭头指示。&lt;/li&gt;
+      &lt;li&gt;路边画有黄色虚线路段，允许临时停车。&lt;/li&gt;
+      &lt;li&gt;路边立有禁止长时间停车标志的路段，允许临时停车。&lt;/li&gt;
+      &lt;li&gt;没有禁停标志的路段，可以急停急走，但司机不能离开车辆。 也不能玩手机，否则会扣玩手机的分。如果此时右边是非机动车车道，实线，也可以临时停靠的。不能下车不能玩手机被拍到，交警来就说临时停靠。 &lt;a href=&quot;https://www.bilibili.com/video/BV1La411G7cj/?spm_id_from=333.788.recommend_more_video.-1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;停车位介绍&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;白线泊位为收费车位、黄线泊位为专用车位。停车位按照颜色分为以下4种：&lt;/li&gt;
+  &lt;li&gt;黄色停车位：专属停车位，常见的黄色专用停车位有警务专用、防疫保障专用、新能源汽车专用、应急抢险车辆专用等，停车位标志和标线内都标有相关字样，也属于免费停车泊位，其他社会车辆请勿占用。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;白色停车位：收费停车位&lt;/strong&gt;，是目前最常见的一种停车位，在每条道路上几乎都能看到。其中，白色实线的，停车时间无规定；白色 虚线的，停车时间有规定，具体时间以停车位标注的为准。&lt;/li&gt;
+  &lt;li&gt;蓝色停车位：为免费停车位，但停车有时间规定，会在路面上或在标志牌注明免费停车的时间段。&lt;/li&gt;
+  &lt;li&gt;绿色停车位：仅少部分城市有，比如南宁市，属限时免费停车位，限时免费满足短时停车需求，可解决市民购物、办事等临时停车需要&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;网状格 白线不能压，黄线不能停。&lt;/p&gt;
+
+&lt;h2 id=&quot;限速&quot;&gt;限速&lt;/h2&gt;
+
+&lt;p&gt;没线的城3公4，有线的城5公7&lt;/p&gt;
+
+&lt;p&gt;(一)没有道路中心线的道路，城市道路为每小时30公里，公路为每小时40公里；&lt;/p&gt;
+
+&lt;p&gt;(二)同方向只有1条机动车道的道路，城市道路为每小时50公里，公路为每小时70公里。&lt;/p&gt;
+
+&lt;p&gt;城市道路一般限速40公里/小时，具体如下：1、无道路中心线道路，城市道路30公里/小时；2、同一方向只有1条机动车道路，城市道路为50公里/小时；3、同一方向有两条车道，最大速度为70km/h，封闭式机动车道为80km/h。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;上海一般是30-60，不要超过70km/h。&lt;/strong&gt;。 地面道路80以内不查处超速，只在事故时作为评判标准。隧道有很多卡80的测速拍照。&lt;/p&gt;
+
+&lt;p&gt;城市里的路都叫道路，公路上没红绿灯，只有城市间的。&lt;/p&gt;
+
+&lt;p&gt;《实施条例》第四十六条规定，机动车行驶中遇有下列情形之一的，最高行驶速度不得超过每小时30公里，其中拖拉机、电瓶车、轮式专用机械车不得超过每小时15公里：&lt;/p&gt;
+
+&lt;p&gt;(一)进出非机动车道，通过铁路道口、急弯路、窄路、窄桥时；&lt;/p&gt;
+
+&lt;p&gt;(二)掉头、转弯、下陡坡时；&lt;/p&gt;
+
+&lt;p&gt;(三)遇雾、雨、雪、沙尘、冰雹，能见度在50米以内时；&lt;/p&gt;
+
+&lt;p&gt;(四)在冰雪、泥泞的道路上行驶时；&lt;/p&gt;
+
+&lt;p&gt;(五)牵引发生故障的机动车时。&lt;/p&gt;
+
+&lt;p&gt;高速公路应当标明车道的行驶速度，最高车速不得超过每小时120公里，最低车速不得低于每小时60公里。&lt;/p&gt;
+
+&lt;p&gt;在高速公路上行驶的小型载客汽车最高车速不得超过每小时120公里，其他机动车不得超过每小时100公里，摩托车不得超过每小时80公里。&lt;/p&gt;
+
+&lt;p&gt;同方向有2条车道的，左侧车道的最低车速为每小时100公里。&lt;/p&gt;
+
+&lt;p&gt;同方向有3条以上车道的，最左侧车道的最低车速为每小时110公里，中间车道的最低车速为每小时90公里。道路限速标志标明的车速与上述车道行驶车速的规定不一致的，按照道路限速标志标明的车速行驶。&lt;/p&gt;
+
+&lt;p&gt;同向三车道的：从左到右，各车道最高速与最低速依次相差10、20、30，就是说110～120、90～110、60～90；同向两车道的：左侧车道100～120。我同向三车道就记忆从左到右“1、2、3”&lt;/p&gt;
+
+&lt;p&gt;3车道速度： 110-120， 90-110， 60-90&lt;/p&gt;
+
+&lt;p&gt;2车道速度:    100 - 120, 60 - 100&lt;/p&gt;
+
+&lt;p&gt;地上的白色的是最低车速，黄色的是最高车速。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202403221638680.png&quot; alt=&quot;image-20240322163831641&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一般交规&quot;&gt;一般交规&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;交通标志&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;方形+箭头：单行道&lt;/li&gt;
+  &lt;li&gt;圆形+箭头： 只能直行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202405082126081.png&quot; alt=&quot;image-20240508212607043&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202405082126085.png&quot; alt=&quot;image-20240508212647041&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;交警手势&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;面朝哪面，就是指挥哪面。看交警脸的方向&lt;/li&gt;
+  &lt;li&gt;左高右放要叫停。左手过肩，只要有手过肩都是要停车的。&lt;/li&gt;
+  &lt;li&gt;左右平行是直行&lt;/li&gt;
+  &lt;li&gt;一上一下。左手在下左转弯。右手在下右转弯。下面的手下摆非垂直&lt;/li&gt;
+  &lt;li&gt;左手下摆即待转&lt;/li&gt;
+  &lt;li&gt;右手平摆要变道&lt;/li&gt;
+  &lt;li&gt;右手下放要减速&lt;/li&gt;
+  &lt;li&gt;左手抬起靠边停，左手过肩，这个和第一个叫停不一样，右手下摆，是靠边停。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;环岛&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1du4m1c7eu/?spm_id_from=333.788.recommend_more_video.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;没有红绿灯的环岛&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;直接进内圈，内圈饶一圈，然后转向灯出外圈，进入车道。进环岛不用打转向灯，出来变外道要打转向灯。环岛一般都是逆时针行驶。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Tr4y167dS/?spm_id_from=trigger_reload&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;有红绿灯的环岛&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;红绿灯分岛内岛外&lt;/li&gt;
+  &lt;li&gt;右转不受信号灯限制&lt;/li&gt;
+  &lt;li&gt;进入环岛要看岛内信号灯，出环岛和左转、掉头要看岛外信号灯&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;打转向灯&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;辅导到主道、主道到辅道需要打转向灯。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;路口红绿灯后没有车道的部分不用打转向灯，叫主动选择车道。但为避免事故，最好直行。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;从小道进入高速，要开启左灯，无论你是左转右转，都要开左灯！因为匝道都是高速的右边，相当于变道！出高速时右转向灯。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;辅路到主路是右转还是并线？ 如何打红绿灯？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果匝道垂直或接近垂直于主路，则视为&lt;strong&gt;右转&lt;/strong&gt;要打右转灯；若匝道设计成类似辅路汇入主路的方式，就视为&lt;strong&gt;并线&lt;/strong&gt;，打左转灯。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;前方交通事故变车道&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;左转车道前方车交通事故，应该变道到右侧直行车道，然后左转绿灯时，进行左转，不会扣分。不能在直行车道绿灯时直行，这样会扣分。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;扣分汇总&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;扣分情况&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;6分：红绿灯、高速应急车道、超速50%&lt;/li&gt;
+  &lt;li&gt;9分：高速违停、号牌遮挡&lt;/li&gt;
+  &lt;li&gt;3分：高速速度低了，逆行、故障后停车不开灯。 标线3分？&lt;/li&gt;
+  &lt;li&gt;1分： 灯光、安全带、禁令、标线&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;更全: https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403141859233.avif&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;连环追尾责任划分&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1na411C7x6/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;主要依据是没有保证车距，你造成的前面车连环追尾，则你负责前面所有车的维修。但如果你撞之前已经互撞了，你只负责前面一个车的，只负责自己导致追尾的车的维修。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;一般事故责任划分&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Mc411j7xF/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;让右原则，两个直行的，右边先，变道也是。发生事故则左边全责。&lt;/li&gt;
+  &lt;li&gt;右转让直行、让左转。路权问题。右转和掉头最没有路权。直行 &amp;gt; 左转 &amp;gt; 右转 &amp;gt; 掉头。发生事故，则路权小的全责。&lt;/li&gt;
+  &lt;li&gt;绿灯后通行的车辆和上一轮红绿灯的车辆相撞，则灯头让灯尾，后面红绿灯的车全责。&lt;/li&gt;
+  &lt;li&gt;车辆停靠路边，没做预警，被追尾则次责&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;礼让行人&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;有行人在人行道路边和人行道上就需要礼让行人。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形1：骑行人不算行人。&lt;/strong&gt;如果驾车人下车推行，则视为行人，机动车此时必须礼让，否则就算违章。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形2：停车示意行人通过，但他不通过。&lt;/strong&gt; 已经停车让行，停车超过3s，但是行人能走却不走，此时机动车司机可以通过手势等方式（但不能鸣笛）示意行人先通过。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;情形3：行人在机动车道以外等待。&lt;/strong&gt; 行人在机动车道和非机动车道的分离线外侧等待、还没进入机动车道的时候（就算已经在斑马线上也没关系），机动车可以在确保安全的前提下，慢行通过。&lt;/p&gt;
+
+    &lt;p&gt;（注：如果行人是在道路中心双黄线处等待，此时他所面向的机动车必须停车礼让）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;情形4：行人在道路另一幅行走。&lt;/strong&gt; 行人在道路另一幅的人行横道行走、还没抵达道路中心双黄线时，在道路这一幅的机动车可以在确保安全的前提下，慢行通过。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;情形5：行人已经走过本车道，本车已在行人身后&lt;/strong&gt;。 停车让行，等行人经过机动车所在的车道之后（也就是不需要等到行人走完整条斑马线，只要机动车已经在行人身后即可），机动车可以在确保安全的前提下，慢行通过。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://shanghai.auto.sohu.com/&quot;&gt;上海&lt;/a&gt;的&lt;a href=&quot;javascript:void(0)&quot;&gt;汽车牌照&lt;/a&gt;共有四种颜色，分别是黄色、蓝色、白色、黑色&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;javascript:void(0)&quot;&gt;大型客车&lt;/a&gt;、卡车或营运车是黄色&lt;/li&gt;
+  &lt;li&gt;蓝色是小型客车、私家车或营运车，沪C只能郊区行驶，不能进入市区。&lt;/li&gt;
+  &lt;li&gt;白色大概分为：警察和武警、部队使用的牌照。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上海限行&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;上海限行包括外牌限行高架限行， 外牌内环地面限行，沪C限行，临牌限行等各类牌照限行。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;高速&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;基础图示: https://mp.weixin.qq.com/s?__biz=MzA4MDA0MTQ3NQ==&amp;amp;mid=2650795136&amp;amp;idx=3&amp;amp;sn=9893f7c8ac2eea02362eb7891ef9427a&amp;amp;chksm=87a10fecb0d686fa375b980678ad7f11aeb1cea3bfbe766c9a3c0abec50ab452dc6ba03b4d37&amp;amp;scene=27&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;公里牌类似内裤&lt;/li&gt;
+  &lt;li&gt;百米牌是圆形或者方形，上面是百米，下面是公里。&lt;/li&gt;
+  &lt;li&gt;入口匝道后是加速车道，匝道限速40，加速车道快速加到60，看见目标车道就是加速车道了&lt;/li&gt;
+  &lt;li&gt;出口过了宽体虚线，汇出口之前就是减速车道，出口匝道限速40。&lt;/li&gt;
+  &lt;li&gt;6 9线，白色线是6米长，间隔是9米。&lt;/li&gt;
+  &lt;li&gt;车距保持当前行驶速度大于3s 。 车速多少安全距离就多少。 以上不现实就保证车距里有3个白色线。车速除以3就是每秒行驶速度 实际是3.6&lt;/li&gt;
+  &lt;li&gt;右边有车距指示牌时，高速路上可能会有类似人行道的白色竖线，那其实是车距指示牌的起点。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;开车技能&quot;&gt;开车技能&lt;/h1&gt;
+
+&lt;h2 id=&quot;车距&quot;&gt;车距&lt;/h2&gt;
+
+&lt;p&gt;几个重要车距&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前轮位置，视线上，地面和方向盘中心横线与左边车窗的交点重合&lt;/li&gt;
+  &lt;li&gt;后轮位置，左边后视镜镜子里下沿重合。&lt;/li&gt;
+  &lt;li&gt;车前30cm,  左边后视镜下沿。&lt;/li&gt;
+  &lt;li&gt;车后30cm,  左边后视镜和门把手重合&lt;/li&gt;
+  &lt;li&gt;左边1.5m，左边标线和左边车窗底部线条重合&lt;/li&gt;
+  &lt;li&gt;左边60cm&lt;/li&gt;
+  &lt;li&gt;左边30cm&lt;/li&gt;
+  &lt;li&gt;右边60cm&lt;/li&gt;
+  &lt;li&gt;右边30cm&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202404022342220.jpg&quot; alt=&quot;3791712072472_.pic&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202404022342303.jpg&quot; alt=&quot;3801712072473_.pic&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1SC411H7vv/?spm_id_from=333.788.recommend_more_video.3&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;车距 8个点位&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;左侧A柱扫线，线和A柱大概10cm, 车身距我们的标线还有60cm&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;方向盘九点钟，车身和标线距离30cm。 可能不到30cm，是车轮位置。不要高估了这30cm距离&lt;/li&gt;
+  &lt;li&gt;方向盘正中间扫线，车标压在中心线上。&lt;/li&gt;
+  &lt;li&gt;方向盘三点钟扫线，右侧车身距离标线30cm。&lt;/li&gt;
+  &lt;li&gt;右侧雨刮器(左边雨刮器的最右边)节点扫线，车身距离右边标线60cm。
+    &lt;ul&gt;
+      &lt;li&gt;视线看过去，不扫线，是距离30cm。这个用于科目三路边停车。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;前方有障碍物时，盯着右边后视镜下沿，不是镜子里，是外面的下沿，当重合时停车。距离障碍物还有30cm&lt;/li&gt;
+  &lt;li&gt;倒车时，盯着左边后视镜，是看镜子里的，当重合时停车。距离30cm。 应该是和门把手重合。如果和下沿重合，就是到了后轮位置&lt;/li&gt;
+  &lt;li&gt;判断前轮位置。 方向盘平行的在左边标记一个点，如果横线和标记点重合，说明前轮和横线重合。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;车前方位置&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;引擎盖盖住车轮底部：4米。&lt;/li&gt;
+  &lt;li&gt;引擎盖盖住保险杠下沿(和车轮中心横线一样)：2.5米。 路口建议这个位置，别人插不进来，后方追尾也不会连环追尾。也正好可以转弯转出去。&lt;/li&gt;
+  &lt;li&gt;保险杠上沿: 1米。&lt;/li&gt;
+  &lt;li&gt;引擎盖盖住车牌底部： 0.5米。极限距离，快撞上了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1384y1z7xu/?spm_id_from=trigger_reload&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;车前方位置，&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开大灯照墙，看不见灯光，10cm。 转弯也可以用，转弯时需要墙上的灯光一直在视线范围内就可以转出去，不剐蹭。&lt;/li&gt;
+  &lt;li&gt;白天的话，墙角在视线范围内，极限的是A柱重合，前面底线和左侧A柱夹角重合，大幅度左转不会剐蹭。和A柱重合就类似与前盖和下保险杠(车轮中心)重合，大概2.5，可以最大幅度转出去。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;车转弯。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前面车是横放的，前盖到车轮中心横线，3米，转弯安全。 这时，A柱夹角也和前面车底部重合&lt;/li&gt;
+  &lt;li&gt;前面车竖着放，到保险杠下沿，转弯安全。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;倒车出库&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV12w41157ZM/?spm_id_from=333.788.recommend_more_video.1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;倒车时，障碍物在左前方，当C柱和一边障碍物平行时，倒车不会刮蹭。也就是过了直角位置，向左边障碍物方向倒车转弯安全。&lt;/p&gt;
+
+&lt;p&gt;倒车时，左边障碍物超过1.5m,原地向右倒车不会刮蹭。&lt;a href=&quot;https://www.bilibili.com/video/BV1tx4y1v7vZ/?spm_id_from=333.999.0.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;障碍车在左前方，障碍物和A柱平行，并间距20cm，此时向左或者右倒车不会刮蹭。&lt;a href=&quot;https://www.bilibili.com/video/BV1hV4y147Dj/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;直角转弯&lt;/strong&gt;，&lt;a href=&quot;https://www.bilibili.com/video/BV16x4y19765/?spm_id_from=333.788.recommend_more_video.2&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;与内侧障碍物保持1m以上的距离，后视镜越过障碍物时，可以放心转弯。&lt;/li&gt;
+  &lt;li&gt;当与内侧障碍物的距离缩短到50厘米时，当车窗一半超过障碍物时，就可以开始转弯。&lt;/li&gt;
+  &lt;li&gt;当与内侧障碍物的距离缩小到30厘米时，通过观察车辆B柱，当B柱超过障碍物时，可以转弯而不会发生碰撞。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;直角弯： 车身过半打一圈，车头转正松方向盘&lt;/p&gt;
+
+&lt;p&gt;障碍物在右边距离30cm，车原地右转，车尾不会碰到右边。&lt;a href=&quot;https://www.bilibili.com/video/BV1EC4y1J7TJ/?spm_id_from=333.999.0.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考 &lt;/a&gt;  。 也就是说随着车左转，车位不会把右边扫到，不需要考虑后轮到车尾长度问题。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1LK42147vN/?spm_id_from=333.1007.tianma.4-1-11.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;开车上路右侧视野盲区大，要想精准判断右侧车距，这个方法更容易上手&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;右前角防剐蹭的极限距离，避免右前角剐蹭，关注车前盖中心线位置，这个点不能超过边界线，距离大概30cm。 这个可用于路边停车。 最好还是左侧雨刮器的最右边。这个比中心稍微往右一点点。&lt;/p&gt;
+
+&lt;p&gt;窄路左右车距把控不碰撞&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Ap4y1g7n8/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;利用之前左右30cm,60cm往前延伸，和挡风玻璃形成点，点不高于边界线就是对应30cm, 60cm的路线。 左右都是。&lt;/li&gt;
+  &lt;li&gt;左边的话 需要a柱夹角低于对方车灯位置，此时自己可以看到对方大灯，这时不会刮蹭。&lt;a href=&quot;https://www.bilibili.com/video/BV12w41157ZM/?spm_id_from=333.788.recommend_more_video.1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;右边，需要a柱夹角不高于对方车灯位置，等同于左边雨刮器最右边和车轮底部重合。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为什么用方向盘中心当做路中心？&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;严格的路中间时右腿在路中间。你看远处的时候，在主驾驶和在车中心几乎是一样的，误差很小，开车眼光要看向10以外。开车一般看车外10米远的距离，那么就可以求出正切角，可以发现这个角度极小，所以在看向远处的时候方向盘中心约等于车中心，但你说绝对相等，那是不可能的，只等说很相近，为什么选这个点作为参考点，因为没有第二个参考点可以比这个参考点更适合判断车中心在远处的位置。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;判断车距变道， &lt;a href=&quot;https://www.xiaohongshu.com/explore/64154ad5000000001303f665&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;超过25米才可以变道。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192302952.png&quot; alt=&quot;image-20240319230237896&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;右后视镜: 25米(中间3分之一)，10米(外侧3分之一)，5米(看不全)&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192303892.png&quot; alt=&quot;image-20240319230324850&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;左后视镜: 25米(中间3分之一)，5米(外侧3分之一)，3米(看不全)&lt;/p&gt;
+
+&lt;p&gt;车内后视镜使用&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192316092.png&quot; alt=&quot;image-20240319231656986&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如何判断后轮位置？ 车把手往下一点点就是后轮位置，后视镜可以看到的。&lt;/p&gt;
+
+&lt;h2 id=&quot;转弯和掉头&quot;&gt;转弯和掉头&lt;/h2&gt;
+
+&lt;p&gt;弯道看点, &lt;a href=&quot;https://www.bilibili.com/video/BV17Y4y1k7qQ/?spm_id_from=autoNext&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;弯道可以借助挡风玻璃左右两个标记点，如果弯弧度大，左转弯时，左边点和右边线重合开始打方向。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果弯弧度小，看左右两边点的中点，左转弯时，和右边线重合则开始打方向。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;曲线驾驶&lt;/strong&gt;， 是急弯，方向盘左右线延伸到车盖上，形成的点扫马路牙子即可，右转就用左边的点扫，扫的是右边的线。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;S弯&lt;/strong&gt;。 右转用右边的车头角或者雨刮器节点扫左边线，左转用左边车头角扫右边线。这样子不会压线。 这个也用于路边停车，用左边车架扫马路牙子把方向给正过来，可有效防止右变车角和马路牙子有磕碰。&lt;strong&gt;这个看点用于路边停车、S弯、窄路掉头都可以。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;S弯只看左后视镜法:  &lt;a href=&quot;http://xhslink.com/kKV2rJ&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;左转保证左边边线和左后视镜外侧重合。&lt;/li&gt;
+  &lt;li&gt;右转时保证左边边线和左后视镜根部重合。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;斑马线终点过肩膀开始打方向盘。转弯和掉头都是。转弯也可以肩膀过停止线时打方向盘，掉头必须过了人行道终点线再打方向盘。&lt;/p&gt;
+
+&lt;p&gt;小左转打一个90度&lt;/p&gt;
+
+&lt;p&gt;大左转打90度，不够再加4分之一。&lt;/p&gt;
+
+&lt;p&gt;掉头，直接打满。&lt;/p&gt;
+
+&lt;p&gt;左转转大弯，右转转小弯。&lt;/p&gt;
+
+&lt;p&gt;转弯时，不同类型的道路，车主进入的道路是不同的。&lt;/p&gt;
+
+&lt;p&gt;1、如果是双车道的道路，车辆转弯后，需要进入外侧的车道，也就是右侧车道。&lt;/p&gt;
+
+&lt;p&gt;2、如果是三车道的道路，车辆在转弯后，尽量进入中间的车道。&lt;/p&gt;
+
+&lt;p&gt;3、如果是四车道的道路，车主驾驶车辆转弯后，尽量进入右数的第二车道。&lt;/p&gt;
+
+&lt;p&gt;左转的话转弯半径都是够的，直接进入最左侧车道。右转同理，直接进入最右侧车道。这是驾校要教的，没得商量。调头要看具体情况。主干道转弯半径也是够的，进入最左侧车道。某些小路转弯半径不够（甚至还要倒一把），只能进入最右侧车道，那么就在最右侧车道行驶好了。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;总体原则是，减少变道次数，减少对其它车辆的影响。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;转弯半径到哪个车道就去哪个车道。掉头也是！掉头一般是最右侧，因为转弯幅度大。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;多车道都左转，就必须去自己对应的车道，否则会碰撞。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;右转弯观察&lt;/strong&gt;。右转最复杂，不像左转只需要观察前方和左后方。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;T型路口
+    &lt;ul&gt;
+      &lt;li&gt;辅路到主路，此时对面没车道，观察左侧，右后方。&lt;/li&gt;
+      &lt;li&gt;主路到辅路，右转可能绿化带后是非机动车道，转大弯暴露视野、减速右转。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;十字路口
+    &lt;ul&gt;
+      &lt;li&gt;先看左边、前方、右边和右后视镜。右边是为了减少右后视镜的盲区。&lt;/li&gt;
+      &lt;li&gt;假如对面车道直行，挡住了左边来车，就不用看左边了。&lt;/li&gt;
+      &lt;li&gt;在停止线时开始看左，不要看太早。左边来车时，绿灯的小路口前5秒、大路口的前10秒就会走光车，避开车流再右转。&lt;/li&gt;
+      &lt;li&gt;绿灯不用看左边，因为左边一定是红灯等待。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;借道 怎么打转向灯？&lt;/strong&gt;需要打灯，前方障碍物借道过去也需要打灯。 先左向灯、再右向灯。影响其他车辆驾驶就需要打灯。&lt;/p&gt;
+
+&lt;p&gt;变道切记不要减速变道，要加速变道。变道要慢切快入，转向幅度小，先打灯贴线看后面让不让，如果有了空间，让了就切过去快速回正方向。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;转弯好视频&lt;/strong&gt;， &lt;a href=&quot;https://space.bilibili.com/1071113141&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;利用好自动回方向盘。伴随着出弯加油。&lt;/li&gt;
+  &lt;li&gt;左转： 左后视镜中间始终对准左转路口的中心标线顶点，当看见目标车道的全部时，自己在目标车道的左边对向车道，开始出弯，加油、回方向。&lt;/li&gt;
+  &lt;li&gt;自然车道左转,  转大弯，45度道路中心点对准左后视镜中心时开始打方向，过了直角后的道路中心点对准左后视镜中心时开始回方向，这样比直接一个参考点的弯大。&lt;/li&gt;
+  &lt;li&gt;右转：前方看不见右边非机动车道的弧度时开始收油，转向，半圈或者4分之3圈，当车超过45度，看见路全部标线时，开始加油，回方向。&lt;/li&gt;
+  &lt;li&gt;转弯车速：先踩一脚油门/刹车，10km/h， 转方向时不能踩油门，出弯时再踩油门，回方向。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;停车&quot;&gt;停车&lt;/h2&gt;
+
+&lt;p&gt;停车视频集合: &lt;a href=&quot;https://www.bilibili.com/video/BV1Fu411X7Fs/?spm_id_from=pageDriver&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;路口停车&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;路口停车，可以停到车盖刚好盖住停止线。再往前点可以车前盖和斑马线重合&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;侧方停车&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;图3也可以认为是车位右边界线到达车后方30cm出，右边后视镜里边界线和右把手重合。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403192321228.png&quot; alt=&quot;image-20240319232119193&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;假设左边有车、右边是一堵墙，您想尽量靠近右侧墙，而且前面空间有限。1、前进：向右打满方向前进一点（一是保证再向左打满前进时不碰到墙，二是保证向左打满前进至极限时能顺直车身），再向左打满方向前进顺直车身回正方向，2、后退：向右打满方向倒一点（同样，保证再向左打满后退时不碰到墙），再向左打满后退顺直车身回正方向。这是车身就向右平移了。（提示：不建议前进和后退时靠墙追求极限，否则容易刮到车，多来两把，安全又轻松）&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;倒车入库&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403201605709.png&quot; alt=&quot;image-20240320160530663&quot; style=&quot;zoom: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;靠边停车&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1HW411Z7x9/?spm_id_from=333.788.recommend_more_video.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;车头右边3分之一沿着路边线扫线。右边3分之一看过去就是距离30公分。&lt;/p&gt;
+
+&lt;p&gt;扫线走一段时间就直了。&lt;/p&gt;
+
+&lt;p&gt;车和路平行时，后视镜是上窄下宽，也就是近的位置是窄的。&lt;/p&gt;
+
+&lt;p&gt;侧方出库。 侧方停车位出来&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TODO&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;肌肉记忆-防御性驾驶&quot;&gt;肌肉记忆 防御性驾驶&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1T4421A7YN/?spm_id_from=333.788.recommend_more_video.15&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;新手开车要反复训练的8种肌肉记忆，关键时刻靠本能就能避免事故&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;感觉到周围环境有风险时，右脚习惯性离开油门，准备踩刹车。&lt;/li&gt;
+  &lt;li&gt;等红绿灯或停车缴费时，挂空挡后立即拉手刹，防止车辆移动造成事故。&lt;/li&gt;
+  &lt;li&gt;转弯时要摇头观察A柱盲区，避免盲区内有人或车辆。&lt;/li&gt;
+  &lt;li&gt;行驶中遇到紧急情况，先踩刹车后决定动方向，不要慌乱乱动方向。&lt;/li&gt;
+  &lt;li&gt;跟随急刹车的车辆或周围有高风险的情况，要有本能反应准备应对。&lt;/li&gt;
+  &lt;li&gt;踩刹车时要慢慢扫视后视镜，根据后车跟车距离调整刹车力度，避免被后车追尾。&lt;/li&gt;
+  &lt;li&gt;变道、停路边、进隧道、下地库等情况都要养成开灯的习惯，提高安全性。&lt;/li&gt;
+  &lt;li&gt;下车时用离车门较远的手开门，以减少开门事故的发生。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1Ni4y1d7MG/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;事故分析&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;前面车有刹车，说明可能有鬼探头等，不论你在变道还是其他都要减速观察。尤其左侧、右侧的车停下来&lt;/li&gt;
+  &lt;li&gt;非接触性事故，怎么划分责任公平？比如你占用了车道影响了电动车摔倒。
+    &lt;ul&gt;
+      &lt;li&gt;有的城市是影响交通的车辆负主要责任&lt;/li&gt;
+      &lt;li&gt;有的是操作不当的负主要责任&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;“让速不让道”是啥意思？宁可撞上去，也不让道！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;别人并道相撞，宁可减速撞上去也不让道。否则由于让道你撞了别人别的车就是你的责任了。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.bilibili.com/video/BV1y34y1z7oi/?spm_id_from=333.337.search-card.all.click&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;事故视频集合&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不要频繁变换车道，这样才安全。&lt;/li&gt;
+  &lt;li&gt;遇到事故首先刹车，而不是打方向&lt;/li&gt;
+  &lt;li&gt;不是绝对的让速不让道，比如大货车、高速相撞，为了自己安全只能让道。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;视频待看&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://space.bilibili.com/22649032&quot;&gt;链接&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;看不见的地方就存在危险，减速，随时刹停。&lt;/li&gt;
+  &lt;li&gt;不要紧跟前车，挡我视线。要找有好视野的车位置。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;内循环外循环和ac空调&quot;&gt;内循环外循环和AC空调&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/36319658&quot;&gt;参考&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.sohu.com/a/449011224_607998&quot;&gt;参考2&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;车内空调的内循环模式，就是能让车内的空气，在封闭的环境中循环流动。外循环模式就是能够将车外的空气循环到车内，内外循环。&lt;/p&gt;
+
+&lt;p&gt;下雨天前挡风玻璃内部起雾：下雨天的时候，一般我们的前挡玻璃容易起雾，这是因为车里面和外面的温度不一样，车子里面湿度也相对会比较大，那么温差加上湿度，就会产生起雾。这时候如果你打开外循环并且向着前挡玻璃吹风的话，&lt;strong&gt;这时候吹进来的风是从外面抽进来的，温度跟车内的温度是不一样，会比车内的低一点，这个时候它就可以快速的让挡风玻璃上温度降下来，达到一个内外温度平衡，&lt;/strong&gt;雾气就会慢慢地消失，这是一个比较实用的操作方法。&lt;/p&gt;
+
+&lt;p&gt;内循环使用：当车外空气质量不好，或着需要让车内迅速降温或升温时使用，但不可长时间使用内循环。&lt;/p&gt;
+
+&lt;p&gt;外循环使用：当需要改善车内空气质量，或者下雨天挡风玻璃除雾时使用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;AC 空调压缩机&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;汽车上的AC是空调压缩机开关，也就是空调制冷开关，它的功能是制冷。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Air Condition&lt;/p&gt;
+
+&lt;p&gt;汽车上的AC是汽车的空调压缩机按钮，夏天用空调一定要开AC键，即打开冷风，而暖风只是利用汽车内部的热循环，根本不需要启动空调压缩机，所以开暖风不用打开AC开关。&lt;/p&gt;
+
+&lt;p&gt;汽车空调使用的注意事项：&lt;/p&gt;
+
+&lt;p&gt;起步和急加速时关闭AC；空调温度开的不要太低 ，车内温度与车外温度相差5度至6度即可；基于冷空气下沉、热空气上升的原理，在控制空调的出风口时，可以遵循开冷气时出风口向上，开暖气时将出风口向下。&lt;/p&gt;
+
+&lt;h2 id=&quot;车内按键和仪表盘&quot;&gt;车内按键和仪表盘&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;方向盘上按键、左边灯光拨杆， &lt;a href=&quot;https://www.bilibili.com/video/BV1Nu411R7w9/?spm_id_from=333.788.recommend_more_video.-1&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;近光灯时，向下拨，就是远光灯，向上拨两下 就是超车灯，会自动回弹。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;右边雨刮器，&lt;a href=&quot;https://www.bilibili.com/video/BV1GS4y1V7KA/?spm_id_from=333.788.recommend_more_video.0&amp;amp;vd_source=9d3646ab1738010f91f766880db9c1c6&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;往上拨两下 开启。往里拨两下就是开启后雨刮器。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;右边拨杆。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;MIST: 自动回位，就是雨刮器只运行一次。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;INT: Internal. 间隔运行一次。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;拨杆向身体方向拉就是冲水。应该叫做玻璃水&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;仪表盘标志&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202405082307137.png&quot; alt=&quot;image-20240508230749093&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;档位&quot;&gt;档位&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Park（P）：停车挡。当车辆停放时，将变速器档位置于 P 档可以锁定传动装置，防止车辆滑动。&lt;/li&gt;
+  &lt;li&gt;Reverse（R）：倒车挡。将变速器档位置于 R 档时，车辆会向后行驶。在倒车时需要使用此档位。&lt;/li&gt;
+  &lt;li&gt;Neutral（N）：空档。将变速器档位置于 N 档时，车辆处于空挡状态，断开发动机与传动装置的连接。这时车辆不会前进也不会后退。拖车时会用，否则会带动发动机转动。&lt;/li&gt;
+  &lt;li&gt;Drive（D）：驱动挡。将变速器档位置于 D 档时，车辆可以前进。这是正常行驶时最常用的档位。&lt;/li&gt;
+  &lt;li&gt;Sport（S）：运动模式。将变速器档位置于 S 档时，有些车辆会进入运动模式，提供更高的转速和更快的换挡响应，适用于追求激烈驾驶体验的情况。&lt;/li&gt;
+  &lt;li&gt;Low（L）：低速模式。将变速器档位置于 L档时，车辆会以更低的传动比进行行驶，提供更大的扭矩输出和更好的爬坡能力。L 档通常用于陡坡下行驶、牵引重物或者需要更强劲动力的情况。在这个档位下，发动机转速相对较高，车辆的速度相对较慢。请注意，在正常道路行驶时，一般不需要使用 L 档。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;怠速： 怠速状态是指发动机在空档（N档）或者挂到档位但不踩油门时维持的转速状态，通常较低且稳定。&lt;/strong&gt;汽车怠速是指发动机在停车或者车辆未行驶时维持运转的状态。当汽车处于怠速状态时，发动机持续以一定的转速运转，以保持发电机、空调、液压助力转向等系统的正常运行，并确保发动机在需要时能够迅速响应驾驶员的指令。&lt;/p&gt;
+
+&lt;p&gt;汽车挂D档不踩油门和不踩刹车，也会走。倒档也是。这是因为自动变速器的液压系统会逐渐释放压力，使得传动系统连接发动机和驱动轮，从而使车辆开始移动。这种情况下，发动机的转速会相对较高于怠速状态，并且会根据需要提供更多的动力以推动车辆。&lt;/p&gt;
+
+&lt;h2 id=&quot;起步和停车&quot;&gt;起步和停车&lt;/h2&gt;
+
+&lt;h3 id=&quot;起步&quot;&gt;起步：&lt;/h3&gt;
+
+&lt;p&gt;tip: D手&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;踩下刹车：&lt;/strong&gt; 当车辆处于停止状态时，踩下刹车以确保车辆停稳。&lt;/li&gt;
+  &lt;li&gt;点火&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;挂D档：&lt;/strong&gt; 将变速器挂到D档（驾驶档位）。这是正常行驶的档位。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;释放手刹：&lt;/strong&gt; 如果手刹处于拉起状态，请先将手刹释放。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;缓慢踩油门：&lt;/strong&gt; 缓慢踩下油门踏板。不需要用力，只需轻踩即可使车辆开始缓慢移动。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;放掉刹车：&lt;/strong&gt; 当感觉到车辆开始移动时，缓慢放掉刹车。确保您的车辆平稳地启动。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;停车-1&quot;&gt;停车：&lt;/h3&gt;
+
+&lt;p&gt;tip: N手P&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;减速：&lt;/strong&gt; 当您需要停车时，先缓慢松开油门踏板，让车速逐渐减慢。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;踩刹车：&lt;/strong&gt; 缓慢踩下刹车踏板，直到车辆完全停稳。&lt;/li&gt;
+  &lt;li&gt;N档： 可选。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;拉手刹：&lt;/strong&gt; 拉起手刹，确保车辆固定在停车位置。&lt;/li&gt;
+  &lt;li&gt;松脚刹。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;挂P档：&lt;/strong&gt; 将变速器挂到P档（停车档位）。P档是用于将车辆锁定在静止位置的档位，确保车辆停稳后使用。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;P档和手刹顺序：先手刹再P. 但如果是斜坡，先挂P档再拉手刹，等启动的时候P摘要很用力才能摘下来。 最好是先拉手刹再挂P档，先用手刹承担刹车的力度，减轻变速箱齿轮的受力。&lt;/p&gt;
+
+&lt;p&gt;平地先P还是先手刹没区别的,有点坡度的情况,先P先手刹有区别, 先手刹后P,第2天开车先挂D和平路没区别,如果有坡度先P后手刹第2天从P挂D,摘P出来时候明显感觉到P是受力的(如果受力大都会有可以感知的震动)&lt;/p&gt;
+
+&lt;h2 id=&quot;刹车系统&quot;&gt;刹车系统&lt;/h2&gt;
+
+&lt;p&gt;手刹和脚刹都是用于锁定车辆轮子以防止车辆移动的设备。它们的主要功能是通过施加机械力或液压力来固定车轮，以防止车辆在停车时滑动或滚动。下面是关于手刹和脚刹的一些说明：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;手刹：&lt;/strong&gt; 手刹通常是位于驾驶员座位旁边的手柄或按钮，也称为紧急制动器。当您拉起手刹时，手刹将通过一条钢索或电子系统施加力量到车辆的后轮刹车系统，使后轮被锁定。手刹通常用于停车时防止车辆移动，特别是在平坦地面或轻微的斜坡上。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;脚刹：&lt;/strong&gt; 脚刹通常是位于驾驶员脚部的踏板，也称为停车制动或紧急制动。当您踩下脚刹时，它会施加力量到车辆的所有车轮刹车系统，从而将车辆固定在停车位置。脚刹通常在停车时使用，尤其是在需要额外保证安全性的情况下，如停放在斜坡上或需要紧急制动时。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;P档（停车档位）本身并不是一个刹车装置，而是汽车自动变速器的一个档位，用于将车辆锁定在停车状态。挂入P档时，变速器会锁定传动系统，防止车辆滑动或移动。&lt;/p&gt;
+
+&lt;h2 id=&quot;红绿灯短暂停车方式&quot;&gt;红绿灯短暂停车方式&lt;/h2&gt;
+
+&lt;p&gt;20秒内就D+踩刹车。&lt;/p&gt;
+
+&lt;p&gt;20秒以上的红灯就挂N+手刹，不需要一直踩刹车酸脚。&lt;/p&gt;
+
+&lt;p&gt;不用P档，是因为P档是卡住变速箱，如果遇到追尾，会损坏变速箱。&lt;/p&gt;
+
+&lt;p&gt;自动驻车： auto hold. 是个开关，开了后，如果刹住了车，就会自动N+手刹。 给油门就自动解除。 注意，这样会导致丢失初始速度，倒车时还要踩油门不方便，因此堵车频繁起步和倒车时要关闭。&lt;/p&gt;
+
+&lt;h2 id=&quot;离合器&quot;&gt;离合器&lt;/h2&gt;
+
+&lt;p&gt;离合器在汽车传动系统中起着至关重要的作用，它的存在是为了解决以下问题：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;启动车辆：&lt;/strong&gt; 发动机在怠速时转速较低，而车辆需要一定的转矩才能启动和加速。离合器允许驾驶员在发动机转速较低时将发动机与变速器分离，从而使车辆能够平稳地启动而不致熄火。&lt;strong&gt;大概需要7、800转速才能启动，如果不超过这个转速就连接动力会熄火。&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;换挡：&lt;/strong&gt; 汽车需要根据速度和负载的变化来调整发动机转速和车速。离合器允许驾驶员在换挡时断开发动机与变速器之间的连接，以便进行平稳的换挡操作。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;停车：&lt;/strong&gt; 离合器允许驾驶员在车辆停车时将发动机与变速器分离，从而避免了在停车时发动机熄火或车辆抖动的情况。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;提供安全性和控制：&lt;/strong&gt; 离合器使驾驶员能够更好地控制车辆的动力输出，从而提供更安全和更平稳的行驶体验。驾驶员可以通过踩下或释放离合器踏板来控制发动机与变速器之间的连接，从而实现启动、换挡和停车等操作。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;避免车辆抖动&quot;&gt;避免车辆抖动&lt;/h2&gt;
+
+&lt;p&gt;暂时没相关内容，等有了后再补充。&lt;/p&gt;
+
+&lt;h2 id=&quot;灯光组合&quot;&gt;灯光组合&lt;/h2&gt;
+
+&lt;p&gt;方向盘左边控制灯光组合开关     右手控制刮水器。&lt;/p&gt;
+
+&lt;p&gt;半弧形的图标是前风窗，四四方方的图标就是后风窗。扇形的是前，四方的是后&lt;/p&gt;
+
+&lt;h2 id=&quot;超车&quot;&gt;超车&lt;/h2&gt;
+
+&lt;p&gt;超车只能从左侧超越。因为驾驶员在左边，左边超车，驾驶员能观察到相对行驶车道有无来车。而右方超车驾驶员是看不到前方是否来车或速度慢的车辆。&lt;/p&gt;
+
+&lt;p&gt;机动车超车时，应当提前开启左转向灯、变换使用远、近光灯或者鸣喇叭。夜间视线不佳，应该变换使用远、近光灯提醒其他车辆。&lt;/p&gt;
+
+&lt;h2 id=&quot;踩刹车&quot;&gt;踩刹车&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403251154821.png&quot; alt=&quot;image-20240325115425781&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;买车&quot;&gt;买车&lt;/h1&gt;
+
+&lt;h1 id=&quot;保险&quot;&gt;保险&lt;/h1&gt;
+
+&lt;h2 id=&quot;保险怎么买&quot;&gt;保险怎么买&lt;/h2&gt;
+
+&lt;p&gt;✅车险＝交强险＋商业保险
+✅商业保险＝车损险＋三者险＋车上人员责任险＋附加险
+1⃣️【交强险】是必须购买的，国家强制要求购买，是赔给对方人员和车辆的。
+⚠️ps：交强险不赔本车、车主、车内乘客的损失，所以商业保险一定要投！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181309129.png&quot; alt=&quot;image-20240318130922088&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181304578.png&quot; alt=&quot;image-20240318130446540&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;1、经济宽松的新手最好买“全险”：对于经济条件较好的新手车主来说，若您的车辆价值较高，第一年投保车险时可选择“全险”，包括交强险、车损险、三责险、车上人员责任险、全车盗抢险、划痕险、玻璃单独破损险、不计免赔险等8个险种，这样能为您的爱车带来较为全面的保障。&lt;/p&gt;
+
+&lt;p&gt;2、经济紧张的新手按需选择基本险：如果经济状况较为紧张，新手司机可根据车辆出行状况选择合适的险种。对于有固定停车场所、且只用于上下班的车辆而言，除必要的交强险外，将车损险、三责险备齐即可;若车辆经常搭载亲友，还应备份车上人员责任险。&lt;/p&gt;
+
+&lt;p&gt;3、熟练老手选择车险要适当：老手司机的驾驶技术较为熟练，出险概率较低，给新车买保险时，一般选择交强险、车损险和三责险即可，这样能给车辆带来基本保障。如果车辆无固定停放场所，且经常外出，还应买份全车盗抢险和划痕险。&lt;/p&gt;
+
+&lt;p&gt;第三者责任保险：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;它覆盖了您对第三方造成的人身伤害或财产损失所需承担的责任。如果您的车辆在事故中导致他人受伤或财产受损，第三者责任保险将为您提供赔偿，并为您的法律费用提供一定程度的保障。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;车辆损失保险：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;赔自己车的。 它覆盖了您的车辆在意外事故中受到的损失，包括碰撞、火灾、盗窃等情况。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不计免赔险 （推荐）&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;是一种可选的汽车保险附加项目，通常可与车辆损失保险一起购买。它的作用是在发生保险索赔时，可以免除您需要支付的赔偿部分，即免去免赔额的费用。 具体来说，如果您购买了不计免赔险，那么在您发生车辆损失保险索赔时，保险公司将会在您所承担的免赔额之外，全额赔付您的损失，而无需您再支付额外的免赔额部分。&lt;/li&gt;
+  &lt;li&gt;比如你撞了栏杆，你是主责的， 保险只会赔8成，需要你自己掏剩下的，但如果有这个，会全额赔付。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;司机及乘客座位险:(强烈建议购买) 顾名思义保乘坐的人和司机，蕞赔偿限额为投保保额 。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可以跟人走：保的是自己，那坐谁的车保险公司都会赔付&lt;/li&gt;
+  &lt;li&gt;可以跟车走:也就是无论谁坐我的车，保险公司也都会赔付&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;保险怎么用&quot;&gt;保险怎么用&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181247640.png&quot; alt=&quot;image-20240318124712182&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181305453.png&quot; alt=&quot;image-20240318130524417&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181250128.png&quot; alt=&quot;image-20240318125001086&quot; style=&quot;zoom: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;交强险&quot;&gt;交强险&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181246574.png&quot; alt=&quot;image-20240318124615530&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181308039.png&quot; alt=&quot;image-20240318130857991&quot; style=&quot;zoom: 33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;事故流程&quot;&gt;事故流程&lt;/h1&gt;
+
+&lt;h2 id=&quot;注意点&quot;&gt;注意点&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;出了事故不要主动调解！也不要垫钱。一切都是保险公司来付。去哪里修成是我说的算，去4s店。每个环节都保存证据。&lt;/li&gt;
+  &lt;li&gt;新车折旧费法院一般不支持，但如果是半年内新车上诉一般可以打下来，这个也要对方保险赔。打赢的话，对方也会赔你的上诉费的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;1️⃣疯狂拍摄事故现场的照片和录像&lt;/p&gt;
+
+&lt;p&gt;2️⃣不管有没有人员受伤，这边建议不要私下接触‼️打110或保险公司电话，让官方人员来解决👌&lt;/p&gt;
+
+&lt;p&gt;3️⃣如果扣车定责，不要惊讶🤣其实也是正常流程，取车的时候是不用付费的哈🆓&lt;/p&gt;
+
+&lt;p&gt;4️⃣根据施行的《道路交通事故处理程序规定》，有以下几种情况的不能走快速处理:(1)驾驶人无驾驶资格;(2)驾驶人饮酒或吸毒:(3)车辆超员超速(4)机动车无牌或假牌(5)当事人不能自行移动车辆的(6)一方当事人离开现场的(7)有证据证明事故是由一方故意造成的&lt;/p&gt;
+
+&lt;p&gt;和非机动车、行人发生事故，没过失也担责， 要担责10%。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181248812.png&quot; alt=&quot;image-20240318124809775&quot; style=&quot;zoom:33%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;交通事故处理完整流程&quot;&gt;交通事故处理完整流程&lt;/h2&gt;
+
+&lt;p&gt;有碰瓷的记住直接报保险，不私聊！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181249439.png&quot; alt=&quot;image-20240318124906403&quot; style=&quot;zoom: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;有人受伤先打120  再报警122 ，高速公路报警救援电话是12122&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181224743.png&quot; alt=&quot;image-20240318122423686&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;让交警出具事故责任认定书之后， 再报保险。保险公司会定损、修车。如果对方争执、挑衅，就躲车里录像拍下来。这时要打110报警。&lt;/p&gt;
+
+&lt;p&gt;小剐蹭，可以自行协商解决，报了保险第二年保费会上涨。 要写协议书，视频记录。当面就联系4s店，估计赔偿费用，然后当面赔偿结清。否则就报警122。&lt;/p&gt;
+
+&lt;p&gt;对于单方面事故，如无人员伤亡且未造成公共设施损坏， 撞了墙，可以直接联系保险公司进行报案和定损维修，但务必保留第一现场以避免免赔额的扣除。所以要拍照录视频记录现场、或者车不动等人来。&lt;/p&gt;
+
+&lt;p&gt;不知道谁的责任的话就先打保险，然后根据保险公司人员的指挥走，拍照，挪车，打交警电话，不知道怎么拍就问保险公司的人&lt;/p&gt;
+
+&lt;p&gt;后期定损处理：&lt;/p&gt;
+
+&lt;p&gt;1.车子不能开的话找拖车。&lt;/p&gt;
+
+&lt;p&gt;2.保险公司会发个短信定损员号码，打电话，按他的要求准备材料。（双方司机驾照行驶证，事故责任认定书，现场照片，车子损坏部位照片）&lt;/p&gt;
+
+&lt;p&gt;双方：（1）小事故能分的清责任的，想私了的在12123签订个责任协议，赔完钱走人 ，分不清责任的或者事故较大 ，打122和保险电话后，拍好事故现场车牌，车损和远景事故现场，多拍点，然后等人来定好责，按程序走。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181259586.png&quot; alt=&quot;image-20240318125902534&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;被剐蹭无责情况&quot;&gt;被剐蹭无责情况&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;停车拍照，多角度，协商责任归属是否有争议，尽量不私了，只要责任定好别过多交流，坚定的让他报保险；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;靠边停车，拨打122报警，122会问你责任归属有无争议，如无争议各回各家，约个时间一起去交警提供的理赔中心出具责任认定书，用于对方报保险（也可以交管12123事故快处）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;将车送去4S店，说明情况并提供责任认定书，由4S店对接对方保险人员，自己不用管了，到期取车就好。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;交强险赔偿额度是2k，一般4S店想赚钱，小时候几百块搞定的事他会定责个接近2k，这就是4S店和保险的事情了，与你无关，而且出交强险对对方明年保费没有影响，不要有心理压力。&lt;/p&gt;
+
+&lt;p&gt;超过2k，就对方商业保险赔偿或者对方自付。&lt;/p&gt;
+
+&lt;h2 id=&quot;是否报保险&quot;&gt;是否报保险&lt;/h2&gt;
+
+&lt;p&gt;出险2次保费上浮25%，3次上浮50%，4次上浮75%，5次的保费翻倍，具体需要咨询保险公司💡。所以低额度不建议走保险哦❗️&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181226522.png&quot; alt=&quot;image-20240318122605483&quot; style=&quot;zoom:25%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181233625.png&quot; alt=&quot;image-20240318123358587&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上涨金额是根据出险次数估算，不参考金额。&lt;/p&gt;
+
+&lt;h2 id=&quot;简易事故快速拿到责任认定书&quot;&gt;简易事故快速拿到责任认定书&lt;/h2&gt;
+
+&lt;p&gt;大家开车的时候，如果遇到轻微剐蹭、人没有受伤的简易事故，可以通过APP交管12123中的“事故视频快处”功能，进行快速处理&lt;/p&gt;
+
+&lt;p&gt;不需要跑到事故处理中心去处理！事故处理中心每天接的案件非常多，人力根本不够用，去现场处理，真的是费时费力的心累。&lt;/p&gt;
+
+&lt;p&gt;拿着事故认定书才能走保险，报完保险后，就可以去自己车辆的4s店定损，然后理赔了。&lt;/p&gt;
+
+&lt;p&gt;当然能快速处理的这种情况，也得是双方的责任非常清晰、而且双方都比较好沟通，遇到一方比较那啥的，这个也走不通。&lt;/p&gt;
+
+&lt;h2 id=&quot;车被刮了找不到肇事者怎么办&quot;&gt;车被刮了，找不到肇事者怎么办❓&lt;/h2&gt;
+
+&lt;p&gt;1️⃣ 先拍照+录像留证据
+立马掏出手机，拍照＋摄像留下🚗被刮的照片和视频
+⚠️一定要留证据&lt;/p&gt;
+
+&lt;p&gt;2️⃣ 调监控
+👉在停车场，直接找物业调监控找人
+👉停在路边，拨打了122📞，说清楚事情缘由，请求交管部门调阅监控&lt;/p&gt;
+
+&lt;p&gt;😩找不到责任人，怎么办❓
+👉先确定一下是否需要走保险：先把剐蹭照片发给4S店💰，估算一下维修价格，严重的话一定要走保险；如果轻微刮痕，可先不维修&lt;/p&gt;
+
+&lt;p&gt;🙌如果确定了要走保险，那么步骤记好了：
+①打122📞寻找交管部门出具责任事故认定书⚠️如果走保险，事故证明一定要有
+②保险报案及定损
+③车辆修理
+④保险理赔&lt;/p&gt;
+
+&lt;p&gt;事故处理流程及电话→图4&lt;/p&gt;
+
+&lt;p&gt;3️⃣ 肇事者说没钱💰
+🉑找保险公司申请代位追偿&lt;/p&gt;
+
+&lt;p&gt;⭕️优先选择交强险，超过部分再选择车损险&lt;/p&gt;
+
+&lt;p&gt;不要记着报保险，否则会自己担责，优先找肇事者。&lt;strong&gt;代位追偿，不会增加第二年保费。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;保险公司电话&quot;&gt;保险公司电话&lt;/h2&gt;
+
+&lt;p&gt;公司电话（48小时内拨打）
+✅人保95518
+✅平安95511
+✅太平洋95500
+✅太平95589
+✅大地95590
+✅阳光95510
+✅人寿95519
+✅安盛95550&lt;/p&gt;
+
+&lt;h2 id=&quot;误工费营养费交通费&quot;&gt;误工费、营养费、交通费&lt;/h2&gt;
+
+&lt;p&gt;有计算公式的。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;交通费就是公交费用，不算打车&lt;/li&gt;
+  &lt;li&gt;误工费、交通费等只用于对方住院或者营运车辆。需要有医院证明或者伤残鉴定证明不能工作。&lt;/li&gt;
+  &lt;li&gt;误工费一般要起诉，就算赢了，也是保险来赔。非营运车辆没有误工费，需要有营运证等双证。直接让对方去上诉。&lt;/li&gt;
+  &lt;li&gt;很多滴滴就赚误工费。所以路上不能忽视滴滴。如果对方出庭，作为被告人不用出庭，是第二被告人保险公司出庭。- 如果不小心撞到网约车，大概率会被司机要求赔偿误工费。赔偿的前提是对方为合规网约车，需出示《网络预约出租汽车运输证》、《客运出租汽车驾驶员证》证明。若对方以没带或仅能提供照片为理由来索要误工费，请不要轻易答应赔偿要求。- 若涉及人伤，误工费由交强险或三者险赔付。若不涉及人伤，误工费为车损的间接损失，属于三者险的免责条款，需车主自己承担，保险不予赔付。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202403181241078.png&quot; alt=&quot;image-20240318124155033&quot; style=&quot;zoom:25%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;小米su7&quot;&gt;小米su7&lt;/h1&gt;
+
+&lt;p&gt;充电知识&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;直流电: 9孔，电缆粗，也叫快充&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;交流电: 7孔，电缆细，叫慢充。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;随车充电枪功率一般只有2kw。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;强制停车: P档一直按。&lt;/p&gt;
+
+&lt;p&gt;强制重启车机: 同时按住方向盘的两侧滚轮十秒。黑屏后不影响行驶。&lt;/p&gt;
+
+&lt;p&gt;冷胎气压推荐为2.9bar。&lt;/p&gt;
+
+&lt;p&gt;换胎需要使用换胎模式，否则千斤顶会伤到空气悬挂。&lt;/p&gt;
+
+&lt;p&gt;* 什么情况要做动平衡? 轮子拆下来就要，轮子不平衡了就要。&lt;/p&gt;
+
+&lt;p&gt;* 什么时候要做四轮定位? 开始跑偏或者发生事故。&lt;/p&gt;
+
+&lt;p&gt;su7 配置: &lt;a href=&quot;https://s1.xiaomiev.com/activity-outer-assets/0328/env/SU7%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE%E8%A1%A8.pdf&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;20英寸“梅花轮毂”+米其林Pilot Sport EV轮胎&lt;/p&gt;
+
+&lt;p&gt;可以不切割静音棉，有的店没有这个胶就不粘回去了，影响路噪。可以这种方式，把静音棉拉到侧边。 http://xhslink.com/QBTTNJ&lt;/p&gt;
+
+&lt;p&gt;小米4s店可以换胎补胎的。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="Life" /><summary type="html">驾驶学习</summary></entry><entry><title type="html">100401. 放三个车的价值之和最大 II</title><link href="https://mafulong.github.io/2024/08/18/100401.-%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7-II/" rel="alternate" type="text/html" title="100401. 放三个车的价值之和最大 II" /><published>2024-08-18T00:00:00+08:00</published><updated>2024-08-18T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/08/18/100401.%20%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%20II</id><content type="html" xml:base="https://mafulong.github.io/2024/08/18/100401.-%E6%94%BE%E4%B8%89%E4%B8%AA%E8%BD%A6%E7%9A%84%E4%BB%B7%E5%80%BC%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7-II/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/maximum-value-sum-by-placing-three-rooks-ii/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m x n&lt;/code&gt; 的二维整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;board&lt;/code&gt; ，它表示一个国际象棋棋盘，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;board[i][j]&lt;/code&gt; 表示格子 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;(i, j)&lt;/code&gt; 的 &lt;strong&gt;价值&lt;/strong&gt; 。&lt;/p&gt;
