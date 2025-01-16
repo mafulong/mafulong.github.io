@@ -22,7 +22,7 @@ permalink: /about/
 
 🎊 Hello world!
 
-- 🔭 Now:Bytedance as a Back-end Software Engineer
+- 🔭 Now: Back-end Software Engineer
 - 🌱 **PROFESSIONAL SKILLS**:
   - Programmer Languages: Golang(frequent), Python/C++/Java (Basic, once used).
   - Mysql(frequent), Redis(frequent), Kafka(frequent), Elastic-Search(Basic).
