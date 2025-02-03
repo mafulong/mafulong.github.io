@@ -152,52 +152,6 @@ go语言运行时环境提供了非常强大的管理goroutine和系统内核线
 
 抢占：在 coroutine 中要等待一个协程主动让出 CPU 才执行下一个协程，在 Go 中，一个 goroutine 最多占用 CPU 10ms，防止其他 goroutine 被饿死，这就是 goroutine 不同于 coroutine 的一个地方。
 
-
-
-
-
-### Goroutine 的阻塞
-
-**(1) Goroutine 内部的同步阻塞**
-
-- **示例**：`channel` 的读写操作、`select` 等。
-
-- 线程行为
-
-  ：
-
-  - 当 Goroutine 因 `channel`、`mutex` 或其他 Go 的同步原语而阻塞时，该 Goroutine 会被 **挂起**，对应的线程会释放资源继续执行其他 Goroutine。
-  - Go 的调度器（GMP 模型）会将阻塞的 Goroutine 标记为等待状态，并把线程从阻塞的 Goroutine 中解放出来执行其他任务。
-
-**(2) 系统调用（Syscall）导致的阻塞**
-
-- **示例**：执行 I/O 操作、文件读写、网络调用等。
-
-- 线程行为
-
-  ：
-
-  - 如果 Goroutine 调用了一个会导致操作系统层面阻塞的系统调用（如 I/O），那么该系统调用会阻塞整个线程。
-
-  - Go 运行时会通过调度机制将阻塞线程上的其他 Goroutine 转移到空闲线程上继续执行。
-
-  - 核心机制
-
-    ：
-
-    - 如果一个线程因为系统调用而阻塞，Go 会启动新的线程（如果必要）以保证其他 Goroutine 不受影响。
-
-**(3) 主 Goroutine 阻塞**
-
-- **示例**：主 Goroutine 调用 `time.Sleep()` 或等待 `channel`。
-
-- 线程行为
-
-  ：
-
-  - 主 Goroutine 的阻塞不会直接导致所有线程阻塞。
-  - 其他线程上的 Goroutine 仍然可以正常执行，因为 Go 的调度器会继续调度其他 Goroutine。
-
 ### go func () 调度流程
 
 ![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202501120001743.jpg)
@@ -385,3 +339,72 @@ Go scheduler 是 Go runtime 的一部分，它内嵌在 Go 程序里，和 Go �
 Go的`GOMAXPROCS`默认值已经设置为 CPU的核数。可以通过设置这个参数设置P的数量
 
 M和P数量默认为GOMAXPROCS， 但M由于调度阻塞是可以动态加的， 但P不能自己动态增加数量。
+
+
+
+
+
+### Goroutine 的阻塞
+
+**(1) Goroutine 内部的同步阻塞**
+
+- **示例**：`channel` 的读写操作、`select` 等。
+
+- 线程行为
+
+  - 当 Goroutine 因 `channel`、`mutex` 或其他 Go 的同步原语而阻塞时，该 Goroutine 会被 **挂起**，对应的线程会释放资源继续执行其他 Goroutine。
+- Go 的调度器（GMP 模型）会将阻塞的 Goroutine 标记为等待状态，并把线程从阻塞的 Goroutine 中解放出来执行其他任务。
+  - 比如因为channel阻塞，当channel有数据时才会唤醒这个阻塞的goroutine，然后如果当前 P 仍然有可用的 OS 线程（M），则直接运行它，否则就创建新的线程
+
+**(2) 系统调用（Syscall）导致的阻塞**。这个特殊，是线程阻塞。
+
+- **示例**：执行 I/O 操作、文件读写、网络调用等。调用http等返回。
+
+- 线程行为
+
+  - 如果 Goroutine 调用了一个会导致操作系统层面阻塞的系统调用（如 I/O），那么该系统调用会阻塞整个线程。这是操作系统的规则，系统调用必须阻塞线程。
+
+  - Go 运行时会通过调度机制将阻塞线程上的其他 Goroutine 转移到空闲线程上继续执行。
+
+  - 核心机制
+
+    - 如果一个线程因为系统调用而阻塞，Go 会启动新的线程（如果必要）以保证其他 Goroutine 不受影响。
+
+**(3) 主 Goroutine 阻塞**
+
+- **示例**：主 Goroutine 调用 `time.Sleep()` 或等待 `channel`。
+
+- 线程行为
+
+  - 主 Goroutine 的阻塞不会直接导致所有线程阻塞。
+- 其他线程上的 Goroutine 仍然可以正常执行，因为 Go 的调度器会继续调度其他 Goroutine。
+
+
+
+
+
+总结
+
+- **如果 Goroutine 导致 OS 线程阻塞（如 syscall）**，Go 运行时会 **分离 P，并释放 M**，创建新的 M 继续调度。
+
+- **如果 Goroutine 只是逻辑阻塞（如 Mutex、Channel、Sleep）**，Go 运行时 **仅分离 P，不释放 M**，M 仍然等待 Goroutine 解除阻塞。
+
+- 线程阻塞场景。**Go 线程（M）不会轻易阻塞**，但 **系统调用、CGO、GC、资源竞争、死锁等情况会导致线程阻塞**。
+
+  - 系统调用
+  - gc影响
+  - goroutine太多影响，压垮系统
+
+- 线程创建时机
+
+  - 默认创建 `GOMAXPROCS` 个 P（Processor），尝试创建 `N` 个 M（线程）。  
+  - 发生 I/O 阻塞、系统调用，当前 M 线程可能被阻塞，Go 运行时会创建新 M 线程。
+  - 若 Goroutines 过多，Go 运行时可能创建新的 M 线程来执行任务。
+  - CGO 调用 C 代码会绑定 Goroutine 到 M 线程，Go 运行时可能创建额外 M。
+  - 绑定 Goroutine 到当前 OS 线程，可能触发新 M 创建。
+
+  
+
+  
+
+### 
