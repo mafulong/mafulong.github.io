@@ -1,13 +1,15 @@
 ---
 layout: post
 category: Database
-title: RedisCluster
+title: Redis集群化方案
 tags: Database
 ---
 
 
 
-架构演进过程: 主从 -> sentinel -> cluster
+## 架构演进过程
+
+主从 -> 哨兵sentinel -> cluster
 
 ## **Redis 主从架构** 一主多从
 
@@ -52,6 +54,8 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 - 如果发现某个redis节点运行出现状况，能够通知另外一个进程(例如它的客户端);
 - 能够进行自动切换。当一个master节点不可用时，能够选举出master的多个slave(如果有超过一个slave的话)中的一个来作为新的master,其它的slave节点会将它所追随的master的地址改为被提升为master的slave的新地址。
 
+
+
 ## RedisCluster 分片 多主
 
 是一个去中心化架构，内置了16384个哈希槽。去掉了sentinel这种有中心化的。
@@ -66,7 +70,7 @@ Redis-Sentinel是Redis官方推荐的高可用性(HA)解决方案，本身也是
 
 
 
-key到某个server的过程是采用类一致性hash方式，即hash slot。它是在sdk上设置的。
+key到某个server的过程是采用类一致性hash方式，即hash slot。它是在客户端sdk上设置的。
 
 Redis把请求转发的逻辑放在了Smart Client中，要想使用Redis Cluster，必须升级Client SDK，**这个SDK中内置了请求转发的逻辑，所以业务开发人员同样不需要自己编写转发规则，Redis Cluster采用16384个槽位进行路由规则的转发。**
 
@@ -116,8 +120,6 @@ cluster重在大数据量，进行分片。可以说是sentinel和主从模式�
 
 
 
-架构演进过程: 主从 -> sentinel -> cluster
-
 ### cluster架构延伸
 
 gossip协议有网络风暴问题，节点数过多比如超过1000时就有性能问题，因此可能需要一种新的架构。
@@ -125,15 +127,25 @@ gossip协议有网络风暴问题，节点数过多比如超过1000时就有性�
 设想
 
 - 可以不用gossip,  使用sentinel来故障转移。
+
 - 配置集中化。
+
+  
 
 ### 集群化方案
 
 业界主流的Redis集群化方案主要包括以下几个：
 
-- 客户端分片
-- Codis
-- Twemproxy
+- 客户端分片。缺点是业务开发人员**使用Redis的成本较高**，需要编写路由规则的代码来使用多个节点，而且如果事先对业务的数据量评估不准确，后期的**扩容和迁移成本非常高**
+
+- 代理器分片
+
+  - Codis。加个代理层。
+
+    Codis的Proxy就是负责请求转发的组件，它内部维护了请求转发的具体规则，Codis把整个集群划分为1024个槽位，在处理读写请求时，采用`crc32`Hash算法计算key的Hash值，然后再根据Hash值对1024个槽位取模，最终找到具体的Redis节点。
+
+  - Twemproxy。加个代理层，功能比较单一，只实现了请求路由转发，没有像Codis那么全面有在线扩容的功能，它解决的重点就是把客户端分片的逻辑统一放到了Proxy层而已，其他功能没有做任何处理。
+
 - Redis Cluster
 
 它们还可以用**是否中心化**来划分，其中**客户端分片、Redis Cluster属于无中心化的集群方案，Codis、Tweproxy属于中心化的集群方案。**
@@ -142,19 +154,26 @@ gossip协议有网络风暴问题，节点数过多比如超过1000时就有性�
 
 
 
-### 客户端分片
+### **基于代理服务器分片**
 
-缺点是业务开发人员**使用Redis的成本较高**，需要编写路由规则的代码来使用多个节点，而且如果事先对业务的数据量评估不准确，后期的**扩容和迁移成本非常高**
+<img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20210528141707.png" alt="image-20210528141706951" style="zoom:50%;" />
 
-### Codis
+**简介**
 
-加个代理层。
+客户端发送请求到一个代理组件，代理解析客户端的数据，并将请求转发至正确的节点，最后将结果回复给客户端
 
-Codis的Proxy就是负责请求转发的组件，它内部维护了请求转发的具体规则，Codis把整个集群划分为1024个槽位，在处理读写请求时，采用`crc32`Hash算法计算key的Hash值，然后再根据Hash值对1024个槽位取模，最终找到具体的Redis节点。
+**特征**
 
-### Twemproxy
+- 透明接入，业务程序不用关心后端Redis实例，切换成本低
+- Proxy 的逻辑和存储的逻辑是隔离的
+- 代理层多了一次转发，性能有所损耗
 
-加个代理层，功能比较单一，只实现了请求路由转发，没有像Codis那么全面有在线扩容的功能，它解决的重点就是把客户端分片的逻辑统一放到了Proxy层而已，其他功能没有做任何处理。
+**业界开源方案**
+
+- Twitter开源的Twemproxy
+- 豌豆荚开源的Codis
+
+
 
 ## 参考
 
