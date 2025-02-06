@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-02-06T18:48:23+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">计算机网络</title><link href="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="计算机网络" /><published>2025-02-06T00:00:00+08:00</published><updated>2025-02-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C</id><content type="html" xml:base="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">&lt;h2 id=&quot;计算机网络&quot;&gt;计算机网络&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-02-06T21:43:06+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">计算机网络</title><link href="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="计算机网络" /><published>2025-02-06T00:00:00+08:00</published><updated>2025-02-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C</id><content type="html" xml:base="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">&lt;h2 id=&quot;计算机网络&quot;&gt;计算机网络&lt;/h2&gt;
 
 &lt;p&gt;参考&lt;/p&gt;
 
@@ -71,6 +71,10 @@
 &lt;p&gt;在向下的过程中，需要添加下层协议所需要的首部或者尾部，而在向上的过程中不断拆开首部和尾部。&lt;/p&gt;
 
 &lt;p&gt;路由器只有下面三层协议，因为路由器位于网络核心中，不需要为进程或者应用程序提供服务，因此也就不需要传输层和应用层。&lt;/p&gt;
+
+&lt;h3 id=&quot;网络协议&quot;&gt;网络协议&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202502061850705.jpg&quot; alt=&quot;各层网络对应的网络协议&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;链路层&quot;&gt;链路层&lt;/h2&gt;
 
@@ -156,6 +160,14 @@
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;ip&quot;&gt;IP&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/network.html#ip-协议有哪些作用&quot;&gt;IP 协议有哪些作用？&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;①、&lt;strong&gt;寻址&lt;/strong&gt;：每个连接到网络的设备都有一个唯一的 IP 地址。IP 协议使用这些地址来标识数据包的源地址和目的地址，确保数据包能够准确地传输到目标设备。&lt;/p&gt;
+
+&lt;p&gt;②、&lt;strong&gt;路由&lt;/strong&gt;：IP 协议负责决定数据包在网络传输中的路径。比如说路由器使用路由表和 IP 地址信息来确定数据包的最佳传输路径。&lt;/p&gt;
+
+&lt;p&gt;③、&lt;strong&gt;分片和重组&lt;/strong&gt;：当数据包过大无法在某个网络上传输时，IP 协议会将数据包分成更小的片段进行传输。接收端会根据头部信息将这些片段重新组装成完整的数据包。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;IP 数据报格式&lt;/strong&gt;&lt;/p&gt;
 
@@ -409,6 +421,17 @@ a.com.     IN      NS      ns2.a.com.
   &lt;li&gt;
     &lt;p&gt;BGP 采用 TCP 连接进行通信&lt;/p&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;qa&quot;&gt;QA&lt;/h2&gt;
+
+&lt;h3 id=&quot;ipv4-地址不够如何解决&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/network.html#_51-ipv4-地址不够如何解决&quot;&gt;IPV4 地址不够如何解决？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DHCP：动态主机配置协议，动态分配 IP 地址，只给接入网络的设备分配 IP 地址，因此同一个 MAC 地址的设备，每次接入互联网时，得到的 IP 地址不一定是相同的，该协议使得空闲的 IP 地址可以得到充分利用。&lt;/li&gt;
+  &lt;li&gt;CIDR：无类别域间路由。CIDR 消除了传统的 A 类、B 类、C 类地址以及划分子网的概念，因而更加有效地分配 IPv4 的地址空间，但无法从根本上解决地址耗尽的问题。&lt;/li&gt;
+  &lt;li&gt;NAT：网络地址转换协议，我们知道属于不同局域网的主机可以使用相同的 IP 地址，从而一定程度上缓解了 IP 资源枯竭的问题，然而主机在局域网中使用的 IP 地址是不能在公网中使用的，当局域网主机想要与公网主机进行通信时，NAT 方法可以将该主机 IP 地址转换为全球 IP 地址。该协议能够有效解决 IP 地址不足的问题。&lt;/li&gt;
+  &lt;li&gt;IPv6：作为接替 IPv4 的下一代互联网协议，其可以实现 2 的 128 次方个地址，而这个数量级，即使给地球上每一粒沙子都分配一个 IP 地址也够用，该协议能够从根本上解决 IPv4 地址不够用的问题。&lt;/li&gt;
 &lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="computerNetwork" /><category term="computerNetwork" /><summary type="html">计算机网络</summary></entry><entry><title type="html">3326. 使数组非递减的最少除法操作次数</title><link href="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="3326. 使数组非递减的最少除法操作次数" /><published>2024-10-26T00:00:00+08:00</published><updated>2024-10-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/26/3326.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-division-operations-to-make-array-non-decreasing/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
