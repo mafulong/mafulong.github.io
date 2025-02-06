@@ -1,4 +1,415 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-02-06T11:06:28+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">3326. 使数组非递减的最少除法操作次数</title><link href="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="3326. 使数组非递减的最少除法操作次数" /><published>2024-10-26T00:00:00+08:00</published><updated>2024-10-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/26/3326.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-02-06T18:44:19+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">计算机网络</title><link href="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="alternate" type="text/html" title="计算机网络" /><published>2025-02-06T00:00:00+08:00</published><updated>2025-02-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C</id><content type="html" xml:base="https://mafulong.github.io/2025/02/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">&lt;h2 id=&quot;计算机网络&quot;&gt;计算机网络&lt;/h2&gt;
+
+&lt;p&gt;参考&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cyc2018.xyz/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%20-%20%E6%A6%82%E8%BF%B0.html#%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C&quot;&gt;Cyc2018&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://javabetter.cn/cs/wangluo.html&quot;&gt;Java进阶之路&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;计算机网络体系结构&quot;&gt;计算机网络体系结构&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202502061246742.png&quot; alt=&quot;img&quot; style=&quot;zoom:50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;1-五层协议&quot;&gt;&lt;a href=&quot;http://www.cyc2018.xyz/计算机基础/网络基础/计算机网络 - 概述.html#_1-五层协议&quot;&gt;#&lt;/a&gt;1. 五层协议&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;应用层&lt;/strong&gt; ：为特定应用程序提供数据传输服务，例如 HTTP、DNS 等协议。数据单位为报文。
+    &lt;ul&gt;
+      &lt;li&gt;应用层旨在更&lt;strong&gt;方便应用从网络中接收的数据&lt;/strong&gt;，重点关注&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TCP/IP&lt;/code&gt;协议中的HTTP协议&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;传输层&lt;/strong&gt; ：为进程提供通用数据传输服务。由于应用层协议很多，定义通用的传输层协议就可以支持不断增多的应用层协议。运输层包括两种协议：传输控制协议 TCP，提供面向连接、可靠的数据传输服务，数据单位为报文段；用户数据报协议 UDP，提供无连接、尽最大努力的数据传输服务，数据单位为用户数据报。TCP 主要提供完整性服务，UDP 主要提供及时性服务。
+    &lt;ul&gt;
+      &lt;li&gt;传输层解决了&lt;strong&gt;传输质量&lt;/strong&gt;的问题。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;网络层&lt;/strong&gt; ：为主机提供数据传输服务。而传输层协议是为主机中的进程提供数据传输服务。网络层把传输层传递下来的报文段或者用户数据报封装成分组。
+    &lt;ul&gt;
+      &lt;li&gt;网络层负责将数据传输到目标地址。目标地址可以使多个网络通过路由器连接而成的某一个地址。因此这一层主要负责&lt;strong&gt;寻址和路由选择&lt;/strong&gt;。主要由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IP、ICMP&lt;/code&gt; 两个协议组成&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;数据链路层&lt;/strong&gt; ：网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。
+    &lt;ul&gt;
+      &lt;li&gt;数据链路层定义了&lt;strong&gt;如何格式化数据进行传输&lt;/strong&gt;，以及如何控制对物理介质的访问。通常提供错误检测和纠正，以确保数据传输的准确性。&lt;/li&gt;
+      &lt;li&gt;本层将比特数据组成帧，&lt;strong&gt;交换机&lt;/strong&gt;工作在这层，对帧解码，并根据帧中包含的信息把数据发送到正确的接收方。数据链路层会将&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0、1&lt;/code&gt;序列划分为具有意义的数据帧传送给对端（&lt;strong&gt;数据帧的生成与接收&lt;/strong&gt;）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;物理层&lt;/strong&gt; ：考虑的是怎样在传输媒体上传输&lt;strong&gt;数据比特流&lt;/strong&gt;，而不是指具体的传输媒体。物理层的作用是尽可能屏蔽传输媒体和通信手段的差异，使数据链路层感觉不到这些差异。
+    &lt;ul&gt;
+      &lt;li&gt;主要作用是传输比特流（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0101&lt;/code&gt;二进制数据），将比特流转化为电流强弱传输，到达目的后再转化为比特流，即常说的数模转化和模数转换。模拟信号是连续的信号，数字信号是离散的信号。&lt;strong&gt;带通调制&lt;/strong&gt;把数字信号转换为模拟信号。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;网卡工作在这层&lt;/strong&gt;。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-osi-7-层&quot;&gt;2. OSI 7 层&lt;/h3&gt;
+
+&lt;p&gt;新增的其中表示层和会话层用途如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;表示层&lt;/strong&gt; ：数据压缩、加密以及数据描述，这使得应用程序不必关心在各台主机中数据内部格式不同的问题。
+    &lt;ul&gt;
+      &lt;li&gt;解决&lt;strong&gt;不同系统之间通信语法问题&lt;/strong&gt;，在表示层数据将按照网络能理解的方案进行格式化，格式化因所使用网络的不同而不同。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;会话层&lt;/strong&gt; ：建立及管理会话。会话层作用是&lt;strong&gt;负责建立和断开通信连接&lt;/strong&gt;，何时建立，断开连接以及保持多久的连接。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;五层协议没有表示层和会话层，而是将这些功能留给应用程序开发者处理。&lt;/p&gt;
+
+&lt;h3 id=&quot;3-tcpip-4层&quot;&gt;&lt;a href=&quot;http://www.cyc2018.xyz/计算机基础/网络基础/计算机网络 - 概述.html#_3-tcp-ip&quot;&gt;#&lt;/a&gt;3. TCP/IP 4层&lt;/h3&gt;
+
+&lt;p&gt;它只有四层，相当于五层协议中数据链路层和物理层合并为网络接口层。&lt;/p&gt;
+
+&lt;p&gt;TCP/IP 体系结构不严格遵循 OSI 分层概念，应用层可能会直接使用 IP 层或者网络接口层。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202502061247947.png&quot; alt=&quot;img&quot; style=&quot;zoom: 50%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;-4-数据在各层之间的传递过程&quot;&gt;&lt;a href=&quot;http://www.cyc2018.xyz/计算机基础/网络基础/计算机网络 - 概述.html#_4-数据在各层之间的传递过程&quot;&gt; #&lt;/a&gt;4. 数据在各层之间的传递过程&lt;/h3&gt;
+
+&lt;p&gt;在向下的过程中，需要添加下层协议所需要的首部或者尾部，而在向上的过程中不断拆开首部和尾部。&lt;/p&gt;
+
+&lt;p&gt;路由器只有下面三层协议，因为路由器位于网络核心中，不需要为进程或者应用程序提供服务，因此也就不需要传输层和应用层。&lt;/p&gt;
+
+&lt;h2 id=&quot;链路层&quot;&gt;链路层&lt;/h2&gt;
+
+&lt;p&gt;基本问题&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;封装成帧：在网络层传下来的分组前后添加首部和尾部，以标记帧的开始和结束。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;透明传输：防止数据部分出现和首部尾部相同的内容而误判帧界限，采用&lt;strong&gt;转义字符&lt;/strong&gt;处理。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;差错检测：常用&lt;strong&gt;循环冗余检验（CRC）&lt;/strong&gt;来检查比特差错。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;信道分类&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;广播信道：一对多通信，需要控制方法避免冲突（如&lt;strong&gt;信道复用技术、CSMA/CD 协议&lt;/strong&gt;）。&lt;/li&gt;
+  &lt;li&gt;点对点信道：一对一通信，使用&lt;strong&gt;PPP 协议&lt;/strong&gt;进行控制。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;信道复用技术&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;频分复用（FDM）：不同主机使用不同频率带宽，同时通信。&lt;/li&gt;
+  &lt;li&gt;时分复用（TDM）：不同主机使用相同频率带宽，但在不同时间段通信。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;CSMA/CD 协议&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;载波监听多点接入/碰撞检测
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;多点接入&lt;/strong&gt;：总线型网络，多个主机共享信道。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;载波监听&lt;/strong&gt;：发送前先监听信道是否空闲。&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;碰撞检测&lt;/strong&gt;：发送中如果检测到碰撞，则停止发送，采用&lt;strong&gt;截断二进制指数退避算法&lt;/strong&gt;进行重传。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;MAC 地址&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;链路层地址&lt;/strong&gt;，长度 &lt;strong&gt;48 位（6 字节）&lt;/strong&gt;，唯一标识网络适配器。&lt;/li&gt;
+  &lt;li&gt;每个网卡有一个 MAC 地址，设备若有多个网卡（如无线 + 有线），则有多个 MAC 地址。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;局域网&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;以太网、令牌环网、FDDI、ATM&lt;/strong&gt; 等有线局域网技术，以太网为主流。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;局域网分类&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;总线型&lt;/strong&gt;（早期）&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;星型&lt;/strong&gt;（主流，以太网）&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;环型&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;网状型&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;交换机&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;自学习能力&lt;/strong&gt;：记录 MAC 地址与端口的映射关系。&lt;/li&gt;
+  &lt;li&gt;具有&lt;strong&gt;存储转发&lt;/strong&gt;功能，减少冲突，提高效率。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;虚拟局域网（VLAN）&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;通过逻辑划分局域网，不受物理位置限制，避免不必要的广播流量。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;IEEE 802.1Q&lt;/strong&gt; 标准，通过 &lt;strong&gt;4 字节 VLAN 标签&lt;/strong&gt; 标识 VLAN 成员。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;网络层&quot;&gt;网络层&lt;/h2&gt;
+
+&lt;p&gt;因为网络层是整个互联网的核心，因此应当让网络层尽可能简单。网络层向上只提供简单灵活的、无连接的、尽最大努力交互的数据报服务。&lt;/p&gt;
+
+&lt;p&gt;使用 IP 协议，可以把异构的物理网络连接起来，使得在网络层看起来好像是一个统一的网络。&lt;/p&gt;
+
+&lt;p&gt;与 IP 协议配套使用的还有三个协议：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;地址解析协议 ARP（Address Resolution Protocol）&lt;/li&gt;
+  &lt;li&gt;网际控制报文协议 ICMP（Internet Control Message Protocol）&lt;/li&gt;
+  &lt;li&gt;网际组管理协议 IGMP（Internet Group Management Protocol）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;ip&quot;&gt;IP&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;IP 数据报格式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;版本&lt;/strong&gt; : 有 4（IPv4）和 6（IPv6）两个值&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;首部长度&lt;/strong&gt; : 占 4 位，因此最大值为 15，最小值为 5（20 字节）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;区分服务&lt;/strong&gt; : 用来获得更好的服务，一般情况下不使用&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;总长度&lt;/strong&gt; : 包括首部长度和数据部分长度&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;生存时间&lt;/strong&gt; : TTL，防止数据报在网络中无限循环，值为 0 时丢弃&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;协议&lt;/strong&gt; : 指定数据报的上层协议，如 ICMP、TCP、UDP 等&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;首部检验和&lt;/strong&gt; : 检验数据报是否损坏，仅计算首部部分&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;标识&lt;/strong&gt; : 用于分片，相同数据报的分片具有相同的标识符&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;片偏移&lt;/strong&gt; : 标识分片的位置，单位为 8 字节&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;IP 地址编址方式&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;IP 地址的编址方式经历了三个阶段：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;分类
+    &lt;ul&gt;
+      &lt;li&gt;IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/li&gt;
+      &lt;li&gt;A类，B类， C, D&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;子网划分
+    &lt;ul&gt;
+      &lt;li&gt;IP 地址 ::= {&amp;lt; 网络号 &amp;gt;, &amp;lt; 子网号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/li&gt;
+      &lt;li&gt;要使用子网，必须配置子网掩码。一个 B 类地址的默认子网掩码为 255.255.0.0&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;无分类
+    &lt;ul&gt;
+      &lt;li&gt;无分类编址 CIDR 消除了传统 A 类、B 类和 C 类地址以及划分子网的概念，使用网络前缀和主机号来对 IP 地址进行编码，网络前缀的长度可以根据需要变化。&lt;/li&gt;
+      &lt;li&gt;IP 地址 ::= {&amp;lt; 网络前缀号 &amp;gt;, &amp;lt; 主机号 &amp;gt;}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;地址解析协议 ARP&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;ARP 负责从 IP 地址解析 MAC 地址。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;每个主机维护一个 ARP 缓存，存储 IP-MAC 映射表&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若缓存无目标 IP 地址，则通过广播发送 ARP 请求&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;目标主机收到请求后，回复 ARP 响应并更新缓存&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;网络地址转换 NAT   NAT 允许专用网内的主机通过公共 IP 访问互联网。   - 传统 NAT：一对一映射，限制同时在线的主机数量   - NAPT（端口映射）：多个内部主机共用一个公共 IP，通过端口号区分&lt;/p&gt;
+
+&lt;h3 id=&quot;dns&quot;&gt;&lt;a href=&quot;https://javabetter.cn/cs/wangluo.html#dns&quot;&gt;DNS&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;DNS通过主机名，最终得到该主机名对应的IP地址的过程叫做域名解析（或主机名解析）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;通俗的讲&lt;/strong&gt;，我们更习惯于记住一个网站的名字，www.baidu.com，而不是记住它的ip地址，比如：167.23.10.2&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A记录&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;定义www.example.com的ip地址
+www.example.com.     IN     A     139.18.28.5;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;上面的就是一条 DNS 记录，纯文本即可。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.example.com&lt;/code&gt; 是要解析的域名。&lt;/p&gt;
+
+&lt;p&gt;A 是记录的类型，A 记录代表着这是一条用于解析 IPv4 地址的记录。&lt;/p&gt;
+
+&lt;p&gt;从这条记录可知，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;www.example.com&lt;/code&gt;的 IP 地址是 139.18.28.5。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CNAME&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;CNAME用于定义域名的别名，如下面这条 DNS 记录：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;定义www.example.com的别名
+a.example.com.          IN     CNAME   b.example.com.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这条 DNS 记录定义了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.example.com&lt;/code&gt; 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b.example.com&lt;/code&gt; 的别名。&lt;/p&gt;
+
+&lt;p&gt;用户在浏览器中输入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.example.com&lt;/code&gt; 时候，通过 DNS 查询会知道 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.example.com&lt;/code&gt; 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b.example.com&lt;/code&gt; 的别名，因此需要实际 IP 的时候，会去拿 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;b.example.com&lt;/code&gt; 的 A 记录。&lt;/p&gt;
+
+&lt;p&gt;当你想把一个网站迁移到新域名，旧域名仍然保留的时候；还有当你想将自己的静态资源放到 CDN 上的时候，CNAME 就非常有用。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AAAA 记录&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A 记录是域名和 IPv4 地址的映射关系。和 A 记录类似，AAAA 记录则是域名和 IPv6 地址的映射关系。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;MX记录&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;MX 记录是邮件记录，用来描述邮件服务器的域名。&lt;/p&gt;
+
+&lt;p&gt;在工作中，我们经常会发邮件到某个同事的邮箱。&lt;/p&gt;
+
+&lt;p&gt;比如说，发送一封邮件到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xiaoming@xiaoflyfish.com&lt;/code&gt;，那么如何知道哪个 IP 地址是邮件服务器呢？&lt;/p&gt;
+
+&lt;p&gt;这个时候就可以用到下面这条 MX 记录：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;IN MX mail.xiaoflyfish.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mail.xiaoflyfish.com&lt;/code&gt; 的 IP 地址可以通过查询 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mail.xiaoflyfishcom &lt;/code&gt;的 A 记录和 AAAA 记录获得。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;NS 记录&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;NS记录是描述 DNS 服务器网址。从 DNS 的存储结构上说，Name Server 中含有权威 DNS 服务的目录。&lt;/p&gt;
+
+&lt;p&gt;也就是说，NS 记录指定哪台 Server 是回答 DNS 查询的权威域名服务器。&lt;/p&gt;
+
+&lt;p&gt;当一个 DNS 查询看到 NS 记录的时候，会再去 NS 记录配置的 DNS 服务器查询，得到最终的记录。如下面这个例子：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.com.     IN      NS      ns1.a.com.
+a.com.     IN      NS      ns2.a.com.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;当解析 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 地址时，我们看到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 有两个 NS 记录，所以确定最终 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 的记录在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ns1.a.com&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ns2.a.com&lt;/code&gt; 上。&lt;/p&gt;
+
+&lt;p&gt;从设计上看，ns1 和 ns2 是网站 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 提供的智能 DNS 服务器，可以提供负载均衡、分布式 Sharding 等服务。&lt;/p&gt;
+
+&lt;p&gt;比如当一个北京的用户想要访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 的时候，ns1 看到这是一个北京的 IP 就返回一个离北京最近的机房 IP。&lt;/p&gt;
+
+&lt;p&gt;上面代码中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 配置了两个 NS 记录。&lt;/p&gt;
+
+&lt;p&gt;通常 NS 不会只有一个，这是为了保证高可用，一个挂了另一个还能继续服务。&lt;/p&gt;
+
+&lt;p&gt;通常数字小的 NS 记录优先级更高，也就是 ns1 会优先于 ns2 响应。&lt;/p&gt;
+
+&lt;p&gt;配置了上面的 NS 记录后，如果还配置了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.com&lt;/code&gt; 的 A 记录，那么这个 A 记录会被 NS 记录覆盖。&lt;/p&gt;
+
+&lt;h3 id=&quot;arp协议&quot;&gt;&lt;a href=&quot;https://javabetter.cn/cs/wangluo.html#arp协议&quot;&gt;ARP协议&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;ARP即地址解析协议， 用于实现从 IP 地址到 MAC 地址的映射，即询问目标IP对应的MAC地址。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ARP协议的工作过程&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先，每个主机都会有自己的ARP缓存区中建立一个ARP列表，以表示IP地址和MAC地址之间的对应关系&lt;/p&gt;
+
+&lt;p&gt;当源主机要发送数据时，首先检测ARP列表中是否对应IP地址的目的主机的MAC地址，如果有，则直接发送数据，如果没有，就向本网段的所有主机发送ARP数据包&lt;/p&gt;
+
+&lt;p&gt;当本网络的所有主机收到该ARP数据包时，首先检查数据包中的IP地址是否是自己的IP地址，如果不是，则忽略该数据包，如果是，则首先从数据包中取出源主机的IP和MAC地址写入到ARP列表中，如果存在，则覆盖然后将自己的MAC地址写入ARP响应包中，告诉源主机自己是它想要找的MAC地址&lt;/p&gt;
+
+&lt;p&gt;源主机收到ARP响应包后，将目的主机的IP和MAC地址写入ARP列表，并利用此信息发送数据，如果源主机一直没有收到ARP响应数据包，表示ARP查询失败。&lt;/p&gt;
+
+&lt;h3 id=&quot;icmp&quot;&gt;ICMP&lt;/h3&gt;
+
+&lt;h4 id=&quot;1-ping&quot;&gt;1. Ping&lt;/h4&gt;
+
+&lt;p&gt;Ping 是 ICMP 的一个重要应用，主要用来测试两台主机之间的连通性。&lt;/p&gt;
+
+&lt;p&gt;Ping 的原理是通过向目的主机发送 ICMP Echo 请求报文，目的主机收到之后会发送 Echo 回答报文。Ping 会根据时间和成功响应的次数估算出数据包往返时间以及丢包率。&lt;/p&gt;
+
+&lt;h4 id=&quot;2-traceroute&quot;&gt;&lt;a href=&quot;http://www.cyc2018.xyz/计算机基础/网络基础/计算机网络 - 网络层.html#_2-traceroute&quot;&gt;#&lt;/a&gt;2. Traceroute&lt;/h4&gt;
+
+&lt;p&gt;Traceroute 是 ICMP 的另一个应用，用来跟踪一个分组从源点到终点的路径。&lt;/p&gt;
+
+&lt;p&gt;Traceroute 发送的 IP 数据报封装的是无法交付的 UDP 用户数据报，并由目的主机发送终点不可达差错报告报文。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;源主机向目的主机发送一连串的 IP 数据报。第一个数据报 P1 的生存时间 TTL 设置为 1，当 P1 到达路径上的第一个路由器 R1 时，R1 收下它并把 TTL 减 1，此时 TTL 等于 0，R1 就把 P1 丢弃，并向源主机发送一个 ICMP 时间超过差错报告报文；&lt;/li&gt;
+  &lt;li&gt;源主机接着发送第二个数据报 P2，并把 TTL 设置为 2。P2 先到达 R1，R1 收下后把 TTL 减 1 再转发给 R2，R2 收下后也把 TTL 减 1，由于此时 TTL 等于 0，R2 就丢弃 P2，并向源主机发送一个 ICMP 时间超过差错报文。&lt;/li&gt;
+  &lt;li&gt;不断执行这样的步骤，直到最后一个数据报刚刚到达目的主机，主机不转发数据报，也不把 TTL 值减 1。但是因为数据报封装的是无法交付的 UDP，因此目的主机要向源主机发送 ICMP 终点不可达差错报告报文。&lt;/li&gt;
+  &lt;li&gt;之后源主机知道了到达目的主机所经过的路由器 IP 地址以及到达每个路由器的往返时间。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;网络地址转换-nat&quot;&gt;网络地址转换 NAT&lt;/h3&gt;
+
+&lt;p&gt;NAT 允许专用网内的主机通过公共 IP 访问互联网。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;传统 NAT：一对一映射，限制同时在线的主机数量&lt;/li&gt;
+  &lt;li&gt;NAPT（端口映射）：多个内部主机共用一个公共 IP，通过端口号区分&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;路由器分组转发流程&quot;&gt;路由器分组转发流程&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;从数据报的首部提取目的主机的 IP 地址 D，得到目的网络地址 N。&lt;/li&gt;
+  &lt;li&gt;若 N 就是与此路由器直接相连的某个网络地址，则进行直接交付；&lt;/li&gt;
+  &lt;li&gt;若路由表中有目的地址为 D 的特定主机路由，则把数据报传送给表中所指明的下一跳路由器；&lt;/li&gt;
+  &lt;li&gt;若路由表中有到达网络 N 的路由，则把数据报传送给路由表中所指明的下一跳路由器；&lt;/li&gt;
+  &lt;li&gt;若路由表中有一个默认路由，则把数据报传送给路由表中所指明的默认路由器；&lt;/li&gt;
+  &lt;li&gt;报告转发分组出错。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/1ab49e39-012b-4383-8284-26570987e3c4.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;路由选择协议&quot;&gt;路由选择协议&lt;/h3&gt;
+
+&lt;p&gt;互联网分为多个自治系统（AS），每个 AS 运行独立的路由协议。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;自治系统内部路由协议&lt;/strong&gt;：RIP、OSPF&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;自治系统间路由协议&lt;/strong&gt;：BGP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;内部网关协议-rip&quot;&gt;内部网关协议 RIP&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;基于距离向量算法，度量单位为跳数（最大 15）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;RIP 按固定的时间间隔仅和相邻路由器交换自己的路由表，经过若干次交换之后，所有路由器最终会知道到达本自治系统中任何一个网络的最短距离和下一跳路由器地址。仅&lt;/strong&gt;和相邻路由器交换路由表&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;采用 3 分钟超时机制，未收到更新则标记为不可达&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;缺点：最大跳数 15 限制了网络规模，收敛速度慢&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;内部网关协议-ospf&quot;&gt;内部网关协议 OSPF&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;向本自治系统中的所有路由器发送信息，这种方法是洪泛法。所有路由器都具有全网的拓扑结构图，并且是一致的。相比于 RIP，OSPF 的更新过程收敛的很快。&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;采用链路状态算法，使用 Dijkstra 最短路径算法&lt;/li&gt;
+  &lt;li&gt;所有路由器共享一致的网络拓扑结构&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;外部网关协议-bgp&quot;&gt;外部网关协议 BGP&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;用于 AS 之间的路由选择&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不能保证最优路径，仅寻找较优路径&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;每个 AS 通过 BGP 发言人交换路由信息&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;BGP 采用 TCP 连接进行通信&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="computerNetwork" /><category term="computerNetwork" /><summary type="html">计算机网络</summary></entry><entry><title type="html">3326. 使数组非递减的最少除法操作次数</title><link href="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="3326. 使数组非递减的最少除法操作次数" /><published>2024-10-26T00:00:00+08:00</published><updated>2024-10-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/10/26/3326.%20%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/10/26/3326.-%E4%BD%BF%E6%95%B0%E7%BB%84%E9%9D%9E%E9%80%92%E5%87%8F%E7%9A%84%E6%9C%80%E5%B0%91%E9%99%A4%E6%B3%95%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-division-operations-to-make-array-non-decreasing/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给你一个整数数组 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nums&lt;/code&gt; 。&lt;/p&gt;
@@ -2069,94 +2480,5 @@ AttributeError: &apos;NoneType&apos; object has no attribute &apos;mr_free_conte
                 &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
                 &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">100290. 使矩阵满足条件的最少操作次数</title><link href="https://mafulong.github.io/2024/04/21/100290.-%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/" rel="alternate" type="text/html" title="100290. 使矩阵满足条件的最少操作次数" /><published>2024-04-21T00:00:00+08:00</published><updated>2024-04-21T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/04/21/100290.%20%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0</id><content type="html" xml:base="https://mafulong.github.io/2024/04/21/100290.-%E4%BD%BF%E7%9F%A9%E9%98%B5%E6%BB%A1%E8%B6%B3%E6%9D%A1%E4%BB%B6%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%AC%A1%E6%95%B0/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/minimum-number-of-operations-to-satisfy-conditions/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给你一个大小为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;m x n&lt;/code&gt; 的二维矩形 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid&lt;/code&gt; 。每次 &lt;strong&gt;操作&lt;/strong&gt; 中，你可以将 &lt;strong&gt;任一&lt;/strong&gt; 格子的值修改为 &lt;strong&gt;任意&lt;/strong&gt; 非负整数。完成所有操作后，你需要确保每个格子 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j]&lt;/code&gt; 的值满足：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果下面相邻格子存在的话，它们的值相等，也就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j] == grid[i + 1][j]&lt;/code&gt;（如果存在）。&lt;/li&gt;
-  &lt;li&gt;如果右边相邻格子存在的话，它们的值不相等，也就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[i][j] != grid[i][j + 1]&lt;/code&gt;（如果存在）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;请你返回需要的 &lt;strong&gt;最少&lt;/strong&gt; 操作数目。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1,0,2],[1,0,2]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;0&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542313.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;矩阵中所有格子已经满足要求。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1,1,1],[0,0,0]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;3&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542473.png&quot; alt=&quot;img&quot; /&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;将矩阵变成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[[1,0,1],[1,0,1]]&lt;/code&gt; ，它满足所有要求，需要 3 次操作：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[1][0]&lt;/code&gt; 变为 1 。&lt;/li&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[0][1]&lt;/code&gt; 变为 0 。&lt;/li&gt;
-  &lt;li&gt;将 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid[1][2]&lt;/code&gt; 变为 1 。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 3：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输入：&lt;/strong&gt;grid = [[1],[2],[3]]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;输出：&lt;/strong&gt;2&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202404211542668.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;这个矩阵只有一列，我们可以通过 2 次操作将所有格子里的值变为 1 。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;提示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1 &amp;lt;= n, m &amp;lt;= 1000&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0 &amp;lt;= grid[i][j] &amp;lt;= 9&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;minimumOperations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][:])&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;# print(d)
-&lt;/span&gt;
-        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;functools&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;functools&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lru_cache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;inf&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;counter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dfs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
