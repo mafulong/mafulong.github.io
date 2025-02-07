@@ -11,7 +11,7 @@ tags: Tools
 
 ![image-20220228134807860](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220228134807.png)
 
-## [使用 chrome 扩展 Vimium 实现快捷键关闭其他标签页](https://www.cnblogs.com/36bian/p/7669594.html)
+## 使用 chrome 扩展 Vimium 实现快捷键关闭其他标签页
 
 自定义配置
 
