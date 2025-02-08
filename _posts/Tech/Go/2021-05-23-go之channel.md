@@ -27,6 +27,11 @@ tags: Go
 	d := <-c1
 	<-c1
 
+	// 双向channel可直接转换成单向的channel
+  a := make(chan int, 100)
+	b := make(chan<- int, 3)
+	b = a
+	
 	select {
 	case c <- 3:
 		return
@@ -165,7 +170,7 @@ tags: Go
 
 总结一下，发生 panic 的情况有三种：向一个关闭的 channel 进行写操作；关闭一个 nil 的 channel；重复关闭一个 channel。
 
-读、写一个 nil channel 都会被阻塞。
+**读、写一个 nil channel 都会被阻塞。**
 
 
 
