@@ -305,7 +305,7 @@ type g struct {
 - gobuf: 各种pc, sp寄存器。
 - m:  线程信息，包含了自身使用的栈信息、G信息、P信息。
 
-## Key Points
+## QA
 
 [参考](https://www.bookstack.cn/read/qcrao-Go-Questions/goroutine%20%E8%B0%83%E5%BA%A6%E5%99%A8-%E4%BB%80%E4%B9%88%E6%98%AF%20go%20shceduler.md)
 
@@ -331,6 +331,34 @@ Go 程序的执行由两层组成：Go Program，Runtime，即用户程序和运
 Go scheduler 是 Go runtime 的一部分，它内嵌在 Go 程序里，和 Go 程序一起运行。因此它运行在用户空间，在 kernel 的上一层。和 Os scheduler 抢占式调度（preemptive）不一样，Go scheduler 采用协作式调度（cooperating）。
 
 但是由于在 Go 语言里，goroutine 调度的事情是由 Go runtime 来做，并非由用户控制，所以我们依然可以将 Go scheduler 看成是抢占式调度，因为用户无法预测调度器下一步的动作是什么。
+
+
+
+
+
+### Go启动过程
+
+在项目根目录下执行：
+
+```
+go build -gcflags "-N -l" -o hello src/main.go
+```
+
+`-gcflags "-N -l"` 是为了关闭编译器优化和函数内联，防止后面在设置断点的时候找不到相对应的代码位置。
+
+得到了可执行文件 hello
+
+> 1. 检查运行平台的CPU，设置好程序运行需要相关标志。
+> 2. TLS的初始化。
+> 3. runtime.args、runtime.osinit、runtime.schedinit 三个方法做好程序运行需要的各种变量与调度器。
+> 4. runtime.newproc创建新的goroutine用于绑定用户写的main方法。
+> 5. runtime.mstart开始goroutine的调度。
+
+main 函数里执行的一些重要的操作包括：新建一个线程执行 sysmon 函数，定期垃圾回收和调度抢占；启动 gc；执行所有的 init 函数等等。
+
+
+
+
 
 <img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv3/v3/20220423175721.png" alt="goroutine workflow" style="zoom:67%;" />
 
