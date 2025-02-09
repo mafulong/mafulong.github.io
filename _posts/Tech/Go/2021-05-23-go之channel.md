@@ -134,6 +134,8 @@ tags: Go
   
 - channel关闭后读取可以读到零值
 
+- channel是FIFO并且公平的，但select语句是随机的。
+
 - channel的happened-before
   
   - channel close 一定 `happened before` receiver 得到通知。由于现代编译器、CPU 会做各种优化，包括编译器重排、内存重排等等，在并发代码里，happened-before 限制就非常重要了。
