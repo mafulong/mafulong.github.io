@@ -5,6 +5,8 @@ title: 会话管理session及jwt
 tags: Others
 ---
 
+[参考](https://javaguide.cn/system-design/security/basis-of-authority-certification.html#%E4%B8%BA%E4%BB%80%E4%B9%88-cookie-%E6%97%A0%E6%B3%95%E9%98%B2%E6%AD%A2-csrf-%E6%94%BB%E5%87%BB-%E8%80%8C-token-%E5%8F%AF%E4%BB%A5)
+
 ## cookie、session
 
 cookie：cookie中的信息是以键值对的形式储存在浏览器中，而且在浏览器中可以直接看到数据
@@ -32,7 +34,13 @@ session：session存储在服务器中，然后发送一个cookie存储在浏览
 
 
 
-### 改造版
+### 改造版 使用local storage
+
+
+
+将Session存入redis来解决分布式系统中的Session同步问题。同时提高了Session的获取速度;  Cookie 是基于域名存储的，不能跨域共享。如果你的应用涉及多个子域名或不同的域名，使用 Cookie 会面临跨域访问的问题。
+
+
 
 用了redis， 本地不用cookie, 浏览器使用local storage，app使用app数据库
 
@@ -52,6 +60,8 @@ JWT是无状态的(stateless), 后端不必保存有关session的信息. 后端�
 
 Token通常以`Bearer {JWT}`的形式保存在Authentication header中, 也可以放到POST body或query parameter中.
 
+
+
 流程如下:
 
 1. 用户输入登录信息
@@ -69,6 +79,32 @@ header中通常来说由token的生成算法和类型组成；payload中则用�
 
 
 缺点：  `token`由于自包含信息，因此一般数据量较大，而且每次请求 都需要传递，因此比较占带宽
+
+
+
+
+
+[为什么 Cookie 无法防止 CSRF 攻击，而 Token 可以？](https://javaguide.cn/system-design/security/basis-of-authority-certification.html#为什么-cookie-无法防止-csrf-攻击-而-token-可以)  
+
+- 在我们登录成功获得 `Token` 之后，一般会选择存放在 `localStorage` （浏览器本地存储）中。然后我们在前端通过某些方式会给每个发到后端的请求加上这个 `Token`,这样就不会出现 CSRF 漏洞的问题。因为，即使你点击了非法链接发送了请求到服务端，这个非法请求是不会携带 `Token` 的，所以这个请求将是非法的。
+
+
+
+#### [如何防止 JWT 被篡改？](#如何防止-jwt-被篡改)
+
+有了签名之后，即使 JWT 被泄露或者截获，黑客也没办法同时篡改 Signature、Header、Payload。
+
+这是为什么呢？因为服务端拿到 JWT 之后，会解析出其中包含的 Header、Payload 以及 Signature 。服务端会根据 Header、Payload、密钥再次生成一个 Signature。拿新生成的 Signature 和 JWT 中的 Signature 作对比，如果一样就说明 Header 和 Payload 没有被修改。
+
+不过，如果服务端的秘钥也被泄露的话，黑客就可以同时篡改 Signature、Header、Payload 了。黑客直接修改了 Header 和 Payload 之后，再重新生成一个 Signature 就可以了。
+
+**密钥一定保管好，一定不要泄露出去。JWT 安全的核心在于签名，签名安全的核心在密钥。**
+
+
+
+如果 **JWT 被截获**，攻击者就可能使用这个 token 伪造请求。JWT 本身是自包含的，包含了用户的认证信息和一些元数据（如有效期），而且默认情况下它是 **无状态** 的，这就意味着服务端通常不保存 JWT 的信息，所有的信息都在 token 本身。因此，如果 JWT 被篡改或盗取，确实会导致 **安全问题**。
+
+
 
 ## 开放授权 oauth2
 
