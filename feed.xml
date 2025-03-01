@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-02-25T22:05:14+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">513. 找树左下角的值</title><link href="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/" rel="alternate" type="text/html" title="513. 找树左下角的值" /><published>2025-02-11T00:00:00+08:00</published><updated>2025-02-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/11/513.%20%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC</id><content type="html" xml:base="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-03-01T17:30:32+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">IM聊天功能设计</title><link href="https://mafulong.github.io/2025/03/01/IM%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1/" rel="alternate" type="text/html" title="IM聊天功能设计" /><published>2025-03-01T00:00:00+08:00</published><updated>2025-03-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/03/01/IM%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1</id><content type="html" xml:base="https://mafulong.github.io/2025/03/01/IM%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1/">&lt;h2 id=&quot;im聊天功能设计&quot;&gt;IM聊天功能设计&lt;/h2&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;p&gt;https://www.cnblogs.com/theseventhson/p/16625031.html&lt;/p&gt;
+
+&lt;h2 id=&quot;model&quot;&gt;Model&lt;/h2&gt;
+
+&lt;p&gt;会话: Thread. 这个会话头像是什么，什么时候创建的。成员都有谁。&lt;/p&gt;
+
+&lt;p&gt;消息: Message. 属于哪个会话。&lt;/p&gt;
+
+&lt;p&gt;（1）Thread Table：当然是列举了所有会话！注意，这里包括所有用户的所有会话。以微信为例，假如有30亿注册用户，平均每个用户有100个会话，那么这个表就有3000亿行！&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;id：就是会话id啦，全局唯一！&lt;/li&gt;
+  &lt;li&gt;last_message: 这个会话最后收到的消息，是需要显实在app上的&lt;/li&gt;
+  &lt;li&gt;create_at: 会话的创建时间&lt;/li&gt;
+  &lt;li&gt;participant_user_ids: 会话的参与者。如果是两个人点对点聊天，就是另一个userId；如果是群聊，就需要把所有的user_id都列举了！可以做成【uid1,uid2,uid3…】的形式&lt;/li&gt;
+  &lt;li&gt;participant_user_hashcode: 对上面的participant_user_ids求hash，&lt;strong&gt;便于快速定位群聊消息的thread_id&lt;/strong&gt;!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（2）UserThreadTable：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;user_id: 这个表存放的是特定用户的thread信息了&lt;/li&gt;
+  &lt;li&gt;其他都是该user自己的属性&lt;/li&gt;
+  &lt;li&gt;为什么要和ThreadTable分开了？松耦合可以防止数据冗余、臃肿，也利于后期表结构更改！当然确定也明显：需要join，增加耗时！&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;（3）Message Table:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;thread_id: 哪个会话的message？&lt;/li&gt;
+  &lt;li&gt;user_id: 哪个用户发的？&lt;/li&gt;
+  &lt;li&gt;content和create_at最重要了，懂得都懂！&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;存储选型&quot;&gt;存储选型&lt;/h2&gt;
+
+&lt;p&gt;数据表的设计定了，数据该用什么存了? 以2019年其公开课提供的10.8亿月活【现在肯定不止这个数了】、日发送450亿条message推算：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Average QPS = 45B / 86400 = 520k，每秒发送52w条message&lt;/li&gt;
+  &lt;li&gt;Peak QPS = 520k * 3 = 1.5m，峰值按照3倍计算，每秒发送150w条message&lt;/li&gt;
+  &lt;li&gt;假设每条message占用50byte空间，每天45billion的message大约需要2T的空间！&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　这么大的数据量，这么高的并发量，是用sql，还是nosql了？&lt;/p&gt;
+
+&lt;p&gt;（4）先来分析一下MessageTable，有以下两个特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;读多，写多，一条message就像一条log日志&lt;/li&gt;
+  &lt;li&gt;修改少&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;需要用timestamp对消息的收发顺序排序&lt;/p&gt;
+
+    &lt;p&gt;综合对比，还是用nosql数据库吧！以Cassandra为例，存储结构如下：&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;row_key = thread_id&lt;/li&gt;
+  &lt;li&gt;column_key = created_at 因为要按照时间倒序&lt;/li&gt;
+  &lt;li&gt;value = 其他信息，比如表的其他字段&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　可以直接用thread_id做index，用creat_at来sort message！sharding直接用thread_id就好！&lt;/p&gt;
+
+&lt;p&gt;（5）UserThread Table：这个表和user相关的，存放每个user自己private的数据，特点如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;更新比较频繁&lt;/li&gt;
+  &lt;li&gt;到了后期新增数据量会减缓&lt;/li&gt;
+  &lt;li&gt;需要用timestamp对消息的收发顺序排序&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　　综合考虑还是用nosql数据库，存储结构如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;row_key = user_id&lt;/li&gt;
+  &lt;li&gt;column_key = updated_at 按照更新时间sort&lt;/li&gt;
+  &lt;li&gt;value = 其他信息，比如表的其他字段&lt;/li&gt;
+  &lt;li&gt;用user_id来sharding&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　 （6）最后看看ThreadTable，特点如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;last_message会频繁更新&lt;/li&gt;
+  &lt;li&gt;后期新增行的频率会基本稳定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　　这么来看，貌似用sql和Nosql都还行！如果用sql数据库，&lt;strong&gt;需要同时index by&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;thread_id：用于查询某个对话的信息&lt;/li&gt;
+  &lt;li&gt;participant_user_hashcode： 用户查询某两个或多个用户【就是群聊啦】之间是否已经有会话&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;　　如果用Nosql数据库了？如果同时支持按照 thread_id 和participant_hash_code 进行查询，我们需要两张表：因为nosql不支持join，所以需要根据participant_hash_code查thread_id【像不像ES的invert index？】，然后根据thread_id查last_message、avarta、create_at、particitant_user_ids等其他字段；相比于sql数据库的B+索引，速度快很多【sql数据库能做的，nosql数据库也能做，大不了就多建几张表嘛！其实sql建索引也是要额外耗费存储的】！两张表存储建二狗设计如下：&lt;/p&gt;
+
+&lt;p&gt;　　• 表1：Thread Table&lt;/p&gt;
+
+&lt;p&gt;　　　　• row_key = thread_id&lt;/p&gt;
+
+&lt;p&gt;　　　　• column_key = null&lt;/p&gt;
+
+&lt;p&gt;　　　　• value = 其他的基本信息&lt;/p&gt;
+
+&lt;p&gt;　　• 表2：ParticipantHashCode Table&lt;/p&gt;
+
+&lt;p&gt;　　　　• row_key = participant_hash_code&lt;/p&gt;
+
+&lt;p&gt;　　　　• column_key = null&lt;/p&gt;
+
+&lt;p&gt;　　　　• value = thread_id&lt;/p&gt;
+
+&lt;p&gt;总结&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nosql存储。&lt;/li&gt;
+  &lt;li&gt;基本上是按照thread id进行partition，然后时间有序。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;优化&quot;&gt;优化&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用websocket，心跳保持在线&lt;/li&gt;
+  &lt;li&gt;对于群聊，只给在线的user push message就行了。 增加一个Channel Service（频道服务），为每个聊天的Thread增加一个Channel信息。 对于较大群，在线用户先需要订阅到对应的 Channel 上。
+    &lt;ul&gt;
+      &lt;li&gt;群发消息时，先发到群聊thread上，然后再让channel push。松耦合设计。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="SystemDesign" /><category term="SystemDesign" /><summary type="html">IM聊天功能设计</summary></entry><entry><title type="html">513. 找树左下角的值</title><link href="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/" rel="alternate" type="text/html" title="513. 找树左下角的值" /><published>2025-02-11T00:00:00+08:00</published><updated>2025-02-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/11/513.%20%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC</id><content type="html" xml:base="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/find-bottom-left-tree-value/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;给定一个二叉树的 &lt;strong&gt;根节点&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;，请找出该二叉树的 &lt;strong&gt;最底层 最左边&lt;/strong&gt; 节点的值。&lt;/p&gt;
@@ -2038,14 +2170,4 @@ AttributeError: &apos;NoneType&apos; object has no attribute &apos;mr_free_conte
                 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
                     &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry><entry><title type="html">mac显示器设置</title><link href="https://mafulong.github.io/2024/05/09/mac%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE/" rel="alternate" type="text/html" title="mac显示器设置" /><published>2024-05-09T00:00:00+08:00</published><updated>2024-05-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2024/05/09/mac%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2024/05/09/mac%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE/">&lt;h2 id=&quot;mac显示器设置&quot;&gt;mac显示器设置&lt;/h2&gt;
-
-&lt;p&gt;Mac OS设置2K分辨率显示器开启&lt;strong&gt;HiDPI&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;下载安装BetterDisplay这个软件。pro要收费，但hidpi不收费。&lt;/p&gt;
-
-&lt;p&gt;它可以把Mac的外接显示器从1080/2k撑大到接近4K！&lt;/p&gt;
-
-&lt;p&gt;BetterDisplay Pro可以校准显示器的亮度、对比度、色彩和色温、自动调整显示器的亮度和色温、提供多个预设模式、支持多显示器调整、自定义设置等。&lt;/p&gt;
-
-&lt;p&gt;如何实现苹果外接显示器清晰度提升？下载BetterDisplay后，在设置中将指定外接显示器分辨率调整为HiDPI分辨率即可！&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac显示器设置</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
