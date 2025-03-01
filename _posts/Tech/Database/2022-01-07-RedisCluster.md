@@ -203,12 +203,6 @@ gossip协议有网络风暴问题，节点数过多比如超过1000时就有性�
 
 ## Redis Cluster容错failover
 
-
-
-
-
-
-
 1. Redis Cluster 采用 **主从架构**，只有主节点提供服务，从节点进行热备份。
 - **Failover（主从切换）** 是核心的容错机制：当主节点失效时，从节点会选举一个新的主节点。
 - Failover 机制包括 **自动 Failover** 和 **手动 Failover（Manual Failover）**。
