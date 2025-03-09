@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-03-09T16:56:02+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">线上问题处理</title><link href="https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" rel="alternate" type="text/html" title="线上问题处理" /><published>2025-03-07T00:00:00+08:00</published><updated>2025-03-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/">&lt;h2 id=&quot;线上问题处理&quot;&gt;线上问题处理&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-03-09T23:33:33+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">线上问题处理</title><link href="https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" rel="alternate" type="text/html" title="线上问题处理" /><published>2025-03-07T00:00:00+08:00</published><updated>2025-03-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2025/03/07/%E7%BA%BF%E4%B8%8A%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/">&lt;h2 id=&quot;线上问题处理&quot;&gt;线上问题处理&lt;/h2&gt;
 
 &lt;p&gt;部署时，一些commit 增加了堆一些util的新引用。&lt;/p&gt;
 
@@ -15,6 +15,12 @@
   &lt;li&gt;初步定位： 是并发高了引起一些锁竞争或者io阻塞。&lt;/li&gt;
   &lt;li&gt;定位到是某个commit中引第三方的一个util包，里面打印log使用的同步io，非异步io。&lt;/li&gt;
   &lt;li&gt;后来在测试环境中压测了下之前部署的包，通过pprof等性能分析工具也二次确认了io阻塞的异常情况。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;复现&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;本地go benchmark并发调用也可以复现这个问题。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;优化&lt;/p&gt;
