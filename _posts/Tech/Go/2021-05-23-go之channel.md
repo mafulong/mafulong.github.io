@@ -3,6 +3,7 @@ layout: post
 category: Go
 title: go之channel
 tags: Go
+
 ---
 
 ## go之channel
@@ -50,6 +51,7 @@ tags: Go
 - CSP，Communicating Sequential Processes， 通信顺序处理。不要通过共享内存来通信，而要通过通信来实现内存共享。相比于内存共享（如mutex)，不需要考虑数据所有权，不需要保护结构的内部状态，不需要协调多个逻辑。
 
 - chan结构:
+
   - 一个循环数组（实际是循环链表），有发送、接收offset
   - 等待接收和发送的goroutine队列（这些 goroutine 由于尝试读取 channel 或向 channel 发送数据而被阻塞） **是双向链表，每个元素就是goroutine的封装**。
   - mutex锁保护所有字段。
@@ -59,9 +61,10 @@ tags: Go
 - channel引发goroutine泄露：当且仅当goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。程序运行过程中，对于一个 channel，如果没有任何 goroutine 引用了，gc 会对其进行回收操作，不会引起内存泄漏。
 
 - channel应用
+
   - 停止信号
   - 任务定时，time.Ticker()
-  
+
   ```go
   // 超时控制
   select {
@@ -82,11 +85,11 @@ tags: Go
       }
   }
   ```
+
   
-  
-  
+
   - 解耦生产方和消费放，当并发任务队列使用。服务启动时，启动 n 个 worker，100个生产者，5个消费者同时消费。
-  
+
   ```go
   func main() {
       taskCh := make(chan int, 100)
@@ -110,11 +113,11 @@ tags: Go
       }
   }
   ```
+
   
-  
-  
+
   - 控制并发数，比如len=3的chan.
-  
+
   ```go
   var limit = make(chan int, 3)
   func main() {
@@ -129,37 +132,40 @@ tags: Go
       // …………
   }
   ```
+
   
-  
-  
+
 - channel关闭后读取可以读到零值
 
 - channel是FIFO并且公平的，但select语句是随机的。
 
 - channel的happened-before
-  
+
   - channel close 一定 `happened before` receiver 得到通知。由于现代编译器、CPU 会做各种优化，包括编译器重排、内存重排等等，在并发代码里，happened-before 限制就非常重要了。
-  
+
 - 关闭chan过程
+
   - 对于等待接收者而言，会收到一个相应类型的零值。对于等待发送者，会直接 panic。
   - close 函数先上一把大锁，接着把所有挂在这个 channel 上的 sender 和 receiver 全都连成一个 sudog 链表，再解锁。最后，再将所有的 sudog 全都唤醒。唤醒之后，该干嘛干嘛。sender 会继续执行 chansend 函数里 goparkunlock 函数之后的代码，很不幸，检测到 channel 已经关闭了，panic。receiver 则比较幸运，进行一些扫尾工作后，返回。
-  
+
 - chan发送过程
+
   - 如果close, panic
   - 如果能从等待接收队列 recvq 里出队一个 sudog（代表一个 goroutine），说明此时 channel 是空的，没有元素，所以才会有等待接收者。这时会调用 send 函数将元素直接从发送者的栈拷贝到接收者的栈
   - 如果 `c.qcount < c.dataqsiz`，说明缓冲区可用（肯定是缓冲型的 channel）。先通过函数取出待发送元素应该去到的位置
   - 如果没有命中以上条件的，说明 channel 已经满了。不管这个 channel 是缓冲型的还是非缓冲型的，都要将这个 sender “关起来”（goroutine 被阻塞）。
   - 先构造一个 sudog，将其入队（channel 的 sendq 字段）。然后调用 `goparkunlock` 将当前 goroutine 挂起，并解锁，等待合适的时机再唤醒。
-  
+
 - 如何关闭chan
+
   - 不要从一个 receiver 侧关闭 channel，也不要在有多个 sender 时，关闭 channel。
-  
+
   - 本质：don’t close (or send values to) closed channels.
-  
+
   - 对于N 个 sender，一个 reciver： 增加一个中间人，增加一个传递关闭信号的 channel，receiver 通过信号 channel 下达关闭数据 channel 指令
-  
+
   - 对于N 个 sender， M 个 receiver： 需要增加一个中间人，M 个 receiver 都向它发送关闭 dataCh 的“请求”，中间人收到第一个请求后，就会直接下达关闭 dataCh 的指令
-  
+
     
 
 总结一下操作 channel 的结果：
@@ -175,47 +181,6 @@ tags: Go
 **读、写一个 nil channel 都会被阻塞。**
 
 
-
-## 应用考题
-
-极客上一道有意思的题，假设有4个 `goroutine`，编号为1，2，3，4。每秒钟会有一个 `goroutine` 打印出它自己的编号。现在让你写一个程序，要求输出的编号总是按照1，2，3，4这样的顺序打印。类似下图，
-
-```go
-package main
-
-import (
-  "fmt"
-  "time"
-)
-
-type token struct{}
-
-func main() {
-  num := 4
-  var chs []chan token
-  // 4 个work
-  for i := 0; i < num; i++ {
-    chs = append(chs, make(chan token))
-  }
-  for j := 0; j < num; j++ {
-    go worker(j, chs[j], chs[(j+1)%num])
-  }
-  // 先把令牌交给第一个
-  chs[0] <- struct{}{}
-  select {}
-}
-
-func worker(id int, ch chan token, next chan token) {
-  for {
-    // 对应work 取得令牌
-    token := <-ch
-    fmt.Println(id + 1)
-    time.Sleep(1 * time.Second)
-    // 传递给下一个
-    next <- token
-  }
-}
-```
 
 
 
@@ -245,4 +210,189 @@ func worker(id int, ch chan token, next chan token) {
 > - 向已经关闭的 channel 中写数据
 
 
+
+## 如何优雅关闭channel
+
+
+
+不要从一个 receiver 侧关闭 channel，也不要在有多个 sender 时，关闭 channel。
+
+
+
+有两个不那么优雅地关闭 channel 的方法：
+
+1. 使用 defer-recover 机制，放心大胆地关闭 channel 或者向 channel 发送数据。即使发生了 panic，有 defer-recover 在兜底。
+2. 使用 sync.Once 来保证只关闭一次。
+
+
+
+在 Go 语言中，对于一个 channel，如果最终没有任何 goroutine 引用它，不管 channel 有没有被关闭，最终都会被 gc 回收。所以，在这种情形下，所谓的优雅地关闭 channel 就是不关闭 channel，让 gc 代劳。
+
+
+
+### **那到底应该如何优雅地关闭 channel？**
+
+根据 sender 和 receiver 的个数，分下面几种情况：
+
+1. 一个 sender，一个 receiver
+2. 一个 sender， M 个 receiver
+3. N 个 sender，一个 receiver
+4. N 个 sender， M 个 receiver
+
+
+
+### 单Sender
+
+对于 1，2，只有一个 sender 的情况就不用说了，直接从 sender 端关闭就好了，没有问题。重点关注第 3，4 种情况。
+
+### 单receiver
+
+第 3 种情形下，优雅关闭 channel 的方法是：the only receiver says “please stop sending more” by closing an additional signal channel。
+
+解决方案就是增加一个传递关闭信号的 channel，receiver 通过信号 channel 下达关闭数据 channel 指令。senders 监听到关闭信号后，停止发送数据。
+
+
+
+备注:
+
+- 增加stop channel. 
+- sender里select stop channel 和 data channel。这样有写数据时直接退出，不继续写data channel。
+
+```go
+func main() {
+	rand.Seed(time.Now().UnixNano())
+
+	const Max = 100000
+	const NumSenders = 1000
+
+	dataCh := make(chan int, 100)
+	stopCh := make(chan struct{})
+
+	// senders
+	for i := 0; i < NumSenders; i++ {
+		go func() {
+			for {
+				select {
+				case <- stopCh:
+					return
+				case dataCh <- rand.Intn(Max):
+				}
+			}
+		}()
+	}
+
+	// the receiver
+	go func() {
+		for value := range dataCh {
+			if value == Max-1 {
+				fmt.Println("send stop signal to senders.")
+				close(stopCh)
+				return
+			}
+
+			fmt.Println(value)
+		}
+	}()
+
+	select {
+	case <- time.After(time.Hour):
+	}
+}
+```
+
+
+
+### 多sender, 多receiver
+
+**N 个 sender， M 个 receiver**
+
+
+
+和第 3 种情况不同，这里有 M 个 receiver，如果直接还是采取第 3 种解决方案，由 receiver 直接关闭 stopCh 的话，就会重复关闭一个 channel，导致 panic。因此需要增加一个中间人，M 个 receiver 都向它发送关闭 dataCh 的“请求”，中间人收到第一个请求后，就会直接下达关闭 dataCh 的指令（通过关闭 stopCh，这时就不会发生重复关闭的情况，因为 stopCh 的发送方只有中间人一个）。另外，这里的 N 个 sender 也可以向中间人发送关闭 dataCh 的请求。
+
+
+
+
+
+备注:
+
+- 增加stop channel. 
+- sender里select stop channel 和 data channel。这样有写数据时直接退出，不继续写data channel。
+- 因此stop channel不能多receiver里重复关闭，因此增加一个toStop channel，是有缓冲区的长度为1。有单独goroutine接收到toStop时，close stop channel。这样stop channel就关闭一次。
+- 假设 toStop 声明的是一个非缓冲型的 channel，那么第一个发送的关闭 dataCh 请求可能会丢失。因为无论是 sender 还是 receiver 都是通过 select 语句来发送请求，如果中间人所在的 goroutine 没有准备好，那 select 语句就不会选中，直接走 default 选项，什么也不做。这样，第一个关闭 dataCh 的请求就会丢失。
+
+
+
+```go
+func main() {
+	rand.Seed(time.Now().UnixNano())
+
+	const Max = 100000
+	const NumReceivers = 10
+	const NumSenders = 1000
+
+	dataCh := make(chan int, 100)
+	stopCh := make(chan struct{})
+
+	// It must be a buffered channel.
+	toStop := make(chan string, 1)
+
+	var stoppedBy string
+
+	// moderator
+	go func() {
+		stoppedBy = <-toStop
+		close(stopCh)
+	}()
+
+	// senders
+	for i := 0; i < NumSenders; i++ {
+		go func(id string) {
+			for {
+				value := rand.Intn(Max)
+				if value == 0 {
+					select {
+					case toStop <- "sender#" + id:
+					default:
+					}
+					return
+				}
+
+				select {
+				case <- stopCh:
+					return
+				case dataCh <- value:
+				}
+			}
+		}(strconv.Itoa(i))
+	}
+
+	// receivers
+	for i := 0; i < NumReceivers; i++ {
+		go func(id string) {
+			for {
+				select {
+				case <- stopCh:
+					return
+				case value := <-dataCh:
+					if value == Max-1 {
+						select {
+						case toStop <- "receiver#" + id:
+						default:
+						}
+						return
+					}
+
+					fmt.Println(value)
+				}
+			}
+		}(strconv.Itoa(i))
+	}
+
+	select {
+	case <- time.After(time.Hour):
+	}
+
+}
+```
 
