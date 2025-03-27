@@ -23,7 +23,9 @@ tags: Life
 
 
 
-你设备的 SSH 密码设置为**admin**，用户名为**root**，并永久开启 SSH；
+你设备的 SSH 密码设置为**admin**，用户名为**root**，并永久开启 SSH， 开启后就可以以下命令登录了。
+
+
 
 ```scala
 ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
@@ -33,7 +35,7 @@ ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
 
 
 
-# ssh解锁
+# ssh解锁步骤
 
 当路由器开启SSH时，可以通过SSH协议连接到路由器并执行一系列的操作，包括但不限于：
 
@@ -69,7 +71,8 @@ ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
 其他降级版本
 
 - 固件：[Redmi AX6000 1.0.60](https://beyondkmp.com/image/ax6000_ssh/miwifi_rb06_firmware_7ddeb_1.0.60.bin) 
-- 1.0.67的也可以降级的。 不要用1.2.128版本，那个没有5g wifi，固件问题。
+- **1.0.67的也可以降级的。 我最后选的是这个。** 
+- 不要用1.2.128版本，那个没有5g wifi，固件问题。
 
 ## 获取token
 
@@ -163,6 +166,8 @@ reboot
 ```scala
 ssh -oHostKeyAlgorithms=+ssh-rsa  root@192.168.31.1
 ```
+
+如果提示有攻击风险，就sudo 试试。
 
 # shellcrash安装
 
@@ -267,8 +272,13 @@ reboot
 ## **安装UU**
 
 **SSH连接后，按顺序输入**
+
+```scalam
 wget http://uu.gdl.netease.com/uuplugin-script/202012111056/install.sh -O install.sh
 /bin/sh install.sh openwrt $(uname -m)
+```
+
+
 
 
 
@@ -344,3 +354,4 @@ https://fastly.jsdelivr.net/gh/lemoeo/AX6S@main/auto_ssh.sh
 
 
 
+这是什么？
