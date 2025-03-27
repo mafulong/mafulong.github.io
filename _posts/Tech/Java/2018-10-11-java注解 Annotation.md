@@ -50,11 +50,13 @@ java.lang.annotation提供了四种元注解，专门注解其他的注解（在
     ElementType.PARAMETER:用于描述参数
     ElementType.TYPE:用于描述类、接口(包括注解类型) 或enum声明
 
-3.)@Documented–一个简单的Annotations标记注解，表示是否将注解信息添加在java文档中。
+3.) @Documented–一个简单的Annotations标记注解，表示是否将注解信息添加在java文档中。
 
-4.)@Inherited – 定义该注释和子类的关系
+4.) @Inherited – 定义该注解的地方是否子类可继承。
 
-     @Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited修饰的annotation类型被用于一个class，则这个annotation将被用于该class的子类。
+ @Inherited 元注解是一个标记注解，@Inherited阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited修饰的annotation类型被用于一个class，则这个annotation将被用于该class的子类。
+
+
 
 ### 自定义注解
 自定义注解类编写的一些规则:
