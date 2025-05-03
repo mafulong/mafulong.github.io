@@ -1,4 +1,494 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-03T00:57:30+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java算法基础</title><link href="https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Java算法基础" /><published>2025-04-26T00:00:00+08:00</published><updated>2025-04-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;基本知识&quot;&gt;基本知识&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-03T12:27:49+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">java垃圾回收</title><link href="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="alternate" type="text/html" title="java垃圾回收" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">&lt;h2 id=&quot;java垃圾回收&quot;&gt;java垃圾回收&lt;/h2&gt;
+
+&lt;p&gt;垃圾收集主要是针对堆和方法区进行。程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。&lt;/p&gt;
+
+&lt;h2 id=&quot;引用类型&quot;&gt;引用类型&lt;/h2&gt;
+
+&lt;p&gt;无论是通过引用计数算法判断对象的引用数量，还是通过可达性分析算法判断对象是否可达，判定对象是否可被回收都与引用有关。&lt;/p&gt;
+
+&lt;p&gt;Java 提供了四种强度不同的引用类型。&lt;/p&gt;
+
+&lt;h4 id=&quot;1-强引用&quot;&gt;1. 强引用&lt;/h4&gt;
+
+&lt;p&gt;被强引用关联的对象不会被回收。&lt;/p&gt;
+
+&lt;p&gt;使用 new 一个新对象的方式来创建强引用。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;2-软引用&quot;&gt;2. 软引用&lt;/h4&gt;
+
+&lt;p&gt;被软引用关联的对象只有在内存不够的情况下才会被回收。&lt;/p&gt;
+
+&lt;p&gt;使用 SoftReference 类来创建软引用。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;SoftReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SoftReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 使对象只被软引用关联&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;3-弱引用&quot;&gt;3. 弱引用&lt;/h4&gt;
+
+&lt;p&gt;被弱引用关联的对象一定会被回收，也就是说它只能存活到下一次垃圾回收发生之前。&lt;/p&gt;
+
+&lt;p&gt;使用 WeakReference 类来创建弱引用。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;WeakReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;WeakReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;4-虚引用&quot;&gt;4. 虚引用&lt;/h4&gt;
+
+&lt;p&gt;又称为幽灵引用或者幻影引用，一个对象是否有虚引用的存在，不会对其生存时间造成影响，也无法通过虚引用得到一个对象。&lt;/p&gt;
+
+&lt;p&gt;为一个对象设置虚引用的唯一目的是能在这个对象被回收时收到一个系统通知。&lt;/p&gt;
+
+&lt;p&gt;使用 PhantomReference 来创建虚引用。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;PhantomReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PhantomReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;垃圾回收&quot;&gt;垃圾回收&lt;/h2&gt;
+
+&lt;p&gt;现在的商业虚拟机采用分代收集算法，它根据对象存活周期将内存划分为几块，不同块采用适当的收集算法。&lt;/p&gt;
+
+&lt;p&gt;一般将堆分为新生代和老年代。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;新生代使用：复制算法&lt;/li&gt;
+  &lt;li&gt;老年代使用：标记 - 清除 或者 标记 - 整理 算法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;垃圾收集器&quot;&gt;垃圾收集器&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505031212304.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;以上是 HotSpot 虚拟机中的 7 个垃圾收集器，连线表示垃圾收集器可以配合使用。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单线程与多线程：单线程指的是垃圾收集器只使用一个线程，而多线程使用多个线程；&lt;/li&gt;
+  &lt;li&gt;串行与并行：串行指的是垃圾收集器与用户程序交替执行，这意味着在执行垃圾收集的时候需要停顿用户程序；并行指的是垃圾收集器和用户程序同时执行。除了 CMS 和 G1 之外，其它垃圾收集器都是以串行的方式执行。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;细节参考 &lt;a href=&quot;http://www.cyc2018.xyz/Java/Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA.html#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;收集器&lt;/th&gt;
+      &lt;th&gt;新生代 / 老年代&lt;/th&gt;
+      &lt;th&gt;是否并发&lt;/th&gt;
+      &lt;th&gt;是否压缩整理&lt;/th&gt;
+      &lt;th&gt;暂停时间&lt;/th&gt;
+      &lt;th&gt;使用场景&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Serial&lt;/td&gt;
+      &lt;td&gt;是 / 是&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;高&lt;/td&gt;
+      &lt;td&gt;小内存、单核场景（如客户端）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Parallel&lt;/td&gt;
+      &lt;td&gt;是 / 是&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;吞吐优先场景，如批处理&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CMS&lt;/td&gt;
+      &lt;td&gt;是 / 是&lt;/td&gt;
+      &lt;td&gt;部分并发&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;低&lt;/td&gt;
+      &lt;td&gt;低延迟要求，但 JDK9 起废弃&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;G1&lt;/td&gt;
+      &lt;td&gt;是 / 是（Region）&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;是（并发整理）&lt;/td&gt;
+      &lt;td&gt;中低&lt;/td&gt;
+      &lt;td&gt;推荐，默认 GC，适合大多数服务端应用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ZGC&lt;/td&gt;
+      &lt;td&gt;是 / 是（Region）&lt;/td&gt;
+      &lt;td&gt;全并发&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;极低&lt;/td&gt;
+      &lt;td&gt;超低延迟，大内存应用，JDK11+&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Shenandoah&lt;/td&gt;
+      &lt;td&gt;是 / 是（Region）&lt;/td&gt;
+      &lt;td&gt;全并发&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;极低&lt;/td&gt;
+      &lt;td&gt;RedHat 主推，类似 ZGC，适合低延迟&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Serial&lt;/strong&gt; 简单、低资源；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Parallel&lt;/strong&gt; 高吞吐；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;CMS&lt;/strong&gt; 停顿短但容易碎片；&lt;strong&gt;CMS&lt;/strong&gt; 不建议使用，G1 是推荐替代方案。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;G1&lt;/strong&gt; 平衡型、适用于大多数服务端；&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ZGC/Shenandoah&lt;/strong&gt; 面向超低延迟场景。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;CMS 和 G1 有什么区别？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;对比项&lt;/th&gt;
+      &lt;th&gt;CMS&lt;/th&gt;
+      &lt;th&gt;G1&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;内存结构&lt;/td&gt;
+      &lt;td&gt;新生代 + 老年代&lt;/td&gt;
+      &lt;td&gt;Region 动态分配&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;并发性&lt;/td&gt;
+      &lt;td&gt;并发标记&lt;/td&gt;
+      &lt;td&gt;并发标记 + 压缩&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;碎片问题&lt;/td&gt;
+      &lt;td&gt;有&lt;/td&gt;
+      &lt;td&gt;无&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;吞吐量&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;中高&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;已废弃&lt;/td&gt;
+      &lt;td&gt;是&lt;/td&gt;
+      &lt;td&gt;否（默认）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;STW 是 JVM 在某些 GC 阶段需要 &lt;strong&gt;暂停所有用户线程&lt;/strong&gt;。为了减少影响：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用并发收集器（如 G1、ZGC）&lt;/li&gt;
+  &lt;li&gt;设置合理参数（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MaxGCPauseMillis&lt;/code&gt;）&lt;/li&gt;
+  &lt;li&gt;减少大对象和频繁分配&lt;/li&gt;
+  &lt;li&gt;使用 GC 日志分析 GC 次数与耗时&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;GC卡顿排查&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开启 GC 日志：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Xlog:gc*&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-XX:+PrintGCDetails&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;分析 GC 时间、频率、Full GC 是否频繁&lt;/li&gt;
+  &lt;li&gt;观察堆使用情况、晋升失败等&lt;/li&gt;
+  &lt;li&gt;使用工具（如 VisualVM、jstat、JFR、Arthas）诊断&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;g1&quot;&gt;G1&lt;/h3&gt;
+
+&lt;p&gt;G1 的思路是 —— &lt;strong&gt;以 Region 为单位整理活对象&lt;/strong&gt;。 G1 通过在 GC 过程中，按 Region 单位将活对象搬迁并压缩，避免碎片化，同时又分阶段进行，减轻暂停负担。&lt;/p&gt;
+
+&lt;p&gt;✅ 具体流程如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;标记活对象（Concurrent Marking）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;通过并发标记阶段，识别出所有“存活对象”&lt;/li&gt;
+      &lt;li&gt;并计算每个 Region 的“回收价值”（垃圾比例）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;筛选 Region&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;G1 选择回收价值最高的部分 Region 进行回收（称为 &lt;strong&gt;收集集（Collection Set, CSet）&lt;/strong&gt;）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;对象转移（Evacuation）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;将存活对象从 CSet 中迁移到新的空 Region（可 Eden、Survivor、Old）&lt;/li&gt;
+      &lt;li&gt;迁移时是压缩式移动：&lt;strong&gt;连续地复制活对象 → 减少碎片&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;更新引用&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;并发地通过记忆集（Remembered Set）和 SATB（Snapshot At The Beginning）机制，更新被引用地址&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;旧 Region 回收&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;所有对象被转移后，旧 Region 被标记为空，可重用&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;注意&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;G1 的压缩不是在 &lt;strong&gt;Full GC&lt;/strong&gt; 阶段才执行，而是在 &lt;strong&gt;Young GC 和 Mixed GC 中增量地进行&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;每次 GC 只处理部分 Region，&lt;strong&gt;减少一次性 Stop-The-World 的开销&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;所以 G1 被称为支持“&lt;strong&gt;增量压缩&lt;/strong&gt;”的收集器&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;各版本jdk垃圾回收&quot;&gt;各版本JDK垃圾回收&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;JDK版本&lt;/th&gt;
+      &lt;th&gt;默认 GC&lt;/th&gt;
+      &lt;th&gt;描述简要&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;≤ JDK 1.3&lt;/td&gt;
+      &lt;td&gt;Serial GC&lt;/td&gt;
+      &lt;td&gt;单线程、Stop-The-World&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 1.4 - 7&lt;/td&gt;
+      &lt;td&gt;Parallel GC&lt;/td&gt;
+      &lt;td&gt;高吞吐量，服务端默认&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 8&lt;/td&gt;
+      &lt;td&gt;Parallel GC&lt;/td&gt;
+      &lt;td&gt;默认 Parallel，可选开启 G1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 9 - 14&lt;/td&gt;
+      &lt;td&gt;G1 GC&lt;/td&gt;
+      &lt;td&gt;默认 G1，支持并发压缩，低停顿&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 15 - 17&lt;/td&gt;
+      &lt;td&gt;G1 GC&lt;/td&gt;
+      &lt;td&gt;默认 G1，ZGC/Shenandoah 成熟&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 18 - 20&lt;/td&gt;
+      &lt;td&gt;G1 GC&lt;/td&gt;
+      &lt;td&gt;默认仍为 G1，ZGC 更加稳定&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 21 LTS&lt;/td&gt;
+      &lt;td&gt;G1 GC&lt;/td&gt;
+      &lt;td&gt;默认 G1，ZGC/Shenandoah 可选生产用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDK 22+&lt;/td&gt;
+      &lt;td&gt;G1 GC&lt;/td&gt;
+      &lt;td&gt;社区拟改为 ZGC，暂未切换默认&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java垃圾回收</summary></entry><entry><title type="html">java类加载机制</title><link href="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" rel="alternate" type="text/html" title="java类加载机制" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">&lt;h2 id=&quot;java类加载机制&quot;&gt;java类加载机制&lt;/h2&gt;
+
+&lt;h2 id=&quot;类加载机制核心知识点总结&quot;&gt;类加载机制核心知识点总结&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;阶段&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;加载（Loading）&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;读取 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.class&lt;/code&gt; 文件，生成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Class&lt;/code&gt; 对象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;验证（Verification）&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;字节码格式验证、安全性验证&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;准备（Preparation）&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;分配静态变量内存并初始化默认值&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;解析（Resolution）&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;将符号引用转换为直接引用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;初始化（Initialization）&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;clinit&amp;gt;&lt;/code&gt; 方法，初始化静态变量和静态代码块&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;-类加载器分类&quot;&gt;✅ 类加载器分类&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;加载器&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Bootstrap ClassLoader&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;加载 JDK 核心类，如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.*&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Extension ClassLoader&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;加载 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ext&lt;/code&gt; 目录下的扩展类&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Application ClassLoader&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;加载 CLASSPATH 中的类&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;自定义 ClassLoader&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;通过继承 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 自定义逻辑&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;-双亲委派模型parent-delegation&quot;&gt;✅ 双亲委派模型（Parent Delegation）&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;加载请求会先委托给父加载器，层层向上，只有父类加载器无法加载时，才由当前加载器尝试加载。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;双亲委派模型有什么好处？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;避免重复加载&lt;/li&gt;
+  &lt;li&gt;防止核心类被篡改（如你写了一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.String&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;spi&quot;&gt;SPI&lt;/h2&gt;
+
+&lt;p&gt;SPI（&lt;strong&gt;Service Provider Interface&lt;/strong&gt;，服务提供接口）是 Java 提供的一种 &lt;strong&gt;服务发现机制&lt;/strong&gt;，用于实现模块间的解耦，常用于框架底层或插件式架构中。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;定义接口（服务接口）&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;实现接口（服务提供者）&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;在资源目录 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/META-INF/services/&lt;/code&gt; 下新建一个以接口全限定名命名的文件&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;文件内容是具体的实现类的全限定名&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;场景&lt;/th&gt;
+      &lt;th&gt;例子&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;JDBC 驱动注册&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DriverManager&lt;/code&gt; 通过 SPI 加载驱动类&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;日志框架适配&lt;/td&gt;
+      &lt;td&gt;SLF4J -&amp;gt; Logback、Log4j&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Java 加密实现（JCE）&lt;/td&gt;
+      &lt;td&gt;加载不同加密算法&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dubbo、Spring Boot 插件化&lt;/td&gt;
+      &lt;td&gt;实现模块间解耦、插件注入&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;SPI 有什么缺点？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;加载是全量的，&lt;strong&gt;不能懒加载&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;实现类无法按条件优先级排序&lt;/li&gt;
+  &lt;li&gt;配置文件容易拼写出错，不易调试&lt;/li&gt;
+  &lt;li&gt;类加载器隔离问题（如 OSGi、Tomcat）可能导致无法发现服务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;改进方案&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;技术&lt;/th&gt;
+      &lt;th&gt;优势&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Spring SPI&lt;/td&gt;
+      &lt;td&gt;提供条件过滤、排序、懒加载等功能（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spring.factories&lt;/code&gt;）。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Dubbo SPI&lt;/td&gt;
+      &lt;td&gt;增强 SPI，支持注解、扩展点自动激活&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Java 9 Module SPI&lt;/td&gt;
+      &lt;td&gt;基于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;module-info.java&lt;/code&gt; 实现模块化 SPI&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Spring SPI = Spring 提供的一套 &lt;strong&gt;基于配置文件&lt;/strong&gt;的接口发现与扩展机制。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;核心思想&lt;/strong&gt;：在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;META-INF/spring.factories&lt;/code&gt; 文件中，配置接口与实现类映射，Spring 会在运行时自动加载。&lt;/p&gt;
+
+&lt;h2 id=&quot;qa&quot;&gt;QA&lt;/h2&gt;
+
+&lt;h3 id=&quot;类是何时被加载进-jvm-的&quot;&gt;&lt;strong&gt;类是何时被加载进 JVM 的？&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第一次主动使用时，比如：
+    &lt;ul&gt;
+      &lt;li&gt;创建对象（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;new&lt;/code&gt;）&lt;/li&gt;
+      &lt;li&gt;访问静态变量、方法&lt;/li&gt;
+      &lt;li&gt;反射调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Class.forName()&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;子类初始化会先触发父类初始化&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;类加载器之间的关系是继承还是组合&quot;&gt;&lt;strong&gt;类加载器之间的关系是继承还是组合？&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;是组合关系，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 实例之间通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;parent&lt;/code&gt; 字段关联，不是继承树。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;类加载调试与工具&quot;&gt;类加载调试与工具&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看类加载器：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getClass().getClassLoader()&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;显示加载路径：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;System.getProperty(&quot;java.class.path&quot;)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jcmd&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jmap&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jstack&lt;/code&gt;：排查类加载问题&lt;/li&gt;
+  &lt;li&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-verbose:class&lt;/code&gt; 观察类加载过程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;什么时候会破坏双亲委派模型&quot;&gt;&lt;strong&gt;什么时候会破坏双亲委派模型？&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;自定义 ClassLoader 加载特定类（如 SPI 机制）&lt;/li&gt;
+  &lt;li&gt;Tomcat、Spring Boot 为了实现热部署，故意打破模型&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java类加载机制</summary></entry><entry><title type="html">Java算法基础</title><link href="https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Java算法基础" /><published>2025-04-26T00:00:00+08:00</published><updated>2025-04-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/04/26/Java%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;基本知识&quot;&gt;基本知识&lt;/h2&gt;
 
 &lt;h3 id=&quot;输入输出&quot;&gt;输入输出&lt;/h3&gt;
 
@@ -886,86 +1376,4 @@ System.setProperty(&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;, &quo
   &lt;li&gt;✅ &lt;strong&gt;高灵活性&lt;/strong&gt;：可以&lt;strong&gt;在运行时动态改变行为&lt;/strong&gt;。比如动态传入一个新对象，可以运行时改变行为。&lt;/li&gt;
   &lt;li&gt;✅ &lt;strong&gt;代码复用&lt;/strong&gt;：避免继承层次过深，代码更易维护。&lt;/li&gt;
   &lt;li&gt;✅ &lt;strong&gt;遵循开闭原则（OCP）&lt;/strong&gt;：扩展新功能无需修改原有代码。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="OOP" /><category term="OOP" /><summary type="html">组合优于继承</summary></entry><entry><title type="html">圆环回原点DP</title><link href="https://mafulong.github.io/2025/03/01/%E5%9C%86%E7%8E%AF%E5%9B%9E%E5%8E%9F%E7%82%B9DP/" rel="alternate" type="text/html" title="圆环回原点DP" /><published>2025-03-01T00:00:00+08:00</published><updated>2025-03-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/03/01/%E5%9C%86%E7%8E%AF%E5%9B%9E%E5%8E%9F%E7%82%B9DP</id><content type="html" xml:base="https://mafulong.github.io/2025/03/01/%E5%9C%86%E7%8E%AF%E5%9B%9E%E5%8E%9F%E7%82%B9DP/">&lt;h2 id=&quot;圆环回原点dp&quot;&gt;圆环回原点DP&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://mp.weixin.qq.com/s/NZPaFsFrTybO3K3s7p7EVg&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;算法：一个环上有10个点,编号为0-9,从0点出发,每步可以顺时针到下一个点,也可以逆时针到上一个点,求:经过n步又回到0点有多少种不同的走法&lt;/p&gt;
-
-&lt;p&gt;举例：&lt;/p&gt;
-
-&lt;p&gt;如果n=1，则从0出发只能到1或者9，不可能回到0，共0种走法 如果n=2，则从0出发有4条路径:0-&amp;gt;1-&amp;gt;2, 0-&amp;gt;1-&amp;gt;0, 0-&amp;gt;9-&amp;gt;8, 0-&amp;gt;9-&amp;gt;0,其中有两条回到了0点，故一共有2种走法&lt;/p&gt;
-
-&lt;p&gt;本题考察的是动态规划。&lt;/p&gt;
-
-&lt;p&gt;如果你之前做过leetcode的70题爬楼梯，则应该比较容易理解：走n步到0的方案数=走n-1步到1的方案数+走n-1步到9的方案数。&lt;/p&gt;
-
-&lt;p&gt;因此，若设dp[i][j]为从0点出发走i步到j点的方案数，则递推式为：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202503012359545&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;ps:公式之所以取余是因为j-1或j+1可能会超过圆环0~9的范围&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;backToOrigin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;#点的个数为10
-&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-                &lt;span class=&quot;c1&quot;&gt;#dp[i][j]表示从0出发，走i步到j的方案数
-&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Offer" /><category term="Offer" /><summary type="html">圆环回原点DP</summary></entry><entry><title type="html">513. 找树左下角的值</title><link href="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/" rel="alternate" type="text/html" title="513. 找树左下角的值" /><published>2025-02-11T00:00:00+08:00</published><updated>2025-02-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/02/11/513.%20%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC</id><content type="html" xml:base="https://mafulong.github.io/2025/02/11/513.-%E6%89%BE%E6%A0%91%E5%B7%A6%E4%B8%8B%E8%A7%92%E7%9A%84%E5%80%BC/">&lt;h2 id=&quot;title&quot;&gt;title&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://leetcode.cn/problems/find-bottom-left-tree-value/description/&quot;&gt;problem link&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;给定一个二叉树的 &lt;strong&gt;根节点&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;root&lt;/code&gt;，请找出该二叉树的 &lt;strong&gt;最底层 最左边&lt;/strong&gt; 节点的值。&lt;/p&gt;
-
-&lt;p&gt;假设二叉树中至少有一个节点。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 1:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202502112041060.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: root = [2,1,3]
-输出: 1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;示例 2:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv5/v5/202502112041718.jpg&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输入: [1,2,3,4,null,5,6,null,null,7]
-输出: 7
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;提示:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;二叉树的节点个数的范围是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1,104]&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-231 &amp;lt;= Node.val &amp;lt;= 231 - 1&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;solution&quot;&gt;solution&lt;/h2&gt;
-
-&lt;p&gt;层次遍历，每次，从右到左。这样最后一个节点就是。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Solution&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findBottomLeftValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TreeNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;collections&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collections&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deque&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;popleft&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-                    &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="leetcode" /><category term="leetcode" /><summary type="html">title problem link</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="OOP" /><category term="OOP" /><summary type="html">组合优于继承</summary></entry></feed>
