@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-04T21:03:26+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-04T21:41:34+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
 
 &lt;h2 id=&quot;jdk-并发包&quot;&gt;JDK 并发包&lt;/h2&gt;
 
@@ -552,7 +552,82 @@ protected boolean tryRelease(int arg);
 &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;垃圾回收&quot;&gt;垃圾回收&lt;/h2&gt;
+&lt;h2 id=&quot;垃圾回收详解&quot;&gt;垃圾回收详解&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;常见面试题：&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;如何判断对象是否死亡（两种方法）。&lt;/li&gt;
+    &lt;li&gt;简单的介绍一下强引用、软引用、弱引用、虚引用（虚引用与软引用和弱引用的区别、使用软引用能带来的好处）。&lt;/li&gt;
+    &lt;li&gt;如何判断一个常量是废弃常量&lt;/li&gt;
+    &lt;li&gt;如何判断一个类是无用的类&lt;/li&gt;
+    &lt;li&gt;垃圾收集有哪些算法，各自的特点？&lt;/li&gt;
+    &lt;li&gt;HotSpot 为什么要分为新生代和老年代？&lt;/li&gt;
+    &lt;li&gt;常见的垃圾回收器有哪些？&lt;/li&gt;
+    &lt;li&gt;介绍一下 CMS,G1 收集器。&lt;/li&gt;
+    &lt;li&gt;Minor Gc 和 Full GC 有什么不同呢？&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;堆内存被通常分为下面三部分：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;新生代内存(Young Generation). Eden和两个Survive&lt;/li&gt;
+  &lt;li&gt;老生代(Old Generation)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Metaspace(元空间) 取代，元空间使用的是直接内存&lt;/strong&gt; 。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;对象内存分配&quot;&gt;对象内存分配&lt;/h3&gt;
+
+&lt;h4 id=&quot;优先eden分配&quot;&gt;优先Eden分配&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;大多数情况下，对象在新生代中 Eden 区分配。当 Eden 区没有足够空间进行分配时，虚拟机将发起一次 Minor GC。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;大对象直接老年代&quot;&gt;大对象直接老年代&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;大对象就是需要大量连续内存空间的对象（比如：字符串、数组）。大对象直接进入老年代的行为是由虚拟机动态决定的，它与具体使用的垃圾回收器和相关参数有关。大对象直接进入老年代是一种优化策略，旨在避免将大对象放入新生代，从而减少新生代的垃圾回收频率和成本。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;长期存活的对象将进入老年代&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/jvm-garbage-collection.html#长期存活的对象将进入老年代&quot;&gt;长期存活的对象将进入老年代&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;既然虚拟机采用了分代收集的思想来管理内存，那么内存回收时就必须能识别哪些对象应放在新生代，哪些对象应放在老年代中。为了做到这一点，虚拟机给每个对象一个对象年龄（Age）计数器。&lt;/p&gt;
+
+&lt;p&gt;大部分情况，对象都会首先在 Eden 区域分配。如果对象在 Eden 出生并经过第一次 Minor GC 后仍然能够存活，并且能被 Survivor 容纳的话，将被移动到 Survivor 空间（s0 或者 s1）中，并将对象年龄设为 1(Eden 区-&amp;gt;Survivor 区后对象的初始年龄变为 1)。&lt;/p&gt;
+
+&lt;p&gt;对象在 Survivor 中每熬过一次 MinorGC,年龄就增加 1 岁，当它的年龄增加到一定程度（默认为 15 岁），就会被晋升到老年代中。对象晋升到老年代的年龄阈值，可以通过参数 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-XX:MaxTenuringThreshold&lt;/code&gt; 来设置。&lt;/p&gt;
+
+&lt;h3 id=&quot;不同区域gc&quot;&gt;不同区域GC&lt;/h3&gt;
+
+&lt;p&gt;针对 HotSpot VM 的实现，它里面的 GC 其实准确分类只有两大种：&lt;/p&gt;
+
+&lt;p&gt;部分收集 (Partial GC)：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;新生代收集（Minor GC / Young GC）：只对新生代进行垃圾收集；&lt;/li&gt;
+  &lt;li&gt;老年代收集（Major GC / Old GC）：只对老年代进行垃圾收集。需要注意的是 Major GC 在有的语境中也用于指代整堆收集；&lt;/li&gt;
+  &lt;li&gt;混合收集（Mixed GC）：对整个新生代和部分老年代进行垃圾收集。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;整堆收集 (Full GC)：收集整个 Java 堆和方法区。&lt;/p&gt;
+
+&lt;h2 id=&quot;垃圾回收实现&quot;&gt;垃圾回收实现&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;JDK 默认垃圾收集器（使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java -XX:+PrintCommandLineFlags -version&lt;/code&gt; 命令查看）：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JDK 8: Parallel Scavenge（新生代）+ Parallel Old（老年代）
+    &lt;ul&gt;
+      &lt;li&gt;前者是标记复制，后者是标记整理&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;JDK 9 ~ JDK22: G1&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;现在的商业虚拟机采用分代收集算法，它根据对象存活周期将内存划分为几块，不同块采用适当的收集算法。&lt;/p&gt;
 
@@ -561,6 +636,15 @@ protected boolean tryRelease(int arg);
 &lt;ul&gt;
   &lt;li&gt;新生代使用：复制算法&lt;/li&gt;
   &lt;li&gt;老年代使用：标记 - 清除 或者 标记 - 整理 算法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;JVM 参数 GC可调， 具有四种类型的 GC 实现：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;串行垃圾收集器&lt;/li&gt;
+  &lt;li&gt;并行垃圾收集器&lt;/li&gt;
+  &lt;li&gt;CMS 垃圾收集器&lt;/li&gt;
+  &lt;li&gt;G1 垃圾收集器&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;垃圾收集器&quot;&gt;垃圾收集器&lt;/h3&gt;
@@ -748,61 +832,46 @@ protected boolean tryRelease(int arg);
   &lt;li&gt;所以 G1 被称为支持“&lt;strong&gt;增量压缩&lt;/strong&gt;”的收集器&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;各版本jdk垃圾回收&quot;&gt;各版本JDK垃圾回收&lt;/h3&gt;
+&lt;h2 id=&quot;qa&quot;&gt;QA&lt;/h2&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;JDK版本&lt;/th&gt;
-      &lt;th&gt;默认 GC&lt;/th&gt;
-      &lt;th&gt;描述简要&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;≤ JDK 1.3&lt;/td&gt;
-      &lt;td&gt;Serial GC&lt;/td&gt;
-      &lt;td&gt;单线程、Stop-The-World&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 1.4 - 7&lt;/td&gt;
-      &lt;td&gt;Parallel GC&lt;/td&gt;
-      &lt;td&gt;高吞吐量，服务端默认&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 8&lt;/td&gt;
-      &lt;td&gt;Parallel GC&lt;/td&gt;
-      &lt;td&gt;默认 Parallel，可选开启 G1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 9 - 14&lt;/td&gt;
-      &lt;td&gt;G1 GC&lt;/td&gt;
-      &lt;td&gt;默认 G1，支持并发压缩，低停顿&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 15 - 17&lt;/td&gt;
-      &lt;td&gt;G1 GC&lt;/td&gt;
-      &lt;td&gt;默认 G1，ZGC/Shenandoah 成熟&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 18 - 20&lt;/td&gt;
-      &lt;td&gt;G1 GC&lt;/td&gt;
-      &lt;td&gt;默认仍为 G1，ZGC 更加稳定&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 21 LTS&lt;/td&gt;
-      &lt;td&gt;G1 GC&lt;/td&gt;
-      &lt;td&gt;默认 G1，ZGC/Shenandoah 可选生产用&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;JDK 22+&lt;/td&gt;
-      &lt;td&gt;G1 GC&lt;/td&gt;
-      &lt;td&gt;社区拟改为 ZGC，暂未切换默认&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java垃圾回收</summary></entry><entry><title type="html">java类加载机制</title><link href="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" rel="alternate" type="text/html" title="java类加载机制" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">&lt;h2 id=&quot;java类加载机制&quot;&gt;java类加载机制&lt;/h2&gt;
+&lt;h3 id=&quot;如何判断一个常量是废弃常量&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/jvm-garbage-collection.html#如何判断一个常量是废弃常量&quot;&gt;如何判断一个常量是废弃常量？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;运行时常量池主要回收的是废弃的常量。那么，我们如何判断一个常量是废弃常量呢？&lt;/p&gt;
+
+&lt;p&gt;假如在字符串常量池中存在字符串 “abc”，如果当前没有任何 String 对象引用该字符串常量的话，就说明常量 “abc” 就是废弃常量，如果这时发生内存回收的话而且有必要的话，”abc” 就会被系统清理出常量池了&lt;/p&gt;
+
+&lt;h3 id=&quot;如何判断一个类是无用的类&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/jvm-garbage-collection.html#如何判断一个类是无用的类&quot;&gt;如何判断一个类是无用的类？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;方法区主要回收的是无用的类，那么如何判断一个类是无用的类的呢？&lt;/p&gt;
+
+&lt;p&gt;判定一个常量是否是“废弃常量”比较简单，而要判定一个类是否是“无用的类”的条件则相对苛刻许多。类需要同时满足下面 3 个条件才能算是 &lt;strong&gt;“无用的类”&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;该类所有的实例都已经被回收，也就是 Java 堆中不存在该类的任何实例。&lt;/li&gt;
+  &lt;li&gt;加载该类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 已经被回收。&lt;/li&gt;
+  &lt;li&gt;该类对应的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.Class&lt;/code&gt; 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java垃圾回收</summary></entry><entry><title type="html">java类加载机制</title><link href="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/" rel="alternate" type="text/html" title="java类加载机制" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">&lt;h2 id=&quot;java类加载机制&quot;&gt;java类加载机制&lt;/h2&gt;
 
 &lt;h2 id=&quot;类加载机制核心知识点总结&quot;&gt;类加载机制核心知识点总结&lt;/h2&gt;
+
+&lt;h3 id=&quot;类加载过程&quot;&gt;类加载过程&lt;/h3&gt;
+
+&lt;p&gt;开始介绍类加载器和双亲委派模型之前，简单回顾一下类加载过程。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类加载过程：&lt;strong&gt;加载-&amp;gt;连接-&amp;gt;初始化&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;连接过程又可分为三步：&lt;strong&gt;验证-&amp;gt;准备-&amp;gt;解析&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505042107624.png&quot; alt=&quot;类加载过程&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;加载是类加载过程的第一步，主要完成下面 3 件事情：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;通过全类名获取定义此类的二进制字节流&lt;/li&gt;
+  &lt;li&gt;将字节流所代表的静态存储结构转换为方法区的运行时数据结构&lt;/li&gt;
+  &lt;li&gt;在内存中生成一个代表该类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Class&lt;/code&gt; 对象，作为方法区这些数据的访问入口&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -835,7 +904,36 @@ protected boolean tryRelease(int arg);
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h3 id=&quot;-类加载器分类&quot;&gt;✅ 类加载器分类&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;类加载器是一个负责加载类的对象，用于实现类加载过程中的加载这一步。&lt;/li&gt;
+  &lt;li&gt;每个 Java 类都有一个引用指向加载它的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;数组类不是通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 创建的（数组类没有对应的二进制字节流），是由 JVM 直接生成的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;类加载器加载规则&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/classloader.html#类加载器加载规则&quot;&gt;类加载器加载规则&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;JVM 启动的时候，并不会一次性加载所有的类，而是根据需要去动态加载。也就是说，大部分类在具体用到的时候才会去加载，这样对内存更加友好。&lt;/p&gt;
+
+&lt;p&gt;对于已经加载的类会被放在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 中。在类加载的时候，系统会首先判断当前类是否被加载过。已经被加载的类会直接返回，否则才会尝试加载。也就是说，对于一个类加载器来说，相同二进制名称的类只会被加载一次。&lt;/p&gt;
+
+&lt;h3 id=&quot;类加载器分类&quot;&gt;类加载器分类&lt;/h3&gt;
+
+&lt;p&gt;JVM 中内置了三个重要的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BootstrapClassLoader&lt;/code&gt;(启动类加载器)&lt;/strong&gt;：最顶层的加载类，由 C++实现，通常表示为 null，并且没有父级，主要用来加载 JDK 内部的核心类库（ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%JAVA_HOME%/lib&lt;/code&gt;目录下的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rt.jar&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;resources.jar&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;charsets.jar&lt;/code&gt;等 jar 包和类）以及被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Xbootclasspath&lt;/code&gt;参数指定的路径下的所有类。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExtensionClassLoader&lt;/code&gt;(扩展类加载器)&lt;/strong&gt;：主要负责加载 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%JRE_HOME%/lib/ext&lt;/code&gt; 目录下的 jar 包和类以及被 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.ext.dirs&lt;/code&gt; 系统变量所指定的路径下的所有类。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AppClassLoader&lt;/code&gt;(应用程序类加载器)&lt;/strong&gt;：面向我们用户的加载器，负责加载当前应用 classpath 下的所有 jar 包和类。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;🌈 拓展一下：&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rt.jar&lt;/code&gt;&lt;/strong&gt;：rt 代表“RunTime”，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rt.jar&lt;/code&gt;是 Java 基础类库，包含 Java doc 里面看到的所有的类的类文件。也就是说，我们常用内置库 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.xxx.*&lt;/code&gt;都在里面，比如&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.util.*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.io.*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.nio.*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.sql.*&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.math.*&lt;/code&gt;。&lt;/li&gt;
+    &lt;li&gt;Java 9 引入了模块系统，并且略微更改了上述的类加载器。扩展类加载器被改名为平台类加载器（platform class loader）。Java SE 中除了少数几个关键模块，比如说 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.base&lt;/code&gt; 是由启动类加载器加载之外，其他的模块均由平台类加载器所加载。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -864,7 +962,7 @@ protected boolean tryRelease(int arg);
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h3 id=&quot;-双亲委派模型parent-delegation&quot;&gt;✅ 双亲委派模型（Parent Delegation）&lt;/h3&gt;
+&lt;h3 id=&quot;双亲委派模型parent-delegation&quot;&gt;双亲委派模型（Parent Delegation）&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;加载请求会先委托给父加载器，层层向上，只有父类加载器无法加载时，才由当前加载器尝试加载。&lt;/p&gt;
@@ -876,6 +974,34 @@ protected boolean tryRelease(int arg);
   &lt;li&gt;避免重复加载&lt;/li&gt;
   &lt;li&gt;防止核心类被篡改（如你写了一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.String&lt;/code&gt;）&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505042109001.png&quot; alt=&quot;类加载器层次关系图&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意 ⚠️：双亲委派模型并不是一种强制性的约束，只是 JDK 官方推荐的一种方式。如果我们因为某些特殊需求想要打破双亲委派模型，也是可以的。 自定义加载器的话，需要继承 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 。如果我们不想打破双亲委派模型，就重写 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 类中的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;findClass()&lt;/code&gt; 方法即可，无法被父类加载器加载的类最终会通过这个方法被加载。但是，如果想打破双亲委派模型则需要重写 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loadClass()&lt;/code&gt; 方法。&lt;/p&gt;
+
+&lt;p&gt;我们比较熟悉的 Tomcat 服务器为了能够优先加载 Web 应用目录下的类，然后再加载其他目录下的类，就自定义了类加载器 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WebAppClassLoader&lt;/code&gt; 来打破双亲委托机制。这也是 Tomcat 下 Web 应用之间的类实现隔离的具体原理。&lt;/p&gt;
+
+&lt;p&gt;其实这个双亲翻译的容易让别人误解，我们一般理解的双亲都是父母，这里的双亲更多地表达的是“父母这一辈”的人而已，并不是说真的有一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MotherClassLoader&lt;/code&gt; 和一个&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FatherClassLoader&lt;/code&gt; 。个人觉得翻译成单亲委派模型更好一些，不过，国内既然翻译成了双亲委派模型并流传了，按照这个来也没问题，不要被误解了就好。&lt;/p&gt;
+
+&lt;p&gt;另外，类加载器之间的父子关系一般不是以继承的关系来实现的，而是通常使用组合关系来复用父加载器的代码。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;JVM 判定两个 Java 类是否相同的具体规则&lt;/strong&gt;：JVM 不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即使两个类来源于同一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Class&lt;/code&gt; 文件，被同一个虚拟机加载，只要加载它们的类加载器不同，那这两个类就必定不相同。&lt;/p&gt;
+
+&lt;h2 id=&quot;类卸载&quot;&gt;类卸载&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;卸载类即该类的 Class 对象被 GC。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;卸载类需要满足 3 个要求:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;该类的所有的实例对象都已被 GC，也就是说堆不存在该类的实例对象。&lt;/li&gt;
+  &lt;li&gt;该类没有在其他任何地方被引用&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;该类的类加载器的实例已被 GC。ClassLoader GC才行&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;所以，在 JVM 生命周期内，由 jvm 自带的类加载器加载的类是不会被卸载的。但是由我们自定义的类加载器加载的类是可能被卸载的。&lt;/p&gt;
+
+&lt;p&gt;只要想通一点就好了，JDK 自带的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BootstrapClassLoader&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExtClassLoader&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AppClassLoader&lt;/code&gt; 负责加载 JDK 提供的类，所以它们(类加载器的实例)肯定不会被回收。而我们自定义的类加载器的实例是可以被回收的，所以使用我们自定义加载器加载的类是可以被卸载掉的。&lt;/p&gt;
 
 &lt;h2 id=&quot;spi&quot;&gt;SPI&lt;/h2&gt;
 
