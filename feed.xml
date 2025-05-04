@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-04T11:22:45+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-04T21:03:26+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
 
 &lt;h2 id=&quot;jdk-并发包&quot;&gt;JDK 并发包&lt;/h2&gt;
 
@@ -301,7 +301,204 @@ re-entrance-lock&lt;/p&gt;
 
 &lt;p&gt;newCachedThreadPool 将 corePoolSize 设置为 0，将 maximumPoolSize 设置为 Integer.MAX_VALUE，使用的 SynchronousQueue，也就是说来了任务就创建线程运行，当线程空闲超过 60 秒，就销毁线程。&lt;/p&gt;
 
-&lt;p&gt;实际中，如果 Executors 提供的三个静态方法能满足要求，就尽量使用它提供的三个方法，因为自己去手动配置 ThreadPoolExecutor 的参数有点麻烦，要根据实际任务的类型和数量来进行配置。另外，如果 ThreadPoolExecutor 达不到要求，可以自己继承 ThreadPoolExecutor 类进行重写。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Java并发包和线程池</summary></entry><entry><title type="html">java垃圾回收</title><link href="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="alternate" type="text/html" title="java垃圾回收" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">&lt;h2 id=&quot;java垃圾回收&quot;&gt;java垃圾回收&lt;/h2&gt;
+&lt;p&gt;实际中，如果 Executors 提供的三个静态方法能满足要求，就尽量使用它提供的三个方法，因为自己去手动配置 ThreadPoolExecutor 的参数有点麻烦，要根据实际任务的类型和数量来进行配置。另外，如果 ThreadPoolExecutor 达不到要求，可以自己继承 ThreadPoolExecutor 类进行重写。&lt;/p&gt;
+
+&lt;h2 id=&quot;aqs原理&quot;&gt;AQS原理&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AQS（AbstractQueuedSynchronizer）的原理。它是 Java 并发框架中用于构建锁和同步器的一个核心框架类，比如 ReentrantLock、Semaphore、CountDownLatch 等同步器，底层都是基于 AQS 实现的。是 Java 并发包 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.util.concurrent.locks&lt;/code&gt; 中用来构建锁和其他同步器（如信号量、读写锁、倒计时器等）的一个&lt;strong&gt;基础框架类&lt;/strong&gt;。它是 J.U.C 并发框架中最核心的底层组件之一。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;AQS 通过一个&lt;strong&gt;FIFO 队列&lt;/strong&gt;（先进先出等待队列）来&lt;strong&gt;管理获取锁失败的线程&lt;/strong&gt;，并通过一个&lt;strong&gt;原子变量 state&lt;/strong&gt; 来&lt;strong&gt;表示同步状态&lt;/strong&gt;，从而实现各种自定义同步器。&lt;/p&gt;
+
+&lt;h4 id=&quot;-1-核心思想状态--队列&quot;&gt;🌟 1. 核心思想：状态 + 队列&lt;/h4&gt;
+
+&lt;p&gt;AQS 的核心是两个部分：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;state&lt;/strong&gt;：一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile int state&lt;/code&gt; 表示当前的同步状态，比如 0 表示未加锁，1 表示已加锁。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;等待队列（CLH 队列）&lt;/strong&gt;：线程获取锁失败后，会被封装为一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Node&lt;/code&gt; 节点，加入到一个 &lt;strong&gt;FIFO 双向队列&lt;/strong&gt; 中，并通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;LockSupport.park()&lt;/code&gt; 挂起。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-2-获取锁流程以独占为例&quot;&gt;🔁 2. 获取锁流程（以独占为例）：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;线程调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acquire()&lt;/code&gt; 尝试加锁，底层会调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tryAcquire()&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;如果 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tryAcquire()&lt;/code&gt; 失败，就进入等待队列，并阻塞当前线程。&lt;/li&gt;
+  &lt;li&gt;前一个线程释放锁时调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release()&lt;/code&gt;，底层调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tryRelease()&lt;/code&gt; 成功后唤醒下一个线程。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-3-aqs-提供模板方法子类负责实现&quot;&gt;🧱 3. AQS 提供模板方法，子类负责实现：&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+protected boolean tryAcquire(int arg);
+protected boolean tryRelease(int arg);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;开发者通过继承 AQS 并实现这些方法，可以自定义同步器的行为。&lt;/p&gt;
+
+&lt;h4 id=&quot;-4-支持两种模式&quot;&gt;📌 4. 支持两种模式：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;独占模式（Exclusive）&lt;/strong&gt;：一次只允许一个线程获取资源，如 ReentrantLock。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;共享模式（Shared）&lt;/strong&gt;：多个线程可以共享资源，如 Semaphore、CountDownLatch。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;-5-实际应用举例&quot;&gt;📚 5. 实际应用举例：&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ReentrantLock：基于 AQS 的独占模式。&lt;/li&gt;
+  &lt;li&gt;Semaphore：基于共享模式控制并发数量。&lt;/li&gt;
+  &lt;li&gt;CountDownLatch：通过共享计数控制线程等待。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Java 中很多同步器都是基于 AQS 实现的：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;同步器&lt;/th&gt;
+      &lt;th&gt;使用 AQS 模式&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ReentrantLock&lt;/td&gt;
+      &lt;td&gt;独占&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Semaphore&lt;/td&gt;
+      &lt;td&gt;共享&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CountDownLatch&lt;/td&gt;
+      &lt;td&gt;共享&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ReentrantReadWriteLock&lt;/td&gt;
+      &lt;td&gt;读共享，写独占&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AbstractQueuedSynchronizer&lt;/td&gt;
+      &lt;td&gt;自定义扩展&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Java并发包和线程池</summary></entry><entry><title type="html">java虚拟机对象探秘</title><link href="https://mafulong.github.io/2025/05/04/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E8%B1%A1%E6%8E%A2%E7%A7%98/" rel="alternate" type="text/html" title="java虚拟机对象探秘" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E8%B1%A1%E6%8E%A2%E7%A7%98</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AF%B9%E8%B1%A1%E6%8E%A2%E7%A7%98/">&lt;h2 id=&quot;java虚拟机对象探秘&quot;&gt;java虚拟机对象探秘&lt;/h2&gt;
+
+&lt;h2 id=&quot;hotspot-虚拟机对象探秘&quot;&gt;HotSpot 虚拟机对象探秘&lt;/h2&gt;
+
+&lt;p&gt;通过上面的介绍我们大概知道了虚拟机的内存情况，下面我们来详细的了解一下 HotSpot 虚拟机在 Java 堆中对象分配、布局和访问的全过程。&lt;/p&gt;
+
+&lt;h3 id=&quot;对象的创建&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#对象的创建&quot;&gt;对象的创建&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Java 对象的创建过程我建议最好是能默写出来，并且要掌握每一步在做什么。&lt;/p&gt;
+
+&lt;h4 id=&quot;step1类加载检查&quot;&gt;Step1:类加载检查&lt;/h4&gt;
+
+&lt;p&gt;虚拟机遇到一条 new 指令时，首先将去检查这个指令的参数是否能在常量池中定位到这个类的符号引用，并且检查这个符号引用代表的类是否已被加载过、解析和初始化过。如果没有，那必须先执行相应的类加载过程。&lt;/p&gt;
+
+&lt;h4 id=&quot;step2分配内存&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#step2-分配内存&quot;&gt;Step2:分配内存&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;在&lt;strong&gt;类加载检查&lt;/strong&gt;通过后，接下来虚拟机将为新生对象&lt;strong&gt;分配内存&lt;/strong&gt;。对象所需的内存大小在类加载完成后便可确定，为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。&lt;strong&gt;分配方式&lt;/strong&gt;有 &lt;strong&gt;“指针碰撞”&lt;/strong&gt; 和 &lt;strong&gt;“空闲列表”&lt;/strong&gt; 两种，&lt;strong&gt;选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;内存分配的两种方式&lt;/strong&gt; （补充内容，需要掌握）：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;指针碰撞：
+    &lt;ul&gt;
+      &lt;li&gt;适用场合：堆内存规整（即没有内存碎片）的情况下。&lt;/li&gt;
+      &lt;li&gt;原理：用过的内存全部整合到一边，没有用过的内存放在另一边，中间有一个分界指针，只需要向着没用过的内存方向将该指针移动对象内存大小位置即可。&lt;/li&gt;
+      &lt;li&gt;使用该分配方式的 GC 收集器：Serial, ParNew&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;空闲列表：
+    &lt;ul&gt;
+      &lt;li&gt;适用场合：堆内存不规整的情况下。&lt;/li&gt;
+      &lt;li&gt;原理：虚拟机会维护一个列表，该列表中会记录哪些内存块是可用的，在分配的时候，找一块儿足够大的内存块儿来划分给对象实例，最后更新列表记录。&lt;/li&gt;
+      &lt;li&gt;使用该分配方式的 GC 收集器：CMS&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;选择以上两种方式中的哪一种，取决于 Java 堆内存是否规整。而 Java 堆内存是否规整，取决于 GC 收集器的算法是”标记-清除”，还是”标记-整理”（也称作”标记-压缩”），值得注意的是，复制算法内存也是规整的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;内存分配并发问题（补充内容，需要掌握）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在创建对象的时候有一个很重要的问题，就是线程安全，因为在实际开发过程中，创建对象是很频繁的事情，作为虚拟机来说，必须要保证线程是安全的，通常来讲，虚拟机采用两种方式来保证线程安全：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;CAS+失败重试：&lt;/strong&gt; CAS 是乐观锁的一种实现方式。所谓乐观锁就是，每次不加锁而是假设没有冲突而去完成某项操作，如果因为冲突失败就重试，直到成功为止。&lt;strong&gt;虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;TLAB：&lt;/strong&gt; 为每一个线程预先在 Eden 区分配一块儿内存，JVM 在给线程中的对象分配内存时，首先在 TLAB 分配，当对象大于 TLAB 中的剩余内存或 TLAB 的内存已用尽时，再采用上述的 CAS 进行内存分配&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;step3初始化零值&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#step3-初始化零值&quot;&gt;Step3:初始化零值&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（不包括对象头），这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。&lt;/p&gt;
+
+&lt;h4 id=&quot;step4设置对象头&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#step4-设置对象头&quot;&gt;Step4:设置对象头&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;初始化零值完成之后，&lt;strong&gt;虚拟机要对对象进行必要的设置&lt;/strong&gt;，例如这个对象是哪个类的实例、如何才能找到类的元数据信息、对象的哈希码、对象的 GC 分代年龄等信息。 &lt;strong&gt;这些信息存放在对象头中。&lt;/strong&gt; 另外，根据虚拟机当前运行状态的不同，如是否启用偏向锁等，对象头会有不同的设置方式。&lt;/p&gt;
+
+&lt;h4 id=&quot;step5执行-init-方法&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#step5-执行-init-方法&quot;&gt;Step5:执行 init 方法&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚开始，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;init&amp;gt;&lt;/code&gt; 方法还没有执行，所有的字段都还为零。所以一般来说，执行 new 指令之后会接着执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;init&amp;gt;&lt;/code&gt; 方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。&lt;/p&gt;
+
+&lt;h3 id=&quot;对象的内存布局&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#对象的内存布局&quot;&gt;对象的内存布局&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;在 Hotspot 虚拟机中，对象在内存中的布局可以分为 3 块区域：&lt;strong&gt;对象头（Header）&lt;/strong&gt;、&lt;strong&gt;实例数据（Instance Data）*&lt;em&gt;和*&lt;/em&gt;对齐填充（Padding）&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;对象头包括两部分信息：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;标记字段（Mark Word）：用于存储对象自身的运行时数据， 如哈希码（HashCode）、GC 分代年龄、锁状态标志、线程持有的锁、偏向线程 ID、偏向时间戳等等。&lt;/li&gt;
+  &lt;li&gt;类型指针（Klass pointer）：对象指向它的类元数据的指针，虚拟机通过这个指针来确定这个对象是哪个类的实例。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;实例数据部分是对象真正存储的有效信息&lt;/strong&gt;，也是在程序中所定义的各种类型的字段内容。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;对齐填充部分不是必然存在的，也没有什么特别的含义，仅仅起占位作用。&lt;/strong&gt; 因为 Hotspot 虚拟机的自动内存管理系统要求对象起始地址必须是 8 字节的整数倍，换句话说就是对象的大小必须是 8 字节的整数倍。而对象头部分正好是 8 字节的倍数（1 倍或 2 倍），因此，当对象实例数据部分没有对齐时，就需要通过对齐填充来补全。&lt;/p&gt;
+
+&lt;h3 id=&quot;对象的访问定位&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#对象的访问定位&quot;&gt;对象的访问定位&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;建立对象就是为了使用对象，我们的 Java 程序通过栈上的 reference 数据来操作堆上的具体对象。对象的访问方式由虚拟机实现而定，目前主流的访问方式有：&lt;strong&gt;使用句柄&lt;/strong&gt;、&lt;strong&gt;直接指针&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;句柄&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#句柄&quot;&gt;句柄&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505042102847.png&quot; alt=&quot;对象的访问定位-使用句柄&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;直接指针&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/jvm/memory-area.html#直接指针&quot;&gt;直接指针&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;如果使用直接指针访问，reference 中存储的直接就是对象的地址。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505042102873.png&quot; alt=&quot;对象的访问定位-直接指针&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这两种对象访问方式各有优势。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。使用直接指针访问方式最大的好处就是速度快，它节省了一次指针定位的时间开销。&lt;/p&gt;
+
+&lt;p&gt;HotSpot 虚拟机主要使用的就是这种方式来进行对象访问。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;大多数现代 HotSpot JVM 默认使用的是“直接指针”方式。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;原因如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;访问速度更快&lt;/strong&gt;：省去了通过句柄的间接寻址。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;现代 JVM 优化 GC 时对对象移动有更强的控制能力，因此句柄带来的灵活性优势变小了。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java虚拟机对象探秘</summary></entry><entry><title type="html">小说下载</title><link href="https://mafulong.github.io/2025/05/04/%E5%B0%8F%E8%AF%B4%E4%B8%8B%E8%BD%BD/" rel="alternate" type="text/html" title="小说下载" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/%E5%B0%8F%E8%AF%B4%E4%B8%8B%E8%BD%BD</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/%E5%B0%8F%E8%AF%B4%E4%B8%8B%E8%BD%BD/">&lt;h2 id=&quot;小说下载&quot;&gt;小说下载&lt;/h2&gt;
+
+&lt;h2 id=&quot;小说格式&quot;&gt;小说格式&lt;/h2&gt;
+
+&lt;p&gt;equb &amp;gt; mobi &amp;gt; txt.&lt;/p&gt;
+
+&lt;p&gt;mobi好处是相比equb更轻量级，一般kindle在使用。直接mobi即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;小说下载-1&quot;&gt;小说下载&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;推荐  https://github.com/freeok/so-novel&lt;/li&gt;
+  &lt;li&gt;https://github.com/uncle-novel/uncle-novel&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">小说下载</summary></entry><entry><title type="html">java垃圾回收</title><link href="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="alternate" type="text/html" title="java垃圾回收" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">&lt;h2 id=&quot;java垃圾回收&quot;&gt;java垃圾回收&lt;/h2&gt;
 
 &lt;p&gt;垃圾收集主要是针对堆和方法区进行。程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束之后就会消失，因此不需要对这三个区域进行垃圾回收。&lt;/p&gt;
 
@@ -1531,127 +1728,4 @@ System.setProperty(&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;, &quo
   &lt;li&gt;164206&lt;/li&gt;
   &lt;li&gt;招商双债折价&lt;/li&gt;
   &lt;li&gt;ETF基本上没有套利空间，而且起步都比较高100万份，300万份等等，少的好像50万份也有&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">套利</summary></entry><entry><title type="html">Java Idea工具</title><link href="https://mafulong.github.io/2025/04/01/Java-Idea%E5%B7%A5%E5%85%B7/" rel="alternate" type="text/html" title="Java Idea工具" /><published>2025-04-01T00:00:00+08:00</published><updated>2025-04-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/01/Java%20Idea%E5%B7%A5%E5%85%B7</id><content type="html" xml:base="https://mafulong.github.io/2025/04/01/Java-Idea%E5%B7%A5%E5%85%B7/">&lt;h2 id=&quot;java-idea工具&quot;&gt;Java Idea工具&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#free-mybatis-plugin&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;arthas-idea&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#arthas-idea&quot;&gt;arthas idea&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Arthas 应该大家都很熟悉了，阿里开源的一款强大的 java 在线诊断工具。&lt;/p&gt;
-
-&lt;p&gt;但如果每次都要你输入一长串命令的话，相信你也会很崩溃，尤其是很多时候我还记忆模糊，很多记不住。这款插件刚好解决了我这个烦恼，极大地提高了生产力&lt;/p&gt;
-
-&lt;h2 id=&quot;free-mybatis-plugin&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#free-mybatis-plugin&quot;&gt;Free Mybatis plugin&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;Mybatis 基本上是目前最主流的 ORM 框架了，相比于 hibernate 更加灵活，性能也更好。所以我们一般在 Spring Boot 项目中都会写对应的 mapper.java 和 mapper.xml。&lt;/p&gt;
-
-&lt;h2 id=&quot;visualgc&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#visualgc&quot;&gt;VisualGC&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;这里给大家推荐一个 JVM 堆栈可视化工具，可以和 Intellij IDEA 深度集成——VisualGC。&lt;/p&gt;
-
-&lt;h2 id=&quot;checkstyle-idea&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#checkstyle-idea&quot;&gt;CheckStyle-IDEA&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;如果你比较追求代码规范的话，可以安装这个插件，它会提醒你注意无用导入、注释、语法错误❎、代码冗余等等。&lt;/p&gt;
-
-&lt;h2 id=&quot;gittoolbox&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#gittoolbox&quot;&gt;GitToolBox&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;如果你经常使用 Git 提交代码的话，这款插件就非常的爽。&lt;/p&gt;
-
-&lt;h2 id=&quot;maven-helper&quot;&gt;&lt;a href=&quot;https://javabetter.cn/ide/shenji-chajian-10.html#maven-helper&quot;&gt;Maven Helper&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;这插件几乎人手一个了吧，Java 后端开发必备啊。&lt;/p&gt;
-
-&lt;h2 id=&quot;jenv&quot;&gt;Jenv&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Jenv&lt;/strong&gt; 是一个用于管理多个 Java 版本的工具，它类似于 Python 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv&lt;/code&gt;。Jenv 可以让你在同一台机器上管理多个版本的 JDK，并方便地在不同的 Java 项目之间切换 Java 版本。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Java Idea工具</summary></entry><entry><title type="html">Java QA</title><link href="https://mafulong.github.io/2025/04/01/Java-QA/" rel="alternate" type="text/html" title="Java QA" /><published>2025-04-01T00:00:00+08:00</published><updated>2025-04-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/01/Java%20QA</id><content type="html" xml:base="https://mafulong.github.io/2025/04/01/Java-QA/">&lt;h2 id=&quot;java-qa&quot;&gt;Java QA&lt;/h2&gt;
-
-&lt;h3 id=&quot;为什么说-java-语言编译与解释并存&quot;&gt;&lt;strong&gt;为什么说 Java 语言“编译与解释并存”？&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;这是因为 Java 语言既具有编译型语言的特征，也具有解释型语言的特征。因为 Java 程序要经过先编译，后解释两个步骤，由 Java 编写的程序需要先经过编译步骤，生成字节码（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.class&lt;/code&gt; 文件），这种字节码必须由 Java 解释器来解释执行。&lt;/p&gt;
-
-&lt;h3 id=&quot;oracle-jdk-vs-openjdk&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/basis/java-basic-questions-01.html#oracle-jdk-vs-openjdk&quot;&gt;Oracle JDK vs OpenJDK&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;既然 Oracle JDK 这么好，那为什么还要有 OpenJDK？&lt;/p&gt;
-
-&lt;p&gt;答：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;OpenJDK 是开源的，开源意味着你可以对它根据你自己的需要进行修改、优化，比如 Alibaba 基于 OpenJDK 开发了 Dragonwell8：https://github.com/alibaba/dragonwell8&lt;/li&gt;
-  &lt;li&gt;OpenJDK 是商业免费的（这也是为什么通过 yum 包管理器上默认安装的 JDK 是 OpenJDK 而不是 Oracle JDK）。虽然 Oracle JDK 也是商业免费（比如 JDK 8），但并不是所有版本都是免费的。&lt;/li&gt;
-  &lt;li&gt;OpenJDK 更新频率更快。Oracle JDK 一般是每 6 个月发布一个新版本，而 OpenJDK 一般是每 3 个月发布一个新版本。（现在你知道为啥 Oracle JDK 更稳定了吧，先在 OpenJDK 试试水，把大部分问题都解决掉了才在 Oracle JDK 上发布）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;Oracle JDK 和 OpenJDK 如何选择？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;建议选择 OpenJDK 或者基于 OpenJDK 的发行版，比如 AWS 的 Amazon Corretto，阿里巴巴的 Alibaba Dragonwell。&lt;/p&gt;
-
-&lt;h3 id=&quot;虚拟线程-协程&quot;&gt;虚拟线程 协程&lt;/h3&gt;
-
-&lt;p&gt;https://mp.weixin.qq.com/s/qMTE-fOovstQg5Q9vIFIWg&lt;/p&gt;
-
-&lt;p&gt;https://javaguide.cn/java/concurrent/virtual-thread.html#%E8%99%9A%E6%8B%9F%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%B9%B3%E5%8F%B0%E7%BA%BF%E7%A8%8B%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94&lt;/p&gt;
-
-&lt;p&gt;jdk21类似go实现了有栈协程，但注意java的依赖载体线程，比如synchronized 就是用了载体线程，因此会让载体线程也进行阻塞。不能很好的兼容。&lt;/p&gt;
-
-&lt;h3 id=&quot;java-使用的线程调度方式&quot;&gt;Java 使用的线程调度方式&lt;/h3&gt;
-
-&lt;p&gt;操作系统主要通过两种线程调度方式来管理多线程的执行：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;抢占式调度（Preemptive Scheduling）&lt;/strong&gt;：操作系统决定何时暂停当前正在运行的线程，并切换到另一个线程执行。这种切换通常是由系统时钟中断（时间片轮转）或其他高优先级事件（如 I/O 操作完成）触发的。这种方式存在上下文切换开销，但公平性和 CPU 资源利用率较好，不易阻塞。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;协同式调度（Cooperative Scheduling）&lt;/strong&gt;：线程执行完毕后，主动通知系统切换到另一个线程。这种方式可以减少上下文切换带来的性能开销，但公平性较差，容易阻塞。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Java 使用的线程调度是抢占式的。也就是说，JVM 本身不负责线程的调度，而是将线程的调度委托给操作系统。操作系统通常会基于线程优先级和时间片来调度线程的执行，高优先级的线程通常获得 CPU 时间片的机会更多。&lt;/p&gt;
-
-&lt;p&gt;###&lt;/p&gt;
-
-&lt;h3 id=&quot;单核-cpu-上运行多个线程效率一定会高吗&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/concurrent/java-concurrent-questions-01.html#⭐️单核-cpu-上运行多个线程效率一定会高吗&quot;&gt;单核 CPU 上运行多个线程效率一定会高吗？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;单核 CPU 同时运行多个线程的效率是否会高，取决于线程的类型和任务的性质。一般来说，有两种类型的线程：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;CPU 密集型&lt;/strong&gt;：CPU 密集型的线程主要进行计算和逻辑处理，需要占用大量的 CPU 资源。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;IO 密集型&lt;/strong&gt;：IO 密集型的线程主要进行输入输出操作，如读写文件、网络通信等，需要等待 IO 设备的响应，而不占用太多的 CPU 资源。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;在单核 CPU 上，同一时刻只能有一个线程在运行，其他线程需要等待 CPU 的时间片分配。如果线程是 CPU 密集型的，那么多个线程同时运行会导致频繁的线程切换，增加了系统的开销，降低了效率。如果线程是 IO 密集型的，那么多个线程同时运行可以利用 CPU 在等待 IO 时的空闲时间，提高了效率。&lt;/p&gt;
-
-&lt;p&gt;因此，对于单核 CPU 来说，如果任务是 CPU 密集型的，那么开很多线程会影响效率；如果任务是 IO 密集型的，那么开很多线程会提高效率。当然，这里的“很多”也要适度，不能超过系统能够承受的上限。&lt;/p&gt;
-
-&lt;h3 id=&quot;如何检测死锁&quot;&gt;&lt;a href=&quot;#如何检测死锁&quot;&gt;如何检测死锁？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jmap&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jstack&lt;/code&gt;等命令查看 JVM 线程栈和堆内存的情况。如果有死锁，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jstack&lt;/code&gt; 的输出中通常会有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Found one Java-level deadlock:&lt;/code&gt;的字样，后面会跟着死锁相关的线程信息。另外，实际项目中还可以搭配使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;top&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;free&lt;/code&gt;等命令查看操作系统的基本情况，出现死锁可能会导致 CPU、内存等资源消耗过高。&lt;/li&gt;
-  &lt;li&gt;采用 VisualVM、JConsole 等工具进行排查。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这里以 JConsole 工具为例进行演示。&lt;/p&gt;
-
-&lt;h3 id=&quot;synchronized-底层原理了解吗&quot;&gt;&lt;a href=&quot;https://javaguide.cn/java/concurrent/java-concurrent-questions-02.html#⭐️synchronized-底层原理了解吗&quot;&gt;synchronized 底层原理了解吗？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;synchronized 关键字底层原理属于 JVM 层面的东西。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 同步语句块的实现使用的是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorenter&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorexit&lt;/code&gt; 指令，其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorenter&lt;/code&gt; 指令指向同步代码块的开始位置，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorexit&lt;/code&gt; 指令则指明同步代码块的结束位置。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 修饰的方法并没有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorenter&lt;/code&gt; 指令和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;monitorexit&lt;/code&gt; 指令，取而代之的是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ACC_SYNCHRONIZED&lt;/code&gt; 标识，该标识指明了该方法是一个同步方法。&lt;/p&gt;
-
-&lt;p&gt;不过，两者的本质都是对对象监视器 monitor 的获取。wait, notify也是基于monitor对象的。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://javaguide.cn/java/concurrent/java-concurrent-questions-02.html#%E2%AD%90%EF%B8%8Fsynchronized-%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86%E4%BA%86%E8%A7%A3%E5%90%97&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;在 Java 6 之后， &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 引入了大量的优化如自旋锁、适应性自旋锁、锁消除、锁粗化、偏向锁、轻量级锁等技术来减少锁操作的开销，这些优化让 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 锁的效率提升了很多（JDK18 中，偏向锁已经被彻底废弃，前面已经提到过了）。&lt;/p&gt;
-
-&lt;p&gt;锁主要存在四种状态，依次是：无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态，他们会随着竞争的激烈而逐渐升级。注意锁可以升级不可降级，这种策略是为了提高获得锁和释放锁的效率。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 锁升级是一个比较复杂的过程，面试也很少问到，如果你想要详细了解的话，可以看看这篇文章：&lt;a href=&quot;https://www.cnblogs.com/star95/p/17542850.html&quot;&gt;浅析 synchronized 锁升级的原理与实现&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h3 id=&quot;synchronized-和-volatile-有什么区别&quot;&gt;&lt;a href=&quot;#⭐️synchronized-和-volatile-有什么区别&quot;&gt;synchronized 和 volatile 有什么区别？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 关键字和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt; 关键字是两个互补的存在，而不是对立的存在！&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt; 关键字是线程同步的轻量级实现，所以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt;性能肯定比&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt;关键字要好 。但是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt; 关键字只能用于变量而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 关键字可以修饰方法以及代码块 。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt; 关键字能保证数据的可见性，但不能保证数据的原子性。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 关键字两者都能保证。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;volatile&lt;/code&gt;关键字主要用于解决变量在多个线程之间的可见性，而 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 关键字解决的是多个线程之间访问资源的同步性。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">Java QA</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">套利</summary></entry></feed>
