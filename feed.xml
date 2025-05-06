@@ -1,4 +1,340 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-05T17:00:04+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-06T23:43:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring基础</title><link href="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Spring基础" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;spring基础&quot;&gt;Spring基础&lt;/h2&gt;
+
+&lt;p&gt;一句话概括：&lt;strong&gt;Spring 是一个轻量级、非入侵式的控制反转 (IoC) 和面向切面 (AOP) 的框架。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我们一般说 Spring 框架指的都是 Spring Framework，它是很多模块的集合，使用这些模块可以很方便地协助我们进行开发，比如说 Spring 支持 IoC（Inversion of Control:控制反转） 和 AOP(Aspect-Oriented Programming:面向切面编程)、可以很方便地对数据库进行访问、可以很方便地集成第三方组件（电子邮件，任务，调度，缓存等等）、对单元测试支持比较好、支持 RESTful Java 应用程序的开发。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062328358.png&quot; alt=&quot;三分恶面渣逆袭：Spring特性&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;IoC&lt;/strong&gt; 和 &lt;strong&gt;DI&lt;/strong&gt; 的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 的核心就是一个大的工厂容器，可以维护所有对象的创建和依赖关系，Spring 工厂用于生成 Bean，并且管理 Bean 的生命周期，实现&lt;strong&gt;高内聚低耦合&lt;/strong&gt;的设计理念。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;AOP 编程的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 提供了&lt;strong&gt;面向切面编程&lt;/strong&gt;，可以方便的实现对程序进行权限拦截、运行监控等切面功能。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;声明式事务的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;支持通过配置就来完成对事务的管理，而不需要通过硬编码的方式，以前重复的一些事务提交、回滚的 JDBC 代码，都可以不用自己写了。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;快捷测试的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 对 Junit 提供支持，可以通过&lt;strong&gt;注解&lt;/strong&gt;快捷地测试 Spring 程序。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;快速集成功能&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;方便集成各种优秀框架，Spring 不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz 等）的直接支持。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;复杂 API 模板封装&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 对 JavaEE 开发中非常难用的一些 API（JDBC、JavaMail、远程调用等）都提供了模板化的封装，这些封装 API 的提供使得应用难度大大降低。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-简单说一下什么是aop-和-ioc&quot;&gt;1. &lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#简单说一下什么是aop-和-ioc&quot;&gt;简单说一下什么是AOP 和 IoC？&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;AOP&lt;/strong&gt;：面向切面编程，是一种编程范式，它的主要作用是将那些与核心业务逻辑无关，但是对多个对象产生影响的公共行为封装起来，如日志记录、性能统计、事务等。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IoC&lt;/strong&gt;：控制反转，是一种设计思想，它的主要作用是将对象的创建和对象之间的调用过程交给 Spring 容器来管理。&lt;/p&gt;
+
+&lt;h3 id=&quot;2spring-有哪些模块呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_2-spring-有哪些模块呢&quot;&gt;2.Spring 有哪些模块呢？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 框架是分模块存在，除了最核心的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Core Container&lt;/code&gt;是必要模块之外，其他模块都是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;可选&lt;/code&gt;，大约有 20 多个模块。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329603.png&quot; alt=&quot;Spring模块划分&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最主要的七大模块：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Core&lt;/strong&gt;：Spring 核心，它是框架最基础的部分，提供 IoC 和依赖注入 DI 特性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Context&lt;/strong&gt;：Spring 上下文容器，它是 BeanFactory 功能加强的一个子接口。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Web&lt;/strong&gt;：它提供 Web 应用开发的支持。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring MVC&lt;/strong&gt;：它针对 Web 应用中 MVC 思想的实现。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring DAO&lt;/strong&gt;：提供对 JDBC 抽象层，简化了 JDBC 编码，同时，编码更具有健壮性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring ORM&lt;/strong&gt;：它支持用于流行的 ORM 框架的整合，比如：Spring + Hibernate、Spring + iBatis、Spring + JDO 的整合等。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring AOP&lt;/strong&gt;：即面向切面编程，它提供了与 AOP 联盟兼容的编程实现。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;3spring-有哪些常用注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_3-spring-有哪些常用注解呢&quot;&gt;3.Spring 有哪些常用注解呢？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 提供了大量的注解来简化 Java 应用的开发和配置，主要用于 Web 开发、往容器注入 Bean、AOP、事务控制等。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329372.png&quot; alt=&quot;三分恶面渣逆袭：Spring常用注解&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;web-开发方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#web-开发方面有哪些注解呢&quot;&gt;Web 开发方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;①、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt;：用于标注控制层组件。&lt;/p&gt;
+
+&lt;p&gt;②、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RestController&lt;/code&gt;：是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt; 的结合体，返回 JSON 数据时使用。&lt;/p&gt;
+
+&lt;p&gt;③、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt;：用于映射请求 URL 到具体的方法上，还可以细分为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@GetMapping&lt;/code&gt;：只能用于处理 GET 请求&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PostMapping&lt;/code&gt;：只能用于处理 POST 请求&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@DeleteMapping&lt;/code&gt;：只能用于处理 DELETE 请求&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;④、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt;：直接将返回的数据放入 HTTP 响应正文中，一般用于返回 JSON 数据。&lt;/p&gt;
+
+&lt;p&gt;⑤、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestBody&lt;/code&gt;：表示一个方法参数应该绑定到 Web 请求体。&lt;/p&gt;
+
+&lt;p&gt;⑥、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PathVariable&lt;/code&gt;：用于接收路径参数，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping(“/hello/{name}”)&lt;/code&gt;，这里的 name 就是路径参数。&lt;/p&gt;
+
+&lt;p&gt;⑦、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam&lt;/code&gt;：用于接收请求参数。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam(name = &quot;key&quot;) String key&lt;/code&gt;，这里的 key 就是请求参数。&lt;/p&gt;
+
+&lt;h4 id=&quot;容器类注解有哪些呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#容器类注解有哪些呢&quot;&gt;容器类注解有哪些呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;：标识一个类为 Spring 组件，使其能够被 Spring 容器自动扫描和管理。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service&lt;/code&gt;：标识一个业务逻辑组件（服务层）。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service(&quot;userService&quot;)&lt;/code&gt;，这里的 userService 就是 Bean 的名称。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Repository&lt;/code&gt;：标识一个数据访问组件（持久层）。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;：按类型自动注入依赖。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;：用于定义配置类，可替换 XML 配置文件。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt;：用于将 Spring Boot 中 application.properties 配置的属性值赋值给变量。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;aop-方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#aop-方面有哪些注解呢&quot;&gt;AOP 方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Aspect&lt;/code&gt; 用于声明一个切面，可以配合其他注解一起使用，比如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@After&lt;/code&gt;：在方法执行之后执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Before&lt;/code&gt;：在方法执行之前执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Around&lt;/code&gt;：方法前后均执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PointCut&lt;/code&gt;：定义切点，指定需要拦截的方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;事务注解有哪些&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#事务注解有哪些&quot;&gt;事务注解有哪些？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;主要就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Transactional&lt;/code&gt;，用于声明一个方法需要事务支持。&lt;/p&gt;
+
+&lt;h3 id=&quot;springspring-mvcspring-boot-之间什么关系&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#spring-spring-mvc-spring-boot-之间什么关系&quot;&gt;Spring,Spring MVC,Spring Boot 之间什么关系?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;很多人对 Spring,Spring MVC,Spring Boot 这三者傻傻分不清楚！这里简单介绍一下这三者，其实很简单，没有什么高深的东西。&lt;/p&gt;
+
+&lt;p&gt;Spring 包含了多个功能模块（上面刚刚提到过），其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。&lt;/p&gt;
+
+&lt;p&gt;Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。&lt;/p&gt;
+
+&lt;p&gt;使用 Spring 进行开发各种配置过于麻烦比如开启某些 Spring 特性时，需要用 XML 或 Java 进行显式配置。于是，Spring Boot 诞生了！&lt;/p&gt;
+
+&lt;p&gt;Spring 旨在简化 J2EE 企业应用程序开发。Spring Boot 旨在简化 Spring 开发（减少配置文件，开箱即用！）。&lt;/p&gt;
+
+&lt;p&gt;Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程序，你还是需要使用 Spring MVC 作为 MVC 框架，只是说 Spring Boot 帮你简化了 Spring MVC 的很多配置，真正做到开箱即用！&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring基础</summary></entry><entry><title type="html">Sprint IoC</title><link href="https://mafulong.github.io/2025/05/06/Sprint-IoC/" rel="alternate" type="text/html" title="Sprint IoC" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Sprint%20IoC</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Sprint-IoC/">&lt;h2 id=&quot;sprint-ioc&quot;&gt;Sprint IoC&lt;/h2&gt;
+
+&lt;h3 id=&quot;谈谈自己对于-spring-ioc-的了解&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#谈谈自己对于-spring-ioc-的了解&quot;&gt;谈谈自己对于 Spring IoC 的了解&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;IoC（Inversion of Control:控制反转）&lt;/strong&gt; 是一种设计思想，而不是一个具体的技术实现。IoC 的思想就是将原本在程序中手动创建对象的控制权，交由 Spring 框架来管理。不过， IoC 并非 Spring 特有，在其他语言中也有应用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么叫控制反转？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;控制&lt;/strong&gt;：指的是对象创建（实例化、管理）的权力&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;反转&lt;/strong&gt;：控制权交给外部环境（Spring 框架、IoC 容器）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在实际项目中一个 Service 类可能依赖了很多其他的类，假如我们需要实例化这个 Service，你可能要每次都要搞清这个 Service 所有底层类的构造函数，这可能会把人逼疯。如果利用 IoC 的话，你只需要配置好，然后在需要的地方引用就行了，这大大增加了项目的可维护性且降低了开发难度。&lt;/p&gt;
+
+&lt;p&gt;在 Spring 中， IoC 容器是 Spring 用来实现 IoC 的载体， IoC 容器实际上就是个 Map（key，value），Map 中存放的是各种对象。&lt;/p&gt;
+
+&lt;p&gt;IOC 是一种思想，&lt;strong&gt;DI&lt;/strong&gt; 是实现 IOC 的具体方式，比如说利用注入机制（如构造器注入、Setter 注入）将依赖传递给目标对象。&lt;/p&gt;
+
+&lt;h3 id=&quot;将一个类声明为-bean-的注解有哪些&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#将一个类声明为-bean-的注解有哪些&quot;&gt;将一个类声明为 Bean 的注解有哪些?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;：通用的注解，可标注任意类为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring&lt;/code&gt; 组件。如果一个 Bean 不知道属于哪个层，可以使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 注解标注。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Repository&lt;/code&gt; : 对应持久层即 Dao 层，主要用于数据库相关操作。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service&lt;/code&gt; : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao 层。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt; : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Service&lt;/code&gt; 层返回数据给前端页面。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;component-和-bean-的区别是什么&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#component-和-bean-的区别是什么&quot;&gt;@Component 和 @Bean 的区别是什么？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 注解作用于类，而&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;注解作用于方法。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;通常是通过类路径扫描来自动侦测以及自动装配到 Spring 容器中（我们可以使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ComponentScan&lt;/code&gt; 注解定义要扫描的路径从中找出标识了需要装配的类自动装配到 Spring 的 bean 容器中）。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt; 注解通常是我们在标有该注解的方法中定义产生这个 bean,&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;告诉了 Spring 这是某个类的实例，当我需要用它的时候还给我。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt; 注解比 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt; 注解的自定义性更强，而且很多地方我们只能通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt; 注解来注册 bean。比如当我们引用第三方库中的类需要装配到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring&lt;/code&gt;容器时，则只能通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Bean&lt;/code&gt;来实现。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;nd&quot;&gt;@Configuration&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AppConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TransferService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transferService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TransferServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;注入-bean-的注解有哪些&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#注入-bean-的注解有哪些&quot;&gt;注入 Bean 的注解有哪些？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 内置的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 以及 JDK 内置的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Inject&lt;/code&gt; 都可以用于注入 Bean。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Annotation&lt;/th&gt;
+      &lt;th&gt;Package&lt;/th&gt;
+      &lt;th&gt;Source&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;org.springframework.bean.factory&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Spring 2.5+&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javax.annotation&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Java JSR-250&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Inject&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javax.inject&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Java JSR-330&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;使用的比较多一些。&lt;/p&gt;
+
+&lt;p&gt;推荐构造函数注入。&lt;/p&gt;
+
+&lt;h3 id=&quot;autowired-和-resource-的区别是什么&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#autowired-和-resource-的区别是什么&quot;&gt;@Autowired 和 @Resource 的区别是什么？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 是 Spring 提供的注解，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt; 是 JDK 提供的注解。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Autowired&lt;/code&gt; 默认的注入方式为&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;byType&lt;/code&gt;（根据类型进行匹配），&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;默认注入方式为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;byName&lt;/code&gt;（根据名称进行匹配）。&lt;/li&gt;
+  &lt;li&gt;当一个接口存在多个实现类的情况下，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 和&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;都需要通过名称才能正确匹配到对应的 Bean。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Autowired&lt;/code&gt; 可以通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Qualifier&lt;/code&gt; 注解来显式指定名称，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;可以通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt; 属性来显式指定名称。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 支持在构造函数、方法、字段和参数上使用。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt; 主要用于字段和方法上的注入，不支持在构造函数或参数上使用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;注入-bean-的方式有哪些&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#注入-bean-的方式有哪些&quot;&gt;注入 Bean 的方式有哪些？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;依赖注入 (Dependency Injection, DI) 的常见方式：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;构造函数注入：通过类的构造函数来注入依赖项。&lt;/li&gt;
+  &lt;li&gt;Setter 注入：通过类的 Setter 方法来注入依赖项。&lt;/li&gt;
+  &lt;li&gt;Field（字段） 注入：直接在类的字段上使用注解（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;）来注入依赖项。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Spring 官方推荐构造函数注入&lt;/strong&gt;，这种注入方式的优势如下：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;依赖完整性：确保所有必需依赖在对象创建时就被注入，避免了空指针异常的风险。&lt;/li&gt;
+  &lt;li&gt;不可变性：有助于创建不可变对象，提高了线程安全性。&lt;/li&gt;
+  &lt;li&gt;初始化保证：组件在使用前已完全初始化，减少了潜在的错误。&lt;/li&gt;
+  &lt;li&gt;测试便利性：在单元测试中，可以直接通过构造函数传入模拟的依赖项，而不必依赖 Spring 容器进行注入。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;构造函数注入适合处理&lt;strong&gt;必需的依赖项&lt;/strong&gt;，而 &lt;strong&gt;Setter 注入&lt;/strong&gt; 则更适合&lt;strong&gt;可选的依赖项&lt;/strong&gt;，这些依赖项可以有默认值或在对象生命周期中动态设置。虽然 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 可以用于 Setter 方法来处理必需的依赖项，但构造函数注入仍然是更好的选择。&lt;/p&gt;
+
+&lt;p&gt;在某些情况下（例如第三方类不提供 Setter 方法），构造函数注入可能是&lt;strong&gt;唯一的选择&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;bean-的作用域有哪些&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#bean-的作用域有哪些&quot;&gt;Bean 的作用域有哪些?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 中 Bean 的作用域通常有下面几种：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;singleton&lt;/strong&gt; : IoC 容器中只有唯一的 bean 实例。Spring 中的 bean 默认都是单例的，是对单例设计模式的应用。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;prototype&lt;/strong&gt; : 每次获取都会创建一个新的 bean 实例。也就是说，连续 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;getBean()&lt;/code&gt; 两次，得到的是不同的 Bean 实例。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;request&lt;/strong&gt; （仅 Web 应用可用）: 每一次 HTTP 请求都会产生一个新的 bean（请求 bean），该 bean 仅在当前 HTTP request 内有效。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;session&lt;/strong&gt; （仅 Web 应用可用） : 每一次来自新 session 的 HTTP 请求都会产生一个新的 bean（会话 bean），该 bean 仅在当前 HTTP session 内有效。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;application/global-session&lt;/strong&gt; （仅 Web 应用可用）：每个 Web 应用在启动时创建一个 Bean（应用 Bean），该 bean 仅在当前应用启动时间内有效。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;websocket&lt;/strong&gt; （仅 Web 应用可用）：每一次 WebSocket 会话产生一个新的 bean。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bean-的生命周期了解么&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#bean-的生命周期了解么&quot;&gt;Bean 的生命周期了解么?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;创建 Bean 的实例&lt;/strong&gt;：Bean 容器首先会找到配置文件中的 Bean 定义，然后使用 Java 反射 API 来创建 Bean 的实例。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Bean 属性赋值/填充&lt;/strong&gt;：为 Bean 设置相关属性和依赖，例如&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt; 等注解注入的对象、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt; 注入的值、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setter&lt;/code&gt;方法或构造函数注入依赖和值、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Resource&lt;/code&gt;注入的各种资源。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Bean 初始化&lt;/p&gt;
+
+    &lt;p&gt;：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;如果 Bean 实现了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanNameAware&lt;/code&gt; 接口，调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setBeanName()&lt;/code&gt;方法，传入 Bean 的名字。&lt;/li&gt;
+      &lt;li&gt;如果 Bean 实现了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanClassLoaderAware&lt;/code&gt; 接口，调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setBeanClassLoader()&lt;/code&gt;方法，传入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt;对象的实例。&lt;/li&gt;
+      &lt;li&gt;如果 Bean 实现了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanFactoryAware&lt;/code&gt; 接口，调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setBeanFactory()&lt;/code&gt;方法，传入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanFactory&lt;/code&gt;对象的实例。&lt;/li&gt;
+      &lt;li&gt;与上面的类似，如果实现了其他 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*.Aware&lt;/code&gt;接口，就调用相应的方法。&lt;/li&gt;
+      &lt;li&gt;如果有和加载这个 Bean 的 Spring 容器相关的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanPostProcessor&lt;/code&gt; 对象，执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postProcessBeforeInitialization()&lt;/code&gt; 方法&lt;/li&gt;
+      &lt;li&gt;如果 Bean 实现了&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InitializingBean&lt;/code&gt;接口，执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;afterPropertiesSet()&lt;/code&gt;方法。&lt;/li&gt;
+      &lt;li&gt;如果 Bean 在配置文件中的定义包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;init-method&lt;/code&gt; 属性，执行指定的方法。&lt;/li&gt;
+      &lt;li&gt;如果有和加载这个 Bean 的 Spring 容器相关的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanPostProcessor&lt;/code&gt; 对象，执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postProcessAfterInitialization()&lt;/code&gt; 方法。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;销毁 Bean&lt;/p&gt;
+
+    &lt;p&gt;：销毁并不是说要立马把 Bean 给销毁掉，而是把 Bean 的销毁方法先记录下来，将来需要销毁 Bean 或者销毁容器的时候，就调用这些方法去释放 Bean 所持有的资源。&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;如果 Bean 实现了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DisposableBean&lt;/code&gt; 接口，执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy()&lt;/code&gt; 方法。&lt;/li&gt;
+      &lt;li&gt;如果 Bean 在配置文件中的定义包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destroy-method&lt;/code&gt; 属性，执行指定的 Bean 销毁方法。或者，也可以直接通过&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PreDestroy&lt;/code&gt; 注解标记 Bean 销毁之前执行的方法。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Bean 的生命周期大致分为五个阶段：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062341884.png&quot; alt=&quot;三分恶面渣逆袭：Bean生命周期五个阶段&quot; /&gt;三分恶面渣逆袭：Bean生命周期五个阶段&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;实例化&lt;/strong&gt;：Spring 首先使用构造方法或者工厂方法创建一个 Bean 的实例。在这个阶段，Bean 只是一个空的 Java 对象，还未设置任何属性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;属性赋值&lt;/strong&gt;：Spring 将配置文件中的属性值或依赖的 Bean 注入到该 Bean 中。这个过程称为依赖注入，确保 Bean 所需的所有依赖都被注入。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;初始化&lt;/strong&gt;：Spring 调用 afterPropertiesSet 方法，或通过配置文件指定的 init-method 方法，完成初始化。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;使用中&lt;/strong&gt;：Bean 准备好可以使用了。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;销毁&lt;/strong&gt;：在容器关闭时，Spring 会调用 destroy 方法，完成 Bean 的清理工作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;如何记忆呢？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;整体上可以简单分为四步：实例化 —&amp;gt; 属性赋值 —&amp;gt; 初始化 —&amp;gt; 销毁。&lt;/li&gt;
+  &lt;li&gt;初始化这一步涉及到的步骤比较多，包含 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Aware&lt;/code&gt; 接口的依赖注入、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanPostProcessor&lt;/code&gt; 在初始化前后的处理以及 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InitializingBean&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;init-method&lt;/code&gt; 的初始化操作。&lt;/li&gt;
+  &lt;li&gt;销毁这一步会注册相关销毁回调接口，最后通过&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DisposableBean&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destory-method&lt;/code&gt; 进行销毁。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;最后，再分享一张清晰的图解（图源：&lt;a href=&quot;https://chaycao.github.io/2020/02/15/如何记忆Spring-Bean的生命周期.html&quot;&gt;如何记忆 Spring Bean 的生命周期&lt;/a&gt;）。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062339187.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;spring-中的单例-bean-会存在线程安全问题吗&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_14-spring-中的单例-bean-会存在线程安全问题吗&quot;&gt;Spring 中的单例 Bean 会存在线程安全问题吗？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring Bean 的默认作用域是单例（Singleton），这意味着 Spring 容器中只会存在一个 Bean 实例，并且该实例会被多个线程共享。&lt;/p&gt;
+
+&lt;p&gt;如果单例 Bean 是无状态的，也就是没有成员变量，那么这个单例 Bean 是线程安全的。比如 Spring MVC 中的 Controller、Service、Dao 等，基本上都是无状态的。&lt;/p&gt;
+
+&lt;p&gt;但如果 Bean 的内部状态是可变的，且没有进行适当的同步处理，就可能出现线程安全问题。&lt;/p&gt;
+
+&lt;p&gt;对于有状态单例 Bean 的线程安全问题，常见的三种解决办法是：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;避免可变成员变量&lt;/strong&gt;: 尽量设计 Bean 为无状态。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;&lt;/strong&gt;: 将可变成员变量保存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt; 中，确保线程独立。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;使用同步机制&lt;/strong&gt;: 利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantLock&lt;/code&gt; 来进行同步控制，确保线程安全。&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Sprint IoC</summary></entry><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
 
 &lt;h2 id=&quot;jdk-并发包&quot;&gt;JDK 并发包&lt;/h2&gt;
 
@@ -1673,185 +2009,4 @@ System.setProperty(&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;, &quo
   &lt;li&gt;点击“&lt;strong&gt;签名图标&lt;/strong&gt;”（或者使用“绘图”工具）&lt;/li&gt;
   &lt;li&gt;可用触控板、鼠标或 iPad（使用 Sidecar）进行手写输入&lt;/li&gt;
   &lt;li&gt;放置在合适位置，保存即可&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">pdf不打印加签名</summary></entry><entry><title type="html">QQ音乐文件下载转mp3</title><link href="https://mafulong.github.io/2025/04/08/QQ%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%BD%ACmp3/" rel="alternate" type="text/html" title="QQ音乐文件下载转mp3" /><published>2025-04-08T00:00:00+08:00</published><updated>2025-04-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/08/QQ%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%BD%ACmp3</id><content type="html" xml:base="https://mafulong.github.io/2025/04/08/QQ%E9%9F%B3%E4%B9%90%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%BD%ACmp3/">&lt;h2 id=&quot;qq音乐文件下载转mp3&quot;&gt;QQ音乐文件下载转mp3&lt;/h2&gt;
-
-&lt;p&gt;需要使用旧版QQ音乐，这样下载的加密文件flmac or ogg文件才可以解密变成flac/wac/mp3等可以在一般音乐软件播放的格式，其中mp3品质最低，建议flac格式。&lt;/p&gt;
-
-&lt;h3 id=&quot;旧版qq音乐&quot;&gt;旧版QQ音乐:&lt;/h3&gt;
-
-&lt;p&gt;mac版本，已经在我的百度网盘了。&lt;/p&gt;
-
-&lt;p&gt;通过网盘分享的文件：QQMusicMac_Mgr.dmg
-链接: https://pan.baidu.com/s/1FRRQm5_OoTCJqsMO9u9_LQ 提取码: wz9p&lt;/p&gt;
-
-&lt;p&gt;登录后进行下载。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;会员歌曲是加密的，单独一个目录. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/Users/mafulong/Library/Containers/com.tencent.QQMusicMac/Data/Library/Application Support/QQMusicMac/iQmc&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;免费歌曲是mp3格式。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt; /Users/mafulong/Music/QQ音乐&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;音乐文件格式转换&quot;&gt;音乐文件格式转换&lt;/h3&gt;
-
-&lt;p&gt;参考: https://www.bilibili.com/opus/902846904983879720?jump_opus=1&lt;/p&gt;
-
-&lt;p&gt;使用网址上传加密的，并下载解密后的。 https://jiesuo.ink/&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">QQ音乐文件下载转mp3</summary></entry><entry><title type="html">套利</title><link href="https://mafulong.github.io/2025/04/02/%E5%A5%97%E5%88%A9/" rel="alternate" type="text/html" title="套利" /><published>2025-04-02T00:00:00+08:00</published><updated>2025-04-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/02/%E5%A5%97%E5%88%A9</id><content type="html" xml:base="https://mafulong.github.io/2025/04/02/%E5%A5%97%E5%88%A9/">&lt;h2 id=&quot;套利&quot;&gt;套利&lt;/h2&gt;
-
-&lt;p&gt;折价套利原理，是基金处于折价状态，场内价格低，净值高。此时如果我们持有此基金，那么就可以在尾盘，&lt;strong&gt;按照净值赎回，同时买入等额的场内基金，实现了“高卖低买”的套利操作，赚取差价。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;折价&lt;/strong&gt;套利仅适合长期持有的基金做底仓，不适合新买入的基金做底仓，而且只能做一次，不适合频繁操作。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;溢价套利相比折价套利，手续费更低，耗时更短，资金利用率更高，最重要的是风险也最低。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;溢价套利&quot;&gt;溢价套利&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;溢价套利的理论知识点很简单，就是当基金场内价格高于净值时，就可以通过卖出场内份额，同时在场内申购等值的基金份额（场内申购的填写的是申购的金额），&lt;/strong&gt;这样就完成了一轮溢价套利操作&lt;/p&gt;
-
-&lt;p&gt;溢价套利的操作时间一般是在两点半后，跟据基金的估值和场内成交价格，计算出基金的溢价率，判断基金是否出现溢价套利机会，也可以直接查看某微某号“小鱼的储钱罐”，会直接显示溢价率，还可以开启提醒，避免错失机会&lt;/p&gt;
-
-&lt;p&gt;理论上当溢价率 - 成本率 &amp;gt; 0%时，就有溢价套利的机会，但是因为估值会有误差，保守的套利策略是当溢价率大于0.5%时，才进行溢价套利操作，这样可以大大增加套利的成功率，减少吃面的可能。当然这也不是一条死规则，我们可以灵活观察基金的历史估值误差率，如果误差率小的，我们就可以降低溢价率的要求，例如某些指数LOF。&lt;/p&gt;
-
-&lt;p&gt;单次溢价套利的成本率大约是0.16%（申购费一折0.15%+基金卖出佣金万分之一），不同的券商可能会有差别&lt;/p&gt;
-
-&lt;h4 id=&quot;无底仓&quot;&gt;无底仓&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;溢价套利的操作步骤（无底仓）：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1、T日你发现基金场内价格出现溢价，你经过深思熟虑后，在下午3点前通过场内申购了该基金（场内申购填写的是申购金额，而不是份额）。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2、T+2日，申购的基金份额到账后，在场内卖出到账的基金份额。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3、操作完上面两步一轮套利就完成了，但是你一定要知道，你申购的基金是T+2日到账，那你无底仓套利就必须承受T+1日的波动和T+2日开盘时的波动。你也一定要有自己独立的思考，这并不是一定会成功的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4、无底仓套利，还可能会遇到踩踏事件，这就要求你必须掌握跌停逃跑秘籍，以备不时之需。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;综上，我们长期套利最多的肯定是有底仓套利，无底仓套利只是偶尔打打游击。&lt;/p&gt;
-
-&lt;h4 id=&quot;有底仓&quot;&gt;有底仓&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;溢价套利的操作步骤（有底仓）：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1、场内卖出基金份额，钱实时到账。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2、场内申购同等的基金份额，一定要在下午3点前提交申购，场内申购填写的是申购金额，而不是份额。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3、晚上查看基金净值，计算此次套利收益，有自助记录的神器帮你。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4、T+1日晚上清算后基金会到达场内账户，T+2日就可以卖出循环套利（如果还有套利机会）。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;基金套利关键时间点&quot;&gt;基金套利关键时间点&lt;/h3&gt;
-
-&lt;p&gt;要想学会基金套利，必须清楚以下三个时间点：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;基金持仓股收盘时间&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;基金净值公布时间&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;基金成交到账时间&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;1-基金持仓股收盘时间&quot;&gt;1. 基金持仓股收盘时间&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;A股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;交易日收盘前（下午3点）场内申购，成交净值按当天（T+0）股票收盘价计算，相当于当日收盘价买入一揽子股票。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购万家优选（161903），成交净值按17日持仓股票收盘价计算，相当于尾盘买入这些股票。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;美股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;交易日收盘前（下午3点）场内申购，成交净值按次日（T+1）美股收盘价计算，相当于次日美股收盘价买入股票。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购中国互联（164906），成交净值按18日美股阿里巴巴、京东、拼多多等收盘价计算。&lt;/li&gt;
-      &lt;li&gt;&lt;strong&gt;注意&lt;/strong&gt;：申购美股基金时，因不知次日收盘价，成交价格始终未知。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;2-基金净值公布时间&quot;&gt;2. 基金净值公布时间&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;A股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;下午3点前（T+0）申购，净值当晚公布，此时可查看成交价格，但尚未成交。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购万家优选（161903），成交净值在17日晚上公布。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;美股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;交易日收盘前（T+0）申购，净值在次日（T+1）公布。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购中国互联（164906），成交净值在2月18日公布。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;3-基金成交到账时间&quot;&gt;3. 基金成交到账时间&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;A股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;T+0日净值公布后，T+1日清算成交，T+2日开盘前到账。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购万家优选（161903），净值17日晚上公布，18日清算，19日开盘前到账。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;美股基金&lt;/strong&gt;
-    &lt;ul&gt;
-      &lt;li&gt;T+1日净值公布后，T+2日清算成交，T+3日开盘前到账。&lt;/li&gt;
-      &lt;li&gt;例如：2月17日下午3点前申购中国互联（164906），净值18日公布，19日清算，20日开盘前到账。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;重要提醒&quot;&gt;重要提醒&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;申购A股基金，成交价已知。&lt;/li&gt;
-  &lt;li&gt;申购美股基金，成交价未知，需谨慎。&lt;/li&gt;
-  &lt;li&gt;牢记基金套利的三个关键时间点，避免不必要的损失！&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;lof&quot;&gt;LOF&lt;/h2&gt;
-
-&lt;p&gt;https://xueqiu.com/1095267696/138669898?md5__1038=n4%2Bx9DRDBDgDyDGxQqb4Bq8otD%3Dbqeyb7AID&lt;/p&gt;
-
-&lt;p&gt;1，LOF基金的主要特点就是，可以在场内以实时价格进行买卖，又能够在场内和场外通过净值申购和赎回。&lt;/p&gt;
-
-&lt;p&gt;不好理解，换一种说法，LOF可以在场内交易，也能在场内和场外申赎。（后文所述全部为场内申赎，场外申赎与本文无关，暂时不再提及）&lt;/p&gt;
-
-&lt;p&gt;场内交易用的是实时价格，交易价格随时变化，和买卖股票完全一样。场内申赎用的是每天收盘后的净值，每天只有一个。&lt;/p&gt;
-
-&lt;p&gt;2，同一个基金，两个地方交易，价格必然不完全相同。后文用交易价格和净值（申赎净值）表示两个不同市场。&lt;/p&gt;
-
-&lt;p&gt;3，交易价格&amp;gt;净值，称为溢价；交易价格&amp;lt;净值，称为折价。&lt;/p&gt;
-
-&lt;p&gt;溢价和折价都是用当前价格和净值进行比较得来的。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;** 注意这里所说的净值是实时净值，也就是估算净值，越是接近收盘时间，估算净值就越接近真实净值。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;（上面这句话非常重要，一定要真正理解才行，这是套利成功的最关键因素）&lt;/p&gt;
-
-&lt;p&gt;真实净值是每天收盘后基金公司才发布的，是准确的，每天只有一个。&lt;/p&gt;
-
-&lt;p&gt;4，同一个基金，从价格低的地方买(申购)来，然后到价格高的地方卖(赎回)，就叫套利，中间产生的差价就是套利收益。&lt;/p&gt;
-
-&lt;p&gt;5，溢价套利：卖出-申购（先简单知道就好，后面会详细介绍操作过程以及注意事项）（申购-卖出会怎么样，其实也可以，为了不搞的太复杂，先不说了）&lt;/p&gt;
-
-&lt;p&gt;当交易价格&amp;gt;净值时，先按交易价格卖出，再按净值申购，，中间的差价就是收益。&lt;/p&gt;
-
-&lt;p&gt;折价套利：赎回-买入&lt;/p&gt;
-
-&lt;p&gt;交易价格&amp;lt;净值时，先按按净值赎回，然后按交易价格买入&lt;/p&gt;
-
-&lt;h2 id=&quot;套利选择&quot;&gt;套利选择&lt;/h2&gt;
-
-&lt;p&gt;华宝油气 162411&lt;/p&gt;
-
-&lt;p&gt;中国互联 164906&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;天弘添利&lt;/li&gt;
-  &lt;li&gt;164206天弘添利，161010富国天丰，还有可转债ETF&lt;/li&gt;
-  &lt;li&gt;160140？&lt;/li&gt;
-  &lt;li&gt;164206&lt;/li&gt;
-  &lt;li&gt;招商双债折价&lt;/li&gt;
-  &lt;li&gt;ETF基本上没有套利空间，而且起步都比较高100万份，300万份等等，少的好像50万份也有&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">套利</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">pdf不打印加签名</summary></entry></feed>
