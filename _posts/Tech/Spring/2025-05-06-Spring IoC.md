@@ -1,7 +1,7 @@
 ---
 layout: post
 category: Spring
-title: Sprint IoC
+title: Spring IoC
 tags: Spring
 ---
 
