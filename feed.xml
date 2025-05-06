@@ -1,138 +1,190 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-06T23:43:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring基础</title><link href="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Spring基础" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;spring基础&quot;&gt;Spring基础&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-07T00:03:24+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
 
-&lt;p&gt;一句话概括：&lt;strong&gt;Spring 是一个轻量级、非入侵式的控制反转 (IoC) 和面向切面 (AOP) 的框架。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&quot;谈谈自己对于-aop-的了解&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#谈谈自己对于-aop-的了解&quot;&gt;谈谈自己对于 AOP 的了解&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;我们一般说 Spring 框架指的都是 Spring Framework，它是很多模块的集合，使用这些模块可以很方便地协助我们进行开发，比如说 Spring 支持 IoC（Inversion of Control:控制反转） 和 AOP(Aspect-Oriented Programming:面向切面编程)、可以很方便地对数据库进行访问、可以很方便地集成第三方组件（电子邮件，任务，调度，缓存等等）、对单元测试支持比较好、支持 RESTful Java 应用程序的开发。&lt;/p&gt;
+&lt;p&gt;AOP，也就是面向切面编程，简单点说，AOP 就是把一些业务逻辑中的相同代码抽取到一个独立的模块中，让业务逻辑更加清爽。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062328358.png&quot; alt=&quot;三分恶面渣逆袭：Spring特性&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;IoC&lt;/strong&gt; 和 &lt;strong&gt;DI&lt;/strong&gt; 的支持&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;Spring AOP 就是基于动态代理的，如果要代理的对象，实现了某个接口，那么 Spring AOP 会使用 &lt;strong&gt;JDK Proxy&lt;/strong&gt;，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 &lt;strong&gt;Cglib&lt;/strong&gt; 生成一个被代理对象的子类来作为代理&lt;/p&gt;
 
-&lt;p&gt;Spring 的核心就是一个大的工厂容器，可以维护所有对象的创建和依赖关系，Spring 工厂用于生成 Bean，并且管理 Bean 的生命周期，实现&lt;strong&gt;高内聚低耦合&lt;/strong&gt;的设计理念。&lt;/p&gt;
+&lt;p&gt;当然你也可以使用 &lt;strong&gt;AspectJ&lt;/strong&gt; ！Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;AOP 编程的支持&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;AOP 切面编程涉及到的一些专业术语：&lt;/p&gt;
 
-&lt;p&gt;Spring 提供了&lt;strong&gt;面向切面编程&lt;/strong&gt;，可以方便的实现对程序进行权限拦截、运行监控等切面功能。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;术语&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;目标(Target)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;被通知的对象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;代理(Proxy)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;向目标对象应用通知之后创建的代理对象&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;连接点(JoinPoint)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;目标对象的所属类中，定义的所有方法均为连接点&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;切入点(Pointcut)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;被切面拦截 / 增强的连接点（切入点一定是连接点，连接点不一定是切入点）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;通知(Advice)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;增强的逻辑 / 代码，也即拦截到目标对象的连接点之后要做的事情&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;切面(Aspect)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;切入点(Pointcut)+通知(Advice)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Weaving(织入)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;将通知应用到目标对象，进而生成代理对象的过程动作&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;声明式事务的支持&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h2 id=&quot;aop-常见的通知类型有哪些&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#aop-常见的通知类型有哪些&quot;&gt;AOP 常见的通知类型有哪些？&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;支持通过配置就来完成对事务的管理，而不需要通过硬编码的方式，以前重复的一些事务提交、回滚的 JDBC 代码，都可以不用自己写了。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;快捷测试的支持&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 对 Junit 提供支持，可以通过&lt;strong&gt;注解&lt;/strong&gt;快捷地测试 Spring 程序。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;快速集成功能&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;方便集成各种优秀框架，Spring 不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz 等）的直接支持。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;复杂 API 模板封装&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 对 JavaEE 开发中非常难用的一些 API（JDBC、JavaMail、远程调用等）都提供了模板化的封装，这些封装 API 的提供使得应用难度大大降低。&lt;/p&gt;
-
-&lt;h2 id=&quot;1-简单说一下什么是aop-和-ioc&quot;&gt;1. &lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#简单说一下什么是aop-和-ioc&quot;&gt;简单说一下什么是AOP 和 IoC？&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;AOP&lt;/strong&gt;：面向切面编程，是一种编程范式，它的主要作用是将那些与核心业务逻辑无关，但是对多个对象产生影响的公共行为封装起来，如日志记录、性能统计、事务等。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;IoC&lt;/strong&gt;：控制反转，是一种设计思想，它的主要作用是将对象的创建和对象之间的调用过程交给 Spring 容器来管理。&lt;/p&gt;
-
-&lt;h3 id=&quot;2spring-有哪些模块呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_2-spring-有哪些模块呢&quot;&gt;2.Spring 有哪些模块呢？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;Spring 框架是分模块存在，除了最核心的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Core Container&lt;/code&gt;是必要模块之外，其他模块都是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;可选&lt;/code&gt;，大约有 20 多个模块。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329603.png&quot; alt=&quot;Spring模块划分&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最主要的七大模块：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Core&lt;/strong&gt;：Spring 核心，它是框架最基础的部分，提供 IoC 和依赖注入 DI 特性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Context&lt;/strong&gt;：Spring 上下文容器，它是 BeanFactory 功能加强的一个子接口。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Web&lt;/strong&gt;：它提供 Web 应用开发的支持。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring MVC&lt;/strong&gt;：它针对 Web 应用中 MVC 思想的实现。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring DAO&lt;/strong&gt;：提供对 JDBC 抽象层，简化了 JDBC 编码，同时，编码更具有健壮性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring ORM&lt;/strong&gt;：它支持用于流行的 ORM 框架的整合，比如：Spring + Hibernate、Spring + iBatis、Spring + JDO 的整合等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring AOP&lt;/strong&gt;：即面向切面编程，它提供了与 AOP 联盟兼容的编程实现。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;3spring-有哪些常用注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_3-spring-有哪些常用注解呢&quot;&gt;3.Spring 有哪些常用注解呢？&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;Spring 提供了大量的注解来简化 Java 应用的开发和配置，主要用于 Web 开发、往容器注入 Bean、AOP、事务控制等。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329372.png&quot; alt=&quot;三分恶面渣逆袭：Spring常用注解&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;web-开发方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#web-开发方面有哪些注解呢&quot;&gt;Web 开发方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;①、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt;：用于标注控制层组件。&lt;/p&gt;
-
-&lt;p&gt;②、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RestController&lt;/code&gt;：是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt; 的结合体，返回 JSON 数据时使用。&lt;/p&gt;
-
-&lt;p&gt;③、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt;：用于映射请求 URL 到具体的方法上，还可以细分为：&lt;/p&gt;
+&lt;p&gt;AOP 一般有 &lt;strong&gt;5 种&lt;/strong&gt;环绕方式：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@GetMapping&lt;/code&gt;：只能用于处理 GET 请求&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PostMapping&lt;/code&gt;：只能用于处理 POST 请求&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@DeleteMapping&lt;/code&gt;：只能用于处理 DELETE 请求&lt;/li&gt;
+  &lt;li&gt;前置通知 (@Before)&lt;/li&gt;
+  &lt;li&gt;返回通知 (@AfterReturning)&lt;/li&gt;
+  &lt;li&gt;异常通知 (@AfterThrowing)&lt;/li&gt;
+  &lt;li&gt;后置通知 (@After)&lt;/li&gt;
+  &lt;li&gt;环绕通知 (@Around)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;④、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt;：直接将返回的数据放入 HTTP 响应正文中，一般用于返回 JSON 数据。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062358585.png&quot; alt=&quot;三分恶面渣逆袭：环绕方式&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;⑤、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestBody&lt;/code&gt;：表示一个方法参数应该绑定到 Web 请求体。&lt;/p&gt;
+&lt;h2 id=&quot;aspectj-是什么&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#aspectj-是什么&quot;&gt;AspectJ 是什么？&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;⑥、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PathVariable&lt;/code&gt;：用于接收路径参数，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping(“/hello/{name}”)&lt;/code&gt;，这里的 name 就是路径参数。&lt;/p&gt;
+&lt;h3 id=&quot;aepectj&quot;&gt;AepectJ&lt;/h3&gt;
 
-&lt;p&gt;⑦、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam&lt;/code&gt;：用于接收请求参数。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam(name = &quot;key&quot;) String key&lt;/code&gt;，这里的 key 就是请求参数。&lt;/p&gt;
+&lt;p&gt;AspectJ 是一个 AOP 框架，它可以做很多 Spring AOP 干不了的事情，比如说支持编译时、编译后和类加载时织入切面。并且提供更复杂的切点表达式和通知类型。&lt;/p&gt;
 
-&lt;h4 id=&quot;容器类注解有哪些呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#容器类注解有哪些呢&quot;&gt;容器类注解有哪些呢？&lt;/a&gt;&lt;/h4&gt;
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 定义一个切面&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Aspect&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggingAspect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 定义一个切点，匹配 com.example 包下的所有方法&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Pointcut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;execution(* com.example..*(..))&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;selectAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// 定义一个前置通知，在匹配的方法执行之前执行&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;selectAll()&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;beforeAdvice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;A method is about to be executed.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;spring-aop-和-aspectj-aop-有什么区别&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#spring-aop-和-aspectj-aop-有什么区别&quot;&gt;Spring AOP 和 AspectJ AOP 有什么区别？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;特性&lt;/th&gt;
+      &lt;th&gt;Spring AOP&lt;/th&gt;
+      &lt;th&gt;AspectJ&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;增强方式&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;运行时增强（基于动态代理）&lt;/td&gt;
+      &lt;td&gt;编译时增强、类加载时增强（直接操作字节码）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;切入点支持&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;方法级（Spring Bean 范围内，不支持 final 和 staic 方法）&lt;/td&gt;
+      &lt;td&gt;方法级、字段、构造器、静态方法等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;性能&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;运行时依赖代理，有一定开销，切面多时性能较低&lt;/td&gt;
+      &lt;td&gt;运行时无代理开销，性能更高&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;复杂性&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;简单，易用，适合大多数场景&lt;/td&gt;
+      &lt;td&gt;功能强大，但相对复杂&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;使用场景&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Spring 应用下比较简单的 AOP 需求&lt;/td&gt;
+      &lt;td&gt;高性能、高复杂度的 AOP 需求&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;如何选择？&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;：标识一个类为 Spring 组件，使其能够被 Spring 容器自动扫描和管理。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service&lt;/code&gt;：标识一个业务逻辑组件（服务层）。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service(&quot;userService&quot;)&lt;/code&gt;，这里的 userService 就是 Bean 的名称。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Repository&lt;/code&gt;：标识一个数据访问组件（持久层）。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;：按类型自动注入依赖。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;：用于定义配置类，可替换 XML 配置文件。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt;：用于将 Spring Boot 中 application.properties 配置的属性值赋值给变量。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;功能考量&lt;/strong&gt;：AspectJ 支持更复杂的 AOP 场景，Spring AOP 更简单易用。如果你需要增强 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;final&lt;/code&gt; 方法、静态方法、字段访问、构造器调用等，或者需要在非 Spring 管理的对象上应用增强逻辑，AspectJ 是唯一的选择。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;性能考量&lt;/strong&gt;：切面数量较少时两者性能差异不大，但切面较多时 AspectJ 性能更优。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;aop-方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#aop-方面有哪些注解呢&quot;&gt;AOP 方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;strong&gt;一句话总结&lt;/strong&gt;：简单场景优先使用 Spring AOP；复杂场景或高性能需求时，选择 AspectJ。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Aspect&lt;/code&gt; 用于声明一个切面，可以配合其他注解一起使用，比如：&lt;/p&gt;
+&lt;p&gt;Spring AOP 属于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;运行时增强&lt;/code&gt;，主要具有如下特点：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;基于动态代理来实现，默认如果使用接口的，用 JDK 提供的动态代理实现，如果是方法则使用 CGLIB 实现&lt;/li&gt;
+  &lt;li&gt;Spring AOP 需要依赖 IoC 容器来管理，并且只能作用于 Spring 容器，使用纯 Java 代码实现&lt;/li&gt;
+  &lt;li&gt;在性能上，由于 Spring AOP 是基于&lt;strong&gt;动态代理&lt;/strong&gt;来实现的，在容器启动时需要生成代理实例，在方法调用上也会增加栈的深度，使得 Spring AOP 的性能不如 AspectJ 的那么好。&lt;/li&gt;
+  &lt;li&gt;Spring AOP 致力于解决企业级开发中最普遍的 AOP(方法织入)。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;AspectJ 是一个易用的功能强大的 AOP 框架，属于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;编译时增强&lt;/code&gt;， 可以单独使用，也可以整合到其它框架中，是 AOP 编程的完全解决方案。AspectJ 需要用到单独的编译器 ajc。&lt;/p&gt;
+
+&lt;p&gt;AspectJ 属于&lt;strong&gt;静态织入&lt;/strong&gt;，通过修改代码来实现，在实际运行之前就完成了织入，所以说它生成的类是没有额外运行时开销的，一般有如下几个织入的时机：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;编译期织入（Compile-time weaving）：如类 A 使用 AspectJ 添加了一个属性，类 B 引用了它，这个场景就需要编译期的时候就进行织入，否则没法编译类 B。&lt;/li&gt;
+  &lt;li&gt;编译后织入（Post-compile weaving）：也就是已经生成了 .class 文件，或已经打成 jar 包了，这种情况我们需要增强处理的话，就要用到编译后织入。&lt;/li&gt;
+  &lt;li&gt;类加载后织入（Load-time weaving）：指的是在加载类的时候进行织入，要实现这个时期的织入，有几种常见的方法&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;sprint-aop&quot;&gt;Sprint AOP&lt;/h2&gt;
+
+&lt;h3 id=&quot;spring-aop-发生在什么时候&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#spring-aop-发生在什么时候&quot;&gt;Spring AOP 发生在什么时候？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring AOP 基于运行时代理机制，这意味着 Spring AOP 是在运行时通过动态代理生成的，而不是在编译时或类加载时生成的。&lt;/p&gt;
+
+&lt;p&gt;在 Spring 容器初始化 Bean 的过程中，Spring AOP 会检查 Bean 是否需要应用切面。如果需要，Spring 会为该 Bean 创建一个代理对象，并在代理对象中织入切面逻辑。这一过程发生在 Spring 容器的后处理器（BeanPostProcessor）阶段。&lt;/p&gt;
+
+&lt;h3 id=&quot;说说-jdk-动态代理和-cglib-代理&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_21-说说-jdk-动态代理和-cglib-代理&quot;&gt;说说 JDK 动态代理和 CGLIB 代理？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;AOP 是通过&lt;a href=&quot;https://mp.weixin.qq.com/s/aZtfwik0weJN5JzYc-JxYg&quot;&gt;动态代理&lt;/a&gt;实现的，代理方式有两种：JDK 动态代理和 CGLIB 代理。&lt;/p&gt;
+
+&lt;p&gt;①、JDK 动态代理是基于接口的代理，只能代理实现了接口的类。&lt;/p&gt;
+
+&lt;p&gt;使用 JDK 动态代理时，Spring AOP 会创建一个代理对象，该代理对象实现了目标对象所实现的接口，并在方法调用前后插入横切逻辑。&lt;/p&gt;
+
+&lt;p&gt;优点：只需依赖 JDK 自带的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.reflect.Proxy&lt;/code&gt; 类，不需要额外的库；缺点：只能代理接口，不能代理类本身。&lt;/p&gt;
+
+&lt;p&gt;②、CGLIB 动态代理是基于继承的代理，可以代理没有实现接口的类。&lt;/p&gt;
+
+&lt;p&gt;使用 CGLIB 动态代理时，Spring AOP 会生成目标类的子类，并在方法调用前后插入横切逻辑。&lt;/p&gt;
+
+&lt;p&gt;优点：可以代理没有实现接口的类，灵活性更高；缺点：需要依赖 CGLIB 库，创建代理对象的开销相对较大。&lt;/p&gt;
+
+&lt;h3 id=&quot;选择-cglib-还是-jdk-动态代理&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#选择-cglib-还是-jdk-动态代理&quot;&gt;选择 CGLIB 还是 JDK 动态代理？&lt;/a&gt;&lt;/h3&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@After&lt;/code&gt;：在方法执行之后执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Before&lt;/code&gt;：在方法执行之前执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Around&lt;/code&gt;：方法前后均执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PointCut&lt;/code&gt;：定义切点，指定需要拦截的方法。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;事务注解有哪些&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#事务注解有哪些&quot;&gt;事务注解有哪些？&lt;/a&gt;&lt;/h4&gt;
-
-&lt;p&gt;主要就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Transactional&lt;/code&gt;，用于声明一个方法需要事务支持。&lt;/p&gt;
-
-&lt;h3 id=&quot;springspring-mvcspring-boot-之间什么关系&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#spring-spring-mvc-spring-boot-之间什么关系&quot;&gt;Spring,Spring MVC,Spring Boot 之间什么关系?&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;很多人对 Spring,Spring MVC,Spring Boot 这三者傻傻分不清楚！这里简单介绍一下这三者，其实很简单，没有什么高深的东西。&lt;/p&gt;
-
-&lt;p&gt;Spring 包含了多个功能模块（上面刚刚提到过），其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。&lt;/p&gt;
-
-&lt;p&gt;Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。&lt;/p&gt;
-
-&lt;p&gt;使用 Spring 进行开发各种配置过于麻烦比如开启某些 Spring 特性时，需要用 XML 或 Java 进行显式配置。于是，Spring Boot 诞生了！&lt;/p&gt;
-
-&lt;p&gt;Spring 旨在简化 J2EE 企业应用程序开发。Spring Boot 旨在简化 Spring 开发（减少配置文件，开箱即用！）。&lt;/p&gt;
-
-&lt;p&gt;Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程序，你还是需要使用 Spring MVC 作为 MVC 框架，只是说 Spring Boot 帮你简化了 Spring MVC 的很多配置，真正做到开箱即用！&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring基础</summary></entry><entry><title type="html">Sprint IoC</title><link href="https://mafulong.github.io/2025/05/06/Sprint-IoC/" rel="alternate" type="text/html" title="Sprint IoC" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Sprint%20IoC</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Sprint-IoC/">&lt;h2 id=&quot;sprint-ioc&quot;&gt;Sprint IoC&lt;/h2&gt;
+  &lt;li&gt;如果目标对象没有实现任何接口，则只能使用 CGLIB 代理。如果目标对象实现了接口，通常首选 JDK 动态代理。&lt;/li&gt;
+  &lt;li&gt;虽然 CGLIB 在代理类的生成过程中可能消耗更多资源，但在运行时具有较高的性能。对于性能敏感且代理对象创建频率不高的场景，可以考虑使用 CGLIB。&lt;/li&gt;
+  &lt;li&gt;JDK 动态代理是 Java 原生支持的，不需要额外引入库。而 CGLIB 需要将 CGLIB 库作为依赖加入项目中。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring AOP</summary></entry><entry><title type="html">Spring IoC</title><link href="https://mafulong.github.io/2025/05/06/Spring-IoC/" rel="alternate" type="text/html" title="Spring IoC" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20IoC</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-IoC/">&lt;h2 id=&quot;sprint-ioc&quot;&gt;Sprint IoC&lt;/h2&gt;
 
 &lt;h3 id=&quot;谈谈自己对于-spring-ioc-的了解&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#谈谈自己对于-spring-ioc-的了解&quot;&gt;谈谈自己对于 Spring IoC 的了解&lt;/a&gt;&lt;/h3&gt;
 
@@ -334,7 +386,222 @@
   &lt;li&gt;&lt;strong&gt;避免可变成员变量&lt;/strong&gt;: 尽量设计 Bean 为无状态。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;&lt;/strong&gt;: 将可变成员变量保存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt; 中，确保线程独立。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;使用同步机制&lt;/strong&gt;: 利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantLock&lt;/code&gt; 来进行同步控制，确保线程安全。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Sprint IoC</summary></entry><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Sprint IoC</summary></entry><entry><title type="html">Spring 循环依赖</title><link href="https://mafulong.github.io/2025/05/06/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/" rel="alternate" type="text/html" title="Spring 循环依赖" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">&lt;h2 id=&quot;spring-循环依赖&quot;&gt;Spring 循环依赖&lt;/h2&gt;
+
+&lt;h2 id=&quot;循环依赖&quot;&gt;循环依赖&lt;/h2&gt;
+
+&lt;p&gt;多个bean。A 依赖 B，B 依赖 A，或者 C 依赖 C，就成了循环依赖。原因很简单，AB 循环依赖，A 实例化的时候，发现依赖 B，创建 B 实例，创建 B 的时候发现需要 A，创建 A1 实例……无限套娃。。。。&lt;/p&gt;
+
+&lt;p&gt;循环依赖只发生在 Singleton 作用域的 Bean 之间，因为如果是 Prototype 作用域的 Bean，Spring 会直接抛出异常。&lt;/p&gt;
+
+&lt;h2 id=&quot;spring-可以解决哪些情况的循环依赖&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#spring-可以解决哪些情况的循环依赖&quot;&gt;Spring 可以解决哪些情况的循环依赖？&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;看看这几种情形（AB 循环依赖）：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062344583.png&quot; alt=&quot;三分恶面渣逆袭：循环依赖的几种情形&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也就是说：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;AB 均采用构造器注入，不支持&lt;/li&gt;
+  &lt;li&gt;AB 均采用 setter 注入，支持&lt;/li&gt;
+  &lt;li&gt;AB 均采用属性自动注入，支持&lt;/li&gt;
+  &lt;li&gt;A 中注入的 B 为 setter 注入，B 中注入的 A 为构造器注入，支持&lt;/li&gt;
+  &lt;li&gt;B 中注入的 A 为 setter 注入，A 中注入的 B 为构造器注入，不支持&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;第四种可以，第五种不可以的原因是 Spring 在创建 Bean 时默认会根据自然排序进行创建，所以 A 会先于 B 进行创建。&lt;/p&gt;
+
+&lt;p&gt;简单总结下，当循环依赖的实例都采用 setter 方法注入时，Spring 支持，都采用构造器注入的时候，不支持；构造器注入和 setter 注入同时存在的时候，看天&lt;/p&gt;
+
+&lt;h2 id=&quot;spring-怎么解决循环依赖呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_16-spring-怎么解决循环依赖呢&quot;&gt;Spring 怎么解决循环依赖呢？&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;Spring 通过三级缓存机制来解决循环依赖：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;一级缓存：存放完全初始化好的单例 Bean。&lt;/li&gt;
+  &lt;li&gt;二级缓存：存放正在创建但未完全初始化的 Bean 实例。&lt;/li&gt;
+  &lt;li&gt;三级缓存：存放 Bean 工厂对象，用于提前暴露 Bean。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062345571.png&quot; alt=&quot;三分恶面渣逆袭：三级缓存&quot; /&gt;三分恶面渣逆袭：三级缓存&lt;/p&gt;
+
+&lt;h3 id=&quot;三级缓存解决循环依赖的过程是什么样的&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#三级缓存解决循环依赖的过程是什么样的&quot;&gt;三级缓存解决循环依赖的过程是什么样的？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;实例化 Bean 时，将其早期引用放入三级缓存。&lt;/li&gt;
+  &lt;li&gt;其他依赖该 Bean 的对象，可以从缓存中获取其引用。&lt;/li&gt;
+  &lt;li&gt;初始化完成后，将 Bean 移入一级缓存。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;其实就是三级缓存存了代理对象/原始对象的堆地址，初始化动作后移。 细节参考&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_16-spring-%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E5%91%A2&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;为什么要三级缓存级不吗&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_17-为什么要三级缓存-二级不行吗&quot;&gt;为什么要三级缓存？⼆级不⾏吗？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;不行，主要是为了 &lt;strong&gt;⽣成代理对象&lt;/strong&gt;。如果是没有代理的情况下，使用二级缓存解决循环依赖也是 OK 的。但是如果存在代理，三级没有问题，二级就不行了。&lt;/p&gt;
+
+&lt;p&gt;因为三级缓存中放的是⽣成具体对象的匿名内部类，获取 Object 的时候，它可以⽣成代理对象，也可以返回普通对象。使⽤三级缓存主要是为了保证不管什么时候使⽤的都是⼀个对象。&lt;/p&gt;
+
+&lt;p&gt;当涉及到 AOP 时，三级缓存就显得非常重要了，因为它确保了即使在 Bean 的创建过程中有多次对早期引用的请求，也始终只返回同一个代理对象，从而避免了同一个 Bean 有多个代理对象的问题。&lt;/p&gt;
+
+&lt;p&gt;假设只有⼆级缓存的情况，往⼆级缓存中放的显示⼀个普通的 Bean 对象，Bean 初始化过程中，通过 BeanPostProcessor 去⽣成代理对象之后，覆盖掉⼆级缓存中的普通 Bean 对象，那么可能就导致取到的 Bean 对象不一致了。&lt;/p&gt;
+
+&lt;h4 id=&quot;如果缺少第二级缓存会有什么问题&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#如果缺少第二级缓存会有什么问题&quot;&gt;如果缺少第二级缓存会有什么问题？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;如果没有二级缓存，Spring 无法在未完成初始化的情况下暴露 Bean。会导致代理 Bean 的循环依赖问题，因为某些代理逻辑无法在三级缓存中提前暴露。最终可能抛出 BeanCurrentlyInCreationException。&lt;/p&gt;
+
+&lt;h2 id=&quot;lazy-能解决循环依赖吗&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#lazy-能解决循环依赖吗&quot;&gt;@Lazy 能解决循环依赖吗？&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 用来标识类是否需要懒加载/延迟加载，可以作用在类上、方法上、构造器上、方法参数上、成员变量中。&lt;/p&gt;
+
+&lt;p&gt;Spring Boot 2.2 新增了&lt;strong&gt;全局懒加载属性&lt;/strong&gt;，开启后全局 bean 被设置为懒加载，需要时再去创建。&lt;/p&gt;
+
+&lt;p&gt;如非必要，尽量不要用全局懒加载。全局懒加载会让 Bean 第一次使用的时候加载会变慢，并且它会延迟应用程序问题的发现（当 Bean 被初始化时，问题才会出现）。&lt;/p&gt;
+
+&lt;p&gt;如果一个 Bean 没有被标记为懒加载，那么它会在 Spring IoC 容器启动的过程中被创建和初始化。如果一个 Bean 被标记为懒加载，那么它不会在 Spring IoC 容器启动时立即实例化，而是在第一次被请求时才创建。这可以帮助减少应用启动时的初始化时间，也可以用来解决循环依赖问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Lazy&lt;/code&gt; 解决循环依赖的关键点在于代理对象的使用。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;没有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 的情况下&lt;/strong&gt;：在 Spring 容器初始化 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 时会立即尝试创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;，而在创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的过程中又会尝试创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt;，最终导致循环依赖（即无限递归，最终抛出异常）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 的情况下&lt;/strong&gt;：Spring 不会立即创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;，而是会注入一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的代理对象。由于此时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 仍未被真正初始化，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 的初始化可以顺利完成。等到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 实例实际调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的方法时，代理对象才会触发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的真正初始化。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 能够在一定程度上打破循环依赖链，允许 Spring 容器顺利地完成 Bean 的创建和注入。但这并不是一个根本性的解决方案，尤其是在构造函数注入、复杂的多级依赖等场景中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 无法有效地解决问题。因此，最佳实践仍然是尽量避免设计上的循环依赖。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring 循环依赖</summary></entry><entry><title type="html">Spring基础</title><link href="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Spring基础" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;spring基础&quot;&gt;Spring基础&lt;/h2&gt;
+
+&lt;p&gt;一句话概括：&lt;strong&gt;Spring 是一个轻量级、非入侵式的控制反转 (IoC) 和面向切面 (AOP) 的框架。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;我们一般说 Spring 框架指的都是 Spring Framework，它是很多模块的集合，使用这些模块可以很方便地协助我们进行开发，比如说 Spring 支持 IoC（Inversion of Control:控制反转） 和 AOP(Aspect-Oriented Programming:面向切面编程)、可以很方便地对数据库进行访问、可以很方便地集成第三方组件（电子邮件，任务，调度，缓存等等）、对单元测试支持比较好、支持 RESTful Java 应用程序的开发。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062328358.png&quot; alt=&quot;三分恶面渣逆袭：Spring特性&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;IoC&lt;/strong&gt; 和 &lt;strong&gt;DI&lt;/strong&gt; 的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 的核心就是一个大的工厂容器，可以维护所有对象的创建和依赖关系，Spring 工厂用于生成 Bean，并且管理 Bean 的生命周期，实现&lt;strong&gt;高内聚低耦合&lt;/strong&gt;的设计理念。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;AOP 编程的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 提供了&lt;strong&gt;面向切面编程&lt;/strong&gt;，可以方便的实现对程序进行权限拦截、运行监控等切面功能。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;声明式事务的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;支持通过配置就来完成对事务的管理，而不需要通过硬编码的方式，以前重复的一些事务提交、回滚的 JDBC 代码，都可以不用自己写了。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;快捷测试的支持&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 对 Junit 提供支持，可以通过&lt;strong&gt;注解&lt;/strong&gt;快捷地测试 Spring 程序。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;快速集成功能&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;方便集成各种优秀框架，Spring 不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz 等）的直接支持。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;复杂 API 模板封装&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Spring 对 JavaEE 开发中非常难用的一些 API（JDBC、JavaMail、远程调用等）都提供了模板化的封装，这些封装 API 的提供使得应用难度大大降低。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-简单说一下什么是aop-和-ioc&quot;&gt;1. &lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#简单说一下什么是aop-和-ioc&quot;&gt;简单说一下什么是AOP 和 IoC？&lt;/a&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;AOP&lt;/strong&gt;：面向切面编程，是一种编程范式，它的主要作用是将那些与核心业务逻辑无关，但是对多个对象产生影响的公共行为封装起来，如日志记录、性能统计、事务等。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;IoC&lt;/strong&gt;：控制反转，是一种设计思想，它的主要作用是将对象的创建和对象之间的调用过程交给 Spring 容器来管理。&lt;/p&gt;
+
+&lt;h3 id=&quot;2spring-有哪些模块呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_2-spring-有哪些模块呢&quot;&gt;2.Spring 有哪些模块呢？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 框架是分模块存在，除了最核心的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Core Container&lt;/code&gt;是必要模块之外，其他模块都是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;可选&lt;/code&gt;，大约有 20 多个模块。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329603.png&quot; alt=&quot;Spring模块划分&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最主要的七大模块：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Core&lt;/strong&gt;：Spring 核心，它是框架最基础的部分，提供 IoC 和依赖注入 DI 特性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Context&lt;/strong&gt;：Spring 上下文容器，它是 BeanFactory 功能加强的一个子接口。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring Web&lt;/strong&gt;：它提供 Web 应用开发的支持。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring MVC&lt;/strong&gt;：它针对 Web 应用中 MVC 思想的实现。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring DAO&lt;/strong&gt;：提供对 JDBC 抽象层，简化了 JDBC 编码，同时，编码更具有健壮性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring ORM&lt;/strong&gt;：它支持用于流行的 ORM 框架的整合，比如：Spring + Hibernate、Spring + iBatis、Spring + JDO 的整合等。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Spring AOP&lt;/strong&gt;：即面向切面编程，它提供了与 AOP 联盟兼容的编程实现。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;3spring-有哪些常用注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_3-spring-有哪些常用注解呢&quot;&gt;3.Spring 有哪些常用注解呢？&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Spring 提供了大量的注解来简化 Java 应用的开发和配置，主要用于 Web 开发、往容器注入 Bean、AOP、事务控制等。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329372.png&quot; alt=&quot;三分恶面渣逆袭：Spring常用注解&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;web-开发方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#web-开发方面有哪些注解呢&quot;&gt;Web 开发方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;①、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt;：用于标注控制层组件。&lt;/p&gt;
+
+&lt;p&gt;②、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RestController&lt;/code&gt;：是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt; 的结合体，返回 JSON 数据时使用。&lt;/p&gt;
+
+&lt;p&gt;③、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt;：用于映射请求 URL 到具体的方法上，还可以细分为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@GetMapping&lt;/code&gt;：只能用于处理 GET 请求&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PostMapping&lt;/code&gt;：只能用于处理 POST 请求&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@DeleteMapping&lt;/code&gt;：只能用于处理 DELETE 请求&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;④、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt;：直接将返回的数据放入 HTTP 响应正文中，一般用于返回 JSON 数据。&lt;/p&gt;
+
+&lt;p&gt;⑤、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestBody&lt;/code&gt;：表示一个方法参数应该绑定到 Web 请求体。&lt;/p&gt;
+
+&lt;p&gt;⑥、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PathVariable&lt;/code&gt;：用于接收路径参数，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping(“/hello/{name}”)&lt;/code&gt;，这里的 name 就是路径参数。&lt;/p&gt;
+
+&lt;p&gt;⑦、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam&lt;/code&gt;：用于接收请求参数。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam(name = &quot;key&quot;) String key&lt;/code&gt;，这里的 key 就是请求参数。&lt;/p&gt;
+
+&lt;h4 id=&quot;容器类注解有哪些呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#容器类注解有哪些呢&quot;&gt;容器类注解有哪些呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;：标识一个类为 Spring 组件，使其能够被 Spring 容器自动扫描和管理。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service&lt;/code&gt;：标识一个业务逻辑组件（服务层）。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service(&quot;userService&quot;)&lt;/code&gt;，这里的 userService 就是 Bean 的名称。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Repository&lt;/code&gt;：标识一个数据访问组件（持久层）。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;：按类型自动注入依赖。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;：用于定义配置类，可替换 XML 配置文件。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt;：用于将 Spring Boot 中 application.properties 配置的属性值赋值给变量。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;aop-方面有哪些注解呢&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#aop-方面有哪些注解呢&quot;&gt;AOP 方面有哪些注解呢？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Aspect&lt;/code&gt; 用于声明一个切面，可以配合其他注解一起使用，比如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@After&lt;/code&gt;：在方法执行之后执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Before&lt;/code&gt;：在方法执行之前执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Around&lt;/code&gt;：方法前后均执行。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PointCut&lt;/code&gt;：定义切点，指定需要拦截的方法。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;事务注解有哪些&quot;&gt;&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#事务注解有哪些&quot;&gt;事务注解有哪些？&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;主要就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Transactional&lt;/code&gt;，用于声明一个方法需要事务支持。&lt;/p&gt;
+
+&lt;h3 id=&quot;springspring-mvcspring-boot-之间什么关系&quot;&gt;&lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#spring-spring-mvc-spring-boot-之间什么关系&quot;&gt;Spring,Spring MVC,Spring Boot 之间什么关系?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;很多人对 Spring,Spring MVC,Spring Boot 这三者傻傻分不清楚！这里简单介绍一下这三者，其实很简单，没有什么高深的东西。&lt;/p&gt;
+
+&lt;p&gt;Spring 包含了多个功能模块（上面刚刚提到过），其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。&lt;/p&gt;
+
+&lt;p&gt;Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。&lt;/p&gt;
+
+&lt;p&gt;使用 Spring 进行开发各种配置过于麻烦比如开启某些 Spring 特性时，需要用 XML 或 Java 进行显式配置。于是，Spring Boot 诞生了！&lt;/p&gt;
+
+&lt;p&gt;Spring 旨在简化 J2EE 企业应用程序开发。Spring Boot 旨在简化 Spring 开发（减少配置文件，开箱即用！）。&lt;/p&gt;
+
+&lt;p&gt;Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程序，你还是需要使用 Spring MVC 作为 MVC 框架，只是说 Spring Boot 帮你简化了 Spring MVC 的很多配置，真正做到开箱即用！&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring基础</summary></entry><entry><title type="html">Java并发包和线程池</title><link href="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="alternate" type="text/html" title="Java并发包和线程池" /><published>2025-05-04T00:00:00+08:00</published><updated>2025-05-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0</id><content type="html" xml:base="https://mafulong.github.io/2025/05/04/Java%E5%B9%B6%E5%8F%91%E5%8C%85%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%B1%A0/">&lt;h2 id=&quot;java并发包和线程池&quot;&gt;Java并发包和线程池&lt;/h2&gt;
 
 &lt;h2 id=&quot;jdk-并发包&quot;&gt;JDK 并发包&lt;/h2&gt;
 
@@ -1717,296 +1984,4 @@ protected boolean tryRelease(int arg);
 
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">基本知识</summary></entry><entry><title type="html">java代理</title><link href="https://mafulong.github.io/2025/04/26/java%E4%BB%A3%E7%90%86/" rel="alternate" type="text/html" title="java代理" /><published>2025-04-26T00:00:00+08:00</published><updated>2025-04-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/26/java%E4%BB%A3%E7%90%86</id><content type="html" xml:base="https://mafulong.github.io/2025/04/26/java%E4%BB%A3%E7%90%86/">&lt;h2 id=&quot;java代理&quot;&gt;java代理&lt;/h2&gt;
-
-&lt;h2 id=&quot;1-java-中的代理分类&quot;&gt;1. Java 中的代理分类&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;类型&lt;/th&gt;
-      &lt;th&gt;描述&lt;/th&gt;
-      &lt;th&gt;例子&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;静态代理&lt;/td&gt;
-      &lt;td&gt;编写代理类，手动调用目标方法&lt;/td&gt;
-      &lt;td&gt;自己写的代理类&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;动态代理&lt;/td&gt;
-      &lt;td&gt;运行时生成代理类&lt;/td&gt;
-      &lt;td&gt;JDK 动态代理、CGLIB 代理&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-静态代理&quot;&gt;2. 静态代理&lt;/h2&gt;
-
-&lt;h3 id=&quot;特点&quot;&gt;特点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;代理类和被代理类都需要实现相同的接口。&lt;/li&gt;
-  &lt;li&gt;需要手动编写代理类。&lt;/li&gt;
-  &lt;li&gt;扩展性差，如果接口方法多，需要重复工作。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;示例&quot;&gt;示例&lt;/h3&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RealService&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Real service is doing something&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ServiceProxy&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Service&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RealService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;realService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;RealService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Before&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;realService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;After&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-jdk-动态代理&quot;&gt;3. JDK 动态代理&lt;/h2&gt;
-
-&lt;h3 id=&quot;特点-1&quot;&gt;特点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;只能代理&lt;strong&gt;接口&lt;/strong&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;interface&lt;/code&gt;）。&lt;/li&gt;
-  &lt;li&gt;运行时动态生成代理对象。&lt;/li&gt;
-  &lt;li&gt;通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Proxy&lt;/code&gt; 类和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InvocationHandler&lt;/code&gt; 接口实现。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;核心类&quot;&gt;核心类&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Proxy&lt;/code&gt;：生成代理对象。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InvocationHandler&lt;/code&gt;：处理方法调用的接口。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;示例代码&quot;&gt;示例代码&lt;/h3&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newProxyInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getClassLoader&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getClass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInterfaces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proxyObj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Before&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;invoke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;After&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;面试重点&quot;&gt;面试重点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;为什么 JDK 动态代理只能代理接口？&lt;/strong&gt;
- 因为 Java 的 Proxy 类生成的代理类是通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;implements 接口&lt;/code&gt; 来创建的，不是继承类。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;JDK 动态代理的底层实现？&lt;/strong&gt;
- 通过运行时生成一个新类（继承 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Proxy&lt;/code&gt; 类并实现接口），字节码生成后加载到 JVM 中。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;如何保存生成的代理类？&lt;/strong&gt;
- 设置系统属性：&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  
-&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;true&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;4-cglib-动态代理&quot;&gt;4. CGLIB 动态代理&lt;/h2&gt;
-
-&lt;h3 id=&quot;特点-2&quot;&gt;特点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;可以代理&lt;strong&gt;普通类&lt;/strong&gt;（没有接口也能代理）。&lt;/li&gt;
-  &lt;li&gt;通过&lt;strong&gt;继承&lt;/strong&gt;的方式生成子类代理。&lt;/li&gt;
-  &lt;li&gt;CGLIB（Code Generation Library）是开源项目，Spring 默认也集成了。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;核心类-1&quot;&gt;核心类&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enhancer&lt;/code&gt;：生成代理对象。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MethodInterceptor&lt;/code&gt;：方法拦截器。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;示例代码-1&quot;&gt;示例代码&lt;/h3&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;nc&quot;&gt;Enhancer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enhancer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Enhancer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;enhancer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setSuperclass&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;enhancer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;MethodInterceptor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Before&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;invokeSuper&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;After&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;enhancer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;面试重点-1&quot;&gt;面试重点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;为什么 final 类不能被 CGLIB 代理？&lt;/strong&gt;
- 因为 CGLIB 是通过继承来生成代理子类的，final 类不能被继承。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;CGLIB 与 JDK 动态代理的区别？&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;JDK 动态代理&lt;/th&gt;
-      &lt;th&gt;CGLIB 动态代理&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;是否需要接口&lt;/td&gt;
-      &lt;td&gt;是&lt;/td&gt;
-      &lt;td&gt;否&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;实现方式&lt;/td&gt;
-      &lt;td&gt;实现接口&lt;/td&gt;
-      &lt;td&gt;继承类&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;代理限制&lt;/td&gt;
-      &lt;td&gt;只能代理接口&lt;/td&gt;
-      &lt;td&gt;final类不能代理，final方法不会被代理&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;性能&lt;/td&gt;
-      &lt;td&gt;接口少时性能好&lt;/td&gt;
-      &lt;td&gt;类复杂时性能好&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;CGLIB 代理的原理？&lt;/strong&gt;
- 基于 ASM 框架，在运行时生成字节码文件，创建子类并重写方法。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;5-动态代理在-spring-aop-中的应用&quot;&gt;5. 动态代理在 Spring AOP 中的应用&lt;/h2&gt;
-
-&lt;h3 id=&quot;spring-代理选择策略&quot;&gt;Spring 代理选择策略&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;有接口：&lt;strong&gt;默认用 JDK 动态代理&lt;/strong&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;没有接口：使用 &lt;strong&gt;CGLIB 动态代理&lt;/strong&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;可以通过配置强制使用 CGLIB：&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  
-&lt;span class=&quot;nl&quot;&gt;spring:&lt;/span&gt;
-  &lt;span class=&quot;nl&quot;&gt;aop:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;或者在 JavaConfig 里：&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  
-&lt;span class=&quot;nd&quot;&gt;@EnableAspectJAutoProxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proxyTargetClass&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;6-qa&quot;&gt;6. QA&lt;/h2&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;什么是动态代理？&lt;/strong&gt;
- 动态代理是运行时生成代理对象，拦截并增强方法调用的一种机制。&lt;/p&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;JDK 动态代理和 CGLIB 的区别？&lt;/strong&gt;
- JDK 动态代理基于接口，CGLIB 基于继承（子类化目标类）。&lt;/p&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;JDK 动态代理的底层原理？&lt;/strong&gt;
- 通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Proxy&lt;/code&gt; 类+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InvocationHandler&lt;/code&gt; 动态生成实现接口的类（字节码生成+反射调用）。&lt;/p&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;CGLIB 动态代理能代理 final 类吗？&lt;/strong&gt;
- 不能，CGLIB 通过继承生成代理类，final 类无法继承。final方法也不能代理&lt;/p&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;Spring AOP 是如何选择代理方式的？&lt;/strong&gt;
- 默认有接口用 JDK 动态代理，没接口用 CGLIB；可以配置 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;proxy-target-class=true&lt;/code&gt; 强制使用 CGLIB。&lt;/p&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;如何保存 JDK 生成的代理类字节码？&lt;/strong&gt;
- 设置系统属性：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-System.setProperty(&quot;jdk.proxy.ProxyGenerator.saveGeneratedFiles&quot;, &quot;true&quot;);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;✅ &lt;strong&gt;动态代理的优缺点？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;优点&lt;/th&gt;
-      &lt;th&gt;缺点&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1. 解耦增强逻辑与业务逻辑 2. 运行时灵活增强&lt;/td&gt;
-      &lt;td&gt;1. 性能稍有开销 2. JDK Proxy必须有接口 3. CGLIB无法代理final类或方法&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java代理</summary></entry><entry><title type="html">pdf不打印加签名</title><link href="https://mafulong.github.io/2025/04/17/pdf%E4%B8%8D%E6%89%93%E5%8D%B0%E5%8A%A0%E7%AD%BE%E5%90%8D/" rel="alternate" type="text/html" title="pdf不打印加签名" /><published>2025-04-17T00:00:00+08:00</published><updated>2025-04-17T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/04/17/pdf%E4%B8%8D%E6%89%93%E5%8D%B0%E5%8A%A0%E7%AD%BE%E5%90%8D</id><content type="html" xml:base="https://mafulong.github.io/2025/04/17/pdf%E4%B8%8D%E6%89%93%E5%8D%B0%E5%8A%A0%E7%AD%BE%E5%90%8D/">&lt;h2 id=&quot;pdf不打印加签名&quot;&gt;pdf不打印加签名&lt;/h2&gt;
-
-&lt;p&gt;macOS 自带的 &lt;strong&gt;Preview（预览）&lt;/strong&gt; 应用完全可以在 PDF 上“写字”（打字或手写），并且&lt;strong&gt;可以保存到原 PDF 文件中&lt;/strong&gt;。以下是具体步骤：&lt;/p&gt;
-
-&lt;h3 id=&quot;在-pdf-上写字并保存使用-preview&quot;&gt;在 PDF 上写字并保存（使用 Preview）&lt;/h3&gt;
-
-&lt;h4 id=&quot;-方法一输入文本打字&quot;&gt;✅ 方法一：输入文本（打字）&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;用 &lt;strong&gt;Preview&lt;/strong&gt; 打开 PDF 文件&lt;/li&gt;
-  &lt;li&gt;点击顶部菜单栏的 &lt;strong&gt;工具 &amp;gt; 注释 &amp;gt; 文字&lt;/strong&gt;（或点击工具栏上的“T”图标）&lt;/li&gt;
-  &lt;li&gt;出现一个文本框，输入你想写的文字&lt;/li&gt;
-  &lt;li&gt;拖动文本框移动位置，点击右上角“&lt;strong&gt;Aa&lt;/strong&gt;”可更改字体和大小&lt;/li&gt;
-  &lt;li&gt;文件 &amp;gt; 存储，或直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd + S&lt;/code&gt; 保存修改&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;-方法二手写画签名或写字&quot;&gt;✅ 方法二：手写（画签名或写字）&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;点击工具栏的“&lt;strong&gt;记号工具栏&lt;/strong&gt;”图标（一个铅笔尖的图标）&lt;/li&gt;
-  &lt;li&gt;点击“&lt;strong&gt;签名图标&lt;/strong&gt;”（或者使用“绘图”工具）&lt;/li&gt;
-  &lt;li&gt;可用触控板、鼠标或 iPad（使用 Sidecar）进行手写输入&lt;/li&gt;
-  &lt;li&gt;放置在合适位置，保存即可&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">pdf不打印加签名</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">基本知识</summary></entry></feed>
