@@ -47,7 +47,7 @@
 	<span class="n">rw</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">Unlock</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div></div><ul><li><p><strong>读写锁的竞争和优先级</strong></p><ul><li><p><strong>读优先</strong>：</p><ul><li>多个读 Goroutine 可以同时持有读锁。</li><li>如果已有读锁，写锁请求会被阻塞。</li></ul></li><li><p><strong>写优先</strong>：</p><ul><li>写锁优先于后续的读锁。</li><li>如果有写锁等待，则后续的读锁请求也会被阻塞，直到写锁释放。</li></ul></li></ul></li></ul><p><strong>读锁-Rlock</strong></p><div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">func</span> <span class="p">(</span><span class="n">rw</span> <span class="o">*</span><span class="n">RWMutex</span><span class="p">)</span> <span class="n">RLock</span><span class="p">()</span> <span class="p">{</span>
-  
+
 	<span class="k">if</span> <span class="n">atomic</span><span class="o">.</span><span class="n">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rw</span><span class="o">.</span><span class="n">readerCount</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="m">0</span> <span class="p">{</span>
 		<span class="n">runtime_SemacquireMutex</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rw</span><span class="o">.</span><span class="n">readerSem</span><span class="p">,</span> <span class="no">false</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
 	<span class="p">}</span>
