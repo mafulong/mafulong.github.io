@@ -7,7 +7,7 @@ tags: Spring
 
 ## Spring AOP
 
-## [谈谈自己对于 AOP 的了解](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#谈谈自己对于-aop-的了解)
+## 谈谈自己对于 AOP 的了解
 
 AOP，也就是面向切面编程，简单点说，AOP 就是把一些业务逻辑中的相同代码抽取到一个独立的模块中，让业务逻辑更加清爽。
 
@@ -34,7 +34,7 @@ AOP 切面编程涉及到的一些专业术语：
 | Weaving(织入)     |       将通知应用到目标对象，进而生成代理对象的过程动作       |
 
 
-## [AOP 常见的通知类型有哪些？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#aop-常见的通知类型有哪些)
+## AOP 常见的通知类型有哪些？
 
 AOP 一般有 **5 种**环绕方式：
 
@@ -48,7 +48,7 @@ AOP 一般有 **5 种**环绕方式：
 
 
 
-## [AspectJ 是什么？](https://javabetter.cn/sidebar/sanfene/spring.html#aspectj-是什么)
+## AspectJ 是什么？
 
 ### AepectJ
 
