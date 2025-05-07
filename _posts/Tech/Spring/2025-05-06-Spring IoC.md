@@ -7,7 +7,7 @@ tags: Spring
 
 ## Sprint IoC
 
-### [谈谈自己对于 Spring IoC 的了解](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#谈谈自己对于-spring-ioc-的了解)
+### 谈谈自己对于 Spring IoC 的了解
 
 **IoC（Inversion of Control:控制反转）** 是一种设计思想，而不是一个具体的技术实现。IoC 的思想就是将原本在程序中手动创建对象的控制权，交由 Spring 框架来管理。不过， IoC 并非 Spring 特有，在其他语言中也有应用。
 
@@ -30,7 +30,7 @@ IOC 是一种思想，**DI** 是实现 IOC 的具体方式，比如说利用注�
 
 
 
-### [将一个类声明为 Bean 的注解有哪些?](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#将一个类声明为-bean-的注解有哪些)
+### 将一个类声明为 Bean 的注解有哪些?
 
 - `@Component`：通用的注解，可标注任意类为 `Spring` 组件。如果一个 Bean 不知道属于哪个层，可以使用`@Component` 注解标注。
 - `@Repository` : 对应持久层即 Dao 层，主要用于数据库相关操作。
@@ -39,7 +39,7 @@ IOC 是一种思想，**DI** 是实现 IOC 的具体方式，比如说利用注�
 
 
 
-### [@Component 和 @Bean 的区别是什么？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#component-和-bean-的区别是什么)
+### @Component 和 @Bean 的区别是什么？
 
 - `@Component` 注解作用于类，而`@Bean`注解作用于方法。
 - `@Component`通常是通过类路径扫描来自动侦测以及自动装配到 Spring 容器中（我们可以使用 `@ComponentScan` 注解定义要扫描的路径从中找出标识了需要装配的类自动装配到 Spring 的 bean 容器中）。`@Bean` 注解通常是我们在标有该注解的方法中定义产生这个 bean,`@Bean`告诉了 Spring 这是某个类的实例，当我需要用它的时候还给我。
@@ -59,7 +59,7 @@ public class AppConfig {
 
 
 
-### [注入 Bean 的注解有哪些？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#注入-bean-的注解有哪些)
+### 注入 Bean 的注解有哪些？
 
 Spring 内置的 `@Autowired` 以及 JDK 内置的 `@Resource` 和 `@Inject` 都可以用于注入 Bean。
 
@@ -77,7 +77,7 @@ Spring 内置的 `@Autowired` 以及 JDK 内置的 `@Resource` 和 `@Inject` 都
 
 
 
-### [@Autowired 和 @Resource 的区别是什么？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#autowired-和-resource-的区别是什么)
+### @Autowired 和 @Resource 的区别是什么？
 
 - `@Autowired` 是 Spring 提供的注解，`@Resource` 是 JDK 提供的注解。
 - `Autowired` 默认的注入方式为`byType`（根据类型进行匹配），`@Resource`默认注入方式为 `byName`（根据名称进行匹配）。
@@ -86,7 +86,7 @@ Spring 内置的 `@Autowired` 以及 JDK 内置的 `@Resource` 和 `@Inject` 都
 
 
 
-### [注入 Bean 的方式有哪些？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#注入-bean-的方式有哪些)
+### 注入 Bean 的方式有哪些？
 
 依赖注入 (Dependency Injection, DI) 的常见方式：
 
@@ -111,7 +111,7 @@ Spring 内置的 `@Autowired` 以及 JDK 内置的 `@Resource` 和 `@Inject` 都
 
 
 
-### [Bean 的作用域有哪些?](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#bean-的作用域有哪些)
+### Bean 的作用域有哪些?
 
 Spring 中 Bean 的作用域通常有下面几种：
 
@@ -124,7 +124,7 @@ Spring 中 Bean 的作用域通常有下面几种：
 
 
 
-### [Bean 的生命周期了解么?](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#bean-的生命周期了解么)
+### Bean 的生命周期了解么?
 
 1. **创建 Bean 的实例**：Bean 容器首先会找到配置文件中的 Bean 定义，然后使用 Java 反射 API 来创建 Bean 的实例。
 
@@ -176,7 +176,7 @@ Bean 的生命周期大致分为五个阶段：
 
 
 
-### [Spring 中的单例 Bean 会存在线程安全问题吗？](https://javabetter.cn/sidebar/sanfene/spring.html#_14-spring-中的单例-bean-会存在线程安全问题吗)
+### Spring 中的单例 Bean 会存在线程安全问题吗？
 
 Spring Bean 的默认作用域是单例（Singleton），这意味着 Spring 容器中只会存在一个 Bean 实例，并且该实例会被多个线程共享。
 

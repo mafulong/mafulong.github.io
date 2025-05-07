@@ -90,7 +90,7 @@ header中通常来说由token的生成算法和类型组成；payload中则用�
 
 
 
-#### [如何防止 JWT 被篡改？](#如何防止-jwt-被篡改)
+#### 如何防止 JWT 被篡改？
 
 有了签名之后，即使 JWT 被泄露或者截获，黑客也没办法同时篡改 Signature、Header、Payload。
 
