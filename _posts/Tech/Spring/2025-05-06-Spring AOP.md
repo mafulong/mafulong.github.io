@@ -73,7 +73,7 @@ public class LoggingAspect {
 
 
 
-### [Spring AOP 和 AspectJ AOP 有什么区别？](https://javaguide.cn/system-design/framework/spring/spring-knowledge-and-questions-summary.html#spring-aop-和-aspectj-aop-有什么区别)
+### Spring AOP 和 AspectJ AOP 有什么区别？
 
 | 特性           | Spring AOP                                               | AspectJ                                    |
 | -------------- | -------------------------------------------------------- | ------------------------------------------ |
@@ -116,7 +116,7 @@ AspectJ 属于**静态织入**，通过修改代码来实现，在实际运行�
 
 ## Sprint AOP
 
-### [Spring AOP 发生在什么时候？](https://javabetter.cn/sidebar/sanfene/spring.html#spring-aop-发生在什么时候)
+### Spring AOP 发生在什么时候？
 
 Spring AOP 基于运行时代理机制，这意味着 Spring AOP 是在运行时通过动态代理生成的，而不是在编译时或类加载时生成的。
 
@@ -124,7 +124,7 @@ Spring AOP 基于运行时代理机制，这意味着 Spring AOP 是在运行时
 
 
 
-### [说说 JDK 动态代理和 CGLIB 代理？](https://javabetter.cn/sidebar/sanfene/spring.html#_21-说说-jdk-动态代理和-cglib-代理)
+### 说说 JDK 动态代理和 CGLIB 代理？
 
 AOP 是通过[动态代理](https://mp.weixin.qq.com/s/aZtfwik0weJN5JzYc-JxYg)实现的，代理方式有两种：JDK 动态代理和 CGLIB 代理。
 
@@ -144,7 +144,7 @@ AOP 是通过[动态代理](https://mp.weixin.qq.com/s/aZtfwik0weJN5JzYc-JxYg)�
 
 
 
-### [选择 CGLIB 还是 JDK 动态代理？](https://javabetter.cn/sidebar/sanfene/spring.html#选择-cglib-还是-jdk-动态代理)
+### 选择 CGLIB 还是 JDK 动态代理？
 
 - 如果目标对象没有实现任何接口，则只能使用 CGLIB 代理。如果目标对象实现了接口，通常首选 JDK 动态代理。
 - 虽然 CGLIB 在代理类的生成过程中可能消耗更多资源，但在运行时具有较高的性能。对于性能敏感且代理对象创建频率不高的场景，可以考虑使用 CGLIB。
