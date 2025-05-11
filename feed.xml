@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-12T00:00:22+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-12T00:45:45+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
 
 &lt;h2 id=&quot;谈谈自己对于-aop-的了解&quot;&gt;谈谈自己对于 AOP 的了解&lt;/h2&gt;
 
@@ -1778,7 +1778,7 @@ protected boolean tryRelease(int arg);
 
 &lt;ul&gt;
   &lt;li&gt;Minor GC：回收新生代，因为新生代对象存活时间很短，因此 Minor GC 会频繁执行，执行的速度一般也会比较快。&lt;/li&gt;
-  &lt;li&gt;Full GC：回收老年代和新生代，老年代对象其存活时间长，因此 Full GC 很少执行，执行速度会比 Minor GC 慢很多&lt;/li&gt;
+  &lt;li&gt;Full GC：收集整个 Java 堆和方法区。老年代对象其存活时间长，因此 Full GC 很少执行，执行速度会比 Minor GC 慢很多&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;full-gc-的触发条件&quot;&gt;Full GC 的触发条件&lt;/h3&gt;
@@ -2067,7 +2067,9 @@ protected boolean tryRelease(int arg);
   &lt;li&gt;该类所有的实例都已经被回收，也就是 Java 堆中不存在该类的任何实例。&lt;/li&gt;
   &lt;li&gt;加载该类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ClassLoader&lt;/code&gt; 已经被回收。&lt;/li&gt;
   &lt;li&gt;该类对应的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.Class&lt;/code&gt; 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java垃圾回收</summary></entry><entry><title type="html">java并发多线程</title><link href="https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="alternate" type="text/html" title="java并发多线程" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/GarfieldEr007/p/5746362.html&quot;&gt;多线程&lt;/a&gt;&lt;/p&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;即便满足了也不一定回收。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Java" /><category term="Java" /><summary type="html">java垃圾回收</summary></entry><entry><title type="html">java并发多线程</title><link href="https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="alternate" type="text/html" title="java并发多线程" /><published>2025-05-03T00:00:00+08:00</published><updated>2025-05-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2025/05/03/java%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%BA%BF%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/GarfieldEr007/p/5746362.html&quot;&gt;多线程&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;先看：http://www.cyc2018.xyz/Java/Java%20%E5%B9%B6%E5%8F%91.html#%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B&lt;/p&gt;
 
