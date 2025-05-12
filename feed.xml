@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-12T12:35:47+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-05-12T12:50:26+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
 
 &lt;h2 id=&quot;谈谈自己对于-aop-的了解&quot;&gt;谈谈自己对于 AOP 的了解&lt;/h2&gt;
 
@@ -858,7 +858,7 @@ re-entrance-lock&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Semaphore&lt;/code&gt; 的实现基于 &lt;strong&gt;AQS（AbstractQueuedSynchronizer）&lt;/strong&gt;，通过维护一个计数器来控制并发线程数。每当线程请求资源时，计数器减少，当计数器为 0 时，后续线程会被挂起。通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release()&lt;/code&gt; 方法可以释放资源并增加计数器的值，唤醒等待的线程。&lt;/p&gt;
 
-&lt;h3 id=&quot;readwritelock&quot;&gt;ReadWriteLock&lt;/h3&gt;
+&lt;h3 id=&quot;reentrantreadwritelock&quot;&gt;ReentrantReadWriteLock&lt;/h3&gt;
 
 &lt;p&gt;读写分离锁，可以减少锁竞争，提升性能&lt;/p&gt;
 
@@ -870,6 +870,16 @@ re-entrance-lock&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantReadWriteLock&lt;/code&gt; 是其常见的实现，它使用 &lt;strong&gt;AQS（AbstractQueuedSynchronizer）&lt;/strong&gt; 来协调线程间的并发访问。读锁是共享锁，多个线程可以同时持有；写锁是独占锁，只有一个线程能持有写锁，且在写锁持有期间，不允许任何线程读取或写入资源。&lt;/p&gt;
+
+&lt;h4 id=&quot;stampedlock&quot;&gt;StampedLock&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StampedLock&lt;/code&gt; 是 Java 8 中引入的一个新型锁，提供比 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantReadWriteLock&lt;/code&gt; 更高效的并发控制机制，尤其适用于需要大量读操作的场景。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;StampedLock&lt;/code&gt; 也通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantLock&lt;/code&gt; 的机制来实现。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;写锁&lt;/strong&gt;：独占锁。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;悲观读锁&lt;/strong&gt;：类似于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantReadWriteLock&lt;/code&gt; 的读锁。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;乐观读锁&lt;/strong&gt;：允许在不持有锁的情况下读取数据，在提交之前检查数据是否被修改过。&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h3 id=&quot;countdownlatch&quot;&gt;CountdownLatch&lt;/h3&gt;
 
