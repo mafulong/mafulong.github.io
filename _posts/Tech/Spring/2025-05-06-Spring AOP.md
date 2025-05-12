@@ -34,6 +34,19 @@ AOP 切面编程涉及到的一些专业术语：
 | Weaving(织入)     |       将通知应用到目标对象，进而生成代理对象的过程动作       |
 
 
+
+```scala
+Spring AOP
+   ├── 使用 AspectJ 注解（如 @Aspect）来声明切面
+   ├── 使用代理方式实现 AOP：
+   │     ├── JDK 动态代理（接口型）
+   │     └── CGLIB 动态代理（类型）
+```
+
+
+
+
+
 ## AOP 常见的通知类型有哪些？
 
 AOP 一般有 **5 种**环绕方式：
@@ -50,25 +63,32 @@ AOP 一般有 **5 种**环绕方式：
 
 ## AspectJ 是什么？
 
-### AepectJ
+### AspectJ
 
 AspectJ 是一个 AOP 框架，它可以做很多 Spring AOP 干不了的事情，比如说支持编译时、编译后和类加载时织入切面。并且提供更复杂的切点表达式和通知类型。
 
 ```scala
-// 定义一个切面
-@Aspect
+@Aspect  // 表示这是一个切面类
+@Component  // Spring 管理该类的 Bean
 public class LoggingAspect {
 
-    // 定义一个切点，匹配 com.example 包下的所有方法
-    @Pointcut("execution(* com.example..*(..))")
-    private void selectAll() {}
+    // 定义一个切入点，匹配 HelloService 中的所有方法
+    @Pointcut("execution(* com.example.demo.HelloService.*(..))")
+    public void helloServiceMethods() {}
 
-    // 定义一个前置通知，在匹配的方法执行之前执行
-    @Before("selectAll()")
-    public void beforeAdvice() {
-        System.out.println("A method is about to be executed.");
+    // 方法执行之前的通知（Before Advice）
+    @Before("helloServiceMethods()")
+    public void logBefore() {
+        System.out.println("Method is about to execute");
+    }
+
+    // 方法执行之后的通知（After Advice）
+    @After("helloServiceMethods()")
+    public void logAfter() {
+        System.out.println("Method has executed");
     }
 }
+
 ```
 
 
@@ -143,6 +163,22 @@ AOP 是通过[动态代理](https://mp.weixin.qq.com/s/aZtfwik0weJN5JzYc-JxYg)�
 优点：可以代理没有实现接口的类，灵活性更高；缺点：需要依赖 CGLIB 库，创建代理对象的开销相对较大。
 
 
+
+
+
+**JDK 动态代理**只能代理实现了接口的类。它的实现基于 Java 的 `java.lang.reflect.Proxy` 类和 `InvocationHandler` 接口，**运行时在内存中动态生成代理类的 `.class` 文件并加载执行**。
+
+JDK Proxy 是通过在内存中动态创建一个实现了同样接口的代理类来“代理”目标对象的方法调用。
+
+
+
+| 比较维度        | JDK 动态代理                      | CGLIB 动态代理           |
+| --------------- | --------------------------------- | ------------------------ |
+| 代理对象        | 必须实现接口                      | 不需要接口               |
+| 实现方式        | JDK Proxy + 反射                  | 继承 + 字节码增强        |
+| 性能（早期）    | 较低                              | 较高                     |
+| 限制            | 不能代理类本身                    | 不能代理 `final` 类/方法 |
+| Spring 默认策略 | 有接口：JDK 动态代理无接口：CGLIB |                          |
 
 ### 选择 CGLIB 还是 JDK 动态代理？
 
