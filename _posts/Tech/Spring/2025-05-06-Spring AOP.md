@@ -37,7 +37,7 @@ AOP 切面编程涉及到的一些专业术语：
 
 ```scala
 Spring AOP
-   ├── 使用 AspectJ 注解（如 @Aspect）来声明切面
+   ├── 使用 AspectJ 注解（如 @Aspect）来声明切面。 它是单独的aop框架，可以在非spring里使用。和spring aop是两套。 它是编译时织入。
    ├── 使用代理方式实现 AOP：
    │     ├── JDK 动态代理（接口型）
    │     └── CGLIB 动态代理（类型）
