@@ -4,7 +4,7 @@
 </div></header><section class="collection-head small geopattern" data-pattern-id="python笔记"><div class="container"><div class="columns">
 <div class="column three-fourths"><div class="collection-title">
 <h1 class="collection-header">python笔记</h1>
-<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 18895 字，约 54 分钟 </span>
+<div class="collection-info"> <span class="meta-info"> <span class="octicon octicon-calendar"></span> 2018/05/19 </span> <span class="meta-info"> <span class="octicon octicon-file-directory"></span> <a href="https://mafulong.github.io/categories/#Python" title="Python">Python</a> </span> <span class="meta-info"> <span class="octicon octicon-clock"></span> 共 18978 字，约 55 分钟 </span>
 </div>
 </div></div>
 <div class="column one-fourth mobile-hidden"><div class="collection-title"></div></div>
@@ -988,6 +988,14 @@ a&amp;0xffffffff  相当于只保留32位以内的数字
 <span class="k">print</span> <span class="s">"Employee.__module__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__module__</span>
 <span class="k">print</span> <span class="s">"Employee.__bases__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__bases__</span>
 <span class="k">print</span> <span class="s">"Employee.__dict__:"</span><span class="p">,</span> <span class="n">Employee</span><span class="p">.</span><span class="n">__dict__</span>
+</code></pre></div></div>
+<p>类变量</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="n">species</span> <span class="o">=</span> <span class="s">"Human"</span>  <span class="c1"># 类字段，所有实例共享
+</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="c1"># 对象变量
+</span>
 </code></pre></div></div>
 <p><strong>继承语法</strong></p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class 派生类名(基类名)
