@@ -4,7 +4,9 @@
 
 ## Usage
 
-draft: true表示是草稿。
+draft: true 表示是草稿。
+
+topmost: true 表示是置顶
 
 html验证器: https://www.site24x7.com/tools/html-markupvalidator.html
 
