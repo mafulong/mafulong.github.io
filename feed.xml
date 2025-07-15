@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-07-15T12:12:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">密码学安全</title><link href="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" rel="alternate" type="text/html" title="密码学安全" /><published>2025-07-15T00:00:00+08:00</published><updated>2025-07-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8</id><content type="html" xml:base="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/">&lt;h2 id=&quot;密码学安全&quot;&gt;密码学安全&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-07-15T14:46:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">密码学安全</title><link href="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" rel="alternate" type="text/html" title="密码学安全" /><published>2025-07-15T00:00:00+08:00</published><updated>2025-07-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8</id><content type="html" xml:base="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/">&lt;h2 id=&quot;密码学安全&quot;&gt;密码学安全&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://yeasy.gitbook.io/blockchain_guide/05_crypto&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
@@ -225,7 +225,50 @@
 
 &lt;p&gt;某些时候用户在使用浏览器访问某些网站时，可能会被提示是否信任对方的证书。这说明该网站证书无法被当前系统中的证书信任链进行验证，需要进行额外检查。另外，当信任链上任一证书不可靠时，则依赖它的所有后继证书都将失去保障。&lt;/p&gt;
 
-&lt;p&gt;可见，证书作为公钥信任的基础，对其生命周期进行安全管理十分关键。后面章节将介绍的 PKI 体系提供了一套完整的证书管理的框架，包括生成、颁发、撤销过程等。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">密码学安全</summary></entry><entry><title type="html">以太坊技术</title><link href="https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/" rel="alternate" type="text/html" title="以太坊技术" /><published>2025-07-13T00:00:00+08:00</published><updated>2025-07-13T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/">&lt;h2 id=&quot;以太坊技术&quot;&gt;以太坊技术&lt;/h2&gt;
+&lt;p&gt;可见，证书作为公钥信任的基础，对其生命周期进行安全管理十分关键。后面章节将介绍的 PKI 体系提供了一套完整的证书管理的框架，包括生成、颁发、撤销过程等。&lt;/p&gt;
+
+&lt;h2 id=&quot;merkle-树结构&quot;&gt;Merkle 树结构&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Merkle_tree&quot;&gt;默克尔树&lt;/a&gt;（又叫哈希树）是一种典型的二叉树结构，由一个根节点、一组中间节点和一组叶节点组成。默克尔树最早由 Merkle Ralf 在 1980 年提出，曾广泛用于文件系统和 P2P 系统中。&lt;/p&gt;
+
+&lt;p&gt;其主要特点为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;最下面的叶节点包含存储数据或其哈希值；&lt;/li&gt;
+  &lt;li&gt;非叶子节点（包括中间节点和根节点）都是它的两个孩子节点内容的哈希值。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;进一步地，默克尔树可以推广到多叉树的情形，此时非叶子节点的内容为它所有的孩子节点的内容的哈希值。&lt;/p&gt;
+
+&lt;p&gt;默克尔树逐层记录哈希值的特点，让它具有了一些独特的性质。例如，底层数据的任何变动，都会传递到其父节点，一层层沿着路径一直到树根。这意味树根的值实际上代表了对底层所有数据的“数字摘要”。&lt;/p&gt;
+
+&lt;p&gt;目前，默克尔树的典型应用场景包括如下几种。&lt;/p&gt;
+
+&lt;h3 id=&quot;证明某个集合中存在或不存在某个元素&quot;&gt;证明某个集合中存在或不存在某个元素&lt;/h3&gt;
+
+&lt;p&gt;通过构建集合的默克尔树，并提供该元素各级兄弟节点中的 Hash 值，可以不暴露集合完整内容而证明某元素存在。&lt;/p&gt;
+
+&lt;p&gt;另外，对于可以进行排序的集合，可以将不存在元素的位置用空值代替，以此构建稀疏默克尔树（Sparse Merkle Tree）。该结构可以证明某个集合中不包括指定元素。&lt;/p&gt;
+
+&lt;h3 id=&quot;快速比较大量数据&quot;&gt;快速比较大量数据&lt;/h3&gt;
+
+&lt;p&gt;对每组数据排序后构建默克尔树结构。当两个默克尔树根相同时，则意味着所代表的两组数据必然相同。否则，必然不同。&lt;/p&gt;
+
+&lt;p&gt;由于 Hash 计算的过程可以十分快速，预处理可以在短时间内完成。利用默克尔树结构能带来巨大的比较性能优势。&lt;/p&gt;
+
+&lt;h3 id=&quot;快速定位修改&quot;&gt;快速定位修改&lt;/h3&gt;
+
+&lt;p&gt;以下图为例，基于数据 D0……D3 构造默克尔树，如果 D1 中数据被修改，会影响到 N1，N4 和 Root。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://yeasy.gitbook.io/blockchain_guide/~gitbook/image?url=https%3A%2F%2F1489614170-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%2F-M5xTVjj6plOWgHcmTHq%2Fuploads%2Fgit-blob-01dd48b2fe29d3d5ba879d8eddfe6db037b13596%2FMerkle_tree.png%3Falt%3Dmedia&amp;amp;width=768&amp;amp;dpr=4&amp;amp;quality=100&amp;amp;sign=27be3ffd&amp;amp;sv=2&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因此，一旦发现某个节点如 Root 的数值发生变化，沿着 Root –&amp;gt; N4 –&amp;gt; N1，最多通过 O(lgN) 时间即可快速定位到实际发生改变的数据块 D1。&lt;/p&gt;
+
+&lt;h3 id=&quot;零知识证明&quot;&gt;零知识证明&lt;/h3&gt;
+
+&lt;p&gt;仍以上图为例，如何向他人证明拥有某个数据 D0 而不暴露其它信息。挑战者提供随机数据 D1，D2 和 D3，或由证明人生成（需要加入特定信息避免被人复用证明过程）。&lt;/p&gt;
+
+&lt;p&gt;证明人构造如图所示的默克尔树，公布 N1，N5，Root。验证者自行计算 Root 值，验证是否跟提供值一致，即可很容易检测 D0 存在。整个过程中验证者无法获知与 D0 相关的额外信息。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">密码学安全</summary></entry><entry><title type="html">以太坊技术</title><link href="https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/" rel="alternate" type="text/html" title="以太坊技术" /><published>2025-07-13T00:00:00+08:00</published><updated>2025-07-13T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF</id><content type="html" xml:base="https://mafulong.github.io/2025/07/13/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/">&lt;h2 id=&quot;以太坊技术&quot;&gt;以太坊技术&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://liaoxuefeng.com/books/blockchain/ethereum/index.html&quot;&gt;廖雪峰笔记参考&lt;/a&gt;&lt;/p&gt;
 
