@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-07-15T14:46:08+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">密码学安全</title><link href="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" rel="alternate" type="text/html" title="密码学安全" /><published>2025-07-15T00:00:00+08:00</published><updated>2025-07-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8</id><content type="html" xml:base="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/">&lt;h2 id=&quot;密码学安全&quot;&gt;密码学安全&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-07-16T08:00:04+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">密码学安全</title><link href="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" rel="alternate" type="text/html" title="密码学安全" /><published>2025-07-15T00:00:00+08:00</published><updated>2025-07-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8</id><content type="html" xml:base="https://mafulong.github.io/2025/07/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/">&lt;h2 id=&quot;密码学安全&quot;&gt;密码学安全&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://yeasy.gitbook.io/blockchain_guide/05_crypto&quot;&gt;参考&lt;/a&gt;&lt;/p&gt;
 
@@ -102,7 +102,11 @@
 &lt;p&gt;代表算法包括：RSA、ElGamal、椭圆曲线、SM2 等系列算法。&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;RSA：经典的公钥算法，1978 年由 Ron Rivest、Adi Shamir、Leonard Adleman 共同提出，三人于 2002 年因此获得图灵奖。算法利用了对大数进行质因子分解困难的特性，但目前还没有数学证明两者难度等价，或许存在未知算法可以绕过大数分解而进行解密。&lt;/li&gt;
+  &lt;li&gt;RSA：经典的公钥算法，1978 年由 Ron Rivest、Adi Shamir、Leonard Adleman 共同提出，三人于 2002 年因此获得图灵奖。算法利用了对大数进行质因子分解困难的特性，但目前还没有数学证明两者难度等价，或许存在未知算法可以绕过大数分解而进行解密。
+    &lt;ul&gt;
+      &lt;li&gt;原理：&lt;strong&gt;大数分解&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;ElGamal：由 Taher ElGamal 设计，利用了模运算下求离散对数困难的特性，比 RSA 产生密钥更快。被应用在 PGP 等安全工具中。&lt;/li&gt;
   &lt;li&gt;椭圆曲线算法（Elliptic Curve Cryptography，ECC）：应用最广也是强度最高的系列算法，基于对椭圆曲线上特定点进行特殊乘法逆运算（求离散对数）难以计算的特性。最早在 1985 年由 Neal Koblitz 和 Victor Miller 分别独立提出。ECC 系列算法具有多种国际标准（包括 ANSI X9.63、NIST FIPS 186-2、IEEE 1363-2000、ISO/IEC 14888-3 等），一般被认为具备较高的安全性，但加解密过程比较费时。其中，密码学家 Daniel J.Bernstein 于 2006 年提出的 Curve25519/Ed25519/X25519 等算法（分别解决加密、签名和密钥交换），由于其设计完全公开、性能突出等特点，近些年引起了广泛关注和应用。&lt;/li&gt;
   &lt;li&gt;SM2（ShangMi 2）：中国国家商用密码系列算法标准，由中国密码管理局于 2010 年 12 月 17 日发布，同样基于椭圆曲线算法，一般认为其安全强度优于 RSA 系列算法。&lt;/li&gt;
@@ -170,6 +174,29 @@
 &lt;p&gt;理论上所有的非对称加密算法都可以用来实现数字签名，实践中常用算法包括 1991 年 8 月 NIST 提出的 DSA（Digital Signature Algorithm，基于 ElGamal 算法）和安全强度更高的 ECDSA（Elliptic Curve Digital Signature Algorithm，基于椭圆曲线算法）等。&lt;/p&gt;
 
 &lt;p&gt;除普通的数字签名应用场景外，针对一些特定的安全需求，产生了一些特殊数字签名技术，包括盲签名、多重签名、群签名、环签名等。&lt;/p&gt;
+
+&lt;h4 id=&quot;签名算法&quot;&gt;签名算法&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;RSA签名&lt;/strong&gt;：基于加密/解密，通过私钥加密哈希值，公钥解密验证哈希一致性。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ECDSA/DSA&lt;/strong&gt;：基于椭圆曲线/离散对数，通过数学计算验证签名。
+    &lt;ul&gt;
+      &lt;li&gt;ECDSA 签名具有一定的延展性（同一交易的签名可以有多种合法表示）&lt;/li&gt;
+      &lt;li&gt;比特币的签名使用的是 &lt;strong&gt;椭圆曲线数字签名算法（ECDSA）&lt;/strong&gt;，具体基于 &lt;strong&gt;secp256k1&lt;/strong&gt; 曲线。签名可以用来验证一个交易确实是由对应私钥持有者发起的。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;EdDSA&lt;/strong&gt;：基于椭圆曲线，具有更高的安全性和效率，主要用于现代加密系统。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;HMAC&lt;/strong&gt;：基于哈希的认证，不涉及公钥基础设施，依赖共享密钥。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;验证过程&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;用户私钥&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;交易摘要&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ECDSA签名&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;---&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                                &lt;span class=&quot;o&quot;&gt;↓&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;比特币网络节点使用交易公钥验证&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                                &lt;span class=&quot;o&quot;&gt;↓&lt;/span&gt;
+                 &lt;span class=&quot;n&quot;&gt;如果验证成功&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;→&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;接收该交易&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;盲签名&quot;&gt;盲签名&lt;/h4&gt;
 
