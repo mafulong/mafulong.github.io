@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-08-10T10:37:39+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Goland的external tool</title><link href="https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external-tool/" rel="alternate" type="text/html" title="Goland的external tool" /><published>2025-08-09T00:00:00+08:00</published><updated>2025-08-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external%20tool</id><content type="html" xml:base="https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external-tool/">&lt;h2 id=&quot;goland的external-tool&quot;&gt;Goland的external tool&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-08-11T09:18:58+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">mac mini做nas+小米电视</title><link href="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/" rel="alternate" type="text/html" title="mac mini做nas+小米电视" /><published>2025-08-10T00:00:00+08:00</published><updated>2025-08-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/10/mac%20mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86</id><content type="html" xml:base="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/">&lt;h2 id=&quot;mac-mini做nas小米电视&quot;&gt;mac mini做nas+小米电视&lt;/h2&gt;
+
+&lt;h2 id=&quot;nas&quot;&gt;nas&lt;/h2&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emby&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unless&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stopped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mafulong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NAS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emby_config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8096&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8096&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;linuxserver/emby&lt;/span&gt;
+
+
+&lt;span class=&quot;n&quot;&gt;自己ip&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ipconfig&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getifaddr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;en1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac mini做nas+小米电视</summary></entry><entry><title type="html">Goland的external tool</title><link href="https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external-tool/" rel="alternate" type="text/html" title="Goland的external tool" /><published>2025-08-09T00:00:00+08:00</published><updated>2025-08-09T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external%20tool</id><content type="html" xml:base="https://mafulong.github.io/2025/08/09/Goland%E7%9A%84external-tool/">&lt;h2 id=&quot;goland的external-tool&quot;&gt;Goland的external tool&lt;/h2&gt;
 
 &lt;p&gt;goland external open in xx 配置&lt;/p&gt;
 
@@ -2085,164 +2101,4 @@ m/0/0 m/0/1 m/0/2 ...  m/1/0 m/1/1 m/1/2 ...
   &lt;li&gt;&lt;strong&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 的情况下&lt;/strong&gt;：Spring 不会立即创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;，而是会注入一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的代理对象。由于此时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 仍未被真正初始化，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 的初始化可以顺利完成。等到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 实例实际调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的方法时，代理对象才会触发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的真正初始化。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 能够在一定程度上打破循环依赖链，允许 Spring 容器顺利地完成 Bean 的创建和注入。但这并不是一个根本性的解决方案，尤其是在构造函数注入、复杂的多级依赖等场景中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 无法有效地解决问题。因此，最佳实践仍然是尽量避免设计上的循环依赖。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring 循环依赖</summary></entry><entry><title type="html">Spring基础</title><link href="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/" rel="alternate" type="text/html" title="Spring基础" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring%E5%9F%BA%E7%A1%80/">&lt;h2 id=&quot;spring基础&quot;&gt;Spring基础&lt;/h2&gt;
-
-&lt;p&gt;一句话概括：&lt;strong&gt;Spring 是一个轻量级、非入侵式的控制反转 (IoC) 和面向切面 (AOP) 的框架。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;我们一般说 Spring 框架指的都是 Spring Framework，它是很多模块的集合，使用这些模块可以很方便地协助我们进行开发，比如说 Spring 支持 IoC（Inversion of Control:控制反转） 和 AOP(Aspect-Oriented Programming:面向切面编程)、可以很方便地对数据库进行访问、可以很方便地集成第三方组件（电子邮件，任务，调度，缓存等等）、对单元测试支持比较好、支持 RESTful Java 应用程序的开发。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062328358.png&quot; alt=&quot;三分恶面渣逆袭：Spring特性&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;IoC&lt;/strong&gt; 和 &lt;strong&gt;DI&lt;/strong&gt; 的支持&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 的核心就是一个大的工厂容器，可以维护所有对象的创建和依赖关系，Spring 工厂用于生成 Bean，并且管理 Bean 的生命周期，实现&lt;strong&gt;高内聚低耦合&lt;/strong&gt;的设计理念。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;AOP 编程的支持&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 提供了&lt;strong&gt;面向切面编程&lt;/strong&gt;，可以方便的实现对程序进行权限拦截、运行监控等切面功能。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;声明式事务的支持&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;支持通过配置就来完成对事务的管理，而不需要通过硬编码的方式，以前重复的一些事务提交、回滚的 JDBC 代码，都可以不用自己写了。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;快捷测试的支持&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 对 Junit 提供支持，可以通过&lt;strong&gt;注解&lt;/strong&gt;快捷地测试 Spring 程序。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;快速集成功能&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;方便集成各种优秀框架，Spring 不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz 等）的直接支持。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;复杂 API 模板封装&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Spring 对 JavaEE 开发中非常难用的一些 API（JDBC、JavaMail、远程调用等）都提供了模板化的封装，这些封装 API 的提供使得应用难度大大降低。&lt;/p&gt;
-
-&lt;h2 id=&quot;1-简单说一下什么是aop-和-ioc&quot;&gt;1. &lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#简单说一下什么是aop-和-ioc&quot;&gt;简单说一下什么是AOP 和 IoC？&lt;/a&gt;&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;AOP&lt;/strong&gt;：面向切面编程，是一种编程范式，它的主要作用是将那些与核心业务逻辑无关，但是对多个对象产生影响的公共行为封装起来，如日志记录、性能统计、事务等。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;IoC&lt;/strong&gt;：控制反转，是一种设计思想，它的主要作用是将对象的创建和对象之间的调用过程交给 Spring 容器来管理。&lt;/p&gt;
-
-&lt;h2 id=&quot;2spring-有哪些模块呢&quot;&gt;2.Spring 有哪些模块呢？&lt;/h2&gt;
-
-&lt;p&gt;Spring 框架是分模块存在，除了最核心的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Spring Core Container&lt;/code&gt;是必要模块之外，其他模块都是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;可选&lt;/code&gt;，大约有 20 多个模块。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329603.png&quot; alt=&quot;Spring模块划分&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最主要的七大模块：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Core&lt;/strong&gt;：Spring 核心，它是框架最基础的部分，提供 IoC 和依赖注入 DI 特性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Context&lt;/strong&gt;：Spring 上下文容器，它是 BeanFactory 功能加强的一个子接口。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring Web&lt;/strong&gt;：它提供 Web 应用开发的支持。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring MVC&lt;/strong&gt;：它针对 Web 应用中 MVC 思想的实现。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring DAO&lt;/strong&gt;：提供对 JDBC 抽象层，简化了 JDBC 编码，同时，编码更具有健壮性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring ORM&lt;/strong&gt;：它支持用于流行的 ORM 框架的整合，比如：Spring + Hibernate、Spring + iBatis、Spring + JDO 的整合等。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Spring AOP&lt;/strong&gt;：即面向切面编程，它提供了与 AOP 联盟兼容的编程实现。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;3spring-有哪些常用注解呢&quot;&gt;3.Spring 有哪些常用注解呢？&lt;/h2&gt;
-
-&lt;p&gt;Spring 提供了大量的注解来简化 Java 应用的开发和配置，主要用于 Web 开发、往容器注入 Bean、AOP、事务控制等。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062329372.png&quot; alt=&quot;三分恶面渣逆袭：Spring常用注解&quot; style=&quot;zoom:67%;&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;web-开发方面有哪些注解呢&quot;&gt;Web 开发方面有哪些注解呢？&lt;/h4&gt;
-
-&lt;p&gt;①、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt;：用于标注控制层组件。&lt;/p&gt;
-
-&lt;p&gt;②、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RestController&lt;/code&gt;：是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Controller&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt; 的结合体，返回 JSON 数据时使用。&lt;/p&gt;
-
-&lt;p&gt;③、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping&lt;/code&gt;：用于映射请求 URL 到具体的方法上，还可以细分为：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@GetMapping&lt;/code&gt;：只能用于处理 GET 请求&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PostMapping&lt;/code&gt;：只能用于处理 POST 请求&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@DeleteMapping&lt;/code&gt;：只能用于处理 DELETE 请求&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;④、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@ResponseBody&lt;/code&gt;：直接将返回的数据放入 HTTP 响应正文中，一般用于返回 JSON 数据。  &lt;strong&gt;把对象转json&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;⑤、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestBody&lt;/code&gt;：表示一个方法参数应该绑定到 Web 请求体。&lt;strong&gt;json转对象，参数上。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;⑥、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PathVariable&lt;/code&gt;：用于接收路径参数，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestMapping(“/hello/{name}”)&lt;/code&gt;，这里的 name 就是路径参数。&lt;/p&gt;
-
-&lt;p&gt;⑦、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam&lt;/code&gt;：用于接收请求参数。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@RequestParam(name = &quot;key&quot;) String key&lt;/code&gt;，这里的 key 就是请求参数。&lt;/p&gt;
-
-&lt;h4 id=&quot;容器类注解有哪些呢&quot;&gt;容器类注解有哪些呢？&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Component&lt;/code&gt;：标识一个类为 Spring 组件，使其能够被 Spring 容器自动扫描和管理。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service&lt;/code&gt;：标识一个业务逻辑组件（服务层）。比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Service(&quot;userService&quot;)&lt;/code&gt;，这里的 userService 就是 Bean 的名称。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Repository&lt;/code&gt;：标识一个数据访问组件（持久层）。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Autowired&lt;/code&gt;：按类型自动注入依赖。 配合@Qualifier可以按name.&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Configuration&lt;/code&gt;：用于定义配置类，可替换 XML 配置文件。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Value&lt;/code&gt;：用于将 Spring Boot 中 application.properties 配置的属性值赋值给变量。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;aop-方面有哪些注解呢&quot;&gt;AOP 方面有哪些注解呢？&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Aspect&lt;/code&gt; 用于声明一个切面，可以配合其他注解一起使用，比如：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@After&lt;/code&gt;：在方法执行之后执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Before&lt;/code&gt;：在方法执行之前执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Around&lt;/code&gt;：方法前后均执行。&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@PointCut&lt;/code&gt;：定义切点，指定需要拦截的方法。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;当一个方法上被多个 AOP 注解拦截时，&lt;strong&gt;默认执行顺序如下：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Around（前）
-   └─ @Before
-       └─ ——【目标方法执行】——
-           └─ @After
-@Around（后）
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;事务注解有哪些&quot;&gt;事务注解有哪些？&lt;/h4&gt;
-
-&lt;p&gt;主要就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Transactional&lt;/code&gt;，用于声明一个方法需要事务支持。&lt;/p&gt;
-
-&lt;h2 id=&quot;springspring-mvcspring-boot-之间什么关系&quot;&gt;Spring,Spring MVC,Spring Boot 之间什么关系?&lt;/h2&gt;
-
-&lt;p&gt;很多人对 Spring,Spring MVC,Spring Boot 这三者傻傻分不清楚！这里简单介绍一下这三者，其实很简单，没有什么高深的东西。&lt;/p&gt;
-
-&lt;p&gt;Spring 包含了多个功能模块（上面刚刚提到过），其中最重要的是 Spring-Core（主要提供 IoC 依赖注入功能的支持） 模块， Spring 中的其他模块（比如 Spring MVC）的功能实现基本都需要依赖于该模块。&lt;/p&gt;
-
-&lt;p&gt;Spring MVC 是 Spring 中的一个很重要的模块，主要赋予 Spring 快速构建 MVC 架构的 Web 程序的能力。MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心思想是通过将业务逻辑、数据、显示分离来组织代码。&lt;/p&gt;
-
-&lt;p&gt;使用 Spring 进行开发各种配置过于麻烦比如开启某些 Spring 特性时，需要用 XML 或 Java 进行显式配置。于是，Spring Boot 诞生了！&lt;/p&gt;
-
-&lt;p&gt;Spring 旨在简化 J2EE 企业应用程序开发。Spring Boot 旨在简化 Spring 开发（减少配置文件，开箱即用！）。&lt;/p&gt;
-
-&lt;p&gt;Spring Boot 只是简化了配置，如果你需要构建 MVC 架构的 Web 程序，你还是需要使用 Spring MVC 作为 MVC 框架，只是说 Spring Boot 帮你简化了 Spring MVC 的很多配置，真正做到开箱即用！&lt;/p&gt;
-
-&lt;h2 id=&quot;spring-框架中用到了哪些设计模式&quot;&gt;Spring 框架中用到了哪些设计模式？&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;关于下面这些设计模式的详细介绍，可以看我写的 &lt;a href=&quot;https://javaguide.cn/system-design/framework/spring/spring-design-patterns-summary.html&quot;&gt;Spring 中的设计模式详解&lt;/a&gt; 这篇文章。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;工厂设计模式&lt;/strong&gt; : Spring 使用工厂模式通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BeanFactory&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationContext&lt;/code&gt; 创建 bean 对象。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;代理设计模式&lt;/strong&gt; : Spring AOP 功能的实现。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;单例设计模式&lt;/strong&gt; : Spring 中的 Bean 默认都是单例的。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;模板方法模式&lt;/strong&gt; : Spring 中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jdbcTemplate&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hibernateTemplate&lt;/code&gt; 等以 Template 结尾的对数据库操作的类，它们就使用到了模板模式。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;包装器设计模式&lt;/strong&gt; : 我们的项目需要连接多个数据库，而且不同的客户在每次访问中根据需要会去访问不同的数据库。这种模式让我们可以根据客户的需求能够动态切换不同的数据源。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;观察者模式:&lt;/strong&gt; Spring 事件驱动模型就是观察者模式很经典的一个应用。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;适配器模式&lt;/strong&gt; : Spring AOP 的增强或通知(Advice)使用到了适配器模式、spring MVC 中也是用到了适配器模式适配&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Controller&lt;/code&gt;。&lt;/li&gt;
-  &lt;li&gt;……&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring基础</summary></entry></feed>
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 能够在一定程度上打破循环依赖链，允许 Spring 容器顺利地完成 Bean 的创建和注入。但这并不是一个根本性的解决方案，尤其是在构造函数注入、复杂的多级依赖等场景中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 无法有效地解决问题。因此，最佳实践仍然是尽量避免设计上的循环依赖。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring 循环依赖</summary></entry></feed>
