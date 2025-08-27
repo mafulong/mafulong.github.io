@@ -1,4 +1,492 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-08-26T09:49:04+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">香港办卡</title><link href="https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1/" rel="alternate" type="text/html" title="香港办卡" /><published>2025-08-24T00:00:00+08:00</published><updated>2025-08-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1</id><content type="html" xml:base="https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1/">&lt;h2 id=&quot;香港办卡&quot;&gt;香港办卡&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-08-27T08:51:50+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">区块链入门QA</title><link href="https://mafulong.github.io/2025/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8QA/" rel="alternate" type="text/html" title="区块链入门QA" /><published>2025-08-27T00:00:00+08:00</published><updated>2025-08-27T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8QA</id><content type="html" xml:base="https://mafulong.github.io/2025/08/27/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8QA/">&lt;h2 id=&quot;区块链入门qa&quot;&gt;区块链入门QA&lt;/h2&gt;
+
+&lt;h2 id=&quot;去中心化交易所&quot;&gt;去中心化交易所&lt;/h2&gt;
+
+&lt;p&gt;不同数字资产之间如果要进行兑换，需要经过交易所等中介渠道。&lt;/p&gt;
+
+&lt;p&gt;传统交易所是中心化模式，即交易双方通过第三方提供的交易平台按照汇率进行交换，交易平台方往往需要从交易中收取手续费用。这种模式下不仅成本高，而且存在对交易平台依赖过高的风险。&lt;/p&gt;
+
+&lt;p&gt;为了解决这些问题，去中心化交易所（Decentralized Exchange，DEX）被设计出来。其初步想法是通过基于区块链的协议，让交易双方可以直接进行点对点的兑换。由于无需交易平台方参与，交易成本较低，而且可以实时完成，也不用担心安全风险。目前，去中心化交易所是去中心化金融领域最热门的课题之一。&lt;/p&gt;
+
+&lt;p&gt;要实现去中心化交易所，需要解决一些基本问题：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;交易能自动完成，无需人工参与；&lt;/li&gt;
+  &lt;li&gt;交易过程中无人能造假或欺骗对方；&lt;/li&gt;
+  &lt;li&gt;自动计算汇率，并根据汇率来完成交易；&lt;/li&gt;
+  &lt;li&gt;避免市场发生过大波动，带来损失。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;目前，去中心化交易所根据其订单位置，主要包括三种模式：链上记账、链下记账和自动做市商（Automated Market Makers，AMM）。&lt;/p&gt;
+
+&lt;h3 id=&quot;链上记账&quot;&gt;链上记账&lt;/h3&gt;
+
+&lt;p&gt;链上记账的思路十分简单，将兑换交易直接存储在区块链上。&lt;/p&gt;
+
+&lt;p&gt;该模式实现简单，但是存在较大缺陷。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;每笔交易都需要上链，会产生记账费用。当交易频繁时，记账成本过高；&lt;/li&gt;
+  &lt;li&gt;需要将所有信息记录在链上，可能会产生有人提前知晓交易信息而获益；&lt;/li&gt;
+  &lt;li&gt;交易较多时，对区块链的性能要求很高，大部分公有链都无法支持。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;采用该方案的平台包括 Stellar 等。&lt;/p&gt;
+
+&lt;h3 id=&quot;链下记账&quot;&gt;链下记账&lt;/h3&gt;
+
+&lt;p&gt;与链上记账相反，链下记账将交易存放在第三方平台上。第三方平台仅当需要时候才将交易写入区块链。&lt;/p&gt;
+
+&lt;p&gt;这种方式可以避免写入大量交易到区块链，但是需要依赖第三方平台，存在较高的安全风险。&lt;/p&gt;
+
+&lt;p&gt;采用该方案的平台包括 Binance 等。&lt;/p&gt;
+
+&lt;h3 id=&quot;自动做市商&quot;&gt;自动做市商&lt;/h3&gt;
+
+&lt;p&gt;类似证券市场中的做市商，可以使用智能合约来实现自动化的做市商机制。&lt;/p&gt;
+
+&lt;p&gt;用户需要兑换货币时，不跟其他用户直接进行交易，而是和区块链智能合约进行兑换。&lt;/p&gt;
+
+&lt;p&gt;智能合约背后根据其流动资金池和定价算法（如倒数曲线、直线等）实时算出汇率。每笔交易会收取少量的手续费（如 Uniswap 收取 0.3%）。&lt;/p&gt;
+
+&lt;p&gt;该机制无需依赖交易记账，交易成本通常较低，且风险小。&lt;/p&gt;
+
+&lt;p&gt;用户也可以将持有的货币按照协议投入流动资金池中，成为流动性提供者（Liquidity Provider，LP）。流动性提供者可以获得交易手续费带来的收益。&lt;/p&gt;
+
+&lt;p&gt;该模式主要的问题是市场深度依赖流动资金池，要平衡好 LP 收益和交易成本之间的矛盾。同时，当货币价格波动较大时，LP 可能产生暂时性损失（Impermanent Loss）。&lt;/p&gt;
+
+&lt;p&gt;典型的实现协议包括 Uniswap、Bancor 等，平台包括 Kyber 等。&lt;/p&gt;
+
+&lt;h2 id=&quot;hyperledger超级账本&quot;&gt;Hyperledger（超级账本）&lt;/h2&gt;
+
+&lt;p&gt;Hyperledger（超级账本）是一个由 &lt;strong&gt;Linux 基金会主导的开源协作项目&lt;/strong&gt;，目标是为企业打造 &lt;strong&gt;分布式账本技术（DLT, Distributed Ledger Technology）和区块链解决方案&lt;/strong&gt; 的基础平台与生态。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;不同于比特币、以太坊这类面向公众的公有链，Hyperledger 更偏向 &lt;strong&gt;联盟链 / 私有链&lt;/strong&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;强调 &lt;strong&gt;高性能、可控权限、隐私保护&lt;/strong&gt;，满足银行、供应链、医疗等行业的需求。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hyperledger 不是单一平台，而是多个子项目的集合（类似一个“开源大伞”）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;这些子项目覆盖 &lt;strong&gt;区块链底层框架、工具、库&lt;/strong&gt;，方便企业选择和定制。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;合约&quot;&gt;合约&lt;/h2&gt;
+
+&lt;h2 id=&quot;-1-普通转账-vs-合约交易&quot;&gt;🔑 1. 普通转账 vs 合约交易&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;ETH 转账&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;直接链上余额变动，不需要合约。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; 就是收款人的钱包地址。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;代币转账（ERC-20/721/1155 等）&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;本质是调用合约的函数（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transferFrom&lt;/code&gt;）。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; 指向代币合约地址，收款人地址要在交易 data 或日志里找。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;合约部署&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to=null&lt;/code&gt;，执行成功后生成一个新合约地址。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-2-transfer-函数&quot;&gt;🔑 2. transfer 函数&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;标准由谁定义&lt;/strong&gt;：以太坊社区通过 ERC 提案流程规定接口（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balanceOf&lt;/code&gt;）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;具体谁写的&lt;/strong&gt;：各代币项目方自己实现（比如 USDT 的 Tether 团队）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：修改合约内部的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balances&lt;/code&gt; 映射，并触发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Transfer&lt;/code&gt; 事件。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-3-transfer-会变吗&quot;&gt;🔑 3. transfer 会变吗？&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;不可升级合约&lt;/strong&gt;：一旦部署，代码永久写死，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt; 不会变。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;可升级合约（Proxy 模式）&lt;/strong&gt;：接口不变，但项目方可升级逻辑。比如 Tether 正在迁移到 USDT0，用了 proxy 机制。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;-4-合约地址会变吗&quot;&gt;🔑 4. 合约地址会变吗？&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;不会变&lt;/strong&gt;：由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;部署者地址 + nonce&lt;/code&gt; 算出，一旦部署就永久固定。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;新版本合约&lt;/strong&gt;：如果项目迁移（比如旧 USDT → 新 USDT0），那是&lt;strong&gt;新合约新地址&lt;/strong&gt;，旧地址依然存在，不会“变掉”。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;-总结一句话&quot;&gt;✅ 总结一句话&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;ETH 转账不需要合约；代币转账都要通过合约的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt; 或类似函数。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt; 是代币开发团队按 ERC 标准写的，通常不会变，除非用了可升级合约。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;合约地址一旦生成就固定不变，迁移只会出现新的合约地址。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;ico&quot;&gt;ICO&lt;/h2&gt;
+
+&lt;p&gt;ICO = &lt;strong&gt;Initial Coin Offering（首次代币发行）&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;可以理解为区块链世界里的 &lt;strong&gt;“代币版众筹”&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;项目方发行一种新的加密代币（Token）；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;投资者用比特币、以太坊等已有的主流加密货币来购买这些代币；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;项目方通过出售代币获得资金，用于开发和运营项目；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;投资者则期望这些代币未来升值，或者能在项目生态中使用。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;区块链账本模型对比&quot;&gt;区块链账本模型对比&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;模型&lt;/th&gt;
+      &lt;th&gt;代表链&lt;/th&gt;
+      &lt;th&gt;优点&lt;/th&gt;
+      &lt;th&gt;缺点&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;UTXO&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Bitcoin、Litecoin&lt;/td&gt;
+      &lt;td&gt;去中心化、并行度高、隐私好&lt;/td&gt;
+      &lt;td&gt;编程复杂，不适合复杂合约&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;账户模型&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Ethereum、TRON、BNB、Solana&lt;/td&gt;
+      &lt;td&gt;直观，支持智能合约，开发友好&lt;/td&gt;
+      &lt;td&gt;隐私差，容易被追踪&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;✅ 一句话总结：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;UTXO 模型&lt;/strong&gt;：像现金，交易是“零钱的输入输出”。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;账户模型&lt;/strong&gt;：像银行卡，账本直接记录“谁有多少钱”。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常见区块链架构&quot;&gt;常见区块链架构&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-比特币bitcoin-btc&quot;&gt;1. 比特币（Bitcoin, BTC）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：PoW（工作量证明）&lt;/li&gt;
+  &lt;li&gt;账本结构：UTXO 模型&lt;/li&gt;
+  &lt;li&gt;架构特点：极简，只有转账功能；无智能合约，主要用于点对点支付&lt;/li&gt;
+  &lt;li&gt;适用场景：数字货币、价值存储&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-以太坊ethereum-eth&quot;&gt;2. 以太坊（Ethereum, ETH）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：PoS（权益证明，2022年合并后）&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：支持智能合约（Solidity/EVM）；执行环境是 EVM；去中心化开放性强，但性能有限（10-20 TPS）&lt;/li&gt;
+  &lt;li&gt;适用场景：DeFi、NFT、DAO、GameFi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;3-tron波场-trx&quot;&gt;3. TRON（波场, TRX）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：DPoS（委托权益证明，27个超级代表出块）&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：高性能（号称 2000+ TPS）；低手续费；EVM 兼容&lt;/li&gt;
+  &lt;li&gt;适用场景：支付、跨境转账（尤其是 USDT 流通链）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;4-bnb-chainbinance-smart-chain-bsc&quot;&gt;4. BNB Chain（Binance Smart Chain, BSC）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：PoSA（Proof of Staked Authority，权益质押 + 权威证明）&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：高吞吐量（几千 TPS）；与以太坊完全兼容（EVM）；Binance 生态支持，中心化程度较高&lt;/li&gt;
+  &lt;li&gt;适用场景：DeFi、GameFi、CEX 对接&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;5-solanasol&quot;&gt;5. Solana（SOL）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：PoH（历史证明）+ PoS&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：高性能（理论上 5万+ TPS）；“历史证明”减少延迟；开发语言 Rust/C++&lt;/li&gt;
+  &lt;li&gt;适用场景：高频交易、DeFi、GameFi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;6-avalancheavax&quot;&gt;6. Avalanche（AVAX）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链&lt;/li&gt;
+  &lt;li&gt;共识机制：Avalanche 共识 + PoS&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：主网由多个子链（X-Chain、P-Chain、C-Chain）组成；支持定制子网（Subnet）；EVM 兼容（C-Chain）&lt;/li&gt;
+  &lt;li&gt;适用场景：DeFi、定制区块链网络&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;7-polkadotdot&quot;&gt;7. Polkadot（DOT）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链（多链架构）&lt;/li&gt;
+  &lt;li&gt;共识机制：NPoS（提名权益证明）&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：中继链（Relay Chain）+ 平行链（Parachains）；共享安全性；跨链通信（XCMP）&lt;/li&gt;
+  &lt;li&gt;适用场景：多链互操作、跨链应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;8-cosmosatom&quot;&gt;8. Cosmos（ATOM）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：公有链（多链互操作）&lt;/li&gt;
+  &lt;li&gt;共识机制：Tendermint BFT + PoS&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：Hub-and-Zone 模式；IBC 跨链通信协议；模块化链设计&lt;/li&gt;
+  &lt;li&gt;适用场景：跨链生态、模块化应用链&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;9-basecoinbase-出品&quot;&gt;9. Base（Coinbase 出品）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;类型：以太坊二层（Layer 2）&lt;/li&gt;
+  &lt;li&gt;共识机制：继承以太坊安全性（Optimistic Rollup）&lt;/li&gt;
+  &lt;li&gt;账本结构：账户模型&lt;/li&gt;
+  &lt;li&gt;架构特点：基于 Optimism 的 OP Stack；低手续费、EVM 兼容；Coinbase 背书，合规化程度高&lt;/li&gt;
+  &lt;li&gt;适用场景：Web2 用户进入 Web3 的入口，DeFi、社交应用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;总结对比表&quot;&gt;总结对比表&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Chain&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;共识机制&lt;/th&gt;
+      &lt;th&gt;架构/特点&lt;/th&gt;
+      &lt;th&gt;主要应用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Bitcoin&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;PoW&lt;/td&gt;
+      &lt;td&gt;UTXO 模型，简单安全&lt;/td&gt;
+      &lt;td&gt;价值存储、支付&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Ethereum&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;PoS&lt;/td&gt;
+      &lt;td&gt;EVM，智能合约，去中心化&lt;/td&gt;
+      &lt;td&gt;DeFi、NFT&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TRON&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;DPoS&lt;/td&gt;
+      &lt;td&gt;EVM 兼容，高性能&lt;/td&gt;
+      &lt;td&gt;支付、USDT&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BNB Chain&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;PoSA&lt;/td&gt;
+      &lt;td&gt;高吞吐量，EVM 兼容&lt;/td&gt;
+      &lt;td&gt;DeFi、GameFi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Solana&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;PoH+PoS&lt;/td&gt;
+      &lt;td&gt;高性能，Rust 开发&lt;/td&gt;
+      &lt;td&gt;高频交易、GameFi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Avalanche&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;Avalanche+PoS&lt;/td&gt;
+      &lt;td&gt;子网架构，EVM 兼容&lt;/td&gt;
+      &lt;td&gt;DeFi、应用链&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Polkadot&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;NPoS&lt;/td&gt;
+      &lt;td&gt;中继链+平行链，多链互操作&lt;/td&gt;
+      &lt;td&gt;跨链生态&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cosmos&lt;/td&gt;
+      &lt;td&gt;公有链&lt;/td&gt;
+      &lt;td&gt;Tendermint+PoS&lt;/td&gt;
+      &lt;td&gt;Hub-Zone，IBC 跨链通信&lt;/td&gt;
+      &lt;td&gt;模块化链、跨链&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Base&lt;/td&gt;
+      &lt;td&gt;L2&lt;/td&gt;
+      &lt;td&gt;Rollup (OP)&lt;/td&gt;
+      &lt;td&gt;以太坊 L2，Coinbase 背书&lt;/td&gt;
+      &lt;td&gt;DeFi、Web3入口&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;数字货币-vs-token&quot;&gt;数字货币 vs Token&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;数字货币&lt;/strong&gt;：一个大类，既包括官方的数字人民币，也包括去中心化的比特币。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Token&lt;/strong&gt;：狭义上的代币，通常指基于某条链发行的资产，比如 USDT、NFT。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;分类&lt;/th&gt;
+      &lt;th&gt;数字货币&lt;/th&gt;
+      &lt;th&gt;Token&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;定义&lt;/td&gt;
+      &lt;td&gt;以数字形式存在的货币总称，包括央行数字货币和加密货币&lt;/td&gt;
+      &lt;td&gt;基于已有区块链发行的数字资产&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;代表&lt;/td&gt;
+      &lt;td&gt;数字人民币、比特币、以太坊&lt;/td&gt;
+      &lt;td&gt;USDT、UNI、NFT、GameFi 道具&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;依赖&lt;/td&gt;
+      &lt;td&gt;可以独立存在（比如比特币有自己区块链）&lt;/td&gt;
+      &lt;td&gt;必须依附在主链上（比如 ETH 链上的 ERC-20）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;pbft-总结&quot;&gt;PBFT 总结&lt;/h2&gt;
+
+&lt;h3 id=&quot;-核心思想&quot;&gt;📌 核心思想&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;在 &lt;strong&gt;3f + 1&lt;/strong&gt; 个节点中，最多允许 &lt;strong&gt;f 个拜占庭节点&lt;/strong&gt;（作恶/故障）。&lt;/li&gt;
+  &lt;li&gt;通过 &lt;strong&gt;多阶段消息交互&lt;/strong&gt;，保证所有诚实节点最终达成一致。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;目标&lt;/strong&gt;：在存在拜占庭节点时，仍能保证 &lt;strong&gt;一致性&lt;/strong&gt;（所有诚实节点对交易顺序达成一致）。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;️-工作流程四步&quot;&gt;⚙️ 工作流程（四步）&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Request&lt;/strong&gt;：客户端请求发给主节点（Leader）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Pre-prepare&lt;/strong&gt;：主节点分配序号并广播。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Prepare&lt;/strong&gt;：所有副本节点验证并互相广播。
+    &lt;ul&gt;
+      &lt;li&gt;收到 ≥2f+1 一致消息 → 进入提交阶段。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Commit&lt;/strong&gt;：节点广播提交消息，收集到 ≥2f+1 → 执行并回复客户端。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;nakamoto-共识&quot;&gt;Nakamoto 共识&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PoW / PoS / PoX。&lt;/li&gt;
+  &lt;li&gt;特点：引入经济学手段，牺牲确定性，换来大规模可扩展性。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;多签&quot;&gt;多签&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;TON 链，用户被骗，被多签了。&lt;/li&gt;
+  &lt;li&gt;设备迁移过，发送交易的地址和签名地址不一样。&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">区块链入门QA</summary></entry><entry><title type="html">香港办卡</title><link href="https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1/" rel="alternate" type="text/html" title="香港办卡" /><published>2025-08-24T00:00:00+08:00</published><updated>2025-08-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1</id><content type="html" xml:base="https://mafulong.github.io/2025/08/24/%E9%A6%99%E6%B8%AF%E5%8A%9E%E5%8D%A1/">&lt;h2 id=&quot;香港办卡&quot;&gt;香港办卡&lt;/h2&gt;
 
 &lt;p&gt;内地人开香港账户都需要注意什么呢？ 1️⃣首先人必须在香港，进入香港后，连上本地的wifi，机场、公园、地铁站都有免费🛜WiFi，手机下载好中银和汇丰两个App，我以汇丰为例。&lt;/p&gt;
 
@@ -2032,245 +2520,4 @@ m/0/0 m/0/1 m/0/2 ...  m/1/0 m/1/1 m/1/2 ...
 
 &lt;p&gt;纳什国际，新的&lt;/p&gt;
 
-&lt;p&gt;贵的不行&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">公租房</summary></entry><entry><title type="html">Spring AOP</title><link href="https://mafulong.github.io/2025/05/06/Spring-AOP/" rel="alternate" type="text/html" title="Spring AOP" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20AOP</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-AOP/">&lt;h2 id=&quot;spring-aop&quot;&gt;Spring AOP&lt;/h2&gt;
-
-&lt;h2 id=&quot;谈谈自己对于-aop-的了解&quot;&gt;谈谈自己对于 AOP 的了解&lt;/h2&gt;
-
-&lt;p&gt;AOP，也就是面向切面编程，简单点说，AOP 就是把一些业务逻辑中的相同代码抽取到一个独立的模块中，让业务逻辑更加清爽。&lt;/p&gt;
-
-&lt;p&gt;AOP(Aspect-Oriented Programming:面向切面编程)能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如事务处理、日志管理、权限控制等）封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可拓展性和可维护性。&lt;/p&gt;
-
-&lt;p&gt;Spring AOP 就是基于动态代理的，如果要代理的对象，实现了某个接口，那么 Spring AOP 会使用 &lt;strong&gt;JDK Proxy&lt;/strong&gt;，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 &lt;strong&gt;Cglib&lt;/strong&gt; 生成一个被代理对象的子类来作为代理&lt;/p&gt;
-
-&lt;p&gt;当然你也可以使用 &lt;strong&gt;AspectJ&lt;/strong&gt; ！Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。&lt;/p&gt;
-
-&lt;p&gt;AOP 切面编程涉及到的一些专业术语：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;术语&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;含义&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;目标(Target)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;被通知的对象&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;代理(Proxy)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;向目标对象应用通知之后创建的代理对象&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;连接点(JoinPoint)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;目标对象的所属类中，定义的所有方法均为连接点&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;切入点(Pointcut)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;被切面拦截 / 增强的连接点（切入点一定是连接点，连接点不一定是切入点）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;通知(Advice)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;增强的逻辑 / 代码，也即拦截到目标对象的连接点之后要做的事情&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;切面(Aspect)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;切入点(Pointcut)+通知(Advice)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Weaving(织入)&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;将通知应用到目标对象，进而生成代理对象的过程动作&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Spring&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AOP&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;├──&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;使用&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AspectJ&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;注解&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;（&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;如&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;@Aspect&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;）&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;来声明切面&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;它是单独的aop框架&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;，&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;可以在非spring里使用&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;和spring&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aop是两套&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;它是编译时织入&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;├──&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;使用代理方式实现&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AOP&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;│&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;├──&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JDK&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;动态代理&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;（&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;接口型&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;）&lt;/span&gt;
-   &lt;span class=&quot;o&quot;&gt;│&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;└──&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CGLIB&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;动态代理&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;（&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;类型&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;）&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;aop-常见的通知类型有哪些&quot;&gt;AOP 常见的通知类型有哪些？&lt;/h2&gt;
-
-&lt;p&gt;AOP 一般有 &lt;strong&gt;5 种&lt;/strong&gt;环绕方式：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;前置通知 (@Before)&lt;/li&gt;
-  &lt;li&gt;返回通知 (@AfterReturning)&lt;/li&gt;
-  &lt;li&gt;异常通知 (@AfterThrowing)&lt;/li&gt;
-  &lt;li&gt;后置通知 (@After)&lt;/li&gt;
-  &lt;li&gt;环绕通知 (@Around)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062358585.png&quot; alt=&quot;三分恶面渣逆袭：环绕方式&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;aspectj-是什么&quot;&gt;AspectJ 是什么？&lt;/h2&gt;
-
-&lt;h3 id=&quot;aspectj&quot;&gt;AspectJ&lt;/h3&gt;
-
-&lt;p&gt;AspectJ 是一个 AOP 框架，它可以做很多 Spring AOP 干不了的事情，比如说支持编译时、编译后和类加载时织入切面。并且提供更复杂的切点表达式和通知类型。&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Aspect&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 表示这是一个切面类&lt;/span&gt;
-&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// Spring 管理该类的 Bean&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LoggingAspect&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 定义一个切入点，匹配 HelloService 中的所有方法&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Pointcut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;execution(* com.example.demo.HelloService.*(..))&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;helloServiceMethods&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 方法执行之前的通知（Before Advice）&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloServiceMethods()&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;logBefore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Method is about to execute&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;// 方法执行之后的通知（After Advice）&lt;/span&gt;
-    &lt;span class=&quot;nd&quot;&gt;@After&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;helloServiceMethods()&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;logAfter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;nv&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Method has executed&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;spring-aop-和-aspectj-aop-有什么区别&quot;&gt;Spring AOP 和 AspectJ AOP 有什么区别？&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;特性&lt;/th&gt;
-      &lt;th&gt;Spring AOP&lt;/th&gt;
-      &lt;th&gt;AspectJ&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;增强方式&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;运行时增强（基于动态代理）&lt;/td&gt;
-      &lt;td&gt;编译时增强、类加载时增强（直接操作字节码）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;切入点支持&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;方法级（Spring Bean 范围内，不支持 final 和 staic 方法）&lt;/td&gt;
-      &lt;td&gt;方法级、字段、构造器、静态方法等&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;性能&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;运行时依赖代理，有一定开销，切面多时性能较低&lt;/td&gt;
-      &lt;td&gt;运行时无代理开销，性能更高&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;复杂性&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;简单，易用，适合大多数场景&lt;/td&gt;
-      &lt;td&gt;功能强大，但相对复杂&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;使用场景&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;Spring 应用下比较简单的 AOP 需求&lt;/td&gt;
-      &lt;td&gt;高性能、高复杂度的 AOP 需求&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;strong&gt;如何选择？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;功能考量&lt;/strong&gt;：AspectJ 支持更复杂的 AOP 场景，Spring AOP 更简单易用。如果你需要增强 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;final&lt;/code&gt; 方法、静态方法、字段访问、构造器调用等，或者需要在非 Spring 管理的对象上应用增强逻辑，AspectJ 是唯一的选择。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;性能考量&lt;/strong&gt;：切面数量较少时两者性能差异不大，但切面较多时 AspectJ 性能更优。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;一句话总结&lt;/strong&gt;：简单场景优先使用 Spring AOP；复杂场景或高性能需求时，选择 AspectJ。&lt;/p&gt;
-
-&lt;p&gt;Spring AOP 属于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;运行时增强&lt;/code&gt;，主要具有如下特点：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;基于动态代理来实现，默认如果使用接口的，用 JDK 提供的动态代理实现，如果是方法则使用 CGLIB 实现&lt;/li&gt;
-  &lt;li&gt;Spring AOP 需要依赖 IoC 容器来管理，并且只能作用于 Spring 容器，使用纯 Java 代码实现&lt;/li&gt;
-  &lt;li&gt;在性能上，由于 Spring AOP 是基于&lt;strong&gt;动态代理&lt;/strong&gt;来实现的，在容器启动时需要生成代理实例，在方法调用上也会增加栈的深度，使得 Spring AOP 的性能不如 AspectJ 的那么好。&lt;/li&gt;
-  &lt;li&gt;Spring AOP 致力于解决企业级开发中最普遍的 AOP(方法织入)。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;AspectJ 是一个易用的功能强大的 AOP 框架，属于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;编译时增强&lt;/code&gt;， 可以单独使用，也可以整合到其它框架中，是 AOP 编程的完全解决方案。AspectJ 需要用到单独的编译器 ajc。&lt;/p&gt;
-
-&lt;p&gt;AspectJ 属于&lt;strong&gt;静态织入&lt;/strong&gt;，通过修改代码来实现，在实际运行之前就完成了织入，所以说它生成的类是没有额外运行时开销的，一般有如下几个织入的时机：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;编译期织入（Compile-time weaving）：如类 A 使用 AspectJ 添加了一个属性，类 B 引用了它，这个场景就需要编译期的时候就进行织入，否则没法编译类 B。&lt;/li&gt;
-  &lt;li&gt;编译后织入（Post-compile weaving）：也就是已经生成了 .class 文件，或已经打成 jar 包了，这种情况我们需要增强处理的话，就要用到编译后织入。&lt;/li&gt;
-  &lt;li&gt;类加载后织入（Load-time weaving）：指的是在加载类的时候进行织入，要实现这个时期的织入，有几种常见的方法&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;sprint-aop&quot;&gt;Sprint AOP&lt;/h2&gt;
-
-&lt;h3 id=&quot;spring-aop-发生在什么时候&quot;&gt;Spring AOP 发生在什么时候？&lt;/h3&gt;
-
-&lt;p&gt;Spring AOP 基于运行时代理机制，这意味着 Spring AOP 是在运行时通过动态代理生成的，而不是在编译时或类加载时生成的。&lt;/p&gt;
-
-&lt;p&gt;在 Spring 容器初始化 Bean 的过程中，Spring AOP 会检查 Bean 是否需要应用切面。如果需要，Spring 会为该 Bean 创建一个代理对象，并在代理对象中织入切面逻辑。这一过程发生在 Spring 容器的后处理器（BeanPostProcessor）阶段。&lt;/p&gt;
-
-&lt;h3 id=&quot;说说-jdk-动态代理和-cglib-代理&quot;&gt;说说 JDK 动态代理和 CGLIB 代理？&lt;/h3&gt;
-
-&lt;p&gt;AOP 是通过&lt;a href=&quot;https://mp.weixin.qq.com/s/aZtfwik0weJN5JzYc-JxYg&quot;&gt;动态代理&lt;/a&gt;实现的，代理方式有两种：JDK 动态代理和 CGLIB 代理。&lt;/p&gt;
-
-&lt;p&gt;①、JDK 动态代理是基于接口的代理，只能代理实现了接口的类。&lt;/p&gt;
-
-&lt;p&gt;使用 JDK 动态代理时，Spring AOP 会创建一个代理对象，该代理对象实现了目标对象所实现的接口，并在方法调用前后插入横切逻辑。&lt;/p&gt;
-
-&lt;p&gt;优点：只需依赖 JDK 自带的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.reflect.Proxy&lt;/code&gt; 类，不需要额外的库；缺点：只能代理接口，不能代理类本身。&lt;/p&gt;
-
-&lt;p&gt;②、CGLIB 动态代理是基于继承的代理，可以代理没有实现接口的类。&lt;/p&gt;
-
-&lt;p&gt;使用 CGLIB 动态代理时，Spring AOP 会生成目标类的子类，并在方法调用前后插入横切逻辑。&lt;/p&gt;
-
-&lt;p&gt;优点：可以代理没有实现接口的类，灵活性更高；缺点：需要依赖 CGLIB 库，创建代理对象的开销相对较大。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;JDK 动态代理&lt;/strong&gt;只能代理实现了接口的类。它的实现基于 Java 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;java.lang.reflect.Proxy&lt;/code&gt; 类和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;InvocationHandler&lt;/code&gt; 接口，&lt;strong&gt;运行时在内存中动态生成代理类的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.class&lt;/code&gt; 文件并加载执行&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;JDK Proxy 是通过在内存中动态创建一个实现了同样接口的代理类来“代理”目标对象的方法调用。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;比较维度&lt;/th&gt;
-      &lt;th&gt;JDK 动态代理&lt;/th&gt;
-      &lt;th&gt;CGLIB 动态代理&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;代理对象&lt;/td&gt;
-      &lt;td&gt;必须实现接口&lt;/td&gt;
-      &lt;td&gt;不需要接口&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;实现方式&lt;/td&gt;
-      &lt;td&gt;JDK Proxy + 反射&lt;/td&gt;
-      &lt;td&gt;继承 + 字节码增强&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;性能（早期）&lt;/td&gt;
-      &lt;td&gt;较低&lt;/td&gt;
-      &lt;td&gt;较高&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;限制&lt;/td&gt;
-      &lt;td&gt;不能代理类本身&lt;/td&gt;
-      &lt;td&gt;不能代理 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;final&lt;/code&gt; 类/方法&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Spring 默认策略&lt;/td&gt;
-      &lt;td&gt;有接口：JDK 动态代理无接口：CGLIB&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;选择-cglib-还是-jdk-动态代理&quot;&gt;选择 CGLIB 还是 JDK 动态代理？&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;如果目标对象没有实现任何接口，则只能使用 CGLIB 代理。如果目标对象实现了接口，通常首选 JDK 动态代理。&lt;/li&gt;
-  &lt;li&gt;虽然 CGLIB 在代理类的生成过程中可能消耗更多资源，但在运行时具有较高的性能。对于性能敏感且代理对象创建频率不高的场景，可以考虑使用 CGLIB。&lt;/li&gt;
-  &lt;li&gt;JDK 动态代理是 Java 原生支持的，不需要额外引入库。而 CGLIB 需要将 CGLIB 库作为依赖加入项目中。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring AOP</summary></entry></feed>
+&lt;p&gt;贵的不行&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">公租房</summary></entry></feed>
