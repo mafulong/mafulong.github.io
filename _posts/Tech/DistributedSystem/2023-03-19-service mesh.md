@@ -11,7 +11,7 @@ tags: DistributedSystem
 
 service mesh就实现了这种通信语义。
 
-![img](https://pic2.zhimg.com/80/v2-e5660d35a311467c3323f10ebf2fb9a5_1440w.webp)
+![img](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202508301533501.webp)
 
 服务网格是一个基础设施层，用于处理服务间通信。云原生应用有着复杂的服务拓扑，服务网格保证请求在这些拓扑中可靠地穿梭。在实际应用当中，服务网格通常是由一系列轻量级的网络代理组成的，它们与应用程序部署在一起，但对应用程序透明。
 
