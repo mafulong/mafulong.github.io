@@ -25,7 +25,7 @@ def diffInsert(x1, y1, x2, y2, c=1):
   diff[x2+1][y1] -= c     # 左下角下侧位置-1
   diff[x2+1][y2+1] += c   # 右下角对角处（行列均+1处）+1
         
-</code></pre></div></div><p>二维差分数组的长宽应该是m+2, n+2。</p><p>如图，红色部分是(i,j) -&gt; (m,n)。</p><p><img src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2576f5f3a7af45e7b3958c96863b1638~tplv-k3u1fbpfcp-watermark.awebp?" alt="image.png" style="zoom:50%;" /></p><p>差分数组还原成原数组: 和计算当前位置前缀和逻辑一样，(i,j)左边+上边的-左上的+(i,j)的，记住要更新diff</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 从二维差分矩阵diff中还原出对应的计数矩阵：运用二维前缀和
+</code></pre></div></div><p>二维差分数组的长宽应该是m+2, n+2。</p><p>如图，红色部分是(i,j) -&gt; (m,n)。</p><p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202508301533659.awebp?" alt="image.png" style="zoom:50%;" /></p><p>差分数组还原成原数组: 和计算当前位置前缀和逻辑一样，(i,j)左边+上边的-左上的+(i,j)的，记住要更新diff</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 从二维差分矩阵diff中还原出对应的计数矩阵：运用二维前缀和
 for i in range(1, m+1):
 	for j in range(1, n+1):
 		diff[i][j] = diff[i][j-1] + diff[i-1][j] - diff[i-1][j-1] + diff[i][j]
