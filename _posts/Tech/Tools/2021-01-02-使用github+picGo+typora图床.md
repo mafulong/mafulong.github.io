@@ -33,6 +33,23 @@ https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6
 
 不要开启：『上传前重命名』
 
+
+
+
+
+pico也支持命令后上传
+
+```scala
+curl -X POST http://127.0.0.1:36677/upload \
+  -H "Content-Type: application/json" \
+  -d "{\"list\":[\"$HOME/Desktop/wechat_2025-08-30_152700_320.png\"]}"
+
+
+返回新的图片地址。
+```
+
+
+
 ## Typora 免费版本下载
 
 ### Windows 用户
