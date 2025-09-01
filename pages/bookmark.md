@@ -92,7 +92,7 @@ permalink: /bookmark/
 - 剪贴板历史管理工具 开源 https://github.com/TermiT/Flycut 快捷键shift+cmd+v.
 - Say No to Notch. apple 商店里有，macbook 刘海直接变黑边，解决图标隐藏问题.
 - Amphetamine 让 mac 不关机
-- 可选，截图软件 snepaste
+- 可选，截图软件 snipaste
 
 ### android
 
