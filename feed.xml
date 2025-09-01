@@ -1,4 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-09-01T20:56:07+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">批量替换图片为 GitHub CDN</title><link href="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/" rel="alternate" type="text/html" title="批量替换图片为 GitHub CDN" /><published>2025-08-30T00:00:00+08:00</published><updated>2025-08-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub%20cdn</id><content type="html" xml:base="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-09-01T22:23:16+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">gitbook</title><link href="https://mafulong.github.io/2025/09/01/gitbook/" rel="alternate" type="text/html" title="gitbook" /><published>2025-09-01T00:00:00+08:00</published><updated>2025-09-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/09/01/gitbook</id><content type="html" xml:base="https://mafulong.github.io/2025/09/01/gitbook/">&lt;h2 id=&quot;gitbook&quot;&gt;gitbook&lt;/h2&gt;
+
+&lt;h2 id=&quot;gitbook导出equb&quot;&gt;gitbook导出equb&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt; 是 &lt;strong&gt;Calibre&lt;/strong&gt; 工具套件里的命令行程序，用来转换电子书格式（如 epub ⇄ mobi ⇄ pdf 等）。在 macOS 上安装的方法有几种&lt;/p&gt;
+
+&lt;p&gt;如果你习惯用命令行工具管理软件：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;确保安装了 Homebrew。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在终端运行：&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install --cask calibre
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装完成后即可使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;如果 GitBook 没提供导出：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;把 GitBook 的章节页面下载（有些 GitBook 提供 GitHub 源码，也可以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git clone&lt;/code&gt;）。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandoc&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calibre&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt; 转换：&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ebook-convert input.html output.epub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;或者把多个 Markdown 整合后转换：&lt;/p&gt;
+
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pandoc *.md -o blockchain.epub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">gitbook</summary></entry><entry><title type="html">批量替换图片为 GitHub CDN</title><link href="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/" rel="alternate" type="text/html" title="批量替换图片为 GitHub CDN" /><published>2025-08-30T00:00:00+08:00</published><updated>2025-08-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub%20cdn</id><content type="html" xml:base="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
 
 &lt;p&gt;写博客笔记时，经常会插入大量本地图片或者引用外链。&lt;br /&gt;
 但随着时间推移，本地路径容易失效，外链也可能过期，影响文章的可读性。&lt;/p&gt;
@@ -1460,85 +1500,4 @@ for md in ROOT_DIR.rglob(&quot;*.md&quot;):
   &lt;li&gt;&lt;strong&gt;避免可变成员变量&lt;/strong&gt;: 尽量设计 Bean 为无状态。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;使用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt;&lt;/strong&gt;: 将可变成员变量保存在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ThreadLocal&lt;/code&gt; 中，确保线程独立。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;使用同步机制&lt;/strong&gt;: 利用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;synchronized&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReentrantLock&lt;/code&gt; 来进行同步控制，确保线程安全。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Sprint IoC</summary></entry><entry><title type="html">Spring 循环依赖</title><link href="https://mafulong.github.io/2025/05/06/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/" rel="alternate" type="text/html" title="Spring 循环依赖" /><published>2025-05-06T00:00:00+08:00</published><updated>2025-05-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/05/06/Spring%20%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96</id><content type="html" xml:base="https://mafulong.github.io/2025/05/06/Spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">&lt;h2 id=&quot;spring-循环依赖&quot;&gt;Spring 循环依赖&lt;/h2&gt;
-
-&lt;h2 id=&quot;循环依赖&quot;&gt;循环依赖&lt;/h2&gt;
-
-&lt;p&gt;多个bean。A 依赖 B，B 依赖 A，或者 C 依赖 C，就成了循环依赖。原因很简单，AB 循环依赖，A 实例化的时候，发现依赖 B，创建 B 实例，创建 B 的时候发现需要 A，创建 A1 实例……无限套娃。。。。&lt;/p&gt;
-
-&lt;p&gt;循环依赖只发生在 Singleton 作用域的 Bean 之间，因为如果是 Prototype 作用域的 Bean，Spring 会直接抛出异常。&lt;/p&gt;
-
-&lt;h2 id=&quot;spring-可以解决哪些情况的循环依赖&quot;&gt;Spring 可以解决哪些情况的循环依赖？&lt;/h2&gt;
-
-&lt;p&gt;看看这几种情形（AB 循环依赖）：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062344583.png&quot; alt=&quot;三分恶面渣逆袭：循环依赖的几种情形&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;也就是说：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;AB 均采用构造器注入，不支持&lt;/li&gt;
-  &lt;li&gt;AB 均采用 setter 注入，支持&lt;/li&gt;
-  &lt;li&gt;AB 均采用属性自动注入，支持&lt;/li&gt;
-  &lt;li&gt;A 中注入的 B 为 setter 注入，B 中注入的 A 为构造器注入，支持&lt;/li&gt;
-  &lt;li&gt;B 中注入的 A 为 setter 注入，A 中注入的 B 为构造器注入，不支持&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;第四种可以，第五种不可以的原因是 Spring 在创建 Bean 时默认会根据自然排序进行创建，所以 A 会先于 B 进行创建。&lt;/p&gt;
-
-&lt;p&gt;简单总结下，当循环依赖的实例都采用 setter 方法注入时，Spring 支持，都采用构造器注入的时候，不支持；构造器注入和 setter 注入同时存在的时候，看天&lt;/p&gt;
-
-&lt;h2 id=&quot;spring-怎么解决循环依赖呢&quot;&gt;Spring 怎么解决循环依赖呢？&lt;/h2&gt;
-
-&lt;p&gt;Spring 通过三级缓存机制来解决循环依赖：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;一级缓存：存放完全初始化好的单例 Bean。&lt;/li&gt;
-  &lt;li&gt;二级缓存：存放正在创建但未完全初始化的 Bean 实例。&lt;/li&gt;
-  &lt;li&gt;三级缓存：存放 Bean 工厂对象，用于提前暴露 Bean。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202505062345571.png&quot; alt=&quot;三分恶面渣逆袭：三级缓存&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;三级缓存解决循环依赖的过程是什么样的&quot;&gt;三级缓存解决循环依赖的过程是什么样的？&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;实例化 Bean 时，将其早期引用放入三级缓存。&lt;/li&gt;
-  &lt;li&gt;其他依赖该 Bean 的对象，可以从缓存中获取其引用。&lt;/li&gt;
-  &lt;li&gt;初始化完成后，将 Bean 移入一级缓存。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;其实就是三级缓存存了代理对象/原始对象的堆地址，初始化动作后移。 细节参考&lt;a href=&quot;https://javabetter.cn/sidebar/sanfene/spring.html#_16-spring-%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96%E5%91%A2&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;为什么要三级缓存级不吗&quot;&gt;为什么要三级缓存？⼆级不⾏吗？&lt;/h3&gt;
-
-&lt;p&gt;不行，主要是为了 &lt;strong&gt;⽣成代理对象&lt;/strong&gt;。如果是没有代理的情况下，使用二级缓存解决循环依赖也是 OK 的。但是如果存在代理，三级没有问题，二级就不行了。&lt;/p&gt;
-
-&lt;p&gt;因为三级缓存中放的是⽣成具体对象的匿名内部类，获取 Object 的时候，它可以⽣成代理对象，也可以返回普通对象。使⽤三级缓存主要是为了保证不管什么时候使⽤的都是⼀个对象。&lt;/p&gt;
-
-&lt;p&gt;当涉及到 AOP 时，三级缓存就显得非常重要了，因为它确保了即使在 Bean 的创建过程中有多次对早期引用的请求，也始终只返回同一个代理对象，从而避免了同一个 Bean 有多个代理对象的问题。&lt;/p&gt;
-
-&lt;p&gt;假设只有⼆级缓存的情况，往⼆级缓存中放的显示⼀个普通的 Bean 对象，Bean 初始化过程中，通过 BeanPostProcessor 去⽣成代理对象之后，覆盖掉⼆级缓存中的普通 Bean 对象，那么可能就导致取到的 Bean 对象不一致了。&lt;/p&gt;
-
-&lt;h4 id=&quot;如果缺少第二级缓存会有什么问题&quot;&gt;如果缺少第二级缓存会有什么问题？&lt;/h4&gt;
-
-&lt;p&gt;如果没有二级缓存，Spring 无法在未完成初始化的情况下暴露 Bean。会导致代理 Bean 的循环依赖问题，因为某些代理逻辑无法在三级缓存中提前暴露。最终可能抛出 BeanCurrentlyInCreationException。&lt;/p&gt;
-
-&lt;h2 id=&quot;lazy-能解决循环依赖吗&quot;&gt;@Lazy 能解决循环依赖吗？&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 用来标识类是否需要懒加载/延迟加载，可以作用在类上、方法上、构造器上、方法参数上、成员变量中。&lt;/p&gt;
-
-&lt;p&gt;Spring Boot 2.2 新增了&lt;strong&gt;全局懒加载属性&lt;/strong&gt;，开启后全局 bean 被设置为懒加载，需要时再去创建。&lt;/p&gt;
-
-&lt;p&gt;如非必要，尽量不要用全局懒加载。全局懒加载会让 Bean 第一次使用的时候加载会变慢，并且它会延迟应用程序问题的发现（当 Bean 被初始化时，问题才会出现）。&lt;/p&gt;
-
-&lt;p&gt;如果一个 Bean 没有被标记为懒加载，那么它会在 Spring IoC 容器启动的过程中被创建和初始化。如果一个 Bean 被标记为懒加载，那么它不会在 Spring IoC 容器启动时立即实例化，而是在第一次被请求时才创建。这可以帮助减少应用启动时的初始化时间，也可以用来解决循环依赖问题。&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Lazy&lt;/code&gt; 解决循环依赖的关键点在于代理对象的使用。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;没有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 的情况下&lt;/strong&gt;：在 Spring 容器初始化 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 时会立即尝试创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;，而在创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的过程中又会尝试创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt;，最终导致循环依赖（即无限递归，最终抛出异常）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 的情况下&lt;/strong&gt;：Spring 不会立即创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt;，而是会注入一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的代理对象。由于此时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 仍未被真正初始化，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 的初始化可以顺利完成。等到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;A&lt;/code&gt; 实例实际调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的方法时，代理对象才会触发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;B&lt;/code&gt; 的真正初始化。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 能够在一定程度上打破循环依赖链，允许 Spring 容器顺利地完成 Bean 的创建和注入。但这并不是一个根本性的解决方案，尤其是在构造函数注入、复杂的多级依赖等场景中，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@Lazy&lt;/code&gt; 无法有效地解决问题。因此，最佳实践仍然是尽量避免设计上的循环依赖。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Spring 循环依赖</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Spring" /><category term="Spring" /><summary type="html">Sprint IoC</summary></entry></feed>
