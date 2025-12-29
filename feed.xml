@@ -1,4 +1,249 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-11-25T22:13:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">kibana</title><link href="https://mafulong.github.io/2025/11/25/kibana/" rel="alternate" type="text/html" title="kibana" /><published>2025-11-25T00:00:00+08:00</published><updated>2025-11-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/11/25/kibana</id><content type="html" xml:base="https://mafulong.github.io/2025/11/25/kibana/">&lt;h2 id=&quot;kibana&quot;&gt;kibana&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2025-12-29T22:46:12+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">未来扣钱</title><link href="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" rel="alternate" type="text/html" title="未来扣钱" /><published>2025-12-29T00:00:00+08:00</published><updated>2025-12-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1</id><content type="html" xml:base="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/">&lt;h2 id=&quot;未来扣钱实现方式&quot;&gt;未来扣钱实现方式&lt;/h2&gt;
+
+&lt;h2 id=&quot;一核心前提一定要记住&quot;&gt;一、核心前提（一定要记住）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;签名不会过期&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;交易会失效（nonce / gas / 规则）&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;“未来扣钱”不能靠存交易，只能靠授权或托管&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;二三种核心方案从轻到重&quot;&gt;二、三种核心方案（从轻到重）&lt;/h2&gt;
+
+&lt;h3 id=&quot;1️⃣-permiteip-2612&quot;&gt;1️⃣ Permit（EIP-2612）&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用户只签名，不先发交易&lt;/li&gt;
+  &lt;li&gt;用签名完成授权&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“我授权你在有效期内扣我这些 token”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不占 nonce&lt;/li&gt;
+  &lt;li&gt;用户不付 gas&lt;/li&gt;
+  &lt;li&gt;一步完成授权 + 扣款&lt;/li&gt;
+  &lt;li&gt;必须 token 原生支持&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;不能用在&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主币（ETH / SOL）&lt;/li&gt;
+  &lt;li&gt;不支持 permit 的 token（如 USDT）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;2️⃣-allowanceapprove--transferfrom&quot;&gt;2️⃣ Allowance（approve + transferFrom）&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;经典 ERC20 授权模型&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;链上记账的扣款权限&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;100% 兼容所有 ERC20&lt;/li&gt;
+  &lt;li&gt;授权状态链上可查&lt;/li&gt;
+  &lt;li&gt;两步交易&lt;/li&gt;
+  &lt;li&gt;有“无限授权”风险&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;适合&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;老 token&lt;/li&gt;
+  &lt;li&gt;合规 / 审计要求高&lt;/li&gt;
+  &lt;li&gt;用户能理解授权&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;3️⃣-timelock--escrow托管&quot;&gt;3️⃣ TimeLock / Escrow（托管）&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;钱现在就转进合约&lt;/li&gt;
+  &lt;li&gt;时间或条件满足后释放&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;合约成为资产 owner&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安全级别最高&lt;/li&gt;
+  &lt;li&gt;资金流动性最低&lt;/li&gt;
+  &lt;li&gt;体验最重&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;适合&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;大额&lt;/li&gt;
+  &lt;li&gt;主币&lt;/li&gt;
+  &lt;li&gt;强确定性场景&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;三permit2非常重要&quot;&gt;三、Permit2（非常重要）&lt;/h2&gt;
+
+&lt;h3 id=&quot;permit2-是什么&quot;&gt;Permit2 是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个&lt;strong&gt;公共代扣合约&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;不要求 token 支持 permit&lt;/li&gt;
+  &lt;li&gt;用签名控制 allowance 的使用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;为什么能用&quot;&gt;为什么能用&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;ERC20 本来就支持 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transferFrom&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Permit2 只是：
+    &lt;ul&gt;
+      &lt;li&gt;持有 allowance&lt;/li&gt;
+      &lt;li&gt;用签名精细化管理&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;实际效果&quot;&gt;实际效果&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;USDT / 老 ERC20 也能“像 permit 一样用”&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;多一层信任（Permit2 合约）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;四erc20-vs-主币根本差异&quot;&gt;四、ERC20 vs 主币（根本差异）&lt;/h2&gt;
+
+&lt;h3 id=&quot;erc20&quot;&gt;ERC20&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;转账规则在&lt;strong&gt;合约里&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;支持：
+    &lt;ul&gt;
+      &lt;li&gt;授权&lt;/li&gt;
+      &lt;li&gt;延迟执行&lt;/li&gt;
+      &lt;li&gt;代扣&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;主币eth--sol&quot;&gt;主币（ETH / SOL）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;转账规则在&lt;strong&gt;协议层&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;只能：
+    &lt;ul&gt;
+      &lt;li&gt;私钥当前签名&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;不能授权第三方未来扣款&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;👉 所以主币只能用 &lt;strong&gt;Escrow / TimeLock&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;五usdt--usdc-快速结论&quot;&gt;五、USDT / USDC 快速结论&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Token&lt;/th&gt;
+      &lt;th&gt;原生 Permit&lt;/th&gt;
+      &lt;th&gt;Permit2&lt;/th&gt;
+      &lt;th&gt;推荐方案&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;USDC&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;原生 Permit&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;USDT&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;Permit2 或 approve&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BSC USDT&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✔&lt;/td&gt;
+      &lt;td&gt;Permit2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;主币&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;Escrow&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;六什么时候不能用-permit&quot;&gt;六、什么时候&lt;strong&gt;不能用 Permit&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主币&lt;/li&gt;
+  &lt;li&gt;Token 不支持&lt;/li&gt;
+  &lt;li&gt;极大额&lt;/li&gt;
+  &lt;li&gt;长期不确定扣款&lt;/li&gt;
+  &lt;li&gt;强合规 / 可视化授权要求&lt;/li&gt;
+  &lt;li&gt;不可信前端&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;七安全等级排序从低到高&quot;&gt;七、安全等级排序（从低到高）&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Permit
+→ Allowance
+→ Permit2（合理配置）
+→ TimeLock / Escrow
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;八一句话总总结&quot;&gt;八、一句话总总结&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;体验 = 签名（Permit / Permit2）&lt;/strong&gt;
+ &lt;strong&gt;通用 = Allowance&lt;/strong&gt;
+ &lt;strong&gt;安全 = Escrow / TimeLock&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">未来扣钱实现方式</summary></entry><entry><title type="html">kibana</title><link href="https://mafulong.github.io/2025/11/25/kibana/" rel="alternate" type="text/html" title="kibana" /><published>2025-11-25T00:00:00+08:00</published><updated>2025-11-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/11/25/kibana</id><content type="html" xml:base="https://mafulong.github.io/2025/11/25/kibana/">&lt;h2 id=&quot;kibana&quot;&gt;kibana&lt;/h2&gt;
 
 &lt;p&gt;在大数据和日志分析的世界里，Kibana 是一个不可或缺的可视化工具，而 KQL（Kibana Query Language）则是 Kibana 查询和过滤数据的核心语言。&lt;/p&gt;
 
@@ -1453,33 +1698,4 @@ for md in ROOT_DIR.rglob(&quot;*.md&quot;):
 
 &lt;hr /&gt;
 
-&lt;p&gt;#&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">主机</summary></entry><entry><title type="html">mac mini做nas+小米电视</title><link href="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/" rel="alternate" type="text/html" title="mac mini做nas+小米电视" /><published>2025-08-10T00:00:00+08:00</published><updated>2025-08-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/10/mac%20mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86</id><content type="html" xml:base="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/">&lt;h2 id=&quot;mac-mini做nas小米电视&quot;&gt;mac mini做nas+小米电视&lt;/h2&gt;
-
-&lt;h2 id=&quot;nas&quot;&gt;nas&lt;/h2&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emby&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unless&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stopped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mafulong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NAS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emby_config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8096&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8096&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;linuxserver/emby&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;自己ip&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;ipconfig&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getifaddr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;en1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;adb&quot;&gt;adb&lt;/h2&gt;
-
-&lt;p&gt;adb可以远程connect&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;31.148&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;安装软件&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TVBox_takagen99_20250706&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1456&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arm64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;apk&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;传输文件&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;但小米电视无法读adb的文件&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Users/mafulong/Downloads/爱、死亡与机器人.Love.Death.and.Robots.S01E01.中英字幕.WEBrip.720P-人人影视.V2.mp4&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac mini做nas+小米电视</summary></entry></feed>
+&lt;p&gt;#&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">主机</summary></entry></feed>
