@@ -1,4 +1,321 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-01-03T20:15:33+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">未来扣钱</title><link href="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" rel="alternate" type="text/html" title="未来扣钱" /><published>2025-12-29T00:00:00+08:00</published><updated>2025-12-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1</id><content type="html" xml:base="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/">&lt;h2 id=&quot;未来扣钱实现方式&quot;&gt;未来扣钱实现方式&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-01-11T18:07:55+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">家庭影院媒体播放</title><link href="https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE/" rel="alternate" type="text/html" title="家庭影院媒体播放" /><published>2026-01-11T00:00:00+08:00</published><updated>2026-01-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE</id><content type="html" xml:base="https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE/">&lt;h2 id=&quot;家庭影院媒体播放&quot;&gt;家庭影院媒体播放&lt;/h2&gt;
+
+&lt;p&gt;apple tv在线内容需要翻墙&lt;/p&gt;
+
+&lt;h2 id=&quot;xbox&quot;&gt;Xbox&lt;/h2&gt;
+
+&lt;p&gt;Xbox可以安装kodi以及jellyfin&lt;/p&gt;
+
+&lt;h2 id=&quot;一先给一句话总览最重要&quot;&gt;一、先给一句话总览（最重要）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Kodi&lt;/strong&gt;： 本地/局域网播放器，功能最强，但偏折腾&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Infuse&lt;/strong&gt;： 苹果生态里的“傻瓜式高级播放器”，体验最好&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Jellyfin&lt;/strong&gt;： 免费开源的“家庭影视服务器”，自己搭一个 Netflix&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Emby&lt;/strong&gt;： 商业化版 Jellyfin，功能成熟，但高级功能要付费&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可以理解为：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Jellyfin / Emby = 后台管片子&lt;/strong&gt;
+&lt;strong&gt;Kodi / Infuse = 前台播放看片&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;二先弄清一个核心概念播放器-vs-媒体服务器&quot;&gt;二、先弄清一个核心概念：播放器 vs 媒体服务器&lt;/h2&gt;
+
+&lt;h3 id=&quot;1️⃣-播放器只负责播放&quot;&gt;1️⃣ 播放器（只负责播放）&lt;/h3&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不存视频&lt;/li&gt;
+  &lt;li&gt;直接播放文件或流&lt;/li&gt;
+  &lt;li&gt;不负责统一管理多设备&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代表：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kodi&lt;/li&gt;
+  &lt;li&gt;Infuse&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2️⃣-媒体服务器负责管理&quot;&gt;2️⃣ 媒体服务器（负责管理）&lt;/h3&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;集中管理电影/电视剧&lt;/li&gt;
+  &lt;li&gt;自动刮削海报、简介、演员&lt;/li&gt;
+  &lt;li&gt;记录观看进度&lt;/li&gt;
+  &lt;li&gt;多设备同步&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;代表：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Jellyfin&lt;/li&gt;
+  &lt;li&gt;Emby&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;三kodi-是什么&quot;&gt;三、Kodi 是什么？&lt;/h2&gt;
+
+&lt;h3 id=&quot;是什么&quot;&gt;是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个&lt;strong&gt;万能本地播放器&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;免费、开源&lt;/li&gt;
+  &lt;li&gt;平台多：PC / Android / Linux / Xbox&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;能干嘛&quot;&gt;能干嘛&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;播放本地文件&lt;/li&gt;
+  &lt;li&gt;播放 NAS（SMB / NFS）&lt;/li&gt;
+  &lt;li&gt;IPTV（m3u/m3u8）&lt;/li&gt;
+  &lt;li&gt;本地建媒体库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;优点&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;解码能力强&lt;/li&gt;
+  &lt;li&gt;可定制性极高&lt;/li&gt;
+  &lt;li&gt;完全免费&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;设置复杂&lt;/li&gt;
+  &lt;li&gt;插件质量参差&lt;/li&gt;
+  &lt;li&gt;平台限制大（Xbox 尤其明显）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;适合谁&quot;&gt;适合谁&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;有 NAS / 本地片库&lt;/li&gt;
+  &lt;li&gt;爱折腾&lt;/li&gt;
+  &lt;li&gt;不介意配置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Kodi 是“万能播放器 + 瑞士军刀”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;四infuse-是什么苹果用户重点&quot;&gt;四、Infuse 是什么？（苹果用户重点）&lt;/h2&gt;
+
+&lt;h3 id=&quot;是什么-1&quot;&gt;是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Apple 生态专用播放器&lt;/li&gt;
+  &lt;li&gt;iOS / iPadOS / tvOS / macOS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;能干嘛-1&quot;&gt;能干嘛&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;直连 NAS&lt;/li&gt;
+  &lt;li&gt;直连 Jellyfin / Emby&lt;/li&gt;
+  &lt;li&gt;自动识别影片&lt;/li&gt;
+  &lt;li&gt;几乎不用设置&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;优点-1&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UI 非常好&lt;/li&gt;
+  &lt;li&gt;操作简单&lt;/li&gt;
+  &lt;li&gt;解码强、稳定&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点-1&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;高级功能要订阅&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;只能在苹果设备用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;适合谁-1&quot;&gt;适合谁&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Apple TV / iPhone / iPad 用户&lt;/li&gt;
+  &lt;li&gt;不想折腾&lt;/li&gt;
+  &lt;li&gt;只想“点开就看”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Infuse 是“苹果生态最省心的播放器”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;五jellyfin-是什么&quot;&gt;五、Jellyfin 是什么？&lt;/h2&gt;
+
+&lt;h3 id=&quot;是什么-2&quot;&gt;是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;免费 + 开源 的媒体服务器&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;你自己搭的“家庭 Netflix”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;能干嘛-2&quot;&gt;能干嘛&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;管理电影/电视剧&lt;/li&gt;
+  &lt;li&gt;自动刮削信息&lt;/li&gt;
+  &lt;li&gt;多用户&lt;/li&gt;
+  &lt;li&gt;多设备同步进度&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;优点-2&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;完全免费&lt;/li&gt;
+  &lt;li&gt;不限制功能&lt;/li&gt;
+  &lt;li&gt;社区活跃&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点-2&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;需要自己部署&lt;/li&gt;
+  &lt;li&gt;新手需要学习成本&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;适合谁-2&quot;&gt;适合谁&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;有 NAS / 家用服务器&lt;/li&gt;
+  &lt;li&gt;想全家共用一个影视库&lt;/li&gt;
+  &lt;li&gt;不想付订阅费&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Jellyfin 是“免费、自建的家庭影视中心”&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;六emby-是什么&quot;&gt;六、Emby 是什么？&lt;/h2&gt;
+
+&lt;h3 id=&quot;是什么-3&quot;&gt;是什么&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Jellyfin 的“商业前身”&lt;/li&gt;
+  &lt;li&gt;服务器 + 客户端一整套&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;能干嘛-3&quot;&gt;能干嘛&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;和 Jellyfin 基本一样&lt;/li&gt;
+  &lt;li&gt;功能更成熟&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;优点-3&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;稳定&lt;/li&gt;
+  &lt;li&gt;官方支持好&lt;/li&gt;
+  &lt;li&gt;客户端覆盖广&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点-3&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;高级功能要付费（Emby Premiere）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;适合谁-3&quot;&gt;适合谁&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不介意付费&lt;/li&gt;
+  &lt;li&gt;想要更成熟的商业方案&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Emby = 更成熟，但要钱的 Jellyfin&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;七它们怎么搭配用最常见组合&quot;&gt;七、它们怎么搭配用？（最常见组合）&lt;/h2&gt;
+
+&lt;h3 id=&quot;组合-1最推荐&quot;&gt;组合 1（最推荐）&lt;/h3&gt;
+
+&lt;p&gt;NAS + Jellyfin&lt;/p&gt;
+
+&lt;p&gt;↓&lt;/p&gt;
+
+&lt;p&gt;Infuse / Kodi 播放&lt;/p&gt;
+
+&lt;h3 id=&quot;组合-2苹果极简&quot;&gt;组合 2（苹果极简）&lt;/h3&gt;
+
+&lt;p&gt;NAS&lt;/p&gt;
+
+&lt;p&gt;↓&lt;/p&gt;
+
+&lt;p&gt;Infuse 直连&lt;/p&gt;
+
+&lt;h3 id=&quot;组合-3爱折腾&quot;&gt;组合 3（爱折腾）&lt;/h3&gt;
+
+&lt;p&gt;NAS + Jellyfin&lt;/p&gt;
+
+&lt;p&gt;↓&lt;/p&gt;
+
+&lt;p&gt;Kodi + Jellyfin 插件&lt;/p&gt;
+
+&lt;h2 id=&quot;八快速选型表&quot;&gt;八、快速选型表&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;你是这样的人&lt;/th&gt;
+      &lt;th&gt;推荐&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Apple TV 用户&lt;/td&gt;
+      &lt;td&gt;Infuse&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Xbox 用户&lt;/td&gt;
+      &lt;td&gt;Jellyfin 官方客户端 / Kodi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想完全免费&lt;/td&gt;
+      &lt;td&gt;Jellyfin + Kodi&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;不想折腾&lt;/td&gt;
+      &lt;td&gt;Infuse / Emby&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;家庭多人使用&lt;/td&gt;
+      &lt;td&gt;Jellyfin / Emby&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;九一句话总总结&quot;&gt;九、一句话总总结&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Kodi&lt;/strong&gt;：强，但要折腾&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Infuse&lt;/strong&gt;：省心，但要钱&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Jellyfin&lt;/strong&gt;：免费家庭影视中枢&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Emby&lt;/strong&gt;：付费但成熟&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+
+&lt;/blockquote&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">家庭影院媒体播放</summary></entry><entry><title type="html">未来扣钱</title><link href="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" rel="alternate" type="text/html" title="未来扣钱" /><published>2025-12-29T00:00:00+08:00</published><updated>2025-12-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1</id><content type="html" xml:base="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/">&lt;h2 id=&quot;未来扣钱实现方式&quot;&gt;未来扣钱实现方式&lt;/h2&gt;
 
 &lt;h2 id=&quot;一核心前提一定要记住&quot;&gt;一、核心前提（一定要记住）&lt;/h2&gt;
 
@@ -1492,33 +1809,4 @@ for md in ROOT_DIR.rglob(&quot;*.md&quot;):
 
 &lt;hr /&gt;
 
-&lt;p&gt;#&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">主机</summary></entry><entry><title type="html">mac mini做nas+小米电视</title><link href="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/" rel="alternate" type="text/html" title="mac mini做nas+小米电视" /><published>2025-08-10T00:00:00+08:00</published><updated>2025-08-10T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/10/mac%20mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86</id><content type="html" xml:base="https://mafulong.github.io/2025/08/10/mac-mini%E5%81%9Anas+%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86/">&lt;h2 id=&quot;mac-mini做nas小米电视&quot;&gt;mac mini做nas+小米电视&lt;/h2&gt;
-
-&lt;h2 id=&quot;nas&quot;&gt;nas&lt;/h2&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;docker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;emby&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;restart&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unless&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stopped&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mafulong&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Downloads&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;NAS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;emby_config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8096&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;8096&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;linuxserver/emby&lt;/span&gt;
-
-
-&lt;span class=&quot;n&quot;&gt;自己ip&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;ipconfig&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getifaddr&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;en1&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;adb&quot;&gt;adb&lt;/h2&gt;
-
-&lt;p&gt;adb可以远程connect&lt;/p&gt;
-
-&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;31.148&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;devices&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;安装软件&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TVBox_takagen99_20250706&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1456&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arm64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;apk&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;传输文件&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;但小米电视无法读adb的文件&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;。&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Users/mafulong/Downloads/爱、死亡与机器人.Love.Death.and.Robots.S01E01.中英字幕.WEBrip.720P-人人影视.V2.mp4&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">mac mini做nas+小米电视</summary></entry></feed>
+&lt;p&gt;#&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">主机</summary></entry></feed>
