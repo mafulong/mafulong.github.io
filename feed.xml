@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-07T11:33:37+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">freqtrade</title><link href="https://mafulong.github.io/2026/01/25/freqtrade/" rel="alternate" type="text/html" title="freqtrade" /><published>2026-01-25T00:00:00+08:00</published><updated>2026-01-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/01/25/freqtrade</id><content type="html" xml:base="https://mafulong.github.io/2026/01/25/freqtrade/">&lt;h2 id=&quot;freqtrade&quot;&gt;freqtrade&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-07T19:28:54+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">小米电视adb</title><link href="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/" rel="alternate" type="text/html" title="小米电视adb" /><published>2026-03-07T00:00:00+08:00</published><updated>2026-03-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb</id><content type="html" xml:base="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/">&lt;h2 id=&quot;小米电视adb&quot;&gt;小米电视adb&lt;/h2&gt;
+
+&lt;p&gt;正常情况下通过U盘给安卓电视安装APP是比较方便的，但是很多情况下没有U盘或者没有电脑，甚至长辈不懂电脑，让他们用U盘安装真的非常的麻烦。所以这里找到一个可以通过手机给安卓电视安装APP的方式，非常方便，你甚至可以远程给家里人安装。我下面记录了小米电视的配置过程，其他电视可自行搜索对应的操作方法即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;电视端配置&quot;&gt;电视端配置&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;【打开电视开发者模式】&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;设置&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;关于&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;产品型号&lt;/code&gt;一栏 连按6次以上，直到出现提示 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;您已处于开发者模式&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;【启动ADB调试】 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;设置&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;账号与安全&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ADB调试&lt;/code&gt; 设置为允许&lt;/li&gt;
+  &lt;li&gt;【查看电视的IPV4地址】 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;设置&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;网络设置&lt;/code&gt;-&amp;gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;无线网络&lt;/code&gt; 找到自己连接的WIFI，查看电视的IPV4地址&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;电脑&quot;&gt;电脑&lt;/h1&gt;
+
+&lt;p&gt;同一个wifi&lt;/p&gt;
+
+&lt;p&gt;安装app 推送文件&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;192.168&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;31.148&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TVBox_takagen99_20250706&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1456&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arm64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;generic&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;apk&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Users/mafulong/Downloads/爱、死亡与机器人.Love.Death.and.Robots.S01E01.中英字幕.WEBrip.720P-人人影视.V2.mp4&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;或&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;帝王计划&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;：&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;怪兽遗产第二季02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;mp4&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;adb管理文件&lt;/p&gt;
+
+&lt;div class=&quot;language-scala highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shell&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;mp4&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;电脑下载设备文件&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;adb&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pull&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sdcard&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Movies&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;mp4&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;进入远程 shell（像 ssh）&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;adb shell
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后就可以直接操作：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /mnt/sdcard/Movies
+ls
+cd /mnt/sdcard/Movies/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">小米电视adb</summary></entry><entry><title type="html">freqtrade</title><link href="https://mafulong.github.io/2026/01/25/freqtrade/" rel="alternate" type="text/html" title="freqtrade" /><published>2026-01-25T00:00:00+08:00</published><updated>2026-01-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/01/25/freqtrade</id><content type="html" xml:base="https://mafulong.github.io/2026/01/25/freqtrade/">&lt;h2 id=&quot;freqtrade&quot;&gt;freqtrade&lt;/h2&gt;
 
 &lt;p&gt;中文文档： https://www.wuzao.com/p/freqtrade/document/faq/index.html&lt;/p&gt;
 
@@ -1267,123 +1320,4 @@ sum(rate(http_request_duration_seconds_count[1m]))
     &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pandoc *.md -o blockchain.epub
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">gitbook</summary></entry><entry><title type="html">批量替换图片为 GitHub CDN</title><link href="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/" rel="alternate" type="text/html" title="批量替换图片为 GitHub CDN" /><published>2025-08-30T00:00:00+08:00</published><updated>2025-08-30T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub%20cdn</id><content type="html" xml:base="https://mafulong.github.io/2025/08/30/%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E5%9B%BE%E7%89%87%E4%B8%BAgithub-cdn/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-
-&lt;p&gt;写博客笔记时，经常会插入大量本地图片或者引用外链。&lt;br /&gt;
-但随着时间推移，本地路径容易失效，外链也可能过期，影响文章的可读性。&lt;/p&gt;
-
-&lt;p&gt;一个可行的解决方案是：&lt;br /&gt;
-把图片统一上传到 &lt;strong&gt;GitHub 仓库&lt;/strong&gt;，然后通过 &lt;strong&gt;jsDelivr CDN&lt;/strong&gt; 加速，既免费又稳定。&lt;/p&gt;
-
-&lt;p&gt;这里记录一个方法，使用 &lt;strong&gt;PicGo Server + Python 脚本&lt;/strong&gt;，自动批量替换 Markdown 文档里的图片链接。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;picgo-server-配置&quot;&gt;PicGo Server 配置&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;安装 PicGo（推荐 Mac/Windows 用 GUI 版本）。&lt;/li&gt;
-  &lt;li&gt;在 PicGo 设置里配置好图床（比如 GitHub 仓库）。&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;启动 PicGo Server：&lt;/p&gt;
-
-    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;picgo server
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;默认监听 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://127.0.0.1:36677/upload&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;测试上传是否正常：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -X POST http://127.0.0.1:36677/upload \
-  -H &quot;Content-Type: application/json&quot; \
-  -d &apos;{&quot;list&quot;:[&quot;/Users/yourname/Desktop/test.png&quot;]}&apos;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;如果返回 JSON，带有一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://cdn.jsdelivr.net/...&lt;/code&gt; 链接，就说明配置成功。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;python-脚本&quot;&gt;Python 脚本&lt;/h2&gt;
-
-&lt;p&gt;核心功能：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;递归扫描指定目录下所有 Markdown 文件&lt;/li&gt;
-  &lt;li&gt;提取其中的图片链接&lt;/li&gt;
-  &lt;li&gt;对不是 jsDelivr 开头的图片，调用 PicGo Server 上传&lt;/li&gt;
-  &lt;li&gt;替换 Markdown 文件里的链接，并备份原文件&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;脚本代码（简化版）：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#!/usr/bin/env python3
-import os, re, shutil, requests, tempfile
-from pathlib import Path
-
-ROOT_DIR = Path(&quot;/Users/mafulong/mafulong.github.io/_posts&quot;).resolve()
-PICGO_SERVER = &quot;http://127.0.0.1:36677/upload&quot;
-JSDELIVR_PREFIX = &quot;https://cdn.jsdelivr.net/&quot;
-
-def is_jsdelivr(url: str) -&amp;gt; bool:
-    return url.startswith(JSDELIVR_PREFIX)
-
-def run_picgo_upload(local_path: Path) -&amp;gt; str:
-    payload = {&quot;list&quot;: [str(local_path)]}
-    resp = requests.post(PICGO_SERVER, json=payload, timeout=60)
-    resp.raise_for_status()
-    data = resp.json()
-    return data[&quot;result&quot;][0]
-
-def handle_image(url: str, base_dir: Path) -&amp;gt; str:
-    if is_jsdelivr(url):
-        return url
-    local_path = (base_dir / url).resolve()
-    if local_path.exists():
-        return run_picgo_upload(local_path)
-    return url
-
-def process_file(path: Path):
-    text = path.read_text(encoding=&quot;utf-8&quot;)
-    matches = re.finditer(r&quot;!\[[^]]*]\(([^)]+)\)&quot;, text)
-    new_text = text
-    for m in matches:
-        old_url = m.group(1)
-        new_url = handle_image(old_url, path.parent)
-        if new_url != old_url:
-            new_text = new_text.replace(old_url, new_url)
-    if new_text != text:
-        # shutil.copy2(path, path.with_suffix(path.suffix + &quot;.bak&quot;))
-        path.write_text(new_text, encoding=&quot;utf-8&quot;)
-        print(f&quot;[OK] {path} 已替换图片链接&quot;)
-
-for md in ROOT_DIR.rglob(&quot;*.md&quot;):
-    process_file(md)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;使用步骤&quot;&gt;使用步骤&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;修改脚本里的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ROOT_DIR&lt;/code&gt; 为你的博客目录&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;启动 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;picgo server&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;运行脚本：&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python3 md_cdn_picgo.py
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;所有 Markdown 文件里的图片链接会自动替换为 jsDelivr 地址&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-
-&lt;p&gt;这样就能把 Markdown 博客里的图片统一迁移到 &lt;strong&gt;GitHub + jsDelivr&lt;/strong&gt;，实现免费图床、自动加速和批量替换，非常适合 Jekyll / Hexo 博客用户。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><category term="PicGo" /><category term="Markdown" /><category term="Python" /><summary type="html">背景</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">gitbook</summary></entry></feed>
