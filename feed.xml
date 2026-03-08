@@ -1,4 +1,945 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-07T19:28:54+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">小米电视adb</title><link href="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/" rel="alternate" type="text/html" title="小米电视adb" /><published>2026-03-07T00:00:00+08:00</published><updated>2026-03-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb</id><content type="html" xml:base="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/">&lt;h2 id=&quot;小米电视adb&quot;&gt;小米电视adb&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-08T20:51:11+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">EVM交易构造和解析</title><link href="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" rel="alternate" type="text/html" title="EVM交易构造和解析" /><published>2026-03-08T00:00:00+08:00</published><updated>2026-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90</id><content type="html" xml:base="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">&lt;h2 id=&quot;evm交易构造和解析&quot;&gt;EVM交易构造和解析&lt;/h2&gt;
+
+&lt;h1 id=&quot;一evm-交易基础结构&quot;&gt;一、EVM 交易基础结构&lt;/h1&gt;
+
+&lt;p&gt;EVM 交易本质是 &lt;strong&gt;对账户或合约的一次调用&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;标准交易字段：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Transaction
+├─ nonce
+├─ gasPrice / maxFeePerGas
+├─ gasLimit
+├─ to
+├─ value
+├─ data
+├─ chainId
+└─ signature (v,r,s)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;关键字段说明：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;nonce&lt;/td&gt;
+      &lt;td&gt;防止重放，账户交易序号&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;to&lt;/td&gt;
+      &lt;td&gt;目标地址（EOA 或合约）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;value&lt;/td&gt;
+      &lt;td&gt;转账 ETH 数量&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;data&lt;/td&gt;
+      &lt;td&gt;调用合约函数数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;gasLimit&lt;/td&gt;
+      &lt;td&gt;最大 gas&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;gasPrice&lt;/td&gt;
+      &lt;td&gt;每单位 gas 价格&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;如果：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data = 0x
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;则是普通转账。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;二evm-交易类型&quot;&gt;二、EVM 交易类型&lt;/h1&gt;
+
+&lt;p&gt;常见交易类型：&lt;/p&gt;
+
+&lt;h3 id=&quot;1-legacy-transaction&quot;&gt;1 Legacy Transaction&lt;/h3&gt;
+
+&lt;p&gt;旧交易结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nonce
+gasPrice
+gasLimit
+to
+value
+data
+v,r,s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;2-eip-1559-transaction&quot;&gt;2 EIP-1559 Transaction&lt;/h3&gt;
+
+&lt;p&gt;增加了动态费率：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;maxPriorityFeePerGas
+maxFeePerGas
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;交易类型：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type = 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;3-eip-2930-transaction&quot;&gt;3 EIP-2930 Transaction&lt;/h3&gt;
+
+&lt;p&gt;支持 access list：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type = 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;4-account-abstraction--特殊结构&quot;&gt;4 Account Abstraction / 特殊结构&lt;/h3&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;EIP-4337&lt;/li&gt;
+  &lt;li&gt;EIP-7702&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;会出现：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;call struct
+batch calls
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;三evm-calldata-编码&quot;&gt;三、EVM calldata 编码&lt;/h1&gt;
+
+&lt;p&gt;EVM 合约调用通过：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data (calldata)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编码规则来自 &lt;strong&gt;ABI encoding&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;基本结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4 bytes   function selector
+N bytes   parameters
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;四function-selector&quot;&gt;四、Function Selector&lt;/h1&gt;
+
+&lt;p&gt;selector 计算方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keccak256(&quot;functionSignature&quot;)[0:4]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;transfer(address,uint256)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;计算：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keccak256(&quot;transfer(address,uint256)&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;取前 4 bytes：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a9059cbb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;所以：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0xa9059cbb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;表示 ERC20 transfer。&lt;/p&gt;
+
+&lt;p&gt;常见 selector：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;selector&lt;/th&gt;
+      &lt;th&gt;函数&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;a9059cbb&lt;/td&gt;
+      &lt;td&gt;transfer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;095ea7b3&lt;/td&gt;
+      &lt;td&gt;approve&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;23b872dd&lt;/td&gt;
+      &lt;td&gt;transferFrom&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;70a08231&lt;/td&gt;
+      &lt;td&gt;balanceOf&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;dd62ed3e&lt;/td&gt;
+      &lt;td&gt;allowance&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;五abi-参数编码规则&quot;&gt;五、ABI 参数编码规则&lt;/h1&gt;
+
+&lt;p&gt;ABI 使用：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;32 bytes slot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;参数对齐方式：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uint256 → 32 bytes
+address → 32 bytes (左填充)
+bool → 32 bytes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;transfer(address,uint256)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;calldata：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a9059cbb
+0000000000000000000000008c99bc6137cfe81a295fff86de795e0557b60f46
+00000000000000000000000000000000000000000000000000000000000f4240
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;解释：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;selector
+address
+amount
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;六动态参数编码&quot;&gt;六、动态参数编码&lt;/h1&gt;
+
+&lt;p&gt;如果函数包含：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;string
+bytes
+array
+struct
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;使用 &lt;strong&gt;offset 编码&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;selector
+offset
+...
+dynamic data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function foo(string)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编码：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;selector
+offset (0x20)
+length
+data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;七evm-地址编码&quot;&gt;七、EVM 地址编码&lt;/h1&gt;
+
+&lt;p&gt;EVM 地址：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;20 bytes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;calldata 中表示为：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;32 bytes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0000000000000000000000008c99bc6137cfe81a295fff86de795e0557b60f46
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;规则：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;前 12 bytes 填充 0
+后 20 bytes 地址
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;八数字编码&quot;&gt;八、数字编码&lt;/h1&gt;
+
+&lt;p&gt;EVM 所有整数：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;uint256
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;编码：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;32 bytes big-endian
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0x0f4240
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;转十进制：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1000000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;九交易构造流程&quot;&gt;九、交易构造流程&lt;/h1&gt;
+
+&lt;p&gt;构造交易通常步骤：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 定义函数
+2 ABI encode 参数
+3 构造 calldata
+4 填充交易字段
+5 签名
+6 广播
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例（ethers.js）：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const iface = new ethers.Interface(abi)
+
+const data = iface.encodeFunctionData(
+  &quot;transfer&quot;,
+  [to, amount]
+)
+
+const tx = {
+  to: token,
+  data: data,
+  value: 0
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十交易签名&quot;&gt;十、交易签名&lt;/h1&gt;
+
+&lt;p&gt;EVM 使用：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ECDSA secp256k1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;签名字段：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;r
+s
+v
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;交易 hash：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keccak256(rlp(tx))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;签名后：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rawTransaction
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十一交易解析流程&quot;&gt;十一、交易解析流程&lt;/h1&gt;
+
+&lt;p&gt;解析一笔交易通常：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 获取 transaction
+2 读取 data
+3 解析 selector
+4 查 ABI
+5 decode 参数
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;流程图：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;transaction
+   ↓
+data
+   ↓
+function selector
+   ↓
+ABI
+   ↓
+decode parameters
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十二batch--multicall-交易&quot;&gt;十二、Batch / Multicall 交易&lt;/h1&gt;
+
+&lt;p&gt;DeFi 常见：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;multicall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;call[]
+ ├─ target
+ ├─ calldata
+ └─ value
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;swap
+transfer
+transfer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十三evm-常见编码格式&quot;&gt;十三、EVM 常见编码格式&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;编码&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;calldata&lt;/td&gt;
+      &lt;td&gt;hex&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;address&lt;/td&gt;
+      &lt;td&gt;20 bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hash&lt;/td&gt;
+      &lt;td&gt;32 bytes&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;signature&lt;/td&gt;
+      &lt;td&gt;65 bytes&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;EVM 基本全部使用：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hex (0x)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十四calldata-解析工具&quot;&gt;十四、Calldata 解析工具&lt;/h1&gt;
+
+&lt;p&gt;常见工具：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Foundry&lt;/li&gt;
+  &lt;li&gt;Tenderly&lt;/li&gt;
+  &lt;li&gt;ethers.js&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;常用命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cast 4byte
+cast decode-calldata
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十五交易-trace&quot;&gt;十五、交易 trace&lt;/h1&gt;
+
+&lt;p&gt;复杂交易需要：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;trace
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;trace 可以看到：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;internal calls
+delegatecall
+staticcall
+transfer
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;常见工具：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tenderly&lt;/li&gt;
+  &lt;li&gt;Hardhat&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十六链上解析常见数据&quot;&gt;十六、链上解析常见数据&lt;/h1&gt;
+
+&lt;p&gt;解析交易通常关注：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;token transfers
+swap events
+logs
+internal transactions
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;日志结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;event signature
+topics
+data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;event signature：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;keccak256(&quot;Transfer(address,address,uint256)&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十七事件日志解析&quot;&gt;十七、事件日志解析&lt;/h1&gt;
+
+&lt;p&gt;日志结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;log
+├─ address
+├─ topics[]
+└─ data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;topics：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;topic0 = event signature
+topic1 = indexed param
+topic2 = indexed param
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;示例：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Transfer(address,address,uint256)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;topics：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;topic0 event hash
+topic1 from
+topic2 to
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;data：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;amount
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十八evm-解析核心知识&quot;&gt;十八、EVM 解析核心知识&lt;/h1&gt;
+
+&lt;h1 id=&quot;evm-calldata-解析笔记&quot;&gt;EVM Calldata 解析笔记&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;calldata&lt;/strong&gt;：以太坊 EVM 中交易调用合约的输入数据。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;msg.data&lt;/code&gt; 在 Solidity 中对应 calldata&lt;/li&gt;
+      &lt;li&gt;包含函数选择器 + 函数参数编码&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;函数选择器（function selector）&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;前 4 字节（8 个 hex 字符）&lt;/li&gt;
+      &lt;li&gt;由函数签名（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;functionName(type1,type2,...)&lt;/code&gt;）经过 Keccak256 哈希取前 4 字节生成&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;参数编码&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;使用 &lt;strong&gt;ABI 编码&lt;/strong&gt;，固定长度类型按 32 字节对齐，动态类型附带偏移和长度信息&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-解析步骤&quot;&gt;2. 解析步骤&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;拆分选择器与参数&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;calldata: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0xa9059cbb000000000000000000000000e84e684c...&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;前 4 字节 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a9059cbb&lt;/code&gt; → 查函数对应的 selector → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer(address,uint256)&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;解析参数&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;固定长度类型（uint256、address、bool…）：
+        &lt;ul&gt;
+          &lt;li&gt;直接按 32 字节切片&lt;/li&gt;
+          &lt;li&gt;地址 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;address&lt;/code&gt; 在低 20 字节&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;动态类型（string、bytes、数组）：
+        &lt;ul&gt;
+          &lt;li&gt;前面存偏移量（从 calldata 开始的字节位置）&lt;/li&gt;
+          &lt;li&gt;偏移位置存长度，再后面是实际数据&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;多函数调用（multicall / 7702 struct）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;calldata 可能包含多个子调用&lt;/li&gt;
+      &lt;li&gt;每个子调用有：
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;target&lt;/code&gt; 地址&lt;/li&gt;
+          &lt;li&gt;子调用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;callData&lt;/code&gt;（单独解析）&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt;（支付的 ETH 数量）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-常用工具&quot;&gt;3. 常用工具&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;在线/GUI&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://etherscan.io/&quot;&gt;etherscan.io / Read Contract&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">EVM交易构造和解析</summary></entry><entry><title type="html">SOL交易构造和解析</title><link href="https://mafulong.github.io/2026/03/08/SOL%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" rel="alternate" type="text/html" title="SOL交易构造和解析" /><published>2026-03-08T00:00:00+08:00</published><updated>2026-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/08/SOL%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90</id><content type="html" xml:base="https://mafulong.github.io/2026/03/08/SOL%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">&lt;h2 id=&quot;sol交易构造和解析&quot;&gt;SOL交易构造和解析&lt;/h2&gt;
+
+&lt;h1 id=&quot;solana-交易构造与解析笔记&quot;&gt;Solana 交易构造与解析笔记&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;交易（Transaction）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;由一个或多个 &lt;strong&gt;指令（Instruction）&lt;/strong&gt; 构成&lt;/li&gt;
+      &lt;li&gt;每个交易包含：
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recentBlockhash&lt;/code&gt;：防重放&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;feePayer&lt;/code&gt;：交易费用支付者&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;signatures&lt;/code&gt;：签名数组（按 signer 顺序）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;指令（Instruction）&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;包含：
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;programId&lt;/code&gt;：目标程序地址&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accounts&lt;/code&gt;：涉及的账户列表（可读/可写、是否需要签名）&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;：指令数据（通常是 base58 或 base64 编码的字节数组）&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;地址类型&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Pubkey&lt;/strong&gt;：32 字节，base58 编码&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Program&lt;/strong&gt;：智能合约/程序账户&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-交易构造&quot;&gt;2. 交易构造&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;准备账户&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;fee payer、signers、接收者&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;构造指令&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;programId&lt;/code&gt;：调用的智能合约地址&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accounts&lt;/code&gt;：涉及的账户&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;：按程序 ABI 编码的参数&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;构造 Transaction 对象&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;添加指令、设置 recentBlockhash 和 fee payer&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;签名&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;使用私钥对 transaction message 签名&lt;/li&gt;
+      &lt;li&gt;多签交易：多个 signer 依次签名&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;序列化 &amp;amp; 广播&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;将交易序列化成 base58/base64 字符串&lt;/li&gt;
+      &lt;li&gt;通过 RPC &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendTransaction&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sendRawTransaction&lt;/code&gt; 广播&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-交易解析&quot;&gt;3. 交易解析&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;解码签名 &amp;amp; 最近区块哈希&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transaction.signatures&lt;/code&gt; → 校验 signer&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recentBlockhash&lt;/code&gt; → 确认交易唯一性&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;解析指令&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transaction.message.instructions&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;指令数据通常是 base58/base64 字节&lt;/li&gt;
+      &lt;li&gt;解析步骤：
+        &lt;ol&gt;
+          &lt;li&gt;获取指令的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;programId&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;获取 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accounts&lt;/code&gt; 列表&lt;/li&gt;
+          &lt;li&gt;解码 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt;：
+            &lt;ul&gt;
+              &lt;li&gt;按程序的 ABI 或自定义布局解码&lt;/li&gt;
+              &lt;li&gt;Rust/Anchor 程序通常有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;borsh&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt; 序列化&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;参数类型&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;固定长度：u64、u8、Pubkey&lt;/li&gt;
+      &lt;li&gt;动态长度：Vec&lt;u8&gt; / string / 可变数组&lt;/u8&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-常用工具&quot;&gt;4. 常用工具&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;在线 / GUI&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://solscan.io/&quot;&gt;Solscan&lt;/a&gt; → 查看交易详情&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://explorer.solana.com/&quot;&gt;Explorer&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;编程库&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;JavaScript/TypeScript：&lt;/p&gt;
+
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import { Transaction, PublicKey } from &apos;@solana/web3.js&apos;;
+const tx = Transaction.from(Buffer.from(rawTx, &apos;base64&apos;));
+console.log(tx.instructions);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Rust：&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;solana_sdk::transaction::Transaction&lt;/code&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;borsh&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anchor&lt;/code&gt; 解码 instruction data&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;CLI&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;solana transaction &amp;lt;sig&amp;gt;&lt;/code&gt; → 查看交易内容&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;solana decode-transaction&lt;/code&gt; (部分工具)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-高级应用&quot;&gt;5. 高级应用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;多指令交易&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;一个交易内可以包含多个 instruction&lt;/li&gt;
+      &lt;li&gt;每条指令独立解析&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;签名验证&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;对 message hash + signer 校验签名&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;智能合约交互&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Anchor 程序：
+        &lt;ul&gt;
+          &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Instruction.data&lt;/code&gt; 由 Anchor 序列化（Borsh）&lt;/li&gt;
+          &lt;li&gt;必须使用 Anchor IDL 解码&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;交易重放防护&lt;/strong&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;recentBlockhash&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nonce&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;signer&lt;/code&gt; 确保唯一性&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;实际交易场景&quot;&gt;实际交易场景&lt;/h2&gt;
+
+&lt;p&gt;假设你要转 10 USDT：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;查找你的 USDT Token Account 地址&lt;/li&gt;
+  &lt;li&gt;构造指令：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;programId&lt;/code&gt;: SPL Token 程序地址&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;source&lt;/code&gt;: 你的 USDT Token Account&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destination&lt;/code&gt;: 对方的 USDT Token Account&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amount&lt;/code&gt;: 10 * 10^decimals&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;签名并发送交易&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;交易解析时&lt;/strong&gt;，指令里的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;accounts&lt;/code&gt; 会显示：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;fee payer（普通账户）&lt;/li&gt;
+  &lt;li&gt;source Token Account&lt;/li&gt;
+  &lt;li&gt;destination Token Account&lt;/li&gt;
+  &lt;li&gt;token program ID&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;solana-instruction-三个核心字段&quot;&gt;Solana instruction 三个核心字段&lt;/h1&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;programId: 9WwG... (AMM program)
+
+accounts:
+[ user,
+  sourceTokenAccount,
+  poolTokenAccount,
+  poolAuthority,
+  destinationTokenAccount,
+  tokenProgram
+]
+
+data:
+3Bxs4p...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;解释：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;programId  → 调用哪个程序
+accounts   → 程序要操作的账户
+data       → 参数
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;instruction-data-的编码&quot;&gt;instruction data 的编码&lt;/h1&gt;
+
+&lt;p&gt;RPC 返回一般是：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;base58
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3Bxs4p9s3h7...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;第一步要：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;base58 → bytes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;解析后可能得到：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[9, 64, 66, 15, 0, 0, 0, 0, ...]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;完整解析流程&quot;&gt;完整解析流程&lt;/h1&gt;
+
+&lt;p&gt;真正解析一笔 swap：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1 找 swap instruction
+2 base58 decode data
+3 识别 discriminator
+4 按 struct 解析参数
+5 看 accounts 确定 token
+6 查询 mint decimals
+7 计算真实金额
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;solana-和-evm-最大差别&quot;&gt;Solana 和 EVM 最大差别&lt;/h1&gt;
+
+&lt;p&gt;EVM：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data 里有全部参数
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Solana：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;data + accounts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;很多关键数据在 &lt;strong&gt;accounts&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;所以解析必须同时看：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;instruction.data
+instruction.accounts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">SOL交易构造和解析</summary></entry><entry><title type="html">小米电视adb</title><link href="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/" rel="alternate" type="text/html" title="小米电视adb" /><published>2026-03-07T00:00:00+08:00</published><updated>2026-03-07T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb</id><content type="html" xml:base="https://mafulong.github.io/2026/03/07/%E5%B0%8F%E7%B1%B3%E7%94%B5%E8%A7%86adb/">&lt;h2 id=&quot;小米电视adb&quot;&gt;小米电视adb&lt;/h2&gt;
 
 &lt;p&gt;正常情况下通过U盘给安卓电视安装APP是比较方便的，但是很多情况下没有U盘或者没有电脑，甚至长辈不懂电脑，让他们用U盘安装真的非常的麻烦。所以这里找到一个可以通过手机给安卓电视安装APP的方式，非常方便，你甚至可以远程给家里人安装。我下面记录了小米电视的配置过程，其他电视可自行搜索对应的操作方法即可。&lt;/p&gt;
 
@@ -1267,57 +2208,4 @@ sum(rate(http_request_duration_seconds_count[1m]))
   &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Tab 切换声调&lt;/strong&gt;
  在有声调标注的候选拼音里，按 Tab 键可以在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1、2、3、4&lt;/code&gt; 声调之间切换，帮助选择准确的音调显示。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">双拼</summary></entry><entry><title type="html">炒股笔记</title><link href="https://mafulong.github.io/2025/09/25/%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="炒股笔记" /><published>2025-09-25T00:00:00+08:00</published><updated>2025-09-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/09/25/%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2025/09/25/%E7%82%92%E8%82%A1%E7%AC%94%E8%AE%B0/">&lt;h2 id=&quot;炒股笔记&quot;&gt;炒股笔记&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;T飞了赶紧买回来&lt;/li&gt;
-  &lt;li&gt;连跌3天，就该减仓止损了。&lt;/li&gt;
-  &lt;li&gt;不要买下跌趋势的&lt;/li&gt;
-  &lt;li&gt;牛市不要买国债 和 红利&lt;/li&gt;
-  &lt;li&gt;阴跌没关系，涨起来就是大涨。&lt;/li&gt;
-  &lt;li&gt;底部大涨也可以追，右侧交易。&lt;/li&gt;
-  &lt;li&gt;美股不用怕，一直有人抄底，跌不下去。&lt;/li&gt;
-  &lt;li&gt;阅兵、国庆前买军工&lt;/li&gt;
-  &lt;li&gt;牛市是先一波券商，然后红利拉大盘指数，比如银行。之后就开始科技。&lt;/li&gt;
-  &lt;li&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">炒股笔记</summary></entry><entry><title type="html">gitbook</title><link href="https://mafulong.github.io/2025/09/01/gitbook/" rel="alternate" type="text/html" title="gitbook" /><published>2025-09-01T00:00:00+08:00</published><updated>2025-09-01T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/09/01/gitbook</id><content type="html" xml:base="https://mafulong.github.io/2025/09/01/gitbook/">&lt;h2 id=&quot;gitbook&quot;&gt;gitbook&lt;/h2&gt;
-
-&lt;h2 id=&quot;gitbook导出equb&quot;&gt;gitbook导出equb&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt; 是 &lt;strong&gt;Calibre&lt;/strong&gt; 工具套件里的命令行程序，用来转换电子书格式（如 epub ⇄ mobi ⇄ pdf 等）。在 macOS 上安装的方法有几种&lt;/p&gt;
-
-&lt;p&gt;如果你习惯用命令行工具管理软件：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;确保安装了 Homebrew。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;在终端运行：&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install --cask calibre
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;安装完成后即可使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;如果 GitBook 没提供导出：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;把 GitBook 的章节页面下载（有些 GitBook 提供 GitHub 源码，也可以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git clone&lt;/code&gt;）。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandoc&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;calibre&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ebook-convert&lt;/code&gt; 转换：&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ebook-convert input.html output.epub
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;p&gt;或者把多个 Markdown 整合后转换：&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pandoc *.md -o blockchain.epub
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">gitbook</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">双拼</summary></entry></feed>
