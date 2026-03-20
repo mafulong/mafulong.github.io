@@ -7,11 +7,11 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.1
-        with:
-          persist-credentials: false
+        uses: actions/checkout@v4
 
       - name: Set Ruby 3.1
         uses: ruby/setup-ruby@v1
@@ -25,9 +25,9 @@ jobs:
           bundle exec jekyll build
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.6.2
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: built
           FOLDER: _site
           CLEAN: true
