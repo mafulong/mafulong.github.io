@@ -22,7 +22,7 @@ claude --version
 
 ### 代理设置（可选）
 
-如果网络有问题，使用代理：
+网络有问题时使用代理：
 
 ```bash
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
@@ -146,9 +146,29 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 
 ---
 
+## Skills vs Agent vs MCP vs Hooks
+
+这四个概念很容易混淆，先解释区别：
+
+| 概念 | 本质 | 类比 |
+|------|------|------|
+| **Skill** | 一段提示/指令 | 给你一张任务卡片 |
+| **Agent** | 完整的 AI 角色 | 雇佣一个专属员工 |
+| **MCP** | 外部工具连接 | 给 AI 装插件 |
+| **Hook** | 事件触发器 | 设置"当 X 发生时，执行 Y" |
+
+### 一句话总结
+
+- **Skill** - 告诉 Claude "遇到这种情况这样做"
+- **Agent** - 让 Claude "变成"某个角色的专家
+- **MCP** - 让 Claude "能用"外部工具
+- **Hook** - 让系统"自动"在特定时刻做某事
+
+---
+
 ## Skills
 
-内置的自动化技能，通过 `/skill-name` 调用：
+内置技能，通过 `/skill-name` 调用：
 
 | Skill | 说明 |
 |-------|------|
@@ -173,9 +193,85 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 
 ---
 
+## Agent
+
+Agent 是预配置的 AI 角色，有自己的系统提示和工具限制。
+
+### 自定义 Agent
+
+在 `settings.json` 中配置：
+
+```json
+{
+  "agents": {
+    "python-dev": {
+      "description": "Python 开发者",
+      "systemPrompt": "你是一个 Python 专家，擅长 Django、FastAPI...",
+      "model": "sonnet"
+    }
+  }
+}
+```
+
+### 使用 Agent
+
+```bash
+claude --agent python-dev
+```
+
+### Agent vs Skill 区别
+
+- **Skill** - 轻量，一次性任务
+- **Agent** - 重量级，长期角色扮演
+
+---
+
+## MCP 服务器
+
+MCP (Model Context Protocol) 让 Claude 连接外部工具和 API。
+
+### MCP vs Skill 区别
+
+- **Skill** - 纯提示/指令
+- **MCP** - 调用真实外部服务
+
+### 安装 MCP 服务器
+
+```json
+{
+  "enableAllProjectMcpServers": true,
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"]
+    }
+  }
+}
+```
+
+### 常用 MCP 服务器
+
+| 服务器 | 用途 |
+|--------|------|
+| `server-filesystem` | 文件系统操作 |
+| `server-github` | GitHub API |
+| `server-brave-search` | 网页搜索 |
+| `server-slack` | Slack 消息 |
+
+---
+
 ## Hooks
 
-Hooks 让你在特定事件发生时自动执行操作。
+在特定事件发生时自动执行操作。
+
+### Hooks vs Skills 区别
+
+- **Skill** - 需要手动调用
+- **Hook** - 自动触发
 
 ### 配置示例
 
@@ -188,19 +284,12 @@ Hooks 让你在特定事件发生时自动执行操作。
         "type": "command",
         "command": "prettier --write $FILE"
       }]
-    }],
-    "PreToolUse": [{
-      "matcher": "Bash",
-      "hooks": [{
-        "type": "command",
-        "command": "echo 'Bash: $COMMAND' >> ~/.claude/bash-log.txt"
-      }]
     }]
   }
 }
 ```
 
-### 常用 Hook 事件
+### 常用事件
 
 | 事件 | 时机 |
 |------|------|
@@ -208,65 +297,6 @@ Hooks 让你在特定事件发生时自动执行操作。
 | `PostToolUse` | 工具执行后 |
 | `Stop` | 对话结束时 |
 | `SessionStart` | 会话开始时 |
-
----
-
-## MCP 服务器
-
-Model Context Protocol 服务器，扩展 Claude 的能力。
-
-### 安装 MCP 服务器
-
-在 `.claude/settings.json` 中配置：
-
-```json
-{
-  "enableAllProjectMcpServers": true,
-  "mcpServers": {
-    "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]
-    }
-  }
-}
-```
-
-### 常用 MCP 服务器
-
-| 服务器 | 用途 |
-|--------|------|
-| `server-filesystem` | 文件系统操作 |
-| `server-github` | GitHub API 操作 |
-| `server-brave-search` | 网页搜索 |
-
----
-
-## Agent 自定义
-
-创建自定义 Agent 改变 Claude 的行为。
-
-### 配置 Agent
-
-```json
-{
-  "agent": "my-agent",
-  "agents": {
-    "my-agent": {
-      "description": "我的自定义 Agent",
-      "systemPrompt": "你是一个专注于 Python 的开发者...",
-      "model": "sonnet"
-    }
-  }
-}
-```
-
-### 使用 Agent
-
-```bash
-claude --agent my-agent
-```
-
-或在对话中用 `/agent` 指令切换。
 
 ---
 
