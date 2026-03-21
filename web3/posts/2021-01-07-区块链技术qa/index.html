@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="区块链技术QA# 基础# 常见区块链架构# Chain 类型 共识机制 主币种 架构/特点 交易速度 交易费用 主要应用 特点 Bitcoin 公有链 PoW (工作量证明) BTC UTXO 模型，简单安全 7 TPS 较高（波动大） 价值存储、支付 去中心化，比特币为主，手续费和速度较低 Ethereum 公有链 PoS (权益证明) ETH EVM，智能合约，去中心化 10-20 TPS 高（依赖网络拥堵） DeFi、NFT 去中心化，智能合约平台，费用受网络影响 TRON 公有链 DPoS (委托权益证明) TRX EVM 兼容，高性能 2,000&#43; TPS 低（固定费用） 支付、USDT 高吞吐量，低手续费，账户冻结机制 BNB Chain 公有链 PoSA (权益质押&#43;权威) BNB 高吞吐量，EVM 兼容 3,000&#43; TPS 低（固定费用） DeFi、GameFi 高吞吐量，EVM 兼容，适合DeFi应用 Solana 公有链 PoH&#43;PoS (历史证明&#43;权益证明) SOL 高性能，Rust 开发 50,000&#43; TPS 极低（固定费用） 高频交易、GameFi 超高TPS，低延迟，非常适合高频交易 Avalanche 公有链 Avalanche&#43;PoS AVAX 子网架构，EVM 兼容 4,500 TPS 低（固定费用） DeFi、应用链 子网架构，高可扩展性，适合定制化链 Polkadot 公有链 NPoS (提名权益证明) DOT 中继链&#43;平行链，多链互操作 1,000 TPS 中等（取决于链和交易） 跨链生态 跨链通信，共享安全，适合多链生态 Cosmos 公有链 Tendermint&#43;PoS ATOM Hub-Zone，IBC 跨链通信 1,000&#43; TPS 中等（按链和交易） 模块化链、跨链 模块化链设计，跨链互操作，多链生态 Base L2 Rollup (OP) ETH 以太坊 L2，Coinbase 背书 2,000&#43; TPS 低（较以太坊） DeFi、Web3入口 以太坊 L2，低手续费，高效的交易环境 共识# PBFT 总结# 核心思想# 在 3f &#43; 1 个节点中，最多允许 f 个拜占庭节点（作恶/故障）。 通过 多阶段消息交互，保证所有诚实节点最终达成一致。 目标：在存在拜占庭节点时，仍能保证 一致性（所有诚实节点对交易顺序达成一致）。
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/web3/posts/2021-01-07-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AFqa/">
+  <meta property="og:site_name" content="Web3 Notes">
+  <meta property="og:title" content="区块链技术QA">
+  <meta property="og:description" content="区块链技术QA# 基础# 常见区块链架构# Chain 类型 共识机制 主币种 架构/特点 交易速度 交易费用 主要应用 特点 Bitcoin 公有链 PoW (工作量证明) BTC UTXO 模型，简单安全 7 TPS 较高（波动大） 价值存储、支付 去中心化，比特币为主，手续费和速度较低 Ethereum 公有链 PoS (权益证明) ETH EVM，智能合约，去中心化 10-20 TPS 高（依赖网络拥堵） DeFi、NFT 去中心化，智能合约平台，费用受网络影响 TRON 公有链 DPoS (委托权益证明) TRX EVM 兼容，高性能 2,000&#43; TPS 低（固定费用） 支付、USDT 高吞吐量，低手续费，账户冻结机制 BNB Chain 公有链 PoSA (权益质押&#43;权威) BNB 高吞吐量，EVM 兼容 3,000&#43; TPS 低（固定费用） DeFi、GameFi 高吞吐量，EVM 兼容，适合DeFi应用 Solana 公有链 PoH&#43;PoS (历史证明&#43;权益证明) SOL 高性能，Rust 开发 50,000&#43; TPS 极低（固定费用） 高频交易、GameFi 超高TPS，低延迟，非常适合高频交易 Avalanche 公有链 Avalanche&#43;PoS AVAX 子网架构，EVM 兼容 4,500 TPS 低（固定费用） DeFi、应用链 子网架构，高可扩展性，适合定制化链 Polkadot 公有链 NPoS (提名权益证明) DOT 中继链&#43;平行链，多链互操作 1,000 TPS 中等（取决于链和交易） 跨链生态 跨链通信，共享安全，适合多链生态 Cosmos 公有链 Tendermint&#43;PoS ATOM Hub-Zone，IBC 跨链通信 1,000&#43; TPS 中等（按链和交易） 模块化链、跨链 模块化链设计，跨链互操作，多链生态 Base L2 Rollup (OP) ETH 以太坊 L2，Coinbase 背书 2,000&#43; TPS 低（较以太坊） DeFi、Web3入口 以太坊 L2，低手续费，高效的交易环境 共识# PBFT 总结# 核心思想# 在 3f &#43; 1 个节点中，最多允许 f 个拜占庭节点（作恶/故障）。 通过 多阶段消息交互，保证所有诚实节点最终达成一致。 目标：在存在拜占庭节点时，仍能保证 一致性（所有诚实节点对交易顺序达成一致）。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:tag" content="Web3">
+
+
+  <meta itemprop="name" content="区块链技术QA">
+  <meta itemprop="description" content="区块链技术QA# 基础# 常见区块链架构# Chain 类型 共识机制 主币种 架构/特点 交易速度 交易费用 主要应用 特点 Bitcoin 公有链 PoW (工作量证明) BTC UTXO 模型，简单安全 7 TPS 较高（波动大） 价值存储、支付 去中心化，比特币为主，手续费和速度较低 Ethereum 公有链 PoS (权益证明) ETH EVM，智能合约，去中心化 10-20 TPS 高（依赖网络拥堵） DeFi、NFT 去中心化，智能合约平台，费用受网络影响 TRON 公有链 DPoS (委托权益证明) TRX EVM 兼容，高性能 2,000&#43; TPS 低（固定费用） 支付、USDT 高吞吐量，低手续费，账户冻结机制 BNB Chain 公有链 PoSA (权益质押&#43;权威) BNB 高吞吐量，EVM 兼容 3,000&#43; TPS 低（固定费用） DeFi、GameFi 高吞吐量，EVM 兼容，适合DeFi应用 Solana 公有链 PoH&#43;PoS (历史证明&#43;权益证明) SOL 高性能，Rust 开发 50,000&#43; TPS 极低（固定费用） 高频交易、GameFi 超高TPS，低延迟，非常适合高频交易 Avalanche 公有链 Avalanche&#43;PoS AVAX 子网架构，EVM 兼容 4,500 TPS 低（固定费用） DeFi、应用链 子网架构，高可扩展性，适合定制化链 Polkadot 公有链 NPoS (提名权益证明) DOT 中继链&#43;平行链，多链互操作 1,000 TPS 中等（取决于链和交易） 跨链生态 跨链通信，共享安全，适合多链生态 Cosmos 公有链 Tendermint&#43;PoS ATOM Hub-Zone，IBC 跨链通信 1,000&#43; TPS 中等（按链和交易） 模块化链、跨链 模块化链设计，跨链互操作，多链生态 Base L2 Rollup (OP) ETH 以太坊 L2，Coinbase 背书 2,000&#43; TPS 低（较以太坊） DeFi、Web3入口 以太坊 L2，低手续费，高效的交易环境 共识# PBFT 总结# 核心思想# 在 3f &#43; 1 个节点中，最多允许 f 个拜占庭节点（作恶/故障）。 通过 多阶段消息交互，保证所有诚实节点最终达成一致。 目标：在存在拜占庭节点时，仍能保证 一致性（所有诚实节点对交易顺序达成一致）。">
+  <meta itemprop="wordCount" content="164">
+  <meta itemprop="keywords" content="Web3">
+
+<title>区块链技术QA | Web3 Notes</title>
+<link rel="icon" href="/web3/favicon.png" >
+<link rel="manifest" href="/web3/manifest.json">
+<link rel="canonical" href="/web3/posts/2021-01-07-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AFqa/">
+<link rel="stylesheet" href="/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css" >
+
+
+  <script defer src="/web3/fuse.min.js"></script>
+  <script defer src="/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js" ></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts book-layout-post">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/web3/"><span>Web3 Notes</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/web3/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>区块链技术QA</h3>
+
+  <label for="toc-control">
+    
+    <img src="/web3/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#区块链技术qa">区块链技术QA</a></li>
+    <li><a href="#基础">基础</a>
+      <ul>
+        <li><a href="#常见区块链架构">常见区块链架构</a></li>
+        <li><a href="#共识">共识</a>
+          <ul>
+            <li><a href="#pbft-总结">PBFT 总结</a></li>
+            <li><a href="#nakamoto-共识">Nakamoto 共识</a></li>
+            <li><a href="#共识机制对比">共识机制对比</a></li>
+          </ul>
+        </li>
+        <li><a href="#多签">多签</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    区块链技术QA
+  </h1>
+  
+
+
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/web3/tags/web3/">Web3</a>
+  </div>
+  
+
+
+  <div class="book-post-content markdown-inner"><h1 id="区块链技术qa">区块链技术QA<a class="anchor" href="#%e5%8c%ba%e5%9d%97%e9%93%be%e6%8a%80%e6%9c%afqa">#</a></h1>
+<h1 id="基础">基础<a class="anchor" href="#%e5%9f%ba%e7%a1%80">#</a></h1>
+<hr>
+<h2 id="常见区块链架构">常见区块链架构<a class="anchor" href="#%e5%b8%b8%e8%a7%81%e5%8c%ba%e5%9d%97%e9%93%be%e6%9e%b6%e6%9e%84">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Chain</th>
+          <th>类型</th>
+          <th>共识机制</th>
+          <th>主币种</th>
+          <th>架构/特点</th>
+          <th>交易速度</th>
+          <th>交易费用</th>
+          <th>主要应用</th>
+          <th>特点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Bitcoin</strong></td>
+          <td>公有链</td>
+          <td>PoW (工作量证明)</td>
+          <td>BTC</td>
+          <td>UTXO 模型，简单安全</td>
+          <td>7 TPS</td>
+          <td>较高（波动大）</td>
+          <td>价值存储、支付</td>
+          <td><strong>去中心化</strong>，<strong>比特币为主</strong>，手续费和速度较低</td>
+      </tr>
+      <tr>
+          <td><strong>Ethereum</strong></td>
+          <td>公有链</td>
+          <td>PoS (权益证明)</td>
+          <td>ETH</td>
+          <td>EVM，智能合约，去中心化</td>
+          <td>10-20 TPS</td>
+          <td>高（依赖网络拥堵）</td>
+          <td>DeFi、NFT</td>
+          <td><strong>去中心化</strong>，<strong>智能合约平台</strong>，费用受网络影响</td>
+      </tr>
+      <tr>
+          <td><strong>TRON</strong></td>
+          <td>公有链</td>
+          <td>DPoS (委托权益证明)</td>
+          <td>TRX</td>
+          <td>EVM 兼容，高性能</td>
+          <td>2,000+ TPS</td>
+          <td>低（固定费用）</td>
+          <td>支付、USDT</td>
+          <td><strong>高吞吐量</strong>，<strong>低手续费</strong>，<strong>账户冻结</strong>机制</td>
+      </tr>
+      <tr>
+          <td><strong>BNB Chain</strong></td>
+          <td>公有链</td>
+          <td>PoSA (权益质押+权威)</td>
+          <td>BNB</td>
+          <td>高吞吐量，EVM 兼容</td>
+          <td>3,000+ TPS</td>
+          <td>低（固定费用）</td>
+          <td>DeFi、GameFi</td>
+          <td><strong>高吞吐量</strong>，<strong>EVM 兼容</strong>，适合DeFi应用</td>
+      </tr>
+      <tr>
+          <td><strong>Solana</strong></td>
+          <td>公有链</td>
+          <td>PoH+PoS (历史证明+权益证明)</td>
+          <td>SOL</td>
+          <td>高性能，Rust 开发</td>
+          <td>50,000+ TPS</td>
+          <td>极低（固定费用）</td>
+          <td>高频交易、GameFi</td>
+          <td><strong>超高TPS</strong>，<strong>低延迟</strong>，非常适合高频交易</td>
+      </tr>
+      <tr>
+          <td><strong>Avalanche</strong></td>
+          <td>公有链</td>
+          <td>Avalanche+PoS</td>
+          <td>AVAX</td>
+          <td>子网架构，EVM 兼容</td>
+          <td>4,500 TPS</td>
+          <td>低（固定费用）</td>
+          <td>DeFi、应用链</td>
+          <td><strong>子网架构</strong>，<strong>高可扩展性</strong>，适合定制化链</td>
+      </tr>
+      <tr>
+          <td><strong>Polkadot</strong></td>
+          <td>公有链</td>
+          <td>NPoS (提名权益证明)</td>
+          <td>DOT</td>
+          <td>中继链+平行链，多链互操作</td>
+          <td>1,000 TPS</td>
+          <td>中等（取决于链和交易）</td>
+          <td>跨链生态</td>
+          <td><strong>跨链通信</strong>，<strong>共享安全</strong>，适合多链生态</td>
+      </tr>
+      <tr>
+          <td><strong>Cosmos</strong></td>
+          <td>公有链</td>
+          <td>Tendermint+PoS</td>
+          <td>ATOM</td>
+          <td>Hub-Zone，IBC 跨链通信</td>
+          <td>1,000+ TPS</td>
+          <td>中等（按链和交易）</td>
+          <td>模块化链、跨链</td>
+          <td><strong>模块化链设计</strong>，<strong>跨链互操作</strong>，多链生态</td>
+      </tr>
+      <tr>
+          <td><strong>Base</strong></td>
+          <td>L2</td>
+          <td>Rollup (OP)</td>
+          <td>ETH</td>
+          <td>以太坊 L2，Coinbase 背书</td>
+          <td>2,000+ TPS</td>
+          <td>低（较以太坊）</td>
+          <td>DeFi、Web3入口</td>
+          <td><strong>以太坊 L2</strong>，<strong>低手续费</strong>，高效的交易环境</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="共识">共识<a class="anchor" href="#%e5%85%b1%e8%af%86">#</a></h2>
+<h3 id="pbft-总结">PBFT 总结<a class="anchor" href="#pbft-%e6%80%bb%e7%bb%93">#</a></h3>
+<h4 id="核心思想">核心思想<a class="anchor" href="#%e6%a0%b8%e5%bf%83%e6%80%9d%e6%83%b3">#</a></h4>
+<ul>
+<li>在 <strong>3f + 1</strong> 个节点中，最多允许 <strong>f 个拜占庭节点</strong>（作恶/故障）。</li>
+<li>通过 <strong>多阶段消息交互</strong>，保证所有诚实节点最终达成一致。</li>
+</ul>
+<p><strong>目标</strong>：在存在拜占庭节点时，仍能保证 <strong>一致性</strong>（所有诚实节点对交易顺序达成一致）。</p>
+<hr>
+<h4 id="工作流程四步">工作流程（四步）<a class="anchor" href="#%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b%e5%9b%9b%e6%ad%a5">#</a></h4>
+<ol>
+<li><strong>Request</strong>：客户端请求发给主节点（Leader）。</li>
+<li><strong>Pre-prepare</strong>：主节点分配序号并广播。</li>
+<li><strong>Prepare</strong>：所有副本节点验证并互相广播。
+<ul>
+<li>收到 ≥2f+1 一致消息 → 进入提交阶段。</li>
+</ul>
+</li>
+<li><strong>Commit</strong>：节点广播提交消息，收集到 ≥2f+1 → 执行并回复客户端。</li>
+</ol>
+<hr>
+<h3 id="nakamoto-共识">Nakamoto 共识<a class="anchor" href="#nakamoto-%e5%85%b1%e8%af%86">#</a></h3>
+<ul>
+<li>PoW / PoS / PoX。</li>
+<li>特点：引入经济学手段，牺牲确定性，换来大规模可扩展性。</li>
+</ul>
+<hr>
+<h3 id="共识机制对比">共识机制对比<a class="anchor" href="#%e5%85%b1%e8%af%86%e6%9c%ba%e5%88%b6%e5%af%b9%e6%af%94">#</a></h3>
+<ul>
+<li><strong>Nakamoto 共识（PoW/PoS/PoX）</strong>：经济学手段，牺牲确定性，换取可扩展性。</li>
+<li><strong>PBFT</strong>：小规模、高确定性，适合联盟链。</li>
+</ul>
+<hr>
+<h2 id="多签">多签<a class="anchor" href="#%e5%a4%9a%e7%ad%be">#</a></h2>
+<ol>
+<li>TON 链，用户被骗，被多签了。</li>
+<li>设备迁移过，发送交易的地址和签名地址不一样。</li>
+</ol>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/web3/posts/2021-01-06-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/" class="flex align-center">
+      <img src="/web3/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>以太坊技术</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/web3/posts/2021-01-10-%E5%8C%BA%E5%9D%97%E9%93%BE%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" class="flex align-center">
+      <span>区块链钱包开发系列教程</span>
+      <img src="/web3/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#区块链技术qa">区块链技术QA</a></li>
+    <li><a href="#基础">基础</a>
+      <ul>
+        <li><a href="#常见区块链架构">常见区块链架构</a></li>
+        <li><a href="#共识">共识</a>
+          <ul>
+            <li><a href="#pbft-总结">PBFT 总结</a></li>
+            <li><a href="#nakamoto-共识">Nakamoto 共识</a></li>
+            <li><a href="#共识机制对比">共识机制对比</a></li>
+          </ul>
+        </li>
+        <li><a href="#多签">多签</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
