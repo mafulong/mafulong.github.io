@@ -131,6 +131,8 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 
 ---
 
+## 常用指令
+
 | 指令 | 说明 |
 |------|------|
 | `/help` | 获取帮助 |
@@ -141,6 +143,130 @@ export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_pr
 | `/model <name>` | 切换模型 |
 | `/commit` | 创建 git 提交 |
 | `/review-pr <number>` | 审查 PR |
+
+---
+
+## Skills
+
+内置的自动化技能，通过 `/skill-name` 调用：
+
+| Skill | 说明 |
+|-------|------|
+| `/simplify` | 审查代码优化、复用、质量 |
+| `/loop` | 定时执行指令（如每 5 分钟检查状态） |
+| `/claude-api` | 构建 Claude API 应用 |
+| `/update-config` | 修改配置文件 |
+
+### 自定义 Skill
+
+在 `.claude/skills/` 目录下创建 `.md` 文件：
+
+```markdown
+# My Custom Skill
+
+## Instructions
+当你看到 `/mytool` 时，执行以下操作...
+
+## Commands
+- `echo "hello"`
+```
+
+---
+
+## Hooks
+
+Hooks 让你在特定事件发生时自动执行操作。
+
+### 配置示例
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Write|Edit",
+      "hooks": [{
+        "type": "command",
+        "command": "prettier --write $FILE"
+      }]
+    }],
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'Bash: $COMMAND' >> ~/.claude/bash-log.txt"
+      }]
+    }]
+  }
+}
+```
+
+### 常用 Hook 事件
+
+| 事件 | 时机 |
+|------|------|
+| `PreToolUse` | 工具执行前 |
+| `PostToolUse` | 工具执行后 |
+| `Stop` | 对话结束时 |
+| `SessionStart` | 会话开始时 |
+
+---
+
+## MCP 服务器
+
+Model Context Protocol 服务器，扩展 Claude 的能力。
+
+### 安装 MCP 服务器
+
+在 `.claude/settings.json` 中配置：
+
+```json
+{
+  "enableAllProjectMcpServers": true,
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]
+    }
+  }
+}
+```
+
+### 常用 MCP 服务器
+
+| 服务器 | 用途 |
+|--------|------|
+| `server-filesystem` | 文件系统操作 |
+| `server-github` | GitHub API 操作 |
+| `server-brave-search` | 网页搜索 |
+
+---
+
+## Agent 自定义
+
+创建自定义 Agent 改变 Claude 的行为。
+
+### 配置 Agent
+
+```json
+{
+  "agent": "my-agent",
+  "agents": {
+    "my-agent": {
+      "description": "我的自定义 Agent",
+      "systemPrompt": "你是一个专注于 Python 的开发者...",
+      "model": "sonnet"
+    }
+  }
+}
+```
+
+### 使用 Agent
+
+```bash
+claude --agent my-agent
+```
+
+或在对话中用 `/agent` 指令切换。
 
 ---
 
