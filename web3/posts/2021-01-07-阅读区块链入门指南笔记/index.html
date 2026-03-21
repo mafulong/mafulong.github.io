@@ -1,4 +1,14 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
 区块链基础知识与关键技术# 共识机制# 区块链网络是由多个网络节点组成的，其中每个节点都存有一份信息备份，那它们是如何对交易达成一致的呢？也就是说，它们作为独立的节点，需要有一种机制来保障互相信任，这就是共识机制。
 常用的共识机制有PoW(Proof of Work)工作量证明，PoS(Proof of Stake)权益证明，DPoS(Delegated Proof of Stake委任权益证明，DBFT(Delegated Byzantine Fault Tolerance)等。
 比特币/以太坊主要采用的是工作量证明机制，通过算力比拼来增加恶意节点的作恶成本。通过动态调整挖矿的难度来让一笔交易时间控制在 10 分钟左右（6 个确认），但随着比特币挖矿越来越火热，消耗资源越来越多，对环境造成破坏；有些矿池拥有大量资源，也会造成一些中心化的风险。
@@ -10,8 +20,14 @@ Merkle Tree（默克尔树）是区块链系统中非常核心的数据结构，
 功能 说明 数据完整性验证 一笔交易变动会导致整棵树根变动 轻节点验证 SPV 客户端只需 Merkle 证明即可验证交易 节省带宽 不用全量同步交易数据 Merkle Tree 可以在不下载全部区块数据的情况下验证某笔交易是否包含在一个区块中。
 这叫做 SPV（Simplified Payment Verification）轻节点机制，比特币钱包常用。
 只需下载： 该交易的哈希值 到 Merkle Root 的“路径节点”（叫 Merkle Proof） 有了钱包（和资产）后，就可以开始交易了。我们来通过一个典型的比特币交易来理解这一流程：
-A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A->B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。
-"><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#2e3440"><meta name=color-scheme content="light dark"><meta property="og:url" content="/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/"><meta property="og:site_name" content="Web3 Notes"><meta property="og:title" content="阅读区块链入门指南笔记"><meta property="og:description" content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
+A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A-&gt;B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/">
+  <meta property="og:site_name" content="Web3 Notes">
+  <meta property="og:title" content="阅读区块链入门指南笔记">
+  <meta property="og:description" content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
 区块链基础知识与关键技术# 共识机制# 区块链网络是由多个网络节点组成的，其中每个节点都存有一份信息备份，那它们是如何对交易达成一致的呢？也就是说，它们作为独立的节点，需要有一种机制来保障互相信任，这就是共识机制。
 常用的共识机制有PoW(Proof of Work)工作量证明，PoS(Proof of Stake)权益证明，DPoS(Delegated Proof of Stake委任权益证明，DBFT(Delegated Byzantine Fault Tolerance)等。
 比特币/以太坊主要采用的是工作量证明机制，通过算力比拼来增加恶意节点的作恶成本。通过动态调整挖矿的难度来让一笔交易时间控制在 10 分钟左右（6 个确认），但随着比特币挖矿越来越火热，消耗资源越来越多，对环境造成破坏；有些矿池拥有大量资源，也会造成一些中心化的风险。
@@ -23,7 +39,15 @@ Merkle Tree（默克尔树）是区块链系统中非常核心的数据结构，
 功能 说明 数据完整性验证 一笔交易变动会导致整棵树根变动 轻节点验证 SPV 客户端只需 Merkle 证明即可验证交易 节省带宽 不用全量同步交易数据 Merkle Tree 可以在不下载全部区块数据的情况下验证某笔交易是否包含在一个区块中。
 这叫做 SPV（Simplified Payment Verification）轻节点机制，比特币钱包常用。
 只需下载： 该交易的哈希值 到 Merkle Root 的“路径节点”（叫 Merkle Proof） 有了钱包（和资产）后，就可以开始交易了。我们来通过一个典型的比特币交易来理解这一流程：
-A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A->B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。"><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="Web3"><meta itemprop=name content="阅读区块链入门指南笔记"><meta itemprop=description content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
+A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A-&gt;B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:tag" content="Web3">
+
+
+  <meta itemprop="name" content="阅读区块链入门指南笔记">
+  <meta itemprop="description" content="阅读区块链入门指南笔记# 以下为阅读《区块链入门指南》 的笔记。
 区块链基础知识与关键技术# 共识机制# 区块链网络是由多个网络节点组成的，其中每个节点都存有一份信息备份，那它们是如何对交易达成一致的呢？也就是说，它们作为独立的节点，需要有一种机制来保障互相信任，这就是共识机制。
 常用的共识机制有PoW(Proof of Work)工作量证明，PoS(Proof of Stake)权益证明，DPoS(Delegated Proof of Stake委任权益证明，DBFT(Delegated Byzantine Fault Tolerance)等。
 比特币/以太坊主要采用的是工作量证明机制，通过算力比拼来增加恶意节点的作恶成本。通过动态调整挖矿的难度来让一笔交易时间控制在 10 分钟左右（6 个确认），但随着比特币挖矿越来越火热，消耗资源越来越多，对环境造成破坏；有些矿池拥有大量资源，也会造成一些中心化的风险。
@@ -35,7 +59,600 @@ Merkle Tree（默克尔树）是区块链系统中非常核心的数据结构，
 功能 说明 数据完整性验证 一笔交易变动会导致整棵树根变动 轻节点验证 SPV 客户端只需 Merkle 证明即可验证交易 节省带宽 不用全量同步交易数据 Merkle Tree 可以在不下载全部区块数据的情况下验证某笔交易是否包含在一个区块中。
 这叫做 SPV（Simplified Payment Verification）轻节点机制，比特币钱包常用。
 只需下载： 该交易的哈希值 到 Merkle Root 的“路径节点”（叫 Merkle Proof） 有了钱包（和资产）后，就可以开始交易了。我们来通过一个典型的比特币交易来理解这一流程：
-A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A->B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。"><meta itemprop=wordCount content="272"><meta itemprop=keywords content="Web3"><title>阅读区块链入门指南笔记 | Web3 Notes</title><link rel=icon href=/web3/favicon.png><link rel=manifest href=/web3/manifest.json><link rel=canonical href=/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/><link rel=stylesheet href=/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css><script defer src=/web3/fuse.min.js></script><script defer src=/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js></script></head><body dir=ltr class="book-kind-page book-type-posts book-layout-post"><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/web3/><span>Web3 Notes</span></a></h2><div class="book-search hidden"><input id=book-search-input type=text placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class="book-header hidden"><div class="flex align-center justify-between"><label for=menu-control><img src=/web3/icons/menu.svg class=book-icon alt=Menu></label><h3>阅读区块链入门指南笔记</h3><label for=toc-control><img src=/web3/icons/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class=hidden><nav id=TableOfContents><ul><li><a href=#阅读区块链入门指南笔记>阅读区块链入门指南笔记</a><ul><li><a href=#区块链基础知识与关键技术>区块链基础知识与关键技术</a><ul><li><a href=#共识机制>共识机制</a></li></ul></li><li><a href=#比特币核心技术解读>比特币核心技术解读</a></li><li><a href=#ethereum-核心技术解读>Ethereum 核心技术解读</a><ul><li><a href=#去中心化应用-dapp>去中心化应用 DApp</a></li><li><a href=#账户>账户</a></li><li><a href=#钱包>钱包</a></li><li><a href=#智能合约>智能合约</a></li><li><a href=#交易>交易</a></li><li><a href=#架构>架构</a></li></ul></li><li><a href=#ethereum-mptmerkle-patricia-tries>Ethereum MPT(Merkle Patricia Tries)</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h1>阅读区块链入门指南笔记</h1><div class=text-small><a href=/web3/tags/web3/>Web3</a></div><div class="book-post-content markdown-inner"><h1 id=阅读区块链入门指南笔记>阅读区块链入门指南笔记<a class=anchor href=#%e9%98%85%e8%af%bb%e5%8c%ba%e5%9d%97%e9%93%be%e5%85%a5%e9%97%a8%e6%8c%87%e5%8d%97%e7%ac%94%e8%ae%b0>#</a></h1><p>以下为阅读《<a href=https://guide.pseudoyu.com/zh/>区块链入门指南</a>》 的笔记。</p><h2 id=区块链基础知识与关键技术>区块链基础知识与关键技术<a class=anchor href=#%e5%8c%ba%e5%9d%97%e9%93%be%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86%e4%b8%8e%e5%85%b3%e9%94%ae%e6%8a%80%e6%9c%af>#</a></h2><h3 id=共识机制>共识机制<a class=anchor href=#%e5%85%b1%e8%af%86%e6%9c%ba%e5%88%b6>#</a></h3><p>区块链网络是由多个网络节点组成的，其中每个节点都存有一份信息备份，那它们是如何对交易达成一致的呢？也就是说，它们作为独立的节点，需要有一种机制来保障互相信任，这就是共识机制。</p><p>常用的共识机制有<code>PoW(Proof of Work)</code>工作量证明，<code>PoS(Proof of Stake)</code>权益证明，<code>DPoS(Delegated Proof of Stake</code>委任权益证明，<code>DBFT(Delegated Byzantine Fault Tolerance)</code>等。</p><p>比特币/以太坊主要采用的是工作量证明机制，通过算力比拼来增加恶意节点的作恶成本。通过动态调整挖矿的难度来让一笔交易时间控制在 10 分钟左右（6 个确认），但随着比特币挖矿越来越火热，消耗资源越来越多，对环境造成破坏；有些矿池拥有大量资源，也会造成一些中心化的风险。</p><p>权益证明机制则是通过权益（一般是代币）持有者进行投票来达成共识。这种机制不需要像工作量证明一样进行大量的算力比拼，但是也有一些风险，称为<code>Nothing at Stake</code>问题，很多权益持有者会在所有区块都投注并从中获利。为了解决这个问题，系统设置了一些规则，如对同时在多个链创建区块的用户/在错误链上创建区块的用户设置一些惩罚机制。目前以太坊正在向这种共识机制转变。</p><p><code>EOS</code>则采用了委任权益证明，选出一些代表性的节点来进行投票，这种方式目的是优化社区投票的效率和结果，但带来了一些中心化的风险。</p><p><code>DBFT</code>共识机制则是通过对节点分配不同的角色来达成共识，这样可以很大程度降低开销和避免分叉，但是也有核心角色作恶的风险。</p><h2 id=比特币核心技术解读>比特币核心技术解读<a class=anchor href=#%e6%af%94%e7%89%b9%e5%b8%81%e6%a0%b8%e5%bf%83%e6%8a%80%e6%9c%af%e8%a7%a3%e8%af%bb>#</a></h2><p>节点分为全节点和轻节点两种，早期所有的节点都是全节点，但随着数据量越来越大，运行在手机或平板等设备上的比特币客户端不需要存储整个区块链的信息，称为<code>Simplified Payment Verification(SPV)</code>节点，也叫轻节点。</p><p>Merkle Tree（默克尔树）是区块链系统中非常核心的数据结构，主要用于<strong>数据完整性验证</strong>和<strong>提高效率</strong>。它在比特币、以太坊等主流区块链中都有使用。Merkle Tree 是一种<strong>哈希二叉树</strong>，每个叶子节点是一段数据（如交易记录）的哈希值，每个非叶子节点是其两个子节点哈希值的再哈希：</p><table><thead><tr><th>功能</th><th>说明</th></tr></thead><tbody><tr><td>数据完整性验证</td><td>一笔交易变动会导致整棵树根变动</td></tr><tr><td>轻节点验证</td><td>SPV 客户端只需 Merkle 证明即可验证交易</td></tr><tr><td>节省带宽</td><td>不用全量同步交易数据</td></tr></tbody></table><p>Merkle Tree 可以在不下载全部区块数据的情况下验证某笔交易是否包含在一个区块中。</p><p>这叫做 <strong>SPV（Simplified Payment Verification）轻节点机制</strong>，比特币钱包常用。</p><ul><li>只需下载：<ul><li>该交易的哈希值</li><li>到 Merkle Root 的“路径节点”（叫 Merkle Proof）</li></ul></li></ul><p>有了钱包（和资产）后，就可以开始交易了。我们来通过一个典型的比特币交易来理解这一流程：</p><p>A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对<code>A->B转账5个BTC</code>这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。</p><blockquote class=book-hint><p>比特币系统中怎么避免双重花费呢？</p></blockquote><p>比特币采用了一种叫<code>UTXO(Unspent Transaction Outputs)</code>的概念，当一个用户收到一笔 BTC 交易时，会计入<code>UTXO</code>中。</p><p>在这个示例中，A 想要给 B 转账 5 个 BTC，A 的这 5 个 BTC 可能来自于两个<code>UTXO</code>(2 BTC + 3 BTC)，因此 A 在转账给 B 时，矿工需要检验的是这两笔<code>UTXO</code>在这笔交易之前有没有被花掉，如果检测已经被花费了，则交易不合法。</p><p>此外，<code>UTXO</code>有一个很重要的特性，不可分割，假如 A 有 20 个 BTC，他想转账 5 个 BTC 给 B，那交易会先将 20 个 BTC 作为输入，然后产生两个输出，一个向 B 转账 5 个 BTC，一个返还给 A 剩下的 15 个 BTC，因此，A 又拥有了一笔价值为 15 BTC 的 <code>UTXO</code>；如果单个<code>UTXO</code>不够支付，则可以组合多个形成输入，但总额一定要大于交易额。</p><blockquote class=book-hint><p>矿工怎么验证交易发起者有足够的余额呢？</p></blockquote><p>这个问题看起来很简单，第一反应是像支付宝这样查询一下余额是否足够就可以。但比特币是一种基于交易的账本模式，并没有帐户概念，因此并不能直接查询余额，要想知道一个帐户的剩余资产，则需要回顾以前所有的交易，并且找到所有<code>UTXO</code>并相加。</p><blockquote class=book-hint><p>挖矿难度是如何调整的呢？</p></blockquote><p>系统会在每产生 2016 个区块时（约两周）调整一次目标阈值，存在块头中，全网所有节点需要遵从新的难度进行挖矿，如果恶意节点不调整代码中的 target 的话，诚实的矿工则不会认可</p><h2 id=ethereum-核心技术解读>Ethereum 核心技术解读<a class=anchor href=#ethereum-%e6%a0%b8%e5%bf%83%e6%8a%80%e6%9c%af%e8%a7%a3%e8%af%bb>#</a></h2><p>比特币作为一种去中心化的数字货币，是极其成功的，但受限于比特币脚本（非图灵完备，只能处理一些简单的逻辑），并不能处理很复杂的业务。而<code>Ethereum</code>引入了智能合约，使去中心化的概念能够应用于更丰富的应用场景，因此也被称为区块链 2.0。</p><p>简单来说，<code>Ethereum</code>是一个开源的去中心化系统，使用区块链来存储系统状态变化，因此也被称为“世界计算机”；它支持开发者在区块链上部署运行不可变的程序，称为智能合约，因此可以支持广泛的应用场景；它使用数字货币<code>Ether</code>来衡量系统资源消耗，激励更多人参与<code>Ethereum</code>系统建设。</p><h3 id=去中心化应用-dapp>去中心化应用 DApp<a class=anchor href=#%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e5%ba%94%e7%94%a8-dapp>#</a></h3><p>狭义来说，DApp 其实就是一个集成了用户界面、支持智能合约、运行于以太坊区块链上的应用。</p><p><img src=https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506280932337.png alt=ethereum_architecture></p><p>如上图所示，<code>Ethereum</code>应用实例部署在区块链网络上（智能合约运行于区块链虚拟机中），而 Web 程序只需要通过<code>Web3.js</code>对区块链网络进行<code>RPC</code>远程调用，这样用户就可以通过浏览器（DApp 浏览器或 MetaMask 等插件工具）访问去中心化服务应用了。</p><h3 id=账户>账户<a class=anchor href=#%e8%b4%a6%e6%88%b7>#</a></h3><p>当我们需要登录一个网站或系统（比如邮箱）时，往往需要一个帐号和一个密码，密码通过加密算法以暗文的形式存储在中心化的数据库中。然而，以太坊是一个去中心化的系统，那是怎么生成账户的呢？</p><p>和比特币系统原理类似</p><ol><li>首先生成一个仅有自己知道的私钥，假设为<code>sk</code>，采用<code>ECDSA(Elliptic Curve Digital Signature Algorithm)</code>椭圆曲线算法生成对应的公钥<code>pk</code></li><li>采用<code>keccak256</code>算法对公钥<code>pk</code>求哈希值</li><li>截取后 160 位作为以太坊的地址</li></ol><p>用户的私钥和地址一起组成了以太坊的账户，可以存储余额、发起交易等（比特币的余额是通过计算所有的<code>UTXO</code>得到的，而不是像以太坊一样存储在账户中）。</p><p>其实<code>Ethereum</code>账户分为两种类型，上述方式生成的叫<code>Externally Owned Accounts(EOA)</code>，外部账户，也就是常规用户拥有的账户，主要是用来发送/接收<code>Ether</code>代币或者向智能合约发送交易（即调用智能合约）。</p><p>而另一种则是<code>Contract Accounts</code>，合约账户，不同于外部账户，这种账户是没有对应的私钥的，而是在部署合约的时候生成的，存储智能合约代码。值得注意的是，合约账户必须要被外部账户或者其他合约调用才能够发送或接收<code>Ether</code>，而不能自己主动执行交易。</p><h3 id=钱包>钱包<a class=anchor href=#%e9%92%b1%e5%8c%85>#</a></h3><p>存储和管理<code>Ethereum</code>账户的软件/插件称为钱包，提供了诸如交易签名、余额管理等功能。钱包生成主要有两种方式，非确定性随机生成或根据随机种子生成。</p><h3 id=智能合约>智能合约<a class=anchor href=#%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6>#</a></h3><p>上文提到，<code>Ethereum</code>区块链不仅仅存储交易信息，还会存储与执行智能合约代码。</p><p>智能合约控制应用和交易逻辑，<code>Ethereum</code>系统中的智能合约采用专属<code>Solidity</code>语言，语法类似于<code>JavaScript</code>，除此之外，还有<code>Vyper</code>、<code>Bamboo</code>等编程语言。智能合约代码会被编译为字节码并部署至区块链中，一旦上链则不可以再编辑。<code>EVM</code>作为一个智能合约执行环境，能够保障执行结果的确定性。</p><h3 id=交易>交易<a class=anchor href=#%e4%ba%a4%e6%98%93>#</a></h3><p>在<code>Ethereum</code>中，一个典型的交易是怎么样的呢？</p><ol><li>开发者部署智能合约至区块链</li><li>DApp 实例化合约、传入相应值以执行合约</li><li>DApp 对交易进行数字签名</li><li>本地对交易进行验证</li><li>广播交易至网络中</li><li>矿工节点接收交易并进行验证</li><li>矿工节点确认可信区块后广播至网络中</li><li>本地节点与网络进行同步，接收新区块</li></ol><h3 id=架构>架构<a class=anchor href=#%e6%9e%b6%e6%9e%84>#</a></h3><p><img src=https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506280931004.png alt=ethereum_architecture_simple></p><p><code>Ethereum</code>采用的是一种<code>Order - Execute - Validate - Update State</code>的系统架构。在这种架构下，当产生一笔新的交易，矿工会进行<code>PoW</code>工作量证明机制的运算；验证完成后，将区块通过<code>gossip</code>协议广播至网络中；网络中的其他节点接收到新区块后，也会对区块进行验证；最终，提交至区块链，更新状态。</p><h2 id=ethereum-mptmerkle-patricia-tries>Ethereum MPT(Merkle Patricia Tries)<a class=anchor href=#ethereum-mptmerkle-patricia-tries>#</a></h2><p>Ethereum 的 MPT（Merkle Patricia Trie）是以太坊中用于存储和验证数据结构的核心组成部分，它结合了 <strong>Merkle Tree</strong> 与 <strong>Patricia Trie</strong> 的优点，具备以下功能：</p><p>MPT（Merkle Patricia Trie）是一个<strong>确定性前缀树</strong>（deterministic prefix tree），带有加密哈希功能，主要用于：</p><ul><li><strong>账户状态树（state trie）</strong>：存储每个账户的 nonce、余额、存储根和代码哈希。</li><li><strong>存储树（storage trie）</strong>：每个合约账户有自己的 trie，存储变量的 key-value。</li><li><strong>交易树（transaction trie）</strong>：按顺序存储一个区块内所有交易。</li><li><strong>收据树（receipt trie）</strong>：记录交易结果（gas 用量、日志等）。</li></ul><table><thead><tr><th>特性</th><th>描述</th></tr></thead><tbody><tr><td>哈希结构</td><td>所有节点都以 RLP 编码后，再进行 Keccak256 哈希计算</td></tr><tr><td>可验证性</td><td>通过 Merkle Proof 机制，可验证某个 key 是否存在</td></tr><tr><td>前缀压缩</td><td>Patricia Trie 会合并重复路径，提高查找效率</td></tr><tr><td>不可变性</td><td>修改数据后整棵树哈希变化，因此可防篡改、可回滚</td></tr></tbody></table><p>QA:</p><ul><li>Pactricia Trie 是路径压缩的前缀树。 Trie 结构比较浪费存储空间，当键值对分布稀疏时效率较低，而以太坊的账户地址是 40 位十六进制数，地址约为 2^160 种，极其稀疏（防止哈希碰撞）。因此，需要对 Trie 结构进行路径压缩，也就是 Pactricia Trie，经过压缩后，树的高度明显减少，空间和效率都得到提升。</li></ul></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a href=/web3/posts/2021-01-05-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8A%80%E6%9C%AF/ class="flex align-center"><img src=/web3/icons/backward.svg class=book-icon alt=Backward>
-<span>比特币技术</span></a></div><div><a href=/web3/posts/2021-01-08-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/ class="flex align-center"><span>阅读区块链技术指南笔记</span>
-<img src=/web3/icons/forward.svg class=book-icon alt=Forward></a></div></div><script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#阅读区块链入门指南笔记>阅读区块链入门指南笔记</a><ul><li><a href=#区块链基础知识与关键技术>区块链基础知识与关键技术</a><ul><li><a href=#共识机制>共识机制</a></li></ul></li><li><a href=#比特币核心技术解读>比特币核心技术解读</a></li><li><a href=#ethereum-核心技术解读>Ethereum 核心技术解读</a><ul><li><a href=#去中心化应用-dapp>去中心化应用 DApp</a></li><li><a href=#账户>账户</a></li><li><a href=#钱包>钱包</a></li><li><a href=#智能合约>智能合约</a></li><li><a href=#交易>交易</a></li><li><a href=#架构>架构</a></li></ul></li><li><a href=#ethereum-mptmerkle-patricia-tries>Ethereum MPT(Merkle Patricia Tries)</a></li></ul></li></ul></nav></div></aside></main></body></html>
+A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对A-&gt;B转账5个BTC这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。">
+  <meta itemprop="wordCount" content="272">
+  <meta itemprop="keywords" content="Web3">
+
+<title>阅读区块链入门指南笔记 | Web3 Notes</title>
+<link rel="icon" href="/web3/favicon.png" >
+<link rel="manifest" href="/web3/manifest.json">
+<link rel="canonical" href="/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/">
+<link rel="stylesheet" href="/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css" >
+
+
+  <script defer src="/web3/fuse.min.js"></script>
+  <script defer src="/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js" ></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts book-layout-post">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/web3/"><span>Web3 Notes</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-09-binance%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="">
+      Binance课程笔记</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="">
+      EVM交易构造和解析</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-11-solidity/" class="">
+      Solidity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="">
+      SOL交易构造和解析</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-01-web3%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="">
+      Web3基础概念</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-03-web3%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" class="">
+      Web3密码学安全</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-02-web3%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C/" class="">
+      Web3远程工作</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-06-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/" class="">
+      以太坊技术</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-07-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AFqa/" class="">
+      区块链技术QA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-10-%E5%8C%BA%E5%9D%97%E9%93%BE%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" class="">
+      区块链钱包开发系列教程</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2025-12-29-%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" class="">
+      未来扣钱</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-05-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8A%80%E6%9C%AF/" class="">
+      比特币技术</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/" class="active">
+      阅读区块链入门指南笔记</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-08-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/" class="">
+      阅读区块链技术指南笔记</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/web3/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>阅读区块链入门指南笔记</h3>
+
+  <label for="toc-control">
+    
+    <img src="/web3/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#阅读区块链入门指南笔记">阅读区块链入门指南笔记</a>
+      <ul>
+        <li><a href="#区块链基础知识与关键技术">区块链基础知识与关键技术</a>
+          <ul>
+            <li><a href="#共识机制">共识机制</a></li>
+          </ul>
+        </li>
+        <li><a href="#比特币核心技术解读">比特币核心技术解读</a></li>
+        <li><a href="#ethereum-核心技术解读">Ethereum 核心技术解读</a>
+          <ul>
+            <li><a href="#去中心化应用-dapp">去中心化应用 DApp</a></li>
+            <li><a href="#账户">账户</a></li>
+            <li><a href="#钱包">钱包</a></li>
+            <li><a href="#智能合约">智能合约</a></li>
+            <li><a href="#交易">交易</a></li>
+            <li><a href="#架构">架构</a></li>
+          </ul>
+        </li>
+        <li><a href="#ethereum-mptmerkle-patricia-tries">Ethereum MPT(Merkle Patricia Tries)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    阅读区块链入门指南笔记
+  </h1>
+  
+
+
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/web3/tags/web3/">Web3</a>
+  </div>
+  
+
+
+  <div class="book-post-content markdown-inner"><h1 id="阅读区块链入门指南笔记">阅读区块链入门指南笔记<a class="anchor" href="#%e9%98%85%e8%af%bb%e5%8c%ba%e5%9d%97%e9%93%be%e5%85%a5%e9%97%a8%e6%8c%87%e5%8d%97%e7%ac%94%e8%ae%b0">#</a></h1>
+<p>以下为阅读《<a href="https://guide.pseudoyu.com/zh/">区块链入门指南</a>》 的笔记。</p>
+<h2 id="区块链基础知识与关键技术">区块链基础知识与关键技术<a class="anchor" href="#%e5%8c%ba%e5%9d%97%e9%93%be%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86%e4%b8%8e%e5%85%b3%e9%94%ae%e6%8a%80%e6%9c%af">#</a></h2>
+<h3 id="共识机制">共识机制<a class="anchor" href="#%e5%85%b1%e8%af%86%e6%9c%ba%e5%88%b6">#</a></h3>
+<p>区块链网络是由多个网络节点组成的，其中每个节点都存有一份信息备份，那它们是如何对交易达成一致的呢？也就是说，它们作为独立的节点，需要有一种机制来保障互相信任，这就是共识机制。</p>
+<p>常用的共识机制有<code>PoW(Proof of Work)</code>工作量证明，<code>PoS(Proof of Stake)</code>权益证明，<code>DPoS(Delegated Proof of Stake</code>委任权益证明，<code>DBFT(Delegated Byzantine Fault Tolerance)</code>等。</p>
+<p>比特币/以太坊主要采用的是工作量证明机制，通过算力比拼来增加恶意节点的作恶成本。通过动态调整挖矿的难度来让一笔交易时间控制在 10 分钟左右（6 个确认），但随着比特币挖矿越来越火热，消耗资源越来越多，对环境造成破坏；有些矿池拥有大量资源，也会造成一些中心化的风险。</p>
+<p>权益证明机制则是通过权益（一般是代币）持有者进行投票来达成共识。这种机制不需要像工作量证明一样进行大量的算力比拼，但是也有一些风险，称为<code>Nothing at Stake</code>问题，很多权益持有者会在所有区块都投注并从中获利。为了解决这个问题，系统设置了一些规则，如对同时在多个链创建区块的用户/在错误链上创建区块的用户设置一些惩罚机制。目前以太坊正在向这种共识机制转变。</p>
+<p><code>EOS</code>则采用了委任权益证明，选出一些代表性的节点来进行投票，这种方式目的是优化社区投票的效率和结果，但带来了一些中心化的风险。</p>
+<p><code>DBFT</code>共识机制则是通过对节点分配不同的角色来达成共识，这样可以很大程度降低开销和避免分叉，但是也有核心角色作恶的风险。</p>
+<h2 id="比特币核心技术解读">比特币核心技术解读<a class="anchor" href="#%e6%af%94%e7%89%b9%e5%b8%81%e6%a0%b8%e5%bf%83%e6%8a%80%e6%9c%af%e8%a7%a3%e8%af%bb">#</a></h2>
+<p>节点分为全节点和轻节点两种，早期所有的节点都是全节点，但随着数据量越来越大，运行在手机或平板等设备上的比特币客户端不需要存储整个区块链的信息，称为<code>Simplified Payment Verification(SPV)</code>节点，也叫轻节点。</p>
+<p>Merkle Tree（默克尔树）是区块链系统中非常核心的数据结构，主要用于<strong>数据完整性验证</strong>和<strong>提高效率</strong>。它在比特币、以太坊等主流区块链中都有使用。Merkle Tree 是一种<strong>哈希二叉树</strong>，每个叶子节点是一段数据（如交易记录）的哈希值，每个非叶子节点是其两个子节点哈希值的再哈希：</p>
+<table>
+  <thead>
+      <tr>
+          <th>功能</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>数据完整性验证</td>
+          <td>一笔交易变动会导致整棵树根变动</td>
+      </tr>
+      <tr>
+          <td>轻节点验证</td>
+          <td>SPV 客户端只需 Merkle 证明即可验证交易</td>
+      </tr>
+      <tr>
+          <td>节省带宽</td>
+          <td>不用全量同步交易数据</td>
+      </tr>
+  </tbody>
+</table>
+<p>Merkle Tree 可以在不下载全部区块数据的情况下验证某笔交易是否包含在一个区块中。</p>
+<p>这叫做 <strong>SPV（Simplified Payment Verification）轻节点机制</strong>，比特币钱包常用。</p>
+<ul>
+<li>只需下载：
+<ul>
+<li>该交易的哈希值</li>
+<li>到 Merkle Root 的“路径节点”（叫 Merkle Proof）</li>
+</ul>
+</li>
+</ul>
+<p>有了钱包（和资产）后，就可以开始交易了。我们来通过一个典型的比特币交易来理解这一流程：</p>
+<p>A 和 B 都拥有一个比特币钱包地址（可以用 Bitcoin Client 生成，原理如上），假设 A 要给 B 转账 5 个 BTC，A 需要得到 B 的钱包地址，然后用自己的私钥对<code>A-&gt;B转账5个BTC</code>这笔交易签名（因为 A 的私钥仅有自己知道，所以拥有私钥则是拥有钱包资产的归属权）；然后发布这笔交易，在比特币系统中发起交易需要支付小额矿工费作为交易手续费；矿工会开始验证这笔交易的合法性，得到六个确认后交易就可以被比特币账本所接受，整个验证过程大约 10 分钟。</p>
+<blockquote class='book-hint '>
+<p>比特币系统中怎么避免双重花费呢？</p>
+</blockquote><p>比特币采用了一种叫<code>UTXO(Unspent Transaction Outputs)</code>的概念，当一个用户收到一笔 BTC 交易时，会计入<code>UTXO</code>中。</p>
+<p>在这个示例中，A 想要给 B 转账 5 个 BTC，A 的这 5 个 BTC 可能来自于两个<code>UTXO</code>(2 BTC + 3 BTC)，因此 A 在转账给 B 时，矿工需要检验的是这两笔<code>UTXO</code>在这笔交易之前有没有被花掉，如果检测已经被花费了，则交易不合法。</p>
+<p>此外，<code>UTXO</code>有一个很重要的特性，不可分割，假如 A 有 20 个 BTC，他想转账 5 个 BTC 给 B，那交易会先将 20 个 BTC 作为输入，然后产生两个输出，一个向 B 转账 5 个 BTC，一个返还给 A 剩下的 15 个 BTC，因此，A 又拥有了一笔价值为 15 BTC 的 <code>UTXO</code>；如果单个<code>UTXO</code>不够支付，则可以组合多个形成输入，但总额一定要大于交易额。</p>
+<blockquote class='book-hint '>
+<p>矿工怎么验证交易发起者有足够的余额呢？</p>
+</blockquote><p>这个问题看起来很简单，第一反应是像支付宝这样查询一下余额是否足够就可以。但比特币是一种基于交易的账本模式，并没有帐户概念，因此并不能直接查询余额，要想知道一个帐户的剩余资产，则需要回顾以前所有的交易，并且找到所有<code>UTXO</code>并相加。</p>
+<blockquote class='book-hint '>
+<p>挖矿难度是如何调整的呢？</p>
+</blockquote><p>系统会在每产生 2016 个区块时（约两周）调整一次目标阈值，存在块头中，全网所有节点需要遵从新的难度进行挖矿，如果恶意节点不调整代码中的 target 的话，诚实的矿工则不会认可</p>
+<h2 id="ethereum-核心技术解读">Ethereum 核心技术解读<a class="anchor" href="#ethereum-%e6%a0%b8%e5%bf%83%e6%8a%80%e6%9c%af%e8%a7%a3%e8%af%bb">#</a></h2>
+<p>比特币作为一种去中心化的数字货币，是极其成功的，但受限于比特币脚本（非图灵完备，只能处理一些简单的逻辑），并不能处理很复杂的业务。而<code>Ethereum</code>引入了智能合约，使去中心化的概念能够应用于更丰富的应用场景，因此也被称为区块链 2.0。</p>
+<p>简单来说，<code>Ethereum</code>是一个开源的去中心化系统，使用区块链来存储系统状态变化，因此也被称为“世界计算机”；它支持开发者在区块链上部署运行不可变的程序，称为智能合约，因此可以支持广泛的应用场景；它使用数字货币<code>Ether</code>来衡量系统资源消耗，激励更多人参与<code>Ethereum</code>系统建设。</p>
+<h3 id="去中心化应用-dapp">去中心化应用 DApp<a class="anchor" href="#%e5%8e%bb%e4%b8%ad%e5%bf%83%e5%8c%96%e5%ba%94%e7%94%a8-dapp">#</a></h3>
+<p>狭义来说，DApp 其实就是一个集成了用户界面、支持智能合约、运行于以太坊区块链上的应用。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506280932337.png" alt="ethereum_architecture" /></p>
+<p>如上图所示，<code>Ethereum</code>应用实例部署在区块链网络上（智能合约运行于区块链虚拟机中），而 Web 程序只需要通过<code>Web3.js</code>对区块链网络进行<code>RPC</code>远程调用，这样用户就可以通过浏览器（DApp 浏览器或 MetaMask 等插件工具）访问去中心化服务应用了。</p>
+<h3 id="账户">账户<a class="anchor" href="#%e8%b4%a6%e6%88%b7">#</a></h3>
+<p>当我们需要登录一个网站或系统（比如邮箱）时，往往需要一个帐号和一个密码，密码通过加密算法以暗文的形式存储在中心化的数据库中。然而，以太坊是一个去中心化的系统，那是怎么生成账户的呢？</p>
+<p>和比特币系统原理类似</p>
+<ol>
+<li>首先生成一个仅有自己知道的私钥，假设为<code>sk</code>，采用<code>ECDSA(Elliptic Curve Digital Signature Algorithm)</code>椭圆曲线算法生成对应的公钥<code>pk</code></li>
+<li>采用<code>keccak256</code>算法对公钥<code>pk</code>求哈希值</li>
+<li>截取后 160 位作为以太坊的地址</li>
+</ol>
+<p>用户的私钥和地址一起组成了以太坊的账户，可以存储余额、发起交易等（比特币的余额是通过计算所有的<code>UTXO</code>得到的，而不是像以太坊一样存储在账户中）。</p>
+<p>其实<code>Ethereum</code>账户分为两种类型，上述方式生成的叫<code>Externally Owned Accounts(EOA)</code>，外部账户，也就是常规用户拥有的账户，主要是用来发送/接收<code>Ether</code>代币或者向智能合约发送交易（即调用智能合约）。</p>
+<p>而另一种则是<code>Contract Accounts</code>，合约账户，不同于外部账户，这种账户是没有对应的私钥的，而是在部署合约的时候生成的，存储智能合约代码。值得注意的是，合约账户必须要被外部账户或者其他合约调用才能够发送或接收<code>Ether</code>，而不能自己主动执行交易。</p>
+<h3 id="钱包">钱包<a class="anchor" href="#%e9%92%b1%e5%8c%85">#</a></h3>
+<p>存储和管理<code>Ethereum</code>账户的软件/插件称为钱包，提供了诸如交易签名、余额管理等功能。钱包生成主要有两种方式，非确定性随机生成或根据随机种子生成。</p>
+<h3 id="智能合约">智能合约<a class="anchor" href="#%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6">#</a></h3>
+<p>上文提到，<code>Ethereum</code>区块链不仅仅存储交易信息，还会存储与执行智能合约代码。</p>
+<p>智能合约控制应用和交易逻辑，<code>Ethereum</code>系统中的智能合约采用专属<code>Solidity</code>语言，语法类似于<code>JavaScript</code>，除此之外，还有<code>Vyper</code>、<code>Bamboo</code>等编程语言。智能合约代码会被编译为字节码并部署至区块链中，一旦上链则不可以再编辑。<code>EVM</code>作为一个智能合约执行环境，能够保障执行结果的确定性。</p>
+<h3 id="交易">交易<a class="anchor" href="#%e4%ba%a4%e6%98%93">#</a></h3>
+<p>在<code>Ethereum</code>中，一个典型的交易是怎么样的呢？</p>
+<ol>
+<li>开发者部署智能合约至区块链</li>
+<li>DApp 实例化合约、传入相应值以执行合约</li>
+<li>DApp 对交易进行数字签名</li>
+<li>本地对交易进行验证</li>
+<li>广播交易至网络中</li>
+<li>矿工节点接收交易并进行验证</li>
+<li>矿工节点确认可信区块后广播至网络中</li>
+<li>本地节点与网络进行同步，接收新区块</li>
+</ol>
+<h3 id="架构">架构<a class="anchor" href="#%e6%9e%b6%e6%9e%84">#</a></h3>
+<p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506280931004.png" alt="ethereum_architecture_simple" /></p>
+<p><code>Ethereum</code>采用的是一种<code>Order - Execute - Validate - Update State</code>的系统架构。在这种架构下，当产生一笔新的交易，矿工会进行<code>PoW</code>工作量证明机制的运算；验证完成后，将区块通过<code>gossip</code>协议广播至网络中；网络中的其他节点接收到新区块后，也会对区块进行验证；最终，提交至区块链，更新状态。</p>
+<h2 id="ethereum-mptmerkle-patricia-tries">Ethereum MPT(Merkle Patricia Tries)<a class="anchor" href="#ethereum-mptmerkle-patricia-tries">#</a></h2>
+<p>Ethereum 的 MPT（Merkle Patricia Trie）是以太坊中用于存储和验证数据结构的核心组成部分，它结合了 <strong>Merkle Tree</strong> 与 <strong>Patricia Trie</strong> 的优点，具备以下功能：</p>
+<p>MPT（Merkle Patricia Trie）是一个<strong>确定性前缀树</strong>（deterministic prefix tree），带有加密哈希功能，主要用于：</p>
+<ul>
+<li><strong>账户状态树（state trie）</strong>：存储每个账户的 nonce、余额、存储根和代码哈希。</li>
+<li><strong>存储树（storage trie）</strong>：每个合约账户有自己的 trie，存储变量的 key-value。</li>
+<li><strong>交易树（transaction trie）</strong>：按顺序存储一个区块内所有交易。</li>
+<li><strong>收据树（receipt trie）</strong>：记录交易结果（gas 用量、日志等）。</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>哈希结构</td>
+          <td>所有节点都以 RLP 编码后，再进行 Keccak256 哈希计算</td>
+      </tr>
+      <tr>
+          <td>可验证性</td>
+          <td>通过 Merkle Proof 机制，可验证某个 key 是否存在</td>
+      </tr>
+      <tr>
+          <td>前缀压缩</td>
+          <td>Patricia Trie 会合并重复路径，提高查找效率</td>
+      </tr>
+      <tr>
+          <td>不可变性</td>
+          <td>修改数据后整棵树哈希变化，因此可防篡改、可回滚</td>
+      </tr>
+  </tbody>
+</table>
+<p>QA:</p>
+<ul>
+<li>Pactricia Trie 是路径压缩的前缀树。 Trie 结构比较浪费存储空间，当键值对分布稀疏时效率较低，而以太坊的账户地址是 40 位十六进制数，地址约为 2^160 种，极其稀疏（防止哈希碰撞）。因此，需要对 Trie 结构进行路径压缩，也就是 Pactricia Trie，经过压缩后，树的高度明显减少，空间和效率都得到提升。</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/web3/posts/2021-01-05-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8A%80%E6%9C%AF/" class="flex align-center">
+      <img src="/web3/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>比特币技术</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/web3/posts/2021-01-08-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/" class="flex align-center">
+      <span>阅读区块链技术指南笔记</span>
+      <img src="/web3/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#阅读区块链入门指南笔记">阅读区块链入门指南笔记</a>
+      <ul>
+        <li><a href="#区块链基础知识与关键技术">区块链基础知识与关键技术</a>
+          <ul>
+            <li><a href="#共识机制">共识机制</a></li>
+          </ul>
+        </li>
+        <li><a href="#比特币核心技术解读">比特币核心技术解读</a></li>
+        <li><a href="#ethereum-核心技术解读">Ethereum 核心技术解读</a>
+          <ul>
+            <li><a href="#去中心化应用-dapp">去中心化应用 DApp</a></li>
+            <li><a href="#账户">账户</a></li>
+            <li><a href="#钱包">钱包</a></li>
+            <li><a href="#智能合约">智能合约</a></li>
+            <li><a href="#交易">交易</a></li>
+            <li><a href="#架构">架构</a></li>
+          </ul>
+        </li>
+        <li><a href="#ethereum-mptmerkle-patricia-tries">Ethereum MPT(Merkle Patricia Tries)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
