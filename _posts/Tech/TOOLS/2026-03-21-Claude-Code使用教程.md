@@ -7,61 +7,17 @@ tags: Claude
 
 ## 安装
 
-### macOS
 ```bash
-# 使用 Homebrew 安装
+# macOS
 brew install anthropic/claude-code/claude
 
-# 或下载安装
-# https://github.com/anthropics/claude-code/releases
-```
-
-### 验证安装
-```bash
+# 验证
 claude --version
 ```
 
 ---
 
-## 配置
-
-### 配置文件位置
-- 全局配置: `~/.claude/settings.json`
-- 项目配置: `.claude/settings.json`
-
-### 常用配置项
-
-```json
-{
-  "permissions": {
-    "allow": ["Read", "Write", "Bash"],
-    "deny": []
-  },
-  "model": "sonnet-4-6-20250514",
-  "maxTokens": 8000
-}
-```
-
-### 配置权限
-
-```bash
-# 允许执行 npm 命令
-claude settings allow npm
-
-# 允许所有 bash 命令
-claude settings allow bash
-
-# 允许读写项目文件
-claude settings allow Read Write
-```
-
----
-
-## 跳过确认
-
-### 配置文件层级
-
-Claude Code 有 3 层配置文件，后面的会覆盖前面的：
+## 配置文件
 
 | 文件 | 作用域 | Git | 用途 |
 |------|--------|-----|------|
@@ -69,23 +25,17 @@ Claude Code 有 3 层配置文件，后面的会覆盖前面的：
 | `.claude/settings.json` | 项目 | 提交 | 团队共享 |
 | `.claude/settings.local.json` | 项目 | Gitignore | 个人覆盖 |
 
+---
+
+## 跳过确认
+
 ### permissions.defaultMode
 
-跳过确认的核心配置：
-
 ```json
-{
-  "permissions": {
-    "defaultMode": "bypassPermissions"
-  }
-}
+{ "permissions": { "defaultMode": "bypassPermissions" } }
 ```
 
-可选值：
-- `default` - 每次询问（安全）
-- `bypassPermissions` - 跳过所有确认（危险⚠️）
-- `plan` - 进入 plan 模式前询问
-- `acceptEdits` - 接受编辑，跳过执行确认
+可选值：`default`（每次询问）、`bypassPermissions`（跳过所有确认⚠️）、`plan`、`acceptEdits`
 
 ### 细粒度权限控制（推荐）
 
@@ -93,57 +43,33 @@ Claude Code 有 3 层配置文件，后面的会覆盖前面的：
 {
   "permissions": {
     "defaultMode": "default",
-    "allow": ["Bash(git:*)", "Bash(npm:*)", "Bash(node:*)", "Read", "Edit", "Glob", "Grep"],
-    "deny": ["Bash(sudo:*)", "Bash(rm -rf:*)"],
-    "ask": ["Write(/etc/*)"]
+    "allow": ["Bash(git:*)", "Bash(npm:*)", "Read", "Edit", "Glob", "Grep"],
+    "deny": ["Bash(sudo:*)", "Bash(rm -rf:*)"]
   }
 }
 ```
 
 规则优先级：`deny > allow > defaultMode`
 
-**注意**：`bypassPermissions` 模式下，所有非 deny 操作直接执行，`allow` 规则无意义。
+**注意**：`bypassPermissions` 模式下 `allow` 规则无意义。
 
-### 其他跳过确认的设置
+### 其他设置
 
 ```json
 {
   "skipDangerousModePermissionPrompt": true,
   "skipAutoPermissionPrompt": true,
-  "spinnerTipsEnabled": false,
-  "feedbackSurveyRate": 0
+  "spinnerTipsEnabled": false
 }
-```
-
-### 环境变量
-
-```bash
-export CLAUDE_SKIP_CONFIRM=true
-export API_TIMEOUT_MS=3000000  # API 超时 3 秒
 ```
 
 ### ⚠️ 安全警告
 
-`bypassPermissions` 模式下 Claude 可以执行任意命令，包括：
-- `rm -rf /` 之类的删除操作
-- 修改系统文件
-- 执行未知脚本
-
-**仅在完全信任当前项目代码时使用**。日常使用建议保持 `default` + 细粒度 `allow` 规则。
+`bypassPermissions` 模式下 Claude 可执行任意命令，包括 `rm -rf /`。仅在完全信任当前项目时使用。
 
 ---
 
-## 常用命令
-
-### 基础命令
-
-| 命令 | 说明 |
-|------|------|
-| `claude` | 启动对话 |
-| `claude --help` | 显示帮助 |
-| `claude --version` | 查看版本 |
-
-### 对话中常用指令
+## 常用指令
 
 | 指令 | 说明 |
 |------|------|
@@ -151,7 +77,7 @@ export API_TIMEOUT_MS=3000000  # API 超时 3 秒
 | `/clear` | 清空对话上下文 |
 | `/compact` | 压缩上下文 |
 | `/resume` | 查看并恢复历史对话 |
-| `/init` | 在当前项目生成 CLAUDE.md |
+| `/init` | 生成 CLAUDE.md |
 | `/model <name>` | 切换模型 |
 | `/commit` | 创建 git 提交 |
 | `/review-pr <number>` | 审查 PR |
@@ -160,100 +86,49 @@ export API_TIMEOUT_MS=3000000  # API 超时 3 秒
 
 ## 常用工具
 
-### Read - 读取文件
-
-```bash
-Read /path/to/file
-Read /path/to/file offset=10 limit=50
-```
-
-### Write - 写入文件
-
-```bash
-Write /path/to/file content="文件内容"
-```
-
-### Edit - 编辑文件
-
-```bash
-Edit /path/to/file old_string="旧内容" new_string="新内容"
-```
-
-### Glob - 文件搜索
-
-```bash
-Glob **/*.js
-Glob src/**/*.ts
-```
-
-### Grep - 内容搜索
-
-```bash
-Grep "functionName" type=js
-Grep "error" output_mode=content -C 3
-```
-
-### Bash - 执行命令
-
-```bash
-Bash command="ls -la" timeout=30000
-```
+| 工具 | 用法 |
+|------|------|
+| Read | `Read /path/to/file` |
+| Write | `Write /path/to/file content="..."` |
+| Edit | `Edit file_path old_string="..." new_string="..."` |
+| Glob | `Glob **/*.js` |
+| Grep | `Grep "pattern" type=js` |
+| Bash | `Bash command="ls -la"` |
 
 ---
 
 ## CLAUDE.md 项目记忆
 
-使用 `/init` 可在当前项目生成 `CLAUDE.md` 文件，用于存储项目重要信息：
+使用 `/init` 生成，存储项目信息供 Claude 记忆：
 
 ```markdown
-# 项目构建
+# 构建
 npm run build
 
 # 测试
 npm test
 
 # 代码风格
-- 使用下划线命名
+- 下划线命名
 - 函数最多 50 行
 
-# 架构模式
+# 架构
 - MVC 结构
-- 路由在 routes/ 目录
+- 路由在 routes/
 ```
-
-作用：
-- 常用命令、构建/测试命令
-- 代码风格偏好和命名约定
-- 项目特定架构模式
-- 与团队共享指令和个人偏好
-
----
-
-## 最佳实践
-
-1. **安全第一**: 敏感操作（如 `rm -rf`、`git push --force`）不要添加到白名单
-2. **项目隔离**: 建议在项目级别配置权限，而不是全局配置
-3. **定期审查**: 定期检查 `.claude/settings.json` 确保配置合理
-4. **使用 Task 工具**: 复杂任务使用 TaskCreate/TaskUpdate 跟踪进度
 
 ---
 
 ## 常见问题
 
-**Q: 如何查看历史对话?**
-A: 使用 `/resume` 会显示对话列表，包含开始时间、摘要、消息数量
+**Q: 如何查看历史对话？**
+A: `/resume`
 
-**Q: 上下文太长出问题怎么办?**
-A: 使用 `/clear` 清空对话，重新开始
+**Q: 上下文太长出错？**
+A: `/clear` 清空对话
 
-**Q: 如何退出 Claude?**
-A: 输入 `/exit` 或按 `Ctrl+C`
+**Q: 如何退出？**
+A: `/exit` 或 `Ctrl+C`
 
-**Q: 如何中断正在执行的命令?**
-A: 按 `Ctrl+C`
-
-**Q: 如何查看当前配置?**
-A: `claude settings list`
-
-**Q: 如何重置配置?**
-A: 删除 `~/.claude/settings.json` 或使用 `claude settings reset`
+**Q: 如何重置配置？**
+A: 删除 `~/.claude/settings.json`
