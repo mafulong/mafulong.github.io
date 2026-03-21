@@ -7,12 +7,25 @@ tags: Claude
 
 ## 安装
 
+### macOS
+
 ```bash
-# macOS
+# 安装
 brew install anthropic/claude-code/claude
+
+# 或下载安装
+# https://github.com/anthropics/claude-code/releases
 
 # 验证
 claude --version
+```
+
+### 代理设置（可选）
+
+如果网络有问题，使用代理：
+
+```bash
+export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 ```
 
 ---
@@ -77,7 +90,46 @@ claude --version
 
 ---
 
-## 常用指令
+## 模型切换
+
+### 切换模型
+
+对话中使用 `/model` 指令：
+
+```bash
+/model sonnet
+/model opus
+/model haiku
+/model MiniMax-M2.7
+```
+
+### 配置默认模型
+
+在 `~/.claude/settings.json` 中设置：
+
+```json
+{
+  "env": {
+    "ANTHROPIC_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7"
+  }
+}
+```
+
+### 使用自定义 API
+
+```json
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your-api-key",
+    "ANTHROPIC_BASE_URL": "https://api.minimax.chat/v1"
+  }
+}
+```
+
+---
 
 | 指令 | 说明 |
 |------|------|
