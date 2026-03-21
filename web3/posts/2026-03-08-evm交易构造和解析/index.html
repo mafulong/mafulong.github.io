@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="EVM交易构造和解析# 一、EVM 交易基础结构# EVM 交易本质是 对账户或合约的一次调用。
+标准交易字段：
+Transaction ├─ nonce ├─ gasPrice / maxFeePerGas ├─ gasLimit ├─ to ├─ value ├─ data ├─ chainId └─ signature (v,r,s)关键字段说明：
+字段 作用 nonce 防止重放，账户交易序号 to 目标地址（EOA 或合约） value 转账 ETH 数量 data 调用合约函数数据 gasLimit 最大 gas gasPrice 每单位 gas 价格 如果：
+data = 0x则是普通转账。
+二、EVM 交易类型# 常见交易类型：
+1 Legacy Transaction# 旧交易结构：
+nonce gasPrice gasLimit to value data v,r,s 2 EIP-1559 Transaction# 增加了动态费率：
+maxPriorityFeePerGas maxFeePerGas交易类型：
+type = 2 3 EIP-2930 Transaction# 支持 access list：
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">
+  <meta property="og:site_name" content="Web3 Notes">
+  <meta property="og:title" content="EVM交易构造和解析">
+  <meta property="og:description" content="EVM交易构造和解析# 一、EVM 交易基础结构# EVM 交易本质是 对账户或合约的一次调用。
+标准交易字段：
+Transaction ├─ nonce ├─ gasPrice / maxFeePerGas ├─ gasLimit ├─ to ├─ value ├─ data ├─ chainId └─ signature (v,r,s)关键字段说明：
+字段 作用 nonce 防止重放，账户交易序号 to 目标地址（EOA 或合约） value 转账 ETH 数量 data 调用合约函数数据 gasLimit 最大 gas gasPrice 每单位 gas 价格 如果：
+data = 0x则是普通转账。
+二、EVM 交易类型# 常见交易类型：
+1 Legacy Transaction# 旧交易结构：
+nonce gasPrice gasLimit to value data v,r,s 2 EIP-1559 Transaction# 增加了动态费率：
+maxPriorityFeePerGas maxFeePerGas交易类型：
+type = 2 3 EIP-2930 Transaction# 支持 access list：">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:tag" content="Web3">
+
+
+  <meta itemprop="name" content="EVM交易构造和解析">
+  <meta itemprop="description" content="EVM交易构造和解析# 一、EVM 交易基础结构# EVM 交易本质是 对账户或合约的一次调用。
+标准交易字段：
+Transaction ├─ nonce ├─ gasPrice / maxFeePerGas ├─ gasLimit ├─ to ├─ value ├─ data ├─ chainId └─ signature (v,r,s)关键字段说明：
+字段 作用 nonce 防止重放，账户交易序号 to 目标地址（EOA 或合约） value 转账 ETH 数量 data 调用合约函数数据 gasLimit 最大 gas gasPrice 每单位 gas 价格 如果：
+data = 0x则是普通转账。
+二、EVM 交易类型# 常见交易类型：
+1 Legacy Transaction# 旧交易结构：
+nonce gasPrice gasLimit to value data v,r,s 2 EIP-1559 Transaction# 增加了动态费率：
+maxPriorityFeePerGas maxFeePerGas交易类型：
+type = 2 3 EIP-2930 Transaction# 支持 access list：">
+  <meta itemprop="wordCount" content="487">
+  <meta itemprop="keywords" content="Web3">
+
+<title>EVM交易构造和解析 | Web3 Notes</title>
+<link rel="icon" href="/web3/favicon.png" >
+<link rel="manifest" href="/web3/manifest.json">
+<link rel="canonical" href="/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">
+<link rel="stylesheet" href="/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css" >
+
+
+  <script defer src="/web3/fuse.min.js"></script>
+  <script defer src="/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js" ></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts book-layout-post">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/web3/"><span>Web3 Notes</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/web3/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>EVM交易构造和解析</h3>
+
+  <label for="toc-control">
+    
+    <img src="/web3/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#evm交易构造和解析">EVM交易构造和解析</a></li>
+      </ul>
+    </li>
+    <li><a href="#一evm-交易基础结构">一、EVM 交易基础结构</a></li>
+    <li><a href="#二evm-交易类型">二、EVM 交易类型</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-legacy-transaction">1 Legacy Transaction</a></li>
+            <li><a href="#2-eip-1559-transaction">2 EIP-1559 Transaction</a></li>
+            <li><a href="#3-eip-2930-transaction">3 EIP-2930 Transaction</a></li>
+            <li><a href="#4-account-abstraction--特殊结构">4 Account Abstraction / 特殊结构</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三evm-calldata-编码">三、EVM calldata 编码</a></li>
+    <li><a href="#四function-selector">四、Function Selector</a></li>
+    <li><a href="#五abi-参数编码规则">五、ABI 参数编码规则</a></li>
+    <li><a href="#六动态参数编码">六、动态参数编码</a></li>
+    <li><a href="#七evm-地址编码">七、EVM 地址编码</a></li>
+    <li><a href="#八数字编码">八、数字编码</a></li>
+    <li><a href="#九交易构造流程">九、交易构造流程</a></li>
+    <li><a href="#十交易签名">十、交易签名</a></li>
+    <li><a href="#十一交易解析流程">十一、交易解析流程</a></li>
+    <li><a href="#十二batch--multicall-交易">十二、Batch / Multicall 交易</a></li>
+    <li><a href="#十三evm-常见编码格式">十三、EVM 常见编码格式</a></li>
+    <li><a href="#十四calldata-解析工具">十四、Calldata 解析工具</a></li>
+    <li><a href="#十五交易-trace">十五、交易 trace</a></li>
+    <li><a href="#十六链上解析常见数据">十六、链上解析常见数据</a></li>
+    <li><a href="#十七事件日志解析">十七、事件日志解析</a></li>
+    <li><a href="#十八evm-解析核心知识">十八、EVM 解析核心知识</a></li>
+    <li><a href="#evm-calldata-解析笔记">EVM Calldata 解析笔记</a>
+      <ul>
+        <li><a href="#1-基本概念">1. 基本概念</a></li>
+        <li><a href="#2-解析步骤">2. 解析步骤</a></li>
+        <li><a href="#3-常用工具">3. 常用工具</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    EVM交易构造和解析
+  </h1>
+  
+
+
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/web3/tags/web3/">Web3</a>
+  </div>
+  
+
+
+  <div class="book-post-content markdown-inner"><h2 id="evm交易构造和解析">EVM交易构造和解析<a class="anchor" href="#evm%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0%e5%92%8c%e8%a7%a3%e6%9e%90">#</a></h2>
+<h1 id="一evm-交易基础结构">一、EVM 交易基础结构<a class="anchor" href="#%e4%b8%80evm-%e4%ba%a4%e6%98%93%e5%9f%ba%e7%a1%80%e7%bb%93%e6%9e%84">#</a></h1>
+<p>EVM 交易本质是 <strong>对账户或合约的一次调用</strong>。</p>
+<p>标准交易字段：</p>
+<pre tabindex="0"><code>Transaction
+├─ nonce
+├─ gasPrice / maxFeePerGas
+├─ gasLimit
+├─ to
+├─ value
+├─ data
+├─ chainId
+└─ signature (v,r,s)</code></pre><p>关键字段说明：</p>
+<table>
+  <thead>
+      <tr>
+          <th>字段</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>nonce</td>
+          <td>防止重放，账户交易序号</td>
+      </tr>
+      <tr>
+          <td>to</td>
+          <td>目标地址（EOA 或合约）</td>
+      </tr>
+      <tr>
+          <td>value</td>
+          <td>转账 ETH 数量</td>
+      </tr>
+      <tr>
+          <td>data</td>
+          <td>调用合约函数数据</td>
+      </tr>
+      <tr>
+          <td>gasLimit</td>
+          <td>最大 gas</td>
+      </tr>
+      <tr>
+          <td>gasPrice</td>
+          <td>每单位 gas 价格</td>
+      </tr>
+  </tbody>
+</table>
+<p>如果：</p>
+<pre tabindex="0"><code>data = 0x</code></pre><p>则是普通转账。</p>
+<hr>
+<h1 id="二evm-交易类型">二、EVM 交易类型<a class="anchor" href="#%e4%ba%8cevm-%e4%ba%a4%e6%98%93%e7%b1%bb%e5%9e%8b">#</a></h1>
+<p>常见交易类型：</p>
+<h3 id="1-legacy-transaction">1 Legacy Transaction<a class="anchor" href="#1-legacy-transaction">#</a></h3>
+<p>旧交易结构：</p>
+<pre tabindex="0"><code>nonce
+gasPrice
+gasLimit
+to
+value
+data
+v,r,s</code></pre><hr>
+<h3 id="2-eip-1559-transaction">2 EIP-1559 Transaction<a class="anchor" href="#2-eip-1559-transaction">#</a></h3>
+<p>增加了动态费率：</p>
+<pre tabindex="0"><code>maxPriorityFeePerGas
+maxFeePerGas</code></pre><p>交易类型：</p>
+<pre tabindex="0"><code>type = 2</code></pre><hr>
+<h3 id="3-eip-2930-transaction">3 EIP-2930 Transaction<a class="anchor" href="#3-eip-2930-transaction">#</a></h3>
+<p>支持 access list：</p>
+<pre tabindex="0"><code>type = 1</code></pre><hr>
+<h3 id="4-account-abstraction--特殊结构">4 Account Abstraction / 特殊结构<a class="anchor" href="#4-account-abstraction--%e7%89%b9%e6%ae%8a%e7%bb%93%e6%9e%84">#</a></h3>
+<p>例如：</p>
+<ul>
+<li>EIP-4337</li>
+<li>EIP-7702</li>
+</ul>
+<p>会出现：</p>
+<pre tabindex="0"><code>call struct
+batch calls</code></pre><hr>
+<h1 id="三evm-calldata-编码">三、EVM calldata 编码<a class="anchor" href="#%e4%b8%89evm-calldata-%e7%bc%96%e7%a0%81">#</a></h1>
+<p>EVM 合约调用通过：</p>
+<pre tabindex="0"><code>data (calldata)</code></pre><p>编码规则来自 <strong>ABI encoding</strong>。</p>
+<p>基本结构：</p>
+<pre tabindex="0"><code>4 bytes   function selector
+N bytes   parameters</code></pre><hr>
+<h1 id="四function-selector">四、Function Selector<a class="anchor" href="#%e5%9b%9bfunction-selector">#</a></h1>
+<p>selector 计算方法：</p>
+<pre tabindex="0"><code>keccak256(&#34;functionSignature&#34;)[0:4]</code></pre><p>例如：</p>
+<pre tabindex="0"><code>transfer(address,uint256)</code></pre><p>计算：</p>
+<pre tabindex="0"><code>keccak256(&#34;transfer(address,uint256)&#34;)</code></pre><p>取前 4 bytes：</p>
+<pre tabindex="0"><code>a9059cbb</code></pre><p>所以：</p>
+<pre tabindex="0"><code>0xa9059cbb</code></pre><p>表示 ERC20 transfer。</p>
+<p>常见 selector：</p>
+<table>
+  <thead>
+      <tr>
+          <th>selector</th>
+          <th>函数</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>a9059cbb</td>
+          <td>transfer</td>
+      </tr>
+      <tr>
+          <td>095ea7b3</td>
+          <td>approve</td>
+      </tr>
+      <tr>
+          <td>23b872dd</td>
+          <td>transferFrom</td>
+      </tr>
+      <tr>
+          <td>70a08231</td>
+          <td>balanceOf</td>
+      </tr>
+      <tr>
+          <td>dd62ed3e</td>
+          <td>allowance</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h1 id="五abi-参数编码规则">五、ABI 参数编码规则<a class="anchor" href="#%e4%ba%94abi-%e5%8f%82%e6%95%b0%e7%bc%96%e7%a0%81%e8%a7%84%e5%88%99">#</a></h1>
+<p>ABI 使用：</p>
+<pre tabindex="0"><code>32 bytes slot</code></pre><p>参数对齐方式：</p>
+<pre tabindex="0"><code>uint256 → 32 bytes
+address → 32 bytes (左填充)
+bool → 32 bytes</code></pre><p>示例：</p>
+<pre tabindex="0"><code>transfer(address,uint256)</code></pre><p>calldata：</p>
+<pre tabindex="0"><code>a9059cbb
+0000000000000000000000008c99bc6137cfe81a295fff86de795e0557b60f46
+00000000000000000000000000000000000000000000000000000000000f4240</code></pre><p>解释：</p>
+<pre tabindex="0"><code>selector
+address
+amount</code></pre><hr>
+<h1 id="六动态参数编码">六、动态参数编码<a class="anchor" href="#%e5%85%ad%e5%8a%a8%e6%80%81%e5%8f%82%e6%95%b0%e7%bc%96%e7%a0%81">#</a></h1>
+<p>如果函数包含：</p>
+<pre tabindex="0"><code>string
+bytes
+array
+struct</code></pre><p>使用 <strong>offset 编码</strong>。</p>
+<p>结构：</p>
+<pre tabindex="0"><code>selector
+offset
+...
+dynamic data</code></pre><p>示例：</p>
+<pre tabindex="0"><code>function foo(string)</code></pre><p>编码：</p>
+<pre tabindex="0"><code>selector
+offset (0x20)
+length
+data</code></pre><hr>
+<h1 id="七evm-地址编码">七、EVM 地址编码<a class="anchor" href="#%e4%b8%83evm-%e5%9c%b0%e5%9d%80%e7%bc%96%e7%a0%81">#</a></h1>
+<p>EVM 地址：</p>
+<pre tabindex="0"><code>20 bytes</code></pre><p>calldata 中表示为：</p>
+<pre tabindex="0"><code>32 bytes</code></pre><p>示例：</p>
+<pre tabindex="0"><code>0000000000000000000000008c99bc6137cfe81a295fff86de795e0557b60f46</code></pre><p>规则：</p>
+<pre tabindex="0"><code>前 12 bytes 填充 0
+后 20 bytes 地址</code></pre><hr>
+<h1 id="八数字编码">八、数字编码<a class="anchor" href="#%e5%85%ab%e6%95%b0%e5%ad%97%e7%bc%96%e7%a0%81">#</a></h1>
+<p>EVM 所有整数：</p>
+<pre tabindex="0"><code>uint256</code></pre><p>编码：</p>
+<pre tabindex="0"><code>32 bytes big-endian</code></pre><p>示例：</p>
+<pre tabindex="0"><code>0x0f4240</code></pre><p>转十进制：</p>
+<pre tabindex="0"><code>1000000</code></pre><hr>
+<h1 id="九交易构造流程">九、交易构造流程<a class="anchor" href="#%e4%b9%9d%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0%e6%b5%81%e7%a8%8b">#</a></h1>
+<p>构造交易通常步骤：</p>
+<pre tabindex="0"><code>1 定义函数
+2 ABI encode 参数
+3 构造 calldata
+4 填充交易字段
+5 签名
+6 广播</code></pre><p>示例（ethers.js）：</p>
+<pre tabindex="0"><code>const iface = new ethers.Interface(abi)
+
+const data = iface.encodeFunctionData(
+  &#34;transfer&#34;,
+  [to, amount]
+)
+
+const tx = {
+  to: token,
+  data: data,
+  value: 0
+}</code></pre><hr>
+<h1 id="十交易签名">十、交易签名<a class="anchor" href="#%e5%8d%81%e4%ba%a4%e6%98%93%e7%ad%be%e5%90%8d">#</a></h1>
+<p>EVM 使用：</p>
+<pre tabindex="0"><code>ECDSA secp256k1</code></pre><p>签名字段：</p>
+<pre tabindex="0"><code>r
+s
+v</code></pre><p>交易 hash：</p>
+<pre tabindex="0"><code>keccak256(rlp(tx))</code></pre><p>签名后：</p>
+<pre tabindex="0"><code>rawTransaction</code></pre><hr>
+<h1 id="十一交易解析流程">十一、交易解析流程<a class="anchor" href="#%e5%8d%81%e4%b8%80%e4%ba%a4%e6%98%93%e8%a7%a3%e6%9e%90%e6%b5%81%e7%a8%8b">#</a></h1>
+<p>解析一笔交易通常：</p>
+<pre tabindex="0"><code>1 获取 transaction
+2 读取 data
+3 解析 selector
+4 查 ABI
+5 decode 参数</code></pre><p>流程图：</p>
+<pre tabindex="0"><code>transaction
+   ↓
+data
+   ↓
+function selector
+   ↓
+ABI
+   ↓
+decode parameters</code></pre><hr>
+<h1 id="十二batch--multicall-交易">十二、Batch / Multicall 交易<a class="anchor" href="#%e5%8d%81%e4%ba%8cbatch--multicall-%e4%ba%a4%e6%98%93">#</a></h1>
+<p>DeFi 常见：</p>
+<pre tabindex="0"><code>multicall</code></pre><p>结构：</p>
+<pre tabindex="0"><code>call[]
+ ├─ target
+ ├─ calldata
+ └─ value</code></pre><p>例如：</p>
+<pre tabindex="0"><code>swap
+transfer
+transfer</code></pre><hr>
+<h1 id="十三evm-常见编码格式">十三、EVM 常见编码格式<a class="anchor" href="#%e5%8d%81%e4%b8%89evm-%e5%b8%b8%e8%a7%81%e7%bc%96%e7%a0%81%e6%a0%bc%e5%bc%8f">#</a></h1>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>编码</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>calldata</td>
+          <td>hex</td>
+      </tr>
+      <tr>
+          <td>address</td>
+          <td>20 bytes</td>
+      </tr>
+      <tr>
+          <td>hash</td>
+          <td>32 bytes</td>
+      </tr>
+      <tr>
+          <td>signature</td>
+          <td>65 bytes</td>
+      </tr>
+  </tbody>
+</table>
+<p>EVM 基本全部使用：</p>
+<pre tabindex="0"><code>hex (0x)</code></pre><hr>
+<h1 id="十四calldata-解析工具">十四、Calldata 解析工具<a class="anchor" href="#%e5%8d%81%e5%9b%9bcalldata-%e8%a7%a3%e6%9e%90%e5%b7%a5%e5%85%b7">#</a></h1>
+<p>常见工具：</p>
+<ul>
+<li>Foundry</li>
+<li>Tenderly</li>
+<li>ethers.js</li>
+</ul>
+<p>常用命令：</p>
+<pre tabindex="0"><code>cast 4byte
+cast decode-calldata</code></pre><hr>
+<h1 id="十五交易-trace">十五、交易 trace<a class="anchor" href="#%e5%8d%81%e4%ba%94%e4%ba%a4%e6%98%93-trace">#</a></h1>
+<p>复杂交易需要：</p>
+<pre tabindex="0"><code>trace</code></pre><p>trace 可以看到：</p>
+<pre tabindex="0"><code>internal calls
+delegatecall
+staticcall
+transfer</code></pre><p>常见工具：</p>
+<ul>
+<li>Tenderly</li>
+<li>Hardhat</li>
+</ul>
+<hr>
+<h1 id="十六链上解析常见数据">十六、链上解析常见数据<a class="anchor" href="#%e5%8d%81%e5%85%ad%e9%93%be%e4%b8%8a%e8%a7%a3%e6%9e%90%e5%b8%b8%e8%a7%81%e6%95%b0%e6%8d%ae">#</a></h1>
+<p>解析交易通常关注：</p>
+<pre tabindex="0"><code>token transfers
+swap events
+logs
+internal transactions</code></pre><p>日志结构：</p>
+<pre tabindex="0"><code>event signature
+topics
+data</code></pre><p>event signature：</p>
+<pre tabindex="0"><code>keccak256(&#34;Transfer(address,address,uint256)&#34;)</code></pre><hr>
+<h1 id="十七事件日志解析">十七、事件日志解析<a class="anchor" href="#%e5%8d%81%e4%b8%83%e4%ba%8b%e4%bb%b6%e6%97%a5%e5%bf%97%e8%a7%a3%e6%9e%90">#</a></h1>
+<p>日志结构：</p>
+<pre tabindex="0"><code>log
+├─ address
+├─ topics[]
+└─ data</code></pre><p>topics：</p>
+<pre tabindex="0"><code>topic0 = event signature
+topic1 = indexed param
+topic2 = indexed param</code></pre><p>示例：</p>
+<pre tabindex="0"><code>Transfer(address,address,uint256)</code></pre><p>topics：</p>
+<pre tabindex="0"><code>topic0 event hash
+topic1 from
+topic2 to</code></pre><p>data：</p>
+<pre tabindex="0"><code>amount</code></pre><hr>
+<h1 id="十八evm-解析核心知识">十八、EVM 解析核心知识<a class="anchor" href="#%e5%8d%81%e5%85%abevm-%e8%a7%a3%e6%9e%90%e6%a0%b8%e5%bf%83%e7%9f%a5%e8%af%86">#</a></h1>
+<h1 id="evm-calldata-解析笔记">EVM Calldata 解析笔记<a class="anchor" href="#evm-calldata-%e8%a7%a3%e6%9e%90%e7%ac%94%e8%ae%b0">#</a></h1>
+<h2 id="1-基本概念">1. 基本概念<a class="anchor" href="#1-%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5">#</a></h2>
+<ul>
+<li><strong>calldata</strong>：以太坊 EVM 中交易调用合约的输入数据。
+<ul>
+<li><code>msg.data</code> 在 Solidity 中对应 calldata</li>
+<li>包含函数选择器 + 函数参数编码</li>
+</ul>
+</li>
+<li><strong>函数选择器（function selector）</strong>：
+<ul>
+<li>前 4 字节（8 个 hex 字符）</li>
+<li>由函数签名（<code>functionName(type1,type2,...)</code>）经过 Keccak256 哈希取前 4 字节生成</li>
+</ul>
+</li>
+<li><strong>参数编码</strong>：
+<ul>
+<li>使用 <strong>ABI 编码</strong>，固定长度类型按 32 字节对齐，动态类型附带偏移和长度信息</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-解析步骤">2. 解析步骤<a class="anchor" href="#2-%e8%a7%a3%e6%9e%90%e6%ad%a5%e9%aa%a4">#</a></h2>
+<ol>
+<li><strong>拆分选择器与参数</strong>
+<ul>
+<li>calldata: <code>0xa9059cbb000000000000000000000000e84e684c...</code></li>
+<li>前 4 字节 <code>a9059cbb</code> → 查函数对应的 selector → <code>transfer(address,uint256)</code></li>
+</ul>
+</li>
+<li><strong>解析参数</strong>
+<ul>
+<li>固定长度类型（uint256、address、bool…）：
+<ul>
+<li>直接按 32 字节切片</li>
+<li>地址 <code>address</code> 在低 20 字节</li>
+</ul>
+</li>
+<li>动态类型（string、bytes、数组）：
+<ul>
+<li>前面存偏移量（从 calldata 开始的字节位置）</li>
+<li>偏移位置存长度，再后面是实际数据</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>多函数调用（multicall / 7702 struct）</strong>
+<ul>
+<li>calldata 可能包含多个子调用</li>
+<li>每个子调用有：
+<ul>
+<li><code>target</code> 地址</li>
+<li>子调用 <code>callData</code>（单独解析）</li>
+<li><code>value</code>（支付的 ETH 数量）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="3-常用工具">3. 常用工具<a class="anchor" href="#3-%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7">#</a></h2>
+<ul>
+<li><strong>在线/GUI</strong>：
+<ul>
+<li><a href="https://etherscan.io/">etherscan.io / Read Contract</a></li>
+<li></li>
+</ul>
+</li>
+</ul>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/web3/posts/2021-01-09-binance%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="flex align-center">
+      <img src="/web3/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>Binance课程笔记</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/web3/posts/2021-01-11-solidity/" class="flex align-center">
+      <span>Solidity</span>
+      <img src="/web3/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#evm交易构造和解析">EVM交易构造和解析</a></li>
+      </ul>
+    </li>
+    <li><a href="#一evm-交易基础结构">一、EVM 交易基础结构</a></li>
+    <li><a href="#二evm-交易类型">二、EVM 交易类型</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#1-legacy-transaction">1 Legacy Transaction</a></li>
+            <li><a href="#2-eip-1559-transaction">2 EIP-1559 Transaction</a></li>
+            <li><a href="#3-eip-2930-transaction">3 EIP-2930 Transaction</a></li>
+            <li><a href="#4-account-abstraction--特殊结构">4 Account Abstraction / 特殊结构</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#三evm-calldata-编码">三、EVM calldata 编码</a></li>
+    <li><a href="#四function-selector">四、Function Selector</a></li>
+    <li><a href="#五abi-参数编码规则">五、ABI 参数编码规则</a></li>
+    <li><a href="#六动态参数编码">六、动态参数编码</a></li>
+    <li><a href="#七evm-地址编码">七、EVM 地址编码</a></li>
+    <li><a href="#八数字编码">八、数字编码</a></li>
+    <li><a href="#九交易构造流程">九、交易构造流程</a></li>
+    <li><a href="#十交易签名">十、交易签名</a></li>
+    <li><a href="#十一交易解析流程">十一、交易解析流程</a></li>
+    <li><a href="#十二batch--multicall-交易">十二、Batch / Multicall 交易</a></li>
+    <li><a href="#十三evm-常见编码格式">十三、EVM 常见编码格式</a></li>
+    <li><a href="#十四calldata-解析工具">十四、Calldata 解析工具</a></li>
+    <li><a href="#十五交易-trace">十五、交易 trace</a></li>
+    <li><a href="#十六链上解析常见数据">十六、链上解析常见数据</a></li>
+    <li><a href="#十七事件日志解析">十七、事件日志解析</a></li>
+    <li><a href="#十八evm-解析核心知识">十八、EVM 解析核心知识</a></li>
+    <li><a href="#evm-calldata-解析笔记">EVM Calldata 解析笔记</a>
+      <ul>
+        <li><a href="#1-基本概念">1. 基本概念</a></li>
+        <li><a href="#2-解析步骤">2. 解析步骤</a></li>
+        <li><a href="#3-常用工具">3. 常用工具</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
