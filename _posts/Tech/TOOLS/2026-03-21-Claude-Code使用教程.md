@@ -148,8 +148,10 @@ export API_TIMEOUT_MS=3000000  # API 超时 3 秒
 | 指令 | 说明 |
 |------|------|
 | `/help` | 获取帮助 |
-| `/clear` | 清空对话 |
+| `/clear` | 清空对话上下文 |
 | `/compact` | 压缩上下文 |
+| `/resume` | 查看并恢复历史对话 |
+| `/init` | 在当前项目生成 CLAUDE.md |
 | `/model <name>` | 切换模型 |
 | `/commit` | 创建 git 提交 |
 | `/review-pr <number>` | 审查 PR |
@@ -199,6 +201,34 @@ Bash command="ls -la" timeout=30000
 
 ---
 
+## CLAUDE.md 项目记忆
+
+使用 `/init` 可在当前项目生成 `CLAUDE.md` 文件，用于存储项目重要信息：
+
+```markdown
+# 项目构建
+npm run build
+
+# 测试
+npm test
+
+# 代码风格
+- 使用下划线命名
+- 函数最多 50 行
+
+# 架构模式
+- MVC 结构
+- 路由在 routes/ 目录
+```
+
+作用：
+- 常用命令、构建/测试命令
+- 代码风格偏好和命名约定
+- 项目特定架构模式
+- 与团队共享指令和个人偏好
+
+---
+
 ## 最佳实践
 
 1. **安全第一**: 敏感操作（如 `rm -rf`、`git push --force`）不要添加到白名单
@@ -209,6 +239,12 @@ Bash command="ls -la" timeout=30000
 ---
 
 ## 常见问题
+
+**Q: 如何查看历史对话?**
+A: 使用 `/resume` 会显示对话列表，包含开始时间、摘要、消息数量
+
+**Q: 上下文太长出问题怎么办?**
+A: 使用 `/clear` 清空对话，重新开始
 
 **Q: 如何退出 Claude?**
 A: 输入 `/exit` 或按 `Ctrl+C`
