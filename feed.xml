@@ -1,4 +1,208 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-21T11:10:07+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">EVM交易构造和解析</title><link href="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" rel="alternate" type="text/html" title="EVM交易构造和解析" /><published>2026-03-08T00:00:00+08:00</published><updated>2026-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90</id><content type="html" xml:base="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">&lt;h2 id=&quot;evm交易构造和解析&quot;&gt;EVM交易构造和解析&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-03-21T19:49:35+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Claude Code使用教程</title><link href="https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Claude Code使用教程" /><published>2026-03-21T00:00:00+08:00</published><updated>2026-03-21T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# macOS&lt;/span&gt;
+brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;anthropic/claude-code/claude
+
+&lt;span class=&quot;c&quot;&gt;# 验证&lt;/span&gt;
+claude &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;配置文件&quot;&gt;配置文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;文件&lt;/th&gt;
+      &lt;th&gt;作用域&lt;/th&gt;
+      &lt;th&gt;Git&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;全局&lt;/td&gt;
+      &lt;td&gt;否&lt;/td&gt;
+      &lt;td&gt;个人偏好&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.json&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;项目&lt;/td&gt;
+      &lt;td&gt;提交&lt;/td&gt;
+      &lt;td&gt;团队共享&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.local.json&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;项目&lt;/td&gt;
+      &lt;td&gt;Gitignore&lt;/td&gt;
+      &lt;td&gt;个人覆盖&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;跳过确认&quot;&gt;跳过确认&lt;/h2&gt;
+
+&lt;h3 id=&quot;permissionsdefaultmode&quot;&gt;permissions.defaultMode&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bypassPermissions&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;可选值：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;（每次询问）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;（跳过所有确认⚠️）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plan&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptEdits&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;细粒度权限控制推荐&quot;&gt;细粒度权限控制（推荐）&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(git:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Edit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Grep&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deny&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(sudo:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(rm -rf:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;规则优先级：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny &amp;gt; allow &amp;gt; defaultMode&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 模式下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; 规则无意义。&lt;/p&gt;
+
+&lt;h3 id=&quot;其他设置&quot;&gt;其他设置&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipDangerousModePermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipAutoPermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;️-安全警告&quot;&gt;⚠️ 安全警告&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 模式下 Claude 可执行任意命令，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf /&lt;/code&gt;。仅在完全信任当前项目时使用。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常用指令&quot;&gt;常用指令&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;指令&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/help&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;获取帮助&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/clear&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;清空对话上下文&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compact&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;压缩上下文&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/resume&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;查看并恢复历史对话&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;生成 CLAUDE.md&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换模型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/commit&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;创建 git 提交&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/review-pr &amp;lt;number&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;审查 PR&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常用工具&quot;&gt;常用工具&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;工具&lt;/th&gt;
+      &lt;th&gt;用法&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Read&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Read /path/to/file&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Write&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Write /path/to/file content=&quot;...&quot;&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Edit&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Edit file_path old_string=&quot;...&quot; new_string=&quot;...&quot;&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Glob&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Glob **/*.js&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Grep&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Grep &quot;pattern&quot; type=js&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Bash&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bash command=&quot;ls -la&quot;&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;claudemd-项目记忆&quot;&gt;CLAUDE.md 项目记忆&lt;/h2&gt;
+
+&lt;p&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt; 生成，存储项目信息供 Claude 记忆：&lt;/p&gt;
+
+&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# 构建&lt;/span&gt;
+npm run build
+
+&lt;span class=&quot;gh&quot;&gt;# 测试&lt;/span&gt;
+npm test
+
+&lt;span class=&quot;gh&quot;&gt;# 代码风格&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 下划线命名
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 函数最多 50 行
+
+&lt;span class=&quot;gh&quot;&gt;# 架构&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; MVC 结构
+&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 路由在 routes/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常见问题&quot;&gt;常见问题&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 如何查看历史对话？&lt;/strong&gt;
+A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/resume&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 上下文太长出错？&lt;/strong&gt;
+A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/clear&lt;/code&gt; 清空对话&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 如何退出？&lt;/strong&gt;
+A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/exit&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+C&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 如何重置配置？&lt;/strong&gt;
+A: 删除 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="tools" /><category term="Claude" /><summary type="html">安装</summary></entry><entry><title type="html">EVM交易构造和解析</title><link href="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" rel="alternate" type="text/html" title="EVM交易构造和解析" /><published>2026-03-08T00:00:00+08:00</published><updated>2026-03-08T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90</id><content type="html" xml:base="https://mafulong.github.io/2026/03/08/EVM%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/">&lt;h2 id=&quot;evm交易构造和解析&quot;&gt;EVM交易构造和解析&lt;/h2&gt;
 
 &lt;h1 id=&quot;一evm-交易基础结构&quot;&gt;一、EVM 交易基础结构&lt;/h1&gt;
 
@@ -2153,59 +2357,4 @@ sum(rate(http_request_duration_seconds_count[1m]))
   &lt;li&gt;折线 → 各节点高度&lt;/li&gt;
   &lt;li&gt;Stat → 当前高度&lt;/li&gt;
   &lt;li&gt;Bar → 节点之间差异&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">prometheus用法</summary></entry><entry><title type="html">输入法双拼</title><link href="https://mafulong.github.io/2025/09/27/%E5%8F%8C%E6%8B%BC/" rel="alternate" type="text/html" title="输入法双拼" /><published>2025-09-27T00:00:00+08:00</published><updated>2025-09-27T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/09/27/%E5%8F%8C%E6%8B%BC</id><content type="html" xml:base="https://mafulong.github.io/2025/09/27/%E5%8F%8C%E6%8B%BC/">&lt;h2 id=&quot;双拼&quot;&gt;双拼&lt;/h2&gt;
-
-&lt;p&gt;使用小鹤双拼方法&lt;/p&gt;
-
-&lt;p&gt;每个字都是两个字母。声母加韵母，如果零声母，则重复开头的韵母。&lt;/p&gt;
-
-&lt;p&gt;mac是支持这个输入法的。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202603141411624.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;记忆口诀 使用第一版就行。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202511252212146.png&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;零声母方案&quot;&gt;零声母方案&lt;/h2&gt;
-
-&lt;p&gt;有些字的拼音是没有声母的（例如“啊”），为此，双拼有一套自己的方案。&lt;/p&gt;
-
-&lt;p&gt;在小鹤中，用的是零声母方案，即将韵母首字母作为声母（这个声母也叫零声母）。打法如下：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;单字母韵母，零声母 + 韵母所在键，如： 啊 ＝aa，哦=oo，额=ee&lt;/li&gt;
-  &lt;li&gt;双字母韵母，零声母 + 韵母末字母，如： 爱 ＝ai，恩=en，欧=ou&lt;/li&gt;
-  &lt;li&gt;三字母韵母，零声母 + 韵母所在键，如： 昂 ＝ah&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一句话来说就是，双字母拼音用全拼，一三字母拼音打法为：首字母 + 韵母所在键。&lt;/p&gt;
-
-&lt;p&gt;此外，不同双拼方案对这种情况有不同的规则，这里就不一一赘述了。&lt;/p&gt;
-
-&lt;h2 id=&quot;提高速度方法&quot;&gt;提高速度方法&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;「－+」键&lt;/strong&gt;
- 在只有一列候选词时，用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;+&lt;/code&gt; 来切换候选词。相当于上一页/下一页。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;中括号「［ ］」&lt;/strong&gt;
- 默认只显示单列候选词，按 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;]&lt;/code&gt; 可以展开成多列候选词列表，更方便整体浏览。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Caps Lock + Shift&lt;/strong&gt;
- 按下 Caps Lock 就会进入英文输入模式（不用切输入法）。在英文模式下想临时打一个大写字母时，按住 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shift&lt;/code&gt; 就行。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;空格 vs Enter&lt;/strong&gt;
- 候选词中高亮的部分：
-    &lt;ul&gt;
-      &lt;li&gt;按 &lt;strong&gt;空格&lt;/strong&gt; → 上屏这个词。&lt;/li&gt;
-      &lt;li&gt;按 &lt;strong&gt;Enter/回车&lt;/strong&gt; → 不选候选词，而是直接把拼音字母原样上屏（比如你打了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shi&lt;/code&gt;，按回车就是输入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shi&lt;/code&gt;）。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;拼音分隔符 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;&lt;/code&gt;&lt;/strong&gt;
- 解决多音节拼音粘连的问题。例如：
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xian&lt;/code&gt; → 先/现/咸&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xi&apos;an&lt;/code&gt; → 西安&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Tab 切换声调&lt;/strong&gt;
- 在有声调标注的候选拼音里，按 Tab 键可以在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1、2、3、4&lt;/code&gt; 声调之间切换，帮助选择准确的音调显示。&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">双拼</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">prometheus用法</summary></entry></feed>
