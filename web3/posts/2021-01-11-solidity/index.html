@@ -1,4 +1,14 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content='Solidity# 参考
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Solidity# 参考
 智能合约 与 Solidity 语言# 智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。
 然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。
 Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。
@@ -9,8 +19,14 @@ Solidity 是一门面向合约的、为实现智能合约而创建的高级编�
 参考
 以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。
 编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的官方网站可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：
-// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address => bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp < endTime, "Vote expired."); require(_proposal >= 1 && _proposal <= 3, "Invalid proposal."); require(!voted[msg.sender], "Cannot vote again."); voted[msg.sender] = true; if (_proposal == 1) { proposalA ++; } else if (_proposal == 2) { proposalB ++; } else if (_proposal == 3) { proposalC ++; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA + proposalB + proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：
-'><meta name=theme-color media="(prefers-color-scheme: light)" content="#ffffff"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#2e3440"><meta name=color-scheme content="light dark"><meta property="og:url" content="/web3/posts/2021-01-11-solidity/"><meta property="og:site_name" content="Web3 Notes"><meta property="og:title" content="Solidity"><meta property="og:description" content='Solidity# 参考
+// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address =&gt; bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp &lt; endTime, &#34;Vote expired.&#34;); require(_proposal &gt;= 1 &amp;&amp; _proposal &lt;= 3, &#34;Invalid proposal.&#34;); require(!voted[msg.sender], &#34;Cannot vote again.&#34;); voted[msg.sender] = true; if (_proposal == 1) { proposalA &#43;&#43;; } else if (_proposal == 2) { proposalB &#43;&#43;; } else if (_proposal == 3) { proposalC &#43;&#43;; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA &#43; proposalB &#43; proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#2e3440">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="/web3/posts/2021-01-11-solidity/">
+  <meta property="og:site_name" content="Web3 Notes">
+  <meta property="og:title" content="Solidity">
+  <meta property="og:description" content="Solidity# 参考
 智能合约 与 Solidity 语言# 智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。
 然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。
 Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。
@@ -21,7 +37,15 @@ Solidity 是一门面向合约的、为实现智能合约而创建的高级编�
 参考
 以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。
 编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的官方网站可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：
-// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address => bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp < endTime, "Vote expired."); require(_proposal >= 1 && _proposal <= 3, "Invalid proposal."); require(!voted[msg.sender], "Cannot vote again."); voted[msg.sender] = true; if (_proposal == 1) { proposalA ++; } else if (_proposal == 2) { proposalB ++; } else if (_proposal == 3) { proposalC ++; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA + proposalB + proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：'><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:tag" content="Web3"><meta itemprop=name content="Solidity"><meta itemprop=description content='Solidity# 参考
+// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address =&gt; bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp &lt; endTime, &#34;Vote expired.&#34;); require(_proposal &gt;= 1 &amp;&amp; _proposal &lt;= 3, &#34;Invalid proposal.&#34;); require(!voted[msg.sender], &#34;Cannot vote again.&#34;); voted[msg.sender] = true; if (_proposal == 1) { proposalA &#43;&#43;; } else if (_proposal == 2) { proposalB &#43;&#43;; } else if (_proposal == 3) { proposalC &#43;&#43;; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA &#43; proposalB &#43; proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:tag" content="Web3">
+
+
+  <meta itemprop="name" content="Solidity">
+  <meta itemprop="description" content="Solidity# 参考
 智能合约 与 Solidity 语言# 智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。
 然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。
 Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。
@@ -32,130 +56,649 @@ Solidity 是一门面向合约的、为实现智能合约而创建的高级编�
 参考
 以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。
 编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的官方网站可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：
-// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address => bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp < endTime, "Vote expired."); require(_proposal >= 1 && _proposal <= 3, "Invalid proposal."); require(!voted[msg.sender], "Cannot vote again."); voted[msg.sender] = true; if (_proposal == 1) { proposalA ++; } else if (_proposal == 2) { proposalB ++; } else if (_proposal == 3) { proposalC ++; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA + proposalB + proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：'><meta itemprop=wordCount content="464"><meta itemprop=keywords content="Web3"><title>Solidity | Web3 Notes</title><link rel=icon href=/web3/favicon.png><link rel=manifest href=/web3/manifest.json><link rel=canonical href=/web3/posts/2021-01-11-solidity/><link rel=stylesheet href=/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css><script defer src=/web3/fuse.min.js></script><script defer src=/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js></script></head><body dir=ltr class="book-kind-page book-type-posts book-layout-post"><input type=checkbox class="hidden toggle" id=menu-control>
-<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/web3/><span>Web3 Notes</span></a></h2><div class="book-search hidden"><input id=book-search-input type=text placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><script>document.querySelector(".book-search").classList.remove("hidden")</script></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class="book-header hidden"><div class="flex align-center justify-between"><label for=menu-control><img src=/web3/icons/menu.svg class=book-icon alt=Menu></label><h3>Solidity</h3><label for=toc-control><img src=/web3/icons/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class=hidden><nav id=TableOfContents><ul><li><ul><li><a href=#solidity>Solidity</a></li><li><a href=#智能合约-与-solidity-语言>智能合约 与 Solidity 语言</a><ul><li><a href=#编写合约>编写合约</a></li><li><a href=#合约执行流程>合约执行流程</a></li><li><a href=#验证>验证</a></li></ul></li><li><a href=#开发调试工具>开发/调试工具</a></li><li><a href=#合约编译部署>合约编译/部署</a></li></ul></li></ul></nav></aside></header><article class="markdown book-post"><h1>Solidity</h1><div class=text-small><a href=/web3/tags/web3/>Web3</a></div><div class="book-post-content markdown-inner"><h2 id=solidity>Solidity<a class=anchor href=#solidity>#</a></h2><p><a href=https://guide.pseudoyu.com/zh/docs/solidity/learn_solidity_from_scratch_basic/>参考</a></p><h2 id=智能合约-与-solidity-语言>智能合约 与 Solidity 语言<a class=anchor href=#%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%b8%8e-solidity-%e8%af%ad%e8%a8%80>#</a></h2><p>智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。</p><p>然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。</p><p>Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。</p><h3 id=编写合约>编写合约<a class=anchor href=#%e7%bc%96%e5%86%99%e5%90%88%e7%ba%a6>#</a></h3><p>编写一个以太坊合约相当于编写一个类，一个合约可以包含多个成员变量和若干函数，以及可选的构造函数；</p><p>部署一个合约相当于实例化，部署时刻将执行构造函数；</p><p>任何外部账户均可发起对合约函数的调用，但一个交易仅限一个函数调用；</p><p>所有检查都必须在合约的函数内部完成。</p><p><a href=https://liaoxuefeng.com/books/blockchain/ethereum/smart-contract/write-contract/index.html>参考</a></p><p>以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。</p><p>编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的<a href=https://soliditylang.org/>官方网站</a>可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// SPDX-License-Identifier: GPL-3.0
-</span></span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>pragma</span> <span style=color:#a6e22e>solidity</span> <span style=color:#f92672>=</span><span style=color:#ae81ff>0.8</span>.<span style=color:#ae81ff>7</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>event</span> <span style=color:#a6e22e>Voted</span>(<span style=color:#a6e22e>address</span> <span style=color:#a6e22e>indexed</span> <span style=color:#a6e22e>voter</span>, <span style=color:#a6e22e>uint8</span> <span style=color:#a6e22e>proposal</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>mapping</span>(<span style=color:#a6e22e>address</span> =&gt; <span style=color:#a6e22e>bool</span>) <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>voted</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>endTime</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalA</span>;
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalB</span>;
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalC</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>constructor</span>(<span style=color:#a6e22e>uint256</span> <span style=color:#a6e22e>_endTime</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>endTime</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>_endTime</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>vote</span>(<span style=color:#a6e22e>uint8</span> <span style=color:#a6e22e>_proposal</span>) <span style=color:#66d9ef>public</span> {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>block</span>.<span style=color:#a6e22e>timestamp</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>endTime</span>, <span style=color:#e6db74>&#34;Vote expired.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#34;Invalid proposal.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>voted</span>[<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>], <span style=color:#e6db74>&#34;Cannot vote again.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>voted</span>[<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>] <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalA</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>2</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalB</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>3</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalC</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>emit</span> <span style=color:#a6e22e>Voted</span>(<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>, <span style=color:#a6e22e>_proposal</span>);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>votes</span>() <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>view</span> <span style=color:#a6e22e>returns</span> (<span style=color:#a6e22e>uint256</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>proposalA</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>proposalB</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>proposalC</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>pragma</span> <span style=color:#a6e22e>solidity</span> <span style=color:#f92672>=</span><span style=color:#ae81ff>0.8</span>.<span style=color:#ae81ff>7</span>; <span style=color:#75715e>// 指定编译器版本为0.8.7
-</span></span></span></code></pre></div><p>也可以指定版本范围，如：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>pragma</span> <span style=color:#a6e22e>solidity</span> <span style=color:#f92672>&gt;=</span><span style=color:#ae81ff>0.8</span>.<span style=color:#ae81ff>0</span> <span style=color:#f92672>&lt;</span><span style=color:#ae81ff>0.9</span>.<span style=color:#ae81ff>0</span>; <span style=color:#75715e>// 指定编译器版本为0.8.x
-</span></span></span></code></pre></div><p>紧接着，由关键字<code>contract</code>声明一个合约：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    ... <span style=color:#75715e>// 合约代码
-</span></span></span><span style=display:flex><span>}</span></span></code></pre></div><p>虽然一个Solidity文件可以包含多个合约，但最好还是遵循一个文件一个合约，且文件名保持与合约一致。这里的合约名是<code>Vote</code>。</p><p>熟悉面向对象编程的小伙伴对类、成员变量、成员方法一定不陌生。一个合约就相当于一个类，合约内部可以有成员变量：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 记录已投票的地址:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>mapping</span>(<span style=color:#a6e22e>address</span> =&gt; <span style=color:#a6e22e>bool</span>) <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>voted</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 记录投票终止时间:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>endTime</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 记录得票数量:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalA</span>;
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalB</span>;
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>uint256</span> <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>proposalC</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>Solidity支持整型（细分为<code>uint256</code>、<code>uint128</code>、<code>uint8</code>等）、<code>bytes32</code>类型、映射类型（相当于Java的Map）、布尔型（<code>true</code>或<code>false</code>）和特殊的<code>address</code>类型表示一个以太坊地址。</p><p>以太坊合约<em>不支持</em>浮点数类型，是为了保证每个节点运行合约都能得到完全相同的结果。浮点数运算在不同的ISA体系下存在表示方式、运算精度的不同，无法保证两个节点执行浮点运算会得到相同的结果。</p><p>所有的成员变量都默认初始化为<code>0</code>或<code>false</code>（针对bool）或空（针对mapping）。</p><p>如果某个成员变量要指定初始值，那么需要在构造函数中赋值：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 构造函数:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>constructor</span>(<span style=color:#a6e22e>uint256</span> <span style=color:#a6e22e>_endTime</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>endTime</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>_endTime</span>; <span style=color:#75715e>// 设定成员变量endTime为指定参数值
-</span></span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>以太坊合约支持读、写两种类型的成员函数，以<code>view</code>修饰的函数是只读函数，它不会修改成员变量，即不会改变合约的状态：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>votes</span>() <span style=color:#66d9ef>public</span> <span style=color:#a6e22e>view</span> <span style=color:#a6e22e>returns</span> (<span style=color:#a6e22e>uint256</span>) {
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>proposalA</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>proposalB</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>proposalC</span>;
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>没有<code>view</code>修饰的函数是写入函数，它会修改成员变量，即改变了合约的状态：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>vote</span>(<span style=color:#a6e22e>uint8</span> <span style=color:#a6e22e>_proposal</span>) <span style=color:#66d9ef>public</span> {
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>block</span>.<span style=color:#a6e22e>timestamp</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>endTime</span>, <span style=color:#e6db74>&#34;Vote expired.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#34;Invalid proposal.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>require</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>voted</span>[<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>], <span style=color:#e6db74>&#34;Cannot vote again.&#34;</span>);
-</span></span><span style=display:flex><span>        <span style=color:#75715e>// 给mapping增加一个key-value:
-</span></span></span><span style=display:flex><span>        <span style=color:#a6e22e>voted</span>[<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>] <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>;
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 修改proposalA:
-</span></span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalA</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>2</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 修改proposalB:
-</span></span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalB</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>==</span> <span style=color:#ae81ff>3</span>) {
-</span></span><span style=display:flex><span>            <span style=color:#75715e>// 修改proposalC:
-</span></span></span><span style=display:flex><span>            <span style=color:#a6e22e>proposalC</span> <span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>        }
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>emit</span> <span style=color:#a6e22e>Voted</span>(<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>, <span style=color:#a6e22e>_proposal</span>);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>合约可以定义事件（Event），我们在Vote合约中定义了一个<code>Voted</code>事件：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// Voted事件，有两个相关值:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>event</span> <span style=color:#a6e22e>Voted</span>(<span style=color:#a6e22e>address</span> <span style=color:#a6e22e>indexed</span> <span style=color:#a6e22e>voter</span>, <span style=color:#a6e22e>uint8</span> <span style=color:#a6e22e>proposal</span>);
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>只定义事件还不够，触发事件必须在合约的写函数中通过<code>emit</code>关键字实现。当调用<code>vote()</code>写方法时，会触发<code>Voted</code>事件：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#a6e22e>contract</span> <span style=color:#a6e22e>Vote</span> {
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>vote</span>(<span style=color:#a6e22e>uint8</span> <span style=color:#a6e22e>_proposal</span>) <span style=color:#66d9ef>public</span> {
-</span></span><span style=display:flex><span>        ...
-</span></span><span style=display:flex><span>        <span style=color:#a6e22e>emit</span> <span style=color:#a6e22e>Voted</span>(<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>, <span style=color:#a6e22e>_proposal</span>);
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>事件可用来通知外部感兴趣的第三方，他们可以在区块链上监听产生的事件，从而确认合约某些状态发生了改变。</p><p>以上就是用Solidity编写一个完整的合约所涉及的几个要素：</p><ul><li>声明版权（可选）；</li><li>声明编译器版本；</li><li>以contract关键字编写一个合约；</li><li>可以包含若干成员变量；</li><li>可以在构造函数中对成员变量初始化（可选）；</li><li>可以编写只读方法；</li><li>可以编写写入方法；</li><li>可以声明Event并在写入方法中触发。</li></ul><p>函数又可以用<code>public</code>或<code>private</code>修饰。顾名思义，<code>public</code>函数可以被外部调用，而<code>private</code>函数不能被外部调用，他们只能被<code>public</code>函数在内部调用。</p><h3 id=合约执行流程>合约执行流程<a class=anchor href=#%e5%90%88%e7%ba%a6%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b>#</a></h3><p>当一个合约编写完成并成功编译后，我们就可以把它部署到以太坊上。合约部署后将自动获得一个地址，通过该地址即可访问合约。</p><p>把<code>contract Vote {...}</code>看作一个类，部署就相当于一个实例化。如果部署两次，将得到两个不同的地址，相当于实例化两次，两个部署后的合约对应的成员变量是完全独立的，互不影响。</p><p>构造函数在部署合约时就会立刻执行，且仅执行一次。合约部署后就无法调用构造函数。</p><p>任何外部账户都可以发起对合约的函数调用。如果调用只读方法，因为不改变合约状态，所以任何时刻都可以调用，且不需要签名，也不需要消耗Gas。但如果调用写入方法，就需要签名提交一个交易，并消耗一定的Gas。</p><p>在一个交易中，只能调用一个合约的一个写入方法。无需考虑并发和同步的问题，因为以太坊交易的写入是严格串行的。</p><h3 id=验证>验证<a class=anchor href=#%e9%aa%8c%e8%af%81>#</a></h3><p>由于任何外部账户都可以发起对合约的函数调用，所以任何验证工作都必须在函数内部自行完成。最常用的<code>require()</code>可以断言一个条件，如果断言失败，将抛出错误并中断执行。</p><p>常用的检查包括几类：</p><p>参数检查：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 参数必须为1,2,3:
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&gt;=</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>_proposal</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#34;Invalid proposal.&#34;</span>);</span></span></code></pre></div><p>条件检查：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// 当前区块时间必须小于设定的结束时间:
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>block</span>.<span style=color:#a6e22e>timestamp</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>endTime</span>, <span style=color:#e6db74>&#34;Vote expired.&#34;</span>);</span></span></code></pre></div><p>调用方检查：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#75715e>// msg.sender表示调用方地址:
-</span></span></span><span style=display:flex><span><span style=color:#a6e22e>require</span>(<span style=color:#f92672>!</span><span style=color:#a6e22e>voted</span>[<span style=color:#a6e22e>msg</span>.<span style=color:#a6e22e>sender</span>], <span style=color:#e6db74>&#34;Cannot vote again.&#34;</span>);</span></span></code></pre></div><p>以太坊合约具备类似数据库事务的特点，如果中途执行失败，则整个合约的状态保持不变，不存在修改某个成员变量后，后续断言失败导致部分修改生效的问题：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>increment</span>() {
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 假设a,b均为成员变量:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>a</span><span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>emit</span> <span style=color:#a6e22e>AChanged</span>(<span style=color:#a6e22e>a</span>);
-</span></span><span style=display:flex><span>    <span style=color:#75715e>// 如果下面的验证失败，a不会被更新，也没有AChanged事件发生:
-</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>require</span>(<span style=color:#a6e22e>b</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>10</span>, <span style=color:#e6db74>&#39;b &gt;= 10&#39;</span>);
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>b</span><span style=color:#f92672>++</span>;
-</span></span><span style=display:flex><span>}</span></span></code></pre></div><p>即合约如果执行失败，其状态不会发生任何变化，也不会有任何事件发生，仅仅是调用方白白消耗了一定的Gas。</p><h2 id=开发调试工具>开发/调试工具<a class=anchor href=#%e5%bc%80%e5%8f%91%e8%b0%83%e8%af%95%e5%b7%a5%e5%85%b7>#</a></h2><p>与常规编程语言不同，Solidity 智能合约的开发往往无法直接通过一个 IDE 或本地环境进行方便的调试，而是需要与一个链上节点进行交互。开发调试往往也不会直接与主网（即真实资产、数据与业务所在的链）进行交互，否则需要承担高额手续费。目前开发调试主要有以下几种方式与框架：</p><ol><li><a href=https://remix.ethereum.org/>Remix IDE</a>。通过 Ethereum 官方提供的基于浏览器的 Remix 开发工具进行调试，Remix 会提供完整的 IDE、编译工具、部署调试的测试节点环境、账户等，可以很方便地进行测试，这是我学习使用时用的最多的工具。Remix 还可以通过 MetaMask 插件与测试网、主网进行直接交互，部分生产环境也会使用它进行编译部署。</li><li><a href=https://github.com/trufflesuite/truffle>Truffle</a>。Truffle 是一个非常流行的 Javascript 的 Solidity 合约开发框架，提供了完整的开发、测试、调试工具链，可以与本地或远程网络进行交互。</li><li><a href=https://github.com/eth-brownie/brownie>Brownie</a>。Brownie 是一个基于 Python 的 Solidity 合约开发框架，以简洁的 Python 语法为调试和测试提供了便捷的工具链。</li><li><a href=https://github.com/NomicFoundation/hardhat>Hardhat</a>。Hardhat 是另一个基于 Javascript 的开发框架，提供了非常丰富的插件系统，适合开发复杂的合约项目。</li></ol><p><strong>Fundry 是什么？ 也是个开发框架？从 B 站上看到的，待定。</strong></p><p>除了开发框架外，更好地进行 Solidity 还需要熟悉一些工具：</p><ol><li>Remix IDE 对于语法提示等并不完善，因此，可以使用 <a href=https://code.visualstudio.com/>Visual Studio Code</a> 配合 <a href="https://marketplace.visualstudio.com/items?itemName=juanblanco.solidity">Solidity</a> 进行编写，有更好的体验。</li><li><a href=https://metamask.io/>MetaMask</a>。一个常用的钱包应用，开发过程中可以通过浏览器插件与测试网、主网进行交互，方便开发者进行调试。</li><li><a href=https://trufflesuite.com/ganache/>Ganache</a>。Ganache 是一个开源的虚拟本地节点，提供了一个虚拟链网络，可以通过各类 Web3.js、Remix 或一些框架工具与之交互，适合有一定规模的项目进行本地调试与测试。</li><li><a href=https://infura.io/>Infura</a>。Infura 是一个 IaaS（Infrastructure as a Service）产品，我们可以申请自己的 Ethereum 节点，通过 Infura 提供的 API 进行交互，可以很方便地进行调试，也更接近生产环境。</li><li><a href=https://www.openzeppelin.com/>OpenZeppelin</a>。OpenZeppelin 提供了非常多的合约开发库与应用，能兼顾安全、稳定的同时给予开发者更好的开发体验，降低合约开发成本。</li></ol><h2 id=合约编译部署>合约编译/部署<a class=anchor href=#%e5%90%88%e7%ba%a6%e7%bc%96%e8%af%91%e9%83%a8%e7%bd%b2>#</a></h2><p>Solidity 合约是以 <code>.sol</code> 为后缀的文件，无法直接执行，需要编译为 EVM（Ethereum Virtual Machine）可识别的字节码才能在链上运行。</p><p><img src=https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506281017561.png alt=compile_solidity></p><p>编译完成后，由合约账户进行部署到链上，其他账户可通过钱包与合约进行交互，实现链上业务逻辑。</p></div></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a href=/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/ class="flex align-center"><img src=/web3/icons/backward.svg class=book-icon alt=Backward>
-<span>EVM交易构造和解析</span></a></div><div><a href=/web3/posts/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/ class="flex align-center"><span>SOL交易构造和解析</span>
-<img src=/web3/icons/forward.svg class=book-icon alt=Forward></a></div></div><script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script></footer><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><ul><li><a href=#solidity>Solidity</a></li><li><a href=#智能合约-与-solidity-语言>智能合约 与 Solidity 语言</a><ul><li><a href=#编写合约>编写合约</a></li><li><a href=#合约执行流程>合约执行流程</a></li><li><a href=#验证>验证</a></li></ul></li><li><a href=#开发调试工具>开发/调试工具</a></li><li><a href=#合约编译部署>合约编译/部署</a></li></ul></li></ul></nav></div></aside></main></body></html>
+// SPDX-License-Identifier: GPL-3.0 pragma solidity =0.8.7; contract Vote { event Voted(address indexed voter, uint8 proposal); mapping(address =&gt; bool) public voted; uint256 public endTime; uint256 public proposalA; uint256 public proposalB; uint256 public proposalC; constructor(uint256 _endTime) { endTime = _endTime; } function vote(uint8 _proposal) public { require(block.timestamp &lt; endTime, &#34;Vote expired.&#34;); require(_proposal &gt;= 1 &amp;&amp; _proposal &lt;= 3, &#34;Invalid proposal.&#34;); require(!voted[msg.sender], &#34;Cannot vote again.&#34;); voted[msg.sender] = true; if (_proposal == 1) { proposalA &#43;&#43;; } else if (_proposal == 2) { proposalB &#43;&#43;; } else if (_proposal == 3) { proposalC &#43;&#43;; } emit Voted(msg.sender, _proposal); } function votes() public view returns (uint256) { return proposalA &#43; proposalB &#43; proposalC; } }Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：">
+  <meta itemprop="wordCount" content="464">
+  <meta itemprop="keywords" content="Web3">
+
+<title>Solidity | Web3 Notes</title>
+<link rel="icon" href="/web3/favicon.png" >
+<link rel="manifest" href="/web3/manifest.json">
+<link rel="canonical" href="/web3/posts/2021-01-11-solidity/">
+<link rel="stylesheet" href="/web3/book.min.b267f830fdf65302ecc1702a1178d4f25aa783409b3a25098f3404dd24f37a4d.css" >
+
+
+  <script defer src="/web3/fuse.min.js"></script>
+  <script defer src="/web3/en.search.min.757d62548559a6f1d6e74380661367bd77717145e3e7ea365f5e2a9b49f2368e.js" ></script>
+
+
+
+  
+</head>
+<body dir="ltr" class="book-kind-page book-type-posts book-layout-post">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/web3/"><span>Web3 Notes</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-09-binance%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" class="">
+      Binance课程笔记</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="">
+      EVM交易构造和解析</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-11-solidity/" class="active">
+      Solidity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="">
+      SOL交易构造和解析</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-01-web3%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="">
+      Web3基础概念</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-03-web3%E5%AF%86%E7%A0%81%E5%AD%A6%E5%AE%89%E5%85%A8/" class="">
+      Web3密码学安全</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-02-web3%E8%BF%9C%E7%A8%8B%E5%B7%A5%E4%BD%9C/" class="">
+      Web3远程工作</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-06-%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%8A%80%E6%9C%AF/" class="">
+      以太坊技术</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-07-%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AFqa/" class="">
+      区块链技术QA</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-10-%E5%8C%BA%E5%9D%97%E9%93%BE%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/" class="">
+      区块链钱包开发系列教程</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2025-12-29-%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" class="">
+      未来扣钱</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-05-%E6%AF%94%E7%89%B9%E5%B8%81%E6%8A%80%E6%9C%AF/" class="">
+      比特币技术</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-07-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/" class="">
+      阅读区块链入门指南笔记</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/web3/posts/2021-01-08-%E9%98%85%E8%AF%BB%E5%8C%BA%E5%9D%97%E9%93%BE%E6%8A%80%E6%9C%AF%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/" class="">
+      阅读区块链技术指南笔记</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/web3/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Solidity</h3>
+
+  <label for="toc-control">
+    
+    <img src="/web3/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#solidity">Solidity</a></li>
+        <li><a href="#智能合约-与-solidity-语言">智能合约 与 Solidity 语言</a>
+          <ul>
+            <li><a href="#编写合约">编写合约</a></li>
+            <li><a href="#合约执行流程">合约执行流程</a></li>
+            <li><a href="#验证">验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#开发调试工具">开发/调试工具</a></li>
+        <li><a href="#合约编译部署">合约编译/部署</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+<article class="markdown book-post">
+  <h1>
+    Solidity
+  </h1>
+  
+
+
+  
+
+  
+  <div class="text-small">
+    
+      <a href="/web3/tags/web3/">Web3</a>
+  </div>
+  
+
+
+  <div class="book-post-content markdown-inner"><h2 id="solidity">Solidity<a class="anchor" href="#solidity">#</a></h2>
+<p><a href="https://guide.pseudoyu.com/zh/docs/solidity/learn_solidity_from_scratch_basic/">参考</a></p>
+<h2 id="智能合约-与-solidity-语言">智能合约 与 Solidity 语言<a class="anchor" href="#%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%b8%8e-solidity-%e8%af%ad%e8%a8%80">#</a></h2>
+<p>智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。</p>
+<p>然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。</p>
+<p>Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。</p>
+<h3 id="编写合约">编写合约<a class="anchor" href="#%e7%bc%96%e5%86%99%e5%90%88%e7%ba%a6">#</a></h3>
+<p>编写一个以太坊合约相当于编写一个类，一个合约可以包含多个成员变量和若干函数，以及可选的构造函数；</p>
+<p>部署一个合约相当于实例化，部署时刻将执行构造函数；</p>
+<p>任何外部账户均可发起对合约函数的调用，但一个交易仅限一个函数调用；</p>
+<p>所有检查都必须在合约的函数内部完成。</p>
+<p><a href="https://liaoxuefeng.com/books/blockchain/ethereum/smart-contract/write-contract/index.html">参考</a></p>
+<p>以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。</p>
+<p>编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的<a href="https://soliditylang.org/">官方网站</a>可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// SPDX-License-Identifier: GPL-3.0
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pragma</span> <span style="color:#a6e22e">solidity</span> <span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>.<span style="color:#ae81ff">7</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span> <span style="color:#a6e22e">Voted</span>(<span style="color:#a6e22e">address</span> <span style="color:#a6e22e">indexed</span> <span style="color:#a6e22e">voter</span>, <span style="color:#a6e22e">uint8</span> <span style="color:#a6e22e">proposal</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mapping</span>(<span style="color:#a6e22e">address</span> =&gt; <span style="color:#a6e22e">bool</span>) <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">voted</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">endTime</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalA</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalB</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalC</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">uint256</span> <span style="color:#a6e22e">_endTime</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_endTime</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">vote</span>(<span style="color:#a6e22e">uint8</span> <span style="color:#a6e22e">_proposal</span>) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">block</span>.<span style="color:#a6e22e">timestamp</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">endTime</span>, <span style="color:#e6db74">&#34;Vote expired.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;Invalid proposal.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">voted</span>[<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>], <span style="color:#e6db74">&#34;Cannot vote again.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">voted</span>[<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalA</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalB</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalC</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">emit</span> <span style="color:#a6e22e">Voted</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>, <span style="color:#a6e22e">_proposal</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">votes</span>() <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">view</span> <span style="color:#a6e22e">returns</span> (<span style="color:#a6e22e">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">proposalA</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">proposalB</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">proposalC</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">pragma</span> <span style="color:#a6e22e">solidity</span> <span style="color:#f92672">=</span><span style="color:#ae81ff">0.8</span>.<span style="color:#ae81ff">7</span>; <span style="color:#75715e">// 指定编译器版本为0.8.7
+</span></span></span></code></pre></div><p>也可以指定版本范围，如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">pragma</span> <span style="color:#a6e22e">solidity</span> <span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0.8</span>.<span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0.9</span>.<span style="color:#ae81ff">0</span>; <span style="color:#75715e">// 指定编译器版本为0.8.x
+</span></span></span></code></pre></div><p>紧接着，由关键字<code>contract</code>声明一个合约：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    ... <span style="color:#75715e">// 合约代码
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>虽然一个Solidity文件可以包含多个合约，但最好还是遵循一个文件一个合约，且文件名保持与合约一致。这里的合约名是<code>Vote</code>。</p>
+<p>熟悉面向对象编程的小伙伴对类、成员变量、成员方法一定不陌生。一个合约就相当于一个类，合约内部可以有成员变量：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 记录已投票的地址:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mapping</span>(<span style="color:#a6e22e">address</span> =&gt; <span style="color:#a6e22e">bool</span>) <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">voted</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 记录投票终止时间:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">endTime</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 记录得票数量:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalA</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalB</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">uint256</span> <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">proposalC</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>Solidity支持整型（细分为<code>uint256</code>、<code>uint128</code>、<code>uint8</code>等）、<code>bytes32</code>类型、映射类型（相当于Java的Map）、布尔型（<code>true</code>或<code>false</code>）和特殊的<code>address</code>类型表示一个以太坊地址。</p>
+<p>以太坊合约<em>不支持</em>浮点数类型，是为了保证每个节点运行合约都能得到完全相同的结果。浮点数运算在不同的ISA体系下存在表示方式、运算精度的不同，无法保证两个节点执行浮点运算会得到相同的结果。</p>
+<p>所有的成员变量都默认初始化为<code>0</code>或<code>false</code>（针对bool）或空（针对mapping）。</p>
+<p>如果某个成员变量要指定初始值，那么需要在构造函数中赋值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 构造函数:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>(<span style="color:#a6e22e">uint256</span> <span style="color:#a6e22e">_endTime</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">endTime</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">_endTime</span>; <span style="color:#75715e">// 设定成员变量endTime为指定参数值
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>以太坊合约支持读、写两种类型的成员函数，以<code>view</code>修饰的函数是只读函数，它不会修改成员变量，即不会改变合约的状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">votes</span>() <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">view</span> <span style="color:#a6e22e">returns</span> (<span style="color:#a6e22e">uint256</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">proposalA</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">proposalB</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">proposalC</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>没有<code>view</code>修饰的函数是写入函数，它会修改成员变量，即改变了合约的状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">vote</span>(<span style="color:#a6e22e">uint8</span> <span style="color:#a6e22e">_proposal</span>) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">block</span>.<span style="color:#a6e22e">timestamp</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">endTime</span>, <span style="color:#e6db74">&#34;Vote expired.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;Invalid proposal.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">require</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">voted</span>[<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>], <span style="color:#e6db74">&#34;Cannot vote again.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 给mapping增加一个key-value:
+</span></span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">voted</span>[<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 修改proposalA:
+</span></span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalA</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 修改proposalB:
+</span></span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalB</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 修改proposalC:
+</span></span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">proposalC</span> <span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">emit</span> <span style="color:#a6e22e">Voted</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>, <span style="color:#a6e22e">_proposal</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>合约可以定义事件（Event），我们在Vote合约中定义了一个<code>Voted</code>事件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Voted事件，有两个相关值:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">event</span> <span style="color:#a6e22e">Voted</span>(<span style="color:#a6e22e">address</span> <span style="color:#a6e22e">indexed</span> <span style="color:#a6e22e">voter</span>, <span style="color:#a6e22e">uint8</span> <span style="color:#a6e22e">proposal</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>只定义事件还不够，触发事件必须在合约的写函数中通过<code>emit</code>关键字实现。当调用<code>vote()</code>写方法时，会触发<code>Voted</code>事件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">contract</span> <span style="color:#a6e22e">Vote</span> {
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">vote</span>(<span style="color:#a6e22e">uint8</span> <span style="color:#a6e22e">_proposal</span>) <span style="color:#66d9ef">public</span> {
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">emit</span> <span style="color:#a6e22e">Voted</span>(<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>, <span style="color:#a6e22e">_proposal</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>事件可用来通知外部感兴趣的第三方，他们可以在区块链上监听产生的事件，从而确认合约某些状态发生了改变。</p>
+<p>以上就是用Solidity编写一个完整的合约所涉及的几个要素：</p>
+<ul>
+<li>声明版权（可选）；</li>
+<li>声明编译器版本；</li>
+<li>以contract关键字编写一个合约；</li>
+<li>可以包含若干成员变量；</li>
+<li>可以在构造函数中对成员变量初始化（可选）；</li>
+<li>可以编写只读方法；</li>
+<li>可以编写写入方法；</li>
+<li>可以声明Event并在写入方法中触发。</li>
+</ul>
+<p>函数又可以用<code>public</code>或<code>private</code>修饰。顾名思义，<code>public</code>函数可以被外部调用，而<code>private</code>函数不能被外部调用，他们只能被<code>public</code>函数在内部调用。</p>
+<h3 id="合约执行流程">合约执行流程<a class="anchor" href="#%e5%90%88%e7%ba%a6%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b">#</a></h3>
+<p>当一个合约编写完成并成功编译后，我们就可以把它部署到以太坊上。合约部署后将自动获得一个地址，通过该地址即可访问合约。</p>
+<p>把<code>contract Vote {...}</code>看作一个类，部署就相当于一个实例化。如果部署两次，将得到两个不同的地址，相当于实例化两次，两个部署后的合约对应的成员变量是完全独立的，互不影响。</p>
+<p>构造函数在部署合约时就会立刻执行，且仅执行一次。合约部署后就无法调用构造函数。</p>
+<p>任何外部账户都可以发起对合约的函数调用。如果调用只读方法，因为不改变合约状态，所以任何时刻都可以调用，且不需要签名，也不需要消耗Gas。但如果调用写入方法，就需要签名提交一个交易，并消耗一定的Gas。</p>
+<p>在一个交易中，只能调用一个合约的一个写入方法。无需考虑并发和同步的问题，因为以太坊交易的写入是严格串行的。</p>
+<h3 id="验证">验证<a class="anchor" href="#%e9%aa%8c%e8%af%81">#</a></h3>
+<p>由于任何外部账户都可以发起对合约的函数调用，所以任何验证工作都必须在函数内部自行完成。最常用的<code>require()</code>可以断言一个条件，如果断言失败，将抛出错误并中断执行。</p>
+<p>常用的检查包括几类：</p>
+<p>参数检查：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 参数必须为1,2,3:
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">_proposal</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#34;Invalid proposal.&#34;</span>);</span></span></code></pre></div><p>条件检查：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// 当前区块时间必须小于设定的结束时间:
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">block</span>.<span style="color:#a6e22e">timestamp</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">endTime</span>, <span style="color:#e6db74">&#34;Vote expired.&#34;</span>);</span></span></code></pre></div><p>调用方检查：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// msg.sender表示调用方地址:
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">require</span>(<span style="color:#f92672">!</span><span style="color:#a6e22e">voted</span>[<span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">sender</span>], <span style="color:#e6db74">&#34;Cannot vote again.&#34;</span>);</span></span></code></pre></div><p>以太坊合约具备类似数据库事务的特点，如果中途执行失败，则整个合约的状态保持不变，不存在修改某个成员变量后，后续断言失败导致部分修改生效的问题：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">increment</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 假设a,b均为成员变量:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">emit</span> <span style="color:#a6e22e">AChanged</span>(<span style="color:#a6e22e">a</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 如果下面的验证失败，a不会被更新，也没有AChanged事件发生:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">require</span>(<span style="color:#a6e22e">b</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>, <span style="color:#e6db74">&#39;b &gt;= 10&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div><p>即合约如果执行失败，其状态不会发生任何变化，也不会有任何事件发生，仅仅是调用方白白消耗了一定的Gas。</p>
+<h2 id="开发调试工具">开发/调试工具<a class="anchor" href="#%e5%bc%80%e5%8f%91%e8%b0%83%e8%af%95%e5%b7%a5%e5%85%b7">#</a></h2>
+<p>与常规编程语言不同，Solidity 智能合约的开发往往无法直接通过一个 IDE 或本地环境进行方便的调试，而是需要与一个链上节点进行交互。开发调试往往也不会直接与主网（即真实资产、数据与业务所在的链）进行交互，否则需要承担高额手续费。目前开发调试主要有以下几种方式与框架：</p>
+<ol>
+<li><a href="https://remix.ethereum.org/">Remix IDE</a>。通过 Ethereum 官方提供的基于浏览器的 Remix 开发工具进行调试，Remix 会提供完整的 IDE、编译工具、部署调试的测试节点环境、账户等，可以很方便地进行测试，这是我学习使用时用的最多的工具。Remix 还可以通过 MetaMask 插件与测试网、主网进行直接交互，部分生产环境也会使用它进行编译部署。</li>
+<li><a href="https://github.com/trufflesuite/truffle">Truffle</a>。Truffle 是一个非常流行的 Javascript 的 Solidity 合约开发框架，提供了完整的开发、测试、调试工具链，可以与本地或远程网络进行交互。</li>
+<li><a href="https://github.com/eth-brownie/brownie">Brownie</a>。Brownie 是一个基于 Python 的 Solidity 合约开发框架，以简洁的 Python 语法为调试和测试提供了便捷的工具链。</li>
+<li><a href="https://github.com/NomicFoundation/hardhat">Hardhat</a>。Hardhat 是另一个基于 Javascript 的开发框架，提供了非常丰富的插件系统，适合开发复杂的合约项目。</li>
+</ol>
+<p><strong>Fundry 是什么？ 也是个开发框架？从 B 站上看到的，待定。</strong></p>
+<p>除了开发框架外，更好地进行 Solidity 还需要熟悉一些工具：</p>
+<ol>
+<li>Remix IDE 对于语法提示等并不完善，因此，可以使用 <a href="https://code.visualstudio.com/">Visual Studio Code</a> 配合 <a href="https://marketplace.visualstudio.com/items?itemName=juanblanco.solidity">Solidity</a> 进行编写，有更好的体验。</li>
+<li><a href="https://metamask.io/">MetaMask</a>。一个常用的钱包应用，开发过程中可以通过浏览器插件与测试网、主网进行交互，方便开发者进行调试。</li>
+<li><a href="https://trufflesuite.com/ganache/">Ganache</a>。Ganache 是一个开源的虚拟本地节点，提供了一个虚拟链网络，可以通过各类 Web3.js、Remix 或一些框架工具与之交互，适合有一定规模的项目进行本地调试与测试。</li>
+<li><a href="https://infura.io/">Infura</a>。Infura 是一个 IaaS（Infrastructure as a Service）产品，我们可以申请自己的 Ethereum 节点，通过 Infura 提供的 API 进行交互，可以很方便地进行调试，也更接近生产环境。</li>
+<li><a href="https://www.openzeppelin.com/">OpenZeppelin</a>。OpenZeppelin 提供了非常多的合约开发库与应用，能兼顾安全、稳定的同时给予开发者更好的开发体验，降低合约开发成本。</li>
+</ol>
+<h2 id="合约编译部署">合约编译/部署<a class="anchor" href="#%e5%90%88%e7%ba%a6%e7%bc%96%e8%af%91%e9%83%a8%e7%bd%b2">#</a></h2>
+<p>Solidity 合约是以 <code>.sol</code> 为后缀的文件，无法直接执行，需要编译为 EVM（Ethereum Virtual Machine）可识别的字节码才能在链上运行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202506281017561.png" alt="compile_solidity" /></p>
+<p>编译完成后，由合约账户进行部署到链上，其他账户可通过钱包与合约进行交互，实现链上业务逻辑。</p>
+</div>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+  <div>
+  
+    <a href="/web3/posts/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="flex align-center">
+      <img src="/web3/icons/backward.svg" class="book-icon" alt="Backward" />
+      <span>EVM交易构造和解析</span>
+    </a>
+  
+  </div>
+  <div>
+  
+    <a href="/web3/posts/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/" class="flex align-center">
+      <span>SOL交易构造和解析</span>
+      <img src="/web3/icons/forward.svg" class="book-icon" alt="Forward" />
+    </a>
+  
+  </div>
+</div>
+ 
+        
+  
+ 
+        
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#solidity">Solidity</a></li>
+        <li><a href="#智能合约-与-solidity-语言">智能合约 与 Solidity 语言</a>
+          <ul>
+            <li><a href="#编写合约">编写合约</a></li>
+            <li><a href="#合约执行流程">合约执行流程</a></li>
+            <li><a href="#验证">验证</a></li>
+          </ul>
+        </li>
+        <li><a href="#开发调试工具">开发/调试工具</a></li>
+        <li><a href="#合约编译部署">合约编译/部署</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
