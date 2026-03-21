@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Development on Web3 Notes</title><link>/web3/posts/development/</link><description>Recent content in Development on Web3 Notes</description><generator>Hugo</generator><language>en-us</language><atom:link href="/web3/posts/development/index.xml" rel="self" type="application/rss+xml"/><item><title>EVM交易构造和解析</title><link>/web3/posts/development/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/web3/posts/development/2026-03-08-evm%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/</guid><description>&lt;h2 id="evm交易构造和解析"&gt;EVM交易构造和解析&lt;a class="anchor" href="#evm%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0%e5%92%8c%e8%a7%a3%e6%9e%90"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h1 id="一evm-交易基础结构"&gt;一、EVM 交易基础结构&lt;a class="anchor" href="#%e4%b8%80evm-%e4%ba%a4%e6%98%93%e5%9f%ba%e7%a1%80%e7%bb%93%e6%9e%84"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;EVM 交易本质是 &lt;strong&gt;对账户或合约的一次调用&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;标准交易字段：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;Transaction
+├─ nonce
+├─ gasPrice / maxFeePerGas
+├─ gasLimit
+├─ to
+├─ value
+├─ data
+├─ chainId
+└─ signature (v,r,s)&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;关键字段说明：&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;字段&lt;/th&gt;
+ &lt;th&gt;作用&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td&gt;nonce&lt;/td&gt;
+ &lt;td&gt;防止重放，账户交易序号&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;to&lt;/td&gt;
+ &lt;td&gt;目标地址（EOA 或合约）&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;value&lt;/td&gt;
+ &lt;td&gt;转账 ETH 数量&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;data&lt;/td&gt;
+ &lt;td&gt;调用合约函数数据&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;gasLimit&lt;/td&gt;
+ &lt;td&gt;最大 gas&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;tr&gt;
+ &lt;td&gt;gasPrice&lt;/td&gt;
+ &lt;td&gt;每单位 gas 价格&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;如果：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;data = 0x&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;则是普通转账。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id="二evm-交易类型"&gt;二、EVM 交易类型&lt;a class="anchor" href="#%e4%ba%8cevm-%e4%ba%a4%e6%98%93%e7%b1%bb%e5%9e%8b"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;常见交易类型：&lt;/p&gt;
+&lt;h3 id="1-legacy-transaction"&gt;1 Legacy Transaction&lt;a class="anchor" href="#1-legacy-transaction"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;旧交易结构：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;nonce
+gasPrice
+gasLimit
+to
+value
+data
+v,r,s&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id="2-eip-1559-transaction"&gt;2 EIP-1559 Transaction&lt;a class="anchor" href="#2-eip-1559-transaction"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;增加了动态费率：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;maxPriorityFeePerGas
+maxFeePerGas&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;交易类型：&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;type = 2&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+&lt;h3 id="3-eip-2930-transaction"&gt;3 EIP-2930 Transaction&lt;a class="anchor" href="#3-eip-2930-transaction"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;支持 access list：&lt;/p&gt;</description></item><item><title>Solidity</title><link>/web3/posts/development/2021-01-11-solidity/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/web3/posts/development/2021-01-11-solidity/</guid><description>&lt;h2 id="solidity"&gt;Solidity&lt;a class="anchor" href="#solidity"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://guide.pseudoyu.com/zh/docs/solidity/learn_solidity_from_scratch_basic/"&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="智能合约-与-solidity-语言"&gt;智能合约 与 Solidity 语言&lt;a class="anchor" href="#%e6%99%ba%e8%83%bd%e5%90%88%e7%ba%a6-%e4%b8%8e-solidity-%e8%af%ad%e8%a8%80"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;智能合约是运行在链上的程序，合约开发者可以通过智能合约实现与链上资产/数据进行交互，用户可以通过自己的链上账户来调用合约，访问资产与数据。因为区块链保留区块历史记录的链式结构、去中心化、不可篡改等特征，智能合约相比传统应用来说能更公正、透明。&lt;/p&gt;
+&lt;p&gt;然而，因为智能合约需要与链进行交互，部署、数据写入等操作都会消耗一定费用，数据存储与变更成本也比较高，因此在设计合约时需要着重考虑资源的消耗。此外，常规智能合约一经部署就无法进行修改，因此，合约设计时也需要多考虑其安全性、可升级性与拓展性。&lt;/p&gt;
+&lt;p&gt;Solidity 是一门面向合约的、为实现智能合约而创建的高级编程语言，在 EVM 虚拟机上运行，语法整体类似于 Javascript，是目前最流行的智能合约语言，也是入门区块链与 Web3 所必须掌握的语言。&lt;/p&gt;
+&lt;h3 id="编写合约"&gt;编写合约&lt;a class="anchor" href="#%e7%bc%96%e5%86%99%e5%90%88%e7%ba%a6"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;编写一个以太坊合约相当于编写一个类，一个合约可以包含多个成员变量和若干函数，以及可选的构造函数；&lt;/p&gt;
+&lt;p&gt;部署一个合约相当于实例化，部署时刻将执行构造函数；&lt;/p&gt;
+&lt;p&gt;任何外部账户均可发起对合约函数的调用，但一个交易仅限一个函数调用；&lt;/p&gt;
+&lt;p&gt;所有检查都必须在合约的函数内部完成。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://liaoxuefeng.com/books/blockchain/ethereum/smart-contract/write-contract/index.html"&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以太坊的智能合约就是一段由EVM虚拟机执行的字节码，类似于Java虚拟机执行Java字节码。直接编写字节码非常困难，通常都是由编译器负责把高级语言编译为字节码。&lt;/p&gt;
+&lt;p&gt;编写以太坊合约最常用的高级语言是Solidity，这是一种类似JavaScript语法的高级语言。通过Solidity的&lt;a href="https://soliditylang.org/"&gt;官方网站&lt;/a&gt;可以快速上手，我们不会详细讨论Solidity的语法细节，这里给出一个简单的投票合约：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// SPDX-License-Identifier: GPL-3.0
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;pragma&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;solidity&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0.8&lt;/span&gt;.&lt;span style="color:#ae81ff"&gt;7&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#a6e22e"&gt;contract&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Vote&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;event&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Voted&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;address&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;indexed&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;voter&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;uint8&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposal&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;mapping&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;address&lt;/span&gt; =&amp;gt; &lt;span style="color:#a6e22e"&gt;bool&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;voted&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;endTime&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalA&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalB&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalC&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;constructor&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;_endTime&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;endTime&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;_endTime&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;vote&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;uint8&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;require&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;block&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;timestamp&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;endTime&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#34;Vote expired.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;require&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt; &lt;span style="color:#f92672"&gt;&amp;lt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;&amp;#34;Invalid proposal.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;require&lt;/span&gt;(&lt;span style="color:#f92672"&gt;!&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;voted&lt;/span&gt;[&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sender&lt;/span&gt;], &lt;span style="color:#e6db74"&gt;&amp;#34;Cannot vote again.&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;voted&lt;/span&gt;[&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sender&lt;/span&gt;] &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;proposalA&lt;/span&gt; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;proposalB&lt;/span&gt; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt; &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;proposalC&lt;/span&gt; &lt;span style="color:#f92672"&gt;++&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;emit&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Voted&lt;/span&gt;(&lt;span style="color:#a6e22e"&gt;msg&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;sender&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;_proposal&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;votes&lt;/span&gt;() &lt;span style="color:#66d9ef"&gt;public&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;view&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;returns&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;uint256&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalA&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalB&lt;/span&gt; &lt;span style="color:#f92672"&gt;+&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;proposalC&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Solidity注释和JavaScript一致，第一行通常是版权声明的注释，然后声明编译器版本：&lt;/p&gt;</description></item><item><title>SOL交易构造和解析</title><link>/web3/posts/development/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/web3/posts/development/2026-03-08-sol%E4%BA%A4%E6%98%93%E6%9E%84%E9%80%A0%E5%92%8C%E8%A7%A3%E6%9E%90/</guid><description>&lt;h2 id="sol交易构造和解析"&gt;SOL交易构造和解析&lt;a class="anchor" href="#sol%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0%e5%92%8c%e8%a7%a3%e6%9e%90"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h1 id="solana-交易构造与解析笔记"&gt;Solana 交易构造与解析笔记&lt;a class="anchor" href="#solana-%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0%e4%b8%8e%e8%a7%a3%e6%9e%90%e7%ac%94%e8%ae%b0"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="1-基本概念"&gt;1. 基本概念&lt;a class="anchor" href="#1-%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;交易（Transaction）&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;由一个或多个 &lt;strong&gt;指令（Instruction）&lt;/strong&gt; 构成&lt;/li&gt;
+&lt;li&gt;每个交易包含：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;recentBlockhash&lt;/code&gt;：防重放&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;feePayer&lt;/code&gt;：交易费用支付者&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;signatures&lt;/code&gt;：签名数组（按 signer 顺序）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;指令（Instruction）&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;包含：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;programId&lt;/code&gt;：目标程序地址&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;accounts&lt;/code&gt;：涉及的账户列表（可读/可写、是否需要签名）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data&lt;/code&gt;：指令数据（通常是 base58 或 base64 编码的字节数组）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;地址类型&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Pubkey&lt;/strong&gt;：32 字节，base58 编码&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Program&lt;/strong&gt;：智能合约/程序账户&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="2-交易构造"&gt;2. 交易构造&lt;a class="anchor" href="#2-%e4%ba%a4%e6%98%93%e6%9e%84%e9%80%a0"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;准备账户&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;fee payer、signers、接收者&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构造指令&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;programId&lt;/code&gt;：调用的智能合约地址&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;accounts&lt;/code&gt;：涉及的账户&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;data&lt;/code&gt;：按程序 ABI 编码的参数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构造 Transaction 对象&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;添加指令、设置 recentBlockhash 和 fee payer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;签名&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;使用私钥对 transaction message 签名&lt;/li&gt;
+&lt;li&gt;多签交易：多个 signer 依次签名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;序列化 &amp;amp; 广播&lt;/strong&gt;：
+&lt;ul&gt;
+&lt;li&gt;将交易序列化成 base58/base64 字符串&lt;/li&gt;
+&lt;li&gt;通过 RPC &lt;code&gt;sendTransaction&lt;/code&gt; 或 &lt;code&gt;sendRawTransaction&lt;/code&gt; 广播&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="3-交易解析"&gt;3. 交易解析&lt;a class="anchor" href="#3-%e4%ba%a4%e6%98%93%e8%a7%a3%e6%9e%90"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;解码签名 &amp;amp; 最近区块哈希&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;transaction.signatures&lt;/code&gt; → 校验 signer&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recentBlockhash&lt;/code&gt; → 确认交易唯一性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;解析指令&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;transaction.message.instructions&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;指令数据通常是 base58/base64 字节&lt;/li&gt;
+&lt;li&gt;解析步骤：
+&lt;ol&gt;
+&lt;li&gt;获取指令的 &lt;code&gt;programId&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;获取 &lt;code&gt;accounts&lt;/code&gt; 列表&lt;/li&gt;
+&lt;li&gt;解码 &lt;code&gt;data&lt;/code&gt;：
+&lt;ul&gt;
+&lt;li&gt;按程序的 ABI 或自定义布局解码&lt;/li&gt;
+&lt;li&gt;Rust/Anchor 程序通常有 &lt;code&gt;borsh&lt;/code&gt; 或 &lt;code&gt;anchor&lt;/code&gt; 序列化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;参数类型&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;固定长度：u64、u8、Pubkey&lt;/li&gt;
+&lt;li&gt;动态长度：Vec&lt;u8&gt; / string / 可变数组&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="4-常用工具"&gt;4. 常用工具&lt;a class="anchor" href="#4-%e5%b8%b8%e7%94%a8%e5%b7%a5%e5%85%b7"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;在线 / GUI&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>区块链钱包开发系列教程</title><link>/web3/posts/development/2021-01-10-%E5%8C%BA%E5%9D%97%E9%93%BE%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/web3/posts/development/2021-01-10-%E5%8C%BA%E5%9D%97%E9%93%BE%E9%92%B1%E5%8C%85%E5%BC%80%E5%8F%91%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B/</guid><description>&lt;h3 id="区块链钱包开发系列教程"&gt;区块链钱包开发系列教程&lt;a class="anchor" href="#%e5%8c%ba%e5%9d%97%e9%93%be%e9%92%b1%e5%8c%85%e5%bc%80%e5%8f%91%e7%b3%bb%e5%88%97%e6%95%99%e7%a8%8b"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://learnblockchain.cn/article/8358#01%C2%A0%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E6%9E%B6%E6%9E%84%E5%9B%BE"&gt;参考&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id="探索不同类别的-web3-钱包底层奥秘"&gt;探索不同类别的 WEB3 钱包底层奥秘&lt;a class="anchor" href="#%e6%8e%a2%e7%b4%a2%e4%b8%8d%e5%90%8c%e7%b1%bb%e5%88%ab%e7%9a%84-web3-%e9%92%b1%e5%8c%85%e5%ba%95%e5%b1%82%e5%a5%a5%e7%a7%98"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="钱包类型"&gt;&lt;strong&gt;钱包类型&lt;/strong&gt;&lt;a class="anchor" href="#%e9%92%b1%e5%8c%85%e7%b1%bb%e5%9e%8b"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;中心化钱包&lt;/strong&gt; ：钱包私钥一般管理在中心化服务器上，代表项目为交易所钱包；例如 Binance 交易所钱包，okx 交易所钱包和 bybit 交易所钱包等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;去中心化钱包(确定性分层钱包)&lt;/strong&gt; ：钱包私钥一般管理在用户的设备上，代表项目为 TP, ImToken, MetaMask 等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;硬件钱包&lt;/strong&gt; ：钱包私钥管理在离线的硬件设备上，代表项目 ledger, onekey 等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;交易所 Web3 钱包：&lt;/strong&gt; 一般的交易所 Web3 钱包集成了，中心化钱包，去中心化钱包(确定性分层钱包)和硬件钱包的功能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;托管钱包：&lt;/strong&gt; 一般为 MPC 算法，每个节点有一个密钥片，网络中没有完整的私钥出现过, N-M 的签名方式，总节点为 N 个，M 个节点签名交易即有效。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多签钱包：&lt;/strong&gt; EVM 链一般使用 gnosis safe 多签，其他使用传统密码学方式多签。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;社交恢复钱包:&lt;/strong&gt; 密钥分片备份和守护者恢复。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EVM 链 AA 钱包：&lt;/strong&gt; ERC4337 协议独有特性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="中心化钱包"&gt;&lt;strong&gt;中心化钱包&lt;/strong&gt;&lt;a class="anchor" href="#%e4%b8%ad%e5%bf%83%e5%8c%96%e9%92%b1%e5%8c%85"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="01-中心化钱包架构图"&gt;&lt;strong&gt;01 中心化钱包架构图&lt;/strong&gt;&lt;a class="anchor" href="#01-%e4%b8%ad%e5%bf%83%e5%8c%96%e9%92%b1%e5%8c%85%e6%9e%b6%e6%9e%84%e5%9b%be"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv6/v6/202507091445178.jpg" alt="img" /&gt;
+交易所使用的钱包一般都称为中心化钱包，原因是交易所钱包私钥一般管理在中心化服务器上，不同的交易所的私钥管理方式也不一样。&lt;/p&gt;
+&lt;p&gt;最简单的方式莫过去将私钥做一层 DES 加密之后存储在数据库或者 waller.data 数据文件中，其次是使用 KMS 环境保存加密的私钥，不管是使用数据文件或者 KMS 保存私钥，交易签名的时候都需要解密私钥之后就行签名，私钥暴露的风险最大，团队成员作恶也非常容易。&lt;/p&gt;
+&lt;p&gt;其次是 Tee 环境，Tee 环境虽然是一个安全的执行环境，但是私钥也是加密之后存储在这个环境的数据库或者文件里面，每次签名也要在这个环境中解密私钥进行签名，私钥暴露的风险也很大，团队成员想拿到私钥也很容易，只需要签名前传人私钥是打一个日志就行。&lt;/p&gt;</description></item></channel></rss>
