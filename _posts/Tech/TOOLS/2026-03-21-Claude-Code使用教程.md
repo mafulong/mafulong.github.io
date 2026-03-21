@@ -55,6 +55,14 @@ claude --version
 
 ### 其他设置
 
+减少打扰的选项：
+
+| 设置 | 作用 |
+|------|------|
+| `skipDangerousModePermissionPrompt` | 跳过危险模式警告 |
+| `skipAutoPermissionPrompt` | 跳过自动模式确认 |
+| `spinnerTipsEnabled` | 关闭底部 tips 提示 |
+
 ```json
 {
   "skipDangerousModePermissionPrompt": true,
@@ -81,19 +89,6 @@ claude --version
 | `/model <name>` | 切换模型 |
 | `/commit` | 创建 git 提交 |
 | `/review-pr <number>` | 审查 PR |
-
----
-
-## 常用工具
-
-| 工具 | 用法 |
-|------|------|
-| Read | `Read /path/to/file` |
-| Write | `Write /path/to/file content="..."` |
-| Edit | `Edit file_path old_string="..." new_string="..."` |
-| Glob | `Glob **/*.js` |
-| Grep | `Grep "pattern" type=js` |
-| Bash | `Bash command="ls -la"` |
 
 ---
 
