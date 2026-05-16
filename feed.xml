@@ -1,4 +1,1261 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:17:23+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">vscode配置</title><link href="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="vscode配置" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/">&lt;h1 id=&quot;vscode-设置指南&quot;&gt;VSCode 设置指南&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:41:19+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;h2 id=&quot;the-full-12-rule-claudemd-copy-paste-ready&quot;&gt;The full 12-rule CLAUDE.md (copy-paste ready)&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+
+These rules apply to every task in this project unless explicitly overridden.
+Bias: caution over speed on non-trivial work. Use judgment on trivial tasks.
+
+## Rule 1 — Think Before Coding
+State assumptions explicitly. If uncertain, ask rather than guess.
+Present multiple interpretations when ambiguity exists.
+Push back when a simpler approach exists.
+Stop when confused. Name what&apos;s unclear.
+
+## Rule 2 — Simplicity First
+Minimum code that solves the problem. Nothing speculative.
+No features beyond what was asked. No abstractions for single-use code.
+Test: would a senior engineer say this is overcomplicated? If yes, simplify.
+
+## Rule 3 — Surgical Changes
+Touch only what you must. Clean up only your own mess.
+Don&apos;t &quot;improve&quot; adjacent code, comments, or formatting.
+Don&apos;t refactor what isn&apos;t broken. Match existing style.
+
+## Rule 4 — Goal-Driven Execution
+Define success criteria. Loop until verified.
+Don&apos;t follow steps. Define success and iterate.
+Strong success criteria let you loop independently.
+
+## Rule 5 — Use the model only for judgment calls
+Use me for: classification, drafting, summarization, extraction.
+Do NOT use me for: routing, retries, deterministic transforms.
+If code can answer, code answers.
+
+## Rule 6 — Token budgets are not advisory
+Per-task: 4,000 tokens. Per-session: 30,000 tokens.
+If approaching budget, summarize and start fresh.
+Surface the breach. Do not silently overrun.
+
+## Rule 7 — Surface conflicts, don&apos;t average them
+If two patterns contradict, pick one (more recent / more tested).
+Explain why. Flag the other for cleanup.
+Don&apos;t blend conflicting patterns.
+
+## Rule 8 — Read before you write
+Before adding code, read exports, immediate callers, shared utilities.
+&quot;Looks orthogonal&quot; is dangerous. If unsure why code is structured a way, ask.
+
+## Rule 9 — Tests verify intent, not just behavior
+Tests must encode WHY behavior matters, not just WHAT it does.
+A test that can&apos;t fail when business logic changes is wrong.
+
+## Rule 10 — Checkpoint after every significant step
+Summarize what was done, what&apos;s verified, what&apos;s left.
+Don&apos;t continue from a state you can&apos;t describe back.
+If you lose track, stop and restate.
+
+## Rule 11 — Match the codebase&apos;s conventions, even if you disagree
+Conformance &amp;gt; taste inside the codebase.
+If you genuinely think a convention is harmful, surface it. Don&apos;t fork silently.
+
+## Rule 12 — Fail loud
+&quot;Completed&quot; is wrong if anything was skipped silently.
+&quot;Tests pass&quot; is wrong if any were skipped.
+Default to surfacing uncertainty, not hiding it.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">The full 12-rule CLAUDE.md (copy-paste ready)</summary></entry><entry><title type="html">Claude Code 多 Agent 架构</title><link href="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/" rel="alternate" type="text/html" title="Claude Code 多 Agent 架构" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/">&lt;h1 id=&quot;claude-code-多-agent-架构修正版面试笔记&quot;&gt;Claude Code 多 Agent 架构（修正版面试笔记）&lt;/h1&gt;
+
+&lt;h1 id=&quot;一核心问题为什么需要-multi-agent&quot;&gt;一、核心问题：为什么需要 Multi-Agent&lt;/h1&gt;
+
+&lt;p&gt;单 Agent 在复杂任务中的瓶颈：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;上下文膨胀（调研 / 编码 / 评审混在一起）&lt;/li&gt;
+  &lt;li&gt;职责混乱（推理目标漂移）&lt;/li&gt;
+  &lt;li&gt;无法并发（所有步骤串行）&lt;/li&gt;
+  &lt;li&gt;工具使用空间过大（action space 无约束）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;二整体架构本质&quot;&gt;二、整体架构本质&lt;/h1&gt;
+
+&lt;p&gt;Claude Code 的 multi-agent 不是“多进程系统”，而是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;单 runtime + 多执行上下文（execution context）+ 状态驱动调度&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;核心不是“多个 agent”，而是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多个隔离的执行上下文&lt;/li&gt;
+  &lt;li&gt;同一个 LLM runtime&lt;/li&gt;
+  &lt;li&gt;共享任务状态存储&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;三三种-agent-组织形态&quot;&gt;三、三种 Agent 组织形态&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-父子模型subagent&quot;&gt;1. 父子模型（Subagent）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主 agent 控制整体流程&lt;/li&gt;
+  &lt;li&gt;通过工具触发 subagent&lt;/li&gt;
+  &lt;li&gt;subagent 执行子任务并返回结果&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;逻辑子上下文（不是独立系统）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-协作模型peer-agents&quot;&gt;2. 协作模型（Peer Agents）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多 agent 并列&lt;/li&gt;
+  &lt;li&gt;通过共享状态或消息协作&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;灵活但复杂&lt;/li&gt;
+  &lt;li&gt;状态同步成本高&lt;/li&gt;
+  &lt;li&gt;工程中较少直接采用&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-coordinator-worker-模式&quot;&gt;3. Coordinator-Worker 模式&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Coordinator：任务拆分 + 调度 + 合成&lt;/li&gt;
+  &lt;li&gt;Worker：执行具体任务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;高并发能力&lt;/li&gt;
+  &lt;li&gt;适合大规模任务拆解&lt;/li&gt;
+  &lt;li&gt;工业级常用结构&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;四subagent-的本质逻辑隔离&quot;&gt;四、Subagent 的本质：逻辑隔离&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-不是独立-agent而是执行上下文&quot;&gt;1. 不是“独立 agent”，而是执行上下文&lt;/h2&gt;
+
+&lt;p&gt;Subagent =&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;独立 state slice + tool 权限过滤 + message loop&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;共享：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;runtime&lt;/li&gt;
+  &lt;li&gt;基础执行框架&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;不共享：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当前 context state&lt;/li&gt;
+  &lt;li&gt;tool 权限视图（部分裁剪）&lt;/li&gt;
+  &lt;li&gt;message history 分支&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-工具隔离tool-filtering&quot;&gt;2. 工具隔离（Tool Filtering）&lt;/h2&gt;
+
+&lt;p&gt;目标：限制 action space&lt;/p&gt;
+
+&lt;p&gt;三层过滤逻辑：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全局禁止工具（防递归 / 控制权）&lt;/li&gt;
+  &lt;li&gt;agent 类型限制（custom agent 更严格）&lt;/li&gt;
+  &lt;li&gt;async agent 白名单（后台 agent 最小权限）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;降低 agent 可行动空间，而非安全沙箱&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-上下文隔离field-level-state-slicing&quot;&gt;3. 上下文隔离（Field-level state slicing）&lt;/h2&gt;
+
+&lt;p&gt;不是“全拷贝 or 全共享”，而是逐字段决策：&lt;/p&gt;
+
+&lt;h3 id=&quot;常见策略&quot;&gt;常见策略：&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;文件读取缓存 → 复制（避免互相污染）&lt;/li&gt;
+  &lt;li&gt;全局 UI 状态 → 禁止写（避免冲突）&lt;/li&gt;
+  &lt;li&gt;task registry → 保留（避免孤儿任务）&lt;/li&gt;
+  &lt;li&gt;agentId / depth → 递增（用于追踪）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;核心思想：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;isolation 是字段级语义决策，不是整体策略&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;五通信机制核心设计&quot;&gt;五、通信机制（核心设计）&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-父--子通信&quot;&gt;1. 父 → 子通信&lt;/h2&gt;
+
+&lt;p&gt;机制：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SendMessage 写入 subagent task state&lt;/li&gt;
+  &lt;li&gt;pendingMessages 数组作为“信箱”&lt;/li&gt;
+  &lt;li&gt;subagent 在 execution loop 中轮询读取&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;shared state + event polling（不是 MQ）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-子--父通信&quot;&gt;2. 子 → 父通信&lt;/h2&gt;
+
+&lt;p&gt;机制：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;subagent 生成结构化文本（XML-like payload）&lt;/li&gt;
+  &lt;li&gt;注入父 agent conversation history&lt;/li&gt;
+  &lt;li&gt;作为“用户消息”处理&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;系统事件 → 对话消息（message embedding）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;优点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;兼容 LLM prompt 结构&lt;/li&gt;
+  &lt;li&gt;无需额外 event system&lt;/li&gt;
+  &lt;li&gt;可持久化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-状态结构简化模型&quot;&gt;3. 状态结构（简化模型）&lt;/h2&gt;
+
+&lt;p&gt;每个 subagent task 包含：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;status（running / done / failed）&lt;/li&gt;
+  &lt;li&gt;pendingMessages（输入队列）&lt;/li&gt;
+  &lt;li&gt;result（输出结果）&lt;/li&gt;
+  &lt;li&gt;progress（执行进度）&lt;/li&gt;
+  &lt;li&gt;messages（对话历史）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;六并发模型&quot;&gt;六、并发模型&lt;/h1&gt;
+
+&lt;h2 id=&quot;核心机制&quot;&gt;核心机制&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多个 LLM API request 并发执行&lt;/li&gt;
+  &lt;li&gt;worker 之间互不阻塞&lt;/li&gt;
+  &lt;li&gt;coordinator / parent 不等待所有子任务完成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;API-level concurrency（不是线程并发）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;自动后台化auto-background&quot;&gt;自动后台化（auto-background）&lt;/h2&gt;
+
+&lt;p&gt;规则：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;短任务：同步等待结果&lt;/li&gt;
+  &lt;li&gt;长任务（&amp;gt;阈值）：自动 background&lt;/li&gt;
+  &lt;li&gt;完成后异步通知父 agent&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;sync → async 的自动降级机制&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;七fork-subagent优化机制&quot;&gt;七、Fork Subagent（优化机制）&lt;/h1&gt;
+
+&lt;h2 id=&quot;核心目标&quot;&gt;核心目标&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;降低 token 成本 + 提升 cache 命中率&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;核心思想&quot;&gt;核心思想&lt;/h2&gt;
+
+&lt;p&gt;Fork subagent =&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;保持 request prefix byte-level deterministic&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;必须一致的部分&quot;&gt;必须一致的部分：&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;system prompt&lt;/li&gt;
+  &lt;li&gt;tool list（顺序 + 内容）&lt;/li&gt;
+  &lt;li&gt;user context prefix&lt;/li&gt;
+  &lt;li&gt;system context&lt;/li&gt;
+  &lt;li&gt;message history prefix&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;关键结论&quot;&gt;关键结论&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Fork 不等于 cache&lt;/li&gt;
+  &lt;li&gt;cache 是结果，不是设计目标&lt;/li&gt;
+  &lt;li&gt;核心是“请求前缀一致性”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;八coordinator-模式调度层&quot;&gt;八、Coordinator 模式（调度层）&lt;/h1&gt;
+
+&lt;h2 id=&quot;角色变化&quot;&gt;角色变化&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;模式&lt;/th&gt;
+      &lt;th&gt;主 agent&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;普通模式&lt;/td&gt;
+      &lt;td&gt;执行 + 调度&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Coordinator&lt;/td&gt;
+      &lt;td&gt;强调度倾向（delegation-first）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;coordinator-职责&quot;&gt;Coordinator 职责&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;拆分任务&lt;/li&gt;
+  &lt;li&gt;派发 worker&lt;/li&gt;
+  &lt;li&gt;收集结果&lt;/li&gt;
+  &lt;li&gt;合成最终输出&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;但仍然可以：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;直接回答简单问题&lt;/li&gt;
+  &lt;li&gt;自主执行部分任务&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;worker-工具限制&quot;&gt;Worker 工具限制&lt;/h2&gt;
+
+&lt;p&gt;worker 不具备：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;派发其他 worker 权限&lt;/li&gt;
+  &lt;li&gt;coordinator 内部调度工具&lt;/li&gt;
+  &lt;li&gt;合成输出能力&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;本质：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;防止递归调度结构（避免树爆炸）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;并行机制&quot;&gt;并行机制&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一次 LLM 输出可包含多个 worker 调用&lt;/li&gt;
+  &lt;li&gt;worker 同时启动&lt;/li&gt;
+  &lt;li&gt;结果异步返回&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;效果：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;从串行任务 → 并行 fan-out&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;任务流水线&quot;&gt;任务流水线&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;并行调研（workers）&lt;/li&gt;
+  &lt;li&gt;coordinator 合成理解&lt;/li&gt;
+  &lt;li&gt;并行执行（workers）&lt;/li&gt;
+  &lt;li&gt;并行验证（workers）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;关键原则：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;coordinator 必须理解，而不是转发&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;九三种模式对比&quot;&gt;九、三种模式对比&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;维度&lt;/th&gt;
+      &lt;th&gt;Subagent&lt;/th&gt;
+      &lt;th&gt;Fork&lt;/th&gt;
+      &lt;th&gt;Coordinator&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;并发&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;高&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;隔离强度&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;低（同源）&lt;/td&gt;
+      &lt;td&gt;高（结构隔离）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;成本优化&lt;/td&gt;
+      &lt;td&gt;无&lt;/td&gt;
+      &lt;td&gt;强（cache）&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;结构形态&lt;/td&gt;
+      &lt;td&gt;父子&lt;/td&gt;
+      &lt;td&gt;克隆分支&lt;/td&gt;
+      &lt;td&gt;扁平 worker&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;适用场景&lt;/td&gt;
+      &lt;td&gt;局部任务&lt;/td&gt;
+      &lt;td&gt;快速分身 / cache优化&lt;/td&gt;
+      &lt;td&gt;大任务拆解&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十5-个核心设计原则面试重点&quot;&gt;十、5 个核心设计原则（面试重点）&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-上下文隔离必须字段级控制&quot;&gt;1. 上下文隔离必须字段级控制&lt;/h2&gt;
+
+&lt;p&gt;不是整体复制或隔离，而是按语义字段决策。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-通信必须基于消息模型&quot;&gt;2. 通信必须基于消息模型&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;写 state（父→子）&lt;/li&gt;
+  &lt;li&gt;写 conversation event（子→父）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;避免函数调用式阻塞。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-工具权限是-action-space-控制&quot;&gt;3. 工具权限是 action space 控制&lt;/h2&gt;
+
+&lt;p&gt;不是安全沙箱，而是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;控制 agent 可行动空间&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-prompt-cache-是工程优化能力&quot;&gt;4. prompt cache 是工程优化能力&lt;/h2&gt;
+
+&lt;p&gt;关键在：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;request prefix deterministic design&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-并行优先--coordinator-合成&quot;&gt;5. 并行优先 + coordinator 合成&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;worker 并行执行&lt;/li&gt;
+  &lt;li&gt;coordinator 负责理解与整合&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十一一句话工程级总结&quot;&gt;十一、一句话工程级总结&lt;/h1&gt;
+
+&lt;p&gt;Claude Code multi-agent 本质是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;一个基于共享状态的事件驱动执行系统，通过字段级上下文切分实现逻辑隔离，通过异步消息模拟 agent 通信，通过 API 并发实现执行并行，通过 prompt 前缀确定性实现 cache 优化，并通过 coordinator bias 实现任务调度。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;十二面试用精简回答可直接背&quot;&gt;十二、面试用精简回答（可直接背）&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;它不是多进程 agent 架构，而是单 runtime 下的多执行上下文系统。&lt;br /&gt;
+subagent 通过字段级 state slicing 实现隔离，通过 message queue（pendingMessages）实现异步通信，通过 coordinator 模式实现任务分发与并行执行。&lt;br /&gt;
+并发来自 API-level async execution，而优化则依赖 prompt prefix deterministic design 来提升 cache 命中率。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code 多 Agent 架构（修正版面试笔记）</summary></entry><entry><title type="html">Claude Code：Superpower vs OMC vs Harness</title><link href="https://mafulong.github.io/2026/05/16/claudecode%E6%8F%92%E4%BB%B6/" rel="alternate" type="text/html" title="Claude Code：Superpower vs OMC vs Harness" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecode%E6%8F%92%E4%BB%B6</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecode%E6%8F%92%E4%BB%B6/">&lt;h1 id=&quot;claude-codesuperpower-vs-omc-vs-harness&quot;&gt;Claude Code：Superpower vs OMC vs Harness&lt;/h1&gt;
+
+&lt;h2 id=&quot;一句话总结&quot;&gt;一句话总结&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;工具&lt;/th&gt;
+      &lt;th&gt;定位&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Superpower&lt;/td&gt;
+      &lt;td&gt;AI 工程化开发方法论&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OMC (oh-my-claudecode)&lt;/td&gt;
+      &lt;td&gt;多 Agent 自动化框架&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Harness&lt;/td&gt;
+      &lt;td&gt;可复用 AI 工作流/流水线&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;1-superpower&quot;&gt;1. Superpower&lt;/h1&gt;
+
+&lt;h2 id=&quot;是什么&quot;&gt;是什么&lt;/h2&gt;
+
+&lt;p&gt;Superpower 本质是一套：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;prompt engineering&lt;/li&gt;
+  &lt;li&gt;workflow discipline&lt;/li&gt;
+  &lt;li&gt;structured development flow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;目标：&lt;/p&gt;
+
+&lt;p&gt;让 Claude 更像高级工程师。&lt;/p&gt;
+
+&lt;p&gt;强调：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Analyze
+→ Plan
+→ Implement
+→ Review
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;而不是直接乱写代码。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;特点&quot;&gt;特点&lt;/h2&gt;
+
+&lt;h3 id=&quot;优点&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;输出稳定&lt;/li&gt;
+  &lt;li&gt;幻觉少&lt;/li&gt;
+  &lt;li&gt;代码质量高&lt;/li&gt;
+  &lt;li&gt;review 很强&lt;/li&gt;
+  &lt;li&gt;适合正式项目&lt;/li&gt;
+  &lt;li&gt;对大仓库友好&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;啰嗦&lt;/li&gt;
+  &lt;li&gt;节奏慢&lt;/li&gt;
+  &lt;li&gt;token 消耗高&lt;/li&gt;
+  &lt;li&gt;喜欢先 planning&lt;/li&gt;
+  &lt;li&gt;不适合“一句话出功能”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;适合场景&quot;&gt;适合场景&lt;/h2&gt;
+
+&lt;h3 id=&quot;非常适合&quot;&gt;非常适合&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Go 后端&lt;/li&gt;
+  &lt;li&gt;Infra&lt;/li&gt;
+  &lt;li&gt;微服务&lt;/li&gt;
+  &lt;li&gt;大仓库&lt;/li&gt;
+  &lt;li&gt;重构&lt;/li&gt;
+  &lt;li&gt;review&lt;/li&gt;
+  &lt;li&gt;debugging&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;不太适合&quot;&gt;不太适合&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;prototype&lt;/li&gt;
+  &lt;li&gt;vibe coding&lt;/li&gt;
+  &lt;li&gt;快速 UI 生成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;安装常见方式&quot;&gt;安装（常见方式）&lt;/h2&gt;
+
+&lt;p&gt;通常是：&lt;/p&gt;
+
+&lt;h3 id=&quot;方式1skills&quot;&gt;方式1：skills&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/.claude/skills/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone xxx superpower
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;方式2commands&quot;&gt;方式2：commands&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/.claude/commands/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;方式3项目级推荐&quot;&gt;方式3：项目级（推荐）&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project/.claude/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;避免污染全局。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常见命令&quot;&gt;常见命令&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/sp:plan
+/sp:review
+/sp:debug
+/sp:implement
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/use planner
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;推荐使用方式&quot;&gt;推荐使用方式&lt;/h2&gt;
+
+&lt;h3 id=&quot;第一步&quot;&gt;第一步&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;先分析
+不要写代码
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;第二步&quot;&gt;第二步&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;输出 implementation plan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;第三步&quot;&gt;第三步&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;一步一步实现
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;第四步&quot;&gt;第四步&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;review 当前改动
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;最佳实践&quot;&gt;最佳实践&lt;/h2&gt;
+
+&lt;p&gt;不要：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;帮我做完 xxx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;而是：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;先分析 router
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;只改 config 层
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;最后：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;补 tests
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;2-omcoh-my-claudecode&quot;&gt;2. OMC（oh-my-claudecode）&lt;/h1&gt;
+
+&lt;h2 id=&quot;是什么-1&quot;&gt;是什么&lt;/h2&gt;
+
+&lt;p&gt;OMC 是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;多 Agent AI 编排框架&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;目标：&lt;/p&gt;
+
+&lt;p&gt;让多个 AI agent 协作开发。&lt;/p&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;architect&lt;/li&gt;
+  &lt;li&gt;implementer&lt;/li&gt;
+  &lt;li&gt;reviewer&lt;/li&gt;
+  &lt;li&gt;qa&lt;/li&gt;
+  &lt;li&gt;security&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;自动并行工作。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;特点-1&quot;&gt;特点&lt;/h2&gt;
+
+&lt;h3 id=&quot;优点-1&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;自动化强&lt;/li&gt;
+  &lt;li&gt;并行执行&lt;/li&gt;
+  &lt;li&gt;功能开发快&lt;/li&gt;
+  &lt;li&gt;爽感强&lt;/li&gt;
+  &lt;li&gt;autopilot 能力强&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点-1&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;token 爆炸&lt;/li&gt;
+  &lt;li&gt;容易失控&lt;/li&gt;
+  &lt;li&gt;context 漂移&lt;/li&gt;
+  &lt;li&gt;agent 相互污染&lt;/li&gt;
+  &lt;li&gt;debug 难&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;适合场景-1&quot;&gt;适合场景&lt;/h2&gt;
+
+&lt;h3 id=&quot;非常适合-1&quot;&gt;非常适合&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;prototype&lt;/li&gt;
+  &lt;li&gt;side project&lt;/li&gt;
+  &lt;li&gt;overnight coding&lt;/li&gt;
+  &lt;li&gt;大规模改造&lt;/li&gt;
+  &lt;li&gt;自动修 bug&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;不太适合-1&quot;&gt;不太适合&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;高稳定性项目&lt;/li&gt;
+  &lt;li&gt;强 controllability 场景&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;安装常见方式-1&quot;&gt;安装（常见方式）&lt;/h2&gt;
+
+&lt;p&gt;通常：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone oh-my-claudecode
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./install.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;它会注册：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;agents/
+commands/
+workflows/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;常见命令-1&quot;&gt;常见命令&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/omc:autopilot
+/omc:team
+/ralph
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;典型工作方式&quot;&gt;典型工作方式&lt;/h2&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;需求
+→ architect agent
+→ implementation agent
+→ reviewer agent
+→ qa agent
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;自动 orchestrate。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;推荐使用方式-1&quot;&gt;推荐使用方式&lt;/h2&gt;
+
+&lt;p&gt;适合：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;帮我生成 admin dashboard
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;批量重构 provider
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;不推荐&quot;&gt;不推荐&lt;/h2&gt;
+
+&lt;p&gt;不要长期：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;全程 autopilot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;容易：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;越改越乱&lt;/li&gt;
+  &lt;li&gt;context 爆炸&lt;/li&gt;
+  &lt;li&gt;token 爆炸&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;3-harness&quot;&gt;3. Harness&lt;/h1&gt;
+
+&lt;h2 id=&quot;是什么-2&quot;&gt;是什么&lt;/h2&gt;
+
+&lt;p&gt;Harness 本质是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;AI workflow automation pipeline&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;类似：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CI/CD&lt;/li&gt;
+  &lt;li&gt;reusable workflow&lt;/li&gt;
+  &lt;li&gt;automation pipeline&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;核心价值：&lt;/p&gt;
+
+&lt;p&gt;把 AI 工作流标准化。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;特点-2&quot;&gt;特点&lt;/h2&gt;
+
+&lt;h3 id=&quot;优点-2&quot;&gt;优点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;可复用&lt;/li&gt;
+  &lt;li&gt;降低随机性&lt;/li&gt;
+  &lt;li&gt;团队统一流程&lt;/li&gt;
+  &lt;li&gt;降低 prompt 重复&lt;/li&gt;
+  &lt;li&gt;长期收益很高&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;缺点-2&quot;&gt;缺点&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;初期需要设计&lt;/li&gt;
+  &lt;li&gt;要维护 workflow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;适合场景-2&quot;&gt;适合场景&lt;/h2&gt;
+
+&lt;h3 id=&quot;非常适合-2&quot;&gt;非常适合&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;团队协作&lt;/li&gt;
+  &lt;li&gt;固定开发套路&lt;/li&gt;
+  &lt;li&gt;incident response&lt;/li&gt;
+  &lt;li&gt;bugfix&lt;/li&gt;
+  &lt;li&gt;PR review&lt;/li&gt;
+  &lt;li&gt;provider integration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;安装常见方式-2&quot;&gt;安装（常见方式）&lt;/h2&gt;
+
+&lt;p&gt;通常是：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.claude/harnesses/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.claude/workflows/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;fix-bug&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;analyze logs&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;locate issue&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;write test&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;patch&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;run tests&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;使用方式&quot;&gt;使用方式&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/harness fix-bug
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;或者：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/workflow payment-review
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;最推荐的-harness&quot;&gt;最推荐的 Harness&lt;/h2&gt;
+
+&lt;h3 id=&quot;bugfix&quot;&gt;bugfix&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;日志分析
+→ 定位问题
+→ 写 failing test
+→ 修复
+→ 回归测试
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;incident-analysis&quot;&gt;incident-analysis&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;trace
+→ timeout
+→ dependency
+→ root cause
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;provider-integration&quot;&gt;provider-integration&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;阅读 API
+→ 生成 SDK
+→ 增加 config
+→ 增加 test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;三者核心区别&quot;&gt;三者核心区别&lt;/h1&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;对比&lt;/th&gt;
+      &lt;th&gt;Superpower&lt;/th&gt;
+      &lt;th&gt;OMC&lt;/th&gt;
+      &lt;th&gt;Harness&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;本质&lt;/td&gt;
+      &lt;td&gt;方法论&lt;/td&gt;
+      &lt;td&gt;多 Agent&lt;/td&gt;
+      &lt;td&gt;工作流&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;核心&lt;/td&gt;
+      &lt;td&gt;工程 discipline&lt;/td&gt;
+      &lt;td&gt;自动化协作&lt;/td&gt;
+      &lt;td&gt;标准化&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;风格&lt;/td&gt;
+      &lt;td&gt;稳&lt;/td&gt;
+      &lt;td&gt;猛&lt;/td&gt;
+      &lt;td&gt;工程化&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;自动化&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;很强&lt;/td&gt;
+      &lt;td&gt;强&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;并行&lt;/td&gt;
+      &lt;td&gt;弱&lt;/td&gt;
+      &lt;td&gt;强&lt;/td&gt;
+      &lt;td&gt;可配置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;controllability&lt;/td&gt;
+      &lt;td&gt;强&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;很强&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;token 消耗&lt;/td&gt;
+      &lt;td&gt;中高&lt;/td&gt;
+      &lt;td&gt;很高&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;学习成本&lt;/td&gt;
+      &lt;td&gt;低&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;长期价值&lt;/td&gt;
+      &lt;td&gt;高&lt;/td&gt;
+      &lt;td&gt;中&lt;/td&gt;
+      &lt;td&gt;很高&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;推荐组合&quot;&gt;推荐组合&lt;/h1&gt;
+
+&lt;h2 id=&quot;日常开发最推荐&quot;&gt;日常开发（最推荐）&lt;/h2&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Superpower + Harness
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;原因：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;稳&lt;/li&gt;
+  &lt;li&gt;可控&lt;/li&gt;
+  &lt;li&gt;工程化&lt;/li&gt;
+  &lt;li&gt;成本低&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;大任务&quot;&gt;大任务&lt;/h2&gt;
+
+&lt;p&gt;临时：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;OMC Autopilot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;例如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;大规模 refactor&lt;/li&gt;
+  &lt;li&gt;overnight coding&lt;/li&gt;
+  &lt;li&gt;prototype&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;推荐目录结构&quot;&gt;推荐目录结构&lt;/h1&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;project/
+└── .claude/
+    ├── skills/
+    │   └── superpower/
+    │
+    ├── agents/
+    │   └── omc/
+    │
+    ├── harnesses/
+    │   ├── bugfix.yaml
+    │   ├── review.yaml
+    │   └── provider.yaml
+    │
+    └── CLAUDE.md
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;如何区分当前用了哪个&quot;&gt;如何区分当前用了哪个&lt;/h1&gt;
+
+&lt;h2 id=&quot;看-commands&quot;&gt;看 commands&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/help
+/commands
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;看风格&quot;&gt;看风格&lt;/h2&gt;
+
+&lt;h3 id=&quot;superpower&quot;&gt;Superpower&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;先分析
+先 plan
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;omc&quot;&gt;OMC&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Launching agents...
+Running reviewer...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;harness&quot;&gt;Harness&lt;/h3&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Running workflow...
+Step 1/5...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;最终建议&quot;&gt;最终建议&lt;/h1&gt;
+
+&lt;h2 id=&quot;如果你是&quot;&gt;如果你是：&lt;/h2&gt;
+
+&lt;h3 id=&quot;后端--infra--工程化开发&quot;&gt;后端 / Infra / 工程化开发&lt;/h3&gt;
+
+&lt;p&gt;优先：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Harness &amp;gt; Superpower &amp;gt; OMC
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;如果你是-1&quot;&gt;如果你是：&lt;/h2&gt;
+
+&lt;h3 id=&quot;prototype--ai-coding--vibe-coding&quot;&gt;prototype / AI coding / vibe coding&lt;/h3&gt;
+
+&lt;p&gt;优先：&lt;/p&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;OMC &amp;gt; Harness &amp;gt; Superpower
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;个人推荐组合比较稳&quot;&gt;个人推荐组合（比较稳）&lt;/h1&gt;
+
+&lt;div class=&quot;language-text highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;日常：
+  Superpower + Harness
+
+大任务：
+  临时开 OMC
+
+小问题：
+  纯净 Claude
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;不容易 prompt 冲突&lt;/li&gt;
+  &lt;li&gt;controllability 更高&lt;/li&gt;
+  &lt;li&gt;token 更健康&lt;/li&gt;
+  &lt;li&gt;长期体验最好&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code：Superpower vs OMC vs Harness</summary></entry><entry><title type="html">vscode配置</title><link href="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="vscode配置" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/">&lt;h1 id=&quot;vscode-设置指南&quot;&gt;VSCode 设置指南&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;配置通过 &lt;strong&gt;GitHub 账号同步&lt;/strong&gt;（Settings Sync）。
@@ -3127,724 +4384,4 @@ cd /mnt/sdcard/Movies/
 
 &lt;p&gt;需要安了这个浏览器插件的chrome来steam市场操作。市场 然后进库存&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202601251947274.png&quot; alt=&quot;image-20260118212121075&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">steam倒余额</summary></entry><entry><title type="html">家庭影院媒体播放</title><link href="https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE/" rel="alternate" type="text/html" title="家庭影院媒体播放" /><published>2026-01-11T00:00:00+08:00</published><updated>2026-01-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE</id><content type="html" xml:base="https://mafulong.github.io/2026/01/11/%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE/">&lt;h2 id=&quot;家庭影院媒体播放&quot;&gt;家庭影院媒体播放&lt;/h2&gt;
-
-&lt;p&gt;apple tv在线内容需要翻墙&lt;/p&gt;
-
-&lt;h2 id=&quot;xbox&quot;&gt;Xbox&lt;/h2&gt;
-
-&lt;p&gt;Xbox可以安装kodi以及jellyfin&lt;/p&gt;
-
-&lt;h2 id=&quot;一先给一句话总览最重要&quot;&gt;一、先给一句话总览（最重要）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Kodi&lt;/strong&gt;： 本地/局域网播放器，功能最强，但偏折腾&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Infuse&lt;/strong&gt;： 苹果生态里的“傻瓜式高级播放器”，体验最好&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Jellyfin&lt;/strong&gt;： 免费开源的“家庭影视服务器”，自己搭一个 Netflix&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Emby&lt;/strong&gt;： 商业化版 Jellyfin，功能成熟，但高级功能要付费&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;可以理解为：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Jellyfin / Emby = 后台管片子&lt;/strong&gt;
-&lt;strong&gt;Kodi / Infuse = 前台播放看片&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;二先弄清一个核心概念播放器-vs-媒体服务器&quot;&gt;二、先弄清一个核心概念：播放器 vs 媒体服务器&lt;/h2&gt;
-
-&lt;h3 id=&quot;1️⃣-播放器只负责播放&quot;&gt;1️⃣ 播放器（只负责播放）&lt;/h3&gt;
-
-&lt;p&gt;特点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不存视频&lt;/li&gt;
-  &lt;li&gt;直接播放文件或流&lt;/li&gt;
-  &lt;li&gt;不负责统一管理多设备&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;代表：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Kodi&lt;/li&gt;
-  &lt;li&gt;Infuse&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;2️⃣-媒体服务器负责管理&quot;&gt;2️⃣ 媒体服务器（负责管理）&lt;/h3&gt;
-
-&lt;p&gt;特点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;集中管理电影/电视剧&lt;/li&gt;
-  &lt;li&gt;自动刮削海报、简介、演员&lt;/li&gt;
-  &lt;li&gt;记录观看进度&lt;/li&gt;
-  &lt;li&gt;多设备同步&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;代表：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Jellyfin&lt;/li&gt;
-  &lt;li&gt;Emby&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;三kodi-是什么&quot;&gt;三、Kodi 是什么？&lt;/h2&gt;
-
-&lt;h3 id=&quot;是什么&quot;&gt;是什么&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一个&lt;strong&gt;万能本地播放器&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;免费、开源&lt;/li&gt;
-  &lt;li&gt;平台多：PC / Android / Linux / Xbox&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;能干嘛&quot;&gt;能干嘛&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;播放本地文件&lt;/li&gt;
-  &lt;li&gt;播放 NAS（SMB / NFS）&lt;/li&gt;
-  &lt;li&gt;IPTV（m3u/m3u8）&lt;/li&gt;
-  &lt;li&gt;本地建媒体库&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;优点&quot;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;解码能力强&lt;/li&gt;
-  &lt;li&gt;可定制性极高&lt;/li&gt;
-  &lt;li&gt;完全免费&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺点&quot;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;设置复杂&lt;/li&gt;
-  &lt;li&gt;插件质量参差&lt;/li&gt;
-  &lt;li&gt;平台限制大（Xbox 尤其明显）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;适合谁&quot;&gt;适合谁&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;有 NAS / 本地片库&lt;/li&gt;
-  &lt;li&gt;爱折腾&lt;/li&gt;
-  &lt;li&gt;不介意配置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一句话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Kodi 是“万能播放器 + 瑞士军刀”&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;四infuse-是什么苹果用户重点&quot;&gt;四、Infuse 是什么？（苹果用户重点）&lt;/h2&gt;
-
-&lt;h3 id=&quot;是什么-1&quot;&gt;是什么&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Apple 生态专用播放器&lt;/li&gt;
-  &lt;li&gt;iOS / iPadOS / tvOS / macOS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;能干嘛-1&quot;&gt;能干嘛&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;直连 NAS&lt;/li&gt;
-  &lt;li&gt;直连 Jellyfin / Emby&lt;/li&gt;
-  &lt;li&gt;自动识别影片&lt;/li&gt;
-  &lt;li&gt;几乎不用设置&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;优点-1&quot;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;UI 非常好&lt;/li&gt;
-  &lt;li&gt;操作简单&lt;/li&gt;
-  &lt;li&gt;解码强、稳定&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺点-1&quot;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;高级功能要订阅&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;只能在苹果设备用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;适合谁-1&quot;&gt;适合谁&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Apple TV / iPhone / iPad 用户&lt;/li&gt;
-  &lt;li&gt;不想折腾&lt;/li&gt;
-  &lt;li&gt;只想“点开就看”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一句话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Infuse 是“苹果生态最省心的播放器”&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;五jellyfin-是什么&quot;&gt;五、Jellyfin 是什么？&lt;/h2&gt;
-
-&lt;h3 id=&quot;是什么-2&quot;&gt;是什么&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;免费 + 开源 的媒体服务器&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;你自己搭的“家庭 Netflix”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;能干嘛-2&quot;&gt;能干嘛&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;管理电影/电视剧&lt;/li&gt;
-  &lt;li&gt;自动刮削信息&lt;/li&gt;
-  &lt;li&gt;多用户&lt;/li&gt;
-  &lt;li&gt;多设备同步进度&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;优点-2&quot;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;完全免费&lt;/li&gt;
-  &lt;li&gt;不限制功能&lt;/li&gt;
-  &lt;li&gt;社区活跃&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺点-2&quot;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;需要自己部署&lt;/li&gt;
-  &lt;li&gt;新手需要学习成本&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;适合谁-2&quot;&gt;适合谁&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;有 NAS / 家用服务器&lt;/li&gt;
-  &lt;li&gt;想全家共用一个影视库&lt;/li&gt;
-  &lt;li&gt;不想付订阅费&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一句话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Jellyfin 是“免费、自建的家庭影视中心”&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;六emby-是什么&quot;&gt;六、Emby 是什么？&lt;/h2&gt;
-
-&lt;h3 id=&quot;是什么-3&quot;&gt;是什么&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Jellyfin 的“商业前身”&lt;/li&gt;
-  &lt;li&gt;服务器 + 客户端一整套&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;能干嘛-3&quot;&gt;能干嘛&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;和 Jellyfin 基本一样&lt;/li&gt;
-  &lt;li&gt;功能更成熟&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;优点-3&quot;&gt;优点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;稳定&lt;/li&gt;
-  &lt;li&gt;官方支持好&lt;/li&gt;
-  &lt;li&gt;客户端覆盖广&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;缺点-3&quot;&gt;缺点&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;高级功能要付费（Emby Premiere）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;适合谁-3&quot;&gt;适合谁&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不介意付费&lt;/li&gt;
-  &lt;li&gt;想要更成熟的商业方案&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一句话：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Emby = 更成熟，但要钱的 Jellyfin&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;七它们怎么搭配用最常见组合&quot;&gt;七、它们怎么搭配用？（最常见组合）&lt;/h2&gt;
-
-&lt;h3 id=&quot;组合-1最推荐&quot;&gt;组合 1（最推荐）&lt;/h3&gt;
-
-&lt;p&gt;NAS + Jellyfin&lt;/p&gt;
-
-&lt;p&gt;↓&lt;/p&gt;
-
-&lt;p&gt;Infuse / Kodi 播放&lt;/p&gt;
-
-&lt;h3 id=&quot;组合-2苹果极简&quot;&gt;组合 2（苹果极简）&lt;/h3&gt;
-
-&lt;p&gt;NAS&lt;/p&gt;
-
-&lt;p&gt;↓&lt;/p&gt;
-
-&lt;p&gt;Infuse 直连&lt;/p&gt;
-
-&lt;h3 id=&quot;组合-3爱折腾&quot;&gt;组合 3（爱折腾）&lt;/h3&gt;
-
-&lt;p&gt;NAS + Jellyfin&lt;/p&gt;
-
-&lt;p&gt;↓&lt;/p&gt;
-
-&lt;p&gt;Kodi + Jellyfin 插件&lt;/p&gt;
-
-&lt;h2 id=&quot;八快速选型表&quot;&gt;八、快速选型表&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;你是这样的人&lt;/th&gt;
-      &lt;th&gt;推荐&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Apple TV 用户&lt;/td&gt;
-      &lt;td&gt;Infuse&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Xbox 用户&lt;/td&gt;
-      &lt;td&gt;Jellyfin 官方客户端 / Kodi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;想完全免费&lt;/td&gt;
-      &lt;td&gt;Jellyfin + Kodi&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;不想折腾&lt;/td&gt;
-      &lt;td&gt;Infuse / Emby&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;家庭多人使用&lt;/td&gt;
-      &lt;td&gt;Jellyfin / Emby&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;九一句话总总结&quot;&gt;九、一句话总总结&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Kodi&lt;/strong&gt;：强，但要折腾&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Infuse&lt;/strong&gt;：省心，但要钱&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Jellyfin&lt;/strong&gt;：免费家庭影视中枢&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Emby&lt;/strong&gt;：付费但成熟&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;blockquote&gt;
-
-&lt;/blockquote&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">家庭影院媒体播放</summary></entry><entry><title type="html">未来扣钱</title><link href="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/" rel="alternate" type="text/html" title="未来扣钱" /><published>2025-12-29T00:00:00+08:00</published><updated>2025-12-29T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1</id><content type="html" xml:base="https://mafulong.github.io/2025/12/29/%E6%9C%AA%E6%9D%A5%E6%89%A3%E9%92%B1/">&lt;h2 id=&quot;未来扣钱实现方式&quot;&gt;未来扣钱实现方式&lt;/h2&gt;
-
-&lt;h2 id=&quot;一核心前提一定要记住&quot;&gt;一、核心前提（一定要记住）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;签名不会过期&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;交易会失效（nonce / gas / 规则）&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;“未来扣钱”不能靠存交易，只能靠授权或托管&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;二三种核心方案从轻到重&quot;&gt;二、三种核心方案（从轻到重）&lt;/h2&gt;
-
-&lt;h3 id=&quot;1️⃣-permiteip-2612&quot;&gt;1️⃣ Permit（EIP-2612）&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;用户只签名，不先发交易&lt;/li&gt;
-  &lt;li&gt;用签名完成授权&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“我授权你在有效期内扣我这些 token”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不占 nonce&lt;/li&gt;
-  &lt;li&gt;用户不付 gas&lt;/li&gt;
-  &lt;li&gt;一步完成授权 + 扣款&lt;/li&gt;
-  &lt;li&gt;必须 token 原生支持&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;不能用在&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;主币（ETH / SOL）&lt;/li&gt;
-  &lt;li&gt;不支持 permit 的 token（如 USDT）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;2️⃣-allowanceapprove--transferfrom&quot;&gt;2️⃣ Allowance（approve + transferFrom）&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;经典 ERC20 授权模型&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;链上记账的扣款权限&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;100% 兼容所有 ERC20&lt;/li&gt;
-  &lt;li&gt;授权状态链上可查&lt;/li&gt;
-  &lt;li&gt;两步交易&lt;/li&gt;
-  &lt;li&gt;有“无限授权”风险&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;适合&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;老 token&lt;/li&gt;
-  &lt;li&gt;合规 / 审计要求高&lt;/li&gt;
-  &lt;li&gt;用户能理解授权&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;3️⃣-timelock--escrow托管&quot;&gt;3️⃣ TimeLock / Escrow（托管）&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;是什么&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;钱现在就转进合约&lt;/li&gt;
-  &lt;li&gt;时间或条件满足后释放&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;本质&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;合约成为资产 owner&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;特点&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;安全级别最高&lt;/li&gt;
-  &lt;li&gt;资金流动性最低&lt;/li&gt;
-  &lt;li&gt;体验最重&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;适合&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;大额&lt;/li&gt;
-  &lt;li&gt;主币&lt;/li&gt;
-  &lt;li&gt;强确定性场景&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;三permit2非常重要&quot;&gt;三、Permit2（非常重要）&lt;/h2&gt;
-
-&lt;h3 id=&quot;permit2-是什么&quot;&gt;Permit2 是什么&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一个&lt;strong&gt;公共代扣合约&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;不要求 token 支持 permit&lt;/li&gt;
-  &lt;li&gt;用签名控制 allowance 的使用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;为什么能用&quot;&gt;为什么能用&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;ERC20 本来就支持 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transferFrom&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Permit2 只是：
-    &lt;ul&gt;
-      &lt;li&gt;持有 allowance&lt;/li&gt;
-      &lt;li&gt;用签名精细化管理&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;实际效果&quot;&gt;实际效果&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;USDT / 老 ERC20 也能“像 permit 一样用”&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;多一层信任（Permit2 合约）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;四erc20-vs-主币根本差异&quot;&gt;四、ERC20 vs 主币（根本差异）&lt;/h2&gt;
-
-&lt;h3 id=&quot;erc20&quot;&gt;ERC20&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;转账规则在&lt;strong&gt;合约里&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;支持：
-    &lt;ul&gt;
-      &lt;li&gt;授权&lt;/li&gt;
-      &lt;li&gt;延迟执行&lt;/li&gt;
-      &lt;li&gt;代扣&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;主币eth--sol&quot;&gt;主币（ETH / SOL）&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;转账规则在&lt;strong&gt;协议层&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;只能：
-    &lt;ul&gt;
-      &lt;li&gt;私钥当前签名&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;不能授权第三方未来扣款&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;👉 所以主币只能用 &lt;strong&gt;Escrow / TimeLock&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;五usdt--usdc-快速结论&quot;&gt;五、USDT / USDC 快速结论&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Token&lt;/th&gt;
-      &lt;th&gt;原生 Permit&lt;/th&gt;
-      &lt;th&gt;Permit2&lt;/th&gt;
-      &lt;th&gt;推荐方案&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;USDC&lt;/td&gt;
-      &lt;td&gt;✔&lt;/td&gt;
-      &lt;td&gt;✔&lt;/td&gt;
-      &lt;td&gt;原生 Permit&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;USDT&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;✔&lt;/td&gt;
-      &lt;td&gt;Permit2 或 approve&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;BSC USDT&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;✔&lt;/td&gt;
-      &lt;td&gt;Permit2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;主币&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;Escrow&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;六什么时候不能用-permit&quot;&gt;六、什么时候&lt;strong&gt;不能用 Permit&lt;/strong&gt;&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;主币&lt;/li&gt;
-  &lt;li&gt;Token 不支持&lt;/li&gt;
-  &lt;li&gt;极大额&lt;/li&gt;
-  &lt;li&gt;长期不确定扣款&lt;/li&gt;
-  &lt;li&gt;强合规 / 可视化授权要求&lt;/li&gt;
-  &lt;li&gt;不可信前端&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;七安全等级排序从低到高&quot;&gt;七、安全等级排序（从低到高）&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Permit
-→ Allowance
-→ Permit2（合理配置）
-→ TimeLock / Escrow
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;八一句话总总结&quot;&gt;八、一句话总总结&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;体验 = 签名（Permit / Permit2）&lt;/strong&gt;
- &lt;strong&gt;通用 = Allowance&lt;/strong&gt;
- &lt;strong&gt;安全 = Escrow / TimeLock&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">未来扣钱实现方式</summary></entry><entry><title type="html">kibana</title><link href="https://mafulong.github.io/2025/11/25/kibana/" rel="alternate" type="text/html" title="kibana" /><published>2025-11-25T00:00:00+08:00</published><updated>2025-11-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/11/25/kibana</id><content type="html" xml:base="https://mafulong.github.io/2025/11/25/kibana/">&lt;h2 id=&quot;kibana&quot;&gt;kibana&lt;/h2&gt;
-
-&lt;p&gt;在大数据和日志分析的世界里，Kibana 是一个不可或缺的可视化工具，而 KQL（Kibana Query Language）则是 Kibana 查询和过滤数据的核心语言。&lt;/p&gt;
-
-&lt;h2 id=&quot;什么是-kibana&quot;&gt;什么是 Kibana？&lt;/h2&gt;
-
-&lt;p&gt;Kibana 是 Elasticsearch 的可视化界面，用于：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;数据搜索和过滤&lt;/strong&gt;：通过图形化界面快速找到感兴趣的数据。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;数据可视化&lt;/strong&gt;：支持折线图、柱状图、饼图、地图等多种可视化形式。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;仪表盘管理&lt;/strong&gt;：将多个可视化组件组合成仪表盘，实时监控业务指标或日志状态。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;告警和报告&lt;/strong&gt;：配合 Elasticsearch 和 Alerting 插件，可以设置实时告警和报表。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;简单来说，Kibana 是将 Elasticsearch 存储的数据通过可视化方式呈现的利器，让日志分析和业务监控更加直观。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;什么是-kql&quot;&gt;什么是 KQL？&lt;/h2&gt;
-
-&lt;p&gt;KQL（Kibana Query Language）是 Kibana 提供的查询语言，用于在 Discover、Dashboard、Lens 等模块中对数据进行搜索和过滤。相比传统的 Lucene 查询语法，KQL 更简洁、直观，同时支持逻辑运算和范围查询。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;kql-基础语法&quot;&gt;KQL 基础语法&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-字段匹配&quot;&gt;1. 字段匹配&lt;/h3&gt;
-
-&lt;p&gt;直接匹配字段值：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;status:200
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;匹配 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;status&lt;/code&gt; 字段等于 200 的数据。&lt;/p&gt;
-
-&lt;p&gt;字符串匹配需要用引号：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;message:&quot;user login failed&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;2-逻辑运算符&quot;&gt;2. 逻辑运算符&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;AND&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;status:200 AND extension:jpg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;匹配同时满足两个条件的数据。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;OR&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;status:404 OR status:500
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;匹配任意一个条件的数据。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;NOT&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NOT status:200
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;排除特定条件的数据。&lt;/p&gt;
-
-&lt;p&gt;默认情况下，KQL 多个条件之间使用 AND。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;3-范围查询&quot;&gt;3. 范围查询&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数值范围：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;age &amp;gt;= 30 AND age &amp;lt;= 40
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;日期范围：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;timestamp &amp;gt;= &quot;2025-11-01&quot; AND timestamp &amp;lt; &quot;2025-12-01&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;简写范围：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;age:[30 TO 40]
-timestamp:[&quot;2025-11-01&quot; TO &quot;2025-12-01&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;4-通配符与正则&quot;&gt;4. 通配符与正则&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;通配符：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;filename:log*
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;匹配以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;log&lt;/code&gt; 开头的文件名。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;正则：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;error_message:/^timeout.*/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;匹配以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;timeout&lt;/code&gt; 开头的错误信息。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;5-存在与缺失字段&quot;&gt;5. 存在与缺失字段&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;存在字段：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;_exists_:user_id
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;缺失字段：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NOT _exists_:user_id
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;6-嵌套与组合查询&quot;&gt;6. 嵌套与组合查询&lt;/h3&gt;
-
-&lt;p&gt;可以使用括号组合复杂条件：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(status:200 OR status:201) AND extension:jpg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;kql-使用技巧&quot;&gt;KQL 使用技巧&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;字段名必须正确&lt;/strong&gt;：KQL 查询会校验索引中的字段，字段不存在会报错。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;避免开头通配符&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*value&lt;/code&gt; 会严重影响性能。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;使用 AND 连接多个条件&lt;/strong&gt;：默认逻辑是 AND，但推荐明确写出，提高可读性。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;结合可视化过滤器&lt;/strong&gt;：KQL 可以和 Kibana 的图形过滤器结合使用，更快速定位数据。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">kibana</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv10/img/202601251947274.png&quot; alt=&quot;image-20260118212121075&quot; /&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">steam倒余额</summary></entry></feed>
