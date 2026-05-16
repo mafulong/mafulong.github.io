@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:41:19+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;h2 id=&quot;the-full-12-rule-claudemd-copy-paste-ready&quot;&gt;The full 12-rule CLAUDE.md (copy-paste ready)&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:56:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;p&gt;基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动&lt;/p&gt;
+
+&lt;h1 id=&quot;the-full-12-rule-claudemd-copy-paste-ready&quot;&gt;The full 12-rule CLAUDE.md (copy-paste ready)&lt;/h1&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-
 These rules apply to every task in this project unless explicitly overridden.
 Bias: caution over speed on non-trivial work. Use judgment on trivial tasks.
 
@@ -62,7 +63,440 @@ If you genuinely think a convention is harmful, surface it. Don&apos;t fork sile
 &quot;Completed&quot; is wrong if anything was skipped silently.
 &quot;Tests pass&quot; is wrong if any were skipped.
 Default to surfacing uncertainty, not hiding it.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">The full 12-rule CLAUDE.md (copy-paste ready)</summary></entry><entry><title type="html">Claude Code 多 Agent 架构</title><link href="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/" rel="alternate" type="text/html" title="Claude Code 多 Agent 架构" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/">&lt;h1 id=&quot;claude-code-多-agent-架构修正版面试笔记&quot;&gt;Claude Code 多 Agent 架构（修正版面试笔记）&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;claudemd-从-4-条到-12-条multi-step-agent-失败模式补全笔记版&quot;&gt;CLAUDE.md 从 4 条到 12 条：Multi-step Agent 失败模式补全（笔记版）&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;来源：Mnilax 在 X 上对 Karpathy CLAUDE.md 模板的扩展实验&lt;br /&gt;
+核心结论：4 条规则解决“单次生成错误”，12 条规则覆盖“多步 Agent 崩溃”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;一背景为什么要扩展-claudemd&quot;&gt;一、背景：为什么要扩展 CLAUDE.md&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-karpathy-原版-4-条解决的问题1-月环境&quot;&gt;1. Karpathy 原版 4 条解决的问题（1 月环境）&lt;/h2&gt;
+
+&lt;p&gt;主要针对：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单轮代码生成错误&lt;/li&gt;
+  &lt;li&gt;过度复杂化&lt;/li&gt;
+  &lt;li&gt;静默假设&lt;/li&gt;
+  &lt;li&gt;修改范围过大&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;👉 本质：&lt;strong&gt;“一次性 coding mistake”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-5-月之后的问题变化&quot;&gt;2. 5 月之后的问题变化&lt;/h2&gt;
+
+&lt;p&gt;真实问题升级为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;多步 Agent 执行（multi-step workflows）&lt;/li&gt;
+  &lt;li&gt;跨文件修改冲突&lt;/li&gt;
+  &lt;li&gt;Hook / Skill 级联问题&lt;/li&gt;
+  &lt;li&gt;长任务状态漂移（drift）&lt;/li&gt;
+  &lt;li&gt;多代码库风格冲突&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;👉 本质：&lt;strong&gt;“系统性执行失败”&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;二原版-4-条规则基线&quot;&gt;二、原版 4 条规则（基线）&lt;/h1&gt;
+
+&lt;h2 id=&quot;规则-1先思后码&quot;&gt;规则 1：先思后码&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;明确假设&lt;/li&gt;
+  &lt;li&gt;不确定先问&lt;/li&gt;
+  &lt;li&gt;避免盲猜&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-2简单优先&quot;&gt;规则 2：简单优先&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;最少代码&lt;/li&gt;
+  &lt;li&gt;不过度抽象&lt;/li&gt;
+  &lt;li&gt;不做“以防万一设计”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-3外科手术式修改&quot;&gt;规则 3：外科手术式修改&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;只改必要部分&lt;/li&gt;
+  &lt;li&gt;不顺手重构&lt;/li&gt;
+  &lt;li&gt;不破坏局部无关代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-4目标驱动&quot;&gt;规则 4：目标驱动&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;明确成功标准&lt;/li&gt;
+  &lt;li&gt;允许模型自主迭代&lt;/li&gt;
+  &lt;li&gt;不强制步骤执行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;局限性总结&quot;&gt;局限性总结&lt;/h2&gt;
+
+&lt;p&gt;无法覆盖：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;长任务执行（multi-step）&lt;/li&gt;
+  &lt;li&gt;工程一致性问题&lt;/li&gt;
+  &lt;li&gt;测试质量问题&lt;/li&gt;
+  &lt;li&gt;状态漂移问题&lt;/li&gt;
+  &lt;li&gt;多 agent 协作问题&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;三扩展的-8-条规则关键补丁&quot;&gt;三、扩展的 8 条规则（关键补丁）&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-5模型只做判断不做控制流&quot;&gt;规则 5：模型只做“判断”，不做“控制流”&lt;/h2&gt;
+
+&lt;h3 id=&quot;-不适合&quot;&gt;❌ 不适合：&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;retry 逻辑&lt;/li&gt;
+  &lt;li&gt;routing&lt;/li&gt;
+  &lt;li&gt;状态机&lt;/li&gt;
+  &lt;li&gt;确定性转换&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;-适合&quot;&gt;✅ 适合：&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;分类&lt;/li&gt;
+  &lt;li&gt;摘要&lt;/li&gt;
+  &lt;li&gt;信息抽取&lt;/li&gt;
+  &lt;li&gt;草拟&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;LLM = 判断器，不是控制器&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-6token-预算强约束&quot;&gt;规则 6：Token 预算强约束&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;单任务 ≤ 4k token&lt;/li&gt;
+  &lt;li&gt;单会话 ≤ 30k token&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;必须：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;主动 summary&lt;/li&gt;
+  &lt;li&gt;主动 reset context&lt;/li&gt;
+  &lt;li&gt;不允许 silent overflow&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止上下文漂移 + 无限制循环&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-7冲突必须显式处理&quot;&gt;规则 7：冲突必须显式处理&lt;/h2&gt;
+
+&lt;p&gt;禁止：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;折中实现&lt;/li&gt;
+  &lt;li&gt;混合两种架构&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;必须：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;明确选择一种&lt;/li&gt;
+  &lt;li&gt;另一种标记废弃&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;避免“双系统融合污染”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-8写代码前必须读上下文&quot;&gt;规则 8：写代码前必须读上下文&lt;/h2&gt;
+
+&lt;p&gt;要求：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;读当前文件结构&lt;/li&gt;
+  &lt;li&gt;读调用方&lt;/li&gt;
+  &lt;li&gt;读公共工具&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;禁止：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“看起来不冲突”假设&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止局部无知修改&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-9测试必须表达意图不是行为&quot;&gt;规则 9：测试必须表达“意图”，不是“行为”&lt;/h2&gt;
+
+&lt;p&gt;错误测试：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;只验证 output&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;正确测试：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;验证 WHY（业务意义）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止“假绿测试”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-10长任务必须-checkpoint&quot;&gt;规则 10：长任务必须 checkpoint&lt;/h2&gt;
+
+&lt;p&gt;每个关键步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;状态总结&lt;/li&gt;
+  &lt;li&gt;已完成确认&lt;/li&gt;
+  &lt;li&gt;剩余任务说明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止 multi-step drift&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-11遵循代码库既有规范&quot;&gt;规则 11：遵循代码库既有规范&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一致性 &amp;gt; 个人偏好&lt;/li&gt;
+  &lt;li&gt;不允许“更优风格替换”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止风格 fragmentation&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;规则-12显式失败fail-loud&quot;&gt;规则 12：显式失败（Fail loud）&lt;/h2&gt;
+
+&lt;p&gt;禁止：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;静默跳过&lt;/li&gt;
+  &lt;li&gt;隐性失败&lt;/li&gt;
+  &lt;li&gt;假成功&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;必须：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;明确暴露不确定性&lt;/li&gt;
+  &lt;li&gt;明确失败原因&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 本质：&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;防止“看起来成功的失败”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;四实验结果核心结论&quot;&gt;四、实验结果（核心结论）&lt;/h1&gt;
+
+&lt;h2 id=&quot;测试设置&quot;&gt;测试设置&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;30 个代码库&lt;/li&gt;
+  &lt;li&gt;50 个标准任务&lt;/li&gt;
+  &lt;li&gt;6 周实验&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;结果变化&quot;&gt;结果变化&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;配置&lt;/th&gt;
+      &lt;th&gt;错误率&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4 条规则&lt;/td&gt;
+      &lt;td&gt;41%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;+8 条规则&lt;/td&gt;
+      &lt;td&gt;~3%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;关键观察&quot;&gt;关键观察&lt;/h2&gt;
+
+&lt;p&gt;新增规则的作用：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;覆盖“系统级错误”（不是单点错误）&lt;/li&gt;
+  &lt;li&gt;补足 multi-step agent 缺陷&lt;/li&gt;
+  &lt;li&gt;防止状态漂移与假成功&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;五失败模式分类很重要&quot;&gt;五、失败模式分类（很重要）&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-单步错误karpathy-已覆盖&quot;&gt;1. 单步错误（Karpathy 已覆盖）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;写错逻辑&lt;/li&gt;
+  &lt;li&gt;过度设计&lt;/li&gt;
+  &lt;li&gt;假设错误&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-多步错误新增规则覆盖&quot;&gt;2. 多步错误（新增规则覆盖）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;状态漂移&lt;/li&gt;
+  &lt;li&gt;中途偏航&lt;/li&gt;
+  &lt;li&gt;误以为成功&lt;/li&gt;
+  &lt;li&gt;checkpoint 缺失&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-系统级错误&quot;&gt;3. 系统级错误&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;token 爆炸&lt;/li&gt;
+  &lt;li&gt;context 混乱&lt;/li&gt;
+  &lt;li&gt;多 agent 冲突&lt;/li&gt;
+  &lt;li&gt;风格分裂&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;六关键洞察核心总结&quot;&gt;六、关键洞察（核心总结）&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-claudemd-的本质&quot;&gt;1. CLAUDE.md 的本质&lt;/h2&gt;
+
+&lt;p&gt;不是提示词，而是：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“失败模式约束系统（failure-mode contract）”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-4-条-vs-12-条的本质区别&quot;&gt;2. 4 条 vs 12 条的本质区别&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;层级&lt;/th&gt;
+      &lt;th&gt;覆盖范围&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4 条&lt;/td&gt;
+      &lt;td&gt;单次生成错误&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;12 条&lt;/td&gt;
+      &lt;td&gt;多步执行系统错误&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-最重要设计原则&quot;&gt;3. 最重要设计原则&lt;/h2&gt;
+
+&lt;h3 id=&quot;-每条规则必须回答&quot;&gt;✔ 每条规则必须回答：&lt;/h3&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;“它防止的具体失败是什么？”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;否则就是噪音&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-规则数量不是越多越好&quot;&gt;4. 规则数量不是越多越好&lt;/h2&gt;
+
+&lt;p&gt;实验结论：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;12 条 → 合规率下降&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;18 条 → 行为退化（pattern matching）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;📌 最优区间：8–12 条&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;七实用建议可直接用&quot;&gt;七、实用建议（可直接用）&lt;/h1&gt;
+
+&lt;h2 id=&quot;claudemd-设计原则&quot;&gt;CLAUDE.md 设计原则&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;从真实 bug 反推规则&lt;/li&gt;
+  &lt;li&gt;每条规则必须有 failure 对应&lt;/li&gt;
+  &lt;li&gt;控制在 ≤ 12 条&lt;/li&gt;
+  &lt;li&gt;避免抽象语义（如“认真思考”）&lt;/li&gt;
+  &lt;li&gt;优先防系统性错误，而不是语法错误&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;八一句话总结&quot;&gt;八、一句话总结&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;CLAUDE.md 的进化本质是：从“防写错代码”，升级为“防多步 Agent 崩溃”。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动</summary></entry><entry><title type="html">Claude Code 多 Agent 架构</title><link href="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/" rel="alternate" type="text/html" title="Claude Code 多 Agent 架构" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/">&lt;h1 id=&quot;claude-code-多-agent-架构修正版面试笔记&quot;&gt;Claude Code 多 Agent 架构（修正版面试笔记）&lt;/h1&gt;
 
 &lt;h1 id=&quot;一核心问题为什么需要-multi-agent&quot;&gt;一、核心问题：为什么需要 Multi-Agent&lt;/h1&gt;
 
