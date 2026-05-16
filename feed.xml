@@ -1,4 +1,871 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:16:30+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Solana学习</title><link href="https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="Solana学习" /><published>2026-04-06T00:00:00+08:00</published><updated>2026-04-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0/">&lt;h1 id=&quot;在线工具&quot;&gt;在线工具&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:17:23+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">vscode配置</title><link href="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="vscode配置" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/vscode%E9%85%8D%E7%BD%AE/">&lt;h1 id=&quot;vscode-设置指南&quot;&gt;VSCode 设置指南&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;配置通过 &lt;strong&gt;GitHub 账号同步&lt;/strong&gt;（Settings Sync）。
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+P&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Settings Sync: Turn On&lt;/code&gt; → 登录 GitHub → 选择同步项即可。
+同步内容：设置、快捷键、插件、代码片段、UI 状态。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;一主题配置&quot;&gt;一、主题配置&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;当前值&lt;/th&gt;
+      &lt;th&gt;设置项&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;颜色主题&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Catppuccin Mocha&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workbench.colorTheme&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;文件图标主题&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;JetBrains Icons&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workbench.iconTheme&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;产品图标主题&lt;/td&gt;
+      &lt;td&gt;未设置（默认）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workbench.productIconTheme&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;切换方式：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+K Cmd+T&lt;/code&gt;（颜色主题）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+P&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;File Icon Theme&lt;/code&gt;。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;二已安装插件&quot;&gt;二、已安装插件&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;✅ = 当前启用中 ⚠️ = 配置冲突或未使用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;ai-工具&quot;&gt;AI 工具&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anthropic.claude-code&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Claude Code AI 编程助手&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kilocode.kilo-code&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Kilo Code AI 助手&lt;/td&gt;
+      &lt;td&gt;装了未必常用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kilocode.ba-code&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;BA Code（Kilo Code 相关）&lt;/td&gt;
+      &lt;td&gt;装了未必常用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openai.chatgpt&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;ChatGPT 插件&lt;/td&gt;
+      &lt;td&gt;装了未必常用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;语言支持&quot;&gt;语言支持&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;golang.go&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Go 语言全套支持（gopls、测试、调试）&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ms-python.python&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Python 语言支持&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ms-python.vscode-pylance&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Python 语言服务器（类型推断、补全）&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ms-python.debugpy&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Python 调试器&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ms-python.vscode-python-envs&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Python 虚拟环境管理&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dotjoshjohnson.xml&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;XML 语言工具（格式化、校验）&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;vim-模拟&quot;&gt;Vim 模拟&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;asvetliakov.vscode-neovim&lt;/code&gt; v1.19.0&lt;/td&gt;
+      &lt;td&gt;真实 neovim 进程驱动，完整 vim 生态&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;neovim 路径：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/homebrew/bin/nvim&lt;/code&gt;（v0.12.2）
+配置文件：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/nvim/init.lua&lt;/code&gt;
+自定义绑定：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Space f o&lt;/code&gt; 切换文件浏览器，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Space t t&lt;/code&gt; 切换终端&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;格式化--代码质量&quot;&gt;格式化 / 代码质量&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;esbenp.prettier-vscode&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Prettier 代码格式化（JS/TS/CSS 等）&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dominicvonk.parameter-hints&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;函数调用参数名内联提示&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;christian-kohler.path-intellisense&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;文件路径自动补全&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;markdown&quot;&gt;Markdown&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shd101wyy.markdown-preview-enhanced&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;增强预览：Mermaid、数学公式、目录、导出 HTML/PDF&lt;/td&gt;
+      &lt;td&gt;✅ 主用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bierner.markdown-preview-github-styles&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;内置预览套 GitHub 样式（备用）&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;timgreen.vscode-auto-open-markdown-preview-enhanced&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开 .md 时自动唤起 Preview Enhanced&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yzane.markdown-pdf&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Markdown 导出为 PDF&lt;/td&gt;
+      &lt;td&gt;按需使用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;打开预览：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+K V&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+P&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Markdown Preview Enhanced: Open Preview&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;图表工具&quot;&gt;图表工具&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hediet.vscode-drawio&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Draw.io 流程图直接在编辑器内编辑&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jebbs.plantuml&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;PlantUML 图表支持&lt;/td&gt;
+      &lt;td&gt;按需使用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;开发工具&quot;&gt;开发工具&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;formulahendry.code-runner&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;一键运行当前文件/选中代码&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mechatroner.rainbow-csv&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;CSV 文件彩色列高亮&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ritwickdey.liveserver&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;本地 HTTP 服务器，保存即刷新浏览器&lt;/td&gt;
+      &lt;td&gt;前端开发时用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;redhat.vscode-rsp-ui&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Red Hat 服务器工具（Java 生态）&lt;/td&gt;
+      &lt;td&gt;可卸载&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;主题仅装了未必启用&quot;&gt;主题（仅装了，未必启用）&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catppuccin.catppuccin-vsc&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Catppuccin 颜色主题&lt;/td&gt;
+      &lt;td&gt;✅ &lt;strong&gt;Mocha 启用中&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sharifdotg.catppuccin-dark-pro&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Catppuccin Dark Pro 颜色主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mostik.jetbrainsicons&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;JetBrains 文件图标主题&lt;/td&gt;
+      &lt;td&gt;✅ &lt;strong&gt;启用中&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catppuccin.catppuccin-vsc-icons&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Catppuccin 文件图标主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pkief.material-icon-theme&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Material 文件图标主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;miguelsolorio.fluent-icons&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Fluent 产品图标主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github.github-vscode-theme&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;GitHub 颜色主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ryanolsonx.solarized&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Solarized 颜色主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;trinm1709.dracula-theme-from-intellij&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Dracula（IntelliJ 风格）颜色主题&lt;/td&gt;
+      &lt;td&gt;备用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;语言包&quot;&gt;语言包&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+      &lt;th&gt;状态&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ms-ceintl.vscode-language-pack-zh-hans&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;VSCode 界面简体中文汉化&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;三常用快捷键mac&quot;&gt;三、常用快捷键（Mac）&lt;/h2&gt;
+
+&lt;h3 id=&quot;面板--视图&quot;&gt;面板 / 视图&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+B&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换侧边栏显示/隐藏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+E&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开文件浏览器（Explorer）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开全局搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+Shift+G&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开 Git 面板（注意是 Ctrl 不是 Cmd）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+D&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开调试面板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+X&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开插件市场&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+J&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换底部面板（终端/输出/问题）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+`&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开/关闭终端（neovim 下可能失效，用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+J&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+U&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开输出面板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+M&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开问题面板（错误/警告）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+Y&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打开调试控制台&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;文件操作&quot;&gt;文件操作&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+P&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;快速打开文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+N&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;新建文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+W&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;关闭当前标签页&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+T&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;重新打开刚关闭的标签&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+K Cmd+W&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;关闭所有标签页&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+Tab&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在已打开文件间切换&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+\&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向右分屏&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;编辑&quot;&gt;编辑&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Z&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;撤销&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+Z&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;重做&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+X&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;剪切当前行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+C&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;复制当前行（无选中时）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+↑/↓&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;移动当前行上/下&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+Shift+↑/↓&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;复制当前行到上/下&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+K&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;删除当前行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Enter&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在下方插入新行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+Enter&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在上方插入新行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换行注释&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+Shift+A&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换块注释&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tab&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shift+Tab&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;增加/减少缩进&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+]&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+[&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;增加/减少缩进&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;搜索--跳转&quot;&gt;搜索 / 跳转&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在当前文件搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+H&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在当前文件替换&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;全局搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+G&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;跳转到指定行号&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+O&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;跳转到文件内 Symbol&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+T&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;全局 Symbol 搜索&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F12&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;跳转到定义&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+F12&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Peek 定义（不离开当前文件）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shift+F12&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;查找所有引用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F2&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;重命名 Symbol&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+P&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;命令面板&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;多光标--选择&quot;&gt;多光标 / 选择&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+Click&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;添加光标&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+D&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;选中下一个相同词&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+L&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;选中所有相同词&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Opt+Shift+I&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在选中每行末尾添加光标&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+L&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;选中当前行&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+↑/↓&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向上/下扩展列选择&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;代码智能&quot;&gt;代码智能&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+Space&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;触发补全建议&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+.&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;快速修复（Quick Fix）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shift+Opt+F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;格式化文档&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+K Cmd+F&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;格式化选中区域&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;二自定义快捷键&quot;&gt;二、自定义快捷键&lt;/h2&gt;
+
+&lt;h3 id=&quot;keybindingsjson&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;keybindings.json&lt;/code&gt;&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+J&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换终端面板&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;confignviminitluaneovim-leader-键&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/nvim/init.lua&lt;/code&gt;（neovim leader 键）&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Space 键被 neovim 拦截，必须在 neovim 配置里定义，不能用 VSCode keybindings。
+修改后需 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+Shift+P&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Reload Window&lt;/code&gt; 生效。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;三neovim-拦截的按键vscode-对应功能失效&quot;&gt;三、neovim 拦截的按键（VSCode 对应功能失效）&lt;/h2&gt;
+
+&lt;h3 id=&quot;滚动&quot;&gt;滚动&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;Vim 功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+d&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向下滚动半屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+u&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向上滚动半屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+f&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向下滚动整屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+b&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向上滚动整屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+e&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向下滚动一行（光标不动）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+y&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;向上滚动一行（光标不动）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;跳转&quot;&gt;跳转&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;Vim 功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+o&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;jump list 后退&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+i&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;jump list 前进&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;跳转到定义&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+r&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Redo 重做&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;窗口--分屏&quot;&gt;窗口 / 分屏&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;Vim 功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+w&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;窗口前缀键&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+w h/j/k/l&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换分屏方向&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+w s&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;横向分屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+w v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;纵向分屏&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+w q&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;关闭当前分屏&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;编辑-1&quot;&gt;编辑&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;按键&lt;/th&gt;
+      &lt;th&gt;Vim 功能&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+v&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Visual Block 列选择模式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;数字自增&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+x&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;数字自减&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+n&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;补全向下&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+p&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;补全向上&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;不被-neovim-拦截vscode-仍有效&quot;&gt;不被 neovim 拦截（VSCode 仍有效）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd+&lt;/code&gt; 任意键（Mac 专属）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+c&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+z&lt;/code&gt;（系统级）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F1&lt;/code&gt;~&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F12&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;四gopls-配置备忘settingsjson&quot;&gt;四、gopls 配置备忘（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.json&lt;/code&gt;）&lt;/h2&gt;
+
+&lt;h3 id=&quot;inlay-hints-正确写法&quot;&gt;Inlay Hints 正确写法&lt;/h3&gt;
+
+&lt;div class=&quot;language-jsonc highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;gopls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ui.inlayhint.hints&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// Hierarchy=ui.inlayhint, Name=hints&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;assignVariableTypes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// 变量类型提示&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;compositeLiteralFields&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// 结构体字段名提示&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;parameterNames&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// 调用参数名提示&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;❌ 错误写法（会报 Invalid settings）：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;ui.inlayHints.X&quot;&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;hints.X&quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;避免双重格式化&quot;&gt;避免双重格式化&lt;/h3&gt;
+
+&lt;p&gt;删除 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go.formatTool&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;go.formatOnSave&lt;/code&gt;，由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[go]&lt;/code&gt; 块统一走 gopls+gofumpt：&lt;/p&gt;
+
+&lt;div class=&quot;language-jsonc highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;&quot;gopls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;formatting.gofumpt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;[go]&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;editor.defaultFormatter&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;golang.go&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;editor.formatOnSave&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;五相关配置文件路径&quot;&gt;五、相关配置文件路径&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;文件&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Library/Application Support/Code/User/settings.json&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;VSCode 全局设置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Library/Application Support/Code/User/keybindings.json&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;VSCode 自定义快捷键&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/nvim/init.lua&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;neovim / vscode-neovim 配置&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">VSCode 设置指南</summary></entry><entry><title type="html">Solana学习</title><link href="https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0/" rel="alternate" type="text/html" title="Solana学习" /><published>2026-04-06T00:00:00+08:00</published><updated>2026-04-06T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0</id><content type="html" xml:base="https://mafulong.github.io/2026/04/06/Solana%E5%AD%A6%E4%B9%A0/">&lt;h1 id=&quot;在线工具&quot;&gt;在线工具&lt;/h1&gt;
 
 &lt;p&gt;base58/base64解析：  https://explorer.solana.com/tx/inspector&lt;/p&gt;
 
@@ -2980,426 +3847,4 @@ timestamp:[&quot;2025-11-01&quot; TO &quot;2025-12-01&quot;]
   &lt;li&gt;&lt;strong&gt;避免开头通配符&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;*value&lt;/code&gt; 会严重影响性能。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;使用 AND 连接多个条件&lt;/strong&gt;：默认逻辑是 AND，但推荐明确写出，提高可读性。&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;结合可视化过滤器&lt;/strong&gt;：KQL 可以和 Kibana 的图形过滤器结合使用，更快速定位数据。&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">kibana</summary></entry><entry><title type="html">prometheus用法</title><link href="https://mafulong.github.io/2025/11/17/prometheus%E7%94%A8%E6%B3%95/" rel="alternate" type="text/html" title="prometheus用法" /><published>2025-11-17T00:00:00+08:00</published><updated>2025-11-17T00:00:00+08:00</updated><id>https://mafulong.github.io/2025/11/17/prometheus%E7%94%A8%E6%B3%95</id><content type="html" xml:base="https://mafulong.github.io/2025/11/17/prometheus%E7%94%A8%E6%B3%95/">&lt;h2 id=&quot;prometheus用法&quot;&gt;prometheus用法&lt;/h2&gt;
-
-&lt;h3 id=&quot;数据上报&quot;&gt;数据上报&lt;/h3&gt;
-
-&lt;p&gt;Prometheus 和一般的 APM 工具不一样，它采用的是由 server 端主动 pull 的交互模型，就是你准备好本地数据，然后在 Prometheus server 上配置好数据所在的地址，接下来就是等 Prometheus 来主动、定期拉取数据。&lt;/p&gt;
-
-&lt;p&gt;Prometheus 有好几种数据类型，但是通常我们只需要关注 counter、gauge、histogram、summary 这 4 种&lt;/p&gt;
-
-&lt;p&gt;Prometheus 的核心是一个时序数据库，它按照&lt;strong&gt;时间序列&lt;/strong&gt;来存储数据&lt;/p&gt;
-
-&lt;h4 id=&quot;counter&quot;&gt;Counter&lt;/h4&gt;
-&lt;p&gt;我们的每条数据包含了：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;指标名称 metric name：http_request_total&lt;/li&gt;
-  &lt;li&gt;标签 labels：uri, method, application, instance_ip  &lt;strong&gt;以及它们的值&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;样本值：比如上面这个是 counter 类型的指标，它的值是不断累加上去的，那这个样本值就代表当前实例从启动开始累积到现在的某接口的请求次数&lt;/li&gt;
-  &lt;li&gt;隐式包含了时间戳 timestamp，因为数据是一直在变化的，当前数据仅代表当前时间的值&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;单单看这个一直增长的图通常没什么意义，能用的场景太少了，所以我们要先来了解下面的几个函数&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;rate: 计算每秒平均增长率&lt;/li&gt;
-  &lt;li&gt;increase: 计算总增长量&lt;/li&gt;
-  &lt;li&gt;irate: 计算瞬时增长率&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;rate-函数&quot;&gt;rate 函数&lt;/h5&gt;
-
-&lt;p&gt;rate 函数的含义是每秒的平均增长率，其实就类似 QPS 的意思。&lt;strong&gt;速率=数量/时间&lt;/strong&gt;，所以我们在做图的时候，还需要考虑分母的时间取多长比较合适，比如下面我先使用 1 分钟作为一个统计区间，也就是说 &lt;strong&gt;图上每个时间点的数值 = 这个时间点往前1分钟的数据增长量 / 60秒&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;我们通常需要对结果进行聚合，这里需要用到 &lt;strong&gt;sum&lt;/strong&gt; 函数，它非常简单，就是把搜索到的满足条件的时间序列求和。&lt;/p&gt;
-
-&lt;p&gt;比如我们可以按照 application 的维度，或者按照 application+ip+接口 的维度，如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sum( rate(http_request_total[1m]) ) by(application)&lt;/code&gt;，这样我们可以看到每个应用的总体 QPS 了，而不是某个接口的 QPS&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sum( rate(http_request_total[1m]) ) by(application, uri)&lt;/code&gt;，这样我们可以看到每个接口的 QPS&lt;/p&gt;
-
-&lt;p&gt;sum by 有两种写法，把 by 写在前面也是可以的，比如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sum by(application, uri) (rate(http_request_total[1m]))&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;sum 函数还有一个特点，就是它的结果是分组数据，在一些场景中很适合用来做对比，也就是饼状图&lt;/p&gt;
-
-&lt;p&gt;总结一下 rate 函数，它很适合用来制作代表速率的图，比如订单的创建速率、网络的速率、接口的 QPS 等等，同时它适合搭配 sum 函数一起使用。&lt;/p&gt;
-
-&lt;h5 id=&quot;irate-函数制图&quot;&gt;irate 函数制图&lt;/h5&gt;
-
-&lt;p&gt;有了 rate 函数的概念以后，理解 irate 就会容易很多。&lt;/p&gt;
-
-&lt;p&gt;比如某个指标，每 10 秒被采集一次数据，有如下数据：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2024-09-09 00:00:00 100
-2024-09-09 00:00:10 150
-2024-09-09 00:00:20 160
-2024-09-09 00:00:30 400
-2024-09-09 00:00:40 450
-2024-09-09 00:00:50 600
-2024-09-09 00:01:00 1000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;先观察一下上面这组数据，每 10 秒增加的数量非常不均匀，有些时候只增加了 10 个，但是最后 10 秒一下子增加了 400 个。&lt;/p&gt;
-
-&lt;p&gt;如果我们使用 rate 函数，每分钟作为一个统计区间，计算在 00:01:00 这个时间点的速率，得到的结果是 (1000-100)/60=15。&lt;/p&gt;
-
-&lt;p&gt;但是如果我们使用 &lt;strong&gt;irate&lt;/strong&gt; 函数，它只会考虑&lt;strong&gt;最后两个数据点的增长率&lt;/strong&gt;，也就是说，在 00:01:00 这个时间点的&lt;strong&gt;瞬时&lt;/strong&gt;增长率，为 (1000-600)/10=40。&lt;/p&gt;
-
-&lt;p&gt;从这个例子，我们可以看到，虽然 rate 和 irate 都是描述增长率，但是 irate 对数据的增长速率非常敏感，而 rate 表现得比较平滑。&lt;/p&gt;
-
-&lt;p&gt;既然 irate 只取最后的两个数据，所以我们其实也可以猜到，下面的两个表达式，虽然时间范围看上去差异很大，一个 1m 一个 10m，但是基本上可以肯定，做出来的图是一样的，之所以要指定时间，是因为怕采样频率的问题，以及数据可能有丢失等。&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;irate(http_request_total{application=&quot;order-service&quot;, ip=&quot;10.100.0.3&quot;, uri=&quot;/api/v1/order/query-detail&quot;}[1m])
-
-irate(http_request_total{application=&quot;order-service&quot;, ip=&quot;10.100.0.3&quot;, uri=&quot;/api/v1/order/query-detail&quot;}[10m])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;increase-函数制图&quot;&gt;increase 函数制图&lt;/h5&gt;
-
-&lt;p&gt;increase 非常容易理解，它代表在一段时间内，第一个数据到最后一个数据，它们之间的差值。&lt;/p&gt;
-
-&lt;p&gt;比如我设置一个这种图：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;increase(http_request_total{application=&quot;order-service&quot;, ip=&quot;10.100.0.3&quot;, uri=&quot;/api/v1/order/query-detail&quot;}[5m])
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;图上出现的每个点，它代表这个时间点往前5分钟，这个时间序列总共增长了多少数值。&lt;/p&gt;
-
-&lt;p&gt;其实大家应该很容易发现，increase 和 rate 函数用了一样的数据，都是一个时间区间的&lt;strong&gt;第一条&lt;/strong&gt;和&lt;strong&gt;最后一条&lt;/strong&gt;数据。&lt;/p&gt;
-
-&lt;p&gt;所以从数学上，很容易推出：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;increase(v[t]) = rate(v[t]) * t&lt;/code&gt;。因此，理论上我们是可以只使用它们之中的一个函数的。&lt;/p&gt;
-
-&lt;p&gt;很多时候，我们想知道一段时间的总体变化，而不是变化速率，这个时候我们一般会使用 increase 函数。比如我想知道过去 24 小时内的新用户注册数、24 小时订单数等，这种图可以不局限于做折线图或者是柱状图，也可以做饼图。&lt;/p&gt;
-
-&lt;p&gt;counter 类型大概就说这么多，最后需要指出的是，前面我们说过了 counter 的数据是一直增长的，但是如果我们的应用重启了，也就是说，本地的数据发生了重置，Prometheus 会记录新的从 0 开始的样本值，但是对 rate, irate, increase 这些函数，会特殊处理，看下面这两个图就清楚了。&lt;/p&gt;
-
-&lt;h3 id=&quot;gauge-类型&quot;&gt;Gauge 类型&lt;/h3&gt;
-
-&lt;p&gt;Gauge 类型非常简单，它就是代表某个指标在某个时间点的数值，基本上每个点的数值都是独立的，前后之前没什么关联。&lt;/p&gt;
-
-&lt;p&gt;它的使用场景也非常多，比如当前的 CPU 使用率、内存使用率、kafka 的 consumer lag、当前线程数等等。&lt;/p&gt;
-
-&lt;p&gt;首先是，它非常适合用来做一些仪表盘的图&lt;/p&gt;
-
-&lt;p&gt;当然，把它们做成折线图也很有用，可以看到数据的变化趋势，比如下面这个 cpu 使用率的趋势图&lt;/p&gt;
-
-&lt;p&gt;另一个很好用的图，是 stat panel，也就是把上面两个结合在一起，既可以看到趋势，也可以看到当前最新值。&lt;/p&gt;
-
-&lt;p&gt;这里要强调一下，如果你觉得有需要，你依然可以使用前面介绍的 rate、irate、increase 等这些函数在 gauge 类型上，虽然很奇怪。对这些函数而言，gauge 和 counter 都是一样的时序数据，只不过 counter 类型的数据有可能要处理数据重置的情况，而 gauge 不存在。&lt;/p&gt;
-
-&lt;h3 id=&quot;summary-类型&quot;&gt;Summary 类型&lt;/h3&gt;
-
-&lt;p&gt;接下来我们要进入到 Summary 类型的介绍，它比 counter 和 gauge 稍微复杂一些，我们要介绍一些内部细节，才能帮助大家理解它，进而更容易理解后面要介绍的 Histogram 类型。&lt;/p&gt;
-
-&lt;p&gt;首先，我们需要在 application.properties 文件中配置下面这 3 个属性（当然你也可以通过 @Configuration 来配置），这里指明我们要统计 &lt;strong&gt;http.request&lt;/strong&gt; 的 P90 和 P99，另外指定了使用 3 个时间窗口，每个窗口是 1 分钟，后面会解释它们的作用。&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;management.metrics.distribution.percentiles.[http.request]=0.9, 0.99
-management.metrics.distribution.buffer-length.[http.request]=3 聚合几个窗口
-management.metrics.distribution.expiry.[http.request]=1m 每个窗口长度
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;每过一分钟：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;当前窗口满了 → 切到下一个；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;被切换出去的旧窗口清空后等待重用；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;总是保持 3 个窗口的滑动统计（约 3 分钟范围）。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这样计算的 P90 就是最近 3 分钟所有样本的 90th percentile。&lt;/p&gt;
-
-&lt;p&gt;Micrometer 的 summary 在计算 P90 时，会：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;把当前配置的多个时间窗口（如 3×1 分钟）的所有样本合并，排序后取第 90% 位置的值作为 P90。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;窗口只是存储样本的分片，真正计算时是&lt;strong&gt;跨窗口合并后一起算分位数&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;它的 API 也非常简单，下面我模拟这些接口，每秒钟被请求一次，每次耗时几十到几百毫秒&lt;/p&gt;
-
-&lt;p&gt;一个 summary 类型包含好几个时间序列，另外还有一个 gauge 类型的时间序列。&lt;/p&gt;
-
-&lt;p&gt;我们分别来看：&lt;/p&gt;
-
-&lt;p&gt;http_request_seconds{quantile=”0.9”}，这个记录的是当前的 P90 数据&lt;/p&gt;
-
-&lt;p&gt;http_request_seconds{quantile=”0.99”}，这个记录的是当前的 P99 数据&lt;/p&gt;
-
-&lt;p&gt;http_request_seconds_count：请求次数的总和，它和我们前面介绍 counter 类型的时候的 http_request_total 其实就是一个东西，记录累计访问次数。&lt;/p&gt;
-
-&lt;p&gt;http_request_seconds_sum：响应时间的总和，单位是秒，对接口的每次访问都会增加这个值，也是一个 counter 类型。&lt;/p&gt;
-
-&lt;p&gt;http_request_seconds_max：这个更好理解了，就是记录最大响应时间，它是 gauge 类型。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;核心机制&lt;/strong&gt;&lt;br /&gt;
-Summary 类型的核心在于计算分位数（如 P90、P99）。每个 Summary 时间序列会维护若干个时间窗口（如 3 个，每个 1 分钟），用来暂存请求耗时等样本数据。&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;第 1 分钟写入窗口 0；&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;第 2 分钟写入窗口 1，同时聚合窗口 0+1 计算分位数；&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;第 3 分钟写入窗口 2，同时聚合 0+1+2；&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;第 4 分钟循环回窗口 0，清空再用。&lt;br /&gt;
-Prometheus 每次抓取时，Micrometer 会将当前 3 个窗口的样本合并计算分位数后返回。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;计算方式&lt;/strong&gt;&lt;br /&gt;
-P90、P99 等分位数代表“90%/99% 请求耗时不超过的值”，是从当前窗口中统计出的结果。&lt;br /&gt;
-例如：&lt;/p&gt;
-
-    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http_request_seconds{quantile=&quot;0.9&quot;} = 0.788s&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;表示该时间段 90% 的请求耗时 ≤ 0.788 秒。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;数据来源与限制&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;Summary 是&lt;strong&gt;客户端计算型指标&lt;/strong&gt;，即由应用实例自身计算分位数后暴露给 Prometheus。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;因此 &lt;strong&gt;无法跨实例聚合&lt;/strong&gt;，也不能跨时间窗口聚合（例如 1h 的 P90 无法从多个 1m 的 P90 得出）。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;这意味着如果多个实例的 P90 分别是 50ms 和 150ms，无法合并成一个整体 P90。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;与 Histogram 的区别&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;&lt;strong&gt;Summary&lt;/strong&gt;：客户端计算分位数，占用资源少，但无法全局聚合。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;&lt;strong&gt;Histogram&lt;/strong&gt;：将样本按区间（bucket）划分，由 Prometheus 统一计算分位数，支持跨实例、跨时间聚合，但开销更高。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;适用场景&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;
-        &lt;p&gt;单实例性能监控、快速查看延迟分布；&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;不适合全局统计或多实例聚合分析。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Histogram 的原理可以总结得很清楚，核心思想就是 &lt;strong&gt;通过固定桶（bucket）统计样本数量，由服务端聚合计算分位数和其他指标&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h3 id=&quot;histogram-类型&quot;&gt;Histogram 类型&lt;/h3&gt;
-
-&lt;h2 id=&quot;grafana用法&quot;&gt;Grafana用法&lt;/h2&gt;
-
-&lt;p&gt;根据数据类型选择图表：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折线图（Time series）&lt;/li&gt;
-  &lt;li&gt;统计卡片（Stat）&lt;/li&gt;
-  &lt;li&gt;饼图（Pie）&lt;/li&gt;
-  &lt;li&gt;表格（Table）&lt;/li&gt;
-  &lt;li&gt;仪表盘（Gauge）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;常见-promql-使用技巧&quot;&gt;常见 PromQL 使用技巧&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-忽略标签去掉维度差异&quot;&gt;1. 忽略标签（去掉维度差异）&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum without(instance) (rate(http_request_total[1m]))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;2-指定标签&quot;&gt;2. 指定标签&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http_request_total{application=&quot;order-service&quot;, uri=&quot;/api/query&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;3-分组聚合&quot;&gt;3. 分组聚合&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(rate(http_request_total[1m])) by (uri)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h4 id=&quot;4-排序&quot;&gt;4. 排序&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;topk(5, sum(rate(http_request_total[1m])) by (uri))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;prometheus--grafana-常用面板画法简要笔记&quot;&gt;Prometheus + Grafana 常用面板画法（简要笔记）&lt;/h3&gt;
-
-&lt;h4 id=&quot;1-qpscounter--rate&quot;&gt;1. &lt;strong&gt;QPS（Counter → rate）&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;h5 id=&quot;整体-qps&quot;&gt;整体 QPS&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(rate(http_request_total[1m]))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;按接口&quot;&gt;按接口&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(rate(http_request_total[1m])) by (uri)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;按应用&quot;&gt;按应用&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(rate(http_request_total[1m])) by (application)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;面板类型&quot;&gt;面板类型&lt;/h5&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折线（Time series）&lt;/li&gt;
-  &lt;li&gt;Legend：按 uri 或 application 展示&lt;/li&gt;
-  &lt;li&gt;适合监控「流量趋势」&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;2-瞬时-qpsirate&quot;&gt;2. &lt;strong&gt;瞬时 QPS（irate）&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(irate(http_request_total[1m])) by (uri)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更敏感，用来抓突发。&lt;/p&gt;
-
-&lt;p&gt;面板类型：折线图
- 注意：抖动比 rate 大。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;3-周期总请求量increase&quot;&gt;3. &lt;strong&gt;周期总请求量（increase）&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;h5 id=&quot;过去-24-小时的请求数&quot;&gt;过去 24 小时的请求数&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(increase(http_request_total[24h])) by (uri)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;适用于：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;饼图：接口占比&lt;/li&gt;
-  &lt;li&gt;柱状：不同接口的访问量对比&lt;/li&gt;
-  &lt;li&gt;Stat：展示总访问量&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;4-响应时间summary&quot;&gt;4. &lt;strong&gt;响应时间（Summary）&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;h5 id=&quot;p90&quot;&gt;P90&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http_server_requests_seconds{quantile=&quot;0.9&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h5 id=&quot;p99&quot;&gt;P99&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;http_server_requests_seconds{quantile=&quot;0.99&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;面板类型：折线
- 注意：Summary 的 quantile 不可跨实例聚合。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;5-响应时间histogram&quot;&gt;5. &lt;strong&gt;响应时间（Histogram）&lt;/strong&gt;&lt;/h4&gt;
-
-&lt;h5 id=&quot;p99可聚合&quot;&gt;P99（可聚合）&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;histogram_quantile(0.99,
-  sum(rate(http_request_duration_seconds_bucket[1m])) by (le)
-)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可用于：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;跨实例服务延迟监控&lt;/li&gt;
-  &lt;li&gt;高并发系统延迟趋势图&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h5 id=&quot;6-平均响应时间&quot;&gt;6. &lt;strong&gt;平均响应时间&lt;/strong&gt;&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sum(rate(http_request_duration_seconds_sum[1m]))
-/
-sum(rate(http_request_duration_seconds_count[1m]))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;用于平均耗时趋势图（比 P99 平稳）。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h5 id=&quot;7-cpu--memorygauge&quot;&gt;7. &lt;strong&gt;CPU / Memory（Gauge）&lt;/strong&gt;&lt;/h5&gt;
-
-&lt;p&gt;CPU：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;instance_cpu_usage_percent
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;内存：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;instance_memory_usage_bytes
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;面板类型：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折线&lt;/li&gt;
-  &lt;li&gt;Stat（显示当前最新值）&lt;/li&gt;
-  &lt;li&gt;Gauge（仪表盘实时值）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h5 id=&quot;8-kafka-consumer-lag&quot;&gt;8. &lt;strong&gt;Kafka Consumer Lag&lt;/strong&gt;&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kafka_consumergroup_lag
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;面板类型：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折线（看趋势）&lt;/li&gt;
-  &lt;li&gt;Stat（看当前 lag）&lt;/li&gt;
-  &lt;li&gt;阈值线（如 &amp;gt;1000 报警）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h5 id=&quot;9-链同步高度gauge&quot;&gt;9. &lt;strong&gt;链同步高度（Gauge）&lt;/strong&gt;&lt;/h5&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;blockchain_block_height
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;常用图法：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折线 → 各节点高度&lt;/li&gt;
-  &lt;li&gt;Stat → 当前高度&lt;/li&gt;
-  &lt;li&gt;Bar → 节点之间差异&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">prometheus用法</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Tools" /><summary type="html">kibana</summary></entry></feed>
