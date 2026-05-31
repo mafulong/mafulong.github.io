@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-16T09:56:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;p&gt;基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-05-31T10:08:30+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;p&gt;基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动&lt;/p&gt;
 
 &lt;h1 id=&quot;the-full-12-rule-claudemd-copy-paste-ready&quot;&gt;The full 12-rule CLAUDE.md (copy-paste ready)&lt;/h1&gt;
 
@@ -4668,9 +4668,72 @@ topic2 to
 
 &lt;hr /&gt;
 
-&lt;h1 id=&quot;十八evm-解析核心知识&quot;&gt;十八、EVM 解析核心知识&lt;/h1&gt;
+&lt;h1 id=&quot;十九eip-7702-gas-代付流程&quot;&gt;十九、EIP-7702 Gas 代付流程&lt;/h1&gt;
 
-&lt;h1 id=&quot;evm-calldata-解析笔记&quot;&gt;EVM Calldata 解析笔记&lt;/h1&gt;
+&lt;p&gt;EIP-7702 实现了 &lt;strong&gt;账户抽象&lt;/strong&gt;，允许合约代替用户支付 Gas。&lt;/p&gt;
+
+&lt;h2 id=&quot;流程&quot;&gt;流程&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;用户签名
+   ↓
+Relayer 收到签名
+   ↓
+Relayer 发链上交易
+   ↓
+7702 delegate contract 执行逻辑
+   ↓
+Sponsor/Paymaster 出 gas
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;各方职责&quot;&gt;各方职责&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;角色&lt;/th&gt;
+      &lt;th&gt;职责&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用户&lt;/td&gt;
+      &lt;td&gt;签名授权，不需要主币&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Relayer&lt;/td&gt;
+      &lt;td&gt;最终广播者，收取用户签名后构造并广播交易&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Delegate Contract&lt;/td&gt;
+      &lt;td&gt;决定执行规则，验证签名，执行逻辑&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sponsor/Paymaster&lt;/td&gt;
+      &lt;td&gt;实际支付 Gas 费用&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;关键特点&quot;&gt;关键特点&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;用户不需要主币&lt;/strong&gt;：Gas 由 Sponsor 代付&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Relayer 广播&lt;/strong&gt;：承担链上交易的实际发送&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Delegate Contract&lt;/strong&gt;：可编程的执行规则，决定谁可以代理、收取多少手续费等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;与传统交易的区别&quot;&gt;与传统交易的区别&lt;/h2&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;传统交易：
+  用户 → 链上（用户签名 + 广播，自身付 gas）
+
+7702 代付：
+  用户签名 → Relayer → 链上（Relayer 广播，Sponsor 付 gas）
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;二十evm-解析核心知识&quot;&gt;二十、EVM 解析核心知识&lt;/h1&gt;
 
 &lt;h2 id=&quot;1-基本概念&quot;&gt;1. 基本概念&lt;/h2&gt;
 
