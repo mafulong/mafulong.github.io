@@ -8,162 +8,369 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #1a1b26;
-  --bg2:      #1f2030;
-  --bg3:      #24253a;
-  --bg4:      #2a2b40;
-  --border:   #363659;
-  --text:     #c0caf5;
-  --text2:    #9aa5ce;
-  --text3:    #565f89;
-  --accent:   #7aa2f7;
-  --green:    #9ece6a;
-  --yellow:   #e0af68;
-  --red:      #f7768e;
-  --mauve:    #bb9af7;
-  --teal:     #73daca;
-  --orange:   #ff9e64;
-  --scrollbar:#363659;
+  --bg:        #0f1117;
+  --bg2:       #161822;
+  --bg3:       #1c1f2e;
+  --bg4:       #252839;
+  --border:    #2e3150;
+  --text:      #c8d0f0;
+  --text2:     #8b93b8;
+  --text3:     #555b80;
+  --accent:    #7c8cf5;
+  --accent2:   #5de8c8;
+  --green:     #7ddb8e;
+  --yellow:    #f5c860;
+  --red:       #f56878;
+  --mauve:     #b98af5;
+  --teal:      #5de8c8;
+  --orange:    #f59860;
+  --scrollbar: #2e3150;
 }
 
-html, body { height: 100%; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: 'SF Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
   background: var(--bg);
   color: var(--text);
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.6;
   min-height: 100vh;
 }
 
-.topbar {
+/* ──背景网格 ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── 顶部导航 ── */
+header {
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--border);
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0 40px;
   display: flex;
   align-items: center;
-  padding: 14px 20px;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
+  justify-content: space-between;
+  height: 56px;
   flex-shrink: 0;
 }
-.topbar-logo {
-  font-size: 16px;
+.logo {
+  font-size: 15px;
   font-weight: 800;
   color: var(--accent);
+  letter-spacing: 2px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text3);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color .15s;
+}
+.nav-links a:hover { color: var(--text2); }
+
+/* ── 主内容 ── */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 64px 40px 80px;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 20px;
   letter-spacing: 1px;
 }
-
-.container {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 32px 20px;
+.hero-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent2);
+  border-radius: 50%;
 }
-
-h2 {
+.hero h1 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+}
+.hero-sub {
+  font-size: 15px;
   color: var(--text2);
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
+/* ── 分类标题 ── */
+.section {
+  margin-bottom: 40px;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text3);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── 工具卡片 ── */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 12px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
 }
 
 .card {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 16px 18px;
+  border-radius: 12px;
+  padding: 20px;
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: border-color .15s, background .15s;
+  gap: 10px;
+  transition: border-color .18s, background .18s, transform .18s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  opacity: 0;
+  transition: opacity .18s;
 }
 .card:hover {
   border-color: var(--accent);
   background: var(--bg3);
+  transform: translateY(-2px);
+}
+.card:hover::before { opacity: 1; }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.card-arrow {
+  color: var(--text3);
+  font-size: 16px;
+  transition: color .15s, transform .15s;
+}
+.card:hover .card-arrow {
+  color: var(--accent);
+  transform: translateX(3px);
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
-  color: var(--accent);
+  color: #fff;
+  margin-top: 2px;
 }
 .card-desc {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text2);
-  line-height: 1.5;
+  line-height: 1.6;
 }
-.card-tags {
+.card-footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 5px;
   margin-top: 4px;
 }
 .tag {
-  font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 3px;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
   background: var(--bg4);
   color: var(--text3);
   border: 1px solid var(--border);
+  transition: border-color .12s, color .12s;
+}
+.card:hover .tag {
+  border-color: var(--bg4);
+  color: var(--text2);
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
+/* ── 底部 ── */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 24px;
+  color: var(--text3);
+  font-size: 12px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── 滚动条 ── */
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+
+/* ── 响应式 ── */
+@media (max-width: 600px) {
+  header { padding: 0 20px; }
+  main { padding: 40px 20px 60px; }
+  .hero h1 { font-size: 28px; }
+  .grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-logo">⚒工具集</div>
-</div>
+<header>
+  <a class="logo" href="/">
+    <div class="logo-icon">⚒</div>
+    工具集
+  </a>
+  <nav>
+    <ul class="nav-links">
+      <li><a href="/">博客首页</a></li>
+    </ul>
+  </nav>
+</header>
 
-<div class="container">
+<main>
 
-  <h2>开发工具</h2>
-  <div class="grid">
-
-    <a class="card" href="json.html">
-      <div class="card-title">{ JSON }</div>
-      <div class="card-desc">JSON 格式化、压缩、转义、树形预览、历史记录</div>
-      <div class="card-tags">
-        <span class="tag">格式化</span>
-        <span class="tag">压缩</span>
-        <span class="tag">树形视图</span>
-        <span class="tag">历史记录</span>
-      </div>
-    </a>
-
-    <a class="card" href="timestamp.html">
-      <div class="card-title">⏱ 时间戳</div>
-      <div class="card-desc">Unix 时间戳 ↔ 日期时间互转、全球时区对照、时间差计算</div>
-      <div class="card-tags">
-        <span class="tag">时间戳</span>
-        <span class="tag">时区</span>
-        <span class="tag">时间差</span>
-      </div>
-    </a>
-
-    <a class="card" href="hd-wallet.html">
-      <div class="card-title">🔐 HD钱包生成器</div>
-      <div class="card-desc">从 BIP39 助记词生成 EVM / Solana / TRON 多链钱包，附带二维码和 CSV 导出</div>
-      <div class="card-tags">
-        <span class="tag">HD Wallet</span>
-        <span class="tag">EVM</span>
-        <span class="tag">Solana</span>
-        <span class="tag">TRON</span>
-        <span class="tag">BIP39</span>
-      </div>
-    </a>
-
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      在线工具集合
+    </div>
+    <h1>实用工具箱</h1>
+    <p class="hero-sub">开发者日常所需的工具，无需安装、无需注册，打开浏览器即可使用，数据全程本地处理。</p>
   </div>
 
-</div>
+  <div class="section">
+    <div class="section-title">开发工具</div>
+    <div class="grid">
+
+      <a class="card" href="json.html">
+        <div class="card-header">
+          <div class="card-icon">{ }</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">JSON 格式化工具</div>
+        <div class="card-desc">格式化、压缩、转义、树形预览，历史记录自动保存，支持折叠展开节点。</div>
+        <div class="card-footer">
+          <span class="tag">格式化</span>
+          <span class="tag">压缩</span>
+          <span class="tag">树形视图</span>
+          <span class="tag">历史记录</span>
+        </div>
+      </a>
+
+      <a class="card" href="timestamp.html">
+        <div class="card-header">
+          <div class="card-icon">⏱</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">时间戳转换工具</div>
+        <div class="card-desc">Unix 时间戳与日期时间互转，全球14 个时区实时对照，时间差计算与相对时间。</div>
+        <div class="card-footer">
+          <span class="tag">时间戳</span>
+          <span class="tag">时区转换</span>
+          <span class="tag">时间差</span>
+        </div>
+      </a>
+
+      <a class="card" href="hd-wallet.html">
+        <div class="card-header">
+          <div class="card-icon">🔐</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">HD 钱包生成器</div>
+        <div class="card-desc">从 BIP39 助记词生成 EVM / Solana / TRON 多链钱包，附带二维码和 CSV 批量导出。</div>
+        <div class="card-footer">
+          <span class="tag">HD Wallet</span>
+          <span class="tag">BIP39</span>
+          <span class="tag">多链</span>
+          <span class="tag">二维码</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  所有工具均为纯客户端运行，数据不会上传至任何服务器。
+</footer>
 
 </body>
 </html>
