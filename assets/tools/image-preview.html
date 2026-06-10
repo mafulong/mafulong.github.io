@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图片预览工具</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:#1a1b26; --bg2:#1f2030; --bg3:#24253a; --bg4:#2a2b40;
+  --border:#363659; --text:#c0caf5; --text2:#9aa5ce; --text3:#565f89;
+  --accent:#7aa2f7; --green:#9ece6a; --yellow:#e0af68; --red:#f7768e;
+  --btn:#2a2b40; --btn-h:#363659;
+}
+html, body { height: 100%; }
+body { font-family: 'Consolas','Monaco','Courier New',monospace; background: var(--bg); color: var(--text); display: flex; flex-direction: column; overflow: hidden; font-size: 13px; }
+
+.topbar { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-shrink: 0; user-select: none; }
+.topbar-logo { font-size: 14px; font-weight: 800; color: var(--accent); }
+.counter { margin-left: auto; font-size: 12px; color: var(--text3); }
+.counter .ok { color: var(--green); }
+.counter .fail { color: var(--red); }
+
+.main { flex: 1; display: flex; overflow: hidden; }
+
+.left { width: 320px; flex-shrink: 0; background: var(--bg2); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 12px; gap: 10px; overflow: hidden; }
+.left label { font-size: 11px; color: var(--text3); }
+#urlInput { flex: 1; background: var(--bg4); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font: inherit; font-size: 12px; padding: 10px; resize: none; outline: none; line-height: 1.7; transition: border-color .15s; }
+#urlInput:focus { border-color: var(--accent); }
+#urlInput::placeholder { color: var(--text3); }
+
+.btn-row { display: flex; gap: 6px; flex-shrink: 0; }
+.btn { flex: 1; padding: 6px; border-radius: 5px; border: 1px solid var(--border); background: var(--btn); color: var(--text); font: inherit; font-size: 12px; cursor: pointer; transition: background .12s, border-color .12s, color .12s; }
+.btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.btn.prim:hover { background: #89b0ff; }
+
+.sample-btn { font-size: 11px; color: var(--text3); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; flex-shrink: 0; }
+.sample-btn:hover { color: var(--accent); }
+
+.right { flex: 1; overflow-y: auto; padding: 14px; }
+.empty-hint { color: var(--text3); font-size: 13px; text-align: center; margin-top: 60px; line-height: 2; }
+
+.img-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+
+.img-card { width: 200px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; cursor: pointer; transition: border-color .15s, transform .1s; }
+.img-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.img-wrap { position: relative; width: 200px; height: 160px; background: var(--bg4); display: flex; align-items: center; justify-content: center; }
+.img-thumb { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
+.img-spinner { font-size: 11px; color: var(--text3); animation: pulse 1.2s infinite; }
+.img-error-msg { display: none; flex-direction: column; align-items: center; gap: 6px; color: var(--red); font-size: 11px; }
+
+.img-wrap.loaded .img-thumb    { display: block; }
+.img-wrap.loaded .img-spinner  { display: none; }
+.img-wrap.error  .img-spinner  { display: none; }
+.img-wrap.error  .img-error-msg{ display: flex; }
+
+.img-info { padding: 7px 8px; }
+.img-url { font-size: 10px; color: var(--text3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 3px; }
+.img-dim { font-size: 10px; color: var(--text2); }
+.img-idx { font-size: 10px; color: var(--text3); }
+
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 1000; display: none; align-items: center; justify-content: center; }
+.lightbox.open { display: flex; }
+.lb-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; user-select: none; }
+.lb-close { position: fixed; top: 14px; right: 18px; font-size: 28px; color: #aaa; cursor: pointer; line-height: 1; user-select: none; z-index: 1001; }
+.lb-close:hover { color: #fff; }
+.lb-nav { position: fixed; top: 50%; transform: translateY(-50%); font-size: 40px; color: #aaa; cursor: pointer; user-select: none; padding: 10px 16px; z-index: 1001; transition: color .1s; }
+.lb-nav:hover { color: #fff; }
+.lb-prev { left: 8px; }
+.lb-next { right: 8px; }
+.lb-info { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); color: #aaa; font-size: 12px; white-space: nowrap; user-select: none; z-index: 1001; }
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+::-webkit-scrollbar { width: 5px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #363659; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">🖼 图片预览工具</div>
+  <div class="counter" id="counter"></div>
+</div>
+
+<div class="main">
+  <div class="left">
+    <label>图片链接（每行一个）</label>
+    <textarea id="urlInput" placeholder="https://example.com/image.jpg&#10;https://example.com/photo.png&#10;..."></textarea>
+    <div class="btn-row">
+      <button class="btn prim" onclick="loadImages()">预览</button>
+      <button class="btn" onclick="clearAll()">清空</button>
+    </div>
+    <span class="sample-btn" onclick="loadSample()">加载示例图片</span>
+  </div>
+
+  <div class="right" id="right">
+    <div class="empty-hint" id="emptyHint">
+      在左侧输入图片链接<br>每行一个，点击「预览」加载
+    </div>
+    <div class="img-grid" id="imgGrid"></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="onLbBgClick(event)">
+  <img class="lb-img" id="lbImg" alt="" />
+  <span class="lb-close" onclick="closeLightbox()">✕</span>
+  <span class="lb-nav lb-prev" onclick="navigateLb(-1)">‹</span>
+  <span class="lb-nav lb-next" onclick="navigateLb(1)">›</span>
+  <div class="lb-info" id="lbInfo"></div>
+</div>
+
+<script>
+'use strict';
+let urls = [];
+let lbIndex = 0;
+let loadedCount = 0;
+let failCount = 0;
+let generation = 0;
+
+function loadImages() {
+  urls = document.getElementById('urlInput').value
+    .split('\n')
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (!urls.length) {
+    clearGrid();
+    document.getElementById('emptyHint').style.display = '';
+    document.getElementById('counter').innerHTML = '';
+    return;
+  }
+
+  generation++;
+  loadedCount = 0;
+  failCount = 0;
+  document.getElementById('emptyHint').style.display = 'none';
+  renderGrid();
+  updateCounter();
+}
+
+function clearGrid() {
+  document.getElementById('imgGrid').innerHTML = '';
+}
+
+function clearAll() {
+  document.getElementById('urlInput').value = '';
+  urls = [];
+  clearGrid();
+  document.getElementById('emptyHint').style.display = '';
+  document.getElementById('counter').innerHTML = '';
+}
+
+function renderGrid() {
+  const grid = document.getElementById('imgGrid');
+  grid.innerHTML = '';
+
+  urls.forEach((url, i) => {
+    const card = document.createElement('div');
+    card.className = 'img-card';
+    card.title = url;
+    card.addEventListener('click', () => openLightbox(i));
+
+    const wrap = document.createElement('div');
+    wrap.className = 'img-wrap';
+
+    const img = document.createElement('img');
+    img.className = 'img-thumb';
+    img.alt = '';
+
+    const spinner = document.createElement('div');
+    spinner.className = 'img-spinner';
+    spinner.textContent = '加载中…';
+
+    const errDiv = document.createElement('div');
+    errDiv.className = 'img-error-msg';
+    errDiv.innerHTML = '<span style="font-size:22px">🖼</span>加载失败';
+
+    const dimEl = document.createElement('div');
+    dimEl.className = 'img-dim';
+
+    const myGen = generation;
+    img.onload = () => {
+      if (generation !== myGen) return;
+      wrap.classList.add('loaded');
+      loadedCount++;
+      dimEl.textContent = `${img.naturalWidth} × ${img.naturalHeight}`;
+      updateCounter();
+    };
+    img.onerror = () => {
+      if (generation !== myGen) return;
+      wrap.classList.add('error');
+      failCount++;
+      updateCounter();
+    };
+    img.src = url;
+
+    wrap.appendChild(img);
+    wrap.appendChild(spinner);
+    wrap.appendChild(errDiv);
+
+    const info = document.createElement('div');
+    info.className = 'img-info';
+
+    const urlEl = document.createElement('div');
+    urlEl.className = 'img-url';
+    const short = url.split('/').pop() || url;
+    urlEl.textContent = short.length > 28 ? short.slice(0, 26) + '…' : short;
+
+    const idxEl = document.createElement('div');
+    idxEl.className = 'img-idx';
+    idxEl.textContent = `#${i + 1}`;
+
+    info.appendChild(urlEl);
+    info.appendChild(dimEl);
+    info.appendChild(idxEl);
+
+    card.appendChild(wrap);
+    card.appendChild(info);
+    grid.appendChild(card);
+  });
+}
+
+function updateCounter() {
+  const total = urls.length;
+  const pending = total - loadedCount - failCount;
+  let html = `共 ${total} 张`;
+  if (loadedCount) html += ` <span class="ok">✓ ${loadedCount}</span>`;
+  if (failCount)   html += ` <span class="fail">✗ ${failCount}</span>`;
+  if (pending > 0) html += ` <span>⋯ ${pending}</span>`;
+  document.getElementById('counter').innerHTML = html;
+}
+
+function openLightbox(i) {
+  lbIndex = i;
+  showLbImage();
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function showLbImage() {
+  const img = document.getElementById('lbImg');
+  img.src = urls[lbIndex];
+  document.getElementById('lbInfo').textContent =
+    `${lbIndex + 1} / ${urls.length}  ${urls[lbIndex].split('/').pop() || ''}`;
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function navigateLb(delta) {
+  lbIndex = (lbIndex + delta + urls.length) % urls.length;
+  showLbImage();
+}
+
+function onLbBgClick(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape')      closeLightbox();
+  if (e.key === 'ArrowLeft')   navigateLb(-1);
+  if (e.key === 'ArrowRight')  navigateLb(1);
+});
+
+function loadSample() {
+  document.getElementById('urlInput').value = [
+    'https://picsum.photos/seed/a/400/300',
+    'https://picsum.photos/seed/b/600/400',
+    'https://picsum.photos/seed/c/300/300',
+    'https://picsum.photos/seed/d/500/350',
+    'https://picsum.photos/seed/e/800/500',
+    'https://picsum.photos/seed/f/400/600',
+  ].join('\n');
+  loadImages();
+}
+
+document.addEventListener('paste', e => {
+  const ta = document.getElementById('urlInput');
+  if (document.activeElement === ta) return;
+  const text = e.clipboardData.getData('text/plain');
+  if (!text) return;
+  ta.value = (ta.value ? ta.value + '\n' : '') + text.trim();
+});
+</script>
+</body>
+</html>
