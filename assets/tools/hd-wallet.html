@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HD Wallet Generator</title>
+<!-- 需要联网加载以下 CDN 库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl-fast.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'SF Mono', 'Courier New', monospace; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; }
+.container { max-width: 1000px; margin: 0 auto; padding: 28px 16px; }
+
+h1 { color: #f0b429; text-align: center; font-size: 20px; margin-bottom: 20px; letter-spacing: 3px; }
+
+.warning {
+  background: #1a0e00; border: 1px solid #f0b429; border-radius: 8px;
+  padding: 11px 16px; margin-bottom: 24px; color: #f0b429; font-size: 13px; text-align: center;
+}
+
+.controls {
+  display: flex; gap: 12px; align-items: center; margin-bottom: 28px; flex-wrap: wrap;
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 16px 20px;
+}
+.controls label { color: #888; font-size: 13px; }
+.controls input[type=number] {
+  background: #111; border: 1px solid #444; color: #e0e0e0;
+  padding: 9px 12px; border-radius: 7px; font-size: 14px; width: 90px;
+  outline: none; font-family: inherit;
+}
+.controls input[type=number]:focus { border-color: #f0b429; }
+.btn {
+  padding: 9px 20px; border-radius: 7px; border: none; cursor: pointer;
+  font-size: 13px; font-family: inherit; font-weight: bold; transition: opacity 0.15s;
+}
+.btn:hover:not(:disabled) { opacity: 0.82; }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn-primary  { background: #f0b429; color: #0f0f0f; }
+.btn-export   { background: #1e3a2a; color: #5dd98e; border: 1px solid #2a5a3a; }
+.progress { color: #666; font-size: 12px; margin-left: 4px; }
+
+/* ── wallet card ── */
+.wallet-card {
+  background: #161616; border: 1px solid #262626; border-radius: 12px;
+  padding: 20px; margin-bottom: 20px;
+}
+.wallet-card h2 { color: #f0b429; font-size: 13px; margin-bottom: 16px; letter-spacing: 1px; }
+
+.card-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 600px) {
+  .card-body { grid-template-columns: 1fr; }
+  .qr-col { display: flex; flex-direction: column; align-items: center; }
+}
+
+  .qr-col > div > img, .qr-col > div > canvas { width: 180px !important; height: 180px !important; border: 3px solid #fff; border-radius: 6px; display: block; }
+.qr-label { color: #666; font-size: 11px; margin-top: 6px; text-align: center; }
+
+.mnemonic-box {
+  background: #0e1a20; border: 1px solid #1a3040; border-radius: 6px;
+  padding: 10px 12px; margin-bottom: 14px;
+  color: #7ec8e3; font-size: 13px; line-height: 1.7; word-spacing: 3px;
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+thead td {
+  color: #f0b429; font-size: 11px; letter-spacing: 1px;
+  padding: 4px 8px 8px; border-bottom: 1px solid #2a2a2a;
+}
+tbody td { padding: 8px; border-bottom: 1px solid #1e1e1e; word-break: break-all; vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+.chain-lbl { color: #666; white-space: nowrap; font-size: 11px; font-weight: bold; width: 46px; padding-top: 10px; }
+.addr-val  { color: #8dcfaa; }
+  .pkey-val  { color: #888; }
+.pkey-hint { display: block; color: #444; font-size: 10px; margin-bottom: 2px; filter: none !important; cursor: default; }
+
+#results { margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>HD WALLET GENERATOR</h1>
+
+  <div class="warning">
+    ⚠️ 敏感信息 — 请在安全、离线环境下使用，勿截图或转发
+  </div>
+
+  <div class="controls">
+    <label>生成数量</label>
+    <input type="number" id="countInput" value="1" min="1" max="100">
+    <button class="btn btn-primary" id="btnGenerate" onclick="onGenerate()">生成钱包</button>
+    <button class="btn btn-export"   id="btnExport"   onclick="exportCSV()" style="display:none">导出 CSV</button>
+    <span class="progress" id="progress"></span>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<script>
+'use strict';
+
+// ── Base58 ──────────────────────────────────────────────────────────────────
+const B58_CHARS = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+function base58Encode(bytes) {
+  let n = 0n;
+  for (const b of bytes) n = n * 256n + BigInt(b);
+  let s = '';
+  while (n > 0n) { s = B58_CHARS[Number(n % 58n)] + s; n /= 58n; }
+  for (const b of bytes) { if (b !== 0) break; s = '1' + s; }
+  return s;
+}
+
+// ── BIP39 seed (PBKDF2-SHA512, 2048 rounds) ─────────────────────────────────
+async function mnemonicToSeed(phrase) {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey('raw', enc.encode(phrase), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-512', salt: enc.encode('mnemonic'), iterations: 2048 },
+    key, 512
+  );
+  return new Uint8Array(bits);
+}
+
+// ── SLIP-0010 ed25519 hardened derivation ───────────────────────────────────
+async function slip10Ed25519(seed, ...indexes) {
+  const masterKey = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode('ed25519 seed'),
+    { name: 'HMAC', hash: 'SHA-512' }, false, ['sign']
+  );
+  let I  = new Uint8Array(await crypto.subtle.sign('HMAC', masterKey, seed));
+  let kL = I.slice(0, 32);
+  let kR = I.slice(32);
+
+  for (const idx of indexes) {
+    const data = new Uint8Array(37);
+    data[0] = 0x00;
+    data.set(kL, 1);
+    new DataView(data.buffer).setUint32(33, idx >>> 0, false); // big-endian
+    const ck = await crypto.subtle.importKey('raw', kR, { name: 'HMAC', hash: 'SHA-512' }, false, ['sign']);
+    I  = new Uint8Array(await crypto.subtle.sign('HMAC', ck, data));
+    kL = I.slice(0, 32);
+    kR = I.slice(32);
+  }
+  return kL;
+}
+
+// ── TRON address (Base58Check 0x41 prefix) ──────────────────────────────────
+async function deriveTronAddress(evmAddress) {
+  const raw = new Uint8Array(21);
+  raw[0] = 0x41;
+  raw.set(ethers.getBytes(evmAddress), 1);
+  const h1 = await crypto.subtle.digest('SHA-256', raw);
+  const h2 = await crypto.subtle.digest('SHA-256', h1);
+  const full = new Uint8Array(25);
+  full.set(raw);
+  full.set(new Uint8Array(h2).slice(0, 4), 21);
+  return base58Encode(full);
+}
+
+// ── Generate one wallet ──────────────────────────────────────────────────────
+async function generateWallet() {
+  const mnemonic = ethers.Mnemonic.fromEntropy(ethers.randomBytes(16));
+  const phrase   = mnemonic.phrase;
+  const seed     = await mnemonicToSeed(phrase);
+
+  // EVM  m/44'/60'/0'/0/0
+  const evmW = ethers.HDNodeWallet.fromMnemonic(mnemonic, "m/44'/60'/0'/0/0");
+
+  // SOL  m/44'/501'/0'/0'  (SLIP-0010, all hardened)
+  const solSeed = await slip10Ed25519(
+    seed,
+    0x8000002C,  // 44'
+    0x800001F5,  // 501'
+    0x80000000,  // 0'
+    0x80000000   // 0'
+  );
+  const solKP = nacl.sign.keyPair.fromSeed(solSeed);
+
+  // TRON  m/44'/195'/0'/0/0
+  const tronW    = ethers.HDNodeWallet.fromMnemonic(mnemonic, "m/44'/195'/0'/0/0");
+  const tronAddr = await deriveTronAddress(tronW.address);
+
+  return {
+    mnemonic: phrase,
+    evm:  { address: evmW.address,                    privateKey: evmW.privateKey.slice(2) },
+    sol:  { address: base58Encode(solKP.publicKey),   privateKey: base58Encode(solKP.secretKey) },
+    tron: { address: tronAddr,                        privateKey: tronW.privateKey.slice(2) },
+  };
+}
+
+// ── UI ───────────────────────────────────────────────────────────────────────
+let allWallets = [];
+
+async function onGenerate() {
+  const count   = Math.min(100, Math.max(1, parseInt(document.getElementById('countInput').value) || 1));
+  const btn     = document.getElementById('btnGenerate');
+  const prog    = document.getElementById('progress');
+  const results = document.getElementById('results');
+
+  btn.disabled = true;
+  results.innerHTML = '';
+  allWallets = [];
+  document.getElementById('btnExport').style.display = 'none';
+
+  for (let i = 0; i < count; i++) {
+    prog.textContent = `生成中 ${i + 1} / ${count} ...`;
+    const w  = await generateWallet();
+    w.index  = i + 1;
+    allWallets.push(w);
+
+    const qrId = `qr-${w.index}`;
+    results.insertAdjacentHTML('beforeend', `
+      <div class="wallet-card">
+        <h2>WALLET #${w.index}</h2>
+        <div class="card-body">
+          <div class="qr-col">
+            <div id="${qrId}"></div>
+            <div class="qr-label">扫码获取助记词</div>
+          </div>
+          <div>
+            <div class="mnemonic-box">${w.mnemonic}</div>
+            <table>
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>地址</td>
+                  <td>私钥</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="chain-lbl">EVM</td>
+                  <td class="addr-val">${w.evm.address}</td>
+                  <td class="pkey-val">${w.evm.privateKey}</td>
+                </tr>
+                <tr>
+                  <td class="chain-lbl">SOL</td>
+                  <td class="addr-val">${w.sol.address}</td>
+                  <td class="pkey-val">${w.sol.privateKey}</td>
+                </tr>
+                <tr>
+                  <td class="chain-lbl">TRON</td>
+                  <td class="addr-val">${w.tron.address}</td>
+                  <td class="pkey-val">${w.tron.privateKey}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `);
+
+    new QRCode(document.getElementById(qrId), {
+      text: w.mnemonic, width: 180, height: 180,
+      colorDark: '#000000', colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+  prog.textContent = `✓ 已生成 ${count} 个钱包`;
+  btn.disabled = false;
+  document.getElementById('btnExport').style.display = '';
+}
+
+// ── 导出 CSV ─────────────────────────────────────────────────────────────────
+function exportCSV() {
+  const header = ['mnemonic', 'evm_address', 'evm_private_key', 'sol_address', 'sol_private_key', 'tron_address', 'tron_private_key'];
+  const rows   = [header];
+  for (const w of allWallets) {
+    rows.push([
+      w.mnemonic,
+      w.evm.address,  w.evm.privateKey,
+      w.sol.address,  w.sol.privateKey,
+      w.tron.address, w.tron.privateKey,
+    ]);
+  }
+  const csv  = rows.map(r => r.map(v => `"${v}"`).join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url;
+  a.download = `wallets_${Date.now()}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>
