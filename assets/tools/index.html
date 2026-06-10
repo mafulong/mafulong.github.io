@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>工具集</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #1a1b26;
+  --bg2:      #1f2030;
+  --bg3:      #24253a;
+  --bg4:      #2a2b40;
+  --border:   #363659;
+  --text:     #c0caf5;
+  --text2:    #9aa5ce;
+  --text3:    #565f89;
+  --accent:   #7aa2f7;
+  --green:    #9ece6a;
+  --yellow:   #e0af68;
+  --red:      #f7768e;
+  --mauve:    #bb9af7;
+  --teal:     #73daca;
+  --orange:   #ff9e64;
+  --scrollbar:#363659;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  min-height: 100vh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.topbar-logo {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+h2 {
+  color: var(--text2);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color .15s, background .15s;
+}
+.card:hover {
+  border-color: var(--accent);
+  background: var(--bg3);
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.card-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.tag {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: var(--bg4);
+  color: var(--text3);
+  border: 1px solid var(--border);
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">⚒工具集</div>
+</div>
+
+<div class="container">
+
+  <h2>开发工具</h2>
+  <div class="grid">
+
+    <a class="card" href="json.html">
+      <div class="card-title">{ JSON }</div>
+      <div class="card-desc">JSON 格式化、压缩、转义、树形预览、历史记录</div>
+      <div class="card-tags">
+        <span class="tag">格式化</span>
+        <span class="tag">压缩</span>
+        <span class="tag">树形视图</span>
+        <span class="tag">历史记录</span>
+      </div>
+    </a>
+
+    <a class="card" href="timestamp.html">
+      <div class="card-title">⏱ 时间戳</div>
+      <div class="card-desc">Unix 时间戳 ↔ 日期时间互转、全球时区对照、时间差计算</div>
+      <div class="card-tags">
+        <span class="tag">时间戳</span>
+        <span class="tag">时区</span>
+        <span class="tag">时间差</span>
+      </div>
+    </a>
+
+    <a class="card" href="hd-wallet.html">
+      <div class="card-title">🔐 HD钱包生成器</div>
+      <div class="card-desc">从 BIP39 助记词生成 EVM / Solana / TRON 多链钱包，附带二维码和 CSV 导出</div>
+      <div class="card-tags">
+        <span class="tag">HD Wallet</span>
+        <span class="tag">EVM</span>
+        <span class="tag">Solana</span>
+        <span class="tag">TRON</span>
+        <span class="tag">BIP39</span>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
