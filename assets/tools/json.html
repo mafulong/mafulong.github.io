@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSON 工具</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #1a1b26;
+  --bg2:      #1f2030;
+  --bg3:      #24253a;
+  --bg4:      #2a2b40;
+  --border:   #363659;
+  --text:     #c0caf5;
+  --text2:    #9aa5ce;
+  --text3:    #565f89;
+  --accent:   #7aa2f7;
+  --green:    #9ece6a;
+  --yellow:   #e0af68;
+  --red:      #f7768e;
+  --mauve:    #bb9af7;
+  --teal:     #73daca;
+  --orange:   #ff9e64;
+  --btn:      #2a2b40;
+  --btn-h:    #363659;
+  --scrollbar:#363659;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+/* ── 顶栏 ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  user-select: none;
+}
+.topbar-logo {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  margin-right: 6px;
+  letter-spacing: 1px;
+}
+.sep { width: 1px; height: 20px; background: var(--border); margin: 0 3px; flex-shrink: 0; }
+
+.btn {
+  padding: 4px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.btn.prim:hover { background: #89b0ff; }
+.btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+/* ── 主体 ── */
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── 历史侧边栏 ── */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .2s ease;
+}
+.sidebar.closed { width: 0; }
+
+.sb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+.sb-head strong { color: var(--text); font-size: 12px; }
+.sb-clear { color: var(--red); cursor: pointer; font-size: 11px; }
+.sb-clear:hover { text-decoration: underline; }
+
+.sb-list { flex: 1; overflow-y: auto; padding: 6px 5px; }
+.sb-item {
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background .1s;
+}
+.sb-item:hover { background: var(--bg4); border-color: var(--border); }
+.sb-time { font-size: 10px; color: var(--text3); margin-bottom: 2px; }
+.sb-preview { font-size: 11px; color: var(--text2); word-break: break-all; line-height: 1.4; }
+
+/* ── 编辑 + 预览 双栏 ── */
+.panels { flex: 1; display: flex; overflow: hidden; }
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.pane + .pane { border-left: 1px solid var(--border); }
+
+.pane-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text2);
+  flex-shrink: 0;
+  user-select: none;
+}
+.pane-title { flex: 1; font-weight: 700; font-size: 12px; color: var(--text); }
+
+.mini-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background .1s, color .1s, border-color .1s;
+  white-space: nowrap;
+}
+.mini-btn:hover { background: var(--bg4); color: var(--text); border-color: var(--text3); }
+.mini-btn.on { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+
+/* 编辑器 */
+.editor-wrap {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+}
+.gutter {
+  width: 46px;
+  flex-shrink: 0;
+  background: var(--bg3);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  padding: 12px 8px 12px 0;
+  text-align: right;
+  color: var(--text3);
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+#editor {
+  flex: 1;
+  background: var(--bg);
+  color: var(--text);
+  border: none;
+  outline: none;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 13px;
+  resize: none;
+  line-height: 1.65;
+  overflow-y: auto;
+  tab-size: 2;
+  min-width: 0;
+}
+#editor::placeholder { color: var(--text3); }
+
+/* 状态栏 */
+.statusbar {
+  padding: 3px 10px;
+  font-size: 11px;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  color: var(--text3);
+}
+.st-ok  { color: var(--green); }
+.st-err { color: var(--red); }
+
+/* 预览区 */
+.preview-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.error-bar {
+  padding: 8px 12px;
+  background: #2a0a12;
+  color: var(--red);
+  font-size: 12px;
+  line-height: 1.5;
+  border-bottom: 1px solid #4a1020;
+  display: none;
+  flex-shrink: 0;
+}
+.error-bar.show { display: block; }
+
+.preview-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 10px 14px;
+}
+#jsonRaw {
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ── JSON 树 ── */
+.jtree { line-height: 1.65; }
+
+.jnode { position: relative; }
+.jline { display: flex; align-items: flex-start; }
+
+.jtoggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 8px;
+  border-radius: 2px;
+  margin-right: 3px;
+  user-select: none;
+  transition: color .1s, background .1s;
+}
+.jtoggle:hover { background: var(--bg4); color: var(--text2); }
+.jtoggle.leaf { cursor: default; visibility: hidden; }
+
+.jchildren {
+  padding-left: 18px;
+  border-left: 1px solid var(--border);
+  margin-left: 4px;
+}
+.jchildren.hide { display: none; }
+
+/* 值颜色 */
+.jk      { color: var(--accent); }
+.jcolon  { color: var(--text3); margin: 0 2px; }
+.jstr    { color: var(--green); }
+.jnum    { color: var(--yellow); }
+.jbool   { color: var(--mauve); }
+.jnull   { color: var(--red); opacity: .8; }
+.jbrace  { color: var(--text2); }
+.jcomma  { color: var(--text3); }
+
+.jprev   { color: var(--text3); font-size: 11px; cursor: pointer; margin-left: 3px; }
+.jprev:hover { color: var(--text2); }
+.jbadge  {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--text3);
+  background: var(--bg4);
+  border-radius: 3px;
+  padding: 0 5px;
+  margin-left: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+.jbadge:hover { color: var(--text); border-color: var(--text3); }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+</style>
+</head>
+<body>
+
+<!-- 顶栏 -->
+<div class="topbar">
+  <div class="topbar-logo">{ JSON }</div>
+
+  <button class="btn prim" onclick="doFormat()">格式化</button>
+  <button class="btn" onclick="doCompress()">压缩</button>
+  <div class="sep"></div>
+  <button class="btn" onclick="doEscape()">添加转义</button>
+  <button class="btn" onclick="doUnescape()">去除转义</button>
+  <div class="sep"></div>
+  <button class="btn" onclick="doCopy()">复制</button>
+  <button class="btn" onclick="doPaste()">粘贴</button>
+  <button class="btn danger" onclick="doClear()">清空</button>
+  <div class="sep"></div>
+  <button class="btn" id="histBtn" onclick="toggleSidebar()">历史 ▸</button>
+</div>
+
+<!-- 主体 -->
+<div class="main">
+
+  <!-- 历史侧边栏 -->
+  <div class="sidebar closed" id="sidebar">
+    <div class="sb-head">
+      <strong>历史记录</strong>
+      <span class="sb-clear" onclick="clearHistory()">清空</span>
+    </div>
+    <div class="sb-list" id="sbList"></div>
+  </div>
+
+  <!-- 双栏 -->
+  <div class="panels">
+
+    <!-- 左：输入 -->
+    <div class="pane">
+      <div class="pane-head">
+        <span class="pane-title">输入</span>
+        <button class="mini-btn" onclick="loadSample()">示例 JSON</button>
+      </div>
+      <div class="editor-wrap">
+        <div class="gutter" id="gutter">1</div>
+        <textarea id="editor" spellcheck="false"
+          placeholder="在此粘贴或输入 JSON…"></textarea>
+      </div>
+      <div class="statusbar">
+        <span id="stMsg">就绪</span>
+        <span id="stLen"></span>
+        <span id="stType"></span>
+        <span id="stCursor" style="margin-left:auto"></span>
+      </div>
+    </div>
+
+    <!-- 右：预览 -->
+    <div class="pane">
+      <div class="pane-head">
+        <span class="pane-title">预览</span>
+        <button class="mini-btn on" id="vTree" onclick="setView('tree')">树形</button>
+        <button class="mini-btn" id="vRaw"  onclick="setView('raw')">文本</button>
+        <div class="sep"></div>
+        <button class="mini-btn" onclick="expandAll()">全展开</button>
+        <button class="mini-btn" onclick="collapseAll()">全折叠</button>
+      </div>
+      <div class="preview-wrap">
+        <div class="error-bar" id="errorBar"></div>
+        <div class="preview-scroll" id="previewScroll">
+          <div class="jtree" id="jtree"></div>
+          <pre id="jsonRaw"></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ═══════════════════════════════════════════════
+   状态
+═══════════════════════════════════════════════ */
+let parsed   = undefined;
+let view     = 'tree';
+let sbOpen   = false;
+const HK     = 'jt_hist_v2';
+
+/* ═══════════════════════════════════════════════
+   历史记录
+═══════════════════════════════════════════════ */
+function histLoad()    { try { return JSON.parse(localStorage.getItem(HK) || '[]'); } catch { return []; } }
+function histSave(arr) { localStorage.setItem(HK, JSON.stringify(arr)); }
+
+function histAdd(raw) {
+  if (!raw || raw.length < 2) return;
+  const arr = histLoad();
+  if (arr.slice(0, 5).some(h => h.raw === raw)) return;
+  arr.unshift({
+    raw,
+    time: new Date().toLocaleTimeString('zh-CN', { hour12: false }),
+    prev: raw.replace(/\s+/g, ' ').slice(0, 80)
+  });
+  if (arr.length > 50) arr.length = 50;
+  histSave(arr);
+  renderHist();
+}
+
+function renderHist() {
+  const arr = histLoad();
+  const el  = document.getElementById('sbList');
+  if (!arr.length) {
+    el.innerHTML = '<div style="padding:12px 8px;color:var(--text3);font-size:11px;">暂无记录</div>';
+    return;
+  }
+  el.innerHTML = arr.map((h, i) => `
+    <div class="sb-item" onclick="histApply(${i})">
+      <div class="sb-time">${h.time}</div>
+      <div class="sb-preview">${escHtml(h.prev)}${h.raw.length > 80 ? '…' : ''}</div>
+    </div>`).join('');
+}
+
+function histApply(i) {
+  const h = histLoad()[i];
+  if (!h) return;
+  setEditorValue(h.raw);
+  parse(h.raw, false);
+}
+
+function clearHistory() { histSave([]); renderHist(); }
+
+function toggleSidebar() {
+  sbOpen = !sbOpen;
+  document.getElementById('sidebar').classList.toggle('closed', !sbOpen);
+  document.getElementById('histBtn').textContent = sbOpen ? '历史 ◂' : '历史 ▸';
+  if (sbOpen) renderHist();
+}
+
+/* ═══════════════════════════════════════════════
+   行号 & 光标位置
+═══════════════════════════════════════════════ */
+const editorEl = document.getElementById('editor');
+const gutterEl = document.getElementById('gutter');
+
+function updateGutter() {
+  const lines = editorEl.value.split('\n').length;
+  const nums = [];
+  for (let i = 1; i <= lines; i++) nums.push(i);
+  gutterEl.textContent = nums.join('\n');
+  gutterEl.scrollTop = editorEl.scrollTop;
+}
+
+function setEditorValue(v) {
+  editorEl.value = v;
+  updateGutter();
+}
+
+function updateCursor() {
+  const v   = editorEl.value;
+  const pos = editorEl.selectionStart;
+  const pre = v.slice(0, pos);
+  const row = pre.split('\n').length;
+  const col = pos - pre.lastIndexOf('\n');
+  document.getElementById('stCursor').textContent = `行 ${row}，列 ${col}`;
+}
+
+editorEl.addEventListener('scroll', () => { gutterEl.scrollTop = editorEl.scrollTop; });
+editorEl.addEventListener('click',   updateCursor);
+editorEl.addEventListener('keyup',   updateCursor);
+
+/* ═══════════════════════════════════════════════
+   编辑器自动解析（防抖）+ 自动历史
+═══════════════════════════════════════════════ */
+let debounce    = null;
+let histDebounce = null;
+
+editorEl.addEventListener('input', () => {
+  updateGutter();
+  updateCursor();
+
+  const v = editorEl.value.trim();
+  if (!v) { clearAll(); return; }
+
+  clearTimeout(debounce);
+  debounce = setTimeout(() => { parse(v, false); }, 350);
+
+  clearTimeout(histDebounce);
+  histDebounce = setTimeout(() => {
+    try { JSON.parse(v); histAdd(v); } catch {}
+  }, 2000);
+});
+
+/* ═══════════════════════════════════════════════
+   核心：解析 → 渲染
+═══════════════════════════════════════════════ */
+function parse(raw, addHist = true) {
+  try {
+    parsed = JSON.parse(raw);
+    setErr('');
+    const t = Array.isArray(parsed) ? `Array[${parsed.length}]`
+            : (parsed !== null && typeof parsed === 'object') ? `Object{${Object.keys(parsed).length}}`
+            : typeof parsed;
+    setSt(raw.length + ' 字符', 'ok', t);
+    if (addHist) histAdd(raw);
+    renderPreview();
+  } catch (e) {
+    parsed = undefined;
+    setErr(e.message);
+    setSt(e.message.split('\n')[0], 'err', '');
+    clearPreview();
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   工具按钮
+═══════════════════════════════════════════════ */
+function doFormat() {
+  const raw = editorEl.value.trim();
+  if (!raw) return;
+  try {
+    const obj = JSON.parse(raw);
+    const fmt = JSON.stringify(obj, null, 2);
+    setEditorValue(fmt);
+    parsed = obj;
+    setErr('');
+    histAdd(fmt);
+    renderPreview();
+    const t = Array.isArray(obj) ? `Array[${obj.length}]`
+            : (obj !== null && typeof obj === 'object') ? `Object{${Object.keys(obj).length}}`
+            : typeof obj;
+    setSt(fmt.length + ' 字符', 'ok', t);
+  } catch (e) {
+    setErr(e.message);
+    setSt(e.message.split('\n')[0], 'err', '');
+  }
+}
+
+function doCompress() {
+  const raw = editorEl.value.trim();
+  if (!raw) return;
+  try {
+    const obj = JSON.parse(raw);
+    const cmp = JSON.stringify(obj);
+    setEditorValue(cmp);
+    parsed = obj;
+    setErr('');
+    histAdd(cmp);
+    renderPreview();
+    setSt('已压缩 ' + cmp.length + ' 字符', 'ok', '');
+  } catch (e) {
+    setErr(e.message);
+    setSt('压缩失败', 'err', '');
+  }
+}
+
+function doEscape() {
+  const raw = editorEl.value;
+  if (!raw) return;
+  const escaped = JSON.stringify(raw);
+  setEditorValue(escaped);
+  parsed = escaped;
+  setErr('');
+  clearPreview();
+  document.getElementById('jtree').innerHTML =
+    `<span class="jstr">${escHtml(escaped)}</span>`;
+  setSt('已添加转义 ' + escaped.length + ' 字符', 'ok', 'String');
+}
+
+function doUnescape() {
+  const raw = editorEl.value.trim();
+  if (!raw) return;
+  try {
+    let result;
+    if (raw.startsWith('"') && raw.endsWith('"')) {
+      result = JSON.parse(raw);
+    } else {
+      result = raw
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '\t')
+        .replace(/\\r/g, '\r')
+        .replace(/\\"/g, '"')
+        .replace(/\\\//g, '/')
+        .replace(/\\\\/g, '\\');
+    }
+    setEditorValue(result);
+    setSt('已去除转义 ' + result.length + ' 字符', 'ok', '');
+    parse(result, false);
+  } catch (e) {
+    setErr('去转义失败：' + e.message);
+    setSt('去转义失败', 'err', '');
+  }
+}
+
+async function doCopy() {
+  const v = editorEl.value;
+  if (!v) return;
+  try {
+    await navigator.clipboard.writeText(v);
+    setSt('已复制', 'ok', '');
+  } catch {
+    setSt('复制失败，请手动 Ctrl+C', 'err', '');
+  }
+}
+
+async function doPaste() {
+  try {
+    const t = await navigator.clipboard.readText();
+    setEditorValue(t);
+    parse(t.trim(), false);
+  } catch {
+    setSt('粘贴失败，请手动 Ctrl+V', 'err', '');
+  }
+}
+
+function doClear() {
+  setEditorValue('');
+  parsed = undefined;
+  clearAll();
+}
+
+function clearAll() {
+  setErr('');
+  clearPreview();
+  setSt('就绪', '', '');
+}
+
+/* ═══════════════════════════════════════════════
+   视图 & 预览
+═══════════════════════════════════════════════ */
+function setView(v) {
+  view = v;
+  document.getElementById('vTree').classList.toggle('on', v === 'tree');
+  document.getElementById('vRaw').classList.toggle('on', v === 'raw');
+  if (parsed !== undefined) renderPreview();
+}
+
+function renderPreview() {
+  if (parsed === undefined) return;
+  const treeEl = document.getElementById('jtree');
+  const rawEl  = document.getElementById('jsonRaw');
+  if (view === 'raw') {
+    treeEl.style.display = 'none';
+    rawEl.style.display  = 'block';
+    rawEl.innerHTML = syntaxHL(JSON.stringify(parsed, null, 2));
+  } else {
+    treeEl.style.display = 'block';
+    rawEl.style.display  = 'none';
+    treeEl.innerHTML = '';
+    treeEl.appendChild(buildNode(parsed, null, true));
+  }
+}
+
+function syntaxHL(json) {
+  return json
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, m => {
+      if (/^"/.test(m)) {
+        if (/:$/.test(m)) return `<span class="jk">${m}</span>`;
+        return `<span class="jstr">${m}</span>`;
+      }
+      if (/true|false/.test(m)) return `<span class="jbool">${m}</span>`;
+      if (/null/.test(m))       return `<span class="jnull">${m}</span>`;
+      return `<span class="jnum">${m}</span>`;
+    });
+}
+
+function clearPreview() {
+  document.getElementById('jtree').innerHTML     = '';
+  document.getElementById('jsonRaw').textContent = '';
+}
+
+function expandAll() {
+  document.querySelectorAll('.jchildren').forEach(e => e.classList.remove('hide'));
+  document.querySelectorAll('.jtoggle:not(.leaf)').forEach(e => { e.textContent = '▾'; });
+  document.querySelectorAll('.jprev,.jbadge').forEach(e => e.style.display = 'none');
+  document.querySelectorAll('.jclose').forEach(e => e.style.display = '');
+}
+
+function collapseAll() {
+  document.querySelectorAll('.jchildren').forEach(e => e.classList.add('hide'));
+  document.querySelectorAll('.jtoggle:not(.leaf)').forEach(e => { e.textContent = '▸'; });
+  document.querySelectorAll('.jprev').forEach(e => e.style.display = 'inline');
+  document.querySelectorAll('.jbadge').forEach(e => e.style.display = 'inline');
+  document.querySelectorAll('.jclose').forEach(e => e.style.display = 'none');
+}
+
+/* ═══════════════════════════════════════════════
+   树形节点构建
+═══════════════════════════════════════════════ */
+function buildNode(val, key, isLast) {
+  const wrap = document.createElement('div');
+  wrap.className = 'jnode';
+
+  const t = jtype(val);
+  const isObj = t === 'object';
+  const isArr = t === 'array';
+  const complex = isObj || isArr;
+
+  const line = document.createElement('div');
+  line.className = 'jline';
+
+  const tog = document.createElement('span');
+  tog.className = 'jtoggle' + (complex ? '' : ' leaf');
+  tog.textContent = complex ? '▾' : '';
+  line.appendChild(tog);
+
+  if (key !== null) {
+    const k = document.createElement('span');
+    k.className = 'jk';
+    k.textContent = `"${key}"`;
+    const col = document.createElement('span');
+    col.className = 'jcolon';
+    col.textContent = ':';
+    line.appendChild(k);
+    line.appendChild(col);
+  }
+
+  if (complex) {
+    const open  = isArr ? '[' : '{';
+    const close = isArr ? ']' : '}';
+    const items = isArr ? val : Object.entries(val);
+    const len   = items.length;
+
+    const ob = span('jbrace', open);
+    line.appendChild(ob);
+
+    const prev = document.createElement('span');
+    prev.className = 'jprev';
+    prev.style.display = 'none';
+    prev.textContent = previewText(val, isArr);
+    line.appendChild(prev);
+
+    const badge = span('jbadge', len + (isArr ? ' items' : ' keys'));
+    badge.style.display = 'none';
+    line.appendChild(badge);
+
+    const children = document.createElement('div');
+    children.className = 'jchildren';
+
+    items.forEach((item, i) => {
+      const ck  = isArr ? null : item[0];
+      const cv  = isArr ? item : item[1];
+      children.appendChild(buildNode(cv, ck, i === len - 1));
+    });
+
+    const closeLine = document.createElement('div');
+    closeLine.className = 'jline jclose';
+    const ct = span('jtoggle leaf', '');
+    const cb = span('jbrace', close + (isLast ? '' : ','));
+    closeLine.appendChild(ct);
+    closeLine.appendChild(cb);
+
+    const expand = () => {
+      children.classList.remove('hide');
+      tog.textContent = '▾';
+      prev.style.display = 'none';
+      badge.style.display = 'none';
+      closeLine.style.display = '';
+    };
+    const collapse = () => {
+      children.classList.add('hide');
+      tog.textContent = '▸';
+      prev.style.display = 'inline';
+      badge.style.display = 'inline';
+      closeLine.style.display = 'none';
+    };
+
+    tog.onclick  = () => children.classList.contains('hide') ? expand() : collapse();
+    prev.onclick = expand;
+    badge.onclick = expand;
+
+    wrap.appendChild(line);
+    wrap.appendChild(children);
+    wrap.appendChild(closeLine);
+
+  } else {
+    const v = span(vclass(t), fmtVal(val, t));
+    if (!isLast) {
+      const comma = span('jcomma', ',');
+      line.appendChild(v);
+      line.appendChild(comma);
+    } else {
+      line.appendChild(v);
+    }
+    wrap.appendChild(line);
+  }
+
+  return wrap;
+}
+
+function span(cls, txt) {
+  const e = document.createElement('span');
+  e.className = cls;
+  e.textContent = txt;
+  return e;
+}
+
+function jtype(v) {
+  if (v === null)        return 'null';
+  if (Array.isArray(v)) return 'array';
+  return typeof v;
+}
+
+function vclass(t) {
+  return { string: 'jstr', number: 'jnum', boolean: 'jbool', null: 'jnull' }[t] || 'jstr';
+}
+
+function fmtVal(v, t) {
+  if (t === 'string') return `"${v}"`;
+  if (t === 'null')   return 'null';
+  return String(v);
+}
+
+function previewText(v, isArr) {
+  if (isArr) {
+    return ' ' + v.slice(0, 3).map(i =>
+      (typeof i === 'object' && i !== null) ? (Array.isArray(i) ? '[…]' : '{…}') : JSON.stringify(i)
+    ).join(', ') + (v.length > 3 ? ', …' : ' ');
+  }
+  const keys = Object.keys(v).slice(0, 3);
+  return ' ' + keys.join(', ') + (Object.keys(v).length > 3 ? ', …' : ' ');
+}
+
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function setSt(msg, cls, type) {
+  const el = document.getElementById('stMsg');
+  el.textContent = msg;
+  el.className = cls === 'ok' ? 'st-ok' : cls === 'err' ? 'st-err' : '';
+  document.getElementById('stType').textContent = type || '';
+  document.getElementById('stLen').textContent = '';
+}
+
+function setErr(msg) {
+  const el = document.getElementById('errorBar');
+  if (msg) { el.textContent = '❌  ' + msg; el.classList.add('show'); }
+  else      { el.classList.remove('show'); }
+}
+
+function loadSample() {
+  const sample = {
+    "title": "JSON 格式化工具",
+    "version": "2.0.0",
+    "description": "支持格式化、压缩、转义、历史记录",
+    "features": [
+      "格式化 / 压缩",
+      "添加 / 去除转义",
+      "树形视图 (折叠/展开)",
+      "历史记录",
+      "全展开 / 全折叠"
+    ],
+    "config": {
+      "theme": "dark",
+      "autoFormat": true,
+      "maxHistory": 50,
+      "indent": 2
+    },
+    "stats": {
+      "users": 98765,
+      "requests": 12345678,
+      "uptime": 99.99,
+      "active": true,
+      "lastSync": null
+    },
+    "nested": {
+      "level1": {
+        "level2": {
+          "level3": "深层嵌套示例",
+          "array": [1, 2, 3, {"key": "value"}]
+        }
+      }
+    },
+    "unicode": "中文 / 日本語 / 한국어 / العربية",
+    "special": "换行\\n 制表符\\t 引号\\\""
+  };
+  const fmt = JSON.stringify(sample, null, 2);
+  setEditorValue(fmt);
+  parse(fmt, false);
+}
+
+renderHist();
+loadSample();
+</script>
+</body>
+</html>
