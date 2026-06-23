@@ -1,4 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-06-10T15:58:32+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记</title><link href="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记" /><published>2026-05-31T00:00:00+08:00</published><updated>2026-05-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;nextjs--typescript--tailwind--shadcnui-学习安装笔记&quot;&gt;Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-06-23T09:32:45+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Win11 小鹤双拼配置</title><link href="https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="Win11 小鹤双拼配置" /><published>2026-06-23T00:00:00+08:00</published><updated>2026-06-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE/">&lt;h2 id=&quot;小鹤双拼配置&quot;&gt;小鹤双拼配置&lt;/h2&gt;
+
+&lt;p&gt;本文介绍如何通过 PowerShell 脚本将小鹤双拼导入微软拼音，并设为默认双拼方案。&lt;/p&gt;
+
+&lt;h2 id=&quot;原理&quot;&gt;原理&lt;/h2&gt;
+
+&lt;p&gt;微软拼音支持用户自定义双拼方案，核心是注册表中的三个键值：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;键名&lt;/th&gt;
+      &lt;th&gt;类型&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enable Double Pinyin&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;DWord&lt;/td&gt;
+      &lt;td&gt;1 = 开启双拼&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;DWord&lt;/td&gt;
+      &lt;td&gt;10 = 使用用户自定义方案&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UserDefinedDoublePinyinScheme0&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;String&lt;/td&gt;
+      &lt;td&gt;小鹤双拼映射表&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme = 10&lt;/code&gt; 是微软拼音为用户自定义方案预留的编号。&lt;/p&gt;
+
+&lt;h2 id=&quot;脚本&quot;&gt;脚本&lt;/h2&gt;
+
+&lt;p&gt;以管理员权限运行 PowerShell，执行以下命令：&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HKCU:\Software\Microsoft\InputMethod\Settings\CHS&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-Item&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Out-Null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Enable Double Pinyin&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DWord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;DoublePinyinScheme&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DWord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UserDefinedDoublePinyinScheme0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小鹤双拼*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Write-Host&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小鹤双拼已导入，请注销或重启后生效。&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;验证&quot;&gt;验证&lt;/h2&gt;
+
+&lt;p&gt;重启或注销后，按以下路径检查：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;设置&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;时间和语言&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;语言和区域&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;中文(简体，中国)&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;微软拼音&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;键盘选项&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;双拼&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;应该能看到「小鹤双拼」选项并使用。&lt;/p&gt;
+
+&lt;h2 id=&quot;如未生效win11-24h2&quot;&gt;如未生效（Win11 24H2）&lt;/h2&gt;
+
+&lt;p&gt;部分情况下设置界面仍不显示，可尝试重启输入法进程：&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Stop-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ctfmon&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ErrorAction&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SilentlyContinue&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Start-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ctfmon.exe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;附其他双拼方案对照&quot;&gt;附：其他双拼方案对照&lt;/h2&gt;
+
+&lt;p&gt;如果你想切换到其他双拼方案，只需修改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme&lt;/code&gt; 的值和映射表字符串即可。常见的微软自带方案编号如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;值&lt;/th&gt;
+      &lt;th&gt;方案&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;微软拼音 ABC&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;微软拼音智能 ABC&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;微软双拼&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;10&lt;/td&gt;
+      &lt;td&gt;用户自定义&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;具体各方案对应的映射表可参考小鹤官网或开源项目。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tech" /><category term="Tools" /><summary type="html">小鹤双拼配置</summary></entry><entry><title type="html">Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记</title><link href="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记" /><published>2026-05-31T00:00:00+08:00</published><updated>2026-05-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;nextjs--typescript--tailwind--shadcnui-学习安装笔记&quot;&gt;Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记&lt;/h1&gt;
 
 &lt;h2 id=&quot;技术栈介绍&quot;&gt;技术栈介绍&lt;/h2&gt;
 
@@ -5201,10 +5306,4 @@ Sponsor/Paymaster 出 gas
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd /mnt/sdcard/Movies
 ls
 cd /mnt/sdcard/Movies/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">小米电视adb</summary></entry><entry><title type="html">freqtrade</title><link href="https://mafulong.github.io/2026/01/25/freqtrade/" rel="alternate" type="text/html" title="freqtrade" /><published>2026-01-25T00:00:00+08:00</published><updated>2026-01-25T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/01/25/freqtrade</id><content type="html" xml:base="https://mafulong.github.io/2026/01/25/freqtrade/">&lt;h2 id=&quot;freqtrade&quot;&gt;freqtrade&lt;/h2&gt;
-
-&lt;p&gt;中文文档： https://www.wuzao.com/p/freqtrade/document/faq/index.html&lt;/p&gt;
-
-&lt;p&gt;github repo: https://github.com/freqtrade/freqtrade&lt;/p&gt;
-
-&lt;p&gt;freqtrade 策略:  https://github.com/freqtrade/freqtrade-strategies&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">freqtrade</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Fulong Ma</name></author><category term="DailyLife" /><category term="DailyLife" /><summary type="html">小米电视adb</summary></entry></feed>
