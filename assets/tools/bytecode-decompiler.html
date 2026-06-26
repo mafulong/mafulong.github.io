@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EVM 字节码反编译器</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #1a1b26;
+  --bg2:      #1f2030;
+  --bg3:      #24253a;
+  --bg4:      #2a2b40;
+  --border:   #363659;
+  --text:     #c0caf5;
+  --text2:    #9aa5ce;
+  --text3:    #565f89;
+  --accent:   #7aa2f7;
+  --green:    #9ece6a;
+  --yellow:   #e0af68;
+  --red:      #f7768e;
+  --mauve:    #bb9af7;
+  --teal:     #73daca;
+  --orange:   #ff9e64;
+  --btn:      #2a2b40;
+  --btn-h:    #363659;
+  --scrollbar:#363659;
+}
+
+html, body { height: 100%; }
+body {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  user-select: none;
+}
+.topbar-logo {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-right: 8px;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  user-select: none;
+}
+.card-body { padding: 14px; }
+
+.input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.input-row textarea {
+  flex: 1;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  transition: border-color .15s;
+}
+.input-row textarea:focus { border-color: var(--accent); }
+.input-row textarea::placeholder { color: var(--text3); }
+
+.btn {
+  padding: 6px 14px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, border-color .12s, color .12s;
+  flex-shrink: 0;
+}
+.btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.btn.prim:hover { background: #89b0ff; }
+.btn.sm { padding: 3px 8px; font-size: 11px; }
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text2);
+}
+.stats-row span { display: flex; align-items: center; gap: 4px; }
+.stats-row .stat-val { color: var(--yellow); font-weight: 700; }
+.stats-row .stat-val.green { color: var(--green); }
+.stats-row .stat-val.mauve { color: var(--mauve); }
+
+.output-area {
+  background: var(--bg4);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.7;
+  max-height: 500px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.output-area:empty::before {
+  content: '反编译结果将显示在这里...';
+  color: var(--text3);
+}
+
+.opcode-line {
+  display: flex;
+  gap: 12px;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.opcode-line:hover { background: var(--bg3); }
+
+.pc {
+  color: var(--text3);
+  min-width: 50px;
+  text-align: right;
+  user-select: none;
+}
+.opcode {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 120px;
+}
+.push-val {
+  color: var(--yellow);
+}
+.jumpdest {
+  color: var(--teal);
+  font-weight: 700;
+}
+.unknown {
+  color: var(--red);
+}
+.sig-known {
+  color: var(--green);
+}
+.sig-unknown {
+  color: var(--orange);
+}
+.comment {
+  color: var(--text3);
+  font-style: italic;
+}
+
+.hint { color: var(--text3); font-size: 11px; margin-top: 8px; }
+.err  { color: var(--red); font-size: 12px; margin-top: 4px; min-height: 18px; }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--bg3);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  z-index: 999;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-logo">🔍 EVM 字节码反编译器</div>
+</div>
+
+<div class="main">
+
+  <div class="card">
+    <div class="card-head">📝 输入字节码</div>
+    <div class="card-body">
+      <div class="input-row">
+        <textarea id=" bytecodeInput" placeholder="输入 EVM 字节码（支持 0x 前缀或纯十六进制字符串）" spellcheck="false"></textarea>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="btn prim" onclick="disassemble()">反编译</button>
+        <button class="btn" onclick="loadSample()">加载示例</button>
+        <button class="btn" onclick="clearAll()">清空</button>
+        <button class="btn" onclick="copyOpcodes()">复制 Opcodes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">📊 统计信息</div>
+    <div class="card-body">
+      <div class="stats-row" id="statsRow">
+        <span>字节码长度：<span class="stat-val" id="statBytes">0</span> 字节</span>
+        <span>指令数量：<span class="stat-val green" id="statInstr">0</span> 条</span>
+        <span>Push 数据：<span class="stat-val mauve" id="statPush">0</span> 条</span>
+        <span>估计 Gas：<span class="stat-val" id="statGas">0</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">💾 反编译结果</div>
+    <div class="card-body">
+      <div class="output-area" id="outputArea"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+'use strict';
+
+// EVM Opcode table
+const OPCODES = {
+  0x00: 'STOP',
+  0x01: 'ADD',
+  0x02: 'MUL',
+  0x03: 'SUB',
+  0x04: 'DIV',
+  0x05: 'SDIV',
+  0x06: 'MOD',
+  0x07: 'SMOD',
+  0x08: 'ADDMOD',
+  0x09: 'MULMOD',
+  0x0a: 'EXP',
+  0x0b: 'SIGNEXTEND',
+  0x10: 'LT',
+  0x11: 'GT',
+  0x12: 'SLT',
+  0x13: 'SGT',
+  0x14: 'EQ',
+  0x15: 'ISZERO',
+  0x16: 'AND',
+  0x17: 'OR',
+  0x18: 'XOR',
+  0x19: 'NOT',
+  0x1a: 'BYTE',
+  0x1b: 'SHL',
+  0x1c: 'SHR',
+  0x1d: 'SAR',
+  0x20: 'KECCAK256',
+  0x30: 'ADDRESS',
+  0x31: 'BALANCE',
+  0x32: 'ORIGIN',
+  0x33: 'CALLER',
+  0x34: 'CALLVALUE',
+  0x35: 'CALLDATALOAD',
+  0x36: 'CALLDATASIZE',
+  0x37: 'CALLDATACOPY',
+  0x38: 'CODESIZE',
+  0x39: 'CODECOPY',
+  0x3a: 'GASPRICE',
+  0x3b: 'EXTCODESIZE',
+  0x3c: 'EXTCODECOPY',
+  0x3d: 'RETURNDATASIZE',
+  0x3e: 'RETURNDATACOPY',
+  0x3f: 'EXTCODEHASH',
+  0x40: 'BLOCKHASH',
+  0x41: 'COINBASE',
+  0x42: 'TIMESTAMP',
+  0x43: 'NUMBER',
+  0x44: 'DIFFICULTY',
+  0x45: 'GASLIMIT',
+  0x46: 'CHAINID',
+  0x47: 'SELFBALANCE',
+  0x48: 'BASEFEE',
+  0x49: 'PREVRANDAO',
+  0x4b: 'JUMPDEST',
+  0x50: 'POP',
+  0x51: 'MLOAD',
+  0x52: 'MSTORE',
+  0x53: 'MSTOREd',
+  0x54: 'SLOAD',
+  0x55: 'SSTORE',
+  0x56: 'JUMP',
+  0x57: 'JUMPI',
+  0x58: 'PC',
+  0x59: 'MSIZE',
+  0x5a: 'GAS',
+  0x5b: 'JUMPDEST',
+  0x5f: 'PUSH0',
+  0x60: 'PUSH1',
+  0x61: 'PUSH2',
+  0x62: 'PUSH3',
+  0x63: 'PUSH4',
+  0x64: 'PUSH5',
+  0x65: 'PUSH6',
+  0x66: 'PUSH7',
+  0x67: 'PUSH8',
+  0x68: 'PUSH9',
+  0x69: 'PUSH10',
+  0x6a: 'PUSH11',
+  0x6b: 'PUSH12',
+  0x6c: 'PUSH13',
+  0x6d: 'PUSH14',
+  0x6e: 'PUSH15',
+  0x6f: 'PUSH16',
+  0x70: 'PUSH17',
+  0x71: 'PUSH18',
+  0x72: 'PUSH19',
+  0x73: 'PUSH20',
+  0x74: 'PUSH21',
+  0x75: 'PUSH22',
+  0x76: 'PUSH23',
+  0x77: 'PUSH24',
+  0x78: 'PUSH25',
+  0x79: 'PUSH26',
+  0x7a: 'PUSH27',
+  0x7b: 'PUSH28',
+  0x7c: 'PUSH29',
+  0x7d: 'PUSH30',
+  0x7e: 'PUSH31',
+  0x7f: 'PUSH32',
+  0x80: 'DUP1',
+  0x81: 'DUP2',
+  0x82: 'DUP3',
+  0x83: 'DUP4',
+  0x84: 'DUP5',
+  0x85: 'DUP6',
+  0x86: 'DUP7',
+  0x87: 'DUP8',
+  0x88: 'DUP9',
+  0x89: 'DUP10',
+  0x8a: 'DUP11',
+  0x8b: 'DUP12',
+  0x8c: 'DUP13',
+  0x8d: 'DUP14',
+  0x8e: 'DUP15',
+  0x8f: 'DUP16',
+  0x90: 'SWAP1',
+  0x91: 'SWAP2',
+  0x92: 'SWAP3',
+  0x93: 'SWAP4',
+  0x94: 'SWAP5',
+  0x95: 'SWAP6',
+  0x96: 'SWAP7',
+  0x97: 'SWAP8',
+  0x98: 'SWAP9',
+  0x99: 'SWAP10',
+  0x9a: 'SWAP11',
+  0x9b: 'SWAP12',
+  0x9c: 'SWAP13',
+  0x9d: 'SWAP14',
+  0x9e: 'SWAP15',
+  0x9f: 'SWAP16',
+  0xa0: 'LOG0',
+  0xa1: 'LOG1',
+  0xa2: 'LOG2',
+  0xa3: 'LOG3',
+  0xa4: 'LOG4',
+  0xf0: 'CREATE',
+  0xf1: 'CALL',
+  0xf2: 'CALLCODE',
+  0xf3: 'RETURN',
+  0xf4: 'DELEGATECALL',
+  0xf5: 'CREATE2',
+  0xfa: 'STATICCALL',
+  0xfd: 'REVERT',
+  0xfe: 'INVALID',
+  0xff: 'SELFDESTRUCT',
+};
+
+// Gas costs (base gas per opcode)
+const GAS_COSTS = {
+  STOP: 0,
+  ADD: 3, MUL: 5, SUB: 3, DIV: 5, SDIV: 5, MOD: 5, SMOD: 5, ADDMOD: 8, MULMOD: 8, EXP: 10,
+  SIGNEXTEND: 5,
+  LT: 3, GT: 3, SLT: 3, SGT: 3, EQ: 3, ISZERO: 3,
+  AND: 3, OR: 3, XOR: 3, NOT: 3, BYTE: 3,
+  SHL: 3, SHR: 3, SAR: 3,
+  KECCAK256: 30,
+  ADDRESS: 2, BALANCE: 100, ORIGIN: 2, CALLER: 2, CALLVALUE: 2,
+  CALLDATALOAD: 3, CALLDATASIZE: 2, CALLDATACOPY: 3,
+  CODESIZE: 2, CODECOPY: 3, GASPRICE: 2,
+  EXTCODESIZE: 100, EXTCODECOPY: 100, RETURNDATASIZE: 2, RETURNDATACOPY: 3, EXTCODEHASH: 100,
+  BLOCKHASH: 20, COINBASE: 2, TIMESTAMP: 2, NUMBER: 2, DIFFICULTY: 2, GASLIMIT: 2, CHAINID: 2, SELFBALANCE: 5, BASEFEE: 2, PREVRANDAO: 2,
+  JUMPDEST: 1,
+  POP: 2,
+  MLOAD: 3, MSTORE: 3, MSTORED: 3,
+  SLOAD: 100, SSTORE: 100,
+  JUMP: 8, JUMPI: 10,
+  PC: 2, MSIZE: 2, GAS: 2,
+  PUSH0: 2, PUSH1: 3, PUSH2: 3, PUSH3: 3, PUSH4: 3, PUSH5: 3, PUSH6: 3, PUSH7: 3, PUSH8: 3, PUSH9: 3, PUSH10: 3, PUSH11: 3, PUSH12: 3, PUSH13: 3, PUSH14: 3, PUSH15: 3, PUSH16: 3, PUSH17: 3, PUSH18: 3, PUSH19: 3, PUSH20: 3, PUSH21: 3, PUSH22: 3, PUSH23: 3, PUSH24: 3, PUSH25: 3, PUSH26: 3, PUSH27: 3, PUSH28: 3, PUSH29: 3, PUSH30: 3, PUSH31: 3, PUSH32: 3,
+  DUP1: 3, DUP2: 3, DUP3: 3, DUP4: 3, DUP5: 3, DUP6: 3, DUP7: 3, DUP8: 3, DUP9: 3, DUP10: 3, DUP11: 3, DUP12: 3, DUP13: 3, DUP14: 3, DUP15: 3, DUP16: 3,
+  SWAP1: 3, SWAP2: 3, SWAP3: 3, SWAP4: 3, SWAP5: 3, SWAP6: 3, SWAP7: 3, SWAP8: 3, SWAP9: 3, SWAP10: 3, SWAP11: 3, SWAP12: 3, SWAP13: 3, SWAP14: 3, SWAP15: 3, SWAP16: 3,
+  LOG0: 375, LOG1: 375, LOG2: 375, LOG3: 375, LOG4: 375,
+  CREATE: 32000, CALL: 100, CALLCODE: 100, RETURN: 0, DELEGATECALL: 100, CREATE2: 32000, STATICCALL: 100, REVERT: 0, INVALID: 0, SELFDESTRUCT: 5000,
+};
+
+// Common function signatures
+const KNOWN_SIGNATURES = {
+  '0xa9059cbb': 'transfer(address,uint256) - ERC20',
+  '0x23b872dd': 'transferFrom(address,address,uint256) - ERC20',
+  '0x095ea7b3': 'approve(address,uint256) - ERC20',
+  '0x70a08231': 'balanceOf(address) - ERC20',
+  '0x18160ddd': 'totalSupply() - ERC20',
+  '0xa457c2d7': 'transferFrom(address,address,uint256) - ERC721',
+  '0xb88d802f': 'safeTransferFrom(address,address,uint256) - ERC721',
+  '0x42842e0e': 'safeTransferFrom(address,address,uint256,bytes) - ERC721',
+  '0x6352211e': 'ownerOf(uint256) - ERC721',
+  '0x081812fc': 'balanceOf(address) - ERC721',
+  '0xe8e33700': 'addLiquidity(address,address,uint256,uint256,uint256,uint256)',
+  '0xf305d719': 'addLiquidityETH(address,uint256,uint256,uint256)',
+  '0x38ed1739': 'swapExactTokensForTokens(uint256,uint256,address[],address,uint256)',
+  '0x7ff36ab5': 'swapExactETHForTokens(uint256,address[],address,uint256)',
+  '0x18cbafe5': 'swapExactTokensForETH(uint256,uint256,address[],address,uint256)',
+  '0x5ae401dc': 'multicall(uint256,bytes[])',
+  '0xac9650d8': 'multicall(bytes[])',
+  '0x022c0d9f': 'uniswapV3SwapExactIn(uint256,uint256,uint256[],address,uint256)',
+  '0x04f1823e': 'uniswapV3SwapExactOut(uint256,uint256,uint256[],address,uint256)',
+  '0xc04b8d59': 'exactInputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160))',
+  '0x414bf389': 'exactInput((bytes))',
+  '0x5c11d795': 'exactOutputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160))',
+  '0xf6838a21': 'exactOutput(bytes)',
+  '0xfb3bdb41': 'uniswapV3Mint((address,address,uint24,int24,int24,uint256,uint256,uint160))',
+  '0x0c49ccbe': 'mint((address,address,uint24,int24,int24,uint256,uint256,uint160))',
+  '0xbaa02d1e': 'burn((address,address,uint24,int24,int24,uint256,uint256,uint160))',
+  '0x0af29757': 'swap(address,bool,uint256,uint256,uint256,bytes32)',
+};
+
+function isPush(opcode) {
+  return opcode >= 0x60 && opcode <= 0x7f;
+}
+
+function isDup(opcode) {
+  return opcode >= 0x80 && opcode <= 0x8f;
+}
+
+function isSwap(opcode) {
+  return opcode >= 0x90 && opcode <= 0x9f;
+}
+
+function isLog(opcode) {
+  return opcode >= 0xa0 && opcode <= 0xa4;
+}
+
+function getPushLength(opcode) {
+  if (opcode >= 0x60 && opcode <= 0x7f) {
+    return opcode - 0x5f;
+  }
+  return 0;
+}
+
+function getGasCost(opcode) {
+  return GAS_COSTS[OPCODES[opcode]] || 3;
+}
+
+function parseHex(hexStr) {
+  let cleaned = hexStr.trim();
+  if (cleaned.toLowerCase().startsWith('0x')) {
+    cleaned = cleaned.slice(2);
+  }
+  if (!/^[0-9a-fA-F]*$/.test(cleaned)) {
+    return null;
+  }
+  if (cleaned.length % 2 !== 0) {
+    return null;
+  }
+  return cleaned;
+}
+
+function hexToBytes(hex) {
+  const bytes = [];
+  for (let i = 0; i < hex.length; i += 2) {
+    bytes.push(parseInt(hex.substr(i, 2), 16));
+  }
+  return bytes;
+}
+
+function disassemble() {
+  const input = document.getElementById('bytecodeInput').value;
+  const outputArea = document.getElementById('outputArea');
+
+  const hex = parseHex(input);
+  if (!hex) {
+    outputArea.innerHTML = '<span class="unknown">错误: 无效的十六进制字节码</span>';
+    updateStats(0, 0, 0, 0);
+    return;
+  }
+
+  if (hex.length === 0) {
+    outputArea.innerHTML = '';
+    updateStats(0, 0, 0, 0);
+    return;
+  }
+
+  const bytes = hexToBytes(hex);
+  const lines = [];
+  let pc = 0;
+  let totalGas = 0;
+  let pushCount = 0;
+  let i = 0;
+
+  while (i < bytes.length) {
+    const opcode = bytes[i];
+    const opcodeName = OPCODES[opcode];
+    const pushLen = getPushLength(opcode);
+
+    let line = `<div class="opcode-line">`;
+    line += `<span class="pc">${pc.toString().padStart(4, '0')}:</span>`;
+
+    if (opcodeName) {
+      line += `<span class="opcode">${opcodeName}</span>`;
+      totalGas += getGasCost(opcode);
+
+      if (isPush(opcode) && pushLen > 0) {
+        let pushData = '';
+        for (let j = 0; j < pushLen && i + 1 + j < bytes.length; j++) {
+          pushData += bytes[i + 1 + j].toString(16).padStart(2, '0');
+        }
+        line += `<span class="push-val">0x${pushData || '00'}</span>`;
+        pushCount++;
+        i += pushLen;
+
+        // Check for function signature on first PUSH
+        if (pc === 0 && pushLen === 4 && pushData.length === 8) {
+          const sig = '0x' + pushData;
+          if (KNOWN_SIGNATURES[sig]) {
+            line += `<span class="sig-known">// ${KNOWN_SIGNATURES[sig]}</span>`;
+          } else {
+            line += `<span class="sig-unknown">// Unknown selector ${sig}</span>`;
+          }
+        }
+      } else if (opcodeName === 'JUMPDEST') {
+        line += `<span class="jumpdest"></span>`;
+      }
+    } else {
+      line += `<span class="unknown">INVALID (0x${opcode.toString(16).padStart(2, '0')})</span>`;
+      totalGas += 0;
+    }
+
+    line += `</div>`;
+    lines.push(line);
+    pc++;
+    i++;
+  }
+
+  outputArea.innerHTML = lines.join('');
+
+  // Update stats
+  updateStats(bytes.length, pc, pushCount, totalGas);
+}
+
+function updateStats(byteLen, instrCount, pushCnt, gas) {
+  document.getElementById('statBytes').textContent = byteLen;
+  document.getElementById('statInstr').textContent = instrCount;
+  document.getElementById('statPush').textContent = pushCnt;
+  document.getElementById('statGas').textContent = gas.toLocaleString();
+}
+
+function loadSample() {
+  // Sample ERC20 transfer bytecode
+  const sample = '0xa9059cbb0000000000000000000000004b5c73198441bfa1c3057e5c5a7d2a94f0e1d32a0000000000000000000000000000000000000000000000000000000000000064';
+  document.getElementById('bytecodeInput').value = sample;
+  disassemble();
+}
+
+function clearAll() {
+  document.getElementById('bytecodeInput').value = '';
+  document.getElementById('outputArea').innerHTML = '';
+  updateStats(0, 0, 0, 0);
+}
+
+function copyOpcodes() {
+  const outputArea = document.getElementById('outputArea');
+  if (!outputArea.textContent || outputArea.textContent === '反编译结果将显示在这里...') {
+    return;
+  }
+
+  // Extract plain text from output
+  const lines = outputArea.querySelectorAll('.opcode-line');
+  const plainText = Array.from(lines).map(line => {
+    const pc = line.querySelector('.pc')?.textContent || '';
+    const opcode = line.querySelector('.opcode')?.textContent || '';
+    const pushVal = line.querySelector('.push-val')?.textContent || '';
+    const comment = line.querySelector('.sig-known, .sig-unknown')?.textContent || '';
+    return `${pc}${opcode}${pushVal ? ' ' + pushVal : ''}${comment ? ' ' + comment : ''}`;
+  }).join('\n');
+
+  copyText(plainText);
+}
+
+async function copyText(s) {
+  try {
+    await navigator.clipboard.writeText(s);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = s;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1500);
+}
+
+// Auto-disassemble on input
+let _timer;
+document.getElementById('bytecodeInput').addEventListener('input', () => {
+  clearTimeout(_timer);
+  _timer = setTimeout(disassemble, 300);
+});
+</script>
+</body>
+</html>
