@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>本地钱包工具 · 助记词派生 & 多链余额</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e6e9ef;
+    --muted: #8a93a3;
+    --accent: #4f8cff;
+    --accent2: #2dd4bf;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --ok: #22c55e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .warning {
+    background: rgba(245,158,11,.1);
+    border: 1px solid rgba(245,158,11,.4);
+    color: #fcd34d;
+    padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 24px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  textarea, input[type="text"] {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    resize: vertical;
+  }
+  textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .row > div { flex: 1; min-width: 200px; }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:hover { opacity: .9; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+  .mt { margin-top: 16px; }
+  .result { margin-top: 18px; }
+  .acct {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .acct .chain { font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .acct .chain .tag { font-size: 11px; padding: 1px 7px; border-radius: 5px; font-weight: 600; }
+  .tag.evm { background: rgba(79,140,255,.18); color: #93b4ff; }
+  .tag.sol { background: rgba(45,212,191,.18); color: #5eead4; }
+  .tag.tron { background: rgba(239,68,68,.18); color: #fca5a5; }
+  .kv { display: grid; grid-template-columns: 90px 1fr auto; gap: 6px 10px; align-items: center; font-size: 12.5px; }
+  .kv .k { color: var(--muted); }
+  .kv .v { font-family: ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; }
+  .kv .v.secret { color: var(--warn); }
+  .copy { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 2px 8px; font-size: 11px; border-radius: 6px; font-weight: 400; }
+  .chain-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; user-select: none;
+  }
+  .chip input { accent-color: var(--accent); }
+  .chip.active { border-color: var(--accent); background: rgba(79,140,255,.12); }
+  .bal-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+  .bal-table th, .bal-table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  .bal-table th { color: var(--muted); font-weight: 500; font-size: 12px; }
+  .bal-table td.amt { font-family: ui-monospace, Menlo, monospace; text-align: right; }
+  .bal-chain-head { font-size: 14px; font-weight: 700; margin: 18px 0 4px; display: flex; align-items: center; gap: 8px; }
+  .muted { color: var(--muted); }
+  .err { color: var(--danger); font-size: 12px; }
+  .spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: s .7s linear infinite; vertical-align: middle; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  .detect { font-size: 13px; margin-top: 8px; }
+  .detect b { color: var(--accent2); }
+  code.inline { background: var(--card2); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>本地钱包工具</h1>
+  <div class="sub">助记词派生 EVM / Solana / Tron 地址与私钥 · 多链主链币与代币余额查询 · 全部在浏览器本地计算</div>
+  <div class="warning">⚠️ 私钥与助记词仅用于本地测试，请勿在此输入主网真实资产的助记词。派生在本地完成；余额查询会通过公共 RPC 发起只读请求（仅发送地址，不发送私钥）。</div>
+
+  <!-- 助记词派生 -->
+  <div class="card">
+    <h2>1. 助记词派生地址 / 私钥 <span class="badge">本地离线计算</span></h2>
+    <label>助记词（BIP39，空格分隔）</label>
+    <textarea id="mnemonic" rows="2" placeholder="word1 word2 ...">logic glue crunch rude erode hold chat bless copper enjoy rack put</textarea>
+    <div class="row mt">
+      <div style="flex:0 0 120px;">
+        <label>账户 index</label>
+        <input type="text" id="accountIndex" value="0" />
+      </div>
+      <div style="flex:0;">
+        <button id="deriveBtn">派生地址</button>
+      </div>
+    </div>
+    <div class="result" id="deriveResult"></div>
+  </div>
+
+  <!-- 地址余额 -->
+  <div class="card">
+    <h2>2. 地址检测 & 多链余额查询 <span class="badge">公共 RPC 只读</span></h2>
+    <label>钱包地址</label>
+    <input type="text" id="queryAddr" placeholder="0x... / T... / Solana base58" />
+    <div class="detect" id="detectInfo"></div>
+    <div id="chainSelectWrap" style="display:none;">
+      <label class="mt">选择要查询的链（可多选）</label>
+      <div class="chain-select" id="chainSelect"></div>
+      <div class="mt">
+        <button id="queryBtn">查询余额</button>
+        <button class="ghost" id="selectAllBtn">全选 / 取消</button>
+      </div>
+    </div>
+    <div class="result" id="balResult"></div>
+  </div>
+</div>
+
+<script>
+const { ethers } = window;
+const utils = ethers.utils;
+
+/* ---------------- 链配置 ---------------- */
+// EVM 链：name, rpc, native 符号, 常见代币 [{symbol, address, decimals}]
+const EVM_CHAINS = {
+  eth:      { name: "Ethereum",  rpc: "https://ethereum-rpc.publicnode.com",     symbol: "ETH",
+    tokens: [
+      { symbol: "USDT", address: "0xdAC17F958D2ee523a2206206994597C13D831ec7", decimals: 6 },
+      { symbol: "USDC", address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48", decimals: 6 },
+    ]},
+  bnb:      { name: "BNB Chain", rpc: "https://bsc-rpc.publicnode.com",          symbol: "BNB",
+    tokens: [
+      { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 18 },
+      { symbol: "USDC", address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", decimals: 18 },
+    ]},
+  polygon:  { name: "Polygon",   rpc: "https://polygon-bor-rpc.publicnode.com",  symbol: "POL",
+    tokens: [
+      { symbol: "USDT", address: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", decimals: 6 },
+      { symbol: "USDC", address: "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", decimals: 6 },
+    ]},
+  base:     { name: "Base",      rpc: "https://base-rpc.publicnode.com",         symbol: "ETH",
+    tokens: [
+      { symbol: "USDC", address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", decimals: 6 },
+    ]},
+  arbitrum: { name: "Arbitrum",  rpc: "https://arbitrum-one-rpc.publicnode.com", symbol: "ETH",
+    tokens: [
+      { symbol: "USDT", address: "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9", decimals: 6 },
+      { symbol: "USDC", address: "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", decimals: 6 },
+    ]},
+  optimism: { name: "Optimism",  rpc: "https://optimism-rpc.publicnode.com",     symbol: "ETH",
+    tokens: [
+      { symbol: "USDT", address: "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58", decimals: 6 },
+      { symbol: "USDC", address: "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", decimals: 6 },
+    ]},
+};
+
+const SOL_CHAIN = { name: "Solana", rpc: "https://solana-rpc.publicnode.com", symbol: "SOL" };
+const TRON_CHAIN = {
+  name: "Tron", api: "https://api.trongrid.io", symbol: "TRX",
+  tokens: { "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t": { symbol: "USDT", decimals: 6 } },
+};
+
+/* ---------------- 工具 ---------------- */
+function toBytes(x) { return utils.arrayify(x); }
+function hmac512(key, data) {
+  return toBytes(utils.computeHmac(utils.SupportedAlgorithm.sha512, key, data));
+}
+function copyText(t) { navigator.clipboard.writeText(t); }
+
+// SLIP-0010 ed25519 派生（Solana），路径全 hardened
+function ed25519Derive(seedHex, path) {
+  let I = hmac512(utils.toUtf8Bytes("ed25519 seed"), toBytes(seedHex));
+  let IL = I.slice(0, 32), IR = I.slice(32);
+  const segments = path.split("/").slice(1);
+  for (const seg of segments) {
+    const idx = (parseInt(seg.replace("'", ""), 10) | 0x80000000) >>> 0;
+    const idxBuf = new Uint8Array(4);
+    idxBuf[0] = (idx >>> 24) & 0xff;
+    idxBuf[1] = (idx >>> 16) & 0xff;
+    idxBuf[2] = (idx >>> 8) & 0xff;
+    idxBuf[3] = idx & 0xff;
+    const data = utils.concat([new Uint8Array([0]), IL, idxBuf]);
+    I = hmac512(IR, data);
+    IL = I.slice(0, 32); IR = I.slice(32);
+  }
+  return IL;
+}
+
+// secp256k1 公钥 -> Tron 地址 (base58check, 0x41 前缀)
+function pubKeyToTronAddress(uncompressedPubHex) {
+  const pub = toBytes(uncompressedPubHex).slice(1); // 去掉 0x04
+  const hash = toBytes(utils.keccak256(pub));
+  const addr20 = hash.slice(-20);
+  const withPrefix = utils.concat([new Uint8Array([0x41]), addr20]);
+  const h1 = toBytes(utils.sha256(withPrefix));
+  const h2 = toBytes(utils.sha256(h1));
+  const checksum = h2.slice(0, 4);
+  return utils.base58.encode(utils.concat([withPrefix, checksum]));
+}
+
+/* ---------------- 1. 派生 ---------------- */
+document.getElementById("deriveBtn").addEventListener("click", () => {
+  const out = document.getElementById("deriveResult");
+  const mnemonic = document.getElementById("mnemonic").value.trim().replace(/\s+/g, " ");
+  const idx = parseInt(document.getElementById("accountIndex").value || "0", 10);
+  out.innerHTML = "";
+  try {
+    if (!utils.isValidMnemonic(mnemonic)) throw new Error("助记词无效（BIP39 校验失败）");
+    const hd = utils.HDNode.fromMnemonic(mnemonic);
+    const seedHex = utils.mnemonicToSeed(mnemonic);
+
+    // EVM  m/44'/60'/0'/0/idx
+    const evm = hd.derivePath(`m/44'/60'/0'/0/${idx}`);
+
+    // Tron m/44'/195'/0'/0/idx
+    const tron = hd.derivePath(`m/44'/195'/0'/0/${idx}`);
+    const tronPub = utils.computePublicKey(tron.privateKey, false);
+    const tronAddr = pubKeyToTronAddress(tronPub);
+    const tronPriv = tron.privateKey.slice(2); // Tron 习惯无 0x
+
+    // Solana m/44'/501'/idx'/0'
+    const solSeed = ed25519Derive(seedHex, `m/44'/501'/${idx}'/0'`);
+    const kp = nacl.sign.keyPair.fromSeed(solSeed);
+    const solAddr = utils.base58.encode(kp.publicKey);
+    const solPriv = utils.base58.encode(kp.secretKey); // 64 字节 base58（Phantom 格式）
+
+    out.innerHTML =
+      acctCard("EVM", "evm", `m/44'/60'/0'/0/${idx}`, evm.address, evm.privateKey.slice(2)) +
+      acctCard("Solana", "sol", `m/44'/501'/${idx}'/0'`, solAddr, solPriv) +
+      acctCard("Tron", "tron", `m/44'/195'/0'/0/${idx}`, tronAddr, tronPriv);
+    bindCopy(out);
+  } catch (e) {
+    out.innerHTML = `<div class="err">派生失败：${e.message}</div>`;
+  }
+});
+
+function acctCard(label, tag, path, addr, priv) {
+  return `<div class="acct">
+    <div class="chain"><span class="tag ${tag}">${label}</span><span class="muted" style="font-weight:400;font-size:12px;">${path}</span></div>
+    <div class="kv">
+      <div class="k">地址</div><div class="v">${addr}</div><button class="copy" data-copy="${addr}">复制</button>
+      <div class="k">私钥</div><div class="v secret">${priv}</div><button class="copy" data-copy="${priv}">复制</button>
+    </div>
+  </div>`;
+}
+function bindCopy(scope) {
+  scope.querySelectorAll(".copy").forEach(b => {
+    b.onclick = () => { copyText(b.dataset.copy); const t = b.textContent; b.textContent = "已复制"; setTimeout(() => b.textContent = t, 1000); };
+  });
+}
+
+/* ---------------- 2. 地址检测 ---------------- */
+function detectAddressType(addr) {
+  addr = addr.trim();
+  if (/^0x[0-9a-fA-F]{40}$/.test(addr)) return "evm";
+  if (/^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(addr)) return "tron";
+  if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(addr)) return "solana";
+  return null;
+}
+
+const addrInput = document.getElementById("queryAddr");
+const detectInfo = document.getElementById("detectInfo");
+const chainSelectWrap = document.getElementById("chainSelectWrap");
+const chainSelect = document.getElementById("chainSelect");
+
+addrInput.addEventListener("input", () => {
+  const addr = addrInput.value.trim();
+  if (!addr) { detectInfo.innerHTML = ""; chainSelectWrap.style.display = "none"; return; }
+  const type = detectAddressType(addr);
+  if (!type) {
+    detectInfo.innerHTML = `<span class="err">无法识别地址格式</span>`;
+    chainSelectWrap.style.display = "none";
+    return;
+  }
+  let typeName = { evm: "EVM 地址（Ethereum / BNB / Polygon ...）", tron: "Tron 地址", solana: "Solana 地址" }[type];
+  detectInfo.innerHTML = `检测结果：<b>${typeName}</b>`;
+  renderChainSelect(type);
+  chainSelectWrap.style.display = "block";
+});
+
+function renderChainSelect(type) {
+  let chips = "";
+  if (type === "evm") {
+    for (const [key, c] of Object.entries(EVM_CHAINS)) {
+      chips += chip(`evm:${key}`, c.name, true);
+    }
+  } else if (type === "solana") {
+    chips = chip("sol", SOL_CHAIN.name, true);
+  } else if (type === "tron") {
+    chips = chip("tron", TRON_CHAIN.name, true);
+  }
+  chainSelect.innerHTML = chips;
+  chainSelect.querySelectorAll(".chip").forEach(el => {
+    const cb = el.querySelector("input");
+    el.onclick = (e) => { if (e.target !== cb) cb.checked = !cb.checked; el.classList.toggle("active", cb.checked); };
+    cb.onchange = () => el.classList.toggle("active", cb.checked);
+  });
+}
+function chip(value, name, checked) {
+  return `<label class="chip ${checked ? "active" : ""}">
+    <input type="checkbox" value="${value}" ${checked ? "checked" : ""}/> ${name}
+  </label>`;
+}
+
+document.getElementById("selectAllBtn").addEventListener("click", () => {
+  const boxes = chainSelect.querySelectorAll("input[type=checkbox]");
+  const allChecked = [...boxes].every(b => b.checked);
+  boxes.forEach(b => { b.checked = !allChecked; b.closest(".chip").classList.toggle("active", !allChecked); });
+});
+
+/* ---------------- 余额查询 ---------------- */
+async function rpcCall(url, method, params) {
+  const res = await fetch(url, {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+  });
+  const j = await res.json();
+  if (j.error) throw new Error(j.error.message || JSON.stringify(j.error));
+  return j.result;
+}
+
+async function queryEvm(chainKey, address) {
+  const c = EVM_CHAINS[chainKey];
+  const rows = [];
+  // 主链币
+  const balHex = await rpcCall(c.rpc, "eth_getBalance", [address, "latest"]);
+  rows.push({ symbol: c.symbol, amount: utils.formatEther(balHex), native: true });
+  // 代币
+  for (const t of c.tokens) {
+    try {
+      const data = "0x70a08231" + address.slice(2).toLowerCase().padStart(64, "0");
+      const resHex = await rpcCall(c.rpc, "eth_call", [{ to: t.address, data }, "latest"]);
+      const raw = ethers.BigNumber.from(resHex || "0x0");
+      rows.push({ symbol: t.symbol, amount: utils.formatUnits(raw, t.decimals) });
+    } catch (e) { rows.push({ symbol: t.symbol, error: e.message }); }
+  }
+  return rows;
+}
+
+async function querySol(address) {
+  const rows = [];
+  const bal = await rpcCall(SOL_CHAIN.rpc, "getBalance", [address]);
+  rows.push({ symbol: "SOL", amount: (bal.value / 1e9).toString(), native: true });
+  const tok = await rpcCall(SOL_CHAIN.rpc, "getTokenAccountsByOwner",
+    [address, { programId: "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA" }, { encoding: "jsonParsed" }]);
+  for (const acc of (tok.value || [])) {
+    const info = acc.account.data.parsed.info;
+    const amt = info.tokenAmount.uiAmountString;
+    if (parseFloat(amt) > 0) rows.push({ symbol: info.mint.slice(0, 6) + "…(SPL)", amount: amt, mint: info.mint });
+  }
+  return rows;
+}
+
+async function queryTron(address) {
+  const rows = [];
+  const res = await fetch(`${TRON_CHAIN.api}/v1/accounts/${address}`);
+  const j = await res.json();
+  const acc = (j.data && j.data[0]) || {};
+  rows.push({ symbol: "TRX", amount: ((acc.balance || 0) / 1e6).toString(), native: true });
+  for (const item of (acc.trc20 || [])) {
+    for (const [contract, raw] of Object.entries(item)) {
+      const meta = TRON_CHAIN.tokens[contract];
+      const dec = meta ? meta.decimals : 6;
+      const sym = meta ? meta.symbol : contract.slice(0, 6) + "…(TRC20)";
+      const amount = utils.formatUnits(ethers.BigNumber.from(raw), dec);
+      if (parseFloat(amount) > 0) rows.push({ symbol: sym, amount, mint: contract });
+    }
+  }
+  return rows;
+}
+
+document.getElementById("queryBtn").addEventListener("click", async () => {
+  const address = addrInput.value.trim();
+  const out = document.getElementById("balResult");
+  const selected = [...chainSelect.querySelectorAll("input:checked")].map(b => b.value);
+  if (!selected.length) { out.innerHTML = `<div class="err">请至少选择一条链</div>`; return; }
+  out.innerHTML = "";
+  const btn = document.getElementById("queryBtn");
+  btn.disabled = true; btn.textContent = "查询中…";
+
+  for (const sel of selected) {
+    const block = document.createElement("div");
+    let chainName = sel === "sol" ? SOL_CHAIN.name : sel === "tron" ? TRON_CHAIN.name : EVM_CHAINS[sel.split(":")[1]].name;
+    block.innerHTML = `<div class="bal-chain-head">${chainName} <span class="spin"></span></div>`;
+    out.appendChild(block);
+    try {
+      let rows;
+      if (sel === "sol") rows = await querySol(address);
+      else if (sel === "tron") rows = await queryTron(address);
+      else rows = await queryEvm(sel.split(":")[1], address);
+      block.innerHTML = `<div class="bal-chain-head">${chainName}</div>` + balTable(rows);
+    } catch (e) {
+      block.innerHTML = `<div class="bal-chain-head">${chainName}</div><div class="err">查询失败：${e.message}</div>`;
+    }
+  }
+  btn.disabled = false; btn.textContent = "查询余额";
+});
+
+function balTable(rows) {
+  let body = rows.map(r => {
+    if (r.error) return `<tr><td>${r.symbol}</td><td class="amt err">err: ${r.error}</td></tr>`;
+    const tag = r.native ? ` <span class="muted" style="font-size:11px;">主链币</span>` : "";
+    const mint = r.mint ? `<div class="muted" style="font-size:11px;">${r.mint}</div>` : "";
+    return `<tr><td>${r.symbol}${tag}${mint}</td><td class="amt">${r.amount}</td></tr>`;
+  }).join("");
+  return `<table class="bal-table"><thead><tr><th>资产</th><th style="text-align:right;">余额</th></tr></thead><tbody>${body}</tbody></table>`;
+}
+</script>
+</body>
+</html>
