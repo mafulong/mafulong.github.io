@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YAML 编辑器 · 验证 &amp; JSON 转换</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e6e9ef;
+    --muted: #8a93a3;
+    --accent: #4f8cff;
+    --accent2: #2dd4bf;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --ok: #22c55e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+
+  /* Editor layout */
+  .editor-wrap {
+    display: flex;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 400px;
+  }
+  .line-nums {
+    padding: 10px 8px;
+    background: var(--card);
+    color: var(--muted);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: right;
+    user-select: none;
+    min-width: 44px;
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .editor-inner {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .editor-highlight {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 10px 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+    pointer-events: none;
+    bottom: 0;
+    right: 0;
+  }
+  textarea {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--text);
+    border: none;
+    resize: none;
+    outline: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+  }
+
+  /* Syntax highlighting */
+  .hl-key { color: var(--accent); }
+  .hl-string { color: #22c55e; }
+  .hl-number { color: #facc15; }
+  .hl-bool { color: #c084fc; }
+  .hl-null { color: var(--muted); }
+  .hl-comment { color: #6b7280; font-style: italic; }
+  .hl-punct { color: var(--text); }
+  .hl-anchor { color: var(--warn); }
+  .hl-alias { color: var(--accent2); }
+  .hl-error-line { background: rgba(239,68,68,.15); display: block; }
+
+  /* Toolbar */
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:hover { opacity: .9; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+
+  /* Status */
+  .status {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: none;
+  }
+  .status.show { display: block; }
+  .status.ok { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.3); color: #86efac; }
+  .status.err { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); color: #fca5a5; }
+
+  /* Output section */
+  .output-wrap {
+    display: flex;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 200px;
+    margin-top: 16px;
+  }
+  .output-highlight {
+    padding: 10px 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: auto;
+    flex: 1;
+  }
+
+  /* Doc count badge */
+  .doc-badge {
+    font-size: 11px;
+    background: rgba(79,140,255,.18);
+    color: #93b4ff;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>YAML 编辑器</h1>
+  <div class="sub">语法高亮 &middot; 验证 &middot; 格式化 &middot; JSON 转换</div>
+
+  <div class="card">
+    <h2>编辑器 <span class="badge">YAML 1.2</span></h2>
+    <div class="toolbar">
+      <button id="btnValidate">验证</button>
+      <button id="btnFormat">格式化</button>
+      <button id="btnMinify">压缩</button>
+      <button id="btnToJson">转 JSON</button>
+      <button id="btnFromJson">从 JSON</button>
+      <button class="ghost" id="btnCopy">复制</button>
+      <button class="ghost" id="btnClear">清空</button>
+    </div>
+    <label>YAML 输入</label>
+    <div class="editor-wrap" id="editorWrap">
+      <div class="line-nums" id="lineNums"></div>
+      <div class="editor-inner">
+        <div class="editor-highlight" id="editorHighlight"></div>
+        <textarea id="editor" spellcheck="false" placeholder="输入 YAML..."></textarea>
+      </div>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="card" id="outputCard" style="display:none;">
+    <h2>输出 <span id="outputBadge"></span></h2>
+    <div class="output-wrap">
+      <div class="output-highlight" id="outputHighlight"></div>
+    </div>
+    <div class="status" id="outputStatus"></div>
+  </div>
+</div>
+
+<script>
+const editor = document.getElementById("editor");
+const highlight = document.getElementById("editorHighlight");
+const lineNums = document.getElementById("lineNums");
+const status = document.getElementById("status");
+const outputCard = document.getElementById("outputCard");
+const outputBadge = document.getElementById("outputBadge");
+const outputHighlight = document.getElementById("outputHighlight");
+const outputStatus = document.getElementById("outputStatus");
+
+/* ---- Syntax highlighting ---- */
+function highlightYaml(code) {
+  let result = escapeHtml(code);
+
+  // Comments
+  result = result.replace(/(#.*)$/gm, '<span class="hl-comment">$1</span>');
+
+  // Anchors and aliases
+  result = result.replace(/(&[*]?\w+)/g, '<span class="hl-anchor">$1</span>');
+  result = result.replace(/(\*[*]?\w+)/g, '<span class="hl-alias">$1</span>');
+
+  // Document separators
+  result = result.replace(/^(---\s*)$/gm, '<span class="hl-punct">$1</span>');
+
+  // Strings (quoted)
+  result = result.replace(/"([^"\\]|\\.)*"/g, '<span class="hl-string">$&</span>');
+  result = result.replace(/'([^'\\]|\\.)*'/g, '<span class="hl-string">$&</span>');
+
+  // Numbers
+  result = result.replace(/\b(-?\d+\.?\d*([eE][+-]?\d+)?)\b/g, '<span class="hl-number">$1</span>');
+
+  // Booleans and null
+  result = result.replace(/\b(true|false|yes|no|on|off)\b/gi, '<span class="hl-bool">$1</span>');
+  result = result.replace(/\b(null|~)\b/g, '<span class="hl-null">$1</span>');
+
+  // Keys (word followed by colon)
+  result = result.replace(/^(\s*)(\w[\w\s-]*)(:)/gm, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
+
+  // Trailing colon for inline keys
+  result = result.replace(/(\s)(\w[\w\s-]*)(:)/g, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
+
+  return result;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/* ---- Line numbers ---- */
+function updateLineNumbers() {
+  const lines = editor.value.split("\n");
+  lineNums.innerHTML = lines.map((_, i) => i + 1).join("<br>");
+}
+
+/* ---- Sync scroll ---- */
+function syncScroll() {
+  highlight.scrollTop = editor.scrollTop;
+  highlight.scrollLeft = editor.scrollLeft;
+  lineNums.scrollTop = editor.scrollTop;
+}
+
+/* ---- Highlight error line ---- */
+function showErrorLine(lineNum) {
+  const lines = editor.value.split("\n");
+  let highlighted = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (i + 1 === lineNum) {
+      highlighted.push('<span class="hl-error-line">' + escapeHtml(lines[i]) + '</span>');
+    } else {
+      highlighted.push(escapeHtml(lines[i]));
+    }
+  }
+  highlight.innerHTML = highlighted.join("\n");
+}
+
+/* ---- Main highlight update ---- */
+function updateHighlight() {
+  const code = editor.value;
+  highlight.innerHTML = highlightYaml(code);
+  updateLineNumbers();
+}
+
+/* ---- Event listeners ---- */
+editor.addEventListener("input", updateHighlight);
+editor.addEventListener("scroll", syncScroll);
+
+/* ---- Utility: show status ---- */
+function showStatus(msg, isOk) {
+  status.className = "status show " + (isOk ? "ok" : "err");
+  status.textContent = msg;
+}
+
+/* ---- Validate ---- */
+document.getElementById("btnValidate").addEventListener("click", () => {
+  const code = editor.value.trim();
+  if (!code) {
+    showStatus("请输入 YAML 内容", false);
+    return;
+  }
+
+  try {
+    const docs = jsyaml.loadAll(code);
+    const docCount = docs.length;
+    const info = docs.length === 1
+      ? "YAML 有效"
+      : `YAML 有效 (${docCount} 个文档)`;
+    showStatus(info, true);
+
+    // Show doc count badge
+    if (docCount > 1) {
+      outputCard.style.display = "block";
+      outputBadge.innerHTML = `<span class="doc-badge">${docCount} 个文档</span>`;
+      outputHighlight.innerHTML = docs.map((d, i) =>
+        `<span class="hl-comment"># 文档 ${i + 1}</span>\n${highlightYaml(jsyaml.dump(d))}`
+      ).join("\n\n");
+    } else {
+      outputCard.style.display = "none";
+    }
+  } catch (e) {
+    const mark = e.mark || {};
+    const line = mark.line !== undefined ? mark.line + 1 : 0;
+    const col = mark.column !== undefined ? mark.column + 1 : 0;
+    showStatus(`解析错误 at L${line}:C${col} — ${e.message}`, false);
+    showErrorLine(line);
+    editor.scrollTop = highlight.scrollTop = (line - 3) * editor.clientHeight / editor.value.split("\n").length;
+  }
+});
+
+/* ---- Format ---- */
+document.getElementById("btnFormat").addEventListener("click", () => {
+  const code = editor.value.trim();
+  if (!code) {
+    showStatus("请输入 YAML 内容", false);
+    return;
+  }
+  try {
+    const docs = jsyaml.loadAll(code);
+    const formatted = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1 })).join("---\n");
+    editor.value = formatted;
+    updateHighlight();
+    showStatus("格式化完成", true);
+    outputCard.style.display = "none";
+  } catch (e) {
+    const mark = e.mark || {};
+    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
+  }
+});
+
+/* ---- Minify ---- */
+document.getElementById("btnMinify").addEventListener("click", () => {
+  const code = editor.value.trim();
+  if (!code) {
+    showStatus("请输入 YAML 内容", false);
+    return;
+  }
+  try {
+    const docs = jsyaml.loadAll(code);
+    const minified = docs.map(d => jsyaml.dump(d, { flowLevel: 0, lineWidth: -1 })).join("---\n");
+    editor.value = minified;
+    updateHighlight();
+    showStatus("压缩完成", true);
+    outputCard.style.display = "none";
+  } catch (e) {
+    const mark = e.mark || {};
+    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
+  }
+});
+
+/* ---- To JSON ---- */
+document.getElementById("btnToJson").addEventListener("click", () => {
+  const code = editor.value.trim();
+  if (!code) {
+    showStatus("请输入 YAML 内容", false);
+    return;
+  }
+  try {
+    const docs = jsyaml.loadAll(code);
+    const json = docs.length === 1
+      ? JSON.stringify(docs[0], null, 2)
+      : JSON.stringify(docs, null, 2);
+
+    outputCard.style.display = "block";
+    outputBadge.innerHTML = docs.length > 1 ? `<span class="doc-badge">${docs.length} 个文档</span>` : "";
+    outputHighlight.innerHTML = `<span class="hl-string">${escapeHtml(json)}</span>`;
+    outputStatus.className = "status show ok";
+    outputStatus.textContent = "转换为 JSON 成功";
+    showStatus("转换为 JSON 成功", true);
+  } catch (e) {
+    const mark = e.mark || {};
+    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
+    outputCard.style.display = "none";
+  }
+});
+
+/* ---- From JSON ---- */
+document.getElementById("btnFromJson").addEventListener("click", () => {
+  const code = editor.value.trim();
+  if (!code) {
+    showStatus("请输入内容", false);
+    return;
+  }
+  try {
+    let data;
+    // Handle JSON array of multiple documents
+    if (code.trim().startsWith("[")) {
+      data = JSON.parse(code);
+    } else {
+      data = JSON.parse(code);
+    }
+    const docs = Array.isArray(data) ? data : [data];
+    const yaml = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1 })).join("---\n");
+    editor.value = yaml;
+    updateHighlight();
+    showStatus("从 JSON 转换成功", true);
+    outputCard.style.display = "none";
+  } catch (e) {
+    showStatus(`JSON 解析错误 — ${e.message}`, false);
+  }
+});
+
+/* ---- Copy ---- */
+document.getElementById("btnCopy").addEventListener("click", () => {
+  const code = editor.value;
+  if (!code) {
+    showStatus("内容为空", false);
+    return;
+  }
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById("btnCopy");
+    const orig = btn.textContent;
+    btn.textContent = "已复制";
+    setTimeout(() => btn.textContent = orig, 1000);
+  });
+});
+
+/* ---- Clear ---- */
+document.getElementById("btnClear").addEventListener("click", () => {
+  editor.value = "";
+  updateHighlight();
+  status.className = "status";
+  outputCard.style.display = "none";
+});
+
+/* ---- Init ---- */
+updateHighlight();
+</script>
+</body>
+</html>
