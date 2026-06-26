@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gas 计算器 · EVM / Solana 费用预估</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e6e9ef;
+    --muted: #8a93a3;
+    --accent: #4f8cff;
+    --accent2: #2dd4bf;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  input[type="text"], input[type="number"] {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  input:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .row > div { flex: 1; min-width: 200px; }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:hover { opacity: .9; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+  .mt { margin-top: 16px; }
+  .chain-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; user-select: none;
+  }
+  .chip input { accent-color: var(--accent); }
+  .chip.active { border-color: var(--accent); background: rgba(79,140,255,.12); }
+  .kv { display: grid; grid-template-columns: 130px 1fr; gap: 8px 12px; align-items: start; font-size: 13px; }
+  .kv .k { color: var(--muted); padding-top: 2px; }
+  .kv .v { font-family: ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; }
+  .kv .v.warn { color: var(--warn); }
+  .kv .v.accent { color: var(--accent2); }
+  .kv .v.danger { color: var(--danger); }
+  .result-box {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .result-box h3 { font-size: 13px; margin: 0 0 10px; color: var(--muted); font-weight: 500; }
+  .err { color: var(--danger); font-size: 13px; }
+  .spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: s .7s linear infinite; vertical-align: middle; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 5px; font-weight: 600; margin-right: 6px; }
+  .tag.evm { background: rgba(79,140,255,.18); color: #93b4ff; }
+  .tag.sol { background: rgba(45,212,191,.18); color: #5eead4; }
+  .section-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Gas 计算器</h1>
+  <div class="sub">预估 EVM / Solana 交易 gas 费用，支持 EIP-1559 优先费分析和 Solana compute units 计费</div>
+
+  <!-- EVM Section -->
+  <div class="card">
+    <h2>EVM 链 Gas 费用 <span class="badge">EIP-1559</span></h2>
+    <label>选择链</label>
+    <div class="chain-select" id="evmChainSelect"></div>
+    <div class="row mt">
+      <div>
+        <label>To 地址</label>
+        <input type="text" id="evmTo" placeholder="0x..." />
+      </div>
+      <div style="flex: 0 0 140px;">
+        <label>Gas Limit</label>
+        <input type="text" id="evmGasLimit" placeholder="21000" value="21000" />
+      </div>
+    </div>
+    <div class="mt">
+      <label>Data（hex，可选）</label>
+      <input type="text" id="evmData" placeholder="0x..." />
+    </div>
+    <div class="mt">
+      <button id="evmCalcBtn">计算 Gas 费用</button>
+    </div>
+    <div id="evmResult"></div>
+  </div>
+
+  <!-- Solana Section -->
+  <div class="card">
+    <h2>Solana 费用 <span class="badge">Compute Units</span></h2>
+    <div class="row mt">
+      <div>
+        <label>Sender 地址</label>
+        <input type="text" id="solSender" placeholder="Solana base58 地址" />
+      </div>
+      <div>
+        <label>Program ID（可选）</label>
+        <input type="text" id="solProgram" placeholder="用于模拟指令" />
+      </div>
+      <div style="flex: 0 0 160px;">
+        <label>Compute Units</label>
+        <input type="text" id="solCompute" placeholder="200000" value="200000" />
+      </div>
+    </div>
+    <div class="mt">
+      <button id="solCalcBtn">计算 Solana 费用</button>
+    </div>
+    <div id="solResult"></div>
+  </div>
+</div>
+
+<script>
+const { ethers } = window;
+
+/* ---------------- EVM 链配置 ---------------- */
+const EVM_CHAINS = {
+  eth:      { name: "Ethereum",  rpc: "https://ethereum-rpc.publicnode.com",     symbol: "ETH" },
+  bnb:      { name: "BNB Chain", rpc: "https://bsc-rpc.publicnode.com",          symbol: "BNB" },
+  polygon:  { name: "Polygon",   rpc: "https://polygon-bor-rpc.publicnode.com",  symbol: "POL" },
+  base:     { name: "Base",      rpc: "https://base-rpc.publicnode.com",         symbol: "ETH" },
+  arbitrum: { name: "Arbitrum",  rpc: "https://arbitrum-one-rpc.publicnode.com", symbol: "ETH" },
+  optimism: { name: "Optimism",  rpc: "https://optimism-rpc.publicnode.com",     symbol: "ETH" },
+};
+
+const ETH_PRICE_USD = 3500; // 假设 ETH 价格
+
+let selectedEvmChain = "eth";
+
+/* ---------------- Chain Selector UI ---------------- */
+function initEvmChainSelect() {
+  const container = document.getElementById("evmChainSelect");
+  let html = "";
+  for (const [key, chain] of Object.entries(EVM_CHAINS)) {
+    const checked = key === selectedEvmChain ? "checked" : "";
+    const active = key === selectedEvmChain ? "active" : "";
+    html += `<label class="chip ${active}">
+      <input type="radio" name="evmChain" value="${key}" ${checked}/> ${chain.name}
+    </label>`;
+  }
+  container.innerHTML = html;
+  container.querySelectorAll(".chip").forEach(el => {
+    el.onclick = () => {
+      container.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      el.querySelector("input").checked = true;
+      selectedEvmChain = el.querySelector("input").value;
+    };
+  });
+}
+
+initEvmChainSelect();
+
+/* ---------------- RPC Helper ---------------- */
+async function rpcCall(url, method, params) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+  });
+  const j = await res.json();
+  if (j.error) throw new Error(j.error.message || JSON.stringify(j.error));
+  return j.result;
+}
+
+/* ---------------- EVM Gas Calculation ---------------- */
+document.getElementById("evmCalcBtn").addEventListener("click", async () => {
+  const out = document.getElementById("evmResult");
+  const to = document.getElementById("evmTo").value.trim();
+  const data = document.getElementById("evmData").value.trim();
+  const gasLimitStr = document.getElementById("evmGasLimit").value.trim();
+
+  if (!to || !/^0x[0-9a-fA-F]{40}$/.test(to)) {
+    out.innerHTML = `<div class="err">请输入有效的 to 地址</div>`;
+    return;
+  }
+
+  const chain = EVM_CHAINS[selectedEvmChain];
+  out.innerHTML = `<div class="result-box"><h3><span class="tag evm">${chain.name}</span> <span class="spin"></span> 查询中…</h3></div>`;
+
+  try {
+    // 1. 获取最新区块的 baseFeePerGas
+    const latestBlock = await rpcCall(chain.rpc, "eth_getBlockByNumber", ["latest", false]);
+    const baseFeePerGas = ethers.BigNumber.from(latestBlock.baseFeePerGas);
+
+    // 2. 获取最近 4 个区块的 priority fee
+    const feeHistory = await rpcCall(chain.rpc, "eth_feeHistory", [
+      ethers.utils.hexValue(4),
+      "latest",
+      [25]
+    ]);
+
+    // 提取 priority fees 并取中位数
+    const allRewards = feeHistory.reward || [];
+    const flatRewards = allRewards.filter(r => r !== null).map(r => ethers.BigNumber.from(r));
+
+    // 取最近 5 个区块的 priority fee 中位数（如果有的话）
+    let priorityFee;
+    if (flatRewards.length > 0) {
+      const sorted = [...flatRewards].sort((a, b) => a.sub(b).isNeg() ? -1 : 1);
+      const mid = Math.floor(sorted.length / 2);
+      priorityFee = sorted.length % 2 === 0
+        ? sorted[mid - 1].add(sorted[mid]).div(2)
+        : sorted[mid];
+    } else {
+      // fallback: 使用默认 priority fee
+      priorityFee = ethers.utils.parseUnits("1.5", "gwei");
+    }
+
+    // 3. eth_estimateGas
+    const callObj = { to, gasLimit: gasLimitStr ? ethers.BigNumber.from(gasLimitStr) : undefined };
+    if (data) callObj.data = data;
+
+    let estimatedGas;
+    try {
+      estimatedGas = await rpcCall(chain.rpc, "eth_estimateGas", [callObj]);
+      estimatedGas = ethers.BigNumber.from(estimatedGas);
+    } catch {
+      estimatedGas = gasLimitStr ? ethers.BigNumber.from(gasLimitStr) : ethers.BigNumber.from(21000);
+    }
+
+    // 4. 计算 maxFeePerGas = 2 * baseFee + priorityFee
+    const maxFeePerGas = baseFeePerGas.mul(2).add(priorityFee);
+
+    // 5. 计算总费用
+    const totalCostWei = estimatedGas.mul(maxFeePerGas);
+    const totalCostEth = parseFloat(ethers.utils.formatEther(totalCostWei));
+    const totalCostUsd = (totalCostEth * ETH_PRICE_USD).toFixed(2);
+
+    // 格式化显示
+    const baseFeeGwei = parseFloat(ethers.utils.formatUnits(baseFeePerGas, "gwei")).toFixed(2);
+    const priorityFeeGwei = parseFloat(ethers.utils.formatUnits(priorityFee, "gwei")).toFixed(2);
+    const maxFeeGwei = parseFloat(ethers.utils.formatUnits(maxFeePerGas, "gwei")).toFixed(2);
+    const gasUsed = estimatedGas.toString();
+
+    out.innerHTML = `
+      <div class="result-box">
+        <h3><span class="tag evm">${chain.name}</span> Gas 预估结果</h3>
+        <div class="kv">
+          <div class="k">baseFeePerGas</div>
+          <div class="v">${baseFeeGwei} gwei</div>
+
+          <div class="k">priorityFee</div>
+          <div class="v accent">${priorityFeeGwei} gwei</div>
+
+          <div class="k">maxFeePerGas</div>
+          <div class="v">${maxFeeGwei} gwei</div>
+
+          <div class="k">estimatedGas</div>
+          <div class="v">${gasUsed}</div>
+
+          <div class="k">totalCost</div>
+          <div class="v accent">${totalCostEth.toFixed(8)} ${chain.symbol}</div>
+
+          <div class="k">≈ USD</div>
+          <div class="v warn">$${totalCostUsd}</div>
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<div class="err">查询失败：${e.message}</div>`;
+  }
+});
+
+/* ---------------- Solana Fee Calculation ---------------- */
+document.getElementById("solCalcBtn").addEventListener("click", async () => {
+  const out = document.getElementById("solResult");
+  const sender = document.getElementById("solSender").value.trim();
+  const computeStr = document.getElementById("solCompute").value.trim();
+  const computeUnits = parseInt(computeStr, 10) || 200000;
+
+  // 验证 sender 地址格式 (Solana base58)
+  const isValidSolana = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(sender);
+  if (!sender || !isValidSolana) {
+    out.innerHTML = `<div class="err">请输入有效的 Solana 地址</div>`;
+    return;
+  }
+
+  const SOL_RPC = "https://solana-rpc.publicnode.com";
+  out.innerHTML = `<div class="result-box"><h3><span class="tag sol">Solana</span> <span class="spin"></span> 查询中…</h3></div>`;
+
+  try {
+    // 1. getRecentBlockhash
+    const blockhashResp = await rpcCall(SOL_RPC, "getRecentBlockhash", []);
+    const blockhash = blockhashResp.value.blockhash;
+    const lamportsPerSignature = blockhashResp.value.feeCalculator.lamportsPerSignature;
+
+    // 2. 计算 compute fee: computeUnits * 0.01 lamports (microLamports) + lamportsPerSignature
+    // Solana compute unit price is in micro-lamports (1e-6 lamports)
+    const computeUnitPrice = 0.01; // micro-lamports per compute unit
+    const computeFee = Math.floor(computeUnits * computeUnitPrice);
+    const totalLamports = computeFee + lamportsPerSignature;
+    const totalSol = totalLamports / 1e9; // lamports to SOL
+
+    // 3. 如果有 sender 和 program，尝试 getMinimumBalanceForRentExemption
+    let rentExempt = 0;
+    try {
+      const rentResp = await rpcCall(SOL_RPC, "getMinimumBalanceForRentExemption", [computeUnits]);
+      rentExempt = rentResp || 0;
+    } catch {}
+
+    out.innerHTML = `
+      <div class="result-box">
+        <h3><span class="tag sol">Solana</span> 费用预估结果</h3>
+        <div class="kv">
+          <div class="k">blockhash</div>
+          <div class="v">${blockhash.slice(0, 16)}…</div>
+
+          <div class="k">lamportsPerSignature</div>
+          <div class="v">${lamportsPerSignature.toLocaleString()} lamports</div>
+
+          <div class="k">computeUnits</div>
+          <div class="v">${computeUnits.toLocaleString()}</div>
+
+          <div class="k">computeFee</div>
+          <div class="v">${computeFee.toLocaleString()} micro-lamports</div>
+
+          <div class="k">estimatedFee</div>
+          <div class="v accent">${totalLamports.toLocaleString()} lamports (${totalSol.toFixed(9)} SOL)</div>
+
+          ${rentExempt > 0 ? `
+          <div class="k">rentExempt</div>
+          <div class="v">${rentExempt.toLocaleString()} lamports</div>
+          ` : ""}
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<div class="err">查询失败：${e.message}</div>`;
+  }
+});
+</script>
+</body>
+</html>
