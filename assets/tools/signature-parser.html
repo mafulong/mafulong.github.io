@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>签名解析器 · EVM / Solana 签名验证</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tweetnacl/1.0.3/nacl.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e6e9ef;
+    --muted: #8a93a3;
+    --accent: #4f8cff;
+    --accent2: #2dd4bf;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --ok: #22c55e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  textarea, input[type="text"], input[type="number"] {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .row > div { flex: 1; min-width: 200px; }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:hover { opacity: .9; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+  .mt { margin-top: 16px; }
+  .chain-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; user-select: none;
+  }
+  .chip input { accent-color: var(--accent); }
+  .chip.active { border-color: var(--accent); background: rgba(79,140,255,.12); }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 8px 12px; align-items: start; font-size: 13px; }
+  .kv .k { color: var(--muted); padding-top: 2px; }
+  .kv .v { font-family: ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; }
+  .kv .v.warn { color: var(--warn); }
+  .kv .v.accent { color: var(--accent2); }
+  .kv .v.danger { color: var(--danger); }
+  .kv .v.ok { color: var(--ok); }
+  .result-box {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .result-box h3 { font-size: 13px; margin: 0 0 10px; color: var(--muted); font-weight: 500; }
+  .err { color: var(--danger); font-size: 13px; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 5px; font-weight: 600; margin-right: 6px; }
+  .tag.evm { background: rgba(79,140,255,.18); color: #93b4ff; }
+  .tag.sol { background: rgba(45,212,191,.18); color: #5eead4; }
+  .section-label { font-size: 12px; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+  .tab {
+    padding: 8px 16px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    transition: all .15s;
+  }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .info-box {
+    background: rgba(79,140,255,.08);
+    border: 1px solid rgba(79,140,255,.2);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .info-box strong { color: var(--accent); }
+  .hash-display {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    word-break: break-all;
+    margin-top: 8px;
+  }
+  .field-group { margin-bottom: 12px; }
+  .field-label { font-size: 12px; color: var(--accent2); margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>签名解析器</h1>
+  <div class="sub">解析 EVM EIP-191 / EIP-712 签名内容，验证 Solana personal_sign，识别签名数据和签署者地址</div>
+
+  <!-- EVM Section -->
+  <div class="card">
+    <h2>EVM 签名解析 <span class="badge">Ethereum</span></h2>
+    <div class="tabs">
+      <div class="tab active" data-tab="eip191">EIP-191 (personal_sign)</div>
+      <div class="tab" data-tab="eip712">EIP-712 (typed data)</div>
+    </div>
+
+    <!-- EIP-191 Tab -->
+    <div class="tab-content active" id="tab-eip191">
+      <div class="info-box">
+        <strong>EIP-191 签名格式:</strong> \x19Ethereum Signed Message:\n + 消息长度 + 消息内容
+        <br/>输入签名（65字节 hex: r[32] + s[32] + v[1]）和原始消息文本，即可恢复签名者地址。
+      </div>
+      <div class="row">
+        <div>
+          <label>签名 (hex, 65字节)</label>
+          <input type="text" id="evm191Sig" placeholder="0x..." />
+        </div>
+        <div>
+          <label>消息文本</label>
+          <input type="text" id="evm191Msg" placeholder="原始消息内容" />
+        </div>
+      </div>
+      <div class="mt">
+        <button id="evm191ParseBtn">解析签名</button>
+      </div>
+      <div id="evm191Result"></div>
+    </div>
+
+    <!-- EIP-712 Tab -->
+    <div class="tab-content" id="tab-eip712">
+      <div class="info-box">
+        <strong>EIP-712 签名格式:</strong> \x19\x01 + domainSeparator(32 bytes) + hashStruct(message, domain)(32 bytes)
+        <br/>输入完整的 EIP-712 签名数据（64字节），解析 domain separator 和 message hash。
+      </div>
+      <div class="field-group">
+        <label>Domain Separator (32 bytes hex)</label>
+        <input type="text" id="eip712Domain" placeholder="0x..." />
+      </div>
+      <div class="field-group">
+        <label>Message Hash (32 bytes hex)</label>
+        <input type="text" id="eip712MsgHash" placeholder="0x..." />
+      </div>
+      <div class="mt">
+        <button id="eip712ParseBtn">解析 EIP-712 数据</button>
+      </div>
+      <div id="eip712Result"></div>
+    </div>
+  </div>
+
+  <!-- Solana Section -->
+  <div class="card">
+    <h2>Solana 签名验证 <span class="badge">Solana</span></h2>
+    <div class="info-box">
+      <strong>Solana personal_sign:</strong> 使用 nacl.sign.detached.verify 验证签名
+      <br/>输入 Base58 编码的签名、消息文本和签名者的公钥（Base58），验证签名是否有效。
+    </div>
+    <div class="field-group">
+      <label>签名 (Base58)</label>
+      <input type="text" id="solSig" placeholder="Base58 编码的 64 字节签名" />
+    </div>
+    <div class="field-group">
+      <label>消息文本</label>
+      <textarea id="solMsg" placeholder="原始消息内容"></textarea>
+    </div>
+    <div class="field-group">
+      <label>签名者公钥 (Base58)</label>
+      <input type="text" id="solPubkey" placeholder="签名者的公钥地址" />
+    </div>
+    <div class="mt">
+      <button id="solVerifyBtn">验证签名</button>
+    </div>
+    <div id="solResult"></div>
+  </div>
+</div>
+
+<script>
+const { ethers } = window;
+
+/* ---------------- Tab Switching ---------------- */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ---------------- EIP-191 Parsing ---------------- */
+document.getElementById('evm191ParseBtn').addEventListener('click', () => {
+  const out = document.getElementById('evm191Result');
+  const sigHex = document.getElementById('evm191Sig').value.trim();
+  const msgText = document.getElementById('evm191Msg').value;
+
+  if (!sigHex || !sigHex.startsWith('0x') || sigHex.length !== 132) {
+    out.innerHTML = `<div class="err">请输入有效的 65 字节签名 (132 hex chars + 0x prefix)</div>`;
+    return;
+  }
+
+  try {
+    const sigBytes = ethers.utils.arrayify(sigHex);
+    if (sigBytes.length !== 65) {
+      out.innerHTML = `<div class="err">签名长度错误: 期望 65 字节，实际 ${sigBytes.length} 字节</div>`;
+      return;
+    }
+
+    // Extract r, s, v
+    const r = sigBytes.slice(0, 32);
+    const s = sigBytes.slice(32, 64);
+    const v = sigBytes[64];
+
+    // Build the prefixed message: \x19Ethereum Signed Message:\n + len(message) + message
+    const msgBytes = new TextEncoder().encode(msgText);
+    const msgLen = msgBytes.length;
+    const prefix = new TextEncoder().encode(`\x19Ethereum Signed Message:\n${msgLen}`);
+    const prefixedMsg = new Uint8Array(prefix.length + msgBytes.length);
+    prefixedMsg.set(prefix, 0);
+    prefixedMsg.set(msgBytes, prefix.length);
+
+    // Hash the prefixed message
+    const msgHash = ethers.utils.keccak256(prefixedMsg);
+
+    // Recover address using ethers.utils.verifyMessage (handles EIP-191 automatically)
+    let signerAddress;
+    try {
+      signerAddress = ethers.utils.verifyMessage(msgText, sigHex);
+    } catch (e) {
+      signerAddress = '(恢复失败: ' + e.message + ')';
+    }
+
+    out.innerHTML = `
+      <div class="result-box">
+        <h3><span class="tag evm">EIP-191</span> 解析结果</h3>
+        <div class="kv">
+          <div class="k">v</div>
+          <div class="v">${v}</div>
+
+          <div class="k">r</div>
+          <div class="v">${ethers.utils.hexlify(r)}</div>
+
+          <div class="k">s</div>
+          <div class="v">${ethers.utils.hexlify(s)}</div>
+
+          <div class="k">消息长度</div>
+          <div class="v">${msgLen} bytes</div>
+
+          <div class="k">消息 Hash</div>
+          <div class="v accent">${msgHash}</div>
+
+          <div class="k">签名者地址</div>
+          <div class="v accent">${signerAddress}</div>
+        </div>
+        <div class="field-label mt">原始前缀数据</div>
+        <div class="hash-display">${ethers.utils.hexlify(prefixedMsg)}</div>
+      </div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<div class="err">解析失败：${e.message}</div>`;
+  }
+});
+
+/* ---------------- EIP-712 Parsing ---------------- */
+document.getElementById('eip712ParseBtn').addEventListener('click', () => {
+  const out = document.getElementById('eip712Result');
+  const domainHex = document.getElementById('eip712Domain').value.trim();
+  const msgHashHex = document.getElementById('eip712MsgHash').value.trim();
+
+  if (!domainHex || !domainHex.startsWith('0x') || domainHex.length !== 66) {
+    out.innerHTML = `<div class="err">请输入有效的 32 字节 domain separator (64 hex chars + 0x prefix)</div>`;
+    return;
+  }
+
+  if (!msgHashHex || !msgHashHex.startsWith('0x') || msgHashHex.length !== 66) {
+    out.innerHTML = `<div class="err">请输入有效的 32 字节 message hash (64 hex chars + 0x prefix)</div>`;
+    return;
+  }
+
+  try {
+    const domainBytes = ethers.utils.arrayify(domainHex);
+    const msgBytes = ethers.utils.arrayify(msgHashHex);
+
+    // EIP-191 prefix for structured data: \x19\x01
+    const eip712Prefix = new TextEncoder().encode('\x19\x01');
+    const domainHash = ethers.utils.keccak256(domainBytes);
+    const messageHash = ethers.utils.keccak256(msgBytes);
+
+    // Full typed data sign bytes: \x19\x01 + domainSeparator + message
+    const signData = new Uint8Array(2 + 32 + 32);
+    signData.set(eip712Prefix, 0);
+    signData.set(domainBytes, 2);
+    signData.set(msgBytes, 34);
+    const signDataHash = ethers.utils.keccak256(signData);
+
+    out.innerHTML = `
+      <div class="result-box">
+        <h3><span class="tag evm">EIP-712</span> 解析结果</h3>
+        <div class="kv">
+          <div class="k">EIP-191 前缀</div>
+          <div class="v">\\x19\\x01</div>
+
+          <div class="k">domainSeparator</div>
+          <div class="v">${domainHex}</div>
+
+          <div class="k">domainSeparator Hash</div>
+          <div class="v accent">${domainHash}</div>
+
+          <div class="k">messageHash</div>
+          <div class="v">${msgHashHex}</div>
+
+          <div class="k">messageHash Hash</div>
+          <div class="v accent">${messageHash}</div>
+
+          <div class="k">完整签名数据</div>
+          <div class="v">${ethers.utils.hexlify(signData)}</div>
+
+          <div class="k">签名数据 Hash</div>
+          <div class="v accent">${signDataHash}</div>
+        </div>
+        <div class="info-box mt">
+          <strong>说明:</strong> EIP-712 签名 = \\x19\\x01 + domainSeparator(32) + message(32)
+          <br/>通常由 dApp 端使用对应 domain 参数进行验证，无法仅从签名数据还原签署者地址。
+        </div>
+      </div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<div class="err">解析失败：${e.message}</div>`;
+  }
+});
+
+/* ---------------- Solana Signature Verification ---------------- */
+document.getElementById('solVerifyBtn').addEventListener('click', () => {
+  const out = document.getElementById('solResult');
+  const sigBase58 = document.getElementById('solSig').value.trim();
+  const msgText = document.getElementById('solMsg').value;
+  const pubkeyBase58 = document.getElementById('solPubkey').value.trim();
+
+  if (!sigBase58) {
+    out.innerHTML = `<div class="err">请输入签名 (Base58)</div>`;
+    return;
+  }
+
+  if (!msgText) {
+    out.innerHTML = `<div class="err">请输入消息文本</div>`;
+    return;
+  }
+
+  if (!pubkeyBase58) {
+    out.innerHTML = `<div class="err">请输入签名者公钥 (Base58)</div>`;
+    return;
+  }
+
+  try {
+    // Decode Base58 signature (64 bytes)
+    let sigBytes;
+    try {
+      sigBytes = base58ToBytes(sigBase58);
+    } catch (e) {
+      out.innerHTML = `<div class="err">签名 Base58 解码失败：${e.message}</div>`;
+      return;
+    }
+
+    if (sigBytes.length !== 64) {
+      out.innerHTML = `<div class="err">签名长度错误: 期望 64 字节，实际 ${sigBytes.length} 字节</div>`;
+      return;
+    }
+
+    // Decode Base58 public key (32 bytes)
+    let pubkeyBytes;
+    try {
+      pubkeyBytes = base58ToBytes(pubkeyBase58);
+    } catch (e) {
+      out.innerHTML = `<div class="err">公钥 Base58 解码失败：${e.message}</div>`;
+      return;
+    }
+
+    if (pubkeyBytes.length !== 32) {
+      out.innerHTML = `<div class="err">公钥长度错误: 期望 32 字节，实际 ${pubkeyBytes.length} 字节</div>`;
+      return;
+    }
+
+    // Encode message to bytes
+    const msgBytes = new TextEncoder().encode(msgText);
+
+    // Verify signature using nacl
+    const isValid = nacl.sign.detached.verify(msgBytes, sigBytes, pubkeyBytes);
+
+    out.innerHTML = `
+      <div class="result-box">
+        <h3><span class="tag sol">Solana</span> 验证结果</h3>
+        <div class="kv">
+          <div class="k">消息长度</div>
+          <div class="v">${msgBytes.length} bytes</div>
+
+          <div class="k">签名长度</div>
+          <div class="v">${sigBytes.length} bytes</div>
+
+          <div class="k">公钥长度</div>
+          <div class="v">${pubkeyBytes.length} bytes</div>
+
+          <div class="k">签名结果</div>
+          <div class="v ${isValid ? 'ok' : 'danger'}" style="font-size: 16px; font-weight: 700;">
+            ${isValid ? 'VALID 签名有效' : 'INVALID 签名无效'}
+          </div>
+        </div>
+        ${isValid ? '' : `
+        <div class="info-box mt">
+          <strong>提示:</strong> 签名验证失败可能是因为：
+          <br/>1. 签名者公钥不匹配
+          <br/>2. 消息内容被修改
+          <br/>3. 签名格式不正确
+        </div>
+        `}
+      </div>
+    `;
+  } catch (e) {
+    out.innerHTML = `<div class="err">验证失败：${e.message}</div>`;
+  }
+});
+
+/* ---------------- Base58 Decoder ---------------- */
+// Simple Base58 implementation for Solana addresses
+const BASE58_ALPHABET = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+
+function base58ToBytes(str) {
+  const result = [];
+  let leadingOnes = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== '1') break;
+    leadingOnes++;
+  }
+
+  for (let i = leadingOnes; i < str.length; i++) {
+    let carry = BASE58_ALPHABET.indexOf(str[i]);
+    if (carry === -1) throw new Error('Invalid Base58 character: ' + str[i]);
+
+    for (let j = 0; j < result.length; j++) {
+      carry += 58 * result[j];
+      result[j] = carry % 256;
+      carry = Math.floor(carry / 256);
+    }
+
+    while (carry > 0) {
+      result.push(carry % 256);
+      carry = Math.floor(carry / 256);
+    }
+  }
+
+  // Add leading zeros
+  for (let i = 0; i < leadingOnes; i++) {
+    result.unshift(0);
+  }
+
+  return new Uint8Array(result);
+}
+</script>
+</body>
+</html>
