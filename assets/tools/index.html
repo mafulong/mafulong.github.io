@@ -316,7 +316,7 @@ footer {
   </div>
 
   <div class="section">
-    <div class="section-title">开发工具</div>
+    <div class="section-title">数据格式</div>
     <div class="grid">
 
       <a class="card" href="json.html">
@@ -330,7 +330,48 @@ footer {
           <span class="tag">格式化</span>
           <span class="tag">压缩</span>
           <span class="tag">树形视图</span>
-          <span class="tag">历史记录</span>
+        </div>
+      </a>
+
+      <a class="card" href="json-diff.html">
+        <div class="card-header">
+          <div class="card-icon">⇄</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">JSON 对比工具</div>
+        <div class="card-desc">两段 JSON 逐项对比，高亮差异路径，统计增删改数量，支持嵌套结构和数组。</div>
+        <div class="card-footer">
+          <span class="tag">JSON</span>
+          <span class="tag">Diff</span>
+          <span class="tag">对比</span>
+        </div>
+      </a>
+
+      <a class="card" href="yml-editor.html">
+        <div class="card-header">
+          <div class="card-icon">⚙</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">YAML 编辑器</div>
+        <div class="card-desc">YAML 语法高亮、实时校验、格式化、多文档支持，与 JSON 双向转换。</div>
+        <div class="card-footer">
+          <span class="tag">YAML</span>
+          <span class="tag">编辑器</span>
+          <span class="tag">JSON 转换</span>
+        </div>
+      </a>
+
+      <a class="card" href="yml-diff.html">
+        <div class="card-header">
+          <div class="card-icon">⇆</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">YAML 对比工具</div>
+        <div class="card-desc">两段 YAML 解析后逐项对比，高亮差异路径与多文档差异，统计增删改数量。</div>
+        <div class="card-footer">
+          <span class="tag">YAML</span>
+          <span class="tag">Diff</span>
+          <span class="tag">对比</span>
         </div>
       </a>
 
@@ -344,9 +385,15 @@ footer {
         <div class="card-footer">
           <span class="tag">时间戳</span>
           <span class="tag">时区转换</span>
-          <span class="tag">时间差</span>
         </div>
       </a>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">加密钱包</div>
+    <div class="grid">
 
       <a class="card" href="local-wallet.html">
         <div class="card-header">
@@ -354,58 +401,11 @@ footer {
           <span class="card-arrow">→</span>
         </div>
         <div class="card-title">本地钱包工具</div>
-        <div class="card-desc">助记词派生 EVM / Solana / Tron 多链地址与私钥，多链主链币与代币余额查询，全部本地离线计算。</div>
+        <div class="card-desc">助记词派生 EVM / Solana / Tron 多链地址与私钥，多链主链币与代币余额查询。</div>
         <div class="card-footer">
           <span class="tag">助记词派生</span>
           <span class="tag">多链余额</span>
           <span class="tag">本地计算</span>
-        </div>
-      </a>
-
-      <a class="card" href="gas-calculator.html">
-        <div class="card-header">
-          <div class="card-icon">⛽</div>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">Gas 计算器</div>
-        <div class="card-desc">预估 EVM / Solana 交易 gas 费用，支持 EIP-1559 优先费分析和 Solana compute units 计费</div>
-        <div class="card-footer">
-          <span class="tag">Gas</span>
-          <span class="tag">EIP-1559</span>
-          <span class="tag">Solana</span>
-          <span class="tag">费用预估</span>
-        </div>
-      </a>
-
-      <a class="card" href="signature-parser.html">
-        <div class="card-header">
-          <div class="card-icon">✍️</div>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">签名解析器</div>
-        <div class="card-desc">解析 EVM EIP-191 / EIP-712 签名内容，验证 Solana personal_sign，识别签名数据和签署者地址</div>
-        <div class="card-footer">
-          <span class="tag">签名解析</span>
-          <span class="tag">EIP-191</span>
-          <span class="tag">EIP-712</span>
-          <span class="tag">Solana</span>
-          <span class="tag">反钓鱼</span>
-        </div>
-      </a>
-
-      <a class="card" href="bytecode-decompiler.html">
-        <div class="card-header">
-          <div class="card-icon">🔍</div>
-          <span class="card-arrow">→</span>
-        </div>
-        <div class="card-title">EVM 字节码反编译</div>
-        <div class="card-desc">将 EVM 字节码还原为可读的 opcode 指令序列，支持常见函数签名识别，辅助智能合约审计</div>
-        <div class="card-footer">
-          <span class="tag">EVM</span>
-          <span class="tag">字节码</span>
-          <span class="tag">Opcode</span>
-          <span class="tag">反编译</span>
-          <span class="tag">合约审计</span>
         </div>
       </a>
 
@@ -423,6 +423,58 @@ footer {
           <span class="tag">二维码</span>
         </div>
       </a>
+
+      <a class="card" href="gas-calculator.html">
+        <div class="card-header">
+          <div class="card-icon">⛽</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">Gas 计算器</div>
+        <div class="card-desc">预估 EVM / Solana 交易 gas 费用，支持 EIP-1559 优先费分析和 Solana compute units 计费。</div>
+        <div class="card-footer">
+          <span class="tag">Gas</span>
+          <span class="tag">EIP-1559</span>
+          <span class="tag">Solana</span>
+          <span class="tag">费用预估</span>
+        </div>
+      </a>
+
+      <a class="card" href="signature-parser.html">
+        <div class="card-header">
+          <div class="card-icon">✍</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">签名解析器</div>
+        <div class="card-desc">解析 EVM EIP-191 / EIP-712 签名内容，验证 Solana personal_sign，防止签名钓鱼。</div>
+        <div class="card-footer">
+          <span class="tag">签名解析</span>
+          <span class="tag">EIP-191</span>
+          <span class="tag">EIP-712</span>
+          <span class="tag">反钓鱼</span>
+        </div>
+      </a>
+
+      <a class="card" href="bytecode-decompiler.html">
+        <div class="card-header">
+          <div class="card-icon">🔍</div>
+          <span class="card-arrow">→</span>
+        </div>
+        <div class="card-title">EVM 字节码反编译</div>
+        <div class="card-desc">将 EVM 字节码还原为可读 opcode 指令序列，支持常见函数签名识别，辅助合约审计。</div>
+        <div class="card-footer">
+          <span class="tag">EVM</span>
+          <span class="tag">字节码</span>
+          <span class="tag">Opcode</span>
+          <span class="tag">合约审计</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">图片工具</div>
+    <div class="grid">
 
       <a class="card" href="image-preview.html">
         <div class="card-header">
