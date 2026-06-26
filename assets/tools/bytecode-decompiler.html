@@ -8,24 +8,24 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #1a1b26;
-  --bg2:      #1f2030;
-  --bg3:      #24253a;
-  --bg4:      #2a2b40;
-  --border:   #363659;
-  --text:     #c0caf5;
-  --text2:    #9aa5ce;
-  --text3:    #565f89;
-  --accent:   #7aa2f7;
-  --green:    #9ece6a;
-  --yellow:   #e0af68;
-  --red:      #f7768e;
-  --mauve:    #bb9af7;
-  --teal:     #73daca;
-  --orange:   #ff9e64;
-  --btn:      #2a2b40;
-  --btn-h:    #363659;
-  --scrollbar:#363659;
+  --bg:       #0f1115;
+  --bg2:      #181b22;
+  --bg3:      #1f232c;
+  --bg4:      #252839;
+  --border:   #2a2f3a;
+  --text:     #e6e9ef;
+  --text2:    #c8d0f0;
+  --text3:    #8a93a3;
+  --accent:   #4f8cff;
+  --green:    #7ddb8e;
+  --yellow:   #f5c860;
+  --red:      #f56878;
+  --mauve:    #b98af5;
+  --teal:     #5de8c8;
+  --orange:   #f59860;
+  --btn:      #1f232c;
+  --btn-h:    #252839;
+  --scrollbar:#2a2f3a;
 }
 
 html, body { height: 100%; }
@@ -235,7 +235,7 @@ body {
     <div class="card-head">📝 输入字节码</div>
     <div class="card-body">
       <div class="input-row">
-        <textarea id=" bytecodeInput" placeholder="输入 EVM 字节码（支持 0x 前缀或纯十六进制字符串）" spellcheck="false"></textarea>
+        <textarea id="bytecodeInput" placeholder="输入 EVM 字节码（支持 0x 前缀或纯十六进制字符串）" spellcheck="false"></textarea>
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button class="btn prim" onclick="disassemble()">反编译</button>
@@ -327,11 +327,10 @@ const OPCODES = {
   0x47: 'SELFBALANCE',
   0x48: 'BASEFEE',
   0x49: 'PREVRANDAO',
-  0x4b: 'JUMPDEST',
   0x50: 'POP',
   0x51: 'MLOAD',
   0x52: 'MSTORE',
-  0x53: 'MSTOREd',
+  0x53: 'MSTORE',
   0x54: 'SLOAD',
   0x55: 'SSTORE',
   0x56: 'JUMP',

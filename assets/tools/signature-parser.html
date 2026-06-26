@@ -320,11 +320,10 @@ document.getElementById('eip712ParseBtn').addEventListener('click', () => {
     const msgBytes = ethers.utils.arrayify(msgHashHex);
 
     // EIP-191 prefix for structured data: \x19\x01
-    const eip712Prefix = new TextEncoder().encode('\x19\x01');
-    const domainHash = ethers.utils.keccak256(domainBytes);
-    const messageHash = ethers.utils.keccak256(msgBytes);
+    const eip712Prefix = new Uint8Array([0x19, 0x01]);
 
-    // Full typed data sign bytes: \x19\x01 + domainSeparator + message
+    // Full typed data sign bytes: \x19\x01 + domainSeparator(32) + message(32)
+    // domainSeparator and messageHash are already 32-byte hashes (no re-hashing)
     const signData = new Uint8Array(2 + 32 + 32);
     signData.set(eip712Prefix, 0);
     signData.set(domainBytes, 2);
@@ -341,14 +340,8 @@ document.getElementById('eip712ParseBtn').addEventListener('click', () => {
           <div class="k">domainSeparator</div>
           <div class="v">${domainHex}</div>
 
-          <div class="k">domainSeparator Hash</div>
-          <div class="v accent">${domainHash}</div>
-
           <div class="k">messageHash</div>
           <div class="v">${msgHashHex}</div>
-
-          <div class="k">messageHash Hash</div>
-          <div class="v accent">${messageHash}</div>
 
           <div class="k">完整签名数据</div>
           <div class="v">${ethers.utils.hexlify(signData)}</div>
