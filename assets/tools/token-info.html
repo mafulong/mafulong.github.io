@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Token 信息查询 · ERC20 / ERC721</title>
+<title>Token 信息查询 · ERC20 / ERC721 / SPL / TRC20</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
   :root {
@@ -116,16 +116,20 @@
 <body>
 <div class="wrap">
   <h1>Token 信息查询</h1>
-  <div class="sub">输入 ERC20 / ERC721 合约地址，查询代币名称、符号、总供应量、类型等信息</div>
-  <div class="warning">仅发送合约地址进行只读查询，不涉及任何私钥操作。</div>
+  <div class="sub">输入 EVM / Solana / Tron 地址，查询代币信息</div>
+  <div class="warning">仅发送地址进行只读查询，不涉及任何私钥操作。</div>
 
   <div class="card">
-    <h2>查询 Token <span class="badge">eth_call</span></h2>
-    <label>Token 合约地址（支持多个，换行分隔）</label>
-    <textarea id="tokenInput" rows="3" placeholder="0xdAC17F958D2ee523a2206206994597C13D831ec7&#10;0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"></textarea>
-    <div class="hint">支持批量查询，每行一个地址。自动检测 ERC20 / ERC721 类型。</div>
-    <label class="mt">选择链</label>
-    <div class="chain-select" id="chainSelect"></div>
+    <h2>查询 Token <span class="badge">eth_call / RPC</span></h2>
+    <label>地址（支持多个，换行分隔）</label>
+    <textarea id="tokenInput" rows="3" placeholder="0xdAC17F958D2ee523a2206206994597C13D831ec7&#10;EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"></textarea>
+    <div class="hint">EVM: 合约地址 | Solana/Tron: 钱包地址</div>
+    <label class="mt">选择生态</label>
+    <div class="chain-select" id="ecoSelect"></div>
+    <div id="evmChainWrapper" style="margin-top:12px;">
+      <label>EVM 链</label>
+      <div class="chain-select" id="chainSelect"></div>
+    </div>
     <div class="mt">
       <button id="queryBtn">查询 Token 信息</button>
     </div>
@@ -136,7 +140,13 @@
 <script>
 const { ethers } = window;
 
-/* ---------------- Chain Config ---------------- */
+/* ---------------- Ecosystem & Chain Config ---------------- */
+const ECOSYSTEMS = {
+  evm: { name: "EVM", icon: "◈" },
+  sol: { name: "Solana", icon: "◎" },
+  tron: { name: "Tron", icon: "◉" },
+};
+
 const CHAINS = {
   eth:      { name: "Ethereum",  rpc: "https://ethereum-rpc.publicnode.com" },
   bnb:      { name: "BNB Chain", rpc: "https://bsc-rpc.publicnode.com" },
@@ -146,17 +156,58 @@ const CHAINS = {
   optimism: { name: "Optimism", rpc: "https://optimism-rpc.publicnode.com" },
 };
 
+const SOLANA_RPC = "https://solana-rpc.publicnode.com";
+const TRON_API = "https://api.trongrid.io";
+const SPL_TOKEN_PROGRAM = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
+
+const SPL_TOKENS = {
+  'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': { name: 'USD Coin', symbol: 'USDC', decimals: 6 },
+  'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': { name: 'Tether USD', symbol: 'USDT', decimals: 6 },
+  'So11111111111111111111111111111111111111112': { name: 'Wrapped SOL', symbol: 'wSOL', decimals: 9 },
+  'mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So': { name: 'Marinade Staked SOL', symbol: 'mSOL', decimals: 9 },
+  'J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn': { name: 'Jito SOL', symbol: 'JitoSOL', decimals: 9 },
+  'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263': { name: 'Bonk', symbol: 'BONK', decimals: 5 },
+  '7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs': { name: 'Ether (Wormhole)', symbol: 'WETH', decimals: 8 },
+};
+
+const TRC20_TOKENS = {
+  'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t': { name: 'Tether USD', symbol: 'USDT', decimals: 6 },
+};
+
+let selectedEco = "evm";
 let selectedChain = "eth";
 
-/* ---------------- Chain Selector UI ---------------- */
+/* ---------------- Ecosystem & Chain Selector UI ---------------- */
+function initEcoSelect() {
+  const container = document.getElementById("ecoSelect");
+  const evmWrapper = document.getElementById("evmChainWrapper");
+  let html = "";
+  for (const [key, eco] of Object.entries(ECOSYSTEMS)) {
+    const active = key === selectedEco ? "active" : "";
+    html += `<label class="chip ${active}">
+      <input type="radio" name="eco" value="${key}" ${key === selectedEco ? "checked" : ""}/> ${eco.icon} ${eco.name}
+    </label>`;
+  }
+  container.innerHTML = html;
+  evmWrapper.style.display = selectedEco === "evm" ? "" : "none";
+  container.querySelectorAll(".chip").forEach(el => {
+    el.onclick = () => {
+      container.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      el.querySelector("input").checked = true;
+      selectedEco = el.querySelector("input").value;
+      document.getElementById("evmChainWrapper").style.display = selectedEco === "evm" ? "" : "none";
+    };
+  });
+}
+
 function initChainSelect() {
   const container = document.getElementById("chainSelect");
   let html = "";
   for (const [key, chain] of Object.entries(CHAINS)) {
-    const checked = key === selectedChain ? "checked" : "";
     const active = key === selectedChain ? "active" : "";
     html += `<label class="chip ${active}">
-      <input type="radio" name="chain" value="${key}" ${checked}/> ${chain.name}
+      <input type="radio" name="chain" value="${key}" ${key === selectedChain ? "checked" : ""}/> ${chain.name}
     </label>`;
   }
   container.innerHTML = html;
@@ -169,6 +220,7 @@ function initChainSelect() {
     };
   });
 }
+initEcoSelect();
 initChainSelect();
 
 /* ---------------- RPC Helper ---------------- */
@@ -427,8 +479,143 @@ function formatAmount(raw, decimals) {
   return divStr + "." + modStr.replace(/0+$/, "");
 }
 
+/* ---------------- Solana SPL Token Queries ---------------- */
+async function solanaRpcCall(method, params) {
+  const res = await fetch(SOLANA_RPC, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+  });
+  const j = await res.json();
+  if (j.error) throw new Error(j.error.message || JSON.stringify(j.error));
+  return j.result;
+}
+
+async function querySolanaTokens(address) {
+  try {
+    // Get all token accounts for this wallet
+    const tokenAccounts = await solanaRpcCall("getTokenAccountsByOwner", [
+      address,
+      { programId: SPL_TOKEN_PROGRAM },
+      { encoding: "jsonParsed" },
+    ]);
+
+    if (!tokenAccounts.value || tokenAccounts.value.length === 0) {
+      return [{ address, ecosystem: "solana", name: "N/A", symbol: "N/A", decimals: "N/A", amount: "0", totalSupply: "N/A", mint: "N/A" }];
+    }
+
+    const tokens = [];
+    const mintSet = new Set();
+
+    for (const account of tokenAccounts.value) {
+      const info = account.account.data.parsed.info;
+      const mint = info.mint;
+      const amount = info.tokenAmount;
+      mintSet.add(mint);
+
+      const known = SPL_TOKENS[mint] || {};
+      const totalSupply = await getSolanaTokenSupply(mint);
+
+      tokens.push({
+        address,
+        ecosystem: "solana",
+        mint,
+        name: known.name || mint.slice(0, 8) + "...",
+        symbol: known.symbol || "?",
+        decimals: known.decimals ?? amount.decimals,
+        amount: formatSolanaAmount(amount.uiAmount, known.decimals ?? amount.decimals),
+        totalSupply,
+      });
+    }
+
+    return tokens;
+  } catch (e) {
+    return [{ address, ecosystem: "solana", error: e.message }];
+  }
+}
+
+async function getSolanaTokenSupply(mint) {
+  try {
+    const supply = await solanaRpcCall("getTokenSupply", [mint]);
+    if (supply.value) {
+      const known = SPL_TOKENS[mint];
+      const dec = known?.decimals ?? supply.value.decimals;
+      return formatSolanaAmount(supply.value.uiAmount, dec);
+    }
+  } catch {}
+  return "N/A";
+}
+
+function formatSolanaAmount(uiAmount, decimals) {
+  if (uiAmount === null || uiAmount === undefined) return "0";
+  const num = parseFloat(uiAmount);
+  if (isNaN(num)) return "0";
+  if (decimals && decimals <= 6) {
+    return num.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: decimals });
+  }
+  return num.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 6 });
+}
+
+/* ---------------- Tron TRC20 Token Queries ---------------- */
+async function queryTronTokens(address) {
+  try {
+    // Get TRX balance
+    let trxBalance = "N/A";
+    try {
+      const trxBal = await fetch(`https://api.trongrid.io/v1/accounts/${address}?only_confirmed=true&only_staking=false`);
+      const trxData = await trxBal.json();
+      if (trxData.data && trxData.data[0]) {
+        const bal = trxData.data[0].balance || 0;
+        trxBalance = (bal / 1e6).toLocaleString() + " TRX";
+      }
+    } catch {}
+
+    // Get TRC20 token balances
+    const res = await fetch(`https://api.trongrid.io/v1/accounts/${address}/tokens?only_confirmed=true&only_staking=false`);
+    const j = await res.json();
+    const tokens = [];
+
+    if (j.data && j.data.length > 0) {
+      for (const tokenBal of j.data) {
+        if (tokenBal.token_id.startsWith("TR")) {
+          const known = TRC20_TOKENS[tokenBal.token_id] || {};
+          const decimals = known.decimals ?? 6;
+          const amount = formatTronAmount(tokenBal.balance, decimals);
+          tokens.push({
+            address,
+            ecosystem: "tron",
+            contract: tokenBal.token_id,
+            name: known.name || tokenBal.token_id.slice(0, 10) + "...",
+            symbol: known.symbol || "?",
+            decimals,
+            amount,
+            totalSupply: "N/A",
+            trxBalance,
+          });
+        }
+      }
+    }
+
+    if (tokens.length === 0) {
+      return [{ address, ecosystem: "tron", name: "N/A", symbol: "N/A", decimals: "N/A", amount: "0", totalSupply: "N/A", trxBalance }];
+    }
+    return tokens;
+  } catch (e) {
+    return [{ address, ecosystem: "tron", error: e.message }];
+  }
+}
+
+function formatTronAmount(rawBalance, decimals) {
+  if (!rawBalance) return "0";
+  const num = parseInt(rawBalance) / Math.pow(10, decimals);
+  if (isNaN(num)) return "0";
+  return num.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: decimals });
+}
+
 /* ---------------- UI ---------------- */
-function typeTag(type) {
+function typeTag(type, ecosystem) {
+  if (ecosystem === "solana") return `<span class="tag" style="background:rgba(0,255,135,.18);color:#6ee7b7;">SPL</span>`;
+  if (ecosystem === "tron") return `<span class="tag" style="background:rgba(255,100,50,.18);color:#fb923c;">TRC20</span>`;
   if (type === "erc20") return `<span class="tag erc20">ERC20</span>`;
   if (type === "erc721") return `<span class="tag erc721">ERC721</span>`;
   return `<span class="tag unknown">Unknown</span>`;
@@ -452,18 +639,23 @@ function tokenResultHTML(token) {
     }
   }
 
+  const ecoLabel = token.ecosystem ? token.ecosystem.toUpperCase() : (token.chain || "");
+  const typeLabel = token.type ? token.type.toUpperCase() : ecoLabel;
+
   return `<div class="result-box">
     <h3>
-      ${typeTag(token.type)}
-      <span style="font-family:ui-monospace;font-size:12px;color:var(--muted);">${token.chain}</span>
+      ${typeTag(token.type, token.ecosystem)}
+      <span style="font-family:ui-monospace;font-size:12px;color:var(--muted);">${token.ecosystem ? token.ecosystem.toUpperCase() : token.chain}</span>
     </h3>
     <div class="kv">
       <div class="k">Name</div><div class="v">${token.name}</div>
       <div class="k">Symbol</div><div class="v accent">${token.symbol}</div>
-      <div class="k">Type</div><div class="v">${token.type.toUpperCase()}</div>
+      <div class="k">Type</div><div class="v">${typeLabel}</div>
       <div class="k">Total Supply</div><div class="v">${token.totalSupply}</div>
       <div class="k">Decimals</div><div class="v">${token.decimals}</div>
-      <div class="k">Holders</div><div class="v warn">${token.holderNote}</div>
+      ${token.ecosystem === "solana" ? `<div class="k">Balance</div><div class="v">${token.amount}</div>` : ""}
+      ${token.ecosystem === "tron" ? `<div class="k">Balance</div><div class="v">${token.amount}</div><div class="k">TRX Balance</div><div class="v">${token.trxBalance || "N/A"}</div>` : ""}
+      ${token.ecosystem ? "" : `<div class="k">Holders</div><div class="v warn">${token.holderNote}</div>`}
     </div>
     ${extra}
   </div>`;
@@ -471,26 +663,26 @@ function tokenResultHTML(token) {
 
 function tokensTableHTML(tokens) {
   const header = `<thead><tr>
-    <th>Name</th><th>Symbol</th><th>Type</th><th>Total Supply</th><th>Decimals</th><th>Chain</th>
+    <th>Name</th><th>Symbol</th><th>Type</th><th>Total Supply</th><th>Balance</th><th>Ecosystem</th>
   </tr></thead>`;
   const rows = tokens.map(t => {
     if (t.error) {
       return `<tr>
         <td>${t.name}</td>
         <td>${t.symbol}</td>
-        <td>${typeTag(t.type)}</td>
+        <td>${typeTag(t.type, t.ecosystem)}</td>
         <td class="err">${t.error}</td>
         <td>${t.decimals}</td>
-        <td>${t.chain}</td>
+        <td>${t.ecosystem || t.chain}</td>
       </tr>`;
     }
     return `<tr>
       <td>${t.name}</td>
       <td class="accent">${t.symbol}</td>
-      <td>${typeTag(t.type)}</td>
+      <td>${typeTag(t.type, t.ecosystem)}</td>
       <td class="amt">${t.totalSupply}</td>
-      <td>${t.decimals}</td>
-      <td>${t.chain}</td>
+      <td class="amt">${t.amount || "N/A"}</td>
+      <td>${(t.ecosystem || t.chain || "").toUpperCase()}</td>
     </tr>`;
   }).join("");
   return `<div class="table-wrap"><table class="token-table">${header}<tbody>${rows}</tbody></table></div>`;
@@ -503,7 +695,7 @@ document.getElementById("queryBtn").addEventListener("click", async () => {
   const btn = document.getElementById("queryBtn");
 
   if (!input) {
-    resultArea.innerHTML = `<div class="err">请输入合约地址</div>`;
+    resultArea.innerHTML = `<div class="err">请输入地址</div>`;
     return;
   }
 
@@ -518,9 +710,23 @@ document.getElementById("queryBtn").addEventListener("click", async () => {
   btn.textContent = "查询中…";
 
   try {
-    const tokens = await Promise.all(
-      addresses.map(addr => queryToken(addr, selectedChain))
-    );
+    let tokens = [];
+
+    if (selectedEco === "evm") {
+      tokens = await Promise.all(addresses.map(addr => queryToken(addr, selectedChain)));
+    } else if (selectedEco === "sol") {
+      tokens = [];
+      for (const addr of addresses) {
+        const result = await querySolanaTokens(addr);
+        tokens = tokens.concat(result);
+      }
+    } else if (selectedEco === "tron") {
+      tokens = [];
+      for (const addr of addresses) {
+        const result = await queryTronTokens(addr);
+        tokens = tokens.concat(result);
+      }
+    }
 
     if (tokens.length === 1) {
       resultArea.innerHTML = tokenResultHTML(tokens[0]);
