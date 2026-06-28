@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Token 信息查询 · ERC20 / ERC721</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card2: #1f232c;
+    --border: #2a2f3a;
+    --text: #e6e9ef;
+    --muted: #8a93a3;
+    --accent: #4f8cff;
+    --accent2: #2dd4bf;
+    --warn: #f59e0b;
+    --danger: #ef4444;
+    --ok: #22c55e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .warning {
+    background: rgba(245,158,11,.1);
+    border: 1px solid rgba(245,158,11,.4);
+    color: #fcd34d;
+    padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 24px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+  textarea, input[type="text"] {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    resize: vertical;
+  }
+  textarea:focus, input:focus { outline: none; border-color: var(--accent); }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .row > div { flex: 1; min-width: 200px; }
+  button {
+    background: var(--accent);
+    color: #fff; border: none; border-radius: 10px;
+    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: opacity .15s;
+  }
+  button:hover { opacity: .9; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+  .mt { margin-top: 16px; }
+  .chain-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--card2); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 13px; user-select: none;
+  }
+  .chip input { accent-color: var(--accent); }
+  .chip.active { border-color: var(--accent); background: rgba(79,140,255,.12); }
+  .kv { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; align-items: start; font-size: 13px; }
+  .kv .k { color: var(--muted); padding-top: 2px; }
+  .kv .v { font-family: ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; }
+  .kv .v.accent { color: var(--accent2); }
+  .kv .v.warn { color: var(--warn); }
+  .kv .v.danger { color: var(--danger); }
+  .kv .v.ok { color: var(--ok); }
+  .result-box {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 14px;
+  }
+  .result-box h3 { font-size: 13px; margin: 0 0 10px; color: var(--muted); font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .err { color: var(--danger); font-size: 13px; }
+  .spin { display: inline-block; width: 13px; height: 13px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: s .7s linear infinite; vertical-align: middle; }
+  @keyframes s { to { transform: rotate(360deg); } }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 5px; font-weight: 600; }
+  .tag.erc20 { background: rgba(79,140,255,.18); color: #93b4ff; }
+  .tag.erc721 { background: rgba(45,212,191,.18); color: #5eead4; }
+  .tag.unknown { background: rgba(245,158,11,.18); color: #fcd34d; }
+  .tag.evm { background: rgba(79,140,255,.18); color: #93b4ff; }
+  .table-wrap { overflow-x: auto; margin-top: 14px; }
+  .token-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .token-table th, .token-table td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .token-table th { color: var(--muted); font-weight: 500; font-size: 12px; }
+  .token-table td { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+  .token-table td.addr { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 11px; color: var(--muted); }
+  .token-table td.amt { text-align: right; }
+  .addr-short { display: flex; align-items: center; gap: 6px; }
+  .addr-short span { color: var(--muted); font-size: 11px; }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Token 信息查询</h1>
+  <div class="sub">输入 ERC20 / ERC721 合约地址，查询代币名称、符号、总供应量、类型等信息</div>
+  <div class="warning">仅发送合约地址进行只读查询，不涉及任何私钥操作。</div>
+
+  <div class="card">
+    <h2>查询 Token <span class="badge">eth_call</span></h2>
+    <label>Token 合约地址（支持多个，换行分隔）</label>
+    <textarea id="tokenInput" rows="3" placeholder="0xdAC17F958D2ee523a2206206994597C13D831ec7&#10;0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"></textarea>
+    <div class="hint">支持批量查询，每行一个地址。自动检测 ERC20 / ERC721 类型。</div>
+    <label class="mt">选择链</label>
+    <div class="chain-select" id="chainSelect"></div>
+    <div class="mt">
+      <button id="queryBtn">查询 Token 信息</button>
+    </div>
+    <div id="resultArea"></div>
+  </div>
+</div>
+
+<script>
+const { ethers } = window;
+
+/* ---------------- Chain Config ---------------- */
+const CHAINS = {
+  eth:      { name: "Ethereum",  rpc: "https://ethereum-rpc.publicnode.com" },
+  bnb:      { name: "BNB Chain", rpc: "https://bsc-rpc.publicnode.com" },
+  polygon:  { name: "Polygon",  rpc: "https://polygon-bor-rpc.publicnode.com" },
+  base:     { name: "Base",     rpc: "https://base-rpc.publicnode.com" },
+  arbitrum: { name: "Arbitrum", rpc: "https://arbitrum-one-rpc.publicnode.com" },
+  optimism: { name: "Optimism", rpc: "https://optimism-rpc.publicnode.com" },
+};
+
+let selectedChain = "eth";
+
+/* ---------------- Chain Selector UI ---------------- */
+function initChainSelect() {
+  const container = document.getElementById("chainSelect");
+  let html = "";
+  for (const [key, chain] of Object.entries(CHAINS)) {
+    const checked = key === selectedChain ? "checked" : "";
+    const active = key === selectedChain ? "active" : "";
+    html += `<label class="chip ${active}">
+      <input type="radio" name="chain" value="${key}" ${checked}/> ${chain.name}
+    </label>`;
+  }
+  container.innerHTML = html;
+  container.querySelectorAll(".chip").forEach(el => {
+    el.onclick = () => {
+      container.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+      el.classList.add("active");
+      el.querySelector("input").checked = true;
+      selectedChain = el.querySelector("input").value;
+    };
+  });
+}
+initChainSelect();
+
+/* ---------------- RPC Helper ---------------- */
+async function rpcCall(url, method, params) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
+  });
+  const j = await res.json();
+  if (j.error) throw new Error(j.error.message || JSON.stringify(j.error));
+  return j.result;
+}
+
+/* ---------------- ERC20 / ERC721 Detection & Queries ---------------- */
+// ERC165 interface IDs
+const ERC165_ERC20 = "0x80ac58cd"; // ERC20
+const ERC165_ERC721 = "0x80ac58cd"; // ERC721 (same as ERC20 in some cases)
+// ERC165 supportsInterface method selector: 0x01ffc9a7 + interfaceId (padded to 32 bytes)
+const ERC165_SELECTOR = "0x01ffc9a7";
+
+// Function selectors
+const FN_NAME = "0x06fdde03";
+const FN_SYMBOL = "0x95d89b41";
+const FN_DECIMALS = "0x313ce567";
+const FN_TOTALSUPPLY = "0x18160ddd";
+const FN_BALANCEOF = "70a08231";
+const FN_OWNEROF = "6352211e";
+const FN_TOKENURI = "0xc87b56dd";
+const FN_TOKENBYINDEX = "0x4f6ccce7"; // tokenByIndex (ERC721Enumerable)
+const FN_TOTALSUPPLY_721 = "0x18160ddd";
+
+// Detect token type by trying supportsInterface first, then fallback to function signatures
+async function detectTokenType(rpc, address) {
+  // Normalize address
+  const addr = address.toLowerCase();
+
+  // Try ERC165 supportsInterface for ERC721 first (interface 0x80ac58cd)
+  try {
+    const erc165Data = ERC165_SELECTOR + padHex(ERC165_ERC721.slice(2), 32);
+    const erc165Resp = await rpcCall(rpc, "eth_call", [{ to: addr, data: erc165Data }, "latest"]);
+    if (erc165Resp && erc165Resp !== "0x") {
+      const result = ethers.BigNumber.from(erc165Resp);
+      if (!result.isZero()) {
+        // Check if it supports ERC165 itself too
+        return "erc721";
+      }
+    }
+  } catch {}
+
+  // Try ERC165 supportsInterface for ERC20 (0x80ac58cd)
+  try {
+    const erc165Data = ERC165_SELECTOR + padHex(ERC165_ERC20.slice(2), 32);
+    const erc165Resp = await rpcCall(rpc, "eth_call", [{ to: addr, data: erc165Data }, "latest"]);
+    if (erc165Resp && erc165Resp !== "0x") {
+      const result = ethers.BigNumber.from(erc165Resp);
+      if (!result.isZero()) {
+        return "erc20";
+      }
+    }
+  } catch {}
+
+  // Fallback: try function signatures directly
+  // ERC721: ownerOf, tokenURI
+  // ERC20: decimals (should return single byte)
+  try {
+    const ownerOfData = FN_OWNEROF + padHex("0", 64);
+    const ownerOfResp = await rpcCall(rpc, "eth_call", [{ to: addr, data: ownerOfData }, "latest"]);
+    // ownerOf reverts for invalid tokens or returns address for valid ERC721
+    if (ownerOfResp && ownerOfResp !== "0x") {
+      // Check if it looks like an address (40 hex chars after 0x)
+      const maybeAddr = ownerOfResp.slice(0, 66);
+      if (/^0x[0-9a-f]{40}$/i.test(maybeAddr) && maybeAddr !== "0x0000000000000000000000000000000000000000") {
+        // Also check tokenURI
+        try {
+          const tokenUriData = FN_TOKENURI + padHex("0", 64);
+          await rpcCall(rpc, "eth_call", [{ to: addr, data: tokenUriData }, "latest"]);
+        } catch {}
+        return "erc721";
+      }
+    }
+  } catch {}
+
+  // Try ERC20 detection: decimals should return a small uint8
+  try {
+    const decimalsData = FN_DECIMALS;
+    const decimalsResp = await rpcCall(rpc, "eth_call", [{ to: addr, data: decimalsData }, "latest"]);
+    if (decimalsResp && decimalsResp !== "0x") {
+      const val = ethers.BigNumber.from(decimalsResp);
+      if (val.gte(0) && val.lte(255)) {
+        // Check totalSupply is a big number
+        const supplyResp = await rpcCall(rpc, "eth_call", [{ to: addr, data: FN_TOTALSUPPLY }, "latest"]);
+        if (supplyResp) {
+          return "erc20";
+        }
+      }
+    }
+  } catch {}
+
+  return "unknown";
+}
+
+function padHex(str, len) {
+  return str.padStart(len, "0");
+}
+
+/* ---------------- Query Token Info ---------------- */
+async function queryToken(address, chainKey) {
+  const chain = CHAINS[chainKey];
+  const addr = address.trim();
+  if (!addr) return null;
+
+  // Normalize address
+  const normalizedAddr = addr.toLowerCase().startsWith("0x") ? addr.toLowerCase() : "0x" + addr.toLowerCase();
+
+  if (!/^0x[0-9a-fA-F]{40}$/.test(normalizedAddr)) {
+    return { address: normalizedAddr, error: "地址格式无效" };
+  }
+
+  try {
+    // Detect type
+    const tokenType = await detectTokenType(chain.rpc, normalizedAddr);
+
+    const result = {
+      address: normalizedAddr,
+      type: tokenType,
+      chain: chain.name,
+      name: "N/A",
+      symbol: "N/A",
+      decimals: "N/A",
+      totalSupply: "N/A",
+      holderNote: " holders 需要区块浏览器查询（链上不存储）",
+    };
+
+    // Query common fields
+    // name()
+    try {
+      const resp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: FN_NAME }, "latest"]);
+      if (resp && resp !== "0x") {
+        result.name = parseStringResult(resp);
+      }
+    } catch {}
+
+    // symbol()
+    try {
+      const resp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: FN_SYMBOL }, "latest"]);
+      if (resp && resp !== "0x") {
+        result.symbol = parseStringResult(resp);
+      }
+    } catch {}
+
+    if (tokenType === "erc20" || tokenType === "unknown") {
+      // decimals()
+      try {
+        const resp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: FN_DECIMALS }, "latest"]);
+        if (resp && resp !== "0x") {
+          const val = ethers.BigNumber.from(resp);
+          if (val.gte(0) && val.lte(255)) {
+            result.decimals = val.toString();
+          }
+        }
+      } catch {
+        // Default to 18 for ERC20
+        if (tokenType === "erc20") result.decimals = "18";
+      }
+
+      // totalSupply()
+      try {
+        const resp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: FN_TOTALSUPPLY }, "latest"]);
+        if (resp && resp !== "0x") {
+          const rawSupply = ethers.BigNumber.from(resp);
+          const dec = parseInt(result.decimals, 10) || 18;
+          result.totalSupply = formatAmount(rawSupply, dec);
+        }
+      } catch {}
+    }
+
+    if (tokenType === "erc721" || tokenType === "unknown") {
+      // For ERC721, decimals is N/A
+      if (tokenType === "erc721") result.decimals = "N/A (NFT)";
+
+      // totalSupply() - for ERC721 this is NFT count
+      try {
+        const resp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: FN_TOTALSUPPLY_721 }, "latest"]);
+        if (resp && resp !== "0x") {
+          const rawSupply = ethers.BigNumber.from(resp);
+          result.totalSupply = rawSupply.toString() + " NFTs";
+        }
+      } catch {}
+
+      // Try tokenURI for first token to show template
+      try {
+        // Try tokenByIndex(0) or ownerOf(0) or just tokenURI(0)
+        // First try ownerOf(0) - if it returns an address, it's ERC721
+        const ownerOfData = FN_OWNEROF + padHex("0", 64);
+        const ownerOfResp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: ownerOfData }, "latest"]);
+        if (ownerOfResp && ownerOfResp !== "0x") {
+          const addrFromResp = "0x" + ownerOfResp.slice(26, 66);
+          if (/^0x[0-9a-f]{40}$/i.test(addrFromResp) && addrFromResp !== "0x0000000000000000000000000000000000000000") {
+            result.firstOwner = addrFromResp;
+          }
+        }
+      } catch {}
+
+      // Try tokenURI(0) for first token
+      try {
+        const tokenUriData = FN_TOKENURI + padHex("0", 64);
+        const tokenUriResp = await rpcCall(chain.rpc, "eth_call", [{ to: normalizedAddr, data: tokenUriData }, "latest"]);
+        if (tokenUriResp && tokenUriResp !== "0x") {
+          result.tokenUriTemplate = parseStringResult(tokenUriResp);
+        }
+      } catch {}
+    }
+
+    return result;
+  } catch (e) {
+    return { address: normalizedAddr, error: e.message };
+  }
+}
+
+function parseStringResult(hex) {
+  if (!hex || hex === "0x") return "";
+  try {
+    // Get the string from hex - it's typically padded
+    const stripped = hex.slice(2);
+    // Find the string start - usually after the offset (first 32 bytes = 64 hex chars)
+    // Then length is next 32 bytes, then string data
+    // Simplified: just decode directly as UTF-8
+    let str = "";
+    for (let i = 0; i < stripped.length; i += 2) {
+      const charCode = parseInt(stripped.substr(i, 2), 16);
+      if (charCode === 0) break;
+      if (charCode >= 32 && charCode <= 126) {
+        str += String.fromCharCode(charCode);
+      }
+    }
+    return str.trim();
+  } catch {
+    return "";
+  }
+}
+
+function formatAmount(raw, decimals) {
+  const bn = ethers.BigNumber.isBigNumber(raw) ? raw : ethers.BigNumber.from(raw);
+  if (bn.isZero()) return "0";
+  const dec = parseInt(decimals, 10) || 18;
+  if (dec === 0) return bn.toString();
+  const div = bn.div(ethers.BigNumber.from(10).pow(dec));
+  const mod = bn.mod(ethers.BigNumber.from(10).pow(dec));
+  const modStr = mod.toString().padStart(dec, "0").slice(0, 6); // Show up to 6 decimal places
+  if (div.isZero() && !mod.isZero()) {
+    return "0." + modStr.replace(/0+$/, "");
+  }
+  const divStr = div.toString();
+  if (modStr.replace(/0+$/, "") === "") return divStr;
+  return divStr + "." + modStr.replace(/0+$/, "");
+}
+
+/* ---------------- UI ---------------- */
+function typeTag(type) {
+  if (type === "erc20") return `<span class="tag erc20">ERC20</span>`;
+  if (type === "erc721") return `<span class="tag erc721">ERC721</span>`;
+  return `<span class="tag unknown">Unknown</span>`;
+}
+
+function tokenResultHTML(token) {
+  if (token.error) {
+    return `<div class="result-box">
+      <h3><span class="addr-short">${token.address}</span></h3>
+      <div class="err">查询失败：${token.error}</div>
+    </div>`;
+  }
+
+  let extra = "";
+  if (token.type === "erc721") {
+    if (token.firstOwner) {
+      extra += `<div class="kv"><div class="k">ownerOf(0)</div><div class="v">${token.firstOwner}</div></div>`;
+    }
+    if (token.tokenUriTemplate) {
+      extra += `<div class="kv"><div class="k">tokenURI(0)</div><div class="v warn">${token.tokenUriTemplate}</div></div>`;
+    }
+  }
+
+  return `<div class="result-box">
+    <h3>
+      ${typeTag(token.type)}
+      <span style="font-family:ui-monospace;font-size:12px;color:var(--muted);">${token.chain}</span>
+    </h3>
+    <div class="kv">
+      <div class="k">Name</div><div class="v">${token.name}</div>
+      <div class="k">Symbol</div><div class="v accent">${token.symbol}</div>
+      <div class="k">Type</div><div class="v">${token.type.toUpperCase()}</div>
+      <div class="k">Total Supply</div><div class="v">${token.totalSupply}</div>
+      <div class="k">Decimals</div><div class="v">${token.decimals}</div>
+      <div class="k">Holders</div><div class="v warn">${token.holderNote}</div>
+    </div>
+    ${extra}
+  </div>`;
+}
+
+function tokensTableHTML(tokens) {
+  const header = `<thead><tr>
+    <th>Name</th><th>Symbol</th><th>Type</th><th>Total Supply</th><th>Decimals</th><th>Chain</th>
+  </tr></thead>`;
+  const rows = tokens.map(t => {
+    if (t.error) {
+      return `<tr>
+        <td>${t.name}</td>
+        <td>${t.symbol}</td>
+        <td>${typeTag(t.type)}</td>
+        <td class="err">${t.error}</td>
+        <td>${t.decimals}</td>
+        <td>${t.chain}</td>
+      </tr>`;
+    }
+    return `<tr>
+      <td>${t.name}</td>
+      <td class="accent">${t.symbol}</td>
+      <td>${typeTag(t.type)}</td>
+      <td class="amt">${t.totalSupply}</td>
+      <td>${t.decimals}</td>
+      <td>${t.chain}</td>
+    </tr>`;
+  }).join("");
+  return `<div class="table-wrap"><table class="token-table">${header}<tbody>${rows}</tbody></table></div>`;
+}
+
+/* ---------------- Query Button ---------------- */
+document.getElementById("queryBtn").addEventListener("click", async () => {
+  const input = document.getElementById("tokenInput").value.trim();
+  const resultArea = document.getElementById("resultArea");
+  const btn = document.getElementById("queryBtn");
+
+  if (!input) {
+    resultArea.innerHTML = `<div class="err">请输入合约地址</div>`;
+    return;
+  }
+
+  const addresses = input.split(/\n/).map(a => a.trim()).filter(a => a);
+  if (!addresses.length) {
+    resultArea.innerHTML = `<div class="err">请输入有效地址</div>`;
+    return;
+  }
+
+  resultArea.innerHTML = `<div class="result-box"><h3><span class="spin"></span> 查询中…</h3></div>`;
+  btn.disabled = true;
+  btn.textContent = "查询中…";
+
+  try {
+    const tokens = await Promise.all(
+      addresses.map(addr => queryToken(addr, selectedChain))
+    );
+
+    if (tokens.length === 1) {
+      resultArea.innerHTML = tokenResultHTML(tokens[0]);
+    } else {
+      resultArea.innerHTML = tokensTableHTML(tokens);
+    }
+  } catch (e) {
+    resultArea.innerHTML = `<div class="err">查询失败：${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "查询 Token 信息";
+  }
+});
+</script>
+</body>
+</html>
