@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transaction Decoder</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #181b22;
+  --card2: #1f232c;
+  --border: #2a2f3a;
+  --text: #e6e9ef;
+  --muted: #8a93a3;
+  --accent: #4f8cff;
+  --accent2: #2dd4bf;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --ok: #22c55e;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.5;
+}
+.wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
+.card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
+label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+textarea, input[type="text"], input[type="number"] {
+  width: 100%;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s;
+}
+textarea { resize: vertical; min-height: 100px; font-family: 'Consolas', monospace; }
+textarea:focus, input:focus { border-color: var(--accent); }
+textarea::placeholder, input::placeholder { color: var(--muted); }
+
+.chains {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.chip {
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--accent); color: var(--accent); }
+.chip.active { background: var(--accent); color: #0f1115; border-color: var(--accent); font-weight: 600; }
+
+.mode-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.mode-tab {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.mode-tab:hover { border-color: var(--accent); color: var(--accent); }
+.mode-tab.active { background: var(--accent); color: #0f1115; border-color: var(--accent); font-weight: 600; }
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card2);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #0f1115; border-color: var(--accent); font-weight: 600; }
+.btn.prim:hover { background: #89b0ff; }
+.btn-row { display: flex; gap: 8px; margin-top: 12px; }
+
+.tx-field {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.tx-field .field-label { color: var(--muted); min-width: 140px; flex-shrink: 0; }
+.tx-field .field-value { color: var(--text); word-break: break-all; font-family: 'Consolas', monospace; }
+.tx-field .field-value.address { color: var(--accent2); }
+.tx-field .field-value.sel { color: var(--ok); }
+.tx-field .field-value.unknown { color: var(--warn); }
+.tx-field .field-value.danger { color: var(--danger); }
+.tx-field .field-value.muted { color: var(--muted); }
+
+.tx-field.highlight { border-color: var(--accent); background: rgba(79, 140, 255, 0.08); }
+.tx-field .field-value .fn-sig { color: var(--ok); font-weight: 600; }
+.tx-field .field-value .fn-unknown { color: var(--warn); }
+
+.tx-status {
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+.tx-status .status-item { display: flex; align-items: center; gap: 6px; }
+.tx-status .status-label { color: var(--muted); }
+.tx-status .status-val { font-weight: 600; }
+.tx-status .status-val.ok { color: var(--ok); }
+.tx-status .status-val.fail { color: var(--danger); }
+.tx-status .status-val.muted { color: var(--muted); }
+
+.section-title { font-size: 14px; color: var(--muted); margin: 20px 0 10px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+
+.err { color: var(--danger); font-size: 13px; margin-top: 8px; }
+.hint { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.empty { color: var(--muted); font-size: 13px; text-align: center; padding: 40px; }
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--card2);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  z-index: 999;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+.loading { color: var(--muted); font-size: 13px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Transaction Decoder</h1>
+  <p class="sub">Decode raw transaction hex or fetch by tx hash from multiple chains</p>
+
+  <div class="card">
+    <h2>Network</h2>
+    <div class="chains">
+      <div class="chip active" data-chain="1" data-rpc="https://eth-rpc.publicnode.com">Ethereum</div>
+      <div class="chip" data-chain="56" data-rpc="https://bsc-rpc.publicnode.com">BNB Chain</div>
+      <div class="chip" data-chain="137" data-rpc="https://polygon-bor-rpc.publicnode.com">Polygon</div>
+      <div class="chip" data-chain="8453" data-rpc="https://base-rpc.publicnode.com">Base</div>
+      <div class="chip" data-chain="42161" data-rpc="https://arbitrum-one-rpc.publicnode.com">Arbitrum</div>
+      <div class="chip" data-chain="10" data-rpc="https://optimism-rpc.publicnode.com">Optimism</div>
+    </div>
+
+    <h2>Input <span class="badge">Mode</span></h2>
+    <div class="mode-tabs">
+      <div class="mode-tab active" data-mode="raw">Raw Transaction Hex</div>
+      <div class="mode-tab" data-mode="hash">Transaction Hash</div>
+    </div>
+
+    <div id="rawInput">
+      <label>Paste signed transaction hex (with or without 0x)</label>
+      <textarea id="txHex" placeholder="0x02f871018302a90f8304d388094... (paste raw signed tx)"></textarea>
+    </div>
+
+    <div id="hashInput" style="display:none;">
+      <label>Transaction Hash (0x...)</label>
+      <input type="text" id="txHash" placeholder="0x1234... (tx hash from chain)">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn prim" onclick="decodeTx()">Decode</button>
+      <button class="btn" onclick="loadSample()">Load Sample</button>
+      <button class="btn" onclick="clearAll()">Clear</button>
+    </div>
+    <p class="err" id="errMsg"></p>
+  </div>
+
+  <div id="resultSection" style="display:none;">
+    <div class="card">
+      <h2>Transaction Details</h2>
+      <div class="tx-status" id="txStatus"></div>
+      <div id="txFields"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Copied</div>
+
+<script>
+'use strict';
+
+const KNOWN_SIGNATURES = {
+  '0xa9059cbb': 'transfer(address,uint256)',
+  '0x23b872dd': 'transferFrom(address,address,uint256)',
+  '0x095ea7b3': 'approve(address,uint256)',
+  '0x70a08231': 'balanceOf(address)',
+  '0x18160ddd': 'totalSupply()',
+  '0x6352211e': 'ownerOf(uint256)',
+  '0x5ae401dc': 'multicall(uint256,bytes[])',
+  '0xac9650d8': 'multicall(bytes[])',
+};
+
+const CHAIN_NAMES = {
+  1: 'Ethereum',
+  56: 'BNB Chain',
+  137: 'Polygon',
+  8453: 'Base',
+  42161: 'Arbitrum',
+  10: 'Optimism'
+};
+
+let currentChainId = 1;
+let currentRpc = 'https://eth-rpc.publicnode.com';
+let currentMode = 'raw';
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentChainId = parseInt(chip.dataset.chain);
+    currentRpc = chip.dataset.rpc;
+  });
+});
+
+document.querySelectorAll('.mode-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentMode = tab.dataset.mode;
+    document.getElementById('rawInput').style.display = currentMode === 'raw' ? 'block' : 'none';
+    document.getElementById('hashInput').style.display = currentMode === 'hash' ? 'block' : 'none';
+  });
+});
+
+async function rpcCall(method, params = []) {
+  const resp = await fetch(currentRpc, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ jsonrpc: '2.0', id: 1, method, params })
+  });
+  const json = await resp.json();
+  if (json.error) throw new Error(json.error.message || JSON.stringify(json.error));
+  return json.result;
+}
+
+function formatAddress(addr) {
+  if (!addr) return '<span class="muted">null</span>';
+  return `<span class="address">${addr}</span>`;
+}
+
+function formatValue(val, decimals = 18, displayDecimals = 6) {
+  if (val === undefined || val === null) return '<span class="muted">-</span>';
+  try {
+    const eth = ethers.utils.formatUnits(val, decimals);
+    const num = parseFloat(eth);
+    if (num === 0) return '0 ETH';
+    return num.toFixed(displayDecimals).replace(/\.?0+$/, '') + ' ETH';
+  } catch {
+    return val.toString();
+  }
+}
+
+function formatGwei(val) {
+  if (val === undefined || val === null) return '<span class="muted">-</span>';
+  try {
+    const gwei = ethers.utils.formatUnits(val, 'gwei');
+    return parseFloat(gwei).toFixed(6) + ' Gwei';
+  } catch {
+    return val.toString();
+  }
+}
+
+function getFnSelector(data) {
+  if (!data || data.length < 10) return null;
+  return data.slice(0, 10);
+}
+
+function lookupSelector(selector) {
+  if (!selector) return null;
+  return KNOWN_SIGNATURES[selector] || null;
+}
+
+function renderDataField(data) {
+  if (!data || data === '0x') {
+    return '<span class="muted">(no data)</span>';
+  }
+
+  let html = '';
+  if (data.length >= 10) {
+    const selector = data.slice(0, 10);
+    const rest = data.slice(10);
+    const sig = lookupSelector(selector);
+    if (sig) {
+      html += `<span class="fn-sig">${selector}</span> <span class="muted">// ${sig}</span>\n`;
+    } else {
+      html += `<span class="fn-unknown">${selector}</span> <span class="muted">// Unknown selector</span>\n`;
+    }
+    html += `<span class="muted">  data: ${rest}</span>`;
+  } else {
+    html += `<span class="muted">${data}</span>`;
+  }
+  return html;
+}
+
+function renderFields(tx, receipt) {
+  const isEIP1559 = tx.maxFeePerGas !== undefined && tx.maxPriorityFeePerGas !== undefined;
+  const isContractCreation = !tx.to;
+  const chainName = CHAIN_NAMES[currentChainId] || `Chain ${currentChainId}`;
+
+  let html = '';
+
+  // Status row
+  let statusHtml = `<div class="status-item"><span class="status-label">Chain:</span><span class="status-val">${chainName}</span></div>`;
+  if (receipt) {
+    const statusOk = receipt.status === 1;
+    statusHtml += `<div class="status-item"><span class="status-label">Status:</span><span class="status-val ${statusOk ? 'ok' : 'fail'}">${statusOk ? 'Success' : 'Failed'}</span></div>`;
+    if (receipt.blockNumber !== null && receipt.blockNumber !== undefined) {
+      statusHtml += `<div class="status-item"><span class="status-label">Block:</span><span class="status-val">#${receipt.blockNumber.toLocaleString()}</span></div>`;
+    }
+    if (receipt.transactionIndex !== undefined) {
+      statusHtml += `<div class="status-item"><span class="status-label">Tx Index:</span><span class="status-val">${receipt.transactionIndex}</span></div>`;
+    }
+    if (receipt.gasUsed) {
+      statusHtml += `<div class="status-item"><span class="status-label">Gas Used:</span><span class="status-val">${parseInt(receipt.gasUsed).toLocaleString()}</span></div>`;
+    }
+  }
+  document.getElementById('txStatus').innerHTML = statusHtml;
+
+  // Basic info
+  html += `<div class="section-title">Basic Info</div>`;
+
+  if (tx.hash) {
+    html += `<div class="tx-field"><div class="field-label">hash</div><div class="field-value">${tx.hash}</div></div>`;
+  }
+  if (tx.from) {
+    html += `<div class="tx-field"><div class="field-label">from</div><div class="field-value address">${tx.from}</div></div>`;
+  }
+  html += `<div class="tx-field"><div class="field-label">to</div><div class="field-value ${isContractCreation ? 'muted' : 'address'}">${isContractCreation ? 'Contract Creation' : (tx.to || 'null')}</div></div>`;
+  html += `<div class="tx-field"><div class="field-label">nonce</div><div class="field-value">${tx.nonce}</div></div>`;
+  html += `<div class="tx-field"><div class="field-label">value</div><div class="field-value">${formatValue(tx.value)}</div></div>`;
+
+  // Gas info
+  html += `<div class="section-title">Gas</div>`;
+  html += `<div class="tx-field"><div class="field-label">gasLimit</div><div class="field-value">${tx.gasLimit ? parseInt(tx.gasLimit).toLocaleString() : '-'}</div></div>`;
+
+  if (isEIP1559) {
+    html += `<div class="tx-field highlight"><div class="field-label">type</div><div class="field-value sel">EIP-1559</div></div>`;
+    html += `<div class="tx-field"><div class="field-label">maxFeePerGas</div><div class="field-value">${formatGwei(tx.maxFeePerGas)}</div></div>`;
+    html += `<div class="tx-field"><div class="field-label">maxPriorityFee</div><div class="field-value">${formatGwei(tx.maxPriorityFeePerGas)}</div></div>`;
+  } else {
+    html += `<div class="tx-field"><div class="field-label">gasPrice</div><div class="field-value">${formatGwei(tx.gasPrice)}</div></div>`;
+  }
+
+  // Data
+  html += `<div class="section-title">Data</div>`;
+  if (tx.data && tx.data !== '0x') {
+    const fnSel = getFnSelector(tx.data);
+    const sig = lookupSelector(fnSel);
+    html += `<div class="tx-field highlight">`;
+    html += `<div class="field-label">function selector</div>`;
+    html += `<div class="field-value">`;
+    if (sig) {
+      html += `<span class="fn-sig">${fnSel}</span> <span class="muted">// ${sig}</span>`;
+    } else if (fnSel) {
+      html += `<span class="fn-unknown">${fnSel}</span> <span class="muted">// Unknown selector</span>`;
+    } else {
+      html += '<span class="muted">-</span>';
+    }
+    html += `</div></div>`;
+  }
+  html += `<div class="tx-field"><div class="field-label">data</div><div class="field-value">${renderDataField(tx.data)}</div></div>`;
+
+  // Signature
+  html += `<div class="section-title">Signature</div>`;
+  html += `<div class="tx-field"><div class="field-label">v</div><div class="field-value">${tx.v}</div></div>`;
+  html += `<div class="tx-field"><div class="field-label">r</div><div class="field-value">${tx.r}</div></div>`;
+  html += `<div class="tx-field"><div class="field-label">s</div><div class="field-value">${tx.s}</div></div>`;
+  html += `<div class="tx-field"><div class="field-label">chainId</div><div class="field-value">${tx.chainId} (${CHAIN_NAMES[tx.chainId] || 'unknown'})</div></div>`;
+
+  document.getElementById('txFields').innerHTML = html;
+}
+
+async function decodeByHash() {
+  const hash = document.getElementById('txHash').value.trim();
+  if (!hash) {
+    document.getElementById('errMsg').textContent = 'Please enter a transaction hash';
+    return;
+  }
+  if (!hash.startsWith('0x') || hash.length < 66) {
+    document.getElementById('errMsg').textContent = 'Invalid tx hash format';
+    return;
+  }
+
+  document.getElementById('errMsg').textContent = '';
+  document.getElementById('resultSection').style.display = 'block';
+
+  try {
+    const [tx, receipt] = await Promise.all([
+      rpcCall('eth_getTransactionByHash', [hash]),
+      rpcCall('eth_getTransactionReceipt', [hash])
+    ]);
+
+    if (!tx) {
+      document.getElementById('errMsg').textContent = 'Transaction not found';
+      return;
+    }
+
+    // Convert BigNumber strings to proper format
+    tx.nonce = parseInt(tx.nonce);
+    tx.gasLimit = parseInt(tx.gasLimit);
+    tx.gasPrice = receipt ? receipt.effectiveGasPrice : tx.gasPrice;
+    if (tx.maxFeePerGas) tx.maxFeePerGas = BigInt(tx.maxFeePerGas);
+    if (tx.maxPriorityFeePerGas) tx.maxPriorityFeePerGas = BigInt(tx.maxPriorityFeePerGas);
+    tx.value = BigInt(tx.value);
+    tx.chainId = parseInt(tx.chainId);
+    tx.v = parseInt(tx.v);
+
+    if (receipt) {
+      receipt.blockNumber = parseInt(receipt.blockNumber);
+      receipt.transactionIndex = parseInt(receipt.transactionIndex);
+      receipt.gasUsed = receipt.gasUsed;
+      receipt.status = parseInt(receipt.status);
+    }
+
+    renderFields(tx, receipt);
+  } catch (e) {
+    document.getElementById('errMsg').textContent = 'RPC Error: ' + e.message;
+  }
+}
+
+async function decodeByRawHex() {
+  const hex = document.getElementById('txHex').value.trim();
+  if (!hex) {
+    document.getElementById('errMsg').textContent = 'Please enter transaction hex';
+    return;
+  }
+
+  let cleaned = hex;
+  if (cleaned.toLowerCase().startsWith('0x')) {
+    cleaned = cleaned.slice(2);
+  }
+  if (!/^[0-9a-fA-F]+$/.test(cleaned)) {
+    document.getElementById('errMsg').textContent = 'Invalid hex string';
+    return;
+  }
+
+  document.getElementById('errMsg').textContent = '';
+  document.getElementById('resultSection').style.display = 'block';
+
+  try {
+    const raw = '0x' + cleaned;
+    const tx = ethers.utils.parseTransaction(raw);
+
+    // Build a normalized tx object for display
+    const normalized = {
+      nonce: tx.nonce,
+      gasLimit: tx.gasLimit ? parseInt(tx.gasLimit) : 0,
+      gasPrice: tx.gasPrice ? parseInt(tx.gasPrice) : 0,
+      to: tx.to || null,
+      value: tx.value || BigInt(0),
+      data: tx.data || '0x',
+      v: tx.v,
+      r: tx.r,
+      s: tx.s,
+      chainId: tx.chainId ? parseInt(tx.chainId) : 0,
+      from: tx.from || null,
+      hash: null
+    };
+
+    if (tx.maxFeePerGas) normalized.maxFeePerGas = BigInt(tx.maxFeePerGas);
+    if (tx.maxPriorityFeePerGas) normalized.maxPriorityFeePerGas = BigInt(tx.maxPriorityFeePerGas);
+
+    renderFields(normalized, null);
+  } catch (e) {
+    document.getElementById('errMsg').textContent = 'Parse error: ' + e.message;
+  }
+}
+
+function decodeTx() {
+  if (currentMode === 'hash') {
+    decodeByHash();
+  } else {
+    decodeByRawHex();
+  }
+}
+
+function loadSample() {
+  if (currentMode === 'raw') {
+    // Sample ERC20 transfer transaction (this is a real tx from Ethereum)
+    const sample = '0x02f871018302a90f8304d388094a0e37b161eecb7e4e6c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8902f30500000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000860';
+    document.getElementById('txHex').value = sample;
+    decodeByRawHex();
+  } else {
+    // Sample tx hash - a real Ethereum ERC20 transfer
+    document.getElementById('txHash').value = '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef';
+    document.getElementById('txHash').value = '0x8b3a1e2f2e7f3c5a6e8d4e9f2c7a3b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b';
+  }
+}
+
+function clearAll() {
+  document.getElementById('txHex').value = '';
+  document.getElementById('txHash').value = '';
+  document.getElementById('errMsg').textContent = '';
+  document.getElementById('resultSection').style.display = 'none';
+  document.getElementById('txFields').innerHTML = '';
+  document.getElementById('txStatus').innerHTML = '';
+}
+
+// Enter key submits
+document.getElementById('txHash').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') decodeTx();
+});
+document.getElementById('txHex').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.ctrlKey) decodeTx();
+});
+</script>
+</body>
+</html>
