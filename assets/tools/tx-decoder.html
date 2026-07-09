@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transaction Decoder</title>
+<title>交易解码器 · EVM / Solana / Tron</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
 <style>
 :root {
@@ -178,24 +178,74 @@ textarea::placeholder, input::placeholder { color: var(--muted); }
 <body>
 <div class="wrap">
   <h1>Transaction Decoder</h1>
-  <p class="sub">Decode raw transaction hex or fetch by tx hash from multiple chains</p>
+  <p class="sub">解码 EVM / Solana / Tron 原始交易或通过交易哈希查询，支持 EIP-1559 和函数选择器识别</p>
 
   <div class="card">
-    <h2>Network</h2>
-    <div class="chains">
-      <div class="chip active" data-chain="1" data-rpc="https://eth-rpc.publicnode.com">Ethereum</div>
-      <div class="chip" data-chain="56" data-rpc="https://bsc-rpc.publicnode.com">BNB Chain</div>
-      <div class="chip" data-chain="137" data-rpc="https://polygon-bor-rpc.publicnode.com">Polygon</div>
-      <div class="chip" data-chain="8453" data-rpc="https://base-rpc.publicnode.com">Base</div>
-      <div class="chip" data-chain="42161" data-rpc="https://arbitrum-one-rpc.publicnode.com">Arbitrum</div>
-      <div class="chip" data-chain="10" data-rpc="https://optimism-rpc.publicnode.com">Optimism</div>
+    <h2>生态系统</h2>
+    <div class="ecosystems">
+      <div class="chip active" data-eco="evm">EVM</div>
+      <div class="chip" data-eco="sol">Solana</div>
+      <div class="chip" data-eco="tron">Tron</div>
     </div>
 
-    <h2>Input <span class="badge">Mode</span></h2>
-    <div class="mode-tabs">
-      <div class="mode-tab active" data-mode="raw">Raw Transaction Hex</div>
-      <div class="mode-tab" data-mode="hash">Transaction Hash</div>
+    <div id="evmSection">
+      <h2>EVM 链</h2>
+      <div class="chains">
+        <div class="chip active" data-chain="1" data-rpc="https://eth-rpc.publicnode.com">Ethereum</div>
+        <div class="chip" data-chain="56" data-rpc="https://bsc-rpc.publicnode.com">BNB Chain</div>
+        <div class="chip" data-chain="137" data-rpc="https://polygon-bor-rpc.publicnode.com">Polygon</div>
+        <div class="chip" data-chain="8453" data-rpc="https://base-rpc.publicnode.com">Base</div>
+        <div class="chip" data-chain="42161" data-rpc="https://arbitrum-one-rpc.publicnode.com">Arbitrum</div>
+        <div class="chip" data-chain="10" data-rpc="https://optimism-rpc.publicnode.com">Optimism</div>
+      </div>
+
+      <h2>输入模式</h2>
+      <div class="mode-tabs">
+        <div class="mode-tab active" data-mode="raw">原始交易 Hex</div>
+        <div class="mode-tab" data-mode="hash">交易 Hash</div>
+      </div>
+
+      <div id="rawInput">
+        <label>粘贴已签名的交易 hex（含或不含 0x 前缀）</label>
+        <textarea id="txHex" placeholder="0x02f871018302a90f8304d388094... (粘贴已签名原始交易)"></textarea>
+      </div>
+
+      <div id="hashInput" style="display:none;">
+        <label>交易 Hash (0x...)</label>
+        <input type="text" id="txHash" placeholder="0x1234... (链上交易哈希)">
+      </div>
+
+      <div class="btn-row">
+        <button class="btn prim" onclick="decodeTx()">解码</button>
+        <button class="btn" onclick="loadSample()">加载示例</button>
+        <button class="btn" onclick="clearAll()">清空</button>
+      </div>
     </div>
+
+    <div id="solSection" style="display:none;">
+      <h2>输入</h2>
+      <label>Solana 交易签名 (Base58, 88 字符)</label>
+      <input type="text" id="solSig" placeholder="5x2a... (Solana 交易签名)" />
+      <div class="btn-row">
+        <button class="btn prim" onclick="decodeSolTx()">解码</button>
+        <button class="btn" onclick="loadSolSample()">加载示例</button>
+        <button class="btn" onclick="clearAll()">清空</button>
+      </div>
+    </div>
+
+    <div id="tronSection" style="display:none;">
+      <h2>输入</h2>
+      <label>Tron 交易 Hash (64 位十六进制，不含 0x)</label>
+      <input type="text" id="tronHash" placeholder="a1b2c3d4... (Tron 交易哈希)" />
+      <div class="btn-row">
+        <button class="btn prim" onclick="decodeTronTx()">解码</button>
+        <button class="btn" onclick="loadTronSample()">加载示例</button>
+        <button class="btn" onclick="clearAll()">清空</button>
+      </div>
+    </div>
+
+    <p class="err" id="errMsg"></p>
+  </div>
 
     <div id="rawInput">
       <label>Paste signed transaction hex (with or without 0x)</label>
