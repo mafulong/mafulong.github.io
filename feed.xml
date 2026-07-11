@@ -1,4 +1,156 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-09T20:48:43+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Claude Code：跳过权限（bypassPermissions）完全指南</title><link href="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/" rel="alternate" type="text/html" title="Claude Code：跳过权限（bypassPermissions）完全指南" /><published>2026-07-02T00:00:00+08:00</published><updated>2026-07-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4</id><content type="html" xml:base="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/">&lt;h1 id=&quot;claude-code跳过权限bypasspermissions完全指南&quot;&gt;Claude Code：跳过权限（bypassPermissions）完全指南&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-11T14:16:32+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android</title><link href="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/" rel="alternate" type="text/html" title="Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android" /><published>2026-07-11T00:00:00+08:00</published><updated>2026-07-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90</id><content type="html" xml:base="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;平台&lt;/th&gt;
+      &lt;th&gt;推荐&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;macOS&lt;/td&gt;
+      &lt;td&gt;Clash Verge Rev&lt;/td&gt;
+      &lt;td&gt;Tauri GUI，内置 mihomo 内核&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Android&lt;/td&gt;
+      &lt;td&gt;Clash Meta for Android&lt;/td&gt;
+      &lt;td&gt;原 Clash for Android 停更后的继任者&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;下面分别介绍两款客户端，再讲 Clash 的两种运行模式的区别。&lt;/p&gt;
+
+&lt;h2 id=&quot;macosclash-verge-rev&quot;&gt;macOS：Clash Verge Rev&lt;/h2&gt;
+
+&lt;p&gt;仓库：&lt;a href=&quot;https://github.com/clash-verge-rev/clash-verge-rev&quot;&gt;https://github.com/clash-verge-rev/clash-verge-rev&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Releases 里下载 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dmg&lt;/code&gt;（universal 或对应架构均可），双击拖到 Applications。&lt;/p&gt;
+
+&lt;p&gt;选它的理由：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原 Clash for Windows 仓库已 archive，Clash Verge Rev 是目前社区主流的活跃继任者&lt;/li&gt;
+  &lt;li&gt;内置 Clash Meta（mihomo）内核，规则、TUN、订阅、Profile 都支持&lt;/li&gt;
+  &lt;li&gt;Tauri（Rust + Web）写的，资源占用低，界面清爽&lt;/li&gt;
+  &lt;li&gt;跨 macOS / Windows / Linux&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;启动后把订阅 URL 粘进去，启用 TUN 模式即可使用。&lt;/p&gt;
+
+&lt;h2 id=&quot;androidclash-meta-for-android&quot;&gt;Android：Clash Meta for Android&lt;/h2&gt;
+
+&lt;p&gt;仓库：&lt;a href=&quot;https://github.com/MetaCubeX/ClashMetaForAndroid&quot;&gt;https://github.com/MetaCubeX/ClashMetaForAndroid&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Releases 里的 APK 文件名形如：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmfa-2.11.31-meta-arm64-v8a-release.apk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;字段含义：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;段&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cmfa&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Clash Meta For Android&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.11.31&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;版本号&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;meta-arm64-v8a&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;内核 + CPU 架构（arm64 8 位地址空间）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;构建类型（区别于 debug/unsigned）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.apk&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;安装包格式&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;绝大多数 2018 年后的 Android 手机都是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;arm64-v8a&lt;/code&gt;，无脑下这个就行。装上闪退再考虑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;armeabi-v7a&lt;/code&gt;（老机器）或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;x86_64&lt;/code&gt;（模拟器/ChromeOS）。&lt;/p&gt;
+
+&lt;p&gt;安装：浏览器下载后点开安装，首次需要在系统设置里授权「安装未知来源应用」。&lt;/p&gt;
+
+&lt;h2 id=&quot;clash-的两种运行模式&quot;&gt;Clash 的两种运行模式&lt;/h2&gt;
+
+&lt;h3 id=&quot;用户模式系统代理模式&quot;&gt;用户模式（系统代理模式）&lt;/h3&gt;
+
+&lt;p&gt;Clash 监听在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;127.0.0.1:7890&lt;/code&gt;，对外提供 HTTP / SOCKS5 代理。系统把「HTTP 代理」「SOCKS 代理」指向这个端口。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;app ──HTTP/SOCKS5──&amp;gt; 127.0.0.1:7890 ──&amp;gt; 节点
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;只有「会读系统代理」的应用会走代理：浏览器、终端、curl 等&lt;/li&gt;
+  &lt;li&gt;命令行工具要自己 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;export http_proxy=http://127.0.0.1:7890 https_proxy=...&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;DNS 走系统 DNS，不在 Clash 内解析（防污染能力弱）&lt;/li&gt;
+  &lt;li&gt;不需要任何特殊权限，配置最简单&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;服务模式vpntun-模式&quot;&gt;服务模式（VPN/TUN 模式）&lt;/h3&gt;
+
+&lt;p&gt;通过系统的 VpnService API（macOS 上是 utun，Windows 上是 wintun）拿到一张虚拟网卡（TUN），所有流量都先到 TUN，再到 Clash 解析 + 分流。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;app ──&amp;gt; tun0 (虚拟网卡) ──&amp;gt; Clash ──&amp;gt; 节点
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;特点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;所有应用、所有协议的流量都会被接管，包括不读系统代理的 app&lt;/li&gt;
+  &lt;li&gt;DNS 在 Clash 内解析（FakeIP / 真实 DNS 都行），抗 DNS 污染&lt;/li&gt;
+  &lt;li&gt;抓包、改路由都能做，覆盖最彻底&lt;/li&gt;
+  &lt;li&gt;第一次启动会弹 VpnService 授权框&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;怎么选&quot;&gt;怎么选&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;场景&lt;/th&gt;
+      &lt;th&gt;推荐&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;浏览器 + 终端科学上网&lt;/td&gt;
+      &lt;td&gt;用户模式够用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;App 内访问、游戏、容器/VM 出网&lt;/td&gt;
+      &lt;td&gt;必须 TUN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想彻底防 DNS 污染&lt;/td&gt;
+      &lt;td&gt;TUN&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想让某个 app 走直连绕过代理&lt;/td&gt;
+      &lt;td&gt;用户模式更灵活&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;简记：&lt;strong&gt;默认开 TUN，准没错&lt;/strong&gt;。只有要单独绕过某些 app 的场景才回退到用户模式。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Clash" /><category term="VPN" /><category term="Tools" /><summary type="html">概述</summary></entry><entry><title type="html">Claude Code：跳过权限（bypassPermissions）完全指南</title><link href="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/" rel="alternate" type="text/html" title="Claude Code：跳过权限（bypassPermissions）完全指南" /><published>2026-07-02T00:00:00+08:00</published><updated>2026-07-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4</id><content type="html" xml:base="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/">&lt;h1 id=&quot;claude-code跳过权限bypasspermissions完全指南&quot;&gt;Claude Code：跳过权限（bypassPermissions）完全指南&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;减少每条命令都弹的 “Allow?” 确认，
@@ -4842,486 +4994,4 @@ ReceiverATA.amount += 1 USDC
   &lt;li&gt;&lt;a href=&quot;https://www.solana-cn.com/&quot;&gt;Solana 中文大全&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://solana.com/zh/docs/core/accounts&quot;&gt;Solana 官方文档&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/slowmist/Blockchain-dark-forest-selfguard-handbook&quot;&gt;慢雾 - 区块链黑暗森林自救手册&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">在线工具</summary></entry><entry><title type="html">Claude Code使用教程</title><link href="https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Claude Code使用教程" /><published>2026-03-21T00:00:00+08:00</published><updated>2026-03-21T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/03/21/Claude-Code%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/">&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;h3 id=&quot;macos&quot;&gt;macOS&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 安装&lt;/span&gt;
-brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;anthropic/claude-code/claude
-
-&lt;span class=&quot;c&quot;&gt;# 或下载安装&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# https://github.com/anthropics/claude-code/releases&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 验证&lt;/span&gt;
-claude &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;代理设置可选&quot;&gt;代理设置（可选）&lt;/h3&gt;
-
-&lt;p&gt;网络有问题时使用代理：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;https_proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://127.0.0.1:7890 &lt;span class=&quot;nv&quot;&gt;http_proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://127.0.0.1:7890 &lt;span class=&quot;nv&quot;&gt;all_proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;socks5://127.0.0.1:7890
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;配置文件&quot;&gt;配置文件&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;文件&lt;/th&gt;
-      &lt;th&gt;作用域&lt;/th&gt;
-      &lt;th&gt;Git&lt;/th&gt;
-      &lt;th&gt;用途&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;全局&lt;/td&gt;
-      &lt;td&gt;否&lt;/td&gt;
-      &lt;td&gt;个人偏好&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;项目&lt;/td&gt;
-      &lt;td&gt;提交&lt;/td&gt;
-      &lt;td&gt;团队共享&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.local.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;项目&lt;/td&gt;
-      &lt;td&gt;Gitignore&lt;/td&gt;
-      &lt;td&gt;个人覆盖&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;跳过确认&quot;&gt;跳过确认&lt;/h2&gt;
-
-&lt;h3 id=&quot;permissionsdefaultmode&quot;&gt;permissions.defaultMode&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bypassPermissions&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可选值：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;（每次询问）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;（跳过所有确认⚠️）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plan&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptEdits&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;细粒度权限控制推荐&quot;&gt;细粒度权限控制（推荐）&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(git:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Edit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Grep&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deny&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(sudo:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(rm -rf:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;规则优先级：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny &amp;gt; allow &amp;gt; defaultMode&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 模式下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; 规则无意义。&lt;/p&gt;
-
-&lt;h3 id=&quot;其他设置&quot;&gt;其他设置&lt;/h3&gt;
-
-&lt;p&gt;减少打扰的选项：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;设置&lt;/th&gt;
-      &lt;th&gt;作用&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipDangerousModePermissionPrompt&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;跳过危险模式警告&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipAutoPermissionPrompt&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;跳过自动模式确认&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spinnerTipsEnabled&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;关闭底部 tips 提示&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipDangerousModePermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipAutoPermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;️-安全警告&quot;&gt;⚠️ 安全警告&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 模式下 Claude 可执行任意命令，包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf /&lt;/code&gt;。仅在完全信任当前项目时使用。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;模型切换&quot;&gt;模型切换&lt;/h2&gt;
-
-&lt;h3 id=&quot;切换模型&quot;&gt;切换模型&lt;/h3&gt;
-
-&lt;p&gt;对话中使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model&lt;/code&gt; 指令：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/model sonnet
-/model opus
-/model haiku
-/model MiniMax-M2.7
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;配置默认模型&quot;&gt;配置默认模型&lt;/h3&gt;
-
-&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt; 中设置：&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_MODEL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MiniMax-M2.7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MiniMax-M2.7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MiniMax-M2.7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MiniMax-M2.7&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;使用自定义-api&quot;&gt;使用自定义 API&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_AUTH_TOKEN&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;your-api-key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ANTHROPIC_BASE_URL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://api.minimax.chat/v1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;常用指令&quot;&gt;常用指令&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;指令&lt;/th&gt;
-      &lt;th&gt;说明&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/help&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;获取帮助&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/clear&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;清空对话上下文&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compact&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;压缩上下文&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/resume&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;查看并恢复历史对话&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;生成 CLAUDE.md&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model &amp;lt;name&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;切换模型&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/commit&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;创建 git 提交&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/review-pr &amp;lt;number&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;审查 PR&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;skills-vs-agent-vs-mcp-vs-hooks&quot;&gt;Skills vs Agent vs MCP vs Hooks&lt;/h2&gt;
-
-&lt;p&gt;这四个概念很容易混淆，先解释区别：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;概念&lt;/th&gt;
-      &lt;th&gt;本质&lt;/th&gt;
-      &lt;th&gt;类比&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Skill&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;一段提示/指令&lt;/td&gt;
-      &lt;td&gt;给你一张任务卡片&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Agent&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;完整的 AI 角色&lt;/td&gt;
-      &lt;td&gt;雇佣一个专属员工&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;MCP&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;外部工具连接&lt;/td&gt;
-      &lt;td&gt;给 AI 装插件&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Hook&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;事件触发器&lt;/td&gt;
-      &lt;td&gt;设置”当 X 发生时，执行 Y”&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;一句话总结&quot;&gt;一句话总结&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Skill&lt;/strong&gt; - 告诉 Claude “遇到这种情况这样做”&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Agent&lt;/strong&gt; - 让 Claude “变成”某个角色的专家&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;MCP&lt;/strong&gt; - 让 Claude “能用”外部工具&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hook&lt;/strong&gt; - 让系统”自动”在特定时刻做某事&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;skills&quot;&gt;Skills&lt;/h2&gt;
-
-&lt;p&gt;内置技能，通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/skill-name&lt;/code&gt; 调用：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Skill&lt;/th&gt;
-      &lt;th&gt;说明&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/simplify&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;审查代码优化、复用、质量&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/loop&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;定时执行指令（如每 5 分钟检查状态）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/claude-api&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;构建 Claude API 应用&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/update-config&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;修改配置文件&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;自定义-skill&quot;&gt;自定义 Skill&lt;/h3&gt;
-
-&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/skills/&lt;/code&gt; 目录下创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.md&lt;/code&gt; 文件：&lt;/p&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# My Custom Skill&lt;/span&gt;
-
-&lt;span class=&quot;gu&quot;&gt;## Instructions&lt;/span&gt;
-当你看到 &lt;span class=&quot;sb&quot;&gt;`/mytool`&lt;/span&gt; 时，执行以下操作...
-
-&lt;span class=&quot;gu&quot;&gt;## Commands&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`echo &quot;hello&quot;`&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;agent&quot;&gt;Agent&lt;/h2&gt;
-
-&lt;p&gt;Agent 是预配置的 AI 角色，有自己的系统提示和工具限制。&lt;/p&gt;
-
-&lt;h3 id=&quot;自定义-agent&quot;&gt;自定义 Agent&lt;/h3&gt;
-
-&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.json&lt;/code&gt; 中配置：&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;agents&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;python-dev&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Python 开发者&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;systemPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;你是一个 Python 专家，擅长 Django、FastAPI...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;model&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;sonnet&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;使用-agent&quot;&gt;使用 Agent&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;claude &lt;span class=&quot;nt&quot;&gt;--agent&lt;/span&gt; python-dev
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;agent-vs-skill-区别&quot;&gt;Agent vs Skill 区别&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Skill&lt;/strong&gt; - 轻量，一次性任务&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Agent&lt;/strong&gt; - 重量级，长期角色扮演&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;mcp-服务器&quot;&gt;MCP 服务器&lt;/h2&gt;
-
-&lt;p&gt;MCP (Model Context Protocol) 让 Claude 连接外部工具和 API。&lt;/p&gt;
-
-&lt;h3 id=&quot;mcp-vs-skill-区别&quot;&gt;MCP vs Skill 区别&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Skill&lt;/strong&gt; - 纯提示/指令&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;MCP&lt;/strong&gt; - 调用真实外部服务&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;安装-mcp-服务器&quot;&gt;安装 MCP 服务器&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;enableAllProjectMcpServers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;mcpServers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;filesystem&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;npx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;args&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@modelcontextprotocol/server-filesystem&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/path/to/dir&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;github&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;npx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;args&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-y&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@modelcontextprotocol/server-github&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;常用-mcp-服务器&quot;&gt;常用 MCP 服务器&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;服务器&lt;/th&gt;
-      &lt;th&gt;用途&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server-filesystem&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;文件系统操作&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server-github&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;GitHub API&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server-brave-search&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;网页搜索&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server-slack&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Slack 消息&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;hooks&quot;&gt;Hooks&lt;/h2&gt;
-
-&lt;p&gt;在特定事件发生时自动执行操作。&lt;/p&gt;
-
-&lt;h3 id=&quot;hooks-vs-skills-区别&quot;&gt;Hooks vs Skills 区别&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Skill&lt;/strong&gt; - 需要手动调用&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hook&lt;/strong&gt; - 自动触发&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;配置示例&quot;&gt;配置示例&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;PostToolUse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;matcher&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Write|Edit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;prettier --write $FILE&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;常用事件&quot;&gt;常用事件&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;事件&lt;/th&gt;
-      &lt;th&gt;时机&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PreToolUse&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;工具执行前&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PostToolUse&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;工具执行后&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Stop&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;对话结束时&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SessionStart&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;会话开始时&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;claudemd-项目记忆&quot;&gt;CLAUDE.md 项目记忆&lt;/h2&gt;
-
-&lt;p&gt;使用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt; 生成，存储项目信息供 Claude 记忆：&lt;/p&gt;
-
-&lt;div class=&quot;language-markdown highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gh&quot;&gt;# 构建&lt;/span&gt;
-npm run build
-
-&lt;span class=&quot;gh&quot;&gt;# 测试&lt;/span&gt;
-npm test
-
-&lt;span class=&quot;gh&quot;&gt;# 代码风格&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 下划线命名
-&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 函数最多 50 行
-
-&lt;span class=&quot;gh&quot;&gt;# 架构&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; MVC 结构
-&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; 路由在 routes/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;常见问题&quot;&gt;常见问题&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 如何查看历史对话？&lt;/strong&gt;
-A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/resume&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 上下文太长出错？&lt;/strong&gt;
-A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/clear&lt;/code&gt; 清空对话&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 如何退出？&lt;/strong&gt;
-A: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/exit&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ctrl+C&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 如何重置配置？&lt;/strong&gt;
-A: 删除 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="tools" /><category term="Claude" /><summary type="html">安装</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">在线工具</summary></entry></feed>
