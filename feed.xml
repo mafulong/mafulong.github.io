@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-11T15:50:19+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android</title><link href="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/" rel="alternate" type="text/html" title="Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android" /><published>2026-07-11T00:00:00+08:00</published><updated>2026-07-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90</id><content type="html" xml:base="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-11T15:54:56+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android</title><link href="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/" rel="alternate" type="text/html" title="Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android" /><published>2026-07-11T00:00:00+08:00</published><updated>2026-07-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90</id><content type="html" xml:base="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -317,25 +317,184 @@ openclaw pairing approve telegram &amp;lt;CODE&amp;gt;
 
 &lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 服务&lt;/span&gt;
-openclaw gateway status          &lt;span class=&quot;c&quot;&gt;# 状态&lt;/span&gt;
-openclaw gateway start           &lt;span class=&quot;c&quot;&gt;# 启动&lt;/span&gt;
-openclaw gateway stop            &lt;span class=&quot;c&quot;&gt;# 停&lt;/span&gt;
-openclaw gateway &lt;span class=&quot;nt&quot;&gt;--port&lt;/span&gt; 18789 &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 前台 debug&lt;/span&gt;
+&lt;h3 id=&quot;安装--配置--维护&quot;&gt;安装 / 配置 / 维护&lt;/h3&gt;
 
-&lt;span class=&quot;c&quot;&gt;# 发消息 / 调 agent&lt;/span&gt;
-openclaw message send &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt; +1234567890 &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
-openclaw agent &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Ship checklist&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--thinking&lt;/span&gt; high
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 首次配置（推荐走向导）&lt;/span&gt;
+openclaw onboard &lt;span class=&quot;nt&quot;&gt;--install-daemon&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# Telegram 渠道&lt;/span&gt;
-openclaw pairing list telegram
-openclaw pairing approve telegram &amp;lt;CODE&amp;gt;
+&lt;span class=&quot;c&quot;&gt;# 不走向导，只建 baseline 配置&lt;/span&gt;
+openclaw setup &lt;span class=&quot;nt&quot;&gt;--baseline&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# 维护&lt;/span&gt;
-openclaw doctor                  &lt;span class=&quot;c&quot;&gt;# 健康检查 + 自动修复（--fix）&lt;/span&gt;
-openclaw doctor &lt;span class=&quot;nt&quot;&gt;--fix&lt;/span&gt;            &lt;span class=&quot;c&quot;&gt;# 真的改配置&lt;/span&gt;
-openclaw logs &lt;span class=&quot;nt&quot;&gt;--follow&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 增量修改：模型 / gateway / channels / plugins / skills&lt;/span&gt;
+openclaw configure
+
+&lt;span class=&quot;c&quot;&gt;# 新增 channel 账号&lt;/span&gt;
+openclaw channels add              &lt;span class=&quot;c&quot;&gt;# 向导模式&lt;/span&gt;
+openclaw channels list             &lt;span class=&quot;c&quot;&gt;# 列已配&lt;/span&gt;
+openclaw channels login &amp;lt;name&amp;gt;     &lt;span class=&quot;c&quot;&gt;# 扫码 / 验证登录&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 健康检查 + 自动修复&lt;/span&gt;
+openclaw doctor
+openclaw doctor &lt;span class=&quot;nt&quot;&gt;--fix&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 备份 / 迁移 / 重置 / 卸载&lt;/span&gt;
+openclaw backup create &amp;lt;path&amp;gt;
+openclaw backup verify &amp;lt;path&amp;gt;
+openclaw migrate list
+openclaw reset
+openclaw uninstall
+openclaw update
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;gateway-服务&quot;&gt;Gateway 服务&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw gateway status            &lt;span class=&quot;c&quot;&gt;# 状态&lt;/span&gt;
+openclaw gateway start
+openclaw gateway stop
+openclaw gateway restart
+openclaw gateway &lt;span class=&quot;nt&quot;&gt;--port&lt;/span&gt; 18789 &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;   &lt;span class=&quot;c&quot;&gt;# 前台 debug&lt;/span&gt;
+openclaw gateway health
+openclaw gateway logs &lt;span class=&quot;nt&quot;&gt;--follow&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;daemon&lt;/code&gt; 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gateway&lt;/code&gt; 的旧 alias，等价。&lt;/p&gt;
+
+&lt;h3 id=&quot;消息--agent&quot;&gt;消息 / Agent&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 发消息（IM 渠道）&lt;/span&gt;
+openclaw message send &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt; +1234567890 &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hello&quot;&lt;/span&gt;
+openclaw message broadcast &lt;span class=&quot;nt&quot;&gt;--channel&lt;/span&gt; telegram &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;hi all&quot;&lt;/span&gt;
+openclaw message poll &lt;span class=&quot;s2&quot;&gt;&quot;Which day?&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--options&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Mon,Tue,Wed&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 调 agent&lt;/span&gt;
+openclaw agent &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Ship checklist&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--thinking&lt;/span&gt; high
+openclaw agents list               &lt;span class=&quot;c&quot;&gt;# 列已注册的 agent&lt;/span&gt;
+openclaw agents add &amp;lt;name&amp;gt; &lt;span class=&quot;nt&quot;&gt;--binding&lt;/span&gt; ...
+
+&lt;span class=&quot;c&quot;&gt;# ACP / MCP&lt;/span&gt;
+openclaw acp ...                   &lt;span class=&quot;c&quot;&gt;# Agent Client Protocol&lt;/span&gt;
+openclaw mcp serve                 &lt;span class=&quot;c&quot;&gt;# 起 MCP server&lt;/span&gt;
+openclaw mcp list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;配对--渠道&quot;&gt;配对 / 渠道&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw pairing list telegram
+openclaw pairing approve telegram &amp;lt;CODE&amp;gt;
+openclaw pairing approve discord &amp;lt;CODE&amp;gt;
+openclaw qr                         &lt;span class=&quot;c&quot;&gt;# 生成扫码（iOS/Android node 配对）&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;节点--设备&quot;&gt;节点 / 设备&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw nodes list                 &lt;span class=&quot;c&quot;&gt;# 列已配对 node&lt;/span&gt;
+openclaw nodes pending              &lt;span class=&quot;c&quot;&gt;# 等审批的&lt;/span&gt;
+openclaw nodes approve &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+openclaw nodes invoke &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--tool&lt;/span&gt; canvas:snapshot
+
+openclaw devices list               &lt;span class=&quot;c&quot;&gt;# 同上另一套叫法&lt;/span&gt;
+openclaw devices pair               &lt;span class=&quot;c&quot;&gt;# 配对新 device&lt;/span&gt;
+openclaw devices rotate &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 轮换密钥&lt;/span&gt;
+openclaw devices revoke &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;        &lt;span class=&quot;c&quot;&gt;# 撤销&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;模型--推理&quot;&gt;模型 / 推理&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw models list                &lt;span class=&quot;c&quot;&gt;# 列可用模型&lt;/span&gt;
+openclaw models &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;claude-sonnet   &lt;span class=&quot;c&quot;&gt;# 设默认&lt;/span&gt;
+openclaw models aliases add ...     &lt;span class=&quot;c&quot;&gt;# 别名&lt;/span&gt;
+openclaw models fallbacks add ...   &lt;span class=&quot;c&quot;&gt;# 兜底链&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 鉴权（多 provider）&lt;/span&gt;
+openclaw models auth login                &lt;span class=&quot;c&quot;&gt;# 通用&lt;/span&gt;
+openclaw models auth login-github-copilot
+openclaw models auth setup-token
+openclaw models auth paste-api-key
+
+&lt;span class=&quot;c&quot;&gt;# 用量&lt;/span&gt;
+openclaw status &lt;span class=&quot;nt&quot;&gt;--usage&lt;/span&gt;            &lt;span class=&quot;c&quot;&gt;# 各 provider 配额&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;支持的 provider：Anthropic、Gemini CLI、GitHub Copilot、MiniMax、OpenAI Codex、Xiaomi、z.ai。&lt;/p&gt;
+
+&lt;h3 id=&quot;浏览器--沙箱--执行审批&quot;&gt;浏览器 / 沙箱 / 执行审批&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw browser start              &lt;span class=&quot;c&quot;&gt;# 起受控浏览器&lt;/span&gt;
+openclaw browser open &amp;lt;url&amp;gt;
+openclaw browser screenshot &amp;lt;path&amp;gt;
+openclaw browser &lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;document.title&quot;&lt;/span&gt;
+
+openclaw sandbox list               &lt;span class=&quot;c&quot;&gt;# 列沙箱&lt;/span&gt;
+openclaw sandbox recreate &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# 重建&lt;/span&gt;
+
+openclaw approvals get              &lt;span class=&quot;c&quot;&gt;# 看当前审批策略&lt;/span&gt;
+openclaw approvals &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;preset &amp;lt;name&amp;gt;
+openclaw approvals allowlist add &amp;lt;pattern&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;自动化--定时&quot;&gt;自动化 / 定时&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw cron list
+openclaw cron add &lt;span class=&quot;nt&quot;&gt;--schedule&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;*/5 * * * *&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--message&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;check builds&quot;&lt;/span&gt;
+openclaw cron &lt;span class=&quot;nb&quot;&gt;enable&lt;/span&gt; &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+openclaw cron runs &amp;lt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+
+openclaw tasks list
+openclaw webhooks gmail setup       &lt;span class=&quot;c&quot;&gt;# 接入 gmail 触发&lt;/span&gt;
+openclaw hooks list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;终端交互&quot;&gt;终端交互&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw tui                        &lt;span class=&quot;c&quot;&gt;# 启动 TUI（chat / terminal 都是 alias）&lt;/span&gt;
+openclaw chat                       &lt;span class=&quot;c&quot;&gt;# 同 tui&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;chat-内的斜杠命令&quot;&gt;Chat 内的斜杠命令&lt;/h3&gt;
+
+&lt;p&gt;Telegram / 其他渠道对话里直接发：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/status&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;快速诊断&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/trace&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;当前 session 的 plugin trace&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/config&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;持久化改配置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/debug&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;运行时覆盖（仅内存，需 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;commands.debug: true&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;全局-flag&quot;&gt;全局 flag&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openclaw &lt;span class=&quot;nt&quot;&gt;--dev&lt;/span&gt;                      &lt;span class=&quot;c&quot;&gt;# 状态隔离到 ~/.openclaw-dev，端口 19001&lt;/span&gt;
+openclaw &lt;span class=&quot;nt&quot;&gt;--profile&lt;/span&gt; work             &lt;span class=&quot;c&quot;&gt;# 状态隔离到 ~/.openclaw-work&lt;/span&gt;
+openclaw &lt;span class=&quot;nt&quot;&gt;--container&lt;/span&gt; mybox          &lt;span class=&quot;c&quot;&gt;# 在已有 docker/podman 容器里跑&lt;/span&gt;
+openclaw &lt;span class=&quot;nt&quot;&gt;--log-level&lt;/span&gt; debug
+openclaw &lt;span class=&quot;nt&quot;&gt;--no-color&lt;/span&gt;
+openclaw &lt;span class=&quot;nt&quot;&gt;--json&lt;/span&gt;                     &lt;span class=&quot;c&quot;&gt;# 干净输出（部分命令支持 --plain）&lt;/span&gt;
+openclaw &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt;                         &lt;span class=&quot;c&quot;&gt;# 打印版本&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;完整 command tree 在 &lt;a href=&quot;https://docs.openclaw.ai/reference/cli&quot;&gt;docs.openclaw.ai/reference/cli&lt;/a&gt;。Plugin 可能加新命令（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;voicecall&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;workboard&lt;/code&gt;），跑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;cmd&amp;gt; --help&lt;/code&gt; 拿权威列表。&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;h2 id=&quot;找-telegram-user-id不用第三方-bot&quot;&gt;找 Telegram user ID（不用第三方 bot）&lt;/h2&gt;
 
