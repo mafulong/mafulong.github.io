@@ -1,324 +1,234 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-19T09:15:36+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Hermes-Agent + MiniMax + Telegram 实战记录</title><link href="https://mafulong.github.io/2026/07/19/hermes-agent-minimax-telegram/" rel="alternate" type="text/html" title="Hermes-Agent + MiniMax + Telegram 实战记录" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/hermes-agent-minimax-telegram</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/hermes-agent-minimax-telegram/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-19T10:42:47+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
 
-&lt;p&gt;想让 Telegram bot 接 LLM，跑一个”手机随时跟 Claude 聊天”的本地 agent。&lt;/p&gt;
+&lt;p&gt;相比 Claude Code &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt; 的官方方案（&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;详见踩坑记录&lt;/a&gt;：第三方 base URL 直接拒接），Hermes-Agent 在国内第三方代理 + Telegram bot 的场景下能直接 work。&lt;/p&gt;
 
-&lt;p&gt;我日常 Claude Code 走的是 minimaxi（&lt;a href=&quot;https://www.minimax.io&quot;&gt;minimaxi&lt;/a&gt;）第三方 Anthropic-compatible 代理（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ANTHROPIC_BASE_URL=https://api.minimaxi.com/anthropic&lt;/code&gt;），所以”用 Claude Code 一行命令搞定”的官方方案对我无效。&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
 
-&lt;p&gt;目标：找一条能在 macOS（上海，Clash 翻墙）+ minimaxi 代理 + Telegram bot 的组合下跑通的链路。&lt;/p&gt;
+&lt;h3 id=&quot;一前置依赖&quot;&gt;一、前置依赖&lt;/h3&gt;
 
-&lt;h2 id=&quot;排除claude-code---channels&quot;&gt;排除：Claude Code &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt;&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Python 3.11+&lt;/strong&gt; （Hermes 自带 venv）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Node.js 22.19+&lt;/strong&gt; （可选，chat UI / Canvas 用）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install uv&lt;/code&gt; （macOS）&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;试了一下：&lt;/p&gt;
+&lt;h3 id=&quot;二一键安装&quot;&gt;二、一键安装&lt;/h3&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;claude --channels plugin:telegram@claude-plugins-official
-# ▎ --channels ignored (plugin:telegram@claude-plugins-official)
-# ▎ Channels are not currently available
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 推荐：交互式，向导会带过 provider / channel / skills 全套配置&lt;/span&gt;
+curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; https://hermes-agent.nousresearch.com/install.sh | bash
 
-&lt;p&gt;CLI 显式忽略了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt;。翻 &lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;anthropics/claude-plugins-official#783&lt;/a&gt;，跟我撞到的报错一字不差。两个常见触发条件：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1&lt;/code&gt; 在 env 里 —— 删了，无效&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ANTHROPIC_BASE_URL&lt;/code&gt; 指向第三方（minimaxi 这种） —— &lt;strong&gt;命中&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;官方文档原文：channels “require Anthropic authentication through claude.ai or a Console API key, and are not available on Amazon Bedrock, Google Cloud’s Agent Platform, or Microsoft Foundry”。第三方 base URL 走同样的排除路径。Issue 783 的反馈也证实了。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：Claude Code 跑 minimaxi 是 OK 的，但 channels 拒绝走 minimaxi。要么换一方 Claude 账号专门跑 bot（多一个账单），要么换工具栈。&lt;/p&gt;
-
-&lt;h2 id=&quot;选定hermes-agentnous-research&quot;&gt;选定：hermes-agent（Nous Research）&lt;/h2&gt;
-
-&lt;p&gt;调研了一圈，能同时覆盖 MiniMax + Telegram 的成熟方案不多：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;方案&lt;/th&gt;
-      &lt;th&gt;MiniMax&lt;/th&gt;
-      &lt;th&gt;Telegram&lt;/th&gt;
-      &lt;th&gt;备注&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Claude Code –channels&lt;/td&gt;
-      &lt;td&gt;✓ 但 channels 拒第三方&lt;/td&gt;
-      &lt;td&gt;✓&lt;/td&gt;
-      &lt;td&gt;不可行&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;hermes-agent&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;✓ 一等公民（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax-cn&lt;/code&gt; provider）&lt;/td&gt;
-      &lt;td&gt;✓ 6 个内置 gateway 之一&lt;/td&gt;
-      &lt;td&gt;180k stars，LiteLLM 自动覆盖 MiniMax&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;直写 python-telegram-bot&lt;/td&gt;
-      &lt;td&gt;自己拼&lt;/td&gt;
-      &lt;td&gt;自己拼&lt;/td&gt;
-      &lt;td&gt;接触面最小但全靠手撸&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;n8n&lt;/td&gt;
-      &lt;td&gt;走 OpenAI 兼容节点&lt;/td&gt;
-      &lt;td&gt;✓ Trigger 节点&lt;/td&gt;
-      &lt;td&gt;工作流友好但流式分块有延迟&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Dify&lt;/td&gt;
-      &lt;td&gt;OpenAI 兼容 provider&lt;/td&gt;
-      &lt;td&gt;✓ webhook&lt;/td&gt;
-      &lt;td&gt;偏 RAG/agent 风&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;hermes-agent 胜在一体化：装好就能跑，Telegram 内置，LiteLLM 把 MiniMax 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/v1/chat/completions&lt;/code&gt; 翻译成 OpenAI 协议。我写一篇调研而不是详细对比是因为后面 hermes 自己也有坑（见下），但&lt;strong&gt;架构选型这一步是对的&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;安装--配置&quot;&gt;安装 + 配置&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;uv                                  &lt;span class=&quot;c&quot;&gt;# 安装脚本依赖&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 静默安装：跳过 setup 向导，不下载内置 skills（自定义更轻量）&lt;/span&gt;
 curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; https://hermes-agent.nousresearch.com/install.sh | bash &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--skip-setup&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--no-skills&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--non-interactive&lt;/code&gt; 跳过 setup 向导，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-skills&lt;/code&gt; 不下载 73 个 bundled skills（节省时间）。装完路径：&lt;/p&gt;
+&lt;p&gt;装完之后：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;配置：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;密钥：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;代码：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/hermes-agent/&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;skills 仓库：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/skills/&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt; 锁定模型：&lt;/p&gt;
+&lt;h3 id=&quot;三查看版本与状态&quot;&gt;三、查看版本与状态&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+hermes doctor        &lt;span class=&quot;c&quot;&gt;# 自检：Python / SSL / 配置 / 鉴权&lt;/span&gt;
+hermes gateway status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置-model-provider&quot;&gt;配置 model provider&lt;/h2&gt;
+
+&lt;p&gt;Hermes 通过 LiteLLM provider 注册表覆盖 MiniMax / 智谱 / OpenRouter / 本地 Ollama 等几十家。下面以国内常用的 &lt;strong&gt;MiniMax（minimaxi）&lt;/strong&gt; 为例。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-编辑-hermesconfigyaml&quot;&gt;1. 编辑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;&lt;/h3&gt;
 
 &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;MiniMax-M3&quot;&lt;/span&gt;
   &lt;span class=&quot;na&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;minimax-cn&quot;&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;model_providers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;minimax-cn&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://api.minimaxi.com/v1&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;api_key_env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;MINIMAX_CN_API_KEY&quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MiniMax-M3&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;context_window&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;200000&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;max_tokens&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8192&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;cost_per_million_input&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;cost_per_million_output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;填 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax-cn&lt;/code&gt; provider 是 Hermes-Agent 内置的一等公民，写法与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax&lt;/code&gt;（海外）等价。如果你用 OpenRouter / 本地 vLLM，按 &lt;a href=&quot;https://docs.litellm.ai/docs/providers&quot;&gt;LiteLLM 文档&lt;/a&gt; 把 base_url 和 model id 改了即可。&lt;/p&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;sk-cp-...
+&lt;h3 id=&quot;2-填-hermesenv&quot;&gt;2. 填 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;sk-cp-xxxxxxxxxxxxxxxxxxxxxxxx
 &lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_BASE_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://api.minimaxi.com/v1
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_BOT_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;BotFather 给的&amp;gt;
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_ALLOWED_USERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;你的 Telegram 数字 ID，从 @userinfobot 查&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;验证 LLM 通&lt;/strong&gt;：&lt;/p&gt;
+&lt;h3 id=&quot;3-验证-llm-通路&quot;&gt;3. 验证 LLM 通路&lt;/h3&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-sS&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;s2&quot;&gt;&quot;https://api.minimaxi.com/v1/chat/completions&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Authorization: Bearer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;{&quot;model&quot;:&quot;MiniMax-M3&quot;,&quot;max_tokens&quot;:50,&quot;messages&quot;:[{&quot;role&quot;:&quot;user&quot;,&quot;content&quot;:&quot;1+1=?&quot;}]}&apos;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# → &quot;1+1=2。&quot; ✓&lt;/span&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes model chat &lt;span class=&quot;s2&quot;&gt;&quot;1+1=?&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;gfw-这一关&quot;&gt;GFW 这一关&lt;/h2&gt;
+&lt;p&gt;正常会收到模型回的 “1+1=2。” 类回复。如果提示 401/403，多半是 base URL 缺前缀 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/v1&lt;/code&gt; 或 key 没 export 出来。&lt;/p&gt;
 
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api.telegram.org&lt;/code&gt; 在国内不通，bot 永远连不上。Clash Verge 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;127.0.0.1:33331&lt;/code&gt;（dashboard 端口，不是代理端口）跑，实际 mixed proxy 在：&lt;/p&gt;
+&lt;h2 id=&quot;telegram-渠道&quot;&gt;Telegram 渠道&lt;/h2&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mixed-port: 7897   &lt;span class=&quot;c&quot;&gt;# HTTP + SOCKS 都在这&lt;/span&gt;
-socks-port: 7898
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;裸 curl 验证：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:7897&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://api.telegram.org/bot&amp;lt;TOKEN&amp;gt;/getMe&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# → {&quot;ok&quot;:true,&quot;result&quot;:{&quot;username&quot;:&quot;claudeCodeMflBot&quot;,...}}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;✓ Telegram API 通过代理可达。&lt;/p&gt;
-
-&lt;p&gt;hermes-agent 的 Telegram 插件支持环境变量代理：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;变量&lt;/th&gt;
-      &lt;th&gt;优先级&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_PROXY&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;最高&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HTTPS_PROXY&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HTTP_PROXY&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ALL_PROXY&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;中&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;macOS 系统代理（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scutil --proxy&lt;/code&gt;）&lt;/td&gt;
-      &lt;td&gt;兜底&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;但 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt; 里设 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_PROXY&lt;/code&gt; 不够 —— 启动后会卡在：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WARNING [Telegram] Discovering Telegram API fallback IPs via DNS-over-HTTPS…
-WARNING [Telegram] Connecting to Telegram (attempt 1/8)…
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;两个问题&lt;/strong&gt;：&lt;/p&gt;
+&lt;h3 id=&quot;1-申请-bot-token&quot;&gt;1. 申请 bot token&lt;/h3&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;DoH discovery 卡死&lt;/strong&gt;：插件默认会通过 dns.google / cloudflare-dns.com 查询 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api.telegram.org&lt;/code&gt; 的 A 记录。这两个 DoH endpoint 在国内不通，httpx client 没配代理，会一直 hang 到 30 秒超时。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;fallback-IP 分支被绕开&lt;/strong&gt;：读源码 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plugins/platforms/telegram/adapter.py&lt;/code&gt; 发现一个反直觉的判断：&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Telegram 搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@BotFather&lt;/code&gt;，发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/newbot&lt;/code&gt; 拿 token&lt;/li&gt;
+  &lt;li&gt;拿自己的 Telegram 数字 ID：私聊 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@userinfobot&lt;/code&gt;，回显的那一串就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_ALLOWED_USERS&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# line 3454 原始
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fallback_ips&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy_url&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;disable_fallback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 用 TelegramFallbackTransport（自动重试 fallback IP）
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;proxy_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 用 HTTPXRequest + proxy 直连，不走 fallback IP
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;c1&quot;&gt;# 无 proxy 也无 fallback：直连
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;2-写-hermesenv&quot;&gt;2. 写 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;设了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_PROXY&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;proxy_url&lt;/code&gt; 非空 → &lt;strong&gt;永远走 elif 分支&lt;/strong&gt; → DoH discovery 之前虽然因为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/code&gt; 跳过了，但 transport 没用到 fallback IP，只用直连 + proxy。&lt;strong&gt;预期 fallback IP 是为了在 DoH 失败时还能连上 Telegram，结果 fallback IP 分支要 proxy_url 为空才进&lt;/strong&gt;，逻辑反了。&lt;/p&gt;
-
-&lt;h2 id=&quot;打的补丁&quot;&gt;打的补丁&lt;/h2&gt;
-
-&lt;p&gt;最小修改：去掉 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not proxy_url&lt;/code&gt; 这个限制：&lt;/p&gt;
-
-&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gd&quot;&gt;- if fallback_ips and not proxy_url and not disable_fallback:
-&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+ if fallback_ips and not disable_fallback:
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这样 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_FALLBACK_IPS=149.154.166.110,149.154.167.220&lt;/code&gt;（Telegram Bot API 的稳定 IP，来自 OpenClaw 的 seed 列表）就会&lt;strong&gt;始终&lt;/strong&gt;生效，无论 proxy 是否配置。TelegramFallbackTransport 内部还是会 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_resolve_proxy_url(&quot;TELEGRAM_PROXY&quot;, ...)&lt;/code&gt; 拿代理，自己内部 AsyncHTTPTransport 用上。&lt;/p&gt;
-
-&lt;p&gt;启动命令：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_PROXY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:7897&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;149.154.166.110,149.154.167.220&quot;&lt;/span&gt;
-hermes gateway run
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_BOT_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1234567890:AAxxxxxxxxxxxxxxxxxxxxxxxx
+&lt;span class=&quot;nv&quot;&gt;TELEGRAM_ALLOWED_USERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;646304977     &lt;span class=&quot;c&quot;&gt;# 你的 Telegram id，多用户用逗号分隔&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;TELEGRAM_DM_POLICY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;open
+&lt;span class=&quot;nv&quot;&gt;TELEGRAM_GROUP_POLICY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;allowlist
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;补丁之外还要清 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__pycache__&lt;/code&gt;&lt;/strong&gt;：&lt;/p&gt;
+&lt;h3 id=&quot;3-国内代理gfw-这关&quot;&gt;3. 国内代理（GFW 这关）&lt;/h3&gt;
 
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;find ~/.hermes/hermes-agent &lt;span class=&quot;nt&quot;&gt;-name&lt;/span&gt; __pycache__ &lt;span class=&quot;nt&quot;&gt;-type&lt;/span&gt; d &lt;span class=&quot;nt&quot;&gt;-exec&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt; +
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api.telegram.org&lt;/code&gt; 在国内不通。Clash Verge / ClashX Pro 一般 mixed-port 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7897&lt;/code&gt;：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:7897&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://api.telegram.org/bot&amp;lt;TOKEN&amp;gt;/getMe&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# → {&quot;ok&quot;:true,&quot;result&quot;:{&quot;username&quot;:&quot;yourbot&quot;,...}}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;否则 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt; 装的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.pyc&lt;/code&gt; 会盖过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.py&lt;/code&gt; 源码。&lt;/p&gt;
+&lt;p&gt;通了之后在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt; 加：&lt;/p&gt;
 
-&lt;h2 id=&quot;仍未解决的-hang&quot;&gt;仍未解决的 hang&lt;/h2&gt;
-
-&lt;p&gt;打了补丁 + 清缓存后，gateway 仍然卡在：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WARNING [Telegram] Connecting to Telegram (attempt 1/8)…
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_PROXY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://127.0.0.1:7897
+&lt;span class=&quot;nv&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;149.154.166.110,149.154.167.220
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;应用层 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.initialize()&lt;/code&gt; 内 hang，重试间隔 30 秒一轮，8 轮跑完才退出。但&lt;strong&gt;standalone 验证都通过&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/code&gt; 是 Telegram 官方稳定的 Bot API 解析 IP 段（OpenClaw 时代就 seed 在 config 里），绕开 dns.google / cloudflare-dns.com 的 DoH 在国内不通的问题。&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 这个跑得通，3 秒内完成
-&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;telegram&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bot&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;telegram.request&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HTTPXRequest&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TOKEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HTTPXRequest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&apos;http://127.0.0.1:7897&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_me&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;             &lt;span class=&quot;c1&quot;&gt;# ✓
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;delete_webhook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# ✓
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h3 id=&quot;4-启动-gateway&quot;&gt;4. 启动 Gateway&lt;/h3&gt;
 
-&lt;p&gt;把同样的参数喂给 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationBuilder().request(...)&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.initialize()&lt;/code&gt; 也正常：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes gateway run
+&lt;span class=&quot;c&quot;&gt;# 或前台 + 日志&lt;/span&gt;
+hermes gateway run &lt;span class=&quot;nt&quot;&gt;--foreground&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ApplicationBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TOKEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_updates_request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;asyncio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wait_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# ✓
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;正常输出 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gateway listening on http://127.0.0.1:8765&lt;/code&gt;，然后去 Telegram 给 bot 发消息就能收到回复。&lt;/p&gt;
 
-&lt;p&gt;所以问题&lt;strong&gt;不在网络、不在 python-telegram-bot、不在 proxy&lt;/strong&gt;，是 hermes-agent 的 adapter.py 在构造 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Application&lt;/code&gt; 时混了什么进去导致 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;initialize()&lt;/code&gt; 内的某个 await 卡住。具体点没继续追 —— 调试 hermes-agent 0.10.0 的源码很容易陷入补丁越来越多但不确定哪个版本会修的循环。&lt;/p&gt;
+&lt;h2 id=&quot;权限yolo-模式&quot;&gt;权限：YOLO 模式&lt;/h2&gt;
 
-&lt;h2 id=&quot;当前状态&quot;&gt;当前状态&lt;/h2&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yolo&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--yes&lt;/code&gt; 模式：跳过所有危险操作确认，等价于 Claude Code 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 单次&lt;/span&gt;
+hermes gateway run &lt;span class=&quot;nt&quot;&gt;--yolo&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 持久化：写进 config&lt;/span&gt;
+vim ~/.hermes/config.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;approvals&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;off&apos;&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# off = yolo; on = 每次问; auto = 危险操作问，其余自动&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;permissions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;defaultMode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bypassPermissions&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bypassAll&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️ 风险&lt;/strong&gt;：等同于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf&lt;/code&gt; 类命令无确认。线上环境别开，本机开发随便开。&lt;/p&gt;
+
+&lt;h2 id=&quot;skills--插件&quot;&gt;Skills &amp;amp; 插件&lt;/h2&gt;
+
+&lt;p&gt;Hermes 把”技能”拆成 SKILL.md 文件，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/skills/&lt;/code&gt; 一份一份放。安装时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-skills&lt;/code&gt; 跳过的话想找回：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes skills &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--bundled&lt;/span&gt;
+hermes skills search telegram
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启用插件（在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;）：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;github&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;telegram&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apple-notes&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;himalaya&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;常用命令速查&quot;&gt;常用命令速查&lt;/h2&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
-      &lt;th&gt;步骤&lt;/th&gt;
-      &lt;th&gt;状态&lt;/th&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;hermes-agent 安装&lt;/td&gt;
-      &lt;td&gt;✓&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway run&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;启动 Gateway（后台）&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;MiniMax API 接入&lt;/td&gt;
-      &lt;td&gt;✓（curl 实测通过，模型 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MiniMax-M3&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway stop&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;停 Gateway&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Telegram bot token&lt;/td&gt;
-      &lt;td&gt;✓（BotFather 拿到，claudeCodeMflBot）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway status&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;看状态&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;Telegram 代理配置&lt;/td&gt;
-      &lt;td&gt;✓（Clash mixed-port 7897 + TELEGRAM_FALLBACK_IPS）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model chat &quot;...&quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;命令行直接对模型&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;hermes gateway 端到端启动&lt;/td&gt;
-      &lt;td&gt;✗（hang 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.initialize()&lt;/code&gt;，独立测试都过，疑 hermes 上游 bug）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model set &amp;lt;provider&amp;gt;/&amp;lt;model&amp;gt;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切换默认模型&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td&gt;fallback IP 分支修复&lt;/td&gt;
-      &lt;td&gt;✓（adapter.py 一行补丁 + 清缓存）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes skills list&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;看已装 skill&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes doctor&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;自检&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes update&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;升级到最新&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes --version&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;版本&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h2 id=&quot;备选直写-python-telegram-bot&quot;&gt;备选：直写 python-telegram-bot&lt;/h2&gt;
+&lt;h2 id=&quot;调试&quot;&gt;调试&lt;/h2&gt;
 
-&lt;p&gt;如果完全不要 hermes-agent，~80 行 Python 就够了：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 看 Gateway 日志&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; ~/.hermes/logs/gateway.log
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;asyncio&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;telegram&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Update&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;telegram.ext&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ApplicationBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MessageHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;openai&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncOpenAI&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# OpenAI 兼容客户端
-&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;MINIMAX_KEY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sk-cp-...&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;TELEGRAM_TOKEN&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;...&quot;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;PROXY&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;http://127.0.0.1:7897&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Telegram 渠道单独 verbose&lt;/span&gt;
+hermes gateway run &lt;span class=&quot;nt&quot;&gt;--debug&lt;/span&gt; telegram
 
-&lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncOpenAI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;api_key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MINIMAX_KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://api.minimaxi.com/v1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ctx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;llm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;completions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MiniMax-M3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;role&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;content&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}],&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reply_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choices&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;ApplicationBuilder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TELEGRAM_TOKEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PROXY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# python-telegram-bot 内置代理支持
-&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_handler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MessageHandler&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEXT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COMMAND&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;run_polling&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Python 环境坏掉的话&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.hermes/hermes-agent
+python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; venv .venv &lt;span class=&quot;nt&quot;&gt;--clear&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .venv/bin/activate
+pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;装 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python-telegram-bot&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openai&lt;/code&gt; 之后直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python bot.py&lt;/code&gt;。不依赖 hermes，不依赖 LiteLLM，bug surface 小一截。代价是没有 hermes 的 memory/skills/sessions 体系 —— 纯聊天场景够用，要 tool/agent 还得用 hermes。&lt;/p&gt;
-
-&lt;h2 id=&quot;给-minimaxi-用户的速查表&quot;&gt;给 minimaxi 用户的速查表&lt;/h2&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Claude Code --channels     拒第三方 base URL，放弃
-hermes-agent                架构对，但 0.10.0 上游有 hang bug，
-                            要打 adapter.py 补丁 + 等修复
-直写 python-telegram-bot    最稳，~80 行，绕过所有框架问题
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;后两者都过同一组环境：minimaxi 中国端点 + Telegram bot + Clash &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;127.0.0.1:7897&lt;/code&gt; 代理 + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MiniMax-M3&lt;/code&gt; 模型。&lt;/p&gt;
+&lt;p&gt;碰到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.initialize() hang&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__pycache__&lt;/code&gt; 覆盖源码类坑，&lt;strong&gt;先 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find ~/.hermes/hermes-agent -name __pycache__ -type d -exec rm -rf {} +&lt;/code&gt;&lt;/strong&gt; 把缓存清掉，再重启。&lt;/p&gt;
 
 &lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;anthropics/claude-plugins-official#783&lt;/a&gt; — &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels ignored&lt;/code&gt; 同款报错&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;NousResearch/hermes-agent&lt;/a&gt; — 仓库 + 安装脚本&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.litellm.ai/docs/providers/minimax&quot;&gt;LiteLLM minimax provider&lt;/a&gt; — provider 注册表&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.python-telegram-bot.org/&quot;&gt;python-telegram-bot 文档&lt;/a&gt; — &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplicationBuilder().proxy()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI," /><category term="Hermes," /><category term="MiniMax," /><category term="Telegram," /><category term="GFW," /><category term="Claude-Code" /><summary type="html">背景</summary></entry><entry><title type="html">Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android</title><link href="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/" rel="alternate" type="text/html" title="Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android" /><published>2026-07-11T00:00:00+08:00</published><updated>2026-07-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90</id><content type="html" xml:base="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;NousResearch/hermes-agent&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://hermes-agent.nousresearch.com/install.sh&quot;&gt;官方安装脚本&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.litellm.ai/docs/providers&quot;&gt;LiteLLM provider 列表&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://core.telegram.org/bots/api&quot;&gt;Telegram Bot API&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;anthropics/claude-plugins-official#783&lt;/a&gt; — 为什么不用 Claude Code –channels&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Hermes" /><category term="MiniMax" /><category term="Telegram" /><category term="Tools" /><summary type="html">Hermes-Agent 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。</summary></entry><entry><title type="html">Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android</title><link href="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/" rel="alternate" type="text/html" title="Clash 客户端推荐：Clash Verge Rev(macOS) + Clash Meta for Android" /><published>2026-07-11T00:00:00+08:00</published><updated>2026-07-11T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90</id><content type="html" xml:base="https://mafulong.github.io/2026/07/11/Clash%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90/">&lt;h2 id=&quot;概述&quot;&gt;概述&lt;/h2&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
