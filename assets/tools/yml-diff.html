@@ -2,509 +2,875 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YAML Diff 工具</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YAML Diff · Git 风格</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <style>
-  :root {
-    --bg: #0f1115;
-    --card: #181b22;
-    --card2: #1f232c;
-    --border: #2a2f3a;
-    --text: #e6e9ef;
-    --muted: #8a93a3;
-    --accent: #4f8cff;
-    --accent2: #2dd4bf;
-    --warn: #f59e0b;
-    --danger: #ef4444;
-    --ok: #22c55e;
-    --green: #22c55e;
-    --red: #ef4444;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
-  h1 { font-size: 22px; margin: 0 0 4px; }
-  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
-  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
-  textarea {
-    width: 100%;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-size: 14px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    resize: vertical;
-    min-height: 200px;
-  }
-  textarea:focus { outline: none; border-color: var(--accent); }
-  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
-  .row > div { flex: 1; min-width: 200px; }
-  button {
-    background: var(--accent);
-    color: #fff; border: none; border-radius: 10px;
-    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
-    transition: opacity .15s;
-  }
-  button:hover { opacity: .9; }
-  button:disabled { opacity: .5; cursor: not-allowed; }
-  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
-  button.swap { background: var(--card2); color: var(--text); border: 1px solid var(--border); padding: 10px 14px; }
-  button.swap:hover { border-color: var(--accent); color: var(--accent); }
-  .mt { margin-top: 16px; }
-  .err { color: var(--danger); font-size: 12px; margin-top: 6px; }
-  .err-box {
-    background: rgba(239,68,68,.1);
-    border: 1px solid rgba(239,68,68,.4);
-    color: #fca5a5;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    margin-top: 12px;
-    display: none;
-  }
-  .err-box.show { display: block; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Input row with swap */
-  .input-row {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 12px;
-    align-items: flex-end;
-  }
-  @media (max-width: 700px) {
-    .input-row { grid-template-columns: 1fr; }
-    .swap-wrap { order: -1; justify-content: center; }
-  }
-  .swap-wrap { display: flex; align-items: center; padding-bottom: 18px; }
+:root {
+  --bg:       #1a1b26;
+  --bg2:      #1f2030;
+  --bg3:      #24253a;
+  --bg4:      #2a2b40;
+  --border:   #363659;
+  --text:     #c0caf5;
+  --text2:    #9aa5ce;
+  --text3:    #565f89;
+  --accent:   #7aa2f7;
+  --green:    #9ece6a;
+  --yellow:   #e0af68;
+  --red:      #f7768e;
+  --mauve:    #bb9af7;
+  --teal:     #73daca;
+  --btn:      #2a2b40;
+  --btn-h:    #363659;
+  --scrollbar:#363659;
 
-  /* Action buttons row */
-  .action-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+  /* diff 颜色 */
+  --add-bg:    rgba(158, 206, 106, .15);
+  --add-line:  rgba(158, 206, 106, .5);
+  --del-bg:    rgba(247, 118, 142, .15);
+  --del-line:  rgba(247, 118, 142, .5);
+  --mod-bg:    rgba(224, 175, 104, .12);
+  --mod-line:  rgba(224, 175, 104, .5);
+  --ctx-bg:    transparent;
+}
 
-  /* Result section */
-  .result-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    display: none;
-  }
-  .result-card.show { display: block; }
+html, body { height: 100%; }
+body {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 13px;
+}
 
-  /* Summary */
-  .summary {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .stat {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-  }
-  .stat.added { color: var(--green); }
-  .stat.removed { color: var(--red); }
-  .stat.changed { color: var(--warn); }
-  .stat-badge {
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-weight: 600;
-  }
-  .stat.added .stat-badge { background: rgba(34,197,94,.15); }
-  .stat.removed .stat-badge { background: rgba(239,68,68,.15); }
-  .stat.changed .stat-badge { background: rgba(245,158,11,.15); }
+/* ── 顶栏 ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  user-select: none;
+}
+.topbar-logo {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  margin-right: 6px;
+  letter-spacing: 1px;
+}
+.sep { width: 1px; height: 20px; background: var(--border); margin: 0 3px; flex-shrink: 0; }
 
-  /* Diff output */
-  .diff-view {
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .diff-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .diff-content {
-    max-height: 500px;
-    overflow-y: auto;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-  .diff-line {
-    display: flex;
-    padding: 2px 12px;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-  .diff-line.added { background: rgba(34,197,94,.15); color: var(--green); }
-  .diff-line.removed { background: rgba(239,68,68,.15); color: var(--red); }
-  .diff-line.changed { background: rgba(245,158,11,.15); color: var(--warn); }
-  .diff-line.context { color: var(--muted); }
-  .diff-line.collapsed {
-    background: var(--card);
-    color: var(--muted);
-    font-style: italic;
-    cursor: pointer;
-    user-select: none;
-  }
-  .diff-line.collapsed:hover { color: var(--text); }
-  .diff-prefix { width: 20px; flex-shrink: 0; }
-  .diff-path { color: var(--accent2); margin-right: 8px; font-size: 12px; }
-  .diff-empty {
-    padding: 40px;
-    text-align: center;
-    color: var(--muted);
-  }
+.btn {
+  padding: 4px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.btn.prim:hover { background: #89b0ff; }
+.btn.danger:hover { border-color: var(--red); color: var(--red); }
+.btn.on { background: var(--bg4); border-color: var(--accent); color: var(--accent); }
+.btn kbd {
+  font-family: inherit;
+  font-size: 10px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 5px;
+  color: inherit;
+  opacity: .8;
+  font-weight: 400;
+}
 
-  /* Document indicator */
-  .doc-indicator {
-    display: inline-block;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 11px;
-    color: var(--accent);
-    margin-right: 8px;
-  }
+/* ── 状态栏 ── */
+.statusbar {
+  padding: 3px 14px;
+  font-size: 11px;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  color: var(--text3);
+  flex-wrap: wrap;
+}
+.st-add { color: var(--green); font-weight: 700; }
+.st-del { color: var(--red);   font-weight: 700; }
+.st-mod { color: var(--yellow);font-weight: 700; }
+.st-ok  { color: var(--text2); }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+/* ── 主体 ── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── 输入区 (顶部, 紧凑) ── */
+.input-section {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.input-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+}
+.input-head .lbl {
+  font-weight: 700;
+  color: var(--text);
+}
+.input-head .badge-old { background: var(--del-bg); color: var(--red); border: 1px solid var(--del-line); padding: 1px 7px; border-radius: 3px; font-size: 10px; }
+.input-head .badge-new { background: var(--add-bg); color: var(--green); border: 1px solid var(--add-line); padding: 1px 7px; border-radius: 3px; font-size: 10px; }
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  min-height: 0;
+}
+.input-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.input-cell + .input-cell { border-left: 1px solid var(--border); }
+.input-cell textarea {
+  width: 100%;
+  min-height: 130px;
+  max-height: 220px;
+  background: var(--bg);
+  color: var(--text);
+  border: none;
+  outline: none;
+  padding: 8px 12px;
+  font: inherit;
+  font-size: 12.5px;
+  line-height: 1.55;
+  resize: vertical;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  tab-size: 2;
+}
+.input-cell textarea::placeholder { color: var(--text3); }
+.swap-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+}
+.swap-cell button {
+  width: 32px; height: 32px;
+  background: var(--btn);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.swap-cell button:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+
+.err-bar {
+  padding: 6px 14px;
+  font-size: 12px;
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.err-bar.show { display: block; }
+.err-bar.bad { background: rgba(247,118,142,.12); color: var(--red); }
+
+/* ── 工具栏 (输入下方) ── */
+.tools-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+.tools-bar .spacer { flex: 1; }
+
+/* ── Diff 视图 ── */
+.diff-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.diff-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+.diff-head .file-badge {
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-size: 11px;
+  background: var(--bg4);
+  border: 1px solid var(--border);
+}
+.diff-head .nav-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background .1s, color .1s;
+}
+.diff-head .nav-btn:hover:not(:disabled) { background: var(--bg4); color: var(--text); border-color: var(--accent); }
+.diff-head .nav-btn:disabled { opacity: .4; cursor: not-allowed; }
+.diff-head .pos { font-size: 11px; color: var(--text3); min-width: 70px; text-align: center; }
+
+/* 双栏 diff 内容 */
+.diff-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--bg);
+}
+.diff-side {
+  overflow: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+.diff-side.left  { border-right: 1px solid var(--border); }
+
+.diff-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.diff-table col.lineno { width: 50px; }
+.diff-table col.marker { width: 22px; }
+.diff-table td {
+  vertical-align: top;
+  padding: 0 8px;
+  white-space: pre;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.diff-table td.lineno {
+  text-align: right;
+  color: var(--text3);
+  user-select: none;
+  background: var(--bg3);
+  border-right: 1px solid var(--border);
+  font-size: 11.5px;
+}
+.diff-table td.marker {
+  text-align: center;
+  color: var(--text3);
+  user-select: none;
+  font-weight: 700;
+}
+.diff-table td.code {
+  color: var(--text);
+}
+
+.diff-table tr.ctx    td.code { background: transparent; }
+.diff-table tr.add    td.code { background: var(--add-bg); color: var(--green); }
+.diff-table tr.add    td.marker { color: var(--green); background: var(--add-bg); }
+.diff-table tr.add    td.lineno { color: var(--green); background: var(--add-bg); }
+.diff-table tr.del    td.code { background: var(--del-bg); color: var(--red); }
+.diff-table tr.del    td.marker { color: var(--red); background: var(--del-bg); }
+.diff-table tr.del    td.lineno { color: var(--red); background: var(--del-bg); }
+.diff-table tr.mod    td.code { background: var(--mod-bg); color: var(--yellow); }
+.diff-table tr.mod    td.marker { color: var(--yellow); background: var(--mod-bg); }
+.diff-table tr.mod    td.lineno { color: var(--yellow); background: var(--mod-bg); }
+
+/* 对侧占位（空行） */
+.diff-table tr.empty td { background: rgba(255,255,255,.02); }
+
+/* 当前 hunk 标记 */
+.diff-table tr.hunk td { background: var(--bg2); color: var(--accent); font-style: italic; padding: 2px 8px; }
+
+/* 当前导航所在行 */
+.diff-table tr.cursor td.code,
+.diff-table tr.cursor td.marker,
+.diff-table tr.cursor td.lineno {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+/* 空态 */
+.diff-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text3);
+  font-size: 13px;
+  padding: 40px;
+  text-align: center;
+}
+.diff-empty code {
+  background: var(--bg3);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--accent);
+}
+
+/* ── 浮动操作条 ── */
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4);
+  z-index: 100;
+}
+.fab.show { display: flex; }
+.fab-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  position: relative;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.fab-btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.fab-btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.fab-btn.prim:hover { background: #89b0ff; color: #1a1b26; }
+.fab-sep { height: 1px; background: var(--border); margin: 2px 4px; }
+.fab-tip {
+  position: absolute;
+  right: 40px;
+  background: var(--bg3);
+  color: var(--text);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.fab-btn:hover .fab-tip { opacity: 1; }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>YAML Diff 工具</h1>
-  <div class="sub">比较两个 YAML 文档的差异，支持嵌套结构与多文档</div>
 
-  <div class="card">
-    <h2>输入</h2>
-    <div class="input-row">
-      <div>
-        <label>左侧 YAML（原始）</label>
-        <textarea id="leftYaml" placeholder="输入或粘贴 YAML..."></textarea>
-      </div>
-      <div class="swap-wrap">
-        <button class="swap" id="swapBtn" title="交换左右">⇄</button>
-      </div>
-      <div>
-        <label>右侧 YAML（比较目标）</label>
-        <textarea id="rightYaml" placeholder="输入或粘贴 YAML..."></textarea>
-      </div>
-    </div>
-
-    <div class="err-box" id="leftErr"></div>
-    <div class="err-box" id="rightErr"></div>
-
-    <div class="action-row mt">
-      <button id="compareBtn">比较</button>
-      <button class="ghost" id="formatLeftBtn">格式化左侧</button>
-      <button class="ghost" id="formatRightBtn">格式化右侧</button>
-      <button class="ghost" id="copyDiffBtn">复制 Diff</button>
-    </div>
-  </div>
-
-  <div class="result-card" id="resultCard">
-    <h2>比较结果</h2>
-    <div class="summary" id="summary"></div>
-    <div class="diff-view">
-      <div class="diff-header">
-        <span>详细差异</span>
-        <span id="diffCount"></span>
-      </div>
-      <div class="diff-content" id="diffContent"></div>
-    </div>
-  </div>
+<!-- 顶栏 -->
+<div class="topbar">
+  <div class="topbar-logo">{ DIFF }</div>
+  <button class="btn prim" onclick="doCompare()" title="比较 (Ctrl+Enter)">比较<kbd>⌘↵</kbd></button>
+  <button class="btn" onclick="doFormat('left')"  title="格式化左侧">格式化左侧</button>
+  <button class="btn" onclick="doFormat('right')" title="格式化右侧">格式化右侧</button>
+  <button class="btn" onclick="swapSides()" title="交换两侧 (Ctrl+Shift+S)">⇄ 交换</button>
+  <div class="sep"></div>
+  <button class="btn" onclick="loadSample()" title="示例 (Ctrl+Shift+L)">示例<kbd>⌘⇧L</kbd></button>
+  <button class="btn" onclick="doClear()" title="清空 (Ctrl+L)">清空<kbd>⌘L</kbd></button>
+  <div class="sep"></div>
+  <button class="btn" onclick="copyDiffText()" title="复制 diff 文本 (Ctrl+Shift+C)">复制 diff</button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<!-- 主体 -->
+<div class="main">
+
+  <!-- 输入 -->
+  <div class="input-section">
+    <div class="input-row">
+      <div class="input-cell">
+        <div class="input-head">
+          <span class="badge-old">OLD</span>
+          <span class="lbl">左侧 (原始)</span>
+          <span id="leftInfo" style="margin-left:auto;color:var(--text3);font-size:11px;"></span>
+        </div>
+        <textarea id="leftYaml" spellcheck="false" placeholder="粘贴原始 YAML…"></textarea>
+      </div>
+      <div class="swap-cell">
+        <button onclick="swapSides()" title="交换">⇄</button>
+      </div>
+      <div class="input-cell">
+        <div class="input-head">
+          <span class="badge-new">NEW</span>
+          <span class="lbl">右侧 (新版本)</span>
+          <span id="rightInfo" style="margin-left:auto;color:var(--text3);font-size:11px;"></span>
+        </div>
+        <textarea id="rightYaml" spellcheck="false" placeholder="粘贴新 YAML…"></textarea>
+      </div>
+    </div>
+    <div class="err-bar" id="errBar"></div>
+  </div>
+
+  <!-- 工具栏 -->
+  <div class="tools-bar">
+    <span style="font-size:11px;color:var(--text3);">视图:</span>
+    <button class="btn on" id="viewSide" onclick="setView('side')">分栏</button>
+    <button class="btn" id="viewUnified" onclick="setView('unified')">统一</button>
+    <span style="font-size:11px;color:var(--text3);margin-left:8px;">差异:</span>
+    <span class="st-add" id="cntAdd">+0</span>
+    <span class="st-del" id="cntDel">-0</span>
+    <span class="st-mod" id="cntMod">~0</span>
+    <div class="spacer"></div>
+    <span style="font-size:11px;color:var(--text3);">同步滚动</span>
+    <input type="checkbox" id="syncScroll" checked style="accent-color:var(--accent);">
+    <span style="font-size:11px;color:var(--text3);margin-left:8px;">上下文</span>
+    <input type="number" id="ctxLines" value="3" min="0" max="20"
+      style="width:50px;background:var(--bg3);color:var(--text);border:1px solid var(--border);border-radius:4px;padding:2px 6px;font:inherit;font-size:11px;">
+  </div>
+
+  <!-- Diff 视图 -->
+  <div class="diff-section">
+    <div class="diff-head">
+      <span class="file-badge">comparison.yml</span>
+      <button class="nav-btn" id="prevHunk" onclick="prevHunk()" title="上一处差异 (Alt+↑)">◀ 上一个</button>
+      <span class="pos" id="hunkPos">0 / 0</span>
+      <button class="nav-btn" id="nextHunk" onclick="nextHunk()" title="下一处差异 (Alt+↓)">下一个 ▶</button>
+      <div style="margin-left:auto;font-size:11px;color:var(--text3);">← →</span> 同步滚动 · 滚轮</div>
+    </div>
+    <div class="diff-body" id="diffBody">
+      <div class="diff-empty" id="emptyState">
+        <div>
+          在上方两侧粘贴 YAML，按 <kbd style="background:var(--bg3);padding:1px 6px;border-radius:3px;color:var(--accent);">⌘↵</kbd> 或点击「比较」查看 Git 风格差异
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FAB -->
+<div class="fab" id="fab">
+  <button class="fab-btn prim" onclick="doCompare()" title="比较 (⌘↵)">
+    ⏵
+    <span class="fab-tip">比较 ⌘↵</span>
+  </button>
+  <button class="fab-btn" onclick="nextHunk()" title="下一处差异">
+    ⤓
+    <span class="fab-tip">下一处</span>
+  </button>
+  <button class="fab-btn" onclick="prevHunk()" title="上一处差异">
+    ⤒
+    <span class="fab-tip">上一处</span>
+  </button>
+  <div class="fab-sep"></div>
+  <button class="fab-btn" onclick="loadSample()" title="示例">
+    ✦
+    <span class="fab-tip">示例</span>
+  </button>
+  <button class="fab-btn" onclick="doClear()" title="清空">
+    ✕
+    <span class="fab-tip">清空</span>
+  </button>
+</div>
+
 <script>
 'use strict';
 
 /* ═══════════════════════════════════════════════
-   DOM refs
+   状态
 ═══════════════════════════════════════════════ */
-const leftYaml    = document.getElementById('leftYaml');
-const rightYaml   = document.getElementById('rightYaml');
-const leftErr     = document.getElementById('leftErr');
-const rightErr    = document.getElementById('rightErr');
-const compareBtn  = document.getElementById('compareBtn');
-const swapBtn     = document.getElementById('swapBtn');
-const formatLeft  = document.getElementById('formatLeftBtn');
-const formatRight = document.getElementById('formatRightBtn');
-const copyDiffBtn = document.getElementById('copyDiffBtn');
-const resultCard  = document.getElementById('resultCard');
-const summaryEl  = document.getElementById('summary');
-const diffContent= document.getElementById('diffContent');
-const diffCountEl= document.getElementById('diffCount');
+const leftYaml  = document.getElementById('leftYaml');
+const rightYaml = document.getElementById('rightYaml');
+const errBar    = document.getElementById('errBar');
+const diffBody  = document.getElementById('diffBody');
+const emptyState= document.getElementById('emptyState');
 
-let lastDiffText = '';
+let view        = 'side';     // 'side' | 'unified'
+let diffRows    = [];         // 当前对齐行: [{type, leftNo, rightNo, leftText, rightText}]
+let hunks       = [];         // 非 eq 行索引, 用于导航
+let hunkIdx     = -1;
+let fabShown    = false;
+let lastAligned = { left: [], right: [] };
 
 /* ═══════════════════════════════════════════════
-   YAML validation with multi-document support
+   YAML 解析 + 行格式化
 ═══════════════════════════════════════════════ */
-function validateYaml(text, errEl) {
-  if (!text.trim()) {
-    errEl.classList.remove('show');
-    errEl.textContent = '';
-    return { docs: [], error: null };
-  }
+function parseYaml(text) {
+  // 允许多文档; 取所有 doc 拼接后行化
+  if (!text.trim()) return { lines: [], docs: [], error: null };
   try {
     const docs = jsyaml.loadAll(text);
-    errEl.classList.remove('show');
-    errEl.textContent = '';
-    return { docs, error: null };
+    // 重新 dump 成一致缩进格式, 行宽 -1
+    const dumped = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1, noRefs: false })).join('');
+    return { lines: dumped.split('\n').filter((_, i, arr) => i < arr.length - 1 || _ !== ''), docs, error: null };
   } catch (e) {
-    const displayMsg = e.message || String(e);
-    errEl.innerHTML = `<strong>YAML 解析错误</strong><br>${escHtml(displayMsg)}`;
-    errEl.classList.add('show');
-    return { docs: [], error: e };
+    return { lines: [], docs: [], error: e };
   }
 }
 
 /* ═══════════════════════════════════════════════
-   Format YAML
+   Myers diff 算法 — 返回对齐的行数组
+   输入: leftLines[], rightLines[]
+   输出: [{type, leftIdx, rightIdx, leftText, rightText}]
+   type: 'eq' | 'del' | 'add' | 'mod'
 ═══════════════════════════════════════════════ */
-function formatYaml(text) {
-  try {
-    const docs = jsyaml.loadAll(text);
-    return docs.map(doc => jsyaml.dump(doc, { indent: 2, lineWidth: -1 })).join('---\n');
-  } catch {
-    return text;
-  }
-}
+function myersDiff(leftLines, rightLines) {
+  const N = leftLines.length;
+  const M = rightLines.length;
+  const MAX = N + M;
 
-formatLeft.addEventListener('click', () => {
-  leftYaml.value = formatYaml(leftYaml.value);
-});
+  if (N === 0 && M === 0) return [];
+  if (N === 0) return rightLines.map((t, i) => ({ type: 'add', leftIdx: -1, rightIdx: i, leftText: '', rightText: t }));
+  if (M === 0) return leftLines.map((t, i) => ({ type: 'del', leftIdx: i, rightIdx: -1, leftText: t, rightText: '' }));
 
-formatRight.addEventListener('click', () => {
-  rightYaml.value = formatYaml(rightYaml.value);
-});
-
-/* ═══════════════════════════════════════════════
-   Swap
-═══════════════════════════════════════════════ */
-swapBtn.addEventListener('click', () => {
-  const tmp = leftYaml.value;
-  leftYaml.value = rightYaml.value;
-  rightYaml.value = tmp;
-});
-
-/* ═══════════════════════════════════════════════
-   Core diff algorithm
-═══════════════════════════════════════════════ */
-function jsonDiff(left, right, path = 'root', docIndex = 0) {
-  const result = [];
-
-  // Handle primitives and type differences
-  if (left === right) {
-    return result; // No difference
-  }
-
-  const leftType = getType(left);
-  const rightType = getType(right);
-
-  // Type mismatch
-  if (leftType !== rightType) {
-    result.push({ type: 'changed', path, docIndex, leftVal: left, rightVal: right });
-    return result;
-  }
-
-  // Both are null
-  if (left === null) {
-    return result;
-  }
-
-  // Arrays
-  if (Array.isArray(left)) {
-    const maxLen = Math.max(left.length, right.length);
-    for (let i = 0; i < maxLen; i++) {
-      const arrPath = `${path}[${i}]`;
-      if (i >= left.length) {
-        // Added in right
-        collectAllAdded(right[i], arrPath, result, docIndex);
-      } else if (i >= right.length) {
-        // Removed from left
-        collectAllRemoved(left[i], arrPath, result, docIndex);
+  // Myers 经典实现
+  const v = {};
+  v[1] = 0;
+  const trace = [];
+  for (let d = 0; d <= MAX; d++) {
+    trace.push({ ...v });
+    for (let k = -d; k <= d; k += 2) {
+      let x;
+      if (k === -d || (k !== d && v[k - 1] < v[k + 1])) {
+        x = v[k + 1];
       } else {
-        result.push(...jsonDiff(left[i], right[i], arrPath, docIndex));
+        x = v[k - 1] + 1;
+      }
+      let y = x - k;
+      while (x < N && y < M && leftLines[x] === rightLines[y]) {
+        x++; y++;
+      }
+      v[k] = x;
+      if (x >= N && y >= M) {
+        // 回溯
+        return backtrack(trace, N, M, leftLines, rightLines);
       }
     }
-    return result;
   }
+  // 兜底: 全部 del + add
+  const out = [];
+  leftLines.forEach((t, i) => out.push({ type: 'del', leftIdx: i, rightIdx: -1, leftText: t, rightText: '' }));
+  rightLines.forEach((t, i) => out.push({ type: 'add', leftIdx: -1, rightIdx: i, leftText: '', rightText: t }));
+  return out;
+}
 
-  // Objects
-  if (leftType === 'object') {
-    const leftKeys = Object.keys(left);
-    const rightKeys = Object.keys(right);
-    const allKeys = new Set([...leftKeys, ...rightKeys]);
-
-    for (const key of allKeys) {
-      const objPath = `${path}.${key}`;
-      const leftHas = key in left;
-      const rightHas = key in right;
-
-      if (leftHas && !rightHas) {
-        collectAllRemoved(left[key], objPath, result, docIndex);
-      } else if (!leftHas && rightHas) {
-        collectAllAdded(right[key], objPath, result, docIndex);
+function backtrack(trace, N, M, leftLines, rightLines) {
+  const path = [];
+  let x = N, y = M;
+  for (let d = trace.length - 1; d >= 0; d--) {
+    const v = trace[d];
+    const k = x - y;
+    let prevK;
+    if (k === -d || (k !== d && v[k - 1] < v[k + 1])) {
+      prevK = k + 1;
+    } else {
+      prevK = k - 1;
+    }
+    const prevX = v[prevK];
+    const prevY = prevX - prevK;
+    while (x > prevX && y > prevY) {
+      path.push({
+        type: 'eq',
+        leftIdx: x - 1,
+        rightIdx: y - 1,
+        leftText: leftLines[x - 1],
+        rightText: rightLines[y - 1]
+      });
+      x--; y--;
+    }
+    if (d > 0) {
+      if (x === prevX) {
+        path.push({ type: 'add', leftIdx: -1, rightIdx: y - 1, leftText: '', rightText: rightLines[y - 1] });
       } else {
-        result.push(...jsonDiff(left[key], right[key], objPath, docIndex));
+        path.push({ type: 'del', leftIdx: x - 1, rightIdx: -1, leftText: leftLines[x - 1], rightText: '' });
       }
     }
-    return result;
+    x = prevX;
+    y = prevY;
   }
+  path.reverse();
 
-  // Primitives (different values)
-  result.push({ type: 'changed', path, docIndex, leftVal: left, rightVal: right });
-  return result;
+  // 合并连续的 del+add 成 mod (按行号对齐)
+  return mergeModBlocks(path, leftLines, rightLines);
 }
 
-function getType(val) {
-  if (val === null) return 'null';
-  if (Array.isArray(val)) return 'array';
-  return typeof val;
-}
+function mergeModBlocks(path, leftLines, rightLines) {
+  const out = [];
+  let i = 0;
+  while (i < path.length) {
+    const cur = path[i];
+    if (cur.type === 'eq') { out.push(cur); i++; continue; }
 
-function collectAllRemoved(val, path, result, docIndex) {
-  if (val === null || typeof val !== 'object') {
-    result.push({ type: 'removed', path, docIndex, leftVal: val, rightVal: undefined });
-    return;
+    // 收集连续的 del + add
+    const dels = [];
+    const adds = [];
+    while (i < path.length && path[i].type === 'del') { dels.push(path[i]); i++; }
+    while (i < path.length && path[i].type === 'add') { adds.push(path[i]); i++; }
+    const n = Math.max(dels.length, adds.length);
+    for (let j = 0; j < n; j++) {
+      const d = dels[j];
+      const a = adds[j];
+      if (d && a) {
+        out.push({
+          type: 'mod',
+          leftIdx: d.leftIdx,
+          rightIdx: a.rightIdx,
+          leftText: leftLines[d.leftIdx],
+          rightText: rightLines[a.rightIdx]
+        });
+      } else if (d) {
+        out.push({ ...d, leftText: leftLines[d.leftIdx], rightText: '' });
+      } else if (a) {
+        out.push({ ...a, leftText: '', rightText: rightLines[a.rightIdx] });
+      }
+    }
   }
-  if (Array.isArray(val)) {
-    result.push({ type: 'removed', path, docIndex, leftVal: val, rightVal: undefined });
-    return;
-  }
-  for (const key of Object.keys(val)) {
-    collectAllRemoved(val[key], `${path}.${key}`, result, docIndex);
-  }
-}
-
-function collectAllAdded(val, path, result, docIndex) {
-  if (val === null || typeof val !== 'object') {
-    result.push({ type: 'added', path, docIndex, leftVal: undefined, rightVal: val });
-    return;
-  }
-  if (Array.isArray(val)) {
-    result.push({ type: 'added', path, docIndex, leftVal: undefined, rightVal: val });
-    return;
-  }
-  for (const key of Object.keys(val)) {
-    collectAllAdded(val[key], `${path}.${key}`, result, docIndex);
-  }
+  return out;
 }
 
 /* ═══════════════════════════════════════════════
-   Render diff
+   折叠上下文: 只保留差异周围 N 行
 ═══════════════════════════════════════════════ */
-function renderDiff(diffs) {
-  const added = diffs.filter(d => d.type === 'added');
-  const removed = diffs.filter(d => d.type === 'removed');
-  const changed = diffs.filter(d => d.type === 'changed');
+function collapseContext(rows, ctx) {
+  if (ctx === undefined) ctx = +document.getElementById('ctxLines').value || 0;
+  if (ctx < 0) ctx = 0;
+  if (ctx === 0) return rows;
 
-  // Summary
-  summaryEl.innerHTML = `
-    <div class="stat added"><span class="stat-badge">+${added.length}</span> 添加</div>
-    <div class="stat removed"><span class="stat-badge">-${removed.length}</span> 删除</div>
-    <div class="stat changed"><span class="stat-badge">~${changed.length}</span> 修改</div>
-  `;
+  const keep = new Array(rows.length).fill(false);
+  for (let i = 0; i < rows.length; i++) {
+    if (rows[i].type !== 'eq') {
+      for (let j = Math.max(0, i - ctx); j <= Math.min(rows.length - 1, i + ctx); j++) {
+        keep[j] = true;
+      }
+    }
+  }
+  // 始终保留首行 (锚点)
+  if (rows.length) keep[0] = true;
 
-  if (diffs.length === 0) {
-    diffContent.innerHTML = '<div class="diff-empty">两个 YAML 文档完全相同</div>';
-    diffCountEl.textContent = '无差异';
+  const out = [];
+  let prevIdx = -1;
+  for (let i = 0; i < rows.length; i++) {
+    if (!keep[i]) {
+      if (prevIdx !== -1 && out[out.length - 1].type !== 'gap') {
+        out.push({ type: 'gap', count: 1 });
+      } else if (out.length && out[out.length - 1].type === 'gap') {
+        out[out.length - 1].count++;
+      }
+      prevIdx = i;
+      continue;
+    }
+    out.push(rows[i]);
+    prevIdx = i;
+  }
+  return out;
+}
+
+/* ═══════════════════════════════════════════════
+   渲染
+═══════════════════════════════════════════════ */
+function renderDiff() {
+  if (!diffRows.length) {
+    diffBody.innerHTML = '';
+    diffBody.appendChild(emptyState);
+    emptyState.innerHTML = '<div>在两侧粘贴 YAML 后点击 <kbd style="background:var(--bg3);padding:1px 6px;border-radius:3px;color:var(--accent);">比较</kbd> 开始</div>';
+    document.getElementById('cntAdd').textContent = '+0';
+    document.getElementById('cntDel').textContent = '-0';
+    document.getElementById('cntMod').textContent = '~0';
+    document.getElementById('hunkPos').textContent = '0 / 0';
+    document.getElementById('prevHunk').disabled = true;
+    document.getElementById('nextHunk').disabled = true;
     return;
   }
 
-  diffCountEl.textContent = `${diffs.length} 处差异`;
-
-  // Build diff lines
-  let html = '';
-
-  // Group by type and render
-  if (added.length > 0) {
-    html += `<div class="diff-line context" style="border-bottom:1px solid var(--border);font-weight:600;">── 添加（右侧有，左侧无）──</div>`;
-    for (const d of added) {
-      html += diffLine('added', d.path, formatVal(d.rightVal), d.docIndex);
-    }
+  if (view === 'side') {
+    diffBody.style.gridTemplateColumns = '1fr 1fr';
+    renderSideBySide();
+  } else {
+    diffBody.style.gridTemplateColumns = '1fr';
+    renderUnified();
   }
 
-  if (removed.length > 0) {
-    html += `<div class="diff-line context" style="border-bottom:1px solid var(--border);font-weight:600;">── 删除（左侧有，右侧无）──</div>`;
-    for (const d of removed) {
-      html += diffLine('removed', d.path, formatVal(d.leftVal), d.docIndex);
-    }
-  }
+  // 同步滚动
+  syncDiffScroll();
 
-  if (changed.length > 0) {
-    html += `<div class="diff-line context" style="border-bottom:1px solid var(--border);font-weight:600;">── 修改（值不同）──</div>`;
-    for (const d of changed) {
-      html += diffLine('changed', d.path, `${formatVal(d.leftVal)} → ${formatVal(d.rightVal)}`, d.docIndex);
+  // hunk 导航: 连续变化算一个 hunk
+  hunks = [];
+  let lastIdx = -2;
+  diffRows.forEach((r, i) => {
+    if (r.type !== 'eq' && r.type !== 'gap') {
+      if (i > lastIdx + 1) hunks.push(i);
+      lastIdx = i;
     }
-  }
-
-  diffContent.innerHTML = html;
+  });
+  hunkIdx = hunks.length > 0 ? 0 : -1;
+  updateHunkNav();
 }
 
-function diffLine(type, path, value, docIndex) {
-  const prefix = type === 'added' ? '+' : type === 'removed' ? '-' : '~';
-  const docLabel = docIndex > 0 ? `<span class="doc-indicator">文档 ${docIndex + 1}</span>` : '';
-  return `<div class="diff-line ${type}">
-    <span class="diff-prefix">${prefix}</span>
-    ${docLabel}
-    <span class="diff-path">${escHtml(path)}</span>
-    <span>${escHtml(value)}</span>
-  </div>`;
+function renderSideBySide() {
+  diffBody.innerHTML = '';
+
+  const wrap = (side) => {
+    const el = document.createElement('div');
+    el.className = 'diff-side ' + side;
+    el.id = 'diffSide_' + side;
+    const tbl = document.createElement('table');
+    tbl.className = 'diff-table';
+    tbl.innerHTML = '<colgroup><col class="lineno"><col class="marker"><col></colgroup>';
+    el.appendChild(tbl);
+    return el;
+  };
+
+  const leftSide  = wrap('left');
+  const rightSide = wrap('right');
+
+  const leftTbl  = leftSide.querySelector('table');
+  const rightTbl = rightSide.querySelector('table');
+
+  let leftLineNo = 0;
+  let rightLineNo = 0;
+
+  diffRows.forEach((row, idx) => {
+    if (row.type === 'gap') {
+      const r1 = makeRow('gap', '', '…', `⊟ ${row.count} 行隐藏`, idx);
+      const r2 = makeRow('gap', '', '…', `⊟ ${row.count} 行隐藏`, idx);
+      r1.classList.add('hunk');
+      r2.classList.add('hunk');
+      leftTbl.appendChild(r1);
+      rightTbl.appendChild(r2);
+      return;
+    }
+
+    if (row.type === 'eq') {
+      leftLineNo++; rightLineNo++;
+      leftTbl.appendChild(makeRow('ctx', leftLineNo, ' ', row.leftText, idx));
+      rightTbl.appendChild(makeRow('ctx', rightLineNo, ' ', row.rightText, idx));
+      return;
+    }
+
+    if (row.type === 'mod') {
+      leftLineNo++; rightLineNo++;
+      leftTbl.appendChild(makeRow('mod', leftLineNo, '~', row.leftText, idx));
+      rightTbl.appendChild(makeRow('mod', rightLineNo, '~', row.rightText, idx));
+      return;
+    }
+
+    if (row.type === 'del') {
+      leftLineNo++;
+      leftTbl.appendChild(makeRow('del', leftLineNo, '-', row.leftText, idx));
+      // 右侧占位空行
+      rightTbl.appendChild(makeRow('empty', '', '', '', idx));
+      return;
+    }
+
+    if (row.type === 'add') {
+      // 左侧占位空行
+      leftTbl.appendChild(makeRow('empty', '', '', '', idx));
+      rightLineNo++;
+      rightTbl.appendChild(makeRow('add', rightLineNo, '+', row.rightText, idx));
+      return;
+    }
+  });
+
+  diffBody.appendChild(leftSide);
+  diffBody.appendChild(rightSide);
+
+  // 行号映射: 从 tr 拿 idx
+  leftTbl.querySelectorAll('tr').forEach(tr => tr.dataset.idx = tr.dataset.idx);
 }
 
-function formatVal(val) {
-  if (val === undefined) return '(undefined)';
-  if (val === null) return 'null';
-  if (typeof val === 'string') return `"${val}"`;
-  if (typeof val === 'object') {
-    try {
-      return jsyaml.dump(val, { lineWidth: -1 }).trim();
-    } catch {
-      return JSON.stringify(val);
+function renderUnified() {
+  diffBody.innerHTML = '';
+  const el = document.createElement('div');
+  el.className = 'diff-side';
+  el.style.borderRight = 'none';
+  el.id = 'diffSide_unified';
+
+  const tbl = document.createElement('table');
+  tbl.className = 'diff-table';
+  tbl.innerHTML = '<colgroup><col class="lineno"><col class="lineno"><col class="marker"><col></colgroup>';
+  el.appendChild(tbl);
+
+  let leftLineNo = 0;
+  let rightLineNo = 0;
+
+  diffRows.forEach((row, idx) => {
+    if (row.type === 'gap') {
+      const tr = document.createElement('tr');
+      tr.className = 'hunk';
+      tr.dataset.idx = idx;
+      tr.innerHTML = `<td colspan="4" style="text-align:center;">⊟ ${row.count} 行隐藏</td>`;
+      tbl.appendChild(tr);
+      return;
     }
-  }
-  return String(val);
+
+    const tr = document.createElement('tr');
+    tr.className = row.type;
+    tr.dataset.idx = idx;
+
+    let lno = '', rno = '', marker = '', code = '';
+    if (row.type === 'eq')  { leftLineNo++; rightLineNo++; lno = leftLineNo; rno = rightLineNo; marker = ' '; code = escHtml(row.leftText); }
+    if (row.type === 'mod') { leftLineNo++; rightLineNo++; lno = leftLineNo; rno = rightLineNo; marker = '~'; code = escHtml(row.leftText) + '<br>' + escHtml(row.rightText); }
+    if (row.type === 'del') { leftLineNo++; lno = leftLineNo; marker = '-'; code = escHtml(row.leftText); }
+    if (row.type === 'add') { rightLineNo++; rno = rightLineNo; marker = '+'; code = escHtml(row.rightText); }
+
+    tr.innerHTML = `<td class="lineno">${lno}</td><td class="lineno">${rno}</td><td class="marker">${marker}</td><td class="code">${code}</td>`;
+    tbl.appendChild(tr);
+  });
+
+  diffBody.appendChild(el);
+}
+
+function makeRow(type, lineNo, marker, text, idx) {
+  const tr = document.createElement('tr');
+  tr.className = type;
+  tr.dataset.idx = idx;
+  tr.innerHTML = `<td class="lineno">${lineNo}</td><td class="marker">${marker}</td><td class="code">${escHtml(text)}</td>`;
+  return tr;
 }
 
 function escHtml(s) {
@@ -516,109 +882,286 @@ function escHtml(s) {
 }
 
 /* ═══════════════════════════════════════════════
-   Copy diff
+   同步滚动
 ═══════════════════════════════════════════════ */
-copyDiffBtn.addEventListener('click', async () => {
-  if (!lastDiffText) return;
-  try {
-    await navigator.clipboard.writeText(lastDiffText);
-    const orig = copyDiffBtn.textContent;
-    copyDiffBtn.textContent = '已复制';
-    setTimeout(() => copyDiffBtn.textContent = orig, 1500);
-  } catch {
-    alert('复制失败，请手动复制');
+let syncing = false;
+function syncDiffScroll() {
+  const left  = document.getElementById('diffSide_left');
+  const right = document.getElementById('diffSide_right');
+  const sync  = document.getElementById('syncScroll').checked;
+  if (!sync) return;
+  if (left && right) {
+    left.addEventListener('scroll', () => {
+      if (syncing) return;
+      syncing = true;
+      right.scrollTop  = left.scrollTop;
+      right.scrollLeft = left.scrollLeft;
+      requestAnimationFrame(() => syncing = false);
+    });
+    right.addEventListener('scroll', () => {
+      if (syncing) return;
+      syncing = true;
+      left.scrollTop  = right.scrollTop;
+      left.scrollLeft = right.scrollLeft;
+      requestAnimationFrame(() => syncing = false);
+    });
   }
-});
+}
 
 /* ═══════════════════════════════════════════════
-   Compare button
+   Hunk 导航
 ═══════════════════════════════════════════════ */
-compareBtn.addEventListener('click', () => {
-  leftErr.classList.remove('show');
-  rightErr.classList.remove('show');
+function updateHunkNav() {
+  const pos = document.getElementById('hunkPos');
+  const prev = document.getElementById('prevHunk');
+  const next = document.getElementById('nextHunk');
+  if (!hunks.length) {
+    pos.textContent = '0 / 0';
+    prev.disabled = next.disabled = true;
+    return;
+  }
+  pos.textContent = `${hunkIdx + 1} / ${hunks.length}`;
+  prev.disabled = hunkIdx <= 0;
+  next.disabled = hunkIdx >= hunks.length - 1;
+  highlightHunk();
+}
 
-  const leftResult = validateYaml(leftYaml.value, leftErr);
-  if (leftYaml.value.trim() && leftResult.error) return;
+function highlightHunk() {
+  document.querySelectorAll('.diff-table tr.cursor').forEach(tr => tr.classList.remove('cursor'));
+  if (hunkIdx < 0) return;
+  const idx = hunks[hunkIdx];
+  const rows = document.querySelectorAll(`.diff-table tr[data-idx="${idx}"]`);
+  rows.forEach(tr => tr.classList.add('cursor'));
+  // 滚动到可见
+  const left  = document.getElementById('diffSide_left');
+  const right = document.getElementById('diffSide_right');
+  const unified = document.getElementById('diffSide_unified');
+  const row = rows[0];
+  if (!row) return;
+  const top = row.offsetTop - 60;
+  [left, right, unified].forEach(el => { if (el) el.scrollTo({ top, behavior: 'smooth' }); });
+}
 
-  const rightResult = validateYaml(rightYaml.value, rightErr);
-  if (rightYaml.value.trim() && rightResult.error) return;
+function nextHunk() { if (hunkIdx < hunks.length - 1) { hunkIdx++; updateHunkNav(); } }
+function prevHunk() { if (hunkIdx > 0) { hunkIdx--; updateHunkNav(); } }
 
-  // If both empty
-  if (!leftYaml.value.trim() && !rightYaml.value.trim()) {
-    resultCard.classList.remove('show');
+/* ═══════════════════════════════════════════════
+   操作
+═══════════════════════════════════════════════ */
+function doCompare() {
+  const lText = leftYaml.value;
+  const rText = rightYaml.value;
+  errBar.classList.remove('show', 'bad');
+  errBar.textContent = '';
+
+  if (!lText.trim() && !rText.trim()) {
+    diffRows = [];
+    renderDiff();
     return;
   }
 
-  // Compare documents
-  const diffs = compareDocuments(leftResult.docs, rightResult.docs);
+  const left  = parseYaml(lText);
+  const right = parseYaml(rText);
 
-  // Build text for copy
-  lastDiffText = buildDiffText(diffs);
-
-  renderDiff(diffs);
-  resultCard.classList.add('show');
-});
-
-function compareDocuments(leftDocs, rightDocs) {
-  const diffs = [];
-  const maxLen = Math.max(leftDocs.length, rightDocs.length);
-
-  for (let i = 0; i < maxLen; i++) {
-    const leftDoc = leftDocs[i];
-    const rightDoc = rightDocs[i];
-    const docIndex = i;
-
-    if (i >= leftDocs.length) {
-      // Entire document added
-      collectAllAdded(rightDoc, `doc[${i}]`, diffs, docIndex);
-    } else if (i >= rightDocs.length) {
-      // Entire document removed
-      collectAllRemoved(leftDoc, `doc[${i}]`, diffs, docIndex);
-    } else {
-      // Compare documents
-      diffs.push(...jsonDiff(leftDoc, rightDoc, 'root', docIndex));
-    }
+  if (left.error) {
+    errBar.classList.add('show', 'bad');
+    const m = left.error.mark || {};
+    errBar.textContent = `❌ 左侧 YAML 解析失败 L${(m.line||0)+1} — ${left.error.message.split('\n')[0]}`;
+    diffRows = []; renderDiff(); return;
+  }
+  if (right.error) {
+    errBar.classList.add('show', 'bad');
+    const m = right.error.mark || {};
+    errBar.textContent = `❌ 右侧 YAML 解析失败 L${(m.line||0)+1} — ${right.error.message.split('\n')[0]}`;
+    diffRows = []; renderDiff(); return;
   }
 
-  return diffs;
+  // 行级对齐
+  const rawRows = myersDiff(left.lines, right.lines);
+
+  // 折叠上下文
+  const ctx = +document.getElementById('ctxLines').value || 0;
+  diffRows = collapseContext(rawRows, ctx);
+
+  // 统计
+  let add = 0, del = 0, mod = 0;
+  rawRows.forEach(r => {
+    if (r.type === 'add') add++;
+    else if (r.type === 'del') del++;
+    else if (r.type === 'mod') mod++;
+  });
+  document.getElementById('cntAdd').textContent = `+${add}`;
+  document.getElementById('cntDel').textContent = `-${del}`;
+  document.getElementById('cntMod').textContent = `~${mod}`;
+  document.getElementById('leftInfo').textContent  = `${left.lines.length} 行`;
+  document.getElementById('rightInfo').textContent = `${right.lines.length} 行`;
+
+  renderDiff();
 }
 
-function countVals(obj) {
-  if (obj === null || typeof obj !== 'object') return 1;
-  if (Array.isArray(obj)) return obj.length;
-  return Object.keys(obj).length;
+function doFormat(side) {
+  const ta = side === 'left' ? leftYaml : rightYaml;
+  if (!ta.value.trim()) return;
+  try {
+    const docs = jsyaml.loadAll(ta.value);
+    ta.value = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1, noRefs: false })).join('---\n');
+    doCompare();
+  } catch {}
 }
 
-function buildDiffText(diffs) {
+function swapSides() {
+  const tmp = leftYaml.value;
+  leftYaml.value = rightYaml.value;
+  rightYaml.value = tmp;
+  doCompare();
+}
+
+function doClear() {
+  leftYaml.value = '';
+  rightYaml.value = '';
+  diffRows = [];
+  errBar.classList.remove('show', 'bad');
+  document.getElementById('leftInfo').textContent  = '';
+  document.getElementById('rightInfo').textContent = '';
+  renderDiff();
+}
+
+function setView(v) {
+  view = v;
+  document.getElementById('viewSide').classList.toggle('on', v === 'side');
+  document.getElementById('viewUnified').classList.toggle('on', v === 'unified');
+  renderDiff();
+}
+
+function copyDiffText() {
   let text = '';
-  for (const d of diffs) {
-    const prefix = d.type === 'added' ? '+' : d.type === 'removed' ? '-' : '~';
-    const docLabel = d.docIndex > 0 ? `[文档 ${d.docIndex + 1}] ` : '';
-    text += `${prefix} ${docLabel}${d.path}: `;
-    if (d.type === 'added') {
-      text += formatVal(d.rightVal);
-    } else if (d.type === 'removed') {
-      text += formatVal(d.leftVal);
-    } else {
-      text += `${formatVal(d.leftVal)} → ${formatVal(d.rightVal)}`;
-    }
-    text += '\n';
-  }
-  return text || '两个 YAML 文档完全相同';
+  diffRows.forEach(r => {
+    if (r.type === 'gap')      text += `… ${r.count} 行隐藏\n`;
+    else if (r.type === 'eq')  text += `  ${r.leftText}\n`;
+    else if (r.type === 'del') text += `- ${r.leftText}\n`;
+    else if (r.type === 'add') text += `+ ${r.rightText}\n`;
+    else if (r.type === 'mod') text += `- ${r.leftText}\n+ ${r.rightText}\n`;
+  });
+  if (!text) return;
+  navigator.clipboard.writeText(text).catch(() => {});
+}
+
+function loadSample() {
+  leftYaml.value = `# v1 服务端配置
+server:
+  host: 0.0.0.0
+  port: 8080
+  tls: true
+
+database:
+  driver: postgres
+  host: db.internal
+  port: 5432
+  pool:
+    min: 2
+    max: 20
+
+features:
+  - name: login
+    enabled: true
+  - name: signup
+    enabled: true
+
+logging:
+  level: info
+  format: json
+`;
+  rightYaml.value = `# v2 服务端配置
+server:
+  host: 0.0.0.0
+  port: 9090          # 改端口
+  tls: true
+  cors:               # 新增 CORS 配置
+    origins:
+      - "*"
+
+database:
+  driver: mysql       # 改用 MySQL
+  host: db.internal
+  port: 3306
+  pool:
+    min: 5            # 调整最小连接
+    max: 50           # 调整最大连接
+    timeout: 30       # 新增超时
+
+features:
+  - name: login
+    enabled: true
+  - name: signup
+    enabled: true
+  - name: sso          # 新增 SSO
+    enabled: false
+
+logging:
+  level: debug        # 改日志级别
+  format: json
+  output: stdout
+`;
+  doCompare();
 }
 
 /* ═══════════════════════════════════════════════
-   Input validation on change
+   输入响应
 ═══════════════════════════════════════════════ */
-leftYaml.addEventListener('input', () => {
-  if (leftYaml.value.trim()) validateYaml(leftYaml.value, leftErr);
-  else leftErr.classList.remove('show');
+let cmpDebounce = null;
+[leftYaml, rightYaml].forEach(ta => {
+  ta.addEventListener('input', () => {
+    clearTimeout(cmpDebounce);
+    cmpDebounce = setTimeout(doCompare, 500);
+  });
+});
+document.getElementById('ctxLines').addEventListener('change', doCompare);
+
+/* ═══════════════════════════════════════════════
+   FAB 显示逻辑
+═══════════════════════════════════════════════ */
+const fabEl = document.getElementById('fab');
+function checkFab() {
+  const visible = diffRows.length > 0;
+  if (visible !== fabShown) {
+    fabShown = visible;
+    fabEl.classList.toggle('show', visible);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   键盘快捷键
+═══════════════════════════════════════════════ */
+document.addEventListener('keydown', (e) => {
+  if (!(e.ctrlKey || e.metaKey)) {
+    // Alt + 上下 导航 hunk
+    if (e.altKey && !e.shiftKey && !e.ctrlKey) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); nextHunk(); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); prevHunk(); }
+    }
+    return;
+  }
+  if (e.altKey) return;
+
+  const k = e.key.toLowerCase();
+  let handled = true;
+  switch (k) {
+    case 'enter': doCompare(); break;
+    case 'l':     doClear(); break;
+    case 's':     if (e.shiftKey) swapSides(); else handled = false; break;
+    case 'c':     if (e.shiftKey) copyDiffText(); else handled = false; break;
+    case 'arrowdown': nextHunk(); break;
+    case 'arrowup':   prevHunk(); break;
+    default: handled = false;
+  }
+  if (handled) e.preventDefault();
 });
 
-rightYaml.addEventListener('input', () => {
-  if (rightYaml.value.trim()) validateYaml(rightYaml.value, rightErr);
-  else rightErr.classList.remove('show');
-});
+/* ═══════════════════════════════════════════════
+   初始化
+═══════════════════════════════════════════════ */
+loadSample();
+checkFab();
 </script>
 </body>
 </html>
