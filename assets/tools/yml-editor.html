@@ -1,461 +1,1471 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>YAML 编辑器 · 验证 &amp; JSON 转换</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YAML 工具</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <style>
-  :root {
-    --bg: #0f1115;
-    --card: #181b22;
-    --card2: #1f232c;
-    --border: #2a2f3a;
-    --text: #e6e9ef;
-    --muted: #8a93a3;
-    --accent: #4f8cff;
-    --accent2: #2dd4bf;
-    --warn: #f59e0b;
-    --danger: #ef4444;
-    --ok: #22c55e;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
-  h1 { font-size: 22px; margin: 0 0 4px; }
-  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 20px;
-    margin-bottom: 24px;
-  }
-  .card h2 { font-size: 16px; margin: 0 0 16px; display: flex; align-items: center; gap: 8px; }
-  .card h2 .badge { font-size: 11px; background: var(--card2); color: var(--muted); padding: 2px 8px; border-radius: 6px; font-weight: 400; }
-  label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 6px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Editor layout */
-  .editor-wrap {
-    display: flex;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    min-height: 400px;
-  }
-  .line-nums {
-    padding: 10px 8px;
-    background: var(--card);
-    color: var(--muted);
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    text-align: right;
-    user-select: none;
-    min-width: 44px;
-    border-right: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .editor-inner {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-  }
-  .editor-highlight {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    padding: 10px 12px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow: auto;
-    pointer-events: none;
-    bottom: 0;
-    right: 0;
-  }
-  textarea {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 10px 12px;
-    font-family: ui-monospace, "SF Mono", Menlo, Menlo, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    background: transparent;
-    color: transparent;
-    caret-color: var(--text);
-    border: none;
-    resize: none;
-    outline: none;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow: auto;
-  }
+:root {
+  --bg:       #1a1b26;
+  --bg2:      #1f2030;
+  --bg3:      #24253a;
+  --bg4:      #2a2b40;
+  --border:   #363659;
+  --text:     #c0caf5;
+  --text2:    #9aa5ce;
+  --text3:    #565f89;
+  --accent:   #7aa2f7;
+  --green:    #9ece6a;
+  --yellow:   #e0af68;
+  --red:      #f7768e;
+  --mauve:    #bb9af7;
+  --teal:     #73daca;
+  --orange:   #ff9e64;
+  --btn:      #2a2b40;
+  --btn-h:    #363659;
+  --scrollbar:#363659;
+}
 
-  /* Syntax highlighting */
-  .hl-key { color: var(--accent); }
-  .hl-string { color: #22c55e; }
-  .hl-number { color: #facc15; }
-  .hl-bool { color: #c084fc; }
-  .hl-null { color: var(--muted); }
-  .hl-comment { color: #6b7280; font-style: italic; }
-  .hl-punct { color: var(--text); }
-  .hl-anchor { color: var(--warn); }
-  .hl-alias { color: var(--accent2); }
-  .hl-error-line { background: rgba(239,68,68,.15); display: block; }
+html, body { height: 100%; }
+body {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 13px;
+}
 
-  /* Toolbar */
-  .toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-  button {
-    background: var(--accent);
-    color: #fff; border: none; border-radius: 10px;
-    padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer;
-    transition: opacity .15s;
-  }
-  button:hover { opacity: .9; }
-  button:disabled { opacity: .5; cursor: not-allowed; }
-  button.ghost { background: var(--card2); color: var(--text); border: 1px solid var(--border); }
+/* ── 顶栏 ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  user-select: none;
+}
+.topbar-logo {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--accent);
+  margin-right: 6px;
+  letter-spacing: 1px;
+}
+.sep { width: 1px; height: 20px; background: var(--border); margin: 0 3px; flex-shrink: 0; }
 
-  /* Status */
-  .status {
-    margin-top: 16px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    display: none;
-  }
-  .status.show { display: block; }
-  .status.ok { background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.3); color: #86efac; }
-  .status.err { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.3); color: #fca5a5; }
+.btn {
+  padding: 4px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.btn.prim:hover { background: #89b0ff; }
+.btn.danger:hover { border-color: var(--red); color: var(--red); }
+.btn kbd {
+  font-family: inherit;
+  font-size: 10px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 3px;
+  padding: 0 4px;
+  margin-left: 5px;
+  color: inherit;
+  opacity: .8;
+  font-weight: 400;
+}
 
-  /* Output section */
-  .output-wrap {
-    display: flex;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    min-height: 200px;
-    margin-top: 16px;
-  }
-  .output-highlight {
-    padding: 10px 12px;
-    font-family: ui-monospace, "SF Mono", Menlo, monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow: auto;
-    flex: 1;
-  }
+/* ── 浮动操作条 (滚动时不依赖顶栏) ── */
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.4);
+  z-index: 100;
+  user-select: none;
+}
+.fab.show { display: flex; }
+.fab-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--btn);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background .12s, border-color .12s, color .12s;
+}
+.fab-btn:hover { background: var(--btn-h); border-color: var(--accent); color: var(--accent); }
+.fab-btn.prim { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+.fab-btn.prim:hover { background: #89b0ff; color: #1a1b26; }
+.fab-sep { height: 1px; background: var(--border); margin: 2px 4px; }
+.fab-tip {
+  position: absolute;
+  right: 40px;
+  background: var(--bg3);
+  color: var(--text);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s;
+}
+.fab-btn:hover + .fab-tip { opacity: 1; }
 
-  /* Doc count badge */
-  .doc-badge {
-    font-size: 11px;
-    background: rgba(79,140,255,.18);
-    color: #93b4ff;
-    padding: 2px 8px;
-    border-radius: 6px;
-    margin-left: 8px;
-  }
+/* ── 主体 ── */
+.main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── 历史侧边栏 ── */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: width .2s ease;
+}
+.sidebar.closed { width: 0; }
+
+.sb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text2);
+  flex-shrink: 0;
+}
+.sb-head strong { color: var(--text); font-size: 12px; }
+.sb-clear { color: var(--red); cursor: pointer; font-size: 11px; }
+.sb-clear:hover { text-decoration: underline; }
+
+.sb-list { flex: 1; overflow-y: auto; padding: 6px 5px; }
+.sb-item {
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background .1s;
+}
+.sb-item:hover { background: var(--bg4); border-color: var(--border); }
+.sb-time { font-size: 10px; color: var(--text3); margin-bottom: 2px; }
+.sb-preview { font-size: 11px; color: var(--text2); word-break: break-all; line-height: 1.4; }
+
+/* ── 编辑 + 预览 双栏 ── */
+.panels { flex: 1; display: flex; overflow: hidden; }
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.pane + .pane { border-left: 1px solid var(--border); }
+
+.pane-head {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text2);
+  flex-shrink: 0;
+  user-select: none;
+}
+.pane-title { flex: 1; font-weight: 700; font-size: 12px; color: var(--text); }
+
+.mini-btn {
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background .1s, color .1s, border-color .1s;
+  white-space: nowrap;
+}
+.mini-btn:hover { background: var(--bg4); color: var(--text); border-color: var(--text3); }
+.mini-btn.on { background: var(--accent); color: #1a1b26; border-color: var(--accent); font-weight: 700; }
+
+/* 编辑器 */
+.editor-wrap {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+.gutter {
+  width: 46px;
+  flex-shrink: 0;
+  background: var(--bg3);
+  border-right: 1px solid var(--border);
+  overflow: hidden;
+  padding: 12px 8px 12px 0;
+  text-align: right;
+  color: var(--text3);
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre;
+  user-select: none;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.editor-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.editor-highlight {
+  position: absolute;
+  inset: 0;
+  padding: 12px 14px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  pointer-events: none;
+  overflow: auto;
+  color: var(--text);
+}
+.editor-highlight::-webkit-scrollbar { display: none; }
+#editor {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--text);
+  border: none;
+  outline: none;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 13px;
+  resize: none;
+  line-height: 1.65;
+  overflow: auto;
+  tab-size: 2;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+#editor::placeholder { color: var(--text3); }
+
+/* 行内高亮 span */
+.hl-key    { color: var(--accent); }
+.hl-string { color: var(--green); }
+.hl-number { color: var(--yellow); }
+.hl-bool   { color: var(--mauve); }
+.hl-null   { color: var(--red); opacity: .85; }
+.hl-comment{ color: #6b7280; font-style: italic; }
+.hl-punct  { color: var(--text2); }
+.hl-anchor { color: var(--orange); }
+.hl-alias  { color: var(--teal); }
+.hl-error-line {
+  background: rgba(247,118,142,.18);
+  display: block;
+  border-left: 3px solid var(--red);
+  margin-left: -14px;
+  padding-left: 11px;
+}
+
+/* 状态栏 */
+.statusbar {
+  padding: 3px 10px;
+  font-size: 11px;
+  background: var(--bg3);
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  color: var(--text3);
+}
+.st-ok  { color: var(--green); }
+.st-err { color: var(--red); }
+.st-warn{ color: var(--orange); }
+
+/* 预览区 */
+.preview-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.error-bar {
+  padding: 8px 12px;
+  background: #2a0a12;
+  color: var(--red);
+  font-size: 12px;
+  line-height: 1.5;
+  border-bottom: 1px solid #4a1020;
+  display: none;
+  flex-shrink: 0;
+}
+.error-bar.show { display: block; }
+
+.tab-warn {
+  padding: 8px 12px;
+  background: #2a1d05;
+  color: var(--orange);
+  font-size: 12px;
+  line-height: 1.5;
+  border-bottom: 1px solid #4a3505;
+  display: none;
+  flex-shrink: 0;
+}
+.tab-warn.show { display: block; }
+.tab-warn button {
+  margin-left: 8px;
+  background: var(--orange);
+  color: #1a1b26;
+  border: none;
+  padding: 2px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.preview-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 10px 14px;
+}
+
+/* ── YAML 树 ── */
+.ytree { line-height: 1.65; }
+
+.ynode { position: relative; }
+.yline { display: flex; align-items: flex-start; min-height: 1.65em; }
+
+.ytoggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 1.65em;
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 9px;
+  border-radius: 2px;
+  margin-right: 3px;
+  user-select: none;
+  transition: color .1s, background .1s;
+}
+.ytoggle:hover { background: var(--bg4); color: var(--text2); }
+.ytoggle.leaf { cursor: default; visibility: hidden; }
+
+.ychildren {
+  padding-left: 18px;
+  border-left: 1px dashed var(--border);
+  margin-left: 4px;
+}
+.ychildren.hide { display: none; }
+
+/* 值颜色（与 JSON 工具保持一致） */
+.yk      { color: var(--accent); }
+.ycolon  { color: var(--text3); margin: 0 2px; }
+.ystr    { color: var(--green); }
+.ynum    { color: var(--yellow); }
+.ybool   { color: var(--mauve); }
+.ynull   { color: var(--red); opacity: .8; }
+.ybrace  { color: var(--text2); }
+.ycomma  { color: var(--text3); }
+.yanchor { color: var(--orange); }
+.yalias  { color: var(--teal); }
+
+/* 注释行（独立节点） */
+.ycomment {
+  display: flex;
+  align-items: flex-start;
+  color: #6b7280;
+  font-style: italic;
+  min-height: 1.65em;
+  padding-left: 1px;
+}
+.ycomment .yicon {
+  color: var(--text3);
+  font-size: 11px;
+  margin-right: 5px;
+  user-select: none;
+}
+.ycomment .ytxt { white-space: pre-wrap; word-break: break-word; }
+
+/* 文档分隔符 */
+.ydocsep {
+  color: var(--text3);
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 4px 0;
+  font-size: 11px;
+}
+
+/* 行内注释（值后面的 # xxx） */
+.ytrail-comment {
+  color: #6b7280;
+  font-style: italic;
+  margin-left: 6px;
+  font-size: 12px;
+}
+
+/* 折叠预览 */
+.yprev {
+  color: var(--text3);
+  font-size: 11px;
+  cursor: pointer;
+  margin-left: 3px;
+}
+.yprev:hover { color: var(--text2); }
+.ybadge {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--text3);
+  background: var(--bg4);
+  border-radius: 3px;
+  padding: 0 5px;
+  margin-left: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+}
+.ybadge:hover { color: var(--text); border-color: var(--text3); }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>YAML 编辑器</h1>
-  <div class="sub">语法高亮 &middot; 验证 &middot; 格式化 &middot; JSON 转换</div>
 
-  <div class="card">
-    <h2>编辑器 <span class="badge">YAML 1.2</span></h2>
-    <div class="toolbar">
-      <button id="btnValidate">验证</button>
-      <button id="btnFormat">格式化</button>
-      <button id="btnMinify">压缩</button>
-      <button id="btnToJson">转 JSON</button>
-      <button id="btnFromJson">从 JSON</button>
-      <button class="ghost" id="btnCopy">复制</button>
-      <button class="ghost" id="btnClear">清空</button>
+<!-- 顶栏 -->
+<div class="topbar">
+  <div class="topbar-logo">{ YAML }</div>
+
+  <button class="btn prim" onclick="doFormat()" title="格式化 (Ctrl+S)">格式化<kbd>⌘S</kbd></button>
+  <button class="btn" onclick="doCompress()" title="压缩 (Ctrl+Shift+C)">压缩<kbd>⌘⇧C</kbd></button>
+  <div class="sep"></div>
+  <button class="btn" onclick="doValidate()" title="验证 (Ctrl+Enter)">验证<kbd>⌘↵</kbd></button>
+  <button class="btn" onclick="doToJson()" title="转 JSON (Ctrl+J)">转 JSON<kbd>⌘J</kbd></button>
+  <button class="btn" onclick="doFromJson()" title="从 JSON (Ctrl+Shift+J)">从 JSON<kbd>⌘⇧J</kbd></button>
+  <div class="sep"></div>
+  <button class="btn" onclick="doCopy()" title="复制 (Ctrl+Shift+C — 已用, 改为 Ctrl+Shift+Y)">复制<kbd>⌘⇧Y</kbd></button>
+  <button class="btn" onclick="doPaste()" title="粘贴 (Ctrl+Shift+V)">粘贴</button>
+  <button class="btn danger" onclick="doClear()" title="清空 (Ctrl+L)">清空<kbd>⌘L</kbd></button>
+  <div class="sep"></div>
+  <button class="btn" id="histBtn" onclick="toggleSidebar()" title="历史 (Ctrl+H)">历史 ▸</button>
+</div>
+
+<!-- 浮动操作条 (滚动时不依赖顶栏) -->
+<div class="fab" id="fab">
+  <button class="fab-btn prim" onclick="doFormat()" title="格式化 (Ctrl+S)">⤵</button>
+  <span class="fab-tip">格式化 ⌘S</span>
+
+  <button class="fab-btn" onclick="expandAll()" title="全展开 (Ctrl+Shift+↑)">⏏</button>
+  <span class="fab-tip">全展开 ⌘⇧↑</span>
+
+  <button class="fab-btn" onclick="collapseAll()" title="全折叠 (Ctrl+Shift+↓)">⊟</button>
+  <span class="fab-tip">全折叠 ⌘⇧↓</span>
+
+  <div class="fab-sep"></div>
+
+  <button class="fab-btn" onclick="scrollPreviewTop()" title="滚到预览顶部">⤒</button>
+  <span class="fab-tip">回顶</span>
+
+  <button class="fab-btn" onclick="scrollEditorTop()" title="滚到编辑器顶部">⌃</button>
+  <span class="fab-tip">回顶</span>
+
+  <div class="fab-sep"></div>
+
+  <button class="fab-btn" onclick="toggleFab()" title="关闭浮动条">×</button>
+  <span class="fab-tip">关闭</span>
+</div>
+
+<!-- 主体 -->
+<div class="main">
+
+  <!-- 历史侧边栏 -->
+  <div class="sidebar closed" id="sidebar">
+    <div class="sb-head">
+      <strong>历史记录</strong>
+      <span class="sb-clear" onclick="clearHistory()">清空</span>
     </div>
-    <label>YAML 输入</label>
-    <div class="editor-wrap" id="editorWrap">
-      <div class="line-nums" id="lineNums"></div>
-      <div class="editor-inner">
-        <div class="editor-highlight" id="editorHighlight"></div>
-        <textarea id="editor" spellcheck="false" placeholder="输入 YAML..."></textarea>
-      </div>
-    </div>
-    <div class="status" id="status"></div>
+    <div class="sb-list" id="sbList"></div>
   </div>
 
-  <div class="card" id="outputCard" style="display:none;">
-    <h2>输出 <span id="outputBadge"></span></h2>
-    <div class="output-wrap">
-      <div class="output-highlight" id="outputHighlight"></div>
+  <!-- 双栏 -->
+  <div class="panels">
+
+    <!-- 左：输入 -->
+    <div class="pane">
+      <div class="pane-head">
+        <span class="pane-title">输入</span>
+        <button class="mini-btn" onclick="loadSample()">示例</button>
+        <button class="mini-btn" onclick="fixIndent()">缩进修复</button>
+        <button class="mini-btn" onclick="setTabSize(2)">Tab=2</button>
+        <button class="mini-btn" onclick="setTabSize(4)">Tab=4</button>
+      </div>
+      <div class="editor-wrap">
+        <div class="gutter" id="gutter">1</div>
+        <div class="editor-area">
+          <div class="editor-highlight" id="editorHighlight"></div>
+          <textarea id="editor" spellcheck="false"
+            placeholder="在此粘贴或输入 YAML…&#10;按 Tab 输入空格缩进 (2 空格)"></textarea>
+        </div>
+      </div>
+      <div class="statusbar">
+        <span id="stMsg">就绪</span>
+        <span id="stLen"></span>
+        <span id="stType"></span>
+        <span id="stDocs"></span>
+        <span id="stCursor" style="margin-left:auto"></span>
+      </div>
     </div>
-    <div class="status" id="outputStatus"></div>
+
+    <!-- 右：预览 -->
+    <div class="pane">
+      <div class="pane-head">
+        <span class="pane-title">预览</span>
+        <button class="mini-btn on" id="vTree" onclick="setView('tree')">树形</button>
+        <button class="mini-btn" id="vRaw"  onclick="setView('raw')">文本</button>
+        <div class="sep"></div>
+        <button class="mini-btn" onclick="expandAll()">全展开</button>
+        <button class="mini-btn" onclick="collapseAll()">全折叠</button>
+      </div>
+      <div class="preview-wrap">
+        <div class="tab-warn" id="tabWarn">
+          <span>⚠ 检测到 Tab 缩进，YAML 要求空格缩进。</span>
+          <button onclick="fixIndent()">自动转空格</button>
+        </div>
+        <div class="error-bar" id="errorBar"></div>
+        <div class="preview-scroll" id="previewScroll">
+          <div class="ytree" id="ytree"></div>
+          <pre id="yamlRaw" style="display:none;font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word;"></pre>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
-const editor = document.getElementById("editor");
-const highlight = document.getElementById("editorHighlight");
-const lineNums = document.getElementById("lineNums");
-const status = document.getElementById("status");
-const outputCard = document.getElementById("outputCard");
-const outputBadge = document.getElementById("outputBadge");
-const outputHighlight = document.getElementById("outputHighlight");
-const outputStatus = document.getElementById("outputStatus");
+'use strict';
 
-/* ---- Syntax highlighting ---- */
+/* ═══════════════════════════════════════════════
+   状态
+═══════════════════════════════════════════════ */
+let parsed   = undefined;
+let view     = 'tree';
+let sbOpen   = false;
+let tabSize  = 2;
+const HK     = 'yt_hist_v1';
+
+/* ═══════════════════════════════════════════════
+   历史记录
+═══════════════════════════════════════════════ */
+function histLoad()    { try { return JSON.parse(localStorage.getItem(HK) || '[]'); } catch { return []; } }
+function histSave(arr) { localStorage.setItem(HK, JSON.stringify(arr)); }
+
+function histAdd(raw) {
+  if (!raw || raw.length < 2) return;
+  const arr = histLoad();
+  if (arr.slice(0, 5).some(h => h.raw === raw)) return;
+  arr.unshift({
+    raw,
+    time: new Date().toLocaleTimeString('zh-CN', { hour12: false }),
+    prev: raw.replace(/\s+/g, ' ').slice(0, 80)
+  });
+  if (arr.length > 50) arr.length = 50;
+  histSave(arr);
+  renderHist();
+}
+
+function renderHist() {
+  const arr = histLoad();
+  const el  = document.getElementById('sbList');
+  if (!arr.length) {
+    el.innerHTML = '<div style="padding:12px 8px;color:var(--text3);font-size:11px;">暂无记录</div>';
+    return;
+  }
+  el.innerHTML = arr.map((h, i) => `
+    <div class="sb-item" onclick="histApply(${i})">
+      <div class="sb-time">${escHtml(h.time)}</div>
+      <div class="sb-preview">${escHtml(h.prev)}${h.raw.length > 80 ? '…' : ''}</div>
+    </div>`).join('');
+}
+
+function histApply(i) {
+  const h = histLoad()[i];
+  if (!h) return;
+  setEditorValue(h.raw);
+  parse(h.raw, false);
+}
+
+function clearHistory() { histSave([]); renderHist(); }
+
+function toggleSidebar() {
+  sbOpen = !sbOpen;
+  document.getElementById('sidebar').classList.toggle('closed', !sbOpen);
+  document.getElementById('histBtn').textContent = sbOpen ? '历史 ◂' : '历史 ▸';
+  if (sbOpen) renderHist();
+}
+
+/* ═══════════════════════════════════════════════
+   行号 & 光标位置
+═══════════════════════════════════════════════ */
+const editorEl       = document.getElementById('editor');
+const gutterEl       = document.getElementById('gutter');
+const highlightEl    = document.getElementById('editorHighlight');
+
+function updateGutter() {
+  const lines = editorEl.value.split('\n').length;
+  const nums = [];
+  for (let i = 1; i <= lines; i++) nums.push(i);
+  gutterEl.textContent = nums.join('\n');
+  gutterEl.scrollTop = editorEl.scrollTop;
+}
+
+function setEditorValue(v) {
+  editorEl.value = v;
+  updateGutter();
+  syncHighlightScroll();
+  updateHighlight();
+}
+
+function updateCursor() {
+  const v   = editorEl.value;
+  const pos = editorEl.selectionStart;
+  const pre = v.slice(0, pos);
+  const row = pre.split('\n').length;
+  const col = pos - pre.lastIndexOf('\n');
+  document.getElementById('stCursor').textContent = `行 ${row}，列 ${col}`;
+}
+
+editorEl.addEventListener('scroll', () => {
+  gutterEl.scrollTop = editorEl.scrollTop;
+  syncHighlightScroll();
+});
+editorEl.addEventListener('click',   updateCursor);
+editorEl.addEventListener('keyup',   updateCursor);
+
+function syncHighlightScroll() {
+  highlightEl.scrollTop  = editorEl.scrollTop;
+  highlightEl.scrollLeft = editorEl.scrollLeft;
+}
+
+/* ═══════════════════════════════════════════════
+   Tab 键 → 空格缩进
+═══════════════════════════════════════════════ */
+editorEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    insertAtCursor('\t'.replace(/\t/g, ' '.repeat(tabSize)));
+  }
+});
+
+function insertAtCursor(text) {
+  const start = editorEl.selectionStart;
+  const end   = editorEl.selectionEnd;
+  const v = editorEl.value;
+  editorEl.value = v.slice(0, start) + text + v.slice(end);
+  const pos = start + text.length;
+  editorEl.selectionStart = editorEl.selectionEnd = pos;
+  updateGutter();
+  updateHighlight();
+  updateCursor();
+  editorEl.focus();
+}
+
+function setTabSize(n) {
+  tabSize = n;
+  editorEl.style.tabSize = n;
+  setSt(`Tab = ${n} 空格`, 'ok', '');
+}
+
+/* ═══════════════════════════════════════════════
+   粘贴自动 Tab → 空格（YAML 要求）
+═══════════════════════════════════════════════ */
+editorEl.addEventListener('paste', (e) => {
+  // 拿不到 textarea 内容时（部分浏览器）不做处理
+  // 大部分浏览器 paste 事件后 input 事件会触发 parse，由 parse 中的 fixIndent 兜底
+});
+
+/* ═══════════════════════════════════════════════
+   行级注释提取
+   每行分类：blank | comment | docsep | data
+   注释行返回 trimmed 注释文本（去掉 # 和前导空格）
+═══════════════════════════════════════════════ */
+function classifyLine(line) {
+  // 去掉行尾换行（split('\n') 已切）
+  // 判断是否是纯注释：第一个非空字符是 #，且不在引号内
+  let inStr = false, q = null;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (inStr) {
+      if (c === '\\' && i + 1 < line.length) { i++; continue; }
+      if (c === q) inStr = false;
+      continue;
+    }
+    if (c === '"' || c === "'") { inStr = true; q = c; continue; }
+    if (c === '#') {
+      const before = line.slice(0, i).trim();
+      if (before === '') {
+        return { kind: 'comment', indent: 0, text: line.slice(i + 1).trim() };
+      }
+      return { kind: 'data', indent: countIndent(line), comment: line.slice(i + 1).trim(), before: line.slice(0, i) };
+    }
+  }
+  const t = line.trim();
+  if (t === '') return { kind: 'blank', indent: 0 };
+  if (t === '---' || t === '...') return { kind: 'docsep', indent: countIndent(line), text: t };
+  return { kind: 'data', indent: countIndent(line) };
+}
+
+function countIndent(line) {
+  let n = 0;
+  for (const c of line) {
+    if (c === ' ') n++;
+    else if (c === '\t') n += tabSize;
+    else break;
+  }
+  return n;
+}
+
+/* ═══════════════════════════════════════════════
+   编辑器语法高亮（行级，保留原始缩进）
+═══════════════════════════════════════════════ */
 function highlightYaml(code) {
-  let result = escapeHtml(code);
-
-  // Comments
-  result = result.replace(/(#.*)$/gm, '<span class="hl-comment">$1</span>');
-
-  // Anchors and aliases
-  result = result.replace(/(&[*]?\w+)/g, '<span class="hl-anchor">$1</span>');
-  result = result.replace(/(\*[*]?\w+)/g, '<span class="hl-alias">$1</span>');
-
-  // Document separators
-  result = result.replace(/^(---\s*)$/gm, '<span class="hl-punct">$1</span>');
-
-  // Strings (quoted)
-  result = result.replace(/"([^"\\]|\\.)*"/g, '<span class="hl-string">$&</span>');
-  result = result.replace(/'([^'\\]|\\.)*'/g, '<span class="hl-string">$&</span>');
-
-  // Numbers
-  result = result.replace(/\b(-?\d+\.?\d*([eE][+-]?\d+)?)\b/g, '<span class="hl-number">$1</span>');
-
-  // Booleans and null
-  result = result.replace(/\b(true|false|yes|no|on|off)\b/gi, '<span class="hl-bool">$1</span>');
-  result = result.replace(/\b(null|~)\b/g, '<span class="hl-null">$1</span>');
-
-  // Keys (word followed by colon)
-  result = result.replace(/^(\s*)(\w[\w\s-]*)(:)/gm, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
-
-  // Trailing colon for inline keys
-  result = result.replace(/(\s)(\w[\w\s-]*)(:)/g, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
-
-  return result;
+  // 注意：必须在 escapeHtml 之后处理；先转义再插入 span
+  const lines = code.split('\n');
+  const out = lines.map(line => highlightOneLine(line)).join('\n');
+  return out;
 }
 
-function escapeHtml(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
+function highlightOneLine(line) {
+  if (line === '') return '';
+  const esc = escHtml(line);
 
-/* ---- Line numbers ---- */
-function updateLineNumbers() {
-  const lines = editor.value.split("\n");
-  lineNums.innerHTML = lines.map((_, i) => i + 1).join("<br>");
-}
+  // 文档分隔符
+  if (/^\s*(---\.\.\.|---\.\.\.|\.\.\.)\s*$/.test(line) ||
+      (/^\s*---\s*$/.test(line))) {
+    return esc.replace(/(---\s*$|\.\.\.\s*$)/, '<span class="hl-punct">$1</span>');
+  }
 
-/* ---- Sync scroll ---- */
-function syncScroll() {
-  highlight.scrollTop = editor.scrollTop;
-  highlight.scrollLeft = editor.scrollLeft;
-  lineNums.scrollTop = editor.scrollTop;
-}
+  // 纯注释行
+  const cls = classifyLine(line);
+  if (cls.kind === 'comment') {
+    const stripped = line.replace(/^(\s*)#\s?/, '$1');
+    const indent = line.match(/^\s*/)[0];
+    const after  = line.slice(indent.length);
+    return escHtml(indent) + '<span class="hl-comment">' + escHtml(after) + '</span>';
+  }
 
-/* ---- Highlight error line ---- */
-function showErrorLine(lineNum) {
-  const lines = editor.value.split("\n");
-  let highlighted = [];
-  for (let i = 0; i < lines.length; i++) {
-    if (i + 1 === lineNum) {
-      highlighted.push('<span class="hl-error-line">' + escapeHtml(lines[i]) + '</span>');
-    } else {
-      highlighted.push(escapeHtml(lines[i]));
+  // 注释在末尾：先找 #（不在引号内）
+  let hashIdx = -1;
+  {
+    let inStr = false, q = null;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (inStr) {
+        if (c === '\\' && i + 1 < line.length) { i++; continue; }
+        if (c === q) inStr = false;
+        continue;
+      }
+      if (c === '"' || c === "'") { inStr = true; q = c; continue; }
+      if (c === '#') { hashIdx = i; break; }
     }
   }
-  highlight.innerHTML = highlighted.join("\n");
+
+  let body = esc;
+  let trail = '';
+  if (hashIdx >= 0) {
+    body  = escHtml(line.slice(0, hashIdx));
+    trail = '<span class="hl-comment"># ' + escHtml(line.slice(hashIdx + 1).replace(/^\s*/, '')) + '</span>';
+  }
+
+  // 引号字符串
+  body = body.replace(/(&quot;[^&\n]*?&quot;)/g, '<span class="hl-string">$1</span>');
+  body = body.replace(/('[^'\n]*?')/g, '<span class="hl-string">$1</span>');
+
+  // 锚点 & 别名（在 key 之前）
+  body = body.replace(/(&amp;\*?[A-Za-z_][\w-]*|&amp;\*)/g, '<span class="hl-anchor">$1</span>');
+  body = body.replace(/(\*[A-Za-z_][\w-]*)/g, '<span class="hl-alias">$1</span>');
+
+  // 数字
+  body = body.replace(/\b(-?\d+\.?\d*([eE][+-]?\d+)?)\b/g, '<span class="hl-number">$1</span>');
+
+  // bool / null（避免误伤引号内 — 已用 span 包过，这里做二次匹配应跳过 span 内容）
+  // 简单做法：对引号内的不处理，依赖正则在 string span 之前先匹配
+  body = body.replace(/\b(true|false|yes|no|on|off)\b(?![^<]*<\/span>)/gi, '<span class="hl-bool">$1</span>');
+  body = body.replace(/\b(null|~)\b/g, '<span class="hl-null">$1</span>');
+
+  // key (行首 + 内联)
+  body = body.replace(/^(\s*-?\s*)([A-Za-z_][\w-]*)(\s*:)/, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
+  body = body.replace(/(\s)([A-Za-z_][\w-]*)(\s*:)(?!\/)/g, '$1<span class="hl-key">$2</span><span class="hl-punct">$3</span>');
+
+  return body + trail;
 }
 
-/* ---- Main highlight update ---- */
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 function updateHighlight() {
-  const code = editor.value;
-  highlight.innerHTML = highlightYaml(code);
-  updateLineNumbers();
+  highlightEl.innerHTML = highlightYaml(editorEl.value) + '\n';
 }
 
-/* ---- Event listeners ---- */
-editor.addEventListener("input", updateHighlight);
-editor.addEventListener("scroll", syncScroll);
-
-/* ---- Utility: show status ---- */
-function showStatus(msg, isOk) {
-  status.className = "status show " + (isOk ? "ok" : "err");
-  status.textContent = msg;
+/* ═══════════════════════════════════════════════
+   Tab 缩进检测与修复
+═══════════════════════════════════════════════ */
+function hasTabIndent() {
+  return /^\t/m.test(editorEl.value);
 }
 
-/* ---- Validate ---- */
-document.getElementById("btnValidate").addEventListener("click", () => {
-  const code = editor.value.trim();
-  if (!code) {
-    showStatus("请输入 YAML 内容", false);
-    return;
-  }
+function fixIndent() {
+  const v = editorEl.value;
+  if (!v) return;
+  // 行首 tab → N 空格
+  const fixed = v.replace(/^\t+/gm, (m) => ' '.repeat(tabSize * m.length));
+  setEditorValue(fixed);
+  parse(fixed, false);
+  setSt(`Tab 已转为 ${tabSize} 空格`, 'ok', '');
+}
 
+/* ═══════════════════════════════════════════════
+   编辑器自动解析（防抖）+ 自动历史
+═══════════════════════════════════════════════ */
+let debounce     = null;
+let histDebounce = null;
+
+editorEl.addEventListener('input', () => {
+  updateGutter();
+  updateCursor();
+  updateHighlight();
+
+  const v = editorEl.value.replace(/\s+$/, '');
+  if (!v) { clearAll(); return; }
+
+  document.getElementById('tabWarn').classList.toggle('show', hasTabIndent());
+
+  clearTimeout(debounce);
+  debounce = setTimeout(() => { parse(v, false); }, 350);
+
+  clearTimeout(histDebounce);
+  histDebounce = setTimeout(() => {
+    try { jsyaml.loadAll(v); histAdd(v); } catch {}
+  }, 2000);
+});
+
+/* ═══════════════════════════════════════════════
+   核心：解析 → 渲染
+═══════════════════════════════════════════════ */
+function parse(raw, addHist = true) {
   try {
-    const docs = jsyaml.loadAll(code);
-    const docCount = docs.length;
-    const info = docs.length === 1
-      ? "YAML 有效"
-      : `YAML 有效 (${docCount} 个文档)`;
-    showStatus(info, true);
+    const docs = jsyaml.loadAll(raw);
+    parsed = docs;
+    setErr('');
+    document.getElementById('tabWarn').classList.toggle('show', hasTabIndent());
 
-    // Show doc count badge
-    if (docCount > 1) {
-      outputCard.style.display = "block";
-      outputBadge.innerHTML = `<span class="doc-badge">${docCount} 个文档</span>`;
-      outputHighlight.innerHTML = docs.map((d, i) =>
-        `<span class="hl-comment"># 文档 ${i + 1}</span>\n${highlightYaml(jsyaml.dump(d))}`
-      ).join("\n\n");
+    let typeStr;
+    if (docs.length === 0) {
+      typeStr = 'empty';
+    } else if (docs.length === 1) {
+      const d = docs[0];
+      if (Array.isArray(d)) typeStr = `Array[${d.length}]`;
+      else if (d !== null && typeof d === 'object') typeStr = `Object{${Object.keys(d).length}}`;
+      else typeStr = typeof d;
     } else {
-      outputCard.style.display = "none";
+      typeStr = `${docs.length} 文档`;
     }
+    setSt(raw.length + ' 字符', 'ok', typeStr);
+    document.getElementById('stDocs').textContent = docs.length > 1 ? `(${docs.length} docs)` : '';
+    if (addHist) histAdd(raw);
+    renderPreview();
+  } catch (e) {
+    parsed = undefined;
+    setErr(e.message);
+    setSt(e.message.split('\n')[0], 'err', '');
+    clearPreview();
+
+    // 错误行高亮
+    const mark = e.mark || {};
+    if (mark.line !== undefined) {
+      highlightErrorLine(mark.line);
+    }
+  }
+}
+
+function highlightErrorLine(lineNum) {
+  const lines = editorEl.value.split('\n');
+  const esc = lines.map((l, i) => {
+    if (i === lineNum) return '<span class="hl-error-line">' + escHtml(l) + '</span>';
+    return highlightOneLine(l);
+  }).join('\n');
+  highlightEl.innerHTML = esc + '\n';
+  // 滚动到错误行
+  const lineH = parseFloat(getComputedStyle(editorEl).lineHeight) || 21.45;
+  editorEl.scrollTop = Math.max(0, (lineNum - 3) * lineH);
+  syncHighlightScroll();
+}
+
+/* ═══════════════════════════════════════════════
+   工具按钮
+═══════════════════════════════════════════════ */
+function doFormat() {
+  const raw = editorEl.value.replace(/\s+$/, '');
+  if (!raw) return;
+  try {
+    const docs = jsyaml.loadAll(raw);
+    // 尝试用 indent: 2；js-yaml.dump 会自动用空格缩进，但如果有原始注释则丢失
+    // 这里做"纯格式化"：保留用户原文结构，仅重新缩进每行的非注释内容
+    // 简化策略：直接 dump (会丢注释但保证格式正确)
+    const fmt = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1, noRefs: false })).join('---\n');
+    setEditorValue(fmt);
+    parsed = docs;
+    setErr('');
+    histAdd(fmt);
+    renderPreview();
+    setSt('已格式化 ' + fmt.length + ' 字符', 'ok', '');
   } catch (e) {
     const mark = e.mark || {};
-    const line = mark.line !== undefined ? mark.line + 1 : 0;
-    const col = mark.column !== undefined ? mark.column + 1 : 0;
-    showStatus(`解析错误 at L${line}:C${col} — ${e.message}`, false);
-    showErrorLine(line);
-    editor.scrollTop = highlight.scrollTop = (line - 3) * editor.clientHeight / editor.value.split("\n").length;
+    setErr('格式化失败：' + e.message);
+    setSt('格式化失败', 'err', '');
+    if (mark.line !== undefined) highlightErrorLine(mark.line);
   }
-});
+}
 
-/* ---- Format ---- */
-document.getElementById("btnFormat").addEventListener("click", () => {
-  const code = editor.value.trim();
-  if (!code) {
-    showStatus("请输入 YAML 内容", false);
-    return;
-  }
+function doCompress() {
+  const raw = editorEl.value.replace(/\s+$/, '');
+  if (!raw) return;
   try {
-    const docs = jsyaml.loadAll(code);
-    const formatted = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1 })).join("---\n");
-    editor.value = formatted;
-    updateHighlight();
-    showStatus("格式化完成", true);
-    outputCard.style.display = "none";
+    const docs = jsyaml.loadAll(raw);
+    const cmp = docs.map(d => jsyaml.dump(d, { flowLevel: 0, lineWidth: -1, noRefs: false })).join('---\n');
+    setEditorValue(cmp);
+    parsed = docs;
+    setErr('');
+    histAdd(cmp);
+    renderPreview();
+    setSt('已压缩 ' + cmp.length + ' 字符', 'ok', '');
+  } catch (e) {
+    setErr('压缩失败：' + e.message);
+    setSt('压缩失败', 'err', '');
+  }
+}
+
+function doValidate() {
+  const raw = editorEl.value.replace(/\s+$/, '');
+  if (!raw) { setSt('请输入 YAML', 'err', ''); return; }
+  try {
+    const docs = jsyaml.loadAll(raw);
+    let msg;
+    if (docs.length === 1) msg = '✓ YAML 有效';
+    else                   msg = `✓ YAML 有效 (${docs.length} 个文档)`;
+    setSt(msg, 'ok', '');
+    parsed = docs;
+    setErr('');
+    renderPreview();
   } catch (e) {
     const mark = e.mark || {};
-    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
+    const loc = mark.line !== undefined ? `L${mark.line + 1}:C${(mark.column || 0) + 1}` : '';
+    setErr((loc ? `❌  ${loc} — ` : '❌  ') + e.message);
+    setSt('YAML 无效', 'err', '');
+    if (mark.line !== undefined) highlightErrorLine(mark.line);
   }
-});
+}
 
-/* ---- Minify ---- */
-document.getElementById("btnMinify").addEventListener("click", () => {
-  const code = editor.value.trim();
-  if (!code) {
-    showStatus("请输入 YAML 内容", false);
-    return;
-  }
+function doToJson() {
+  const raw = editorEl.value.replace(/\s+$/, '');
+  if (!raw) return;
   try {
-    const docs = jsyaml.loadAll(code);
-    const minified = docs.map(d => jsyaml.dump(d, { flowLevel: 0, lineWidth: -1 })).join("---\n");
-    editor.value = minified;
-    updateHighlight();
-    showStatus("压缩完成", true);
-    outputCard.style.display = "none";
-  } catch (e) {
-    const mark = e.mark || {};
-    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
-  }
-});
-
-/* ---- To JSON ---- */
-document.getElementById("btnToJson").addEventListener("click", () => {
-  const code = editor.value.trim();
-  if (!code) {
-    showStatus("请输入 YAML 内容", false);
-    return;
-  }
-  try {
-    const docs = jsyaml.loadAll(code);
+    const docs = jsyaml.loadAll(raw);
     const json = docs.length === 1
       ? JSON.stringify(docs[0], null, 2)
       : JSON.stringify(docs, null, 2);
-
-    outputCard.style.display = "block";
-    outputBadge.innerHTML = docs.length > 1 ? `<span class="doc-badge">${docs.length} 个文档</span>` : "";
-    outputHighlight.innerHTML = `<span class="hl-string">${escapeHtml(json)}</span>`;
-    outputStatus.className = "status show ok";
-    outputStatus.textContent = "转换为 JSON 成功";
-    showStatus("转换为 JSON 成功", true);
+    // 切到 raw 视图直接显示 JSON
+    view = 'raw';
+    document.getElementById('vTree').classList.remove('on');
+    document.getElementById('vRaw').classList.add('on');
+    const rawEl = document.getElementById('yamlRaw');
+    rawEl.style.display = 'block';
+    rawEl.innerHTML = syntaxJson(json);
+    document.getElementById('ytree').innerHTML = '';
+    setErr('');
+    setSt('→ JSON ' + json.length + ' 字符', 'ok', '');
   } catch (e) {
-    const mark = e.mark || {};
-    showStatus(`解析错误 at L${mark.line + 1}:C${mark.column + 1} — ${e.message}`, false);
-    outputCard.style.display = "none";
+    setErr('转换失败：' + e.message);
+    setSt('转换失败', 'err', '');
   }
-});
+}
 
-/* ---- From JSON ---- */
-document.getElementById("btnFromJson").addEventListener("click", () => {
-  const code = editor.value.trim();
-  if (!code) {
-    showStatus("请输入内容", false);
-    return;
-  }
+function doFromJson() {
+  const raw = editorEl.value.replace(/\s+$/, '');
+  if (!raw) { setSt('请输入 JSON', 'err', ''); return; }
   try {
-    let data;
-    // Handle JSON array of multiple documents
-    if (code.trim().startsWith("[")) {
-      data = JSON.parse(code);
-    } else {
-      data = JSON.parse(code);
-    }
+    const data = JSON.parse(raw);
     const docs = Array.isArray(data) ? data : [data];
-    const yaml = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1 })).join("---\n");
-    editor.value = yaml;
-    updateHighlight();
-    showStatus("从 JSON 转换成功", true);
-    outputCard.style.display = "none";
+    const yaml = docs.map(d => jsyaml.dump(d, { indent: 2, lineWidth: -1, noRefs: false })).join('---\n');
+    setEditorValue(yaml);
+    parsed = docs;
+    setErr('');
+    histAdd(yaml);
+    renderPreview();
+    setSt('JSON → YAML ' + yaml.length + ' 字符', 'ok', '');
   } catch (e) {
-    showStatus(`JSON 解析错误 — ${e.message}`, false);
+    setErr('JSON 解析错误：' + e.message);
+    setSt('JSON 无效', 'err', '');
   }
-});
+}
 
-/* ---- Copy ---- */
-document.getElementById("btnCopy").addEventListener("click", () => {
-  const code = editor.value;
-  if (!code) {
-    showStatus("内容为空", false);
+async function doCopy() {
+  const v = editorEl.value;
+  if (!v) return;
+  try {
+    await navigator.clipboard.writeText(v);
+    setSt('已复制', 'ok', '');
+  } catch {
+    setSt('复制失败，请手动 Ctrl+C', 'err', '');
+  }
+}
+
+async function doPaste() {
+  try {
+    const t = await navigator.clipboard.readText();
+    setEditorValue(t);
+    parse(t.trim(), false);
+  } catch {
+    setSt('粘贴失败，请手动 Ctrl+V', 'err', '');
+  }
+}
+
+function doClear() {
+  setEditorValue('');
+  parsed = undefined;
+  clearAll();
+}
+
+function clearAll() {
+  setErr('');
+  clearPreview();
+  document.getElementById('tabWarn').classList.remove('show');
+  setSt('就绪', '', '');
+  document.getElementById('stDocs').textContent = '';
+}
+
+/* ═══════════════════════════════════════════════
+   视图 & 预览
+═══════════════════════════════════════════════ */
+function setView(v) {
+  view = v;
+  document.getElementById('vTree').classList.toggle('on', v === 'tree');
+  document.getElementById('vRaw').classList.toggle('on', v === 'raw');
+  if (parsed !== undefined) renderPreview();
+}
+
+function renderPreview() {
+  const treeEl = document.getElementById('ytree');
+  const rawEl  = document.getElementById('yamlRaw');
+  if (parsed === undefined) {
+    treeEl.innerHTML = '';
+    rawEl.innerHTML  = '';
     return;
   }
-  navigator.clipboard.writeText(code).then(() => {
-    const btn = document.getElementById("btnCopy");
-    const orig = btn.textContent;
-    btn.textContent = "已复制";
-    setTimeout(() => btn.textContent = orig, 1000);
-  });
+  if (view === 'raw') {
+    treeEl.style.display = 'none';
+    rawEl.style.display  = 'block';
+    rawEl.innerHTML = highlightYaml(jsyaml.dump(parsed.length === 1 ? parsed[0] : parsed, { indent: 2, lineWidth: -1 }));
+  } else {
+    treeEl.style.display = 'block';
+    rawEl.style.display  = 'none';
+    treeEl.innerHTML = '';
+    parsed.forEach((doc, i) => {
+      if (parsed.length > 1) {
+        const sep = document.createElement('div');
+        sep.className = 'ydocsep';
+        sep.textContent = `── 文档 ${i + 1} ──`;
+        treeEl.appendChild(sep);
+      }
+      treeEl.appendChild(buildNode(doc, null, true));
+    });
+  }
+}
+
+function syntaxJson(json) {
+  return json
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/("(?:\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/g, m => {
+      if (/^"/.test(m)) {
+        if (/:$/.test(m)) return `<span style="color:var(--accent)">${m}</span>`;
+        return `<span style="color:var(--green)">${m}</span>`;
+      }
+      if (/true|false/.test(m)) return `<span style="color:var(--mauve)">${m}</span>`;
+      if (/null/.test(m))       return `<span style="color:var(--red)">${m}</span>`;
+      return `<span style="color:var(--yellow)">${m}</span>`;
+    });
+}
+
+function clearPreview() {
+  document.getElementById('ytree').innerHTML  = '';
+  document.getElementById('yamlRaw').textContent = '';
+}
+
+function expandAll() {
+  document.querySelectorAll('.ychildren').forEach(e => e.classList.remove('hide'));
+  document.querySelectorAll('.ytoggle:not(.leaf)').forEach(e => { e.textContent = '▾'; });
+  document.querySelectorAll('.yprev,.ybadge').forEach(e => e.style.display = 'none');
+  document.querySelectorAll('.yclose').forEach(e => e.style.display = '');
+}
+
+function collapseAll() {
+  document.querySelectorAll('.ychildren').forEach(e => e.classList.add('hide'));
+  document.querySelectorAll('.ytoggle:not(.leaf)').forEach(e => { e.textContent = '▸'; });
+  document.querySelectorAll('.yprev').forEach(e => e.style.display = 'inline');
+  document.querySelectorAll('.ybadge').forEach(e => e.style.display = 'inline');
+  document.querySelectorAll('.yclose').forEach(e => e.style.display = 'none');
+}
+
+/* ═══════════════════════════════════════════════
+   树形节点构建（与 JSON 工具保持一致的体验）
+═══════════════════════════════════════════════ */
+function buildNode(val, key, isLast) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ynode';
+
+  const t = ytype(val);
+  const isObj = t === 'object';
+  const isArr = t === 'array';
+  const complex = isObj || isArr;
+
+  const line = document.createElement('div');
+  line.className = 'yline';
+
+  const tog = document.createElement('span');
+  tog.className = 'ytoggle' + (complex ? '' : ' leaf');
+  tog.textContent = complex ? '▾' : '';
+  line.appendChild(tog);
+
+  if (key !== null) {
+    const k = document.createElement('span');
+    k.className = 'yk';
+    k.textContent = `"${key}"`;
+    const col = document.createElement('span');
+    col.className = 'ycolon';
+    col.textContent = ':';
+    line.appendChild(k);
+    line.appendChild(col);
+  }
+
+  if (complex) {
+    const open  = isArr ? '[' : '{';
+    const close = isArr ? ']' : '}';
+    const items = isArr ? val : Object.entries(val);
+    const len   = items.length;
+
+    line.appendChild(span('ybrace', open));
+
+    const prev = document.createElement('span');
+    prev.className = 'yprev';
+    prev.style.display = 'none';
+    prev.textContent = previewText(val, isArr);
+    line.appendChild(prev);
+
+    const badge = span('ybadge', len + (isArr ? ' items' : ' keys'));
+    badge.style.display = 'none';
+    line.appendChild(badge);
+
+    const children = document.createElement('div');
+    children.className = 'ychildren';
+
+    items.forEach((item, i) => {
+      const ck  = isArr ? null : item[0];
+      const cv  = isArr ? item : item[1];
+      children.appendChild(buildNode(cv, ck, i === len - 1));
+    });
+
+    const closeLine = document.createElement('div');
+    closeLine.className = 'yline yclose';
+    closeLine.appendChild(span('ytoggle leaf', ''));
+    closeLine.appendChild(span('ybrace', close + (isLast ? '' : ',')));
+
+    const expand = () => {
+      children.classList.remove('hide');
+      tog.textContent = '▾';
+      prev.style.display = 'none';
+      badge.style.display = 'none';
+      closeLine.style.display = '';
+    };
+    const collapse = () => {
+      children.classList.add('hide');
+      tog.textContent = '▸';
+      prev.style.display = 'inline';
+      badge.style.display = 'inline';
+      closeLine.style.display = 'none';
+    };
+
+    tog.onclick   = () => children.classList.contains('hide') ? expand() : collapse();
+    prev.onclick  = expand;
+    badge.onclick = expand;
+
+    wrap.appendChild(line);
+    wrap.appendChild(children);
+    wrap.appendChild(closeLine);
+
+  } else {
+    const v = span(vclass(t), fmtVal(val, t));
+    if (!isLast) {
+      const comma = span('ycomma', ',');
+      line.appendChild(v);
+      line.appendChild(comma);
+    } else {
+      line.appendChild(v);
+    }
+    wrap.appendChild(line);
+  }
+
+  return wrap;
+}
+
+function span(cls, txt) {
+  const e = document.createElement('span');
+  e.className = cls;
+  e.textContent = txt;
+  return e;
+}
+
+function ytype(v) {
+  if (v === null)        return 'null';
+  if (Array.isArray(v)) return 'array';
+  return typeof v;
+}
+
+function vclass(t) {
+  return { string: 'ystr', number: 'ynum', boolean: 'ybool', null: 'ynull' }[t] || 'ystr';
+}
+
+function fmtVal(v, t) {
+  if (t === 'string') return `"${v}"`;
+  if (t === 'null')   return 'null';
+  return String(v);
+}
+
+function previewText(v, isArr) {
+  if (isArr) {
+    return ' ' + v.slice(0, 3).map(i =>
+      (typeof i === 'object' && i !== null) ? (Array.isArray(i) ? '[…]' : '{…}') : JSON.stringify(i)
+    ).join(', ') + (v.length > 3 ? ', …' : ' ');
+  }
+  const keys = Object.keys(v).slice(0, 3);
+  return ' ' + keys.join(', ') + (Object.keys(v).length > 3 ? ', …' : ' ');
+}
+
+/* ═══════════════════════════════════════════════
+   状态栏 & 错误条
+═══════════════════════════════════════════════ */
+function setSt(msg, cls, type) {
+  const el = document.getElementById('stMsg');
+  el.textContent = msg;
+  el.className = cls === 'ok' ? 'st-ok' : cls === 'err' ? 'st-err' : cls === 'warn' ? 'st-warn' : '';
+  document.getElementById('stType').textContent = type || '';
+}
+
+function setErr(msg) {
+  const el = document.getElementById('errorBar');
+  if (msg) { el.textContent = msg; el.classList.add('show'); }
+  else     { el.classList.remove('show'); }
+}
+
+/* ═══════════════════════════════════════════════
+   示例
+═══════════════════════════════════════════════ */
+function loadSample() {
+  const sample = `# 服务端配置
+server:
+  # 监听地址
+  host: 0.0.0.0
+  port: 8080
+  # 是否启用 TLS
+  tls: true
+
+# 数据库连接池
+database:
+  driver: postgres
+  host: db.internal
+  port: 5432
+  pool:
+    min: 2
+    max: 20
+    idle_timeout: 300
+
+# 功能开关
+features:
+  - name: login
+    enabled: true
+    retries: 3
+  - name: signup
+    enabled: true
+    retries: 5
+  - name: experimental
+    enabled: false
+    retries: 1
+
+# 联系人
+contacts:
+  ops:
+    email: ops@example.com
+    phone: "+86-21-12345678"
+  dev:
+    email: dev@example.com
+    phone: null
+
+# 嵌套示例
+nested:
+  level1:
+    level2:
+      level3: 深层值
+      arr: [1, 2, 3, {k: v}]
+`;
+  setEditorValue(sample);
+  parse(sample, false);
+}
+
+/* ═══════════════════════════════════════════════
+   浮动操作条 (FAB) — 滚动时显示
+═══════════════════════════════════════════════ */
+const fabEl = document.getElementById('fab');
+let fabDismissed = false;
+
+function showFabIfNeeded() {
+  if (fabDismissed) return;
+  const ps = document.querySelector('.preview-scroll');
+  const ed = editorEl;
+  const scrolled = (ps && ps.scrollTop > 100) || (ed && ed.scrollTop > 100);
+  fabEl.classList.toggle('show', scrolled);
+}
+
+function toggleFab() {
+  fabDismissed = !fabDismissed;
+  if (fabDismissed) fabEl.classList.remove('show');
+  else showFabIfNeeded();
+}
+
+function scrollPreviewTop() {
+  const ps = document.querySelector('.preview-scroll');
+  if (ps) ps.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function scrollEditorTop() {
+  editorEl.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+editorEl.addEventListener('scroll', showFabIfNeeded);
+document.querySelector('.preview-scroll').addEventListener('scroll', showFabIfNeeded);
+
+/* ═══════════════════════════════════════════════
+   键盘快捷键
+═══════════════════════════════════════════════ */
+const isMac = navigator.platform.toUpperCase().includes('MAC');
+const META  = isMac ? 'metaKey' : 'ctrlKey';
+
+document.addEventListener('keydown', (e) => {
+  // 不要在输入框拦截单字符 (除 Cmd/Ctrl + key)
+  if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') {
+    // Tab 已单独处理
+    if (e.key === 'Tab') return;
+  }
+
+  // 必须带修饰键
+  if (!(e.ctrlKey || e.metaKey)) return;
+  if (e.altKey) return; // 不抢浏览器 Alt+key
+
+  const k = e.key.toLowerCase();
+  let handled = false;
+
+  switch (k) {
+    case 's':         e.preventDefault(); doFormat();   handled = true; break;
+    case 'enter':     e.preventDefault(); doValidate(); handled = true; break;
+    case 'j':         e.preventDefault(); e.shiftKey ? doFromJson() : doToJson(); handled = true; break;
+    case 'l':         e.preventDefault(); doClear();    handled = true; break;
+    case 'h':         e.preventDefault(); toggleSidebar(); handled = true; break;
+    case 'arrowup':   if (e.shiftKey) { e.preventDefault(); expandAll(); handled = true; } break;
+    case 'arrowdown': if (e.shiftKey) { e.preventDefault(); collapseAll(); handled = true; } break;
+    case 'y':         if (e.shiftKey) { e.preventDefault(); doCopy(); handled = true; } break;
+    case 'c':         if (e.shiftKey) { e.preventDefault(); doCompress(); handled = true; } break;
+    case 'v':         if (e.shiftKey) { e.preventDefault(); doPaste(); handled = true; } break;
+  }
+
+  if (handled) {
+    e.preventDefault();
+    flashFab();
+  }
 });
 
-/* ---- Clear ---- */
-document.getElementById("btnClear").addEventListener("click", () => {
-  editor.value = "";
-  updateHighlight();
-  status.className = "status";
-  outputCard.style.display = "none";
-});
+function flashFab() {
+  // 触发动作时让 FAB 闪一下,提示用户快捷键生效
+  fabEl.classList.add('show');
+  fabEl.style.opacity = '1';
+  fabEl.style.transition = 'opacity .2s';
+  setTimeout(() => {
+    fabEl.style.opacity = '';
+    showFabIfNeeded();
+  }, 400);
+}
 
-/* ---- Init ---- */
+/* ═══════════════════════════════════════════════
+   初始化
+═══════════════════════════════════════════════ */
+renderHist();
+updateGutter();
 updateHighlight();
+loadSample();
+showFabIfNeeded();
 </script>
 </body>
 </html>
