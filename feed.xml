@@ -1,4 +1,325 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-21T21:56:55+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-26T20:13:23+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">CloudCLI 自托管安装与桌面端构建</title><link href="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/" rel="alternate" type="text/html" title="CloudCLI 自托管安装与桌面端构建" /><published>2026-07-26T00:00:00+08:00</published><updated>2026-07-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA</id><content type="html" xml:base="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/">&lt;p&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui&quot;&gt;CloudCLI&lt;/a&gt;（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。&lt;/p&gt;
+
+&lt;p&gt;相比单独跑 CLI 的差异：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个 UI 切三种 agent，不重启 server&lt;/li&gt;
+  &lt;li&gt;自动发现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt; 里所有已有会话（不是只暴露当前活跃那条）&lt;/li&gt;
+  &lt;li&gt;设置直接写回原生 Claude Code 配置（不是数据复制，是同一份）&lt;/li&gt;
+  &lt;li&gt;移动端浏览器访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;电脑内网IP&amp;gt;:3001&lt;/code&gt; 就能用&lt;/li&gt;
+  &lt;li&gt;可选 PWA + Web Push 通知&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;安装方式&quot;&gt;安装方式&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;形态&lt;/th&gt;
+      &lt;th&gt;适合&lt;/th&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Self-hosted npm&lt;/strong&gt;（本文重点）&lt;/td&gt;
+      &lt;td&gt;本地开发、机器一直开着、想用桌面端&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Docker Sandbox（实验）&lt;/td&gt;
+      &lt;td&gt;需要 microVM 隔离的 agent 环境&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli@latest sandbox ~/project&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CloudCLI Cloud（€7/月起）&lt;/td&gt;
+      &lt;td&gt;云端跑、团队共享、不想自己维护&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://cloudcli.ai&quot;&gt;https://cloudcli.ai&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;下面只讲 self-hosted。&lt;/p&gt;
+
+&lt;h2 id=&quot;前置依赖&quot;&gt;前置依赖&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Node.js 22+&lt;/strong&gt;（实测 v24 也行；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.nvmrc&lt;/code&gt; 写 v22）&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;node &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# 确认 &amp;gt;= v22&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;macOS / Linux / Windows&lt;/strong&gt;（桌面端官方包仅 macOS / Windows）&lt;/li&gt;
+  &lt;li&gt;8GB+ 内存（Electron + 原生模块比较吃）&lt;/li&gt;
+  &lt;li&gt;1.5GB+ 磁盘（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules&lt;/code&gt; 会涨到 1.1-1.4GB）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;方式一npx-一行命令最快上手&quot;&gt;方式一：npx 一行命令（最快上手）&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx @cloudcli-ai/cloudcli
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启动后访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:3001&lt;/code&gt;，自动发现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt; 里已有的会话。&lt;/p&gt;
+
+&lt;p&gt;或者全局装：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
+
+cloudcli             &lt;span class=&quot;c&quot;&gt;# 启动 server&lt;/span&gt;
+cloudcli status      &lt;span class=&quot;c&quot;&gt;# 看配置和路径（数据目录、监听端口、安装模式）&lt;/span&gt;
+cloudcli version     &lt;span class=&quot;c&quot;&gt;# 打印版本&lt;/span&gt;
+cloudcli &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# 所有子命令&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;方式二从源码构建--打桌面端&quot;&gt;方式二：从源码构建 + 打桌面端&lt;/h2&gt;
+
+&lt;p&gt;适合想改前端、做插件开发、或需要未签名本地包的人。&lt;/p&gt;
+
+&lt;h3 id=&quot;克隆--装依赖&quot;&gt;克隆 + 装依赖&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/siteboon/claudecodeui.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;claudecodeui
+
+&lt;span class=&quot;c&quot;&gt;# 装依赖（含 Electron、better-sqlite3、node-pty 等原生模块，约 18 分钟）&lt;/span&gt;
+npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;装完会跑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postinstall&lt;/code&gt;（自动 chmod &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node-pty/spawn-helper&lt;/code&gt;，macOS 进程隔离要求）和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prepare&lt;/code&gt;（husky）。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules&lt;/code&gt; 大约 1.1-1.4GB。&lt;/p&gt;
+
+&lt;h3 id=&quot;构建产物&quot;&gt;构建产物&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run build
+&lt;span class=&quot;c&quot;&gt;# 产出：dist/（前端 7MB）+ dist-server/（后端 2.7MB）&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 只改前端代码时&lt;/span&gt;
+npm run dev                &lt;span class=&quot;c&quot;&gt;# 同时起 server:dev (tsx 监听) + Vite (HMR)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 只改服务端时&lt;/span&gt;
+npm run server:dev-watch
+
+&lt;span class=&quot;c&quot;&gt;# 类型检查 / Lint&lt;/span&gt;
+npm run typecheck
+npm run lint
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;出未签名-appmacos本地自用&quot;&gt;出未签名 .app（macOS，本地自用）&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;npm run desktop:pack
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;产物在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release/desktop/mac-arm64/CloudCLI.app&lt;/code&gt;（Intel 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mac/&lt;/code&gt;），双击就能跑。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;为什么要 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY=false&lt;/code&gt;？&lt;/strong&gt; 项目默认 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mac.notarize: true&lt;/code&gt;，没 Apple Developer 凭证会卡在公证。设这个环境变量跳过签名 + 公证，本地使用足够。首次打开右键 → 打开（Gatekeeper 绕过）即可。&lt;/p&gt;
+
+&lt;h3 id=&quot;出-dmg--nsis-分发包&quot;&gt;出 dmg / nsis 分发包&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run desktop:dist:mac      &lt;span class=&quot;c&quot;&gt;# macOS dmg&lt;/span&gt;
+npm run desktop:dist:win      &lt;span class=&quot;c&quot;&gt;# Windows nsis&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;需要 Apple Developer 凭证：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CSC_LINK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/DeveloperID.p12
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CSC_KEY_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;...
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;you@example.com
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_APP_SPECIFIC_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;...
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_TEAM_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ABCDE12345
+npm run desktop:dist:mac
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;桌面--vite-hmr-联调&quot;&gt;桌面 + Vite HMR 联调&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run desktop:dev          &lt;span class=&quot;c&quot;&gt;# Electron 嵌 Vite dev server (端口 5173)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;配置与目录速查&quot;&gt;配置与目录速查&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 全局装的 cloudcli 数据目录&lt;/span&gt;
+~/.cloudcli/
+
+&lt;span class=&quot;c&quot;&gt;# 关键文件&lt;/span&gt;
+~/.cloudcli/local-server.json                       &lt;span class=&quot;c&quot;&gt;# 当前 local server 状态（PID、port、URL）&lt;/span&gt;
+~/Library/Application Support/CloudCLI/             &lt;span class=&quot;c&quot;&gt;# Electron desktop userData（macOS）&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 复制一份配置改&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; .env.example .env
+nano .env        &lt;span class=&quot;c&quot;&gt;# 主要项：SERVER_PORT、VITE_PORT、HOST&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Claude 原生会话位置（CloudCLI 直接读这里）&lt;/span&gt;
+~/.claude/projects/&amp;lt;encoded-path&amp;gt;/&amp;lt;session-id&amp;gt;.jsonl
+
+&lt;span class=&quot;c&quot;&gt;# Codex 原生会话&lt;/span&gt;
+~/.codex/sessions/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;安全提醒tools-默认全关&quot;&gt;安全提醒：tools 默认全关&lt;/h2&gt;
+
+&lt;p&gt;第一次进 UI，CloudCLI 会提示 &lt;strong&gt;所有 Claude Code tools 默认禁用&lt;/strong&gt;。这是有意设计 —— 防止 agent 误操作。&lt;/p&gt;
+
+&lt;p&gt;打开 &lt;strong&gt;Settings → Tools Settings&lt;/strong&gt;，按需开启。建议从基础工具（Read、Bash 白名单）开始，逐步放开。&lt;/p&gt;
+
+&lt;h2 id=&quot;几个值得知道的事实&quot;&gt;几个值得知道的事实&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;CloudCLI 读 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt;&lt;/strong&gt;：你在 UI 里加的 MCP server / 改的工具权限，会写到原生 Claude Code 配置里，反之亦然。不是数据复制，是同一份。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;三个 CLI agent 共用一套 UI&lt;/strong&gt;：Claude Code（SDK 直连）、Cursor CLI（spawn + stream-json）、Codex（SDK）。切换不需要重启 server。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;桌面端是 launcher，不是 Electron-only&lt;/strong&gt;：默认是 CloudCLI Cloud 入口 + 本地 server 切换器。想完全跳过：&lt;/p&gt;
+
+    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 直接跑 server，浏览器访问 3001&lt;/span&gt;
+node /path/to/claudecodeui/dist-server/server/index.js
+
+&lt;span class=&quot;c&quot;&gt;# 装好的 .app 内部 server&lt;/span&gt;
+node /path/to/CloudCLI.app/Contents/Resources/app/dist-server/server/index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;会话数据由 provider 自存&lt;/strong&gt;：UI 不重复存，SQLite 只存元数据（项目路径、会话索引、用户、推送订阅）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;macOS 进程隔离&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node-pty&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spawn-helper&lt;/code&gt; 二进制 postinstall 自动 chmod，不然首次启动终端会失败。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;升级--卸载&quot;&gt;升级 / 卸载&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 升级（npm 全局版）&lt;/span&gt;
+npm update &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
+
+&lt;span class=&quot;c&quot;&gt;# 升级（源码）&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;claudecodeui
+git pull
+npm &lt;span class=&quot;nb&quot;&gt;install
+&lt;/span&gt;npm run build
+&lt;span class=&quot;nv&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;npm run desktop:pack
+
+&lt;span class=&quot;c&quot;&gt;# 卸载（全局版）&lt;/span&gt;
+npm uninstall &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
+
+&lt;span class=&quot;c&quot;&gt;# 清数据（注意会丢项目列表、用户、推送订阅）&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/.cloudcli/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;常用命令速查&quot;&gt;常用命令速查&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;一键启动（不装）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli start&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;全局版启动 server&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli status&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;看配置、路径、运行状态&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli version&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli --help&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;版本 / 子命令&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run dev&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;前端 + 服务端一起 dev&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run server:dev-watch&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;只重启服务端&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;出 dist/ + dist-server/&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:pack&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;出未签名 .app&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:dist:mac&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;macOS dmg（需 Apple 凭证）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:dist:win&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Windows nsis&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run typecheck&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run lint&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;静态检查&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsof -i :3001 -sTCP:LISTEN&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;看 server 是否在跑&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsof -ti :3001 \| xargs kill&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;杀进程&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;调试&quot;&gt;调试&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Server 日志直接 stdout&lt;/span&gt;
+node dist-server/server/index.js
+
+&lt;span class=&quot;c&quot;&gt;# 桌面端启动日志&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; ~/Library/Logs/CloudCLI/main.log     &lt;span class=&quot;c&quot;&gt;# macOS&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# SQLite 数据库位置（看 schema 用）&lt;/span&gt;
+sqlite3 ~/.cloudcli/auth.db &lt;span class=&quot;s2&quot;&gt;&quot;.tables&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 触发完整 server 重启&lt;/span&gt;
+pkill &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dist-server/server/index.js&quot;&lt;/span&gt;
+cloudcli
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;常见问题&quot;&gt;常见问题&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 一定要装桌面端吗？&lt;/strong&gt;
+A: 不必须。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install -g @cloudcli-ai/cloudcli&lt;/code&gt; 然后 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli&lt;/code&gt; 就够了，浏览器访问 3001。桌面端是多一层 macOS 窗口 + 托盘 + 开机启动。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 能在 Windows 用吗？&lt;/strong&gt;
+A: 服务端可以（Node 跨平台），桌面端有官方 nsis 安装包（GitHub Releases 下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli-desktop-*-win-*.exe&lt;/code&gt;）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 移动端怎么访问？&lt;/strong&gt;
+A: 服务端默认监听 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.0.0.0:3001&lt;/code&gt;，同一 Wi-Fi 下手机浏览器访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;电脑内网IP&amp;gt;:3001&lt;/code&gt; 即可。要改：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.0.0.0 cloudcli       &lt;span class=&quot;c&quot;&gt;# 或在 .env 里改&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 自带推送通知吗？&lt;/strong&gt;
+A: 是。Web Push + Service Worker + VAPID。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 插件怎么装？&lt;/strong&gt;
+A: UI 里 &lt;strong&gt;Settings → Plugins&lt;/strong&gt;，粘贴 git repo URL 即可。或者基于 starter 模板自己做：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/cloudcli-ai/cloudcli-plugin-starter.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;cloudcli-plugin-starter
+npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 按 README 配置 manifest.json 和 plugin.config.js&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Q: 怎么知道当前跑的是哪个版本？&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cloudcli version                                            &lt;span class=&quot;c&quot;&gt;# 全局版&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;package.json | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&quot;version&quot;&apos;&lt;/span&gt;                         &lt;span class=&quot;c&quot;&gt;# 源码&lt;/span&gt;
+curl http://localhost:3001/health                           &lt;span class=&quot;c&quot;&gt;# 前端实际跑的版本&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# {&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;...&quot;,&quot;version&quot;:&quot;1.36.3&quot;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui/blob/main/README.zh-CN.md&quot;&gt;项目 README（中文）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://cloudcli.ai/docs&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/cloudcli-ai/cloudcli-plugin-starter&quot;&gt;Plugin Starter 模板&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://discord.gg/buxwujPNRE&quot;&gt;Discord 社区&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="CloudCLI" /><category term="ClaudeCode" /><category term="Cursor" /><category term="Codex" /><category term="SelfHosted" /><summary type="html">CloudCLI（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。</summary></entry><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
 
 &lt;p&gt;相比 Claude Code &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt; 的官方方案（&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;详见踩坑记录&lt;/a&gt;：第三方 base URL 直接拒接），Hermes-Agent 在国内第三方代理 + Telegram bot 的场景下能直接 work。&lt;/p&gt;
 
@@ -2738,502 +3059,4 @@ Default to surfacing uncertainty, not hiding it.
   &lt;p&gt;CLAUDE.md 的进化本质是：从“防写错代码”，升级为“防多步 Agent 崩溃”。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动</summary></entry><entry><title type="html">Claude Code 多 Agent 架构</title><link href="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/" rel="alternate" type="text/html" title="Claude Code 多 Agent 架构" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecode%E5%A4%9Aagent/">&lt;h1 id=&quot;claude-code-多-agent-架构修正版面试笔记&quot;&gt;Claude Code 多 Agent 架构（修正版面试笔记）&lt;/h1&gt;
-
-&lt;h1 id=&quot;一核心问题为什么需要-multi-agent&quot;&gt;一、核心问题：为什么需要 Multi-Agent&lt;/h1&gt;
-
-&lt;p&gt;单 Agent 在复杂任务中的瓶颈：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;上下文膨胀（调研 / 编码 / 评审混在一起）&lt;/li&gt;
-  &lt;li&gt;职责混乱（推理目标漂移）&lt;/li&gt;
-  &lt;li&gt;无法并发（所有步骤串行）&lt;/li&gt;
-  &lt;li&gt;工具使用空间过大（action space 无约束）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;二整体架构本质&quot;&gt;二、整体架构本质&lt;/h1&gt;
-
-&lt;p&gt;Claude Code 的 multi-agent 不是“多进程系统”，而是：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;单 runtime + 多执行上下文（execution context）+ 状态驱动调度&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;核心不是“多个 agent”，而是：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;多个隔离的执行上下文&lt;/li&gt;
-  &lt;li&gt;同一个 LLM runtime&lt;/li&gt;
-  &lt;li&gt;共享任务状态存储&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;三三种-agent-组织形态&quot;&gt;三、三种 Agent 组织形态&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-父子模型subagent&quot;&gt;1. 父子模型（Subagent）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;主 agent 控制整体流程&lt;/li&gt;
-  &lt;li&gt;通过工具触发 subagent&lt;/li&gt;
-  &lt;li&gt;subagent 执行子任务并返回结果&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;逻辑子上下文（不是独立系统）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-协作模型peer-agents&quot;&gt;2. 协作模型（Peer Agents）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;多 agent 并列&lt;/li&gt;
-  &lt;li&gt;通过共享状态或消息协作&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;特点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;灵活但复杂&lt;/li&gt;
-  &lt;li&gt;状态同步成本高&lt;/li&gt;
-  &lt;li&gt;工程中较少直接采用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-coordinator-worker-模式&quot;&gt;3. Coordinator-Worker 模式&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Coordinator：任务拆分 + 调度 + 合成&lt;/li&gt;
-  &lt;li&gt;Worker：执行具体任务&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;特点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;高并发能力&lt;/li&gt;
-  &lt;li&gt;适合大规模任务拆解&lt;/li&gt;
-  &lt;li&gt;工业级常用结构&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;四subagent-的本质逻辑隔离&quot;&gt;四、Subagent 的本质：逻辑隔离&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-不是独立-agent而是执行上下文&quot;&gt;1. 不是“独立 agent”，而是执行上下文&lt;/h2&gt;
-
-&lt;p&gt;Subagent =&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;独立 state slice + tool 权限过滤 + message loop&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;共享：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;runtime&lt;/li&gt;
-  &lt;li&gt;基础执行框架&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;不共享：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;当前 context state&lt;/li&gt;
-  &lt;li&gt;tool 权限视图（部分裁剪）&lt;/li&gt;
-  &lt;li&gt;message history 分支&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-工具隔离tool-filtering&quot;&gt;2. 工具隔离（Tool Filtering）&lt;/h2&gt;
-
-&lt;p&gt;目标：限制 action space&lt;/p&gt;
-
-&lt;p&gt;三层过滤逻辑：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;全局禁止工具（防递归 / 控制权）&lt;/li&gt;
-  &lt;li&gt;agent 类型限制（custom agent 更严格）&lt;/li&gt;
-  &lt;li&gt;async agent 白名单（后台 agent 最小权限）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;降低 agent 可行动空间，而非安全沙箱&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-上下文隔离field-level-state-slicing&quot;&gt;3. 上下文隔离（Field-level state slicing）&lt;/h2&gt;
-
-&lt;p&gt;不是“全拷贝 or 全共享”，而是逐字段决策：&lt;/p&gt;
-
-&lt;h3 id=&quot;常见策略&quot;&gt;常见策略：&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;文件读取缓存 → 复制（避免互相污染）&lt;/li&gt;
-  &lt;li&gt;全局 UI 状态 → 禁止写（避免冲突）&lt;/li&gt;
-  &lt;li&gt;task registry → 保留（避免孤儿任务）&lt;/li&gt;
-  &lt;li&gt;agentId / depth → 递增（用于追踪）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;核心思想：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;isolation 是字段级语义决策，不是整体策略&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;五通信机制核心设计&quot;&gt;五、通信机制（核心设计）&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-父--子通信&quot;&gt;1. 父 → 子通信&lt;/h2&gt;
-
-&lt;p&gt;机制：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SendMessage 写入 subagent task state&lt;/li&gt;
-  &lt;li&gt;pendingMessages 数组作为“信箱”&lt;/li&gt;
-  &lt;li&gt;subagent 在 execution loop 中轮询读取&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;shared state + event polling（不是 MQ）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-子--父通信&quot;&gt;2. 子 → 父通信&lt;/h2&gt;
-
-&lt;p&gt;机制：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;subagent 生成结构化文本（XML-like payload）&lt;/li&gt;
-  &lt;li&gt;注入父 agent conversation history&lt;/li&gt;
-  &lt;li&gt;作为“用户消息”处理&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;系统事件 → 对话消息（message embedding）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;优点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;兼容 LLM prompt 结构&lt;/li&gt;
-  &lt;li&gt;无需额外 event system&lt;/li&gt;
-  &lt;li&gt;可持久化&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-状态结构简化模型&quot;&gt;3. 状态结构（简化模型）&lt;/h2&gt;
-
-&lt;p&gt;每个 subagent task 包含：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;status（running / done / failed）&lt;/li&gt;
-  &lt;li&gt;pendingMessages（输入队列）&lt;/li&gt;
-  &lt;li&gt;result（输出结果）&lt;/li&gt;
-  &lt;li&gt;progress（执行进度）&lt;/li&gt;
-  &lt;li&gt;messages（对话历史）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;六并发模型&quot;&gt;六、并发模型&lt;/h1&gt;
-
-&lt;h2 id=&quot;核心机制&quot;&gt;核心机制&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;多个 LLM API request 并发执行&lt;/li&gt;
-  &lt;li&gt;worker 之间互不阻塞&lt;/li&gt;
-  &lt;li&gt;coordinator / parent 不等待所有子任务完成&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;API-level concurrency（不是线程并发）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;自动后台化auto-background&quot;&gt;自动后台化（auto-background）&lt;/h2&gt;
-
-&lt;p&gt;规则：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;短任务：同步等待结果&lt;/li&gt;
-  &lt;li&gt;长任务（&amp;gt;阈值）：自动 background&lt;/li&gt;
-  &lt;li&gt;完成后异步通知父 agent&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;sync → async 的自动降级机制&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;七fork-subagent优化机制&quot;&gt;七、Fork Subagent（优化机制）&lt;/h1&gt;
-
-&lt;h2 id=&quot;核心目标&quot;&gt;核心目标&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;降低 token 成本 + 提升 cache 命中率&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;核心思想&quot;&gt;核心思想&lt;/h2&gt;
-
-&lt;p&gt;Fork subagent =&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;保持 request prefix byte-level deterministic&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;必须一致的部分&quot;&gt;必须一致的部分：&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;system prompt&lt;/li&gt;
-  &lt;li&gt;tool list（顺序 + 内容）&lt;/li&gt;
-  &lt;li&gt;user context prefix&lt;/li&gt;
-  &lt;li&gt;system context&lt;/li&gt;
-  &lt;li&gt;message history prefix&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;关键结论&quot;&gt;关键结论&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Fork 不等于 cache&lt;/li&gt;
-  &lt;li&gt;cache 是结果，不是设计目标&lt;/li&gt;
-  &lt;li&gt;核心是“请求前缀一致性”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;八coordinator-模式调度层&quot;&gt;八、Coordinator 模式（调度层）&lt;/h1&gt;
-
-&lt;h2 id=&quot;角色变化&quot;&gt;角色变化&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;模式&lt;/th&gt;
-      &lt;th&gt;主 agent&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;普通模式&lt;/td&gt;
-      &lt;td&gt;执行 + 调度&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Coordinator&lt;/td&gt;
-      &lt;td&gt;强调度倾向（delegation-first）&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;coordinator-职责&quot;&gt;Coordinator 职责&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;拆分任务&lt;/li&gt;
-  &lt;li&gt;派发 worker&lt;/li&gt;
-  &lt;li&gt;收集结果&lt;/li&gt;
-  &lt;li&gt;合成最终输出&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;但仍然可以：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;直接回答简单问题&lt;/li&gt;
-  &lt;li&gt;自主执行部分任务&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;worker-工具限制&quot;&gt;Worker 工具限制&lt;/h2&gt;
-
-&lt;p&gt;worker 不具备：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;派发其他 worker 权限&lt;/li&gt;
-  &lt;li&gt;coordinator 内部调度工具&lt;/li&gt;
-  &lt;li&gt;合成输出能力&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;本质：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;防止递归调度结构（避免树爆炸）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;并行机制&quot;&gt;并行机制&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一次 LLM 输出可包含多个 worker 调用&lt;/li&gt;
-  &lt;li&gt;worker 同时启动&lt;/li&gt;
-  &lt;li&gt;结果异步返回&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;效果：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;从串行任务 → 并行 fan-out&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;任务流水线&quot;&gt;任务流水线&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;并行调研（workers）&lt;/li&gt;
-  &lt;li&gt;coordinator 合成理解&lt;/li&gt;
-  &lt;li&gt;并行执行（workers）&lt;/li&gt;
-  &lt;li&gt;并行验证（workers）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;关键原则：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;coordinator 必须理解，而不是转发&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;九三种模式对比&quot;&gt;九、三种模式对比&lt;/h1&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;维度&lt;/th&gt;
-      &lt;th&gt;Subagent&lt;/th&gt;
-      &lt;th&gt;Fork&lt;/th&gt;
-      &lt;th&gt;Coordinator&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;并发&lt;/td&gt;
-      &lt;td&gt;中&lt;/td&gt;
-      &lt;td&gt;中&lt;/td&gt;
-      &lt;td&gt;高&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;隔离强度&lt;/td&gt;
-      &lt;td&gt;中&lt;/td&gt;
-      &lt;td&gt;低（同源）&lt;/td&gt;
-      &lt;td&gt;高（结构隔离）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;成本优化&lt;/td&gt;
-      &lt;td&gt;无&lt;/td&gt;
-      &lt;td&gt;强（cache）&lt;/td&gt;
-      &lt;td&gt;中&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;结构形态&lt;/td&gt;
-      &lt;td&gt;父子&lt;/td&gt;
-      &lt;td&gt;克隆分支&lt;/td&gt;
-      &lt;td&gt;扁平 worker&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;适用场景&lt;/td&gt;
-      &lt;td&gt;局部任务&lt;/td&gt;
-      &lt;td&gt;快速分身 / cache优化&lt;/td&gt;
-      &lt;td&gt;大任务拆解&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;十5-个核心设计原则面试重点&quot;&gt;十、5 个核心设计原则（面试重点）&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-上下文隔离必须字段级控制&quot;&gt;1. 上下文隔离必须字段级控制&lt;/h2&gt;
-
-&lt;p&gt;不是整体复制或隔离，而是按语义字段决策。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-通信必须基于消息模型&quot;&gt;2. 通信必须基于消息模型&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;写 state（父→子）&lt;/li&gt;
-  &lt;li&gt;写 conversation event（子→父）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;避免函数调用式阻塞。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-工具权限是-action-space-控制&quot;&gt;3. 工具权限是 action space 控制&lt;/h2&gt;
-
-&lt;p&gt;不是安全沙箱，而是：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;控制 agent 可行动空间&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;4-prompt-cache-是工程优化能力&quot;&gt;4. prompt cache 是工程优化能力&lt;/h2&gt;
-
-&lt;p&gt;关键在：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;request prefix deterministic design&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;5-并行优先--coordinator-合成&quot;&gt;5. 并行优先 + coordinator 合成&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;worker 并行执行&lt;/li&gt;
-  &lt;li&gt;coordinator 负责理解与整合&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;十一一句话工程级总结&quot;&gt;十一、一句话工程级总结&lt;/h1&gt;
-
-&lt;p&gt;Claude Code multi-agent 本质是：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;一个基于共享状态的事件驱动执行系统，通过字段级上下文切分实现逻辑隔离，通过异步消息模拟 agent 通信，通过 API 并发实现执行并行，通过 prompt 前缀确定性实现 cache 优化，并通过 coordinator bias 实现任务调度。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;十二面试用精简回答可直接背&quot;&gt;十二、面试用精简回答（可直接背）&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;它不是多进程 agent 架构，而是单 runtime 下的多执行上下文系统。&lt;br /&gt;
-subagent 通过字段级 state slicing 实现隔离，通过 message queue（pendingMessages）实现异步通信，通过 coordinator 模式实现任务分发与并行执行。&lt;br /&gt;
-并发来自 API-level async execution，而优化则依赖 prompt prefix deterministic design 来提升 cache 命中率。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code 多 Agent 架构（修正版面试笔记）</summary></entry></feed>
+&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动</summary></entry></feed>
