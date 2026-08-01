@@ -1,4 +1,644 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-07-26T21:09:58+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">cloudcodeui 开源ui 安装</title><link href="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/" rel="alternate" type="text/html" title="cloudcodeui 开源ui 安装" /><published>2026-07-26T00:00:00+08:00</published><updated>2026-07-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA</id><content type="html" xml:base="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/">&lt;p&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui&quot;&gt;CloudCLI&lt;/a&gt;（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-01T11:17:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Solana账户模型入门</title><link href="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/" rel="alternate" type="text/html" title="Solana账户模型入门" /><published>2026-07-31T00:00:00+08:00</published><updated>2026-07-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8</id><content type="html" xml:base="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/">&lt;h1 id=&quot;solana-账户模型入门结合-swap--收款场景&quot;&gt;Solana 账户模型入门（结合 Swap / 收款场景）&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;整理自日常答疑：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toAddress&lt;/code&gt; → ATA、余额存在哪、Program / PDA / Mint / Owner、以及「进合约再转出」如何一笔完成。&lt;br /&gt;
+目标：能看懂 Explorer，能设计「用户付款 → 程序金库 → 收款人」的单 tx 流程。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;0-和-evm-的最大差异先建立直觉&quot;&gt;0. 和 EVM 的最大差异（先建立直觉）&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;EVM&lt;/th&gt;
+      &lt;th&gt;Solana&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;合约&lt;/td&gt;
+      &lt;td&gt;代码 + storage 在一起&lt;/td&gt;
+      &lt;td&gt;Program（代码） 与 Account（数据） 分离&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;代币余额&lt;/td&gt;
+      &lt;td&gt;常在 ERC20 合约的 mapping(address =&amp;gt; uint)&lt;/td&gt;
+      &lt;td&gt;在独立的 Token Account 里，不在 Mint「合约」里&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用户地址&lt;/td&gt;
+      &lt;td&gt;直接有 token 余额字段（对 ERC20 而言是合约里记账）&lt;/td&gt;
+      &lt;td&gt;钱包账户本身通常&lt;strong&gt;不存&lt;/strong&gt; SPL 余额，只存 SOL（lamports）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;「合约持币」&lt;/td&gt;
+      &lt;td&gt;address(this).balance / 合约地址的 token&lt;/td&gt;
+      &lt;td&gt;程序用 PDA 当 owner，持币在 PDA 名下的 ATA&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;口诀：&lt;strong&gt;Program = 逻辑；Account = 数据箱子；余额在箱子的 data 里。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;1-account账户是什么&quot;&gt;1. Account（账户）是什么&lt;/h2&gt;
+
+&lt;p&gt;链上基本单位是 Account，每个有地址，核心字段：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;address&lt;/td&gt;
+      &lt;td&gt;公钥地址，或 PDA 地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;lamports&lt;/td&gt;
+      &lt;td&gt;SOL 最小单位；也用于交租金&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;owner&lt;/td&gt;
+      &lt;td&gt;哪个 Program 有权修改该账户的 data**（见下文「两种 owner」）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;data&lt;/td&gt;
+      &lt;td&gt;任意字节（Mint 信息、Token 余额、你们程序的配置等）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;executable&lt;/td&gt;
+      &lt;td&gt;是否为可执行 Program&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;三类常见账户：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;**用户钱包（System Account）
+    &lt;ul&gt;
+      &lt;li&gt;Account.owner = System Program&lt;/li&gt;
+      &lt;li&gt;lamports = SOL 余额&lt;/li&gt;
+      &lt;li&gt;data 基本为空&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Program（可执行账户）
+    &lt;ul&gt;
+      &lt;li&gt;存字节码 / 逻辑，类似「合约代码」&lt;/li&gt;
+      &lt;li&gt;一般&lt;strong&gt;不当&lt;/strong&gt;个人余额本&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;数据账户**（Mint、Token Account、金库配置等）
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Account.owner&lt;/code&gt; = 某个具体 Program（Token Program、你的 Program…）&lt;/li&gt;
+      &lt;li&gt;业务状态在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 里&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-program-是什么&quot;&gt;2. Program 是什么&lt;/h2&gt;
+
+&lt;p&gt;**Program ≈ EVM 的智能合约代码。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用户发交易，带上一条或多条 Instruction**，指定：
+    &lt;ul&gt;
+      &lt;li&gt;调哪个 **Program ID&lt;/li&gt;
+      &lt;li&gt;传入哪些 账户&lt;/li&gt;
+      &lt;li&gt;指令 data**（参数）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Program 只能改 Account.owner == 自己 的账户的 data（或通过 CPI 让别的 Program 改它有权改的账户）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;常见 Program：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Program&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;System Program&lt;/td&gt;
+      &lt;td&gt;创建账户、转 SOL&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Token Program / Token-2022&lt;/td&gt;
+      &lt;td&gt;增删改 Token Account 余额、Mint 等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Associated Token Program&lt;/td&gt;
+      &lt;td&gt;按标准规则创建 ATA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;你自己写的 Program&lt;/td&gt;
+      &lt;td&gt;金库、抽成、「收进再转出」等业务&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;转 USDT 时：调用的是 &lt;strong&gt;Token Program&lt;/strong&gt;，不是「去 Mint 账户里改 mapping」。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-mint-是什么&quot;&gt;3. Mint 是什么&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Mint = 某一种代币的「身份证」账户&lt;/strong&gt;，描述币种元信息，&lt;strong&gt;不存每个用户有多少币&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;Mint &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; 里常见字段：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;supply&lt;/code&gt;：总供应量&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;decimals&lt;/code&gt;：精度&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mint_authority&lt;/code&gt;：谁能增发&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;freeze_authority&lt;/code&gt;：谁能冻结 Token Account&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;例子：主网 USDT Mint ≈ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB&lt;/code&gt;。&lt;br /&gt;
+所有人的 USDT ATA，其 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data.mint&lt;/code&gt; 都指向这个地址。&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;USDT Mint  ──只描述「这是什么币」──▶️  不存「张三有多少」
+张三 ATA.mint = USDT Mint
+李四 ATA.mint = 同一个 USDT Mint
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-owner两个完全不同的含义必读&quot;&gt;4. Owner：两个完全不同的含义（必读）&lt;/h2&gt;
+
+&lt;h3 id=&quot;-accountowner账户元数据-哪个-program-能改这个箱子&quot;&gt;① Account.owner（账户元数据）= **哪个 Program 能改这个箱子&lt;/h3&gt;
+
+&lt;p&gt;每个账户都有，值几乎总是 Program ID**。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;账户类型&lt;/th&gt;
+      &lt;th&gt;Account.owner&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用户钱包&lt;/td&gt;
+      &lt;td&gt;System Program&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Token Account / ATA / Mint&lt;/td&gt;
+      &lt;td&gt;Token Program 或 Token-2022&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;你程序的配置账户 / 某些金库账户&lt;/td&gt;
+      &lt;td&gt;你的 Program ID&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;含义：只有该 Program 能改此账户 &lt;strong&gt;data&lt;/strong&gt;。&lt;br /&gt;
+&lt;strong&gt;不等于&lt;/strong&gt;「这些 USDT 属于 Token 程序」。&lt;/p&gt;
+
+&lt;h3 id=&quot;-token-account-data-里的-owner--币属于谁&quot;&gt;② Token Account data 里的 owner = **币属于谁&lt;/h3&gt;
+
+&lt;p&gt;仅 SPL Token Account（等）的 data 布局里才有：&lt;/p&gt;
+
+&lt;p&gt;mint:   哪种币（Mint 地址）
+owner:  谁有权花这些币（用户钱包 或 PDA）
+amount: 余额（u64）&lt;/p&gt;
+
+&lt;p&gt;这才是口语里的「这个 token account 是谁的」。&lt;/p&gt;
+
+&lt;h3 id=&quot;对照&quot;&gt;对照&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;词&lt;/th&gt;
+      &lt;th&gt;回答的问题&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mint&lt;/td&gt;
+      &lt;td&gt;这是&lt;strong&gt;哪一种&lt;/strong&gt;代币？&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Account.owner&lt;/td&gt;
+      &lt;td&gt;哪个 Program 有权改这个账户的数据？&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;data.owner&lt;/td&gt;
+      &lt;td&gt;这些代币&lt;strong&gt;属于谁&lt;/strong&gt;（谁能授权转走）？&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;一张图：&lt;/p&gt;
+
+&lt;p&gt;用户钱包 W
+  Account.owner = System Program          ← ①
+  lamports = SOL&lt;/p&gt;
+
+&lt;p&gt;USDT Mint M
+  Account.owner = Token Program           ← ①
+  data: supply / decimals …               ← 币种定义&lt;/p&gt;
+
+&lt;p&gt;W 的 USDT ATA
+  Account.owner = Token Program           ← ① 只有 Token Program 能改余额
+  data.mint   = M                         ← 这是 USDT
+  data.owner  = W                         ← ② 币属于用户 W
+  data.amount = 100&lt;/p&gt;
+
+&lt;p&gt;金库：&lt;/p&gt;
+
+&lt;p&gt;Vault ATA
+  Account.owner = Token Program
+  data.mint   = USDT Mint
+  data.owner  = Vault PDA                 ← ② 属于 PDA，程序可代签转出
+  data.amount = …&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-余额存在哪&quot;&gt;5. 余额存在哪&lt;/h2&gt;
+
+&lt;h3 id=&quot;原生-sol&quot;&gt;原生 SOL&lt;/h3&gt;
+
+&lt;p&gt;存在&lt;strong&gt;钱包账户自己&lt;/strong&gt;的 lamports 字段（租金也占 lamports）。&lt;/p&gt;
+
+&lt;h3 id=&quot;spl-tokenusdt--usdc-等&quot;&gt;SPL Token（USDT / USDC 等）&lt;/h3&gt;
+
+&lt;p&gt;存在独立的 Token Account**（通常是 ATA）的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amount&lt;/code&gt; 字段。&lt;/p&gt;
+
+&lt;p&gt;查余额流程：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;已知用户钱包 + mint&lt;/li&gt;
+  &lt;li&gt;算出 ATA 地址&lt;/li&gt;
+  &lt;li&gt;读该账户 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data.amount&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;（业务代码里常见：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FindAssociatedTokenAddress&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TokenAccount(wallet)&lt;/code&gt;。）&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;6-ataassociated-token-account&quot;&gt;6. ATA（Associated Token Account）&lt;/h2&gt;
+
+&lt;p&gt;**ATA = 按固定规则派生的、某钱包对某 Mint 的「标准」Token Account。&lt;/p&gt;
+
+&lt;p&gt;派生（概念上）：&lt;/p&gt;
+
+&lt;p&gt;ATA = PDA(
+  seeds = [owner钱包, token_program_id, mint],
+  program = Associated Token Program
+)&lt;/p&gt;
+
+&lt;p&gt;性质：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;同一 (钱包, mint, token program) → 唯一 ATA&lt;/li&gt;
+  &lt;li&gt;Swap 里 toAddress 是用户 Sol 钱包**，不是 ATA；收款 ATA 由 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toAddress + toMint&lt;/code&gt; **算出来&lt;/li&gt;
+  &lt;li&gt;若 ATA 尚不存在，交易里常带 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CreateAssociatedTokenAccountIdempotent&lt;/code&gt;，创建后再收款&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;随机地址当 token account？
+| 做法 | 结果 |
+|——|——|
+| 随机地址当 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toAddress&lt;/code&gt;（当钱包） | 会派生出「随机钱包」名下的 ATA → 无私钥则&lt;strong&gt;丢币&lt;/strong&gt; |
+| 硬塞随机 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destinationTokenAccount&lt;/code&gt; | 账户不存在/mint 不对 → 交易失败**；碰巧是别人合法 ATA → **币进别人账户 |&lt;/p&gt;
+
+&lt;p&gt;结论：正常路径只用 标准 ATA**。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;7-pdaprogram-derived-address&quot;&gt;7. PDA（Program Derived Address）&lt;/h2&gt;
+
+&lt;p&gt;**PDA = 由 Program + seeds 算出的特殊地址，没有私钥。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;普通钱包&lt;/th&gt;
+      &lt;th&gt;PDA&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;私钥&lt;/td&gt;
+      &lt;td&gt;有&lt;/td&gt;
+      &lt;td&gt;无&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;谁能「当它」签名&lt;/td&gt;
+      &lt;td&gt;持钥人&lt;/td&gt;
+      &lt;td&gt;只有派生它的 Program**（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;invoke_signed(seeds)&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用途&lt;/td&gt;
+      &lt;td&gt;用户账户&lt;/td&gt;
+      &lt;td&gt;程序金库身份、配置账户、权限账户&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;「钱进合约再转给你」时：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Vault 的 Token Account：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data.owner = 某 PDA&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;程序用 seeds 证明自己是该 PDA，才能 CPI 调 Token Program 把币转走&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;seeds = [&quot;vault&quot;, mint, ...] + your_program_id
+     → vault_pda
+用户 USDT → vault_pda 的 ATA
+程序 invoke_signed → vault ATA → 你的 ATA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;**ATA vs PDA：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;ATA&lt;/th&gt;
+      &lt;th&gt;PDA&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;是什么&lt;/td&gt;
+      &lt;td&gt;一种标准 Token Account 地址&lt;/td&gt;
+      &lt;td&gt;一种地址派生方式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;谁派生&lt;/td&gt;
+      &lt;td&gt;Associated Token Program + 固定 seeds&lt;/td&gt;
+      &lt;td&gt;你的**（或指定）Program + 自定义 seeds&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;典型用途&lt;/td&gt;
+      &lt;td&gt;存某个 mint 的余额&lt;/td&gt;
+      &lt;td&gt;当金库 owner、配置地址等&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;ATA 地址本身也是一种 PDA，但是 **ATA Program 按固定 seeds 派生的；业务金库 PDA 是 你的 Program 派生的。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;8-交易指令cpi补全钱怎么动&quot;&gt;8. 交易、指令、CPI（补全：钱怎么「动」）&lt;/h2&gt;
+
+&lt;h3 id=&quot;transaction--instruction&quot;&gt;Transaction / Instruction&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Transaction（交易）**：一组指令的原子打包（要么全成要么全败）+ 若干签名&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Instruction（指令）&lt;/strong&gt;：调用某一个 Program，带账户列表 + 参数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一笔 swap / 付款常见结构：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Tx
+ ├─ (可选) 创建收款 ATA
+ ├─ (可选) 创建 vault ATA
+ └─ 你的 Program: pay / swap 相关指令
+       └─ 内部 CPI → Token Program: transfer …
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cpicross-program-invocation&quot;&gt;CPI（Cross-Program Invocation）&lt;/h3&gt;
+
+&lt;p&gt;程序在执行时&lt;strong&gt;再调用&lt;/strong&gt;另一个程序，叫 CPI。&lt;br /&gt;
+例如：你的 Program → CPI → Token Program 做 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;transfer&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;从 PDA 转出必须：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;invoke_signed(
+  Token Program 的 transfer 指令,
+  账户列表,
+  seeds  // 证明签名者是该 PDA
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;账户在指令里的角色看文档explorer-常用&quot;&gt;账户在指令里的角色（看文档/Explorer 常用）&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;标记&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;**signer&lt;/td&gt;
+      &lt;td&gt;该地址必须在交易上签名（或 PDA 通过 invoke_signed 等效签名）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;writable&lt;/td&gt;
+      &lt;td&gt;本指令可能修改该账户（余额、data、lamports）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Fee payer：付这笔 tx 网络费（SOL）的账户，通常是用户钱包。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;9-目标场景用户把钱进合约再转到你同一-tx&quot;&gt;9. 目标场景：用户把钱进「合约」，再转到你（同一 tx）&lt;/h2&gt;
+
+&lt;h3 id=&quot;推荐模型&quot;&gt;推荐模型&lt;/h3&gt;
+
+&lt;p&gt;用户 ATA  –① transfer–&amp;gt;  程序 PDA 的 Vault ATA  –② CPI transfer–&amp;gt;  你的 ATA
+                 _&lt;strong&gt;__&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt; 同一个 Transaction &lt;strong&gt;__&lt;/strong&gt;&lt;strong&gt;__&lt;/strong&gt;_/&lt;/p&gt;
+
+&lt;p&gt;一条业务指令 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pay(amount)&lt;/code&gt; 内顺序：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;token::transfer&lt;/code&gt;：用户 ATA → Vault ATA（用户为 signer）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;token::transfer&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;invoke_signed&lt;/code&gt;：Vault ATA → 你的 ATA（PDA 签名）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;客户端组 一个 tx**（缺 ATA 则先 create idempotent）。&lt;/p&gt;
+
+&lt;h3 id=&quot;若中间不需要托管&quot;&gt;若中间不需要托管&lt;/h3&gt;
+
+&lt;p&gt;可直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;用户 ATA → 你的 ATA&lt;/code&gt; 一条 transfer；&lt;br /&gt;
+Vault 适合：抽成、校验、条件支付、记账后再付。&lt;/p&gt;
+
+&lt;h3 id=&quot;注意&quot;&gt;注意&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;用户 / vault / 收款方都要有对应 mint 的 ATA&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pay&lt;/code&gt; 内写死或严格校验收款人，防参数被改成任意地址&lt;/li&gt;
+  &lt;li&gt;Token vs Token-2022：program id、ATA 派生都要一致&lt;/li&gt;
+  &lt;li&gt;同一 tx 内原子性：①② 同成同败&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;10-授权相关补全delegate&quot;&gt;10. 授权相关（补全：delegate）&lt;/h2&gt;
+
+&lt;p&gt;除「owner 本人签名转账」外，Token Account 还可以：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Approve / Delegate&lt;/strong&gt;：owner 授权另一地址可花不超过额度的 token&lt;/li&gt;
+  &lt;li&gt;之后被授权方可在额度内 transfer，不必 owner 每次签转账逻辑&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;设计收款程序时要分清：是 &lt;strong&gt;用户当 signer 直接转进 vault&lt;/strong&gt;，还是 &lt;strong&gt;先 approve 再由程序拉款&lt;/strong&gt;（体验不同）。&lt;/p&gt;
+
+&lt;p&gt;Mint 上还有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;mint_authority&lt;/strong&gt;：增发&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;freeze_authority&lt;/strong&gt;：冻结某 Token Account（冻结后无法转）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;11-sol-与-wsol补全&quot;&gt;11. SOL 与 WSOL（补全）&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;SOL&lt;/th&gt;
+      &lt;th&gt;WSOL&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;存在哪&lt;/td&gt;
+      &lt;td&gt;钱包 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lamports&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;像其它 SPL：WSOL Mint 的 ATA 里 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;amount&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;和 DeFi&lt;/td&gt;
+      &lt;td&gt;很多池子要 WSOL&lt;/td&gt;
+      &lt;td&gt;wrap：SOL→WSOL ATA；unwrap：关 ATA 取回 SOL&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Swap 到「原生 SOL」时，常先到 WSOL ATA 再 unwrap；协议参数里会有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wrapAndUnwrapSol&lt;/code&gt; 一类开关。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;12-租金-rent补全&quot;&gt;12. 租金 Rent（补全）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;账户要保持一定 lamports，否则可能被回收&lt;/li&gt;
+  &lt;li&gt;实务上多用 &lt;strong&gt;免租（rent-exempt）&lt;/strong&gt;：存够一笔 SOL，账户可长期保留&lt;/li&gt;
+  &lt;li&gt;创建 ATA 时，创建者通常要负担这笔免租准备金（可在关 ATA 时退回给接收方，视指令而定）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;13-在-sol-explorer-上怎么看&quot;&gt;13. 在 Sol Explorer 上怎么看&lt;/h2&gt;
+
+&lt;p&gt;推荐：Solscan / Solana Explorer。&lt;/p&gt;
+
+&lt;h3 id=&quot;打开对的地址&quot;&gt;打开对的地址&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;打开&lt;/th&gt;
+      &lt;th&gt;能看到&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;**用户钱包&lt;/td&gt;
+      &lt;td&gt;Account.owner ≈ System Program；Token 列表；点进某个币才是 ATA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ATA 地址&lt;/td&gt;
+      &lt;td&gt;同时看到 ① Program Owner 与 ② Mint / Owner / Balance&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Mint 地址&lt;/td&gt;
+      &lt;td&gt;supply、decimals；&lt;strong&gt;没有&lt;/strong&gt;「属于用户 W」的 data.owner&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;ata-页上两个都叫-owner-时&quot;&gt;ATA 页上两个都叫 Owner 时&lt;/h3&gt;
+
+&lt;p&gt;Overview
+  Owner: Tokenkeg…              ← ① Account.owner（程序）&lt;/p&gt;
+
+&lt;p&gt;Token Account / Parsed
+  Mint:   Es9v…                 ← data.mint
+  Owner:  用户钱包或 PDA          ← ② data.owner
+  Balance: …&lt;/p&gt;
+
+&lt;p&gt;口诀：&lt;/p&gt;
+
+&lt;p&gt;Account.owner  →  谁有权改这个箱子（程序）
+data.owner     →  箱子里的币算谁的（钱包/PDA）
+data.mint      →  箱子里是哪种币&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;14-和-swap-代码的对应ms-swap-语境&quot;&gt;14. 和 Swap 代码的对应（ms-swap 语境）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toAddress&lt;/code&gt;：用户 Sol 钱包&lt;/li&gt;
+  &lt;li&gt;收款 ATA：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ToMint.TokenAccount(Recipient.Wallet)&lt;/code&gt;&lt;br /&gt;
+→ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FindAssociatedTokenAddressAndBumpSeed(wallet, mint, tokenProgram)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;缺 ATA：交易内创建（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create_recipient_to_token_account&lt;/code&gt;）&lt;/li&gt;
+  &lt;li&gt;Jupiter：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;destinationTokenAccount&lt;/code&gt; = 算好的收款 ATA（解包 SOL 时则用原生 destination）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;15-术语速查&quot;&gt;15. 术语速查&lt;/h2&gt;
+&lt;p&gt;| 术语 | 一句话 |
+|——|——–|
+| Account | 链上数据/程序的基本单位 |
+| Program | 可执行逻辑（合约代码） |
+| Instruction | 对某个 Program 的一次调用 |
+| Transaction | 多条 Instruction 的原子打包 |
+| CPI | 程序调用另一个程序 |
+| Mint | 币种定义账户 |
+| Token Account | 存某 mint 余额的账户 |
+| ATA | 标准派生的 Token Account |
+| PDA | 无私钥、由 Program+seeds 派生、可被程序代签的地址 |
+| Account.owner | 哪个 Program 能改该账户 data |
+| data.owner | Token Account 内：币属于谁 |
+| lamports | SOL 最小单位；也用于租金 |
+| Token-2022 | 新版 Token 程序；ATA 派生用其 program id |
+| invoke_signed | 程序用 seeds 以 PDA 身份签名做 CPI |&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;16-知识缺口自检还可继续补的方向&quot;&gt;16. 知识缺口自检（还可继续补的方向）&lt;/h2&gt;
+
+&lt;p&gt;本文已覆盖：账户 / Program / Mint / 双 Owner / ATA / PDA / 余额位置 / 单 tx 进出金库 / Explorer / CPI 基础 / rent / WSOL / delegate 简介。&lt;/p&gt;
+
+&lt;p&gt;若你下一步要&lt;strong&gt;动手写合约&lt;/strong&gt;，建议再单独补一章（当前未展开实现细节）：&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Anchor 账户约束宏（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#[account(mut, seeds, bump)]&lt;/code&gt;）怎么对应上述概念&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;一条 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pay&lt;/code&gt; 指令的完整账户列表（user、user_ata、vault_pda、vault_ata、recipient_ata、token_program、ata_program…）&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;错误处理与常见失败（ATA 未创建、mint 不符、余额不足、签名缺失）&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;安全：收款人校验、重入/重复调用、权限最小化&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;本地 validator + 测试网部署与打日志看账户变化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要的话可以说一下用 Anchor 还是原生，我按你的「进金库再转出」场景把第 16 节补成可复制的账户表 + 示例指令。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">Solana 账户模型入门（结合 Swap / 收款场景）</summary></entry><entry><title type="html">cloudcodeui 开源ui 安装</title><link href="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/" rel="alternate" type="text/html" title="cloudcodeui 开源ui 安装" /><published>2026-07-26T00:00:00+08:00</published><updated>2026-07-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA</id><content type="html" xml:base="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/">&lt;p&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui&quot;&gt;CloudCLI&lt;/a&gt;（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。&lt;/p&gt;
 
 &lt;p&gt;相比单独跑 CLI 的差异：&lt;/p&gt;
 
@@ -319,7 +959,562 @@ curl http://localhost:3001/health                           &lt;span class=&quot
   &lt;li&gt;&lt;a href=&quot;https://cloudcli.ai/docs&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/cloudcli-ai/cloudcli-plugin-starter&quot;&gt;Plugin Starter 模板&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://discord.gg/buxwujPNRE&quot;&gt;Discord 社区&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="CloudCLI" /><category term="ClaudeCode" /><category term="Cursor" /><category term="Codex" /><category term="SelfHosted" /><summary type="html">CloudCLI（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。</summary></entry><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="CloudCLI" /><category term="ClaudeCode" /><category term="Cursor" /><category term="Codex" /><category term="SelfHosted" /><summary type="html">CloudCLI（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。</summary></entry><entry><title type="html">浏览器书签 + WebSocket 桥接（通用模式）</title><link href="https://mafulong.github.io/2026/07/24/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B9%A6%E7%AD%BEWebSocket%E6%A1%A5%E6%8E%A5/" rel="alternate" type="text/html" title="浏览器书签 + WebSocket 桥接（通用模式）" /><published>2026-07-24T00:00:00+08:00</published><updated>2026-07-24T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/24/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B9%A6%E7%AD%BEWebSocket%E6%A1%A5%E6%8E%A5</id><content type="html" xml:base="https://mafulong.github.io/2026/07/24/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B9%A6%E7%AD%BEWebSocket%E6%A1%A5%E6%8E%A5/">&lt;p&gt;一套&lt;strong&gt;不依赖具体业务平台&lt;/strong&gt;的本地遥控模式：用浏览器书签把脚本注入到「已登录」的网页，经本机 WebSocket 接收命令，再在页面里用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch&lt;/code&gt;（带 cookie）调用目标站 API。&lt;/p&gt;
+
+&lt;p&gt;适用场景：目标系统只有浏览器登录态、不便导出 cookie / Token，又希望用 curl / Agent / 脚本自动化操作。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;1-原理一句话&quot;&gt;1. 原理（一句话）&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;本地服务发命令 → WebSocket 推到浏览器 → 浏览器带着当前登录 cookie 去调目标站。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl / Agent / 脚本
+        │  HTTP  REST
+        ▼
+┌───────────────────┐
+│  本地 Node 服务    │  REST 端口（例：9100）
+│  + WebSocket 服务  │  WS 端口（例：9101）
+└─────────┬─────────┘
+          │  WebSocket 长连接
+          ▼
+┌───────────────────┐
+│ 目标站点已打开的页 │  已登录，有 cookie
+│ + 书签注入的 bridge.js │
+└─────────┬─────────┘
+          │  fetch(..., { credentials: &apos;include&apos; })
+          ▼
+     目标站点同源 API
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;不是「把 cookie 拷出来」；是「遥控已登录的浏览器页」。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-三个组件&quot;&gt;2. 三个组件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;组件&lt;/th&gt;
+      &lt;th&gt;是什么&lt;/th&gt;
+      &lt;th&gt;职责&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;书签 / Bookmarklet&lt;/td&gt;
+      &lt;td&gt;浏览器书签栏里的一段 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:...&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;往当前页插入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script src=&quot;http://localhost:REST/bridge.js&quot;&amp;gt;&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;本地服务&lt;/td&gt;
+      &lt;td&gt;本机 Node（HTTP + WebSocket）&lt;/td&gt;
+      &lt;td&gt;对外提供 REST；对内把命令推给浏览器；等结果返回&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;桥接脚本 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;注入到目标页的 JS&lt;/td&gt;
+      &lt;td&gt;连本机 WS；收命令；用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch&lt;/code&gt; 调目标站；回传结果&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;可选：页面右下角小 UI（状态灯、手动按钮、日志），方便人眼确认「已连接」。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-怎么用操作步骤&quot;&gt;3. 怎么用（操作步骤）&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-准备&quot;&gt;3.1 准备&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;本机安装 Node.js，项目目录里有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.js&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;（见下文最小模板）。&lt;/li&gt;
+  &lt;li&gt;安装依赖并启动：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /path/to/your-bridge-tool
+npm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;ws
+node server.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;看到类似输出即成功：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;REST  http://localhost:9100
+WS    ws://localhost:9101
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;健康检查：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; http://localhost:9100/api/status
+&lt;span class=&quot;c&quot;&gt;# 期望: {&quot;ok&quot;:true,&quot;browser&quot;:false}   ← 此时还没连浏览器&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;32-添加书签&quot;&gt;3.2 添加书签&lt;/h3&gt;
+
+&lt;p&gt;新建书签，&lt;strong&gt;名称&lt;/strong&gt;随意（如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Inject Bridge&lt;/code&gt;），&lt;strong&gt;地址&lt;/strong&gt;填（整行）：&lt;/p&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;javascript&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http://localhost:9100/bridge.js?t=&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)})()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注意：URL 必须以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:&lt;/code&gt; 开头，且要保存为&lt;strong&gt;书签的「网址」字段&lt;/strong&gt;，不是放在注释或描述里。
+一些 Jekyll / Markdown 渲染器会把 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:&lt;/code&gt; 自动转成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;a href&amp;gt;&lt;/code&gt;，拷贝时留意：&lt;strong&gt;整段当一行&lt;/strong&gt;贴进去，不要拆行。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;说明：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:&lt;/code&gt; 前缀让浏览器执行这段代码，而不是打开网址。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s.src = ...&lt;/code&gt;：从本机下载真正的桥接脚本。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?t=Date.now()&lt;/code&gt;：防缓存，每次点书签都拉最新 JS。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;33-注入&quot;&gt;3.3 注入&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;用浏览器打开&lt;strong&gt;目标站点&lt;/strong&gt;并&lt;strong&gt;登录成功&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;点击刚才的书签。&lt;/li&gt;
+  &lt;li&gt;页面右下角若出现状态 UI，或控制台出现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bridge connected&lt;/code&gt;，即注入成功。&lt;/li&gt;
+  &lt;li&gt;再查状态：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; http://localhost:9100/api/status
+&lt;span class=&quot;c&quot;&gt;# 期望: {&quot;ok&quot;:true,&quot;browser&quot;:true}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;34-发命令&quot;&gt;3.4 发命令&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 探活&lt;/span&gt;
+curl &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; http://localhost:9100/api/ping
+
+&lt;span class=&quot;c&quot;&gt;# 业务命令（按你实现的 REST 定制）&lt;/span&gt;
+curl &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://localhost:9100/api/do?action=example&quot;&lt;/span&gt;
+curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST http://localhost:9100/api/do &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Content-Type: application/json&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;{&quot;command&quot;:&quot;example&quot;,&quot;params&quot;:{&quot;foo&quot;:&quot;bar&quot;}}&apos;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;断线 / 换标签 / 登出后：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;browser&lt;/code&gt; 变 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;，需重新打开目标页并点书签。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-通信协议约定&quot;&gt;4. 通信协议（约定）&lt;/h2&gt;
+
+&lt;h3 id=&quot;41-服务--浏览器命令&quot;&gt;4.1 服务 → 浏览器（命令）&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ping&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;params&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;字段&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;请求序号，用于配对结果&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;命令名（白名单，脚本里 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;params&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;参数对象&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;42-浏览器--服务结果&quot;&gt;4.2 浏览器 → 服务（结果）&lt;/h3&gt;
+
+&lt;p&gt;成功：&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ok&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pong&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;失败：&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;result&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;status&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;原因说明&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;43-建议内置命令&quot;&gt;4.3 建议内置命令&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;command&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ping&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;探活；可返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;portal: location.origin&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;业务命令&lt;/td&gt;
+      &lt;td&gt;只实现你需要的，&lt;strong&gt;不要&lt;/strong&gt;做成任意 JS 执行&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;安全原则：&lt;strong&gt;命令白名单&lt;/strong&gt;。不要接收 eval / 任意 URL 请求。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-最小可跑模板&quot;&gt;5. 最小可跑模板&lt;/h2&gt;
+
+&lt;h3 id=&quot;51-serverjs本地服务&quot;&gt;5.1 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.js&lt;/code&gt;（本地服务）&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;REST_PORT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WS_PORT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9101&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cmdId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;wss&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WS_PORT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;wss&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;browser connected&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;has&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;clearTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;unknown&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sendCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timeout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Promise&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readyState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;OPEN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;NO_BROWSER: 请打开目标页并点击书签&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;cmdId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;TIMEOUT&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;pending&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;reject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;timer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Content-Type&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;application/json&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Access-Control-Allow-Origin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`http://localhost:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;REST_PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pathname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;OPTIONS&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;204&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Access-Control-Allow-Origin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Access-Control-Allow-Methods&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;GET,POST,OPTIONS&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Access-Control-Allow-Headers&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Content-Type&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/api/status&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;browserWs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/api/ping&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sendCommand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ping&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}));&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// 在此按业务加 REST → sendCommand(...)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startsWith&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;NO_BROWSER&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;503&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// 静态提供 bridge.js&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;bridge.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;readFileSync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Content-Type&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;application/javascript&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Access-Control-Allow-Origin&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;writeHead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;404&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Not found&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;REST_PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`REST  http://localhost:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;REST_PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`WS    ws://localhost:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WS_PORT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;52-bridgejs注入到目标页&quot;&gt;5.2 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;（注入到目标页）&lt;/h3&gt;
+
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;use strict&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__genericBridgeReady&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__genericBridgeReady&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;BASE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;origin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 目标站同源&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WS_URL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ws://localhost:9101&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;opts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;BASE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;credentials&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 带上当前登录 cookie&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Content-Type&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;application/json&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;application/json&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;...(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;opts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}),&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;opts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;401&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;403&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;认证失败，请重新登录目标站&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`HTTP &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;await&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;WebSocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;WS_URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onopen&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[bridge] connected&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onclose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 断线重连&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmessage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;params&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ping&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;pong&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;portal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;origin&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;// case &apos;yourCommand&apos;:&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//   result = await api(&apos;/your/api/path&apos;, { method: &apos;GET&apos; });&lt;/span&gt;
+            &lt;span class=&quot;c1&quot;&gt;//   break;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Unknown command: &lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ok&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;nx&quot;&gt;ws&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+              &lt;span class=&quot;nx&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;53-packagejson&quot;&gt;5.3 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/h3&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;browser-ws-bridge&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;private&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ws&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^8.18.0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;6-关键概念速查&quot;&gt;6. 关键概念速查&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;名词&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;书签 / Bookmarklet&lt;/td&gt;
+      &lt;td&gt;地址以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:&lt;/code&gt; 开头的书签，点击即在当前页执行 JS&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;script.src&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;告诉浏览器「从这个 URL 下载并执行脚本」&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;WebSocket&lt;/td&gt;
+      &lt;td&gt;浏览器与本机服务之间的长连接，两边可随时推消息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;浏览器发 HTTP 请求的 API&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;credentials: &apos;include&apos;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;发请求时带上该域名下的 cookie（沿用登录态）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;同源&lt;/td&gt;
+      &lt;td&gt;协议 + 域名 + 端口与当前页一致；桥接脚本应只打当前站 API&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;7-能力边界做不到什么&quot;&gt;7. 能力边界（做不到什么）&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;只能执行 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt; 白名单命令，&lt;strong&gt;不是任意控制浏览器&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;没有注入 / 未登录 → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NO_BROWSER&lt;/code&gt; 或 401。&lt;/li&gt;
+  &lt;li&gt;账号没权限的操作，桥接也过不去。&lt;/li&gt;
+  &lt;li&gt;默认&lt;strong&gt;不能&lt;/strong&gt;跨站操作；换域名要另开标签并再点书签（或另写桥）。&lt;/li&gt;
+  &lt;li&gt;本机 REST 未鉴权时，&lt;strong&gt;本机其他进程也能调&lt;/strong&gt;；勿在不可信环境裸奔生产写操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;8-排障&quot;&gt;8. 排障&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;现象&lt;/th&gt;
+      &lt;th&gt;排查&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;browser: false&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;目标页是否打开、是否点过书签、WS 端口是否通&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NO_BROWSER&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;同上；确认只保留一个有效连接&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;401 / 403&lt;/td&gt;
+      &lt;td&gt;目标站登录过期，重新登录后再点书签&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;书签点了没反应&lt;/td&gt;
+      &lt;td&gt;地址是否以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;javascript:&lt;/code&gt; 开头；部分浏览器需允许书签脚本&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt; 加载失败&lt;/td&gt;
+      &lt;td&gt;本机服务是否在跑；页面是否拦截混合内容（目标站若是 https，localhost http 脚本可能被拦，需同源策略或本地 https）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TIMEOUT&lt;/td&gt;
+      &lt;td&gt;命令执行过久或 bridge 卡死；看控制台报错&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;混合内容提示&lt;/strong&gt;：若目标站是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://&lt;/code&gt;，从页面加载 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost/...&lt;/code&gt; 可能被浏览器拦截。常见做法：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;开发机用本地自签 HTTPS 提供 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;；或&lt;/li&gt;
+  &lt;li&gt;仅在允许的测试环境使用；或&lt;/li&gt;
+  &lt;li&gt;用浏览器扩展注入（超出本文书签方案）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;9-落地检查清单&quot;&gt;9. 落地检查清单&lt;/h2&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;选定 REST / WS 端口，避免与已有工具冲突&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server.js&lt;/code&gt; 提供 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/api/status&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/api/ping&lt;/code&gt;、静态 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt; 只实现白名单 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;command&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;credentials: &apos;include&apos;&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;书签 URL 指向本机 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bridge.js&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;先登录目标站，再点书签，确认 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;browser: true&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;用 curl 验证 ping → 再接业务命令&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;写操作务必二次确认（尤其生产环境）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;10-和导出-cookie方案对比&quot;&gt;10. 和「导出 Cookie」方案对比&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;书签 + WebSocket&lt;/th&gt;
+      &lt;th&gt;导出 Cookie 文件&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;登录态&lt;/td&gt;
+      &lt;td&gt;跟浏览器会话走&lt;/td&gt;
+      &lt;td&gt;需定期刷新文件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;安全&lt;/td&gt;
+      &lt;td&gt;cookie 不出浏览器&lt;/td&gt;
+      &lt;td&gt;cookie 落盘，易泄露&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;依赖&lt;/td&gt;
+      &lt;td&gt;必须开着目标页&lt;/td&gt;
+      &lt;td&gt;可无头脚本直打 API&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;适合&lt;/td&gt;
+      &lt;td&gt;SSO / 复杂登录 / 短期自动化&lt;/td&gt;
+      &lt;td&gt;长期 CI、无 UI 环境&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;本模式的取舍：&lt;strong&gt;用「必须开浏览器」换「不存 cookie、跟登录态自动同步」&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">一套不依赖具体业务平台的本地遥控模式：用浏览器书签把脚本注入到「已登录」的网页，经本机 WebSocket 接收命令，再在页面里用 fetch（带 cookie）调用目标站 API。</summary></entry><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
 
 &lt;p&gt;相比 Claude Code &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt; 的官方方案（&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;详见踩坑记录&lt;/a&gt;：第三方 base URL 直接拒接），Hermes-Agent 在国内第三方代理 + Telegram bot 的场景下能直接 work。&lt;/p&gt;
 
@@ -2222,841 +3417,4 @@ Cursor 内置了硬编码的安全策略，不在 &lt;code class=&quot;language-
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;具体各方案对应的映射表可参考小鹤官网或开源项目。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tech" /><category term="Tools" /><summary type="html">小鹤双拼配置</summary></entry><entry><title type="html">Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记</title><link href="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记" /><published>2026-05-31T00:00:00+08:00</published><updated>2026-05-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2026/05/31/nextjs-typescript-tailwind-shadcn%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/">&lt;h1 id=&quot;nextjs--typescript--tailwind--shadcnui-学习安装笔记&quot;&gt;Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记&lt;/h1&gt;
-
-&lt;h2 id=&quot;技术栈介绍&quot;&gt;技术栈介绍&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;技术&lt;/th&gt;
-      &lt;th&gt;用途&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Next.js&lt;/td&gt;
-      &lt;td&gt;React 全栈框架，支持 App Router、SSR、API Routes&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;TypeScript&lt;/td&gt;
-      &lt;td&gt;JavaScript 超集，提供类型检查&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Tailwind CSS&lt;/td&gt;
-      &lt;td&gt;Utility-first CSS 框架&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;shadcn/ui&lt;/td&gt;
-      &lt;td&gt;基于 Radix UI 的可复用组件库&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;环境准备&quot;&gt;环境准备&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;node &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# v24.3.0&lt;/span&gt;
-npm &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 11.4.2&lt;/span&gt;
-pnpm &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# 9.13.2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;安装-pnpm&quot;&gt;安装 pnpm&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; pnpm
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;一安装-nextjs--typescript--tailwind&quot;&gt;一、安装 Next.js + TypeScript + Tailwind&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-创建项目&quot;&gt;1. 创建项目&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx create-next-app@latest nextjs-learn &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--typescript&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--tailwind&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--eslint&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--app&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--src-dir&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--import-alias&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;@/*&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--use-npm&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;--yes&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;参数说明：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;参数&lt;/th&gt;
-      &lt;th&gt;说明&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--typescript&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;启用 TypeScript&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--tailwind&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;启用 Tailwind CSS&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--eslint&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;添加 ESLint 配置&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--app&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;使用 App Router（Next.js 13+）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--src-dir&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;源码放在 src/ 目录&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--import-alias &quot;@/*&quot;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;路径别名配置&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--use-pnpm&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;使用 pnpm（更快）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--yes&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;所有选项默认 yes&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;2-安装依赖&quot;&gt;2. 安装依赖&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;next
-react
-react-dom
-
-devDependencies:
-@tailwindcss/postcss
-@types/node
-@types/react
-@types/react-dom
-eslint
-eslint-config-next
-tailwindcss
-typescript
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-目录结构&quot;&gt;3. 目录结构&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src/
-├─ app/           # App Router 页面
-├─ components/    # React 组件
-└─ lib/          # 工具函数
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;二安装-shadcnui&quot;&gt;二、安装 shadcn/ui&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-初始化&quot;&gt;1. 初始化&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx shadcn@latest init &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--defaults&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;这会：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;创建 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;components.json&lt;/code&gt; 配置文件&lt;/li&gt;
-  &lt;li&gt;更新 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tailwind.config.ts&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;更新 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;src/app/globals.css&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;安装基础依赖&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;2-添加组件&quot;&gt;2. 添加组件&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx shadcn@latest add card badge input &lt;span class=&quot;nt&quot;&gt;--yes&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;常用组件：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;组件&lt;/th&gt;
-      &lt;th&gt;用途&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;button&lt;/td&gt;
-      &lt;td&gt;按钮&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;card&lt;/td&gt;
-      &lt;td&gt;卡片容器&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;badge&lt;/td&gt;
-      &lt;td&gt;徽章&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;input&lt;/td&gt;
-      &lt;td&gt;输入框&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;dialog&lt;/td&gt;
-      &lt;td&gt;对话框&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;select&lt;/td&gt;
-      &lt;td&gt;下拉选择&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;3-组件结构&quot;&gt;3. 组件结构&lt;/h3&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src/components/ui/
-├─ button.tsx
-├─ card.tsx
-├─ badge.tsx
-└─ input.tsx
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;三配置文件&quot;&gt;三、配置文件&lt;/h2&gt;
-
-&lt;h3 id=&quot;componentsjson&quot;&gt;components.json&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;$schema&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;https://ui.shadcn.com/schema.json&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;style&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;new-york&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;rsc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;tsx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;tailwind&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;tailwind.config.ts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;src/app/globals.css&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;baseColor&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;neutral&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;cssVariables&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;aliases&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@/components&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;utils&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;@/lib/utils&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;libutilsts&quot;&gt;lib/utils.ts&lt;/h3&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;clsx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ClassValue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;clsx&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;twMerge&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;tailwind-merge&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(...&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ClassValue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;twMerge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;clsx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;四使用示例&quot;&gt;四、使用示例&lt;/h2&gt;
-
-&lt;h3 id=&quot;button&quot;&gt;Button&lt;/h3&gt;
-
-&lt;div class=&quot;language-tsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@/components/ui/button&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;default&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Demo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;Click me&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;card&quot;&gt;Card&lt;/h3&gt;
-
-&lt;div class=&quot;language-tsx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Card&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CardHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CardTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CardContent&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;@/components/ui/card&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;DemoCard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Card&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-        &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;Title&lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardTitle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardHeader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-        Content here
-      &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;CardContent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;Card&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;五tailwind-css-基础&quot;&gt;五、Tailwind CSS 基础&lt;/h2&gt;
-
-&lt;h3 id=&quot;常用类&quot;&gt;常用类&lt;/h3&gt;
-
-&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 布局 --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;flex items-center justify-between&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 间距 --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;m-4 p-4&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 颜色 --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;button&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bg-primary text-white&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- 响应式 --&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hidden md:block&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;配置主题&quot;&gt;配置主题&lt;/h3&gt;
-
-&lt;p&gt;在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tailwind.config.ts&lt;/code&gt; 中自定义：&lt;/p&gt;
-
-&lt;div class=&quot;language-typescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;na&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;primary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;#xxx&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;
-      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;六常用命令&quot;&gt;六、常用命令&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 开发&lt;/span&gt;
-npm run dev
-
-&lt;span class=&quot;c&quot;&gt;# 构建&lt;/span&gt;
-npm run build
-
-&lt;span class=&quot;c&quot;&gt;# 生产&lt;/span&gt;
-npm run start
-
-&lt;span class=&quot;c&quot;&gt;# lint&lt;/span&gt;
-npm run lint
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;七常见问题&quot;&gt;七、常见问题&lt;/h2&gt;
-
-&lt;h3 id=&quot;q-shadcnui-和-tailwind-版本兼容&quot;&gt;Q: shadcn/ui 和 Tailwind 版本兼容？&lt;/h3&gt;
-
-&lt;p&gt;A: shadcn/ui 需要 Tailwind CSS v4，当前通过 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@tailwindcss/postcss&lt;/code&gt; 集成。&lt;/p&gt;
-
-&lt;h3 id=&quot;q-如何升级-shadcn&quot;&gt;Q: 如何升级 shadcn？&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx shadcn@latest upgrade
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;q-组件样式不生效&quot;&gt;Q: 组件样式不生效？&lt;/h3&gt;
-
-&lt;p&gt;检查 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;globals.css&lt;/code&gt; 是否包含：&lt;/p&gt;
-
-&lt;div class=&quot;language-css highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;@tailwind&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@tailwind&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;components&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;@tailwind&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;utilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="Tech" /><category term="Frontend" /><summary type="html">Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记</summary></entry><entry><title type="html">claudecode CLAUDE.md</title><link href="https://mafulong.github.io/2026/05/16/claudecodeMd/" rel="alternate" type="text/html" title="claudecode CLAUDE.md" /><published>2026-05-16T00:00:00+08:00</published><updated>2026-05-16T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/05/16/claudecodeMd</id><content type="html" xml:base="https://mafulong.github.io/2026/05/16/claudecodeMd/">&lt;p&gt;基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动&lt;/p&gt;
-
-&lt;h1 id=&quot;the-full-12-rule-claudemd-copy-paste-ready&quot;&gt;The full 12-rule CLAUDE.md (copy-paste ready)&lt;/h1&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-These rules apply to every task in this project unless explicitly overridden.
-Bias: caution over speed on non-trivial work. Use judgment on trivial tasks.
-
-## Rule 1 — Think Before Coding
-State assumptions explicitly. If uncertain, ask rather than guess.
-Present multiple interpretations when ambiguity exists.
-Push back when a simpler approach exists.
-Stop when confused. Name what&apos;s unclear.
-
-## Rule 2 — Simplicity First
-Minimum code that solves the problem. Nothing speculative.
-No features beyond what was asked. No abstractions for single-use code.
-Test: would a senior engineer say this is overcomplicated? If yes, simplify.
-
-## Rule 3 — Surgical Changes
-Touch only what you must. Clean up only your own mess.
-Don&apos;t &quot;improve&quot; adjacent code, comments, or formatting.
-Don&apos;t refactor what isn&apos;t broken. Match existing style.
-
-## Rule 4 — Goal-Driven Execution
-Define success criteria. Loop until verified.
-Don&apos;t follow steps. Define success and iterate.
-Strong success criteria let you loop independently.
-
-## Rule 5 — Use the model only for judgment calls
-Use me for: classification, drafting, summarization, extraction.
-Do NOT use me for: routing, retries, deterministic transforms.
-If code can answer, code answers.
-
-## Rule 6 — Token budgets are not advisory
-Per-task: 4,000 tokens. Per-session: 30,000 tokens.
-If approaching budget, summarize and start fresh.
-Surface the breach. Do not silently overrun.
-
-## Rule 7 — Surface conflicts, don&apos;t average them
-If two patterns contradict, pick one (more recent / more tested).
-Explain why. Flag the other for cleanup.
-Don&apos;t blend conflicting patterns.
-
-## Rule 8 — Read before you write
-Before adding code, read exports, immediate callers, shared utilities.
-&quot;Looks orthogonal&quot; is dangerous. If unsure why code is structured a way, ask.
-
-## Rule 9 — Tests verify intent, not just behavior
-Tests must encode WHY behavior matters, not just WHAT it does.
-A test that can&apos;t fail when business logic changes is wrong.
-
-## Rule 10 — Checkpoint after every significant step
-Summarize what was done, what&apos;s verified, what&apos;s left.
-Don&apos;t continue from a state you can&apos;t describe back.
-If you lose track, stop and restate.
-
-## Rule 11 — Match the codebase&apos;s conventions, even if you disagree
-Conformance &amp;gt; taste inside the codebase.
-If you genuinely think a convention is harmful, surface it. Don&apos;t fork silently.
-
-## Rule 12 — Fail loud
-&quot;Completed&quot; is wrong if anything was skipped silently.
-&quot;Tests pass&quot; is wrong if any were skipped.
-Default to surfacing uncertainty, not hiding it.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;claudemd-从-4-条到-12-条multi-step-agent-失败模式补全笔记版&quot;&gt;CLAUDE.md 从 4 条到 12 条：Multi-step Agent 失败模式补全（笔记版）&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;来源：Mnilax 在 X 上对 Karpathy CLAUDE.md 模板的扩展实验&lt;br /&gt;
-核心结论：4 条规则解决“单次生成错误”，12 条规则覆盖“多步 Agent 崩溃”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;一背景为什么要扩展-claudemd&quot;&gt;一、背景：为什么要扩展 CLAUDE.md&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-karpathy-原版-4-条解决的问题1-月环境&quot;&gt;1. Karpathy 原版 4 条解决的问题（1 月环境）&lt;/h2&gt;
-
-&lt;p&gt;主要针对：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;单轮代码生成错误&lt;/li&gt;
-  &lt;li&gt;过度复杂化&lt;/li&gt;
-  &lt;li&gt;静默假设&lt;/li&gt;
-  &lt;li&gt;修改范围过大&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;👉 本质：&lt;strong&gt;“一次性 coding mistake”&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-5-月之后的问题变化&quot;&gt;2. 5 月之后的问题变化&lt;/h2&gt;
-
-&lt;p&gt;真实问题升级为：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;多步 Agent 执行（multi-step workflows）&lt;/li&gt;
-  &lt;li&gt;跨文件修改冲突&lt;/li&gt;
-  &lt;li&gt;Hook / Skill 级联问题&lt;/li&gt;
-  &lt;li&gt;长任务状态漂移（drift）&lt;/li&gt;
-  &lt;li&gt;多代码库风格冲突&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;👉 本质：&lt;strong&gt;“系统性执行失败”&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;二原版-4-条规则基线&quot;&gt;二、原版 4 条规则（基线）&lt;/h1&gt;
-
-&lt;h2 id=&quot;规则-1先思后码&quot;&gt;规则 1：先思后码&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;明确假设&lt;/li&gt;
-  &lt;li&gt;不确定先问&lt;/li&gt;
-  &lt;li&gt;避免盲猜&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-2简单优先&quot;&gt;规则 2：简单优先&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;最少代码&lt;/li&gt;
-  &lt;li&gt;不过度抽象&lt;/li&gt;
-  &lt;li&gt;不做“以防万一设计”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-3外科手术式修改&quot;&gt;规则 3：外科手术式修改&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;只改必要部分&lt;/li&gt;
-  &lt;li&gt;不顺手重构&lt;/li&gt;
-  &lt;li&gt;不破坏局部无关代码&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-4目标驱动&quot;&gt;规则 4：目标驱动&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;明确成功标准&lt;/li&gt;
-  &lt;li&gt;允许模型自主迭代&lt;/li&gt;
-  &lt;li&gt;不强制步骤执行&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;局限性总结&quot;&gt;局限性总结&lt;/h2&gt;
-
-&lt;p&gt;无法覆盖：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;长任务执行（multi-step）&lt;/li&gt;
-  &lt;li&gt;工程一致性问题&lt;/li&gt;
-  &lt;li&gt;测试质量问题&lt;/li&gt;
-  &lt;li&gt;状态漂移问题&lt;/li&gt;
-  &lt;li&gt;多 agent 协作问题&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;三扩展的-8-条规则关键补丁&quot;&gt;三、扩展的 8 条规则（关键补丁）&lt;/h1&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-5模型只做判断不做控制流&quot;&gt;规则 5：模型只做“判断”，不做“控制流”&lt;/h2&gt;
-
-&lt;h3 id=&quot;-不适合&quot;&gt;❌ 不适合：&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;retry 逻辑&lt;/li&gt;
-  &lt;li&gt;routing&lt;/li&gt;
-  &lt;li&gt;状态机&lt;/li&gt;
-  &lt;li&gt;确定性转换&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;-适合&quot;&gt;✅ 适合：&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;分类&lt;/li&gt;
-  &lt;li&gt;摘要&lt;/li&gt;
-  &lt;li&gt;信息抽取&lt;/li&gt;
-  &lt;li&gt;草拟&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;LLM = 判断器，不是控制器&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-6token-预算强约束&quot;&gt;规则 6：Token 预算强约束&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;单任务 ≤ 4k token&lt;/li&gt;
-  &lt;li&gt;单会话 ≤ 30k token&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;必须：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;主动 summary&lt;/li&gt;
-  &lt;li&gt;主动 reset context&lt;/li&gt;
-  &lt;li&gt;不允许 silent overflow&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止上下文漂移 + 无限制循环&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-7冲突必须显式处理&quot;&gt;规则 7：冲突必须显式处理&lt;/h2&gt;
-
-&lt;p&gt;禁止：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;折中实现&lt;/li&gt;
-  &lt;li&gt;混合两种架构&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;必须：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;明确选择一种&lt;/li&gt;
-  &lt;li&gt;另一种标记废弃&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;避免“双系统融合污染”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-8写代码前必须读上下文&quot;&gt;规则 8：写代码前必须读上下文&lt;/h2&gt;
-
-&lt;p&gt;要求：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;读当前文件结构&lt;/li&gt;
-  &lt;li&gt;读调用方&lt;/li&gt;
-  &lt;li&gt;读公共工具&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;禁止：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;“看起来不冲突”假设&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止局部无知修改&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-9测试必须表达意图不是行为&quot;&gt;规则 9：测试必须表达“意图”，不是“行为”&lt;/h2&gt;
-
-&lt;p&gt;错误测试：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;只验证 output&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;正确测试：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;验证 WHY（业务意义）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止“假绿测试”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-10长任务必须-checkpoint&quot;&gt;规则 10：长任务必须 checkpoint&lt;/h2&gt;
-
-&lt;p&gt;每个关键步骤：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;状态总结&lt;/li&gt;
-  &lt;li&gt;已完成确认&lt;/li&gt;
-  &lt;li&gt;剩余任务说明&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止 multi-step drift&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-11遵循代码库既有规范&quot;&gt;规则 11：遵循代码库既有规范&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一致性 &amp;gt; 个人偏好&lt;/li&gt;
-  &lt;li&gt;不允许“更优风格替换”&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止风格 fragmentation&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;规则-12显式失败fail-loud&quot;&gt;规则 12：显式失败（Fail loud）&lt;/h2&gt;
-
-&lt;p&gt;禁止：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;静默跳过&lt;/li&gt;
-  &lt;li&gt;隐性失败&lt;/li&gt;
-  &lt;li&gt;假成功&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;必须：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;明确暴露不确定性&lt;/li&gt;
-  &lt;li&gt;明确失败原因&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 本质：&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;防止“看起来成功的失败”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;四实验结果核心结论&quot;&gt;四、实验结果（核心结论）&lt;/h1&gt;
-
-&lt;h2 id=&quot;测试设置&quot;&gt;测试设置&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;30 个代码库&lt;/li&gt;
-  &lt;li&gt;50 个标准任务&lt;/li&gt;
-  &lt;li&gt;6 周实验&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;结果变化&quot;&gt;结果变化&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;配置&lt;/th&gt;
-      &lt;th&gt;错误率&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;4 条规则&lt;/td&gt;
-      &lt;td&gt;41%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;+8 条规则&lt;/td&gt;
-      &lt;td&gt;~3%&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;关键观察&quot;&gt;关键观察&lt;/h2&gt;
-
-&lt;p&gt;新增规则的作用：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;覆盖“系统级错误”（不是单点错误）&lt;/li&gt;
-  &lt;li&gt;补足 multi-step agent 缺陷&lt;/li&gt;
-  &lt;li&gt;防止状态漂移与假成功&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;五失败模式分类很重要&quot;&gt;五、失败模式分类（很重要）&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-单步错误karpathy-已覆盖&quot;&gt;1. 单步错误（Karpathy 已覆盖）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;写错逻辑&lt;/li&gt;
-  &lt;li&gt;过度设计&lt;/li&gt;
-  &lt;li&gt;假设错误&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-多步错误新增规则覆盖&quot;&gt;2. 多步错误（新增规则覆盖）&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;状态漂移&lt;/li&gt;
-  &lt;li&gt;中途偏航&lt;/li&gt;
-  &lt;li&gt;误以为成功&lt;/li&gt;
-  &lt;li&gt;checkpoint 缺失&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-系统级错误&quot;&gt;3. 系统级错误&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;token 爆炸&lt;/li&gt;
-  &lt;li&gt;context 混乱&lt;/li&gt;
-  &lt;li&gt;多 agent 冲突&lt;/li&gt;
-  &lt;li&gt;风格分裂&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;六关键洞察核心总结&quot;&gt;六、关键洞察（核心总结）&lt;/h1&gt;
-
-&lt;h2 id=&quot;1-claudemd-的本质&quot;&gt;1. CLAUDE.md 的本质&lt;/h2&gt;
-
-&lt;p&gt;不是提示词，而是：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“失败模式约束系统（failure-mode contract）”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-4-条-vs-12-条的本质区别&quot;&gt;2. 4 条 vs 12 条的本质区别&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;层级&lt;/th&gt;
-      &lt;th&gt;覆盖范围&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;4 条&lt;/td&gt;
-      &lt;td&gt;单次生成错误&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;12 条&lt;/td&gt;
-      &lt;td&gt;多步执行系统错误&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-最重要设计原则&quot;&gt;3. 最重要设计原则&lt;/h2&gt;
-
-&lt;h3 id=&quot;-每条规则必须回答&quot;&gt;✔ 每条规则必须回答：&lt;/h3&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;“它防止的具体失败是什么？”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;否则就是噪音&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;4-规则数量不是越多越好&quot;&gt;4. 规则数量不是越多越好&lt;/h2&gt;
-
-&lt;p&gt;实验结论：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;12 条 → 合规率下降&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;18 条 → 行为退化（pattern matching）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;📌 最优区间：8–12 条&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;七实用建议可直接用&quot;&gt;七、实用建议（可直接用）&lt;/h1&gt;
-
-&lt;h2 id=&quot;claudemd-设计原则&quot;&gt;CLAUDE.md 设计原则&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;从真实 bug 反推规则&lt;/li&gt;
-  &lt;li&gt;每条规则必须有 failure 对应&lt;/li&gt;
-  &lt;li&gt;控制在 ≤ 12 条&lt;/li&gt;
-  &lt;li&gt;避免抽象语义（如“认真思考”）&lt;/li&gt;
-  &lt;li&gt;优先防系统性错误，而不是语法错误&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&quot;八一句话总结&quot;&gt;八、一句话总结&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;CLAUDE.md 的进化本质是：从“防写错代码”，升级为“防多步 Agent 崩溃”。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">基于https://github.com/multica-ai/andrej-karpathy-skills/blob/main/README.zh.md 改动</summary></entry></feed>
+&lt;p&gt;具体各方案对应的映射表可参考小鹤官网或开源项目。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tech" /><category term="Tools" /><summary type="html">小鹤双拼配置</summary></entry></feed>
