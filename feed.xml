@@ -1,4 +1,191 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-01T11:17:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Solana账户模型入门</title><link href="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/" rel="alternate" type="text/html" title="Solana账户模型入门" /><published>2026-07-31T00:00:00+08:00</published><updated>2026-07-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8</id><content type="html" xml:base="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/">&lt;h1 id=&quot;solana-账户模型入门结合-swap--收款场景&quot;&gt;Solana 账户模型入门（结合 Swap / 收款场景）&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-03T13:23:33+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">爱盯盘 / 大盘云图调研笔记</title><link href="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/" rel="alternate" type="text/html" title="爱盯盘 / 大盘云图调研笔记" /><published>2026-08-03T00:00:00+08:00</published><updated>2026-08-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE</id><content type="html" xml:base="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/">&lt;h2 id=&quot;爱盯盘--大盘云图调研笔记&quot;&gt;爱盯盘 / 大盘云图调研笔记&lt;/h2&gt;
+
+&lt;p&gt;最近发现一个免费 A 股盯盘工具，叫 &lt;strong&gt;爱盯盘&lt;/strong&gt;（&lt;a href=&quot;https://52etf.site/&quot;&gt;52etf.site&lt;/a&gt;）。核心功能是&lt;strong&gt;大盘云图&lt;/strong&gt;：把沪深两市几千只票按行业板块拆成热力图（Treemap），&lt;strong&gt;方块面积 = 市值权重，颜色深浅 = 涨跌幅&lt;/strong&gt;（绿涨红跌）。一句话概括：&lt;strong&gt;一眼看完整个盘面谁强谁弱，不用一张张翻列表&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;顺手把它的插件文档（&lt;a href=&quot;https://52etf.site/blog/app/&quot;&gt;52etf.site/blog/app/&lt;/a&gt;）也翻了一遍，下面是笔记。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;1-大盘云图主站&quot;&gt;1. 大盘云图（主站）&lt;/h2&gt;
+
+&lt;h3 id=&quot;11-解决了什么&quot;&gt;1.1 解决了什么&lt;/h3&gt;
+
+&lt;p&gt;盯盘时最大的痛点不是看不到行情，而是&lt;strong&gt;信息密度太低&lt;/strong&gt;。东财、同花顺的板块列表一眼扫过去只能看到十几个板块，但板块内部的强弱排序、个股的相对位置完全看不出来。大盘云图直接用面积 + 颜色把”全市场强弱地图”压在一张图里，看一眼就知道：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;今天谁是大盘主力（银行/白酒/宁组合 vs AI/券商）&lt;/li&gt;
+  &lt;li&gt;哪个板块内部分化（同样涨 3%，有人涨 5% 有人平盘，色块深浅一目了然）&lt;/li&gt;
+  &lt;li&gt;资金是否在切换（上午云图和下午云图颜色翻转 = 风格切换）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;12-功能清单&quot;&gt;1.2 功能清单&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;多层级缩放&lt;/strong&gt;：默认看行业 → 滚轮钻进去看个股 → 双击个股跳 K 线&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;多市场视图&lt;/strong&gt;：A 股全图 / 上证 / 深证 / 沪深300 / 中证 A500 / 创业板 / 科创板，左侧一键切换&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;多周期切换&lt;/strong&gt;：当日 / 昨日 / 近一周 / 近一月 / 今年来 / 近一年 涨跌幅&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;复盘时间轴&lt;/strong&gt;：底部 09:30 / 10:00 / … / 15:00 几个时间点，可以回放当日盘面变化（键盘左右方向键也能切换）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;截图分享&lt;/strong&gt;：一键导出当前盘面为 PNG，发群发雪球都方便&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;全屏模式&lt;/strong&gt;：右上角按钮，多屏盯盘友好&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;13-数据与限制重要&quot;&gt;1.3 数据与限制（重要）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;延迟行情&lt;/strong&gt;，非 Level-2，交易时段约 &lt;strong&gt;每 8 秒刷新一次&lt;/strong&gt;。短线打板别指望这个&lt;/li&gt;
+  &lt;li&gt;数据源：东方财富 + 同花顺 + 金融界&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;完全免费，无登录无注册&lt;/strong&gt;，打开就能用&lt;/li&gt;
+  &lt;li&gt;支持港股（恒生、恒生科技）云图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;2-客户端分发52etfsiteblogapp&quot;&gt;2. 客户端分发（52etf.site/blog/app/）&lt;/h2&gt;
+
+&lt;p&gt;主站是网页版，但站方也做了桌面端入口，方便上班摸鱼（&lt;a href=&quot;https://52etf.site/blog/app/#%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7&quot;&gt;官方原话就是”摸鱼模式”&lt;/a&gt;）：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;客户端&lt;/th&gt;
+      &lt;th&gt;安装路径&lt;/th&gt;
+      &lt;th&gt;国内可用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Edge 浏览器插件&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://microsoftedge.microsoft.com/addons/detail/ghgimmholcnejdgphgiiodmpgpefmppl&quot;&gt;Edge Addons&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Chrome 浏览器插件&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;https://chromewebstore.google.com/detail/stock-monitor-fund-assist/hmkhfephfjheodabgomnanpbmbjbepni&quot;&gt;Chrome Web Store&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;❌ 需翻墙&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;360 极速 / 安全浏览器&lt;/td&gt;
+      &lt;td&gt;360 扩展中心搜”爱盯盘”&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;uTools 插件&lt;/td&gt;
+      &lt;td&gt;uTools 插件市场搜”爱盯盘”&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;四种客户端功能基本一致，区别只在分发渠道。&lt;strong&gt;Edge + uTools 这两条国内可用，墙内用户首选&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;3-使用技巧来自官方文档&quot;&gt;3. 使用技巧（来自官方文档）&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-透明度--色彩度调节--摸鱼模式&quot;&gt;3.1 透明度 + 色彩度调节 → 摸鱼模式&lt;/h3&gt;
+
+&lt;p&gt;把窗口调成半透明 + 低饱和度，放在 IDE 或文档后面，”看起来像是个不重要的小组件，实际上整张盘都在眼前”。上班党的盯盘标配。&lt;/p&gt;
+
+&lt;h3 id=&quot;32-点击个股--etf--看-k-线&quot;&gt;3.2 点击个股 / ETF → 看 K 线&lt;/h3&gt;
+
+&lt;p&gt;不跳出原窗口，直接在插件里查个股 K 线，免去来回切券商 App 的麻烦。&lt;/p&gt;
+
+&lt;h3 id=&quot;33-自选页&quot;&gt;3.3 自选页&lt;/h3&gt;
+
+&lt;p&gt;自选股单独一页，盯自己持仓不用每次都去云图里翻。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;4-跟同类工具对比&quot;&gt;4. 跟同类工具对比&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;工具&lt;/th&gt;
+      &lt;th&gt;形态&lt;/th&gt;
+      &lt;th&gt;价格&lt;/th&gt;
+      &lt;th&gt;强项&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;爱盯盘 / 大盘云图&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;Web + 浏览器插件 + uTools&lt;/td&gt;
+      &lt;td&gt;免费&lt;/td&gt;
+      &lt;td&gt;全市场热力图，最快扫盘&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;东财 / 同花顺 App&lt;/td&gt;
+      &lt;td&gt;手机 / PC 客户端&lt;/td&gt;
+      &lt;td&gt;免费 + Level-2 收费&lt;/td&gt;
+      &lt;td&gt;个股深度数据、Level-2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;雪球&lt;/td&gt;
+      &lt;td&gt;Web + App&lt;/td&gt;
+      &lt;td&gt;免费&lt;/td&gt;
+      &lt;td&gt;社区讨论、组合回测&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iFinD / Wind&lt;/td&gt;
+      &lt;td&gt;PC 终端&lt;/td&gt;
+      &lt;td&gt;年费几千~几万&lt;/td&gt;
+      &lt;td&gt;机构级数据、研报&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;定位很清楚：&lt;strong&gt;爱盯盘是”扫盘雷达”，不是”个股深挖工具”&lt;/strong&gt;。要扫盘看谁强 → 用它；要研究单只票的基本面/资金流 → 还是得回东财同花顺。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;5-我的评价&quot;&gt;5. 我的评价&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;优点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;免费、无登录、开箱即用，没有比这更低的门槛&lt;/li&gt;
+  &lt;li&gt;热力图这个形态本身就很适合 A 股几千只票的全景展示，比列表高效得多&lt;/li&gt;
+  &lt;li&gt;复盘时间轴是亮点，能看到”10:30 → 11:00 → 14:00 主线风格怎么切的”&lt;/li&gt;
+  &lt;li&gt;同时支持浏览器插件和 uTools，覆盖国内桌面场景&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;短板：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;延迟 8 秒，&lt;strong&gt;打板 / 短线神器用不上&lt;/strong&gt;，定位只能是”扫盘 + 中短线辅助”&lt;/li&gt;
+  &lt;li&gt;网页版没法设置本地自选，所有自选存在云端，换浏览器就没了（插件版自选是本地的）&lt;/li&gt;
+  &lt;li&gt;没有 Level-2、十档、盘口异动这些短线核心数据&lt;/li&gt;
+  &lt;li&gt;港股支持比较浅，只有恒生和恒生科技，没做港股个股云图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;适合谁用：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;中长线 / 板块轮动选手（最契合）&lt;/li&gt;
+  &lt;li&gt;上班想盯盘但不想明目张胆打开券商 App 的人（摸鱼模式就是为你准备的）&lt;/li&gt;
+  &lt;li&gt;做板块复盘、需要快速对比当日各板块强弱的人&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;不适合谁：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;打板 / 短线 / 需要 Level-2 的选手 → 老老实实回东财 L2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;6-一句话总结&quot;&gt;6. 一句话总结&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;免费的 A 股热力图扫盘神器，定位是”看大盘”而不是”做交易”。&lt;/strong&gt; 装一个 Edge 插件或 uTools 插件当副屏，行情轮动时一眼看明白主线在哪，比手动刷板块列表快十倍。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;em&gt;链接：&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;主站：&lt;a href=&quot;https://52etf.site/&quot;&gt;https://52etf.site/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;插件指南：&lt;a href=&quot;https://52etf.site/blog/app/&quot;&gt;https://52etf.site/blog/app/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><summary type="html">爱盯盘 / 大盘云图调研笔记</summary></entry><entry><title type="html">Solana账户模型入门</title><link href="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/" rel="alternate" type="text/html" title="Solana账户模型入门" /><published>2026-07-31T00:00:00+08:00</published><updated>2026-07-31T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8</id><content type="html" xml:base="https://mafulong.github.io/2026/07/31/Solana%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B%E5%85%A5%E9%97%A8/">&lt;h1 id=&quot;solana-账户模型入门结合-swap--收款场景&quot;&gt;Solana 账户模型入门（结合 Swap / 收款场景）&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;整理自日常答疑：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;toAddress&lt;/code&gt; → ATA、余额存在哪、Program / PDA / Mint / Owner、以及「进合约再转出」如何一笔完成。&lt;br /&gt;
@@ -3312,109 +3499,4 @@ Cursor 内置了硬编码的安全策略，不在 &lt;code class=&quot;language-
   &lt;li&gt;控制 Run Everything 的字段在 Cursor 1.x 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yoloEnableRunEverything&lt;/code&gt;，
 不是老版本的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useYoloMode&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;上面脚本已经覆盖 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;state.vscdb&lt;/code&gt; 里所有和 YOLO 相关的用户可配置开关&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Cursor 配置 YOLO 模式（Run Everything）</summary></entry><entry><title type="html">Win11 小鹤双拼配置</title><link href="https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE/" rel="alternate" type="text/html" title="Win11 小鹤双拼配置" /><published>2026-06-23T00:00:00+08:00</published><updated>2026-06-23T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE</id><content type="html" xml:base="https://mafulong.github.io/2026/06/23/Win11%E5%B0%8F%E9%B9%A4%E5%8F%8C%E6%8B%BC%E9%85%8D%E7%BD%AE/">&lt;h2 id=&quot;小鹤双拼配置&quot;&gt;小鹤双拼配置&lt;/h2&gt;
-
-&lt;p&gt;本文介绍如何通过 PowerShell 脚本将小鹤双拼导入微软拼音，并设为默认双拼方案。&lt;/p&gt;
-
-&lt;h2 id=&quot;原理&quot;&gt;原理&lt;/h2&gt;
-
-&lt;p&gt;微软拼音支持用户自定义双拼方案，核心是注册表中的三个键值：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;键名&lt;/th&gt;
-      &lt;th&gt;类型&lt;/th&gt;
-      &lt;th&gt;说明&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Enable Double Pinyin&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;DWord&lt;/td&gt;
-      &lt;td&gt;1 = 开启双拼&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;DWord&lt;/td&gt;
-      &lt;td&gt;10 = 使用用户自定义方案&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UserDefinedDoublePinyinScheme0&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;String&lt;/td&gt;
-      &lt;td&gt;小鹤双拼映射表&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;其中 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme = 10&lt;/code&gt; 是微软拼音为用户自定义方案预留的编号。&lt;/p&gt;
-
-&lt;h2 id=&quot;脚本&quot;&gt;脚本&lt;/h2&gt;
-
-&lt;p&gt;以管理员权限运行 PowerShell，执行以下命令：&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HKCU:\Software\Microsoft\InputMethod\Settings\CHS&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-Item&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Out-Null&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Enable Double Pinyin&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DWord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;DoublePinyinScheme&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;DWord&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-ItemProperty&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$Path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;UserDefinedDoublePinyinScheme0&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Type&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Value&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小鹤双拼*2*^*iuvdjhcwfg^xmlnpbksqszxkrltvyovt&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Write-Host&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;小鹤双拼已导入，请注销或重启后生效。&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;验证&quot;&gt;验证&lt;/h2&gt;
-
-&lt;p&gt;重启或注销后，按以下路径检查：&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;设置&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;时间和语言&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;语言和区域&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;中文(简体，中国)&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;微软拼音&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;键盘选项&lt;/code&gt; → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;双拼&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;应该能看到「小鹤双拼」选项并使用。&lt;/p&gt;
-
-&lt;h2 id=&quot;如未生效win11-24h2&quot;&gt;如未生效（Win11 24H2）&lt;/h2&gt;
-
-&lt;p&gt;部分情况下设置界面仍不显示，可尝试重启输入法进程：&lt;/p&gt;
-
-&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Stop-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ctfmon&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Force&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ErrorAction&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SilentlyContinue&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Start-Process&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ctfmon.exe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;附其他双拼方案对照&quot;&gt;附：其他双拼方案对照&lt;/h2&gt;
-
-&lt;p&gt;如果你想切换到其他双拼方案，只需修改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DoublePinyinScheme&lt;/code&gt; 的值和映射表字符串即可。常见的微软自带方案编号如下：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;值&lt;/th&gt;
-      &lt;th&gt;方案&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;0&lt;/td&gt;
-      &lt;td&gt;微软拼音 ABC&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;微软拼音智能 ABC&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;2&lt;/td&gt;
-      &lt;td&gt;微软双拼&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;…&lt;/td&gt;
-      &lt;td&gt;…&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;10&lt;/td&gt;
-      &lt;td&gt;用户自定义&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;具体各方案对应的映射表可参考小鹤官网或开源项目。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tech" /><category term="Tools" /><summary type="html">小鹤双拼配置</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Cursor 配置 YOLO 模式（Run Everything）</summary></entry></feed>
