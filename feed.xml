@@ -1,4 +1,389 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-03T13:23:33+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">爱盯盘 / 大盘云图调研笔记</title><link href="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/" rel="alternate" type="text/html" title="爱盯盘 / 大盘云图调研笔记" /><published>2026-08-03T00:00:00+08:00</published><updated>2026-08-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE</id><content type="html" xml:base="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/">&lt;h2 id=&quot;爱盯盘--大盘云图调研笔记&quot;&gt;爱盯盘 / 大盘云图调研笔记&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-04T16:59:26+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">9router 安装与对比 cc-switch</title><link href="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/" rel="alternate" type="text/html" title="9router 安装与对比 cc-switch" /><published>2026-08-04T00:00:00+08:00</published><updated>2026-08-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch</id><content type="html" xml:base="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/">&lt;p&gt;最近折腾 AI CLI 工具链，发现 &lt;a href=&quot;https://github.com/decolua/9router&quot;&gt;9router&lt;/a&gt; 这个项目在 GitHub Trending 上蹿得很快（24.6k⭐，周下载量也在涨）。第一眼以为是 cc-switch 的”另一个桌面端替代品”，但翻完文档 + 实际跑了一下，发现定位完全不同 —— &lt;strong&gt;9router 是 LLM 网关/路由器，cc-switch 是供应商配置管理器&lt;/strong&gt;。两个东西不是替代关系，是互补的，但默认值不一样。&lt;/p&gt;
+
+&lt;p&gt;本文：先讲 9router 是什么、怎么装、怎么用；再放一张和 cc-switch 的横向对比；最后给一个我自己用的组合方案。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-9router-是什么&quot;&gt;1. 9router 是什么&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/decolua/9router&quot;&gt;9router&lt;/a&gt;（npm 包名 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9router&lt;/code&gt;，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;decolua/9router&lt;/code&gt;，MIT）是一个&lt;strong&gt;本地 LLM 网关&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个 HTTP 代理服务，常驻在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:20128&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;把请求路由到 40+ AI provider（OpenAI / Anthropic / Gemini / Codex / Bedrock / Qwen / 智谱 / DeepSeek / Ollama …）、100+ 模型&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;核心卖点&lt;/strong&gt;：
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;RTK Token Saver&lt;/strong&gt; — 自动压缩 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tool_result&lt;/code&gt;（git diff、grep、ls 这类工具输出），省 20-40% token&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;3 段式自动降级&lt;/strong&gt;：subscription → cheap → free，订阅额度用完自动接便宜模型，再不行接免费&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;多账号轮询&lt;/strong&gt;：同一 provider 配多个 key，自动 round-robin&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;订阅额度追踪&lt;/strong&gt;：实时显示 Claude / Codex / Cursor 剩余配额&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;不是 GUI 桌面应用，本体是 Node.js CLI + Next.js 写的 Web Dashboard&lt;/li&gt;
+  &lt;li&gt;配套工具：上游是 Go 写的 &lt;a href=&quot;https://github.com/router-for-me/CLIProxyAPI&quot;&gt;CLIProxyAPI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;跟 cc-switch 的核心区别：&lt;strong&gt;9router 是「请求经过的代理」，cc-switch 是「写配置文件的 GUI」&lt;/strong&gt;。下面章节会更细。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-安装&quot;&gt;2. 安装&lt;/h2&gt;
+
+&lt;p&gt;9router 提供三种形态，按使用场景选：&lt;/p&gt;
+
+&lt;h3 id=&quot;21-桌面端最简npx-一行&quot;&gt;2.1 桌面端最简：npx 一行&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx 9router
+&lt;span class=&quot;c&quot;&gt;# 或全局装&lt;/span&gt;
+npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; 9router
+9router
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;启动后自动开浏览器 → &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:20128/dashboard&lt;/code&gt;。&lt;strong&gt;默认监听 20128&lt;/strong&gt;，跟常用的 3000 / 8080 / 8000 都不冲突。&lt;/p&gt;
+
+&lt;p&gt;CLI 选项：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;9router                  &lt;span class=&quot;c&quot;&gt;# 默认启动 + 自动开浏览器&lt;/span&gt;
+9router &lt;span class=&quot;nt&quot;&gt;--port&lt;/span&gt; 8080      &lt;span class=&quot;c&quot;&gt;# 换端口&lt;/span&gt;
+9router &lt;span class=&quot;nt&quot;&gt;--no-browser&lt;/span&gt;     &lt;span class=&quot;c&quot;&gt;# 不自动开浏览器&lt;/span&gt;
+9router &lt;span class=&quot;nt&quot;&gt;--skip-update&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# 跳过自检更新&lt;/span&gt;
+9router &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;           &lt;span class=&quot;c&quot;&gt;# 所有选项&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;22-服务器--vpsdocker&quot;&gt;2.2 服务器 / VPS：Docker&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; 9router &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 20128:20128 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.9router:/app/data&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DATA_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/app/data &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  decolua/9router:latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;镜像同时发在 Docker Hub (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;decolua/9router&lt;/code&gt;) 和 GHCR，支持 amd64 / arm64。挂 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME/.9router&lt;/code&gt; 是为了&lt;strong&gt;持久化 SQLite 数据&lt;/strong&gt;（账号、provider 配置、配额历史都在这），不挂重启就丢。&lt;/p&gt;
+
+&lt;h3 id=&quot;23-前置依赖&quot;&gt;2.3 前置依赖&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Node.js 18+（npx 路线），或 Docker（容器路线）&lt;/li&gt;
+  &lt;li&gt;任意一个 CLI 工具作为下游消费者：Claude Code / Codex / OpenClaw / Cursor / Cline / Copilot / Antigravity / Gemini CLI / OpenCode / Qwen Code / Aider … — 凡是支持 OpenAI / Anthropic 兼容 endpoint 的都行&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;数据落盘位置：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;平台&lt;/th&gt;
+      &lt;th&gt;路径&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;macOS / Linux&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.9router/db/data.sqlite&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%APPDATA%/9router/db/data.sqlite&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Docker&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/app/data/db/data.sqlite&lt;/code&gt;（挂 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$HOME/.9router&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;3-配置与使用&quot;&gt;3. 配置与使用&lt;/h2&gt;
+
+&lt;h3 id=&quot;31-接-provider&quot;&gt;3.1 接 Provider&lt;/h3&gt;
+
+&lt;p&gt;打开 Dashboard → Providers → 选「Connect」。两类起步最省事：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Kiro AI&lt;/strong&gt;：免费 Claude 不限量（&lt;strong&gt;注意&lt;/strong&gt;：我写博客时这个口子还在，AI 类免费午餐通常寿命不长，先到先得）&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;OpenCode Free&lt;/strong&gt;：免认证&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;需要正经接 Claude / GPT 时，按 Dashboard 提示填 base_url + api_key 即可，跟 cc-switch 里加 Provider 的字段几乎一致。&lt;/p&gt;
+
+&lt;h3 id=&quot;32-接下游-cli以-claude-code-为例&quot;&gt;3.2 接下游 CLI（以 Claude Code 为例）&lt;/h3&gt;
+
+&lt;p&gt;把 Claude Code 的 API endpoint 改成指向 9router：&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Endpoint:  http://localhost:20128/v1
+API Key:   [从 9router Dashboard 复制]
+Model:     kr/claude-sonnet-4.5    # 9router 的&quot;虚拟模型名&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr/&lt;/code&gt; 前缀是 9router 的别名空间，写在请求里表示走它的 router 逻辑（quota 追踪、降级都在这一层做）；不写前缀直接当 passthrough 也有。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;CC Switch 用户切换路径&lt;/strong&gt;：如果你已经在用 cc-switch，最简单的迁移/共存方案是让 cc-switch 也指 9router——把 cc-switch 的某个 Provider 的 base_url 改成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:20128/v1&lt;/code&gt;，模型名写 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr/&amp;lt;model&amp;gt;&lt;/code&gt;，所有走这个 Provider 的 CLI 实际都会先经过 9router。&lt;/p&gt;
+
+&lt;h3 id=&quot;33-验证&quot;&gt;3.3 验证&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# dashboard 应该有请求记录&lt;/span&gt;
+open http://localhost:20128/dashboard
+
+&lt;span class=&quot;c&quot;&gt;# Claude Code 端能正常响应即可&lt;/span&gt;
+claude &lt;span class=&quot;s2&quot;&gt;&quot;echo hi&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;4-和-cc-switch-的对比&quot;&gt;4. 和 cc-switch 的对比&lt;/h2&gt;
+
+&lt;p&gt;先放硬数据：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;维度&lt;/th&gt;
+      &lt;th&gt;9router&lt;/th&gt;
+      &lt;th&gt;cc-switch&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GitHub stars&lt;/td&gt;
+      &lt;td&gt;24.6k&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;124k&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;最新版本&lt;/td&gt;
+      &lt;td&gt;v0.5.35（2026-07-16）&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;v3.19.1&lt;/strong&gt;（2026-07-31）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;技术栈&lt;/td&gt;
+      &lt;td&gt;Node.js + Next.js（Web Dashboard）&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Rust + Tauri 2&lt;/strong&gt;（原生桌面 GUI）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;平台&lt;/td&gt;
+      &lt;td&gt;桌面 + Docker（VPS）&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Windows / macOS / Linux 桌面&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;安装&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx 9router&lt;/code&gt; / Docker&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.dmg&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.msi&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.deb&lt;/code&gt; / Homebrew &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install --cask cc-switch&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;形态&lt;/td&gt;
+      &lt;td&gt;本地 HTTP 代理（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:20128&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;桌面 GUI + 可选本地代理&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;管理 CLI 工具数&lt;/td&gt;
+      &lt;td&gt;18+（Claude Code / Codex / Cursor / Cline / Copilot / OpenCode / Hermes …）&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;8 个一等公民&lt;/strong&gt;（Claude Code / Claude Desktop / Codex / Gemini CLI / Grok Build / OpenCode / OpenClaw / Hermes）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;核心能力&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;路由 + 降级 + RTK 压缩&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;配置管理 + MCP + Skills + Prompts + Sessions + 用量统计&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;内置 provider 预设&lt;/td&gt;
+      &lt;td&gt;40+&lt;/td&gt;
+      &lt;td&gt;50+&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;多账号&lt;/td&gt;
+      &lt;td&gt;✅ round-robin&lt;/td&gt;
+      &lt;td&gt;✅ 多 profile&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;自动降级 / 故障转移&lt;/td&gt;
+      &lt;td&gt;✅ Subscription → Cheap → Free 三段&lt;/td&gt;
+      &lt;td&gt;✅ Circuit breaker + 健康检查（proxy 模式）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MCP 管理&lt;/td&gt;
+      &lt;td&gt;❌（不管 MCP）&lt;/td&gt;
+      &lt;td&gt;✅ 跨 6 个 CLI 双向同步&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Skills 管理&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅ GitHub 一键安装 + 双向同步&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Prompts / AGENTS.md&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅ 跨 CLI 同步 + 防回填&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;会话历史&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅ 跨 CLI 浏览/搜索/恢复&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用量统计&lt;/td&gt;
+      &lt;td&gt;⭕ 仅配额追踪&lt;/td&gt;
+      &lt;td&gt;✅ 趋势图 + 模型定价 + 请求日志&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Token 压缩&lt;/td&gt;
+      &lt;td&gt;✅ &lt;strong&gt;RTK 20-40%&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;订阅额度追踪&lt;/td&gt;
+      &lt;td&gt;✅ Claude / Codex / Cursor&lt;/td&gt;
+      &lt;td&gt;✅ 多 provider 余额面板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Tray 快速切换&lt;/td&gt;
+      &lt;td&gt;❌（走 Dashboard）&lt;/td&gt;
+      &lt;td&gt;✅ 系统托盘一键切&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;云同步（多设备）&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅ Dropbox / OneDrive / iCloud / WebDAV&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Deep Link&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ccswitch://&lt;/code&gt; 一键导入&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;系统级自动更新&lt;/td&gt;
+      &lt;td&gt;❌（要 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--skip-update&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;✅ 内置 auto-updater&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;数据采集自 GitHub API + 各自 README 主页，2026-08-04。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;41-一句话定位&quot;&gt;4.1 一句话定位&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;cc-switch&lt;/strong&gt;：我是&lt;strong&gt;配置管理员&lt;/strong&gt;。你来选 provider，我把配置写到对应 CLI 的配置文件里；额外帮你管 MCP / Skills / Prompts / 会话。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;9router&lt;/strong&gt;：我是&lt;strong&gt;网络代理&lt;/strong&gt;。请求经过我，我决定这次走哪家、要不要压缩、要不要降级。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;42-工作模式差异重点&quot;&gt;4.2 工作模式差异（重点）&lt;/h3&gt;
+
+&lt;p&gt;cc-switch 有两种工作模式，&lt;strong&gt;默认是写配置模式&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;写配置模式（默认）&lt;/strong&gt;：你在 GUI 里点「启用 Provider A」→ cc-switch 把 Provider A 的 base_url / api_key 写进 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;（或对应 CLI 的配置）→ Claude Code 下次启动就用 A。&lt;strong&gt;CLI 不重启不生效&lt;/strong&gt;（Claude Code 例外）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Proxy 模式（可选）&lt;/strong&gt;：cc-switch 启动一个本地代理（类似 9router），CLI 指过来，热切换不重启。配 circuit breaker + failover。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;9router &lt;strong&gt;只有 proxy 模式&lt;/strong&gt;——它本质上就是个代理，所有路由、降级、压缩逻辑都跑在请求路径上。&lt;/p&gt;
+
+&lt;h3 id=&quot;43-各自最强的场景&quot;&gt;4.3 各自最强的场景&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;用 cc-switch 的场景：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;同时管理多个 CLI 工具的配置（Claude Code + Codex + Gemini CLI + OpenClaw + Hermes …）&lt;/li&gt;
+  &lt;li&gt;想统一管 &lt;strong&gt;MCP server&lt;/strong&gt;、&lt;strong&gt;Skills&lt;/strong&gt;、&lt;strong&gt;Prompts（CLAUDE.md / AGENTS.md / GEMINI.md）&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;想看&lt;strong&gt;用量统计 + 请求日志&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;想&lt;strong&gt;跨设备同步&lt;/strong&gt;配置（iCloud / Dropbox）&lt;/li&gt;
+  &lt;li&gt;想用&lt;strong&gt;系统托盘&lt;/strong&gt;秒切 provider&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;用 9router 的场景：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;你&lt;strong&gt;只有 1-2 个 CLI&lt;/strong&gt;（比如就 Claude Code + Codex），但想&lt;strong&gt;自动降级&lt;/strong&gt; + &lt;strong&gt;省 token&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;同一 provider 想接&lt;strong&gt;多账号&lt;/strong&gt;，自动 round-robin&lt;/li&gt;
+  &lt;li&gt;想跑在 &lt;strong&gt;VPS / 服务器&lt;/strong&gt;上，给团队共享一个智能路由入口&lt;/li&gt;
+  &lt;li&gt;想用 &lt;strong&gt;RTK Token Saver&lt;/strong&gt; 把 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git diff&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ls&lt;/code&gt; 这类工具输出压一下&lt;/li&gt;
+  &lt;li&gt;想让&lt;strong&gt;订阅额度在月底前自动用完&lt;/strong&gt;（9router 会主动调度到还没用满的 provider）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;44-坑--注意&quot;&gt;4.4 坑 &amp;amp; 注意&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;9router 的坑：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;0.5.x 版本号&lt;/strong&gt;：v0.5.35 说明还在快速迭代，breaking change 概率比 cc-switch 高。生产用钉住版本：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx 9router@0.5.35&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;完全没 GUI 桌面&lt;/strong&gt;：所有操作走 Web Dashboard + 命令行，习惯 cc-switch 原生窗口的人会别扭&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;不接管 MCP / Skills / Prompts&lt;/strong&gt;：这些 9router 完全不管，需要另外的工具&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Kiro AI 之类的免费口子&lt;/strong&gt;：依赖上游第三方，&lt;strong&gt;随时可能挂&lt;/strong&gt;，别当生产方案&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;多账号轮询 vs cc-switch&lt;/strong&gt;：9router 是同 provider 多 key round-robin；cc-switch 是配置层多 profile，按需手动切&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;cc-switch 的坑（这些 9router 反而不踩）：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;默认模式要重启 CLI&lt;/strong&gt;：除了 Claude Code，其它工具切完 provider 都要重启终端&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;proxy 模式是可选的、配置项多&lt;/strong&gt;：想用降级要手动开 proxy service&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Tauri 应用首启动慢&lt;/strong&gt;：Rust 编译产物虽然小，冷启动几百 ms&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;5-我自己的组合&quot;&gt;5. 我自己的组合&lt;/h2&gt;
+
+&lt;p&gt;日常开发机上&lt;strong&gt;两个一起跑&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;cc-switch&lt;/strong&gt; 做主面板 —— 管 8 个 CLI 的配置、MCP、Skills、Prompts；面板看用量；托盘切主用 provider&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;9router&lt;/strong&gt; 跑在 Docker 里（端口 20128）—— 给”想省钱”的 session 当后端：CLI → cc-switch → 9router → 上游，9router 自动压 token + 降级&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体接法：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;9router 跑起来，接好所有 provider，Dashboard 里能看到每个 provider 的状态&lt;/li&gt;
+  &lt;li&gt;cc-switch 加一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9router-pass-through&lt;/code&gt; Provider，base_url 填 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:20128/v1&lt;/code&gt;，模型名 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr/claude-sonnet-4.5&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;不在意钱的场景（生产代码 review）直接用 cc-switch 的原生 provider；在意 token 的场景（晚上刷量、跑长任务）切到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;9router-pass-through&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;如果是 VPS / 多人协作场景，&lt;strong&gt;9router 单跑就够了&lt;/strong&gt;——一个 endpoint 服务所有人，Dashboard 上能看全局用量。&lt;/p&gt;
+
+&lt;h2 id=&quot;6-选哪个&quot;&gt;6. 选哪个&lt;/h2&gt;
+
+&lt;p&gt;按人数 / 场景直接给答案：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;你是谁&lt;/th&gt;
+      &lt;th&gt;推荐&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;个人开发者，主要用 Claude Code + Codex&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;9router&lt;/strong&gt;（一个 endpoint 自动降级省心）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;个人重度玩家，5+ 个 CLI 全要管&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;cc-switch&lt;/strong&gt;（GUI 写配置 + 统一 MCP/Skills）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;小团队，VPS 共享一个 AI 入口&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;9router Docker&lt;/strong&gt;（一个 endpoint 服务多人）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想要 100% 本地、可视化、不折腾命令行的&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;cc-switch&lt;/strong&gt;（Rust 原生 GUI，开箱即用）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Token 敏感、订阅额度月底用不完的&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;9router&lt;/strong&gt;（RTK 压 + 自动调度）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;已经在用 Claude Code + 一堆 MCP server&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;cc-switch&lt;/strong&gt;（MCP 双向同步是真刚需）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想两个都要&lt;/td&gt;
+      &lt;td&gt;参考上面第 5 节组合方案&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;9router GitHub：&lt;a href=&quot;https://github.com/decolua/9router&quot;&gt;decolua/9router&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;9router npm：&lt;a href=&quot;https://www.npmjs.com/package/9router&quot;&gt;9router on npm&lt;/a&gt;（v0.5.45 发布日 2026-07-16）&lt;/li&gt;
+  &lt;li&gt;9router 官网：&lt;a href=&quot;https://9router.com&quot;&gt;9router.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;cc-switch GitHub：&lt;a href=&quot;https://github.com/farion1231/cc-switch&quot;&gt;farion1231/cc-switch&lt;/a&gt;（v3.19.1，2026-07-31）&lt;/li&gt;
+  &lt;li&gt;cc-switch 官网：&lt;a href=&quot;https://ccswitch.io&quot;&gt;ccswitch.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;上游 Go 实现：&lt;a href=&quot;https://github.com/router-for-me/CLIProxyAPI&quot;&gt;router-for-me/CLIProxyAPI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="9router" /><category term="cc-switch" /><category term="ClaudeCode" /><category term="LLMGateway" /><category term="Proxy" /><summary type="html">最近折腾 AI CLI 工具链，发现 9router 这个项目在 GitHub Trending 上蹿得很快（24.6k⭐，周下载量也在涨）。第一眼以为是 cc-switch 的”另一个桌面端替代品”，但翻完文档 + 实际跑了一下，发现定位完全不同 —— 9router 是 LLM 网关/路由器，cc-switch 是供应商配置管理器。两个东西不是替代关系，是互补的，但默认值不一样。</summary></entry><entry><title type="html">爱盯盘 / 大盘云图调研笔记</title><link href="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/" rel="alternate" type="text/html" title="爱盯盘 / 大盘云图调研笔记" /><published>2026-08-03T00:00:00+08:00</published><updated>2026-08-03T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE</id><content type="html" xml:base="https://mafulong.github.io/2026/08/03/%E7%88%B1%E7%9B%AF%E7%9B%98%E5%A4%A7%E7%9B%98%E4%BA%91%E5%9B%BE/">&lt;h2 id=&quot;爱盯盘--大盘云图调研笔记&quot;&gt;爱盯盘 / 大盘云图调研笔记&lt;/h2&gt;
 
 &lt;p&gt;最近发现一个免费 A 股盯盘工具，叫 &lt;strong&gt;爱盯盘&lt;/strong&gt;（&lt;a href=&quot;https://52etf.site/&quot;&gt;52etf.site&lt;/a&gt;）。核心功能是&lt;strong&gt;大盘云图&lt;/strong&gt;：把沪深两市几千只票按行业板块拆成热力图（Treemap），&lt;strong&gt;方块面积 = 市值权重，颜色深浅 = 涨跌幅&lt;/strong&gt;（绿涨红跌）。一句话概括：&lt;strong&gt;一眼看完整个盘面谁强谁弱，不用一张张翻列表&lt;/strong&gt;。&lt;/p&gt;
 
@@ -3221,282 +3606,4 @@ claude &lt;span class=&quot;nt&quot;&gt;--dangerously-skip-permissions&lt;/span&
   &lt;li&gt;&lt;a href=&quot;https://docs.anthropic.com/en/docs/claude-code/settings&quot;&gt;Claude Code 官方 settings 文档&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.defaultMode&lt;/code&gt; 可选值来自 Claude Code settings schema&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipDangerousModePermissionPrompt&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipAutoPermissionPrompt&lt;/code&gt; 在 0.2.x 之后稳定&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code：跳过权限（bypassPermissions）完全指南</summary></entry><entry><title type="html">Cursor 配置 YOLO 模式（Run Everything）</title><link href="https://mafulong.github.io/2026/07/02/cursor%E9%85%8D%E7%BD%AEyolo%E6%A8%A1%E5%BC%8F/" rel="alternate" type="text/html" title="Cursor 配置 YOLO 模式（Run Everything）" /><published>2026-07-02T00:00:00+08:00</published><updated>2026-07-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/02/cursor%E9%85%8D%E7%BD%AEyolo%E6%A8%A1%E5%BC%8F</id><content type="html" xml:base="https://mafulong.github.io/2026/07/02/cursor%E9%85%8D%E7%BD%AEyolo%E6%A8%A1%E5%BC%8F/">&lt;h1 id=&quot;cursor-配置-yolo-模式run-everything&quot;&gt;Cursor 配置 YOLO 模式（Run Everything）&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;开启后，Agent 会自动执行 Shell / Edit / MCP / Web Search / 图片生成等工具，
-&lt;strong&gt;不再每步都弹确认&lt;/strong&gt;，让 Agent 真正”放手去干”。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-
-&lt;p&gt;Cursor UI 里的 “Run Everything” 按钮只放开了一部分 Composer 的确认，
-对于 Agent 模式调用工具，仍会按风险评估逐条弹窗。&lt;/p&gt;
-
-&lt;p&gt;如果想真正无人值守，可以直接改 Cursor 的本地数据库 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;state.vscdb&lt;/code&gt;，
-把 UI 没暴露出来的开关一次性全部打开。&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;⚠️ &lt;strong&gt;适用版本&lt;/strong&gt;：Cursor 1.x。
-老版本控制 Run Everything 的字段是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useYoloMode&lt;/code&gt;，
-&lt;strong&gt;新版已经改成 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yoloEnableRunEverything&lt;/code&gt;&lt;/strong&gt;。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;配置文件位置&quot;&gt;配置文件位置&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;系统&lt;/th&gt;
-      &lt;th&gt;路径&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;macOS&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/Library/Application Support/Cursor/User/globalStorage/state.vscdb&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Linux&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.config/Cursor/User/globalStorage/state.vscdb&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Windows&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%APPDATA%\Cursor\User\globalStorage\state.vscdb&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;要修改的记录 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;key&lt;/code&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.applicationUser
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;value&lt;/code&gt; 是一个 JSON，所有 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.*&lt;/code&gt; 都是 Agent 行为开关。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;字段说明&quot;&gt;字段说明&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;字段&lt;/th&gt;
-      &lt;th&gt;含义&lt;/th&gt;
-      &lt;th&gt;目标值&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.yoloEnableRunEverything&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;开启 Run Everything（YOLO 模式）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.modes4[0].autoRun&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Agent 自动运行&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.modes4[0].fullAutoRun&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Agent 全自动执行工具（不只规划）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.yoloMcpToolsDisabled&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;是否禁用 MCP（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; = 自动调用）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.yoloDeleteFileDisabled&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;是否禁用文件删除（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; = 允许）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.yoloOutsideWorkspaceDisabled&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;是否禁止工作区外访问&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.autoAcceptWebSearchTool&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;自动接受 Web Search&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.autoAcceptGenerateImageTool&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;自动接受图片生成&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.autoApproveModeTransitions&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;自动批准 Agent 模式切换&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;composerState.enableSmartAuto&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Smart Auto（保持关闭，更可控）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;一键脚本&quot;&gt;一键脚本&lt;/h2&gt;
-
-&lt;h3 id=&quot;️-操作前请&quot;&gt;⚠️ 操作前请：&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;完全退出 Cursor&lt;/strong&gt;（macOS 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cmd + Q&lt;/code&gt;，不是关窗口）&lt;/li&gt;
-  &lt;li&gt;确保系统装了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sqlite3&lt;/code&gt;（macOS 自带，Linux 通常也有，Windows 需安装）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;保存为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cursor-yolo.sh&lt;/code&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-euo&lt;/span&gt; pipefail
-
-&lt;span class=&quot;nv&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/Library/Application Support/Cursor/User/globalStorage/state.vscdb&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;src.vs.platform.reactivestorage.browser.reactiveStorageServiceImpl.persistentStorage.applicationUser&quot;&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
-  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;❌ 找不到数据库：&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1
-&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 备份&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.bak.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%Y%m%d_%H%M%S&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;✅ 已备份到 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.bak.*&quot;&lt;/span&gt;
-
-sqlite3 &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SQL&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
-UPDATE ItemTable
-SET value = json_set(
-  value,
-  -- Run Everything
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.yoloEnableRunEverything&apos;, json(&apos;true&apos;),
-  -- Agent
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.modes4[0].autoRun&apos;, json(&apos;true&apos;),
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.modes4[0].fullAutoRun&apos;, json(&apos;true&apos;),
-  -- MCP
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.yoloMcpToolsDisabled&apos;, json(&apos;false&apos;),
-  -- 文件权限
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.yoloDeleteFileDisabled&apos;, json(&apos;false&apos;),
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.yoloOutsideWorkspaceDisabled&apos;, json(&apos;false&apos;),
-  -- 自动接受工具
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.autoAcceptWebSearchTool&apos;, json(&apos;true&apos;),
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.autoAcceptGenerateImageTool&apos;, json(&apos;true&apos;),
-  -- 自动批准模式切换
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.autoApproveModeTransitions&apos;, json(&apos;true&apos;),
-  -- 保持 Smart Auto 关闭
-  &apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;.composerState.enableSmartAuto&apos;, json(&apos;false&apos;)
-)
-WHERE key=&apos;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$KEY&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;;
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SQL
-
-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo
-echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;========== 当前配置 ==========&quot;&lt;/span&gt;
-
-sqlite3 &lt;span class=&quot;nt&quot;&gt;-header&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-column&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;
-SELECT
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.yoloEnableRunEverything&apos;) AS runEverything,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.modes4[0].fullAutoRun&apos;)     AS fullAutoRun,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.modes4[0].autoRun&apos;)         AS autoRun,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.yoloMcpToolsDisabled&apos;)      AS mcpDisabled,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.yoloDeleteFileDisabled&apos;)    AS deleteDisabled,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.yoloOutsideWorkspaceDisabled&apos;) AS outsideWorkspaceDisabled,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.autoAcceptWebSearchTool&apos;)   AS autoWebSearch,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.autoAcceptGenerateImageTool&apos;) AS autoImage,
-  json_extract(value,&apos;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\$&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.composerState.autoApproveModeTransitions&apos;) AS autoModeTransition
-FROM ItemTable
-WHERE key=&apos;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$KEY&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&apos;;
-&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;echo
-echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;✅ 完成，请重新启动 Cursor。&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;执行：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;chmod&lt;/span&gt; +x cursor-yolo.sh
-./cursor-yolo.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;成功后应该看到：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;runEverything  fullAutoRun  autoRun  mcpDisabled  deleteDisabled  outsideWorkspaceDisabled  autoWebSearch  autoImage  autoModeTransition
--------------  -----------  -------  -----------  --------------  ------------------------  -------------  ---------  ------------------
-1              1            1        0            0               0                         1              1          1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;说明：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runEverything = 1&lt;/code&gt;：YOLO 模式开启&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fullAutoRun = 1&lt;/code&gt;：Agent 全自动执行&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoRun = 1&lt;/code&gt;：Agent 自动运行&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mcpDisabled = 0&lt;/code&gt;：MCP 没禁用&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deleteDisabled = 0&lt;/code&gt;：允许删除文件&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;outsideWorkspaceDisabled = 0&lt;/code&gt;：允许工作区外访问&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoWebSearch = 1&lt;/code&gt;：Web Search 自动接受&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoImage = 1&lt;/code&gt;：图片生成自动接受&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;autoModeTransition = 1&lt;/code&gt;：Agent 模式自动切换&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;还原&quot;&gt;还原&lt;/h2&gt;
-
-&lt;p&gt;需要回退时把备份还原即可：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/Library/Application Support/Cursor/User/globalStorage/state.vscdb&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;LATEST_BAK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1t&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;.bak.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LATEST_BAK&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DB&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或者直接在 Cursor UI 里手动关闭 Run Everything。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;为什么偶尔还是会弹确认&quot;&gt;为什么偶尔还是会弹确认？&lt;/h2&gt;
-
-&lt;p&gt;即使上面所有字段都打开了，Cursor 仍然可能在以下情况弹确认：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;MCP Server 自身要求确认&lt;/strong&gt;：部分 MCP Server 在声明工具时强制要用户确认，
-这由 Server 而不是 Cursor 控制。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;高风险 Shell 操作&lt;/strong&gt;：例如 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;、系统目录、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf /&lt;/code&gt; 等，
-Cursor 内置了硬编码的安全策略，不在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;state.vscdb&lt;/code&gt; 里。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;企业策略&lt;/strong&gt;：如果 Cursor 受企业管理，部分开关可能被锁定。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果你 99% 的场景都不弹，但偶尔还会弹——这是正常的，
-说明 Cursor 内置的安全逻辑在工作，而不是配置没生效。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;平台路径速查&quot;&gt;平台路径速查&lt;/h2&gt;
-
-&lt;p&gt;如果你想把这个脚本发到 Linux / Windows 上用，只改路径就行：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Linux&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.config/Cursor/User/globalStorage/state.vscdb&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Windows (Git Bash / WSL)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$APPDATA&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/Cursor/User/globalStorage/state.vscdb&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;其他逻辑完全一致。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;控制 Run Everything 的字段在 Cursor 1.x 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yoloEnableRunEverything&lt;/code&gt;，
-不是老版本的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;useYoloMode&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;上面脚本已经覆盖 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;state.vscdb&lt;/code&gt; 里所有和 YOLO 相关的用户可配置开关&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Cursor 配置 YOLO 模式（Run Everything）</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code：跳过权限（bypassPermissions）完全指南</summary></entry></feed>
