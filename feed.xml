@@ -1,4 +1,230 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-04T16:59:26+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">9router 安装与对比 cc-switch</title><link href="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/" rel="alternate" type="text/html" title="9router 安装与对比 cc-switch" /><published>2026-08-04T00:00:00+08:00</published><updated>2026-08-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch</id><content type="html" xml:base="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/">&lt;p&gt;最近折腾 AI CLI 工具链，发现 &lt;a href=&quot;https://github.com/decolua/9router&quot;&gt;9router&lt;/a&gt; 这个项目在 GitHub Trending 上蹿得很快（24.6k⭐，周下载量也在涨）。第一眼以为是 cc-switch 的”另一个桌面端替代品”，但翻完文档 + 实际跑了一下，发现定位完全不同 —— &lt;strong&gt;9router 是 LLM 网关/路由器，cc-switch 是供应商配置管理器&lt;/strong&gt;。两个东西不是替代关系，是互补的，但默认值不一样。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-05T13:11:05+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">鱼皮AI知识库与VibeCoding零基础教程调研</title><link href="https://mafulong.github.io/2026/08/05/%E9%B1%BC%E7%9A%AEAI%E7%9F%A5%E8%AF%86%E5%BA%93%E4%B8%8EVibeCoding%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="鱼皮AI知识库与VibeCoding零基础教程调研" /><published>2026-08-05T00:00:00+08:00</published><updated>2026-08-05T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/05/%E9%B1%BC%E7%9A%AEAI%E7%9F%A5%E8%AF%86%E5%BA%93%E4%B8%8EVibeCoding%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/08/05/%E9%B1%BC%E7%9A%AEAI%E7%9F%A5%E8%AF%86%E5%BA%93%E4%B8%8EVibeCoding%E6%95%99%E7%A8%8B/">&lt;p&gt;之前在 B 站刷到程序员鱼皮的 Vibe Coding 教程视频，今天顺着视频简介里的链接翻到了他的 AI 知识库主站 &lt;a href=&quot;https://ai.codefather.cn/library/1936010874183520257&quot;&gt;ai.codefather.cn&lt;/a&gt; —— 是个&lt;strong&gt;完全免费&lt;/strong&gt;的 AI 资源导航站 + 配套的 Vibe Coding 系统课。看了下内容覆盖度和质量，比我预期要高，把调研要点记下来。&lt;/p&gt;
+
+&lt;h2 id=&quot;这个站是干啥的&quot;&gt;这个站是干啥的&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ai.codefather.cn&quot;&gt;鱼皮 AI 知识库&lt;/a&gt;（GitHub 仓库 &lt;a href=&quot;https://github.com/liyupi/ai-guide&quot;&gt;liyupi/ai-guide&lt;/a&gt;，开源）是「程序员鱼皮」（B 站 / 公众号同名）做的免费 AI 资源汇总站，主页一句话定位：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;**完全免费开放的 AI 知识共享平台&lt;/td&gt;
+        &lt;td&gt;减少信息差，让每个人都能享受技术红利**&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;不是那种纯收录 AI 工具的导航站（虽然也有导航功能），核心是&lt;strong&gt;两件事&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;AI 知识库导航&lt;/strong&gt; —— 鱼皮自己筛选过的 AI 学习资源、工具测评、应用场景教程，按主题分门别类放好&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Vibe Coding 零基础入门教程&lt;/strong&gt; —— 鱼皮原创的、从零到上线产品并变现的系统课，「上千张图、几十万字」，自评「吊打 90% 付费 Vibe Coding 内容」&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;配套还有交流群（关注公众号「程序员鱼皮」入群）和共建计划（贡献者会被明确署名）。&lt;/p&gt;
+
+&lt;h2 id=&quot;知识库内容盘点&quot;&gt;知识库内容盘点&lt;/h2&gt;
+
+&lt;p&gt;主站&lt;a href=&quot;https://ai.codefather.cn/library/1936010874183520257&quot;&gt;知识库入口&lt;/a&gt;按四大主题分类：&lt;/p&gt;
+
+&lt;h3 id=&quot;新手入门&quot;&gt;新手入门&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;资源&lt;/th&gt;
+      &lt;th&gt;关键内容&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AI 基础概念&lt;/td&gt;
+      &lt;td&gt;「动画解释大模型」&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;关于 DeepSeek&lt;/td&gt;
+      &lt;td&gt;是什么、快速上手&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;本地部署&lt;/td&gt;
+      &lt;td&gt;DeepSeek 本地部署、API 调用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;提问技巧&lt;/td&gt;
+      &lt;td&gt;DeepSeek 提问技巧、去除文章 AI 味&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;学习资料&lt;/td&gt;
+      &lt;td&gt;清华大学 DeepSeek 指南、免费 AI 学习资源&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;ai-编程最干货的板块&quot;&gt;AI 编程（最干货的板块）&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;类别&lt;/th&gt;
+      &lt;th&gt;内容&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;🔥 热门教程&lt;/td&gt;
+      &lt;td&gt;AI 智能体项目、AI 零代码平台、大模型应用开发学习路线&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Cursor 技巧&lt;/td&gt;
+      &lt;td&gt;「一文秒懂 Cursor 正确姿势」、10 个实用技巧、7 个极限省钱大法&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;实战项目&lt;/td&gt;
+      &lt;td&gt;用 DeepSeek 给对象做网站、模拟面试系统、亲戚计算器&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;进阶技术&lt;/td&gt;
+      &lt;td&gt;Claude Code 神级技巧、用 AI 手搓 Claude Code、MCP 服务开发&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;框架整合&lt;/td&gt;
+      &lt;td&gt;Spring AI 1.0 体验、Spring AI Alibaba 1.0 速览&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;ai-工具测评&quot;&gt;AI 工具测评&lt;/h3&gt;
+
+&lt;p&gt;覆盖了 2026 年主流大模型和 AI 编程工具：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;🆕 GPT-5 测评&lt;/li&gt;
+  &lt;li&gt;Claude 4 测评（”凭什么敢称宇宙最强编程 AI”）&lt;/li&gt;
+  &lt;li&gt;Cursor 2.0 测评（3 大亮点）&lt;/li&gt;
+  &lt;li&gt;Gemini 3.0 测评（”前端又无了？”）&lt;/li&gt;
+  &lt;li&gt;OpenCode 开源实测（能不能干掉 Claude Code）&lt;/li&gt;
+  &lt;li&gt;3 大模型对比测试&lt;/li&gt;
+  &lt;li&gt;Flowith、Gemini CLI 首测&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;其他-ai-应用场景&quot;&gt;其他 AI 应用场景&lt;/h3&gt;
+
+&lt;p&gt;视频创作（用 AI 做爆款视频、动物奥运会）、办公效率（AI 自动生成 PPT、画图神器）、知识管理（DeepSeek 个人知识库、AI 读文档）、求职提升（AI 润色简历、AI 文章检测工具）。&lt;/p&gt;
+
+&lt;h2 id=&quot;主推vibe-coding-零基础入门教程&quot;&gt;主推：Vibe Coding 零基础入门教程&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://ai.codefather.cn/vibe&quot;&gt;Vibe Coding&lt;/a&gt; 是鱼皮这套教程的核心 —— 也是这个知识库的主推内容。鱼皮对这套课的目标很明确：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;帮助任何人快速掌握 Vibe Coding，哪怕零基础，也能快速开发上线自己的产品并盈利。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;教程结构（鱼皮梳理的 7 大模块）：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;模块&lt;/th&gt;
+      &lt;th&gt;内容&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;基础必读&lt;/td&gt;
+      &lt;td&gt;快速理解 Vibe Coding，10 分钟做出第一个作品&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;编程工具&lt;/td&gt;
+      &lt;td&gt;AI 模型选择、AI 零代码平台、智能体平台、代码编辑器、CLI 工具、IDE 插件&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;项目实战&lt;/td&gt;
+      &lt;td&gt;从 0 到 1 做出真实产品（个人工具 / AI 应用 / 全栈应用 / 小程序）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;经验技巧&lt;/td&gt;
+      &lt;td&gt;核心心法、对话工程、上下文管理、幻觉处理、代码质量保障&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;产品变现&lt;/td&gt;
+      &lt;td&gt;需求分析、技术选型、架构设计、盈利模式、SEO、自媒体运营&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;编程学习&lt;/td&gt;
+      &lt;td&gt;学习路线、知识百科、资源大全、MCP 开发、面试刷题&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;资源宝库&lt;/td&gt;
+      &lt;td&gt;工具大全、提示词模板、AI 概念大全、常见问题&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;两套学习路径&quot;&gt;两套学习路径&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;零基础新手：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第 1 天：读完基础必读，做出第一个作品&lt;/li&gt;
+  &lt;li&gt;第 1-2 周：学 AI 编程工具 + 做几个简单项目&lt;/li&gt;
+  &lt;li&gt;之后：按需学经验技巧和产品变现&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;有编程基础：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第 1 天：快速过完基础内容&lt;/li&gt;
+  &lt;li&gt;第 1 周：学主流 AI 编程工具，尝试重构之前的项目&lt;/li&gt;
+  &lt;li&gt;之后：重点学进阶技巧，提升对话和上下文管理能力&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;我的判断&quot;&gt;我的判断&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;这个站适合谁：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;刚接触 AI 编程、想找一个&lt;strong&gt;中文 + 免费 + 系统&lt;/strong&gt;的入门路径&lt;/li&gt;
+  &lt;li&gt;已经用 Cursor / Claude Code，但想看&lt;strong&gt;进阶技巧&lt;/strong&gt;和&lt;strong&gt;变现思路&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;想收集&lt;strong&gt;AI 工具测评&lt;/strong&gt;做横向对比的（鱼皮的测评覆盖 GPT-5 / Claude 4 / Gemini 3.0 / Cursor 2.0 等 2026 年新版本）&lt;/li&gt;
+  &lt;li&gt;对 Spring AI 这类企业级 AI 框架感兴趣的&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;不太适合：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;已经深度用 AI 编程 1 年以上的 —— 大部分内容会觉得偏入门&lt;/li&gt;
+  &lt;li&gt;只想看单一深度专题的 —— 鱼皮风格是「广而全」不是「窄而深」&lt;/li&gt;
+  &lt;li&gt;期望有官方文档那种 API 级别深度的 —— 这是导航 + 教程，不是文档站&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;几个亮点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;更新及时&lt;/strong&gt;：GPT-5、Claude 4、Cursor 2.0、Gemini 3.0 这些 2026 年新东西都有专题测评，不是那种半年不更新的老博客&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;完整开源&lt;/strong&gt;：仓库在 GitHub，教程内容全公开，可以提 PR 改错&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;共建机制明确&lt;/strong&gt;：贡献者会被署名，有动力持续维护&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;几个注意点：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;内容偏&lt;strong&gt;鱼皮个人筛选&lt;/strong&gt;，不是中立的横评 —— 他夸 Cursor 2.0 的”3 大亮点”和别的测评博主立场未必一致&lt;/li&gt;
+  &lt;li&gt;工具测评标题普遍偏营销风格（”炸裂”、”宇宙最强”），需要自己甄别&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Vibe Coding 那套教程的自评”吊打 90% 付费内容”&lt;/strong&gt;：仁者见仁，建议先看免费的目录页和前几节再判断值不值得投入时间&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;资源链接&quot;&gt;资源链接&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;知识库主站：&lt;a href=&quot;https://ai.codefather.cn&quot;&gt;ai.codefather.cn&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;知识库导航页（本文主题）：&lt;a href=&quot;https://ai.codefather.cn/library/1936010874183520257&quot;&gt;ai.codefather.cn/library/1936010874183520257&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Vibe Coding 教程文档：&lt;a href=&quot;https://ai.codefather.cn/vibe&quot;&gt;ai.codefather.cn/vibe&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Vibe Coding 开源仓库：&lt;a href=&quot;https://github.com/liyupi/ai-guide&quot;&gt;github.com/liyupi/ai-guide&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;作者 B 站：&lt;a href=&quot;https://space.bilibili.com/12890453&quot;&gt;space.bilibili.com/12890453&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;公众号：程序员鱼皮（加群入口）&lt;/li&gt;
+  &lt;li&gt;共建联系方式（微信号）：yupi996&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="VibeCoding" /><category term="鱼皮" /><category term="知识库" /><category term="教程资源" /><category term="Cursor" /><category term="ClaudeCode" /><summary type="html">之前在 B 站刷到程序员鱼皮的 Vibe Coding 教程视频，今天顺着视频简介里的链接翻到了他的 AI 知识库主站 ai.codefather.cn —— 是个完全免费的 AI 资源导航站 + 配套的 Vibe Coding 系统课。看了下内容覆盖度和质量，比我预期要高，把调研要点记下来。</summary></entry><entry><title type="html">9router 安装与对比 cc-switch</title><link href="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/" rel="alternate" type="text/html" title="9router 安装与对比 cc-switch" /><published>2026-08-04T00:00:00+08:00</published><updated>2026-08-04T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch</id><content type="html" xml:base="https://mafulong.github.io/2026/08/04/9router%E5%AE%89%E8%A3%85%E4%B8%8E%E5%AF%B9%E6%AF%94cc-switch/">&lt;p&gt;最近折腾 AI CLI 工具链，发现 &lt;a href=&quot;https://github.com/decolua/9router&quot;&gt;9router&lt;/a&gt; 这个项目在 GitHub Trending 上蹿得很快（24.6k⭐，周下载量也在涨）。第一眼以为是 cc-switch 的”另一个桌面端替代品”，但翻完文档 + 实际跑了一下，发现定位完全不同 —— &lt;strong&gt;9router 是 LLM 网关/路由器，cc-switch 是供应商配置管理器&lt;/strong&gt;。两个东西不是替代关系，是互补的，但默认值不一样。&lt;/p&gt;
 
 &lt;p&gt;本文：先讲 9router 是什么、怎么装、怎么用；再放一张和 cc-switch 的横向对比；最后给一个我自己用的组合方案。&lt;/p&gt;
 
@@ -3103,507 +3329,4 @@ curl &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;
 
 &lt;p&gt;&lt;strong&gt;Q: 文件冲突？&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Syncthing 默认策略：两边都保留，另一份改名为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xxx~syncting~&amp;lt;id&amp;gt;.dat&lt;/code&gt;，需手动决定保留哪份。&lt;strong&gt;避免冲突最好的办法是单一来源（Send Only / Receive Only）&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Syncthing" /><category term="P2P" /><category term="Tools" /><summary type="html">概述</summary></entry><entry><title type="html">Claude Code：跳过权限（bypassPermissions）完全指南</title><link href="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/" rel="alternate" type="text/html" title="Claude Code：跳过权限（bypassPermissions）完全指南" /><published>2026-07-02T00:00:00+08:00</published><updated>2026-07-02T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4</id><content type="html" xml:base="https://mafulong.github.io/2026/07/02/claudecode%E8%B7%B3%E8%BF%87%E6%9D%83%E9%99%90%E7%A1%AE%E8%AE%A4/">&lt;h1 id=&quot;claude-code跳过权限bypasspermissions完全指南&quot;&gt;Claude Code：跳过权限（bypassPermissions）完全指南&lt;/h1&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;减少每条命令都弹的 “Allow?” 确认，
-让 Claude Code 真正进入”放手去干”模式。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-
-&lt;p&gt;Claude Code 默认对每个 Bash / Edit / Write / WebFetch 等操作都会弹
-“Allow this action?” 的确认，团队 / 个人项目里非常打断思路。&lt;/p&gt;
-
-&lt;p&gt;Anthropic 实际上给了一整套”跳过确认”的开关，分布在：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;命令行标志&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;settings.json&lt;/code&gt; 里的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions&lt;/code&gt; 和若干 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skip*&lt;/code&gt; 开关&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;环境变量&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hooks&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;下面按”由浅到深”全部列一遍。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;1-命令行一键启动&quot;&gt;1. 命令行：一键启动&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 等价于 permissions.defaultMode = &quot;bypassPermissions&quot;&lt;/span&gt;
-claude &lt;span class=&quot;nt&quot;&gt;--dangerously-skip-permissions&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;启动后：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;不会再弹任何 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Allow?&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Do you want to proceed?&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;也不会再弹 “dangerous mode” 警告&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;⚠️ &lt;strong&gt;等同于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 模式&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;可执行任意命令（包括 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf /&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;、改系统目录）&lt;/li&gt;
-  &lt;li&gt;仅在&lt;strong&gt;完全信任的项目目录&lt;/strong&gt;下用&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;2-settingsjson核心配置&quot;&gt;2. settings.json：核心配置&lt;/h2&gt;
-
-&lt;p&gt;文件位置：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;作用域&lt;/th&gt;
-      &lt;th&gt;路径&lt;/th&gt;
-      &lt;th&gt;是否入 Git&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;全局&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/settings.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;否&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;项目&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;提交&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;覆盖&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.claude/settings.local.json&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Gitignore&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;21-permissionsdefaultmode&quot;&gt;2.1 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.defaultMode&lt;/code&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bypassPermissions&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;可选值：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;值&lt;/th&gt;
-      &lt;th&gt;行为&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;每个工具调用都弹确认&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptEdits&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Edit/Write 自动通过，Bash 仍询问&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plan&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;只能读 + 计划，不能执行&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;跳过所有确认&lt;/strong&gt;（最高权限）&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h3 id=&quot;22-skip-提示开关&quot;&gt;2.2 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skip*&lt;/code&gt; 提示开关&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipDangerousModePermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipAutoPermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;字段&lt;/th&gt;
-      &lt;th&gt;作用&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipDangerousModePermissionPrompt&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;跳过”进入危险模式”的二次确认弹窗&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipAutoPermissionPrompt&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;跳过”自动确认模式”的提示&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spinnerTipsEnabled&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;关闭底部 spinner 上的小贴士&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;配 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 时强烈建议同时开前两个，
-否则你每次启动 Claude 都会被问一次”你确定要危险模式吗？”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;23-细粒度-allow--deny推荐方案&quot;&gt;2.3 细粒度 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny&lt;/code&gt;（推荐方案）&lt;/h3&gt;
-
-&lt;p&gt;比起直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;，更稳的姿势是&lt;strong&gt;白名单&lt;/strong&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Edit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Write&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Grep&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npx:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(yarn:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(pnpm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(git:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(make:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(docker:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(ls:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(cat:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(mkdir:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(cp:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(curl:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(jq:*)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deny&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(sudo:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(rm -rf:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(rm -rf /:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(chmod 777:*)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;规则优先级：&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny&lt;/code&gt; &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; &amp;gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultMode&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;注意：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultMode = &quot;bypassPermissions&quot;&lt;/code&gt; 时，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny&lt;/code&gt; 会被忽略&lt;/li&gt;
-  &lt;li&gt;想保留 allow/deny 就把 defaultMode 设回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;3-hooks把自动确认挂到事件上&quot;&gt;3. Hooks：把”自动确认”挂到事件上&lt;/h2&gt;
-
-&lt;p&gt;如果你不想 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 全开，但希望某些命令自动确认，
-可以用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PreToolUse&lt;/code&gt; hook：&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;PreToolUse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;matcher&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jq -r &apos;if .tool_input.command | test(&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;^git &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;) then &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; else &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;decision&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;: &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;ask&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\\\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; end&apos;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;更简单的写法 —— 直接放行所有 Bash（慎用）：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.claude/hooks/auto-allow-bash.sh&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;{&quot;decision&quot;: &quot;allow&quot;}&apos;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;PreToolUse&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;matcher&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hooks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;type&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;~/.claude/hooks/auto-allow-bash.sh&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-          &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;decision&lt;/code&gt; 可选值：&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;值&lt;/th&gt;
-      &lt;th&gt;含义&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;自动通过&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;直接拒绝&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ask&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;弹确认（等同默认）&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;4-环境变量减少打扰&quot;&gt;4. 环境变量：减少打扰&lt;/h2&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;CLAUDE_CODE_ATTRIBUTION_HEADER&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;DISABLE_TELEMETRY&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;变量&lt;/th&gt;
-      &lt;th&gt;作用&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;关掉遥测 / 错误上报等非必要网络流量&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CLAUDE_CODE_ATTRIBUTION_HEADER&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;关闭请求头里的”由 Claude Code 生成”标记&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DISABLE_TELEMETRY&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;老一点的全局遥测开关&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;5-mcp-一键全开&quot;&gt;5. MCP 一键全开&lt;/h2&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;enableAllProjectMcpServers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;开启后项目 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.mcp.json&lt;/code&gt; 里列的所有 server 默认启用，
-不需要逐个确认。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;6-三档推荐配置&quot;&gt;6. 三档推荐配置&lt;/h2&gt;
-
-&lt;h3 id=&quot;-a-团队项目保守&quot;&gt;🟢 A. 团队项目（保守）&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;默认模式 + 白名单常用命令 + 禁掉高危操作&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;default&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Read&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Edit&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Write&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Glob&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Grep&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(npx:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(yarn:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(pnpm:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(git:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(make:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(docker:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(ls:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(cat:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(mkdir:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(cp:*)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deny&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(sudo:*)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bash(rm -rf:*)&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipAutoPermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;-b-个人项目中等&quot;&gt;🟡 B. 个人项目（中等）&lt;/h3&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptEdits&lt;/code&gt;：文件操作全过，命令仍问&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;acceptEdits&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipDangerousModePermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;-c-个人本地--沙箱完全-yolo&quot;&gt;🔴 C. 个人本地 / 沙箱（完全 YOLO）&lt;/h3&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;permissions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;defaultMode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;bypassPermissions&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipDangerousModePermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;skipAutoPermissionPrompt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;spinnerTipsEnabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;enableAllProjectMcpServers&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;或命令行：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;claude &lt;span class=&quot;nt&quot;&gt;--dangerously-skip-permissions&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;7-一键写入脚本&quot;&gt;7. 一键写入脚本&lt;/h2&gt;
-
-&lt;p&gt;保存为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;claude-yolo.sh&lt;/code&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-euo&lt;/span&gt; pipefail
-
-&lt;span class=&quot;nv&quot;&gt;CFG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/.claude/settings.json&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dirname&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 备份&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.bak.&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; +%Y%m%d_%H%M%S&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;
-{
-  &quot;permissions&quot;: {
-    &quot;defaultMode&quot;: &quot;bypassPermissions&quot;
-  },
-  &quot;skipDangerousModePermissionPrompt&quot;: true,
-  &quot;skipAutoPermissionPrompt&quot;: true,
-  &quot;spinnerTipsEnabled&quot;: false,
-  &quot;enableAllProjectMcpServers&quot;: true,
-  &quot;env&quot;: {
-    &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;,
-    &quot;DISABLE_TELEMETRY&quot;: &quot;1&quot;
-  }
-}
-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JSON
-
-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;✅ 已写入 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;  备份：&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CFG&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.bak.*&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;8-安全注意&quot;&gt;8. 安全注意&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; 真的就是”无任何拦截”：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Claude 可以 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo rm -rf /&lt;/code&gt;、改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.ssh/&lt;/code&gt;、改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;配合 MCP 时尤其危险（任意工具调用都会被自动放行）&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;不要在你不信任的项目目录 / 共享机器 / 公开仓库里开&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;如果想要”YOLO 但是带安全网”，推荐：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultMode: &quot;acceptEdits&quot;&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;allow&lt;/code&gt; 白名单&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deny&lt;/code&gt; 列表里把 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chmod 777&lt;/code&gt; 全列上&lt;/li&gt;
-  &lt;li&gt;Hooks 里 PreToolUse 二次过滤（自己写 bash 校验脚本）&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;9-与-cursor-的-yolo-模式配合&quot;&gt;9. 与 Cursor 的 YOLO 模式配合&lt;/h2&gt;
-
-&lt;p&gt;如果同时用 Cursor + Claude Code（通过 MCP 把 Claude Code 作为 MCP server 接进去），
-建议&lt;strong&gt;只在一个地方开 YOLO&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Cursor 端开 → Claude Code 端保持 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptEdits&lt;/code&gt;（避免双层 YOLO）&lt;/li&gt;
-  &lt;li&gt;Claude Code 端开 → Cursor 端保持默认（避免双层 YOLO）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;否则一不留神 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf&lt;/code&gt; 真的会跑出去。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;10-速查表&quot;&gt;10. 速查表&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;想做的事&lt;/th&gt;
-      &lt;th&gt;配置&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;完全无确认（命令行）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;claude --dangerously-skip-permissions&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;完全无确认（配置）&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.defaultMode = &quot;bypassPermissions&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;文件自动、命令问&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.defaultMode = &quot;acceptEdits&quot;&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;白名单&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.allow = [...]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;黑名单&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.deny = [...]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;关危险模式警告&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipDangerousModePermissionPrompt: true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;关自动模式提示&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipAutoPermissionPrompt: true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;关底部 tips&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spinnerTipsEnabled: false&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;项目 MCP 全开&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;enableAllProjectMcpServers: true&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Hook 自动放行&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hooks.PreToolUse&lt;/code&gt; 返回 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{&quot;decision&quot;:&quot;allow&quot;}&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;hr /&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.anthropic.com/en/docs/claude-code/settings&quot;&gt;Claude Code 官方 settings 文档&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;permissions.defaultMode&lt;/code&gt; 可选值来自 Claude Code settings schema&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipDangerousModePermissionPrompt&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skipAutoPermissionPrompt&lt;/code&gt; 在 0.2.x 之后稳定&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><summary type="html">Claude Code：跳过权限（bypassPermissions）完全指南</summary></entry></feed>
+&lt;p&gt;Syncthing 默认策略：两边都保留，另一份改名为 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xxx~syncting~&amp;lt;id&amp;gt;.dat&lt;/code&gt;，需手动决定保留哪份。&lt;strong&gt;避免冲突最好的办法是单一来源（Send Only / Receive Only）&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Tools" /><category term="Syncthing" /><category term="P2P" /><category term="Tools" /><summary type="html">概述</summary></entry></feed>
