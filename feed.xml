@@ -1,4 +1,316 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-15T18:06:42+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">aiqiang888.com 书签笔记（Web3 空投与 X 运营工具大全）</title><link href="https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="aiqiang888.com 书签笔记（Web3 空投与 X 运营工具大全）" /><published>2026-08-15T00:00:00+08:00</published><updated>2026-08-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-26T11:42:43+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">核心 ETF 轮动策略：从原理到实战</title><link href="https://mafulong.github.io/2026/08/26/etf-rotation-guide/" rel="alternate" type="text/html" title="核心 ETF 轮动策略：从原理到实战" /><published>2026-08-26T00:00:00+08:00</published><updated>2026-08-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/26/etf-rotation-guide</id><content type="html" xml:base="https://mafulong.github.io/2026/08/26/etf-rotation-guide/">&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;来源说明&lt;/strong&gt;：本文内容备份自 &lt;a href=&quot;https://www.etfwin.com/etf-rotation/guide&quot;&gt;ETFWin · 核心 ETF 轮动指南&lt;/a&gt;（抓取于 2026-08-26，原页面是 React SPA，正文从分包的 JS 资源里取出）。保留原页面全部结构与表述，作为我自己的”离线备份”，方便后续反复查阅。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;核心-etf-轮动策略从原理到实战&quot;&gt;核心 ETF 轮动策略：从原理到实战&lt;/h1&gt;
+
+&lt;p&gt;完整解读轮动策略的评分逻辑、买卖信号与操作纪律。&lt;/p&gt;
+
+&lt;h2 id=&quot;一什么是etf轮动&quot;&gt;一、什么是ETF轮动？&lt;/h2&gt;
+
+&lt;p&gt;ETF 轮动是一种&lt;strong&gt;趋势跟踪策略&lt;/strong&gt;，核心思想很简单：资金永远在不同板块之间流动。当科技股强势时，资金涌入科技 ETF；当防御情绪升温时，资金又转向黄金和债券 ETF。&lt;/p&gt;
+
+&lt;p&gt;轮动策略的目标就是——&lt;strong&gt;找到当下资金最集中的方向，跟随趋势，在趋势减弱时及时退出&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;ETFWin 的核心轮动功能从全市场中精选了 &lt;strong&gt;20 只主流 ETF&lt;/strong&gt;，覆盖 &lt;strong&gt;8 大板块&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;h3 id=&quot;20-只-etf--8-大板块分类&quot;&gt;20 只 ETF · 8 大板块分类&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;板块&lt;/th&gt;
+      &lt;th&gt;ETF 简称&lt;/th&gt;
+      &lt;th&gt;代码&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;科技主线&lt;/td&gt;
+      &lt;td&gt;科创芯片&lt;/td&gt;
+      &lt;td&gt;588200.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;科技主线&lt;/td&gt;
+      &lt;td&gt;纳指 100&lt;/td&gt;
+      &lt;td&gt;159941.SZ&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;科技主线&lt;/td&gt;
+      &lt;td&gt;通信&lt;/td&gt;
+      &lt;td&gt;515880.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;科技主线&lt;/td&gt;
+      &lt;td&gt;传媒&lt;/td&gt;
+      &lt;td&gt;512980.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;科技主线&lt;/td&gt;
+      &lt;td&gt;机器人&lt;/td&gt;
+      &lt;td&gt;562500.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;新能源&lt;/td&gt;
+      &lt;td&gt;光伏&lt;/td&gt;
+      &lt;td&gt;515790.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;新能源&lt;/td&gt;
+      &lt;td&gt;新能源车&lt;/td&gt;
+      &lt;td&gt;515030.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;周期资源&lt;/td&gt;
+      &lt;td&gt;有色金属&lt;/td&gt;
+      &lt;td&gt;512400.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;周期资源&lt;/td&gt;
+      &lt;td&gt;化工&lt;/td&gt;
+      &lt;td&gt;159870.SZ&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;周期资源&lt;/td&gt;
+      &lt;td&gt;石油&lt;/td&gt;
+      &lt;td&gt;561360.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;防御商品&lt;/td&gt;
+      &lt;td&gt;黄金&lt;/td&gt;
+      &lt;td&gt;518880.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;防御商品&lt;/td&gt;
+      &lt;td&gt;豆粕&lt;/td&gt;
+      &lt;td&gt;159985.SZ&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;消费医药&lt;/td&gt;
+      &lt;td&gt;创新药&lt;/td&gt;
+      &lt;td&gt;513120.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;消费医药&lt;/td&gt;
+      &lt;td&gt;医疗&lt;/td&gt;
+      &lt;td&gt;512170.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;金融地产&lt;/td&gt;
+      &lt;td&gt;证券&lt;/td&gt;
+      &lt;td&gt;512880.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;金融地产&lt;/td&gt;
+      &lt;td&gt;房地产&lt;/td&gt;
+      &lt;td&gt;512200.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;海外分散&lt;/td&gt;
+      &lt;td&gt;日经 225&lt;/td&gt;
+      &lt;td&gt;513520.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;海外分散&lt;/td&gt;
+      &lt;td&gt;标普 500&lt;/td&gt;
+      &lt;td&gt;513500.SH&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;海外分散&lt;/td&gt;
+      &lt;td&gt;恒生 ETF&lt;/td&gt;
+      &lt;td&gt;159920.SZ&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;其他主题&lt;/td&gt;
+      &lt;td&gt;军工&lt;/td&gt;
+      &lt;td&gt;512660.SH&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这 20 只 ETF 流动性好、代表性强，基本覆盖了 A 股和海外主要投资方向。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;二动量评分怎么算&quot;&gt;二、动量评分怎么算？&lt;/h2&gt;
+
+&lt;p&gt;系统每天为每只 ETF 计算一个动量总分，核心公式为：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;总分 = ROC20 × 1.0 + ROC60 × 1.5&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;核心指标的含义&quot;&gt;核心指标的含义&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;ROC20（20 日涨幅）&lt;/strong&gt;：短期动能。过去 20 个交易日涨了多少，反映近期资金进出的力度。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ROC60（60 日涨幅）&lt;/strong&gt;：中期趋势。权重是 ROC20 的 1.5 倍，说明系统更看重中期趋势的持续性，而非短期波动。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;MA120（120 日均线）&lt;/strong&gt;：长期趋势的”楚河汉界”。价格在均线之上，说明长期趋势向上；跌破均线，则视为趋势破位。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;⚠️ &lt;strong&gt;MA120 破位：趋势不在，绝不参与。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;三排名表怎么看&quot;&gt;三、排名表怎么看？&lt;/h2&gt;
+
+&lt;p&gt;打开”核心 ETF 轮动”页面，你会看到一个每日更新的排名表：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;列名&lt;/th&gt;
+      &lt;th&gt;含义&lt;/th&gt;
+      &lt;th&gt;实战解读&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;排名&lt;/td&gt;
+      &lt;td&gt;当日总分排名（1-20）&lt;/td&gt;
+      &lt;td&gt;排名越靠前，当前动量越强&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ROC20&lt;/td&gt;
+      &lt;td&gt;20 日涨幅&lt;/td&gt;
+      &lt;td&gt;红色正值为上涨动能，绿色负值为下跌动能&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ROC60&lt;/td&gt;
+      &lt;td&gt;60 日涨幅&lt;/td&gt;
+      &lt;td&gt;中期趋势方向，比 ROC20 更重要&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;总分&lt;/td&gt;
+      &lt;td&gt;动量综合得分&lt;/td&gt;
+      &lt;td&gt;正分且排名靠前 = 强势；负分或出现”破位”标记 = 弱势&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;趋势&lt;/td&gt;
+      &lt;td&gt;是否在 MA120 上方&lt;/td&gt;
+      &lt;td&gt;红色”MA120 上方” = 长期趋势健康；绿色”MA120 下方” = 趋势破位，规避&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5 日变动&lt;/td&gt;
+      &lt;td&gt;排名 5 日变化&lt;/td&gt;
+      &lt;td&gt;红色向上箭头 = 排名在上升（资金在流入）；绿色向下 = 排名在下降&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;20 日变动&lt;/td&gt;
+      &lt;td&gt;排名 20 日变化&lt;/td&gt;
+      &lt;td&gt;中期排名趋势，持续上升说明板块正在轮动到位&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;动量排名轨迹&lt;/td&gt;
+      &lt;td&gt;14 天得分走势迷你图&lt;/td&gt;
+      &lt;td&gt;直观看动量是在加速、匀速还是减速&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;四买入信号什么时候该进场&quot;&gt;四、买入信号：什么时候该进场？&lt;/h2&gt;
+
+&lt;p&gt;系统内置了一套严格的操作纪律，&lt;strong&gt;三个条件必须同时满足&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;排名进入前 5&lt;/strong&gt;（市场好时，可以扩展到前 10）—— 说明当前动量在全池中排名靠前&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ROC20 &amp;gt; 0&lt;/strong&gt; —— 短期趋势向上，不是在下跌途中”抄底”&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ROC60 &amp;gt; 0&lt;/strong&gt; —— 中期趋势也向上，不是昙花一现&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;三个条件全满足，就是&lt;strong&gt;右侧确认的买入 / 持有信号&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h3 id=&quot;一个实战例子&quot;&gt;一个实战例子&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;假设某天，”科创芯片”排名第 2，ROC20 = +8.5%，ROC60 = +15.2%，趋势标记为”MA120 上方”。&lt;/p&gt;
+
+  &lt;p&gt;三个条件全满足 → 这就是核心操作区的品种，可以考虑买入或继续持有。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;五卖出信号什么时候该离场&quot;&gt;五、卖出信号：什么时候该离场？&lt;/h2&gt;
+
+&lt;p&gt;比买入更重要的是知道何时卖出。以下信号出现时需要警惕：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;跌破 120 日均线&lt;/strong&gt;：趋势列变为绿色的”MA120 下方”——这是最强的离场信号，长期趋势已经转向，不要抱有幻想&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;ROC20 由正转负&lt;/strong&gt;：即使排名还在前 5，但 ROC20 变成负数，说明短期动量已经衰竭，可能进入调整&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;排名持续下滑&lt;/strong&gt;：5 日变动和 20 日变动都出现绿色向下箭头，说明资金正在从这个板块撤出，轮动到其他方向&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;乖离率过高&lt;/strong&gt;：MA120 偏离度超过 15% 以上，价格远离均线，短期有回调风险，不宜追高&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;六排名变动图的价值&quot;&gt;六、排名变动图的价值&lt;/h2&gt;
+
+&lt;p&gt;排名表是某一天的快照，而排名变动图展示的是 &lt;strong&gt;60 个交易日内的排名趋势&lt;/strong&gt;，这是判断轮动方向的核心工具：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;线条持续向上&lt;/strong&gt;（排名数字减小）：板块正在吸引资金流入&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;线条持续向下&lt;/strong&gt;（排名数字增大）：资金正在流出该板块&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;多根线条交叉&lt;/strong&gt;：市场正在发生板块切换，旧的领涨品种在退潮，新的品种在崛起&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;所有线条纠缠在一起&lt;/strong&gt;：市场没有明确方向，此时应该耐心等待&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;实战用法&quot;&gt;实战用法&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;当你看到某个板块的线条从底部持续上升到前 10 名区域，而且 ROC20 和 ROC60 同时为正——这就是一个完整的右侧趋势确认信号。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;七ai-洞察怎么用&quot;&gt;七、AI 洞察怎么用？&lt;/h2&gt;
+
+&lt;p&gt;点击”AI 洞察”按钮，系统会调用 AI 对当前轮动数据进行深度分析，输出四个部分：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;大势定调&lt;/strong&gt;：根据 MA120 上方 / 下方的比例，判断当前应该进攻还是防守&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;核心操作区&lt;/strong&gt;：严格按照三条件筛选，列出符合买入标准的品种&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;蓄势与潜伏&lt;/strong&gt;：找出排名不在前 5、但排名正在悄悄上升的品种，加入观察名单&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;风险提示名单&lt;/strong&gt;：指出高位拥挤或动量衰减的品种&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;AI 洞察的价值不在于替代你的判断，而是&lt;strong&gt;帮你快速扫一遍全貌，节省你自己逐行分析 20 只 ETF 的时间&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;八一个完整的轮动操作思路&quot;&gt;八、一个完整的轮动操作思路&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;每天收盘后打开轮动页面，看一眼排名前 5 的品种&lt;/li&gt;
+  &lt;li&gt;检查三条件：排名前 5 + ROC20 &amp;gt; 0 + ROC60 &amp;gt; 0&lt;/li&gt;
+  &lt;li&gt;查看排名变动图：确认趋势是否持续，还是即将反转&lt;/li&gt;
+  &lt;li&gt;对比前几天的排名：前 5 的品种是在稳定还是频繁切换？（频繁切换说明市场不稳）&lt;/li&gt;
+  &lt;li&gt;使用 AI 洞察做快速全盘扫描，重点关注”蓄势与潜伏”和”风险提示”&lt;/li&gt;
+  &lt;li&gt;执行决策：满足条件的持有 / 买入，出现危险信号的果断减仓&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;九最重要的原则&quot;&gt;九、最重要的原则&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;🎯 &lt;strong&gt;减少频繁操作，耐心等待明确的趋势，只在极具确定性的机会下重拳出击。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;轮动策略的本质不是每天都交易，而是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;大部分时间在等待&lt;/strong&gt; —— 等待某个板块走出明确的上升趋势&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;小部分时间在行动&lt;/strong&gt; —— 趋势确认后果断买入，趋势减弱后果断退出&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;永远不逆势操作&lt;/strong&gt; —— MA120 下方的不碰，ROC 为负的不碰&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;风险提示&lt;/strong&gt;：以上内容为 ETFWin 平台功能使用说明，不构成投资建议。投资有风险，入市需谨慎。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;附抓取记录自留&quot;&gt;附：抓取记录（自留）&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;原页面：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://www.etfwin.com/etf-rotation/guide&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;抓取方式：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; + Vite 分包 JS（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;assets/guide-DapM0KlQ.js&lt;/code&gt;，19 KB）——SPA 的正文都在这里&lt;/li&gt;
+  &lt;li&gt;抓取日期：2026-08-26&lt;/li&gt;
+  &lt;li&gt;备份文件：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/tmp/etfwin.html&lt;/code&gt;（壳）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/tmp/etfwin-main.js&lt;/code&gt;（入口）、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/tmp/etfwin-guide.js&lt;/code&gt;（正文）&lt;/li&gt;
+  &lt;li&gt;不复制 React UI 标记、className 等纯前端样式信息，只保留可读的正文与表格&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="Finance" /><category term="Finance" /><category term="ETF" /><category term="轮动" /><category term="etfwin" /><summary type="html">来源说明：本文内容备份自 ETFWin · 核心 ETF 轮动指南（抓取于 2026-08-26，原页面是 React SPA，正文从分包的 JS 资源里取出）。保留原页面全部结构与表述，作为我自己的”离线备份”，方便后续反复查阅。</summary></entry><entry><title type="html">aiqiang888.com 书签笔记（Web3 空投与 X 运营工具大全）</title><link href="https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0/" rel="alternate" type="text/html" title="aiqiang888.com 书签笔记（Web3 空投与 X 运营工具大全）" /><published>2026-08-15T00:00:00+08:00</published><updated>2026-08-15T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0</id><content type="html" xml:base="https://mafulong.github.io/2026/08/15/aiqiang888%E4%B9%A6%E7%AD%BE%E7%AC%94%E8%AE%B0/">&lt;blockquote&gt;
   &lt;p&gt;记录站点：https://aiqiang888.com&lt;br /&gt;
 作者：记得爱强 | X: @aiqiang888 | TG: @kas_silver&lt;br /&gt;
 定位：X(Twitter) 运营 + Web3 空投研究门户，蓝V认证 / 交易所入口 / 工具台三件套。&lt;br /&gt;
@@ -4023,234 +4335,4 @@ curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&qu
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;本模式的取舍：&lt;strong&gt;用「必须开浏览器」换「不存 cookie、跟登录态自动同步」&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">一套不依赖具体业务平台的本地遥控模式：用浏览器书签把脚本注入到「已登录」的网页，经本机 WebSocket 接收命令，再在页面里用 fetch（带 cookie）调用目标站 API。</summary></entry><entry><title type="html">Hermes-Agent 安装教程</title><link href="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" rel="alternate" type="text/html" title="Hermes-Agent 安装教程" /><published>2026-07-19T00:00:00+08:00</published><updated>2026-07-19T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B</id><content type="html" xml:base="https://mafulong.github.io/2026/07/19/Hermes%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/">&lt;p&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;Hermes-Agent&lt;/a&gt; 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。&lt;/p&gt;
-
-&lt;p&gt;相比 Claude Code &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--channels&lt;/code&gt; 的官方方案（&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;详见踩坑记录&lt;/a&gt;：第三方 base URL 直接拒接），Hermes-Agent 在国内第三方代理 + Telegram bot 的场景下能直接 work。&lt;/p&gt;
-
-&lt;h2 id=&quot;安装&quot;&gt;安装&lt;/h2&gt;
-
-&lt;h3 id=&quot;一前置依赖&quot;&gt;一、前置依赖&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Python 3.11+&lt;/strong&gt; （Hermes 自带 venv）&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Node.js 22.19+&lt;/strong&gt; （可选，chat UI / Canvas 用）&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install uv&lt;/code&gt; （macOS）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;二一键安装&quot;&gt;二、一键安装&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 推荐：交互式，向导会带过 provider / channel / skills 全套配置&lt;/span&gt;
-curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; https://hermes-agent.nousresearch.com/install.sh | bash
-
-&lt;span class=&quot;c&quot;&gt;# 静默安装：跳过 setup 向导，不下载内置 skills（自定义更轻量）&lt;/span&gt;
-curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; https://hermes-agent.nousresearch.com/install.sh | bash &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--non-interactive&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--skip-setup&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--no-skills&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;装完之后：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;配置：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;密钥：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;代码：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/hermes-agent/&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;skills 仓库：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/skills/&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;三查看版本与状态&quot;&gt;三、查看版本与状态&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
-hermes doctor        &lt;span class=&quot;c&quot;&gt;# 自检：Python / SSL / 配置 / 鉴权&lt;/span&gt;
-hermes gateway status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;配置-model-provider&quot;&gt;配置 model provider&lt;/h2&gt;
-
-&lt;p&gt;Hermes 通过 LiteLLM provider 注册表覆盖 MiniMax / 智谱 / OpenRouter / 本地 Ollama 等几十家。下面以国内常用的 &lt;strong&gt;MiniMax（minimaxi）&lt;/strong&gt; 为例。&lt;/p&gt;
-
-&lt;h3 id=&quot;1-编辑-hermesconfigyaml&quot;&gt;1. 编辑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;MiniMax-M3&quot;&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;minimax-cn&quot;&lt;/span&gt;
-
-&lt;span class=&quot;na&quot;&gt;model_providers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;minimax-cn&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://api.minimaxi.com/v1&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;api_key_env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;MINIMAX_CN_API_KEY&quot;&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MiniMax-M3&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;context_window&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;200000&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;max_tokens&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8192&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;cost_per_million_input&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
-        &lt;span class=&quot;na&quot;&gt;cost_per_million_output&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax-cn&lt;/code&gt; provider 是 Hermes-Agent 内置的一等公民，写法与 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;minimax&lt;/code&gt;（海外）等价。如果你用 OpenRouter / 本地 vLLM，按 &lt;a href=&quot;https://docs.litellm.ai/docs/providers&quot;&gt;LiteLLM 文档&lt;/a&gt; 把 base_url 和 model id 改了即可。&lt;/p&gt;
-
-&lt;h3 id=&quot;2-填-hermesenv&quot;&gt;2. 填 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;sk-cp-xxxxxxxxxxxxxxxxxxxxxxxx
-&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_BASE_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://api.minimaxi.com/v1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-验证-llm-通路&quot;&gt;3. 验证 LLM 通路&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes model chat &lt;span class=&quot;s2&quot;&gt;&quot;1+1=?&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;正常会收到模型回的 “1+1=2。” 类回复。如果提示 401/403，多半是 base URL 缺前缀 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/v1&lt;/code&gt; 或 key 没 export 出来。&lt;/p&gt;
-
-&lt;h2 id=&quot;telegram-渠道&quot;&gt;Telegram 渠道&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-申请-bot-token&quot;&gt;1. 申请 bot token&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Telegram 搜索 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@BotFather&lt;/code&gt;，发 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/newbot&lt;/code&gt; 拿 token&lt;/li&gt;
-  &lt;li&gt;拿自己的 Telegram 数字 ID：私聊 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@userinfobot&lt;/code&gt;，回显的那一串就是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_ALLOWED_USERS&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;2-写-hermesenv&quot;&gt;2. 写 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_BOT_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1234567890:AAxxxxxxxxxxxxxxxxxxxxxxxx
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_ALLOWED_USERS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;646304977     &lt;span class=&quot;c&quot;&gt;# 你的 Telegram id，多用户用逗号分隔&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_DM_POLICY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;open
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_GROUP_POLICY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;allowlist
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-国内代理gfw-这关&quot;&gt;3. 国内代理（GFW 这关）&lt;/h3&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api.telegram.org&lt;/code&gt; 在国内不通。Clash Verge / ClashX Pro 一般 mixed-port 在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7897&lt;/code&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-x&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;http://127.0.0.1:7897&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;https://api.telegram.org/bot&amp;lt;TOKEN&amp;gt;/getMe&quot;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# → {&quot;ok&quot;:true,&quot;result&quot;:{&quot;username&quot;:&quot;yourbot&quot;,...}}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;通了之后在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt; 加：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;TELEGRAM_PROXY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://127.0.0.1:7897
-&lt;span class=&quot;nv&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;149.154.166.110,149.154.167.220
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TELEGRAM_FALLBACK_IPS&lt;/code&gt; 是 Telegram 官方稳定的 Bot API 解析 IP 段（OpenClaw 时代就 seed 在 config 里），绕开 dns.google / cloudflare-dns.com 的 DoH 在国内不通的问题。&lt;/p&gt;
-
-&lt;h3 id=&quot;4-启动-gateway&quot;&gt;4. 启动 Gateway&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes gateway run
-&lt;span class=&quot;c&quot;&gt;# 或前台 + 日志&lt;/span&gt;
-hermes gateway run &lt;span class=&quot;nt&quot;&gt;--foreground&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;正常输出 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gateway listening on http://127.0.0.1:8765&lt;/code&gt;，然后去 Telegram 给 bot 发消息就能收到回复。&lt;/p&gt;
-
-&lt;h2 id=&quot;权限yolo-模式&quot;&gt;权限：YOLO 模式&lt;/h2&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yolo&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--yes&lt;/code&gt; 模式：跳过所有危险操作确认，等价于 Claude Code 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bypassPermissions&lt;/code&gt;。&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 单次&lt;/span&gt;
-hermes gateway run &lt;span class=&quot;nt&quot;&gt;--yolo&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 持久化：写进 config&lt;/span&gt;
-vim ~/.hermes/config.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;approvals&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;off&apos;&lt;/span&gt;        &lt;span class=&quot;c1&quot;&gt;# off = yolo; on = 每次问; auto = 危险操作问，其余自动&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;permissions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;defaultMode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;bypassPermissions&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;bypassAll&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;⚠️ 风险&lt;/strong&gt;：等同于 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rm -rf&lt;/code&gt; 类命令无确认。线上环境别开，本机开发随便开。&lt;/p&gt;
-
-&lt;h2 id=&quot;skills--插件&quot;&gt;Skills &amp;amp; 插件&lt;/h2&gt;
-
-&lt;p&gt;Hermes 把”技能”拆成 SKILL.md 文件，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/skills/&lt;/code&gt; 一份一份放。安装时 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-skills&lt;/code&gt; 跳过的话想找回：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes skills &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--bundled&lt;/span&gt;
-hermes skills search telegram
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;启用插件（在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;）：&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;plugins&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;github&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;telegram&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apple-notes&lt;/span&gt;
-    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;himalaya&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;常用命令速查&quot;&gt;常用命令速查&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;命令&lt;/th&gt;
-      &lt;th&gt;作用&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway run&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;启动 Gateway（后台）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway stop&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;停 Gateway&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway status&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;看状态&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model chat &quot;...&quot;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;命令行直接对模型&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model set &amp;lt;provider&amp;gt;/&amp;lt;model&amp;gt;&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;切换默认模型&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes skills list&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;看已装 skill&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes doctor&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;自检&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes update&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;升级到最新&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes --version&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;版本&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;调试&quot;&gt;调试&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 看 Gateway 日志&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; ~/.hermes/logs/gateway.log
-
-&lt;span class=&quot;c&quot;&gt;# Telegram 渠道单独 verbose&lt;/span&gt;
-hermes gateway run &lt;span class=&quot;nt&quot;&gt;--debug&lt;/span&gt; telegram
-
-&lt;span class=&quot;c&quot;&gt;# Python 环境坏掉的话&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/.hermes/hermes-agent
-python &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; venv .venv &lt;span class=&quot;nt&quot;&gt;--clear&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; .venv/bin/activate
-pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;碰到 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.initialize() hang&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__pycache__&lt;/code&gt; 覆盖源码类坑，&lt;strong&gt;先 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find ~/.hermes/hermes-agent -name __pycache__ -type d -exec rm -rf {} +&lt;/code&gt;&lt;/strong&gt; 把缓存清掉，再重启。&lt;/p&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;NousResearch/hermes-agent&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://hermes-agent.nousresearch.com/install.sh&quot;&gt;官方安装脚本&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://docs.litellm.ai/docs/providers&quot;&gt;LiteLLM provider 列表&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://core.telegram.org/bots/api&quot;&gt;Telegram Bot API&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;anthropics/claude-plugins-official#783&lt;/a&gt; — 为什么不用 Claude Code –channels&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Hermes" /><category term="MiniMax" /><category term="Telegram" /><category term="Tools" /><summary type="html">Hermes-Agent 是 Nous Research 开源的个人 AI 助手，本地跑一个 Gateway 服务，通过 channel 接入 Telegram / Discord / WhatsApp / Slack / Signal 等 20+ IM 平台，搭配 LiteLLM 自动支持 OpenAI / Anthropic / MiniMax 等几十家模型 provider。CLI、Telegram、Web UI 都能用同一套 memory / skills / sessions。</summary></entry></feed>
+&lt;p&gt;本模式的取舍：&lt;strong&gt;用「必须开浏览器」换「不存 cookie、跟登录态自动同步」&lt;/strong&gt;。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Others" /><category term="Others" /><summary type="html">一套不依赖具体业务平台的本地遥控模式：用浏览器书签把脚本注入到「已登录」的网页，经本机 WebSocket 接收命令，再在页面里用 fetch（带 cookie）调用目标站 API。</summary></entry></feed>
