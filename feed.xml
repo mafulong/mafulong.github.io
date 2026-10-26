@@ -1,4 +1,430 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-08-28T21:38:22+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">EVO75 灯光控制说明书</title><link href="https://mafulong.github.io/2026/08/28/evo75-lighting-manual/" rel="alternate" type="text/html" title="EVO75 灯光控制说明书" /><published>2026-08-28T00:00:00+08:00</published><updated>2026-08-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/28/evo75-lighting-manual</id><content type="html" xml:base="https://mafulong.github.io/2026/08/28/evo75-lighting-manual/">&lt;h2 id=&quot;evo75-灯光控制说明书&quot;&gt;EVO75 灯光控制说明书&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.9.2">Jekyll</generator><link href="https://mafulong.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mafulong.github.io/" rel="alternate" type="text/html" /><updated>2026-10-26T13:12:48+08:00</updated><id>https://mafulong.github.io/feed.xml</id><title type="html">Fulongのblog</title><subtitle>Fulongのblog</subtitle><author><name>Fulong Ma</name></author><entry><title type="html">Hermes 常用命令速查，以及把它和 Codex 对齐到同一个模型</title><link href="https://mafulong.github.io/2026/10/26/Hermes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%A8%A1%E5%9E%8B%E5%88%87%E6%8D%A2/" rel="alternate" type="text/html" title="Hermes 常用命令速查，以及把它和 Codex 对齐到同一个模型" /><published>2026-10-26T00:00:00+08:00</published><updated>2026-10-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/10/26/Hermes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%A8%A1%E5%9E%8B%E5%88%87%E6%8D%A2</id><content type="html" xml:base="https://mafulong.github.io/2026/10/26/Hermes%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E6%A8%A1%E5%9E%8B%E5%88%87%E6%8D%A2/">&lt;p&gt;上一篇 &lt;a href=&quot;https://mafulong.github.io/2026/07/19/Hermes安装教程/&quot;&gt;Hermes-Agent 安装教程&lt;/a&gt; 讲的是怎么装、怎么接 Telegram。这篇讲真正每天要用的部分：&lt;strong&gt;Hermes 到底怎么操控、常用命令有哪些、以及怎么让 Hermes 和 Codex 用同一把 key、同一个模型&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;本文基于本机实测的 &lt;strong&gt;Hermes Agent v0.19.1&lt;/strong&gt;（源码 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/hermes-agent/&lt;/code&gt;，git 安装方式），命令和文件路径都跟这个版本对齐；后续版本升级后可能会变。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-先搞清楚三个文件&quot;&gt;1. 先搞清楚三个文件&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;路径&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;主配置：模型、agent 行为、终端、显示、toolset、skills 审批&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;密钥与环境变量（API key、代理、Telegram token 等）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/hermes-agent/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Agent 源码本体&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/logs/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;agent.log&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;errors.log&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gateway.log&lt;/code&gt;，排错全靠它&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/skills/&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;你自己的 skill（每个一个 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SKILL.md&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;版本和自检：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+hermes status      &lt;span class=&quot;c&quot;&gt;# 环境、API key、provider、网关、渠道总览&lt;/span&gt;
+hermes doctor      &lt;span class=&quot;c&quot;&gt;# 体检：Python / SSL / 配置 / 鉴权&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;2-四种操控姿势&quot;&gt;2. 四种操控姿势&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;姿势&lt;/th&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;场景&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;交互式 TUI&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes chat&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;日常对话，边聊边 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/命令&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;一次性提问&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes -z &quot;问题&quot;&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;shell 里快速问一句（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--oneshot&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;脚本 / CI&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes chat -q &quot;问题&quot; -Q&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Q&lt;/code&gt; 静默，只输出最终回复和 session id&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;接着上次聊&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes --continue&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes -c [会话名]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;恢复最近或指定名字的会话&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;几个高频 flag（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes chat --help&lt;/code&gt; 全量）：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;flag&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-m, --model&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;本次用哪个模型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--provider&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;走哪个 provider（内置名，或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config.yaml&lt;/code&gt; 里 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;providers:&lt;/code&gt; 自定义名）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-t, --toolsets&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;逗号分隔启用哪些工具集&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-s, --skills&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;预载 skill（可重复）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--max-turns N&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;单轮最多几次工具调用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-w, --worktree&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;在独立 git worktree 里跑，适合并行 agent&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--checkpoints&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;破坏性文件操作前打快照，出事可 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/rollback&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--yolo&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;跳过危险命令确认（自担风险）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--pass-session-id&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;把 session id 注入 system prompt，方便脚本串联&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;3-cli-常用命令&quot;&gt;3. CLI 常用命令&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;会话&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes sessions                 &lt;span class=&quot;c&quot;&gt;# 浏览/恢复历史会话&lt;/span&gt;
+hermes sessions list            &lt;span class=&quot;c&quot;&gt;# 列表形式&lt;/span&gt;
+hermes profile                  &lt;span class=&quot;c&quot;&gt;# 当前 profile 与 home 目录&lt;/span&gt;
+hermes project                  &lt;span class=&quot;c&quot;&gt;# 多目录工作区&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;模型与配置&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes model                    &lt;span class=&quot;c&quot;&gt;# 交互式选 provider + 模型（纯 TUI 选择器）&lt;/span&gt;
+hermes model &lt;span class=&quot;nt&quot;&gt;--refresh&lt;/span&gt;          &lt;span class=&quot;c&quot;&gt;# 清缓存，重新拉各 provider 的在线 /v1/models&lt;/span&gt;
+hermes config show              &lt;span class=&quot;c&quot;&gt;# 看当前配置&lt;/span&gt;
+hermes config get model.default &lt;span class=&quot;c&quot;&gt;# 读某个配置项&lt;/span&gt;
+hermes config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;model.default MiniMax-M3.1-Flash-Preview   &lt;span class=&quot;c&quot;&gt;# 改配置（推荐）&lt;/span&gt;
+hermes config &lt;span class=&quot;nb&quot;&gt;unset&lt;/span&gt; &amp;lt;key&amp;gt;       &lt;span class=&quot;c&quot;&gt;# 删配置项&lt;/span&gt;
+hermes config path              &lt;span class=&quot;c&quot;&gt;# 配置文件路径&lt;/span&gt;
+hermes config check             &lt;span class=&quot;c&quot;&gt;# 检查缺失/过期配置&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;勘误&lt;/strong&gt;：上一篇写的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model set &amp;lt;provider&amp;gt;/&amp;lt;model&amp;gt;&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model chat &quot;...&quot;&lt;/code&gt; 在 v0.19.1 里都不存在了。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model&lt;/code&gt; 现在只是个交互式选择器，命令行改模型请用 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes config set&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;扩展能力&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes skills                   &lt;span class=&quot;c&quot;&gt;# 搜索 / 安装 / 审计 skill&lt;/span&gt;
+hermes tools                    &lt;span class=&quot;c&quot;&gt;# 管理内置工具（list/disable/enable）&lt;/span&gt;
+hermes mcp                      &lt;span class=&quot;c&quot;&gt;# MCP server 管理&lt;/span&gt;
+hermes plugins                  &lt;span class=&quot;c&quot;&gt;# 插件列表与状态&lt;/span&gt;
+hermes memory                   &lt;span class=&quot;c&quot;&gt;# 外部记忆插件（mem0 / hindsight 等），内置 MEMORY.md 始终在&lt;/span&gt;
+hermes computer-use             &lt;span class=&quot;c&quot;&gt;# 电脑操作能力&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;自动化与消息&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes cron list                &lt;span class=&quot;c&quot;&gt;# 定时任务&lt;/span&gt;
+hermes cron add ...             &lt;span class=&quot;c&quot;&gt;# 加定时任务&lt;/span&gt;
+hermes send &lt;span class=&quot;s2&quot;&gt;&quot;...&quot;&lt;/span&gt;              &lt;span class=&quot;c&quot;&gt;# 往 Telegram/Slack 等已配置平台发消息&lt;/span&gt;
+hermes gateway status           &lt;span class=&quot;c&quot;&gt;# 网关（IM 渠道）状态&lt;/span&gt;
+hermes pairing                  &lt;span class=&quot;c&quot;&gt;# 配对授权&lt;/span&gt;
+hermes acp                      &lt;span class=&quot;c&quot;&gt;# 以 ACP 服务形式跑，给编辑器当后端&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;维护&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes update                   &lt;span class=&quot;c&quot;&gt;# 升级&lt;/span&gt;
+hermes backup                   &lt;span class=&quot;c&quot;&gt;# 打包 ~/.hermes 成 zip&lt;/span&gt;
+hermes import &amp;lt;zip&amp;gt;             &lt;span class=&quot;c&quot;&gt;# 从备份恢复&lt;/span&gt;
+hermes checkpoints              &lt;span class=&quot;c&quot;&gt;# 检查/清理文件快照&lt;/span&gt;
+hermes logs                     &lt;span class=&quot;c&quot;&gt;# 日志&lt;/span&gt;
+hermes debug                    &lt;span class=&quot;c&quot;&gt;# 上传调试报告&lt;/span&gt;
+hermes security                 &lt;span class=&quot;c&quot;&gt;# 依赖/MCP 的供应链审计（OSV.dev）&lt;/span&gt;
+hermes dump                     &lt;span class=&quot;c&quot;&gt;# 导出一份配置摘要，贴 issue 用&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;4-会话内-slash-命令&quot;&gt;4. 会话内 slash 命令&lt;/h2&gt;
+
+&lt;p&gt;进入 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes&lt;/code&gt; 之后直接打 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt;，最常用的：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;命令&lt;/th&gt;
+      &lt;th&gt;作用&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model [模型] [--provider x] [--global\|--session]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;切模型，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--global&lt;/code&gt; 才会写回配置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/status&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;当前会话、模型、token、上下文占用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/context&lt;/code&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/ctx&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;上下文窗口详情 + 分类占用 + 压缩统计&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usage&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;token 用量与限流&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/new&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/clear&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/history&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/resume&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/sessions&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;会话生命周期&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compress&lt;/code&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compact&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;压缩上下文，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compress here 5&lt;/code&gt; 只保留最近 5 轮&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/rollback&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;列出/恢复文件快照（配合 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--checkpoints&lt;/code&gt;）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/branch&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/undo&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/retry&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;会话分叉、回退、重发&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/tools&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/toolsets&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/skills&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/memory&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;工具与 skill 管理&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;扫描仓库生成/更新 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AGENTS.md&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/learn&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;把一段经验沉淀成可复用 skill&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reasoning [档位]&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;思考强度 none/low/medium/high/xhigh/max…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/personality&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/skin&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/focus&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/verbose&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;显示与人格&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/yolo&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/approvals&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;危险命令审批模式&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/queue&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/steer&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/stop&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/busy&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;打断、排队、插话控制&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reload&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reload-mcp&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reload-skills&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;热加载配置 / MCP / skill&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/goal&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/cron&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/kanban&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;长期目标、定时任务、多 profile 看板&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/help&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;全部命令列表&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;5-让-hermes-和-codex-用同一个模型&quot;&gt;5. 让 Hermes 和 Codex 用同一个模型&lt;/h2&gt;
+
+&lt;h3 id=&quot;51-我两边的实际配置&quot;&gt;5.1 我两边的实际配置&lt;/h3&gt;
+
+&lt;p&gt;Codex（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.codex/config.toml&lt;/code&gt;）：&lt;/p&gt;
+
+&lt;div class=&quot;language-toml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;MiniMax-M3.1-Flash-Preview&quot;&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;model_reasoning_effort&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;medium&quot;&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;model_provider&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;minimax&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;[model_providers.minimax]&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;base_url&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://api.minimax.cn/v1&quot;&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;experimental_bearer_token&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sk-cp-xxxx&quot;&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;wire_api&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;responses&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hermes（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/.env&lt;/code&gt;）：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MiniMax-M3.1-Flash-Preview&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;provider&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;minimax-cn&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# ~/.hermes/.env&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;sk-cp-xxxx        &lt;span class=&quot;c&quot;&gt;# 和 codex 用的是同一把&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_BASE_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://api.minimaxi.com/v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;52-永久切换推荐&quot;&gt;5.2 永久切换（推荐）&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes config &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;model.default MiniMax-M3.1-Flash-Preview
+hermes config get model.default     &lt;span class=&quot;c&quot;&gt;# 确认写入成功&lt;/span&gt;
+hermes status                       &lt;span class=&quot;c&quot;&gt;# Model 那行应该显示新模型&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;改完直接跑一条验证，别光看配置：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hermes chat &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;只回复 ok&apos;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;53-临时切换--会话内切换&quot;&gt;5.3 临时切换 / 会话内切换&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 只影响这一次调用&lt;/span&gt;
+hermes chat &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;只回复 ok&apos;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; MiniMax-M3.1-Flash-Preview &lt;span class=&quot;nt&quot;&gt;--provider&lt;/span&gt; minimax-cn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;会话里 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model MiniMax-M3.1-Flash-Preview --provider minimax-cn&lt;/code&gt; 只改当前会话；加 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--global&lt;/code&gt; 才落盘。&lt;/p&gt;
+
+&lt;h3 id=&quot;54-模型-id-有个小坑&quot;&gt;5.4 模型 id 有个小坑&lt;/h3&gt;
+
+&lt;p&gt;平台 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/v1/models&lt;/code&gt; 返回的正式 id 是 &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MiniMax-M3.1-Flash&lt;/code&gt;&lt;/strong&gt;，而 Codex 用的 &lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MiniMax-M3.1-Flash-Preview&lt;/code&gt;&lt;/strong&gt; 是别名。两者都能调通，不用纠结，但要知道区别：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-s&lt;/span&gt; https://api.minimax.cn/v1/models &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Authorization: Bearer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MINIMAX_CN_API_KEY&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hermes 这边&lt;strong&gt;不校验模型白名单&lt;/strong&gt;，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-m&lt;/code&gt; 写什么就发什么，所以列表里没有也能直接用。&lt;/p&gt;
+
+&lt;h3 id=&quot;55-端点同一个平台两个域名&quot;&gt;5.5 端点：同一个平台，两个域名&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://api.minimax.cn/v1&lt;/code&gt; 和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://api.minimaxi.com/v1&lt;/code&gt; 用同一把 key 实测都能通、模型列表完全一致，Hermes 默认走后者（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MINIMAX_CN_BASE_URL&lt;/code&gt;）。想和 Codex 字面完全一致，改 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; 即可：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;MINIMAX_CN_BASE_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://api.minimax.cn/v1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;但要注意&lt;strong&gt;同模型不同协议&lt;/strong&gt;：Codex 走 Responses API，Hermes 走 OpenAI 兼容的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/chat/completions&lt;/code&gt;。模型是同一个，工具调用格式、推理摘要（Hermes 侧是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reasoning_content&lt;/code&gt;）的表现会有细微差别。&lt;/p&gt;
+
+&lt;h3 id=&quot;56-思考强度也得分开调&quot;&gt;5.6 思考强度也得分开调&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;配置项&lt;/th&gt;
+      &lt;th&gt;当前值&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Codex&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;model_reasoning_effort&lt;/code&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.codex/config.toml&lt;/code&gt;）&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;medium&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Hermes&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;agent.reasoning_effort&lt;/code&gt;（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.hermes/config.yaml&lt;/code&gt;）或会话内 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reasoning&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;medium&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;57-想接任意-openai-兼容端点&quot;&gt;5.7 想接任意 OpenAI 兼容端点&lt;/h3&gt;
+
+&lt;p&gt;Hermes 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config.yaml&lt;/code&gt; 支持 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;providers:&lt;/code&gt; 段，可读性强于手搓 LiteLLM 配置：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;providers&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;my-gateway&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-gateway&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;base_url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://api.example.com/v1&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;key_env&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;MY_GATEWAY_API_KEY&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;api_mode&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;chat_completions&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;# chat_completions | anthropic_messages | codex_responses&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;some-model-id&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;discover_models&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;之后 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--provider my-gateway -m some-model-id&lt;/code&gt; 即可。常用字段：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;base_url&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api_key&lt;/code&gt; 或 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;key_env&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;api_mode&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;model&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;models&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;extra_body&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;extra_headers&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssl_ca_cert&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;h2 id=&quot;6-排错速查&quot;&gt;6. 排错速查&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;现象&lt;/th&gt;
+      &lt;th&gt;排查&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;401 / 403&lt;/td&gt;
+      &lt;td&gt;key 没 export，或 base URL 少了 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/v1&lt;/code&gt; 前缀&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;改了 config 没生效&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes config check&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes doctor&lt;/code&gt;；注意 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;model.base_url&lt;/code&gt; 里可能残留着别的 provider 的旧地址&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;模型选不到&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes model --refresh&lt;/code&gt; 重新拉在线列表；或直接 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-m&lt;/code&gt; 手写 id&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;想知道请求实际打到哪个 host&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep &apos;https://api&apos; ~/.hermes/logs/agent.log \| tail&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;网关（IM 渠道）不通&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes gateway status&lt;/code&gt;、&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tail -f ~/.hermes/logs/gateway.log&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;升级后行为异常&lt;/td&gt;
+      &lt;td&gt;清 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__pycache__&lt;/code&gt; 再重启：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find ~/.hermes/hermes-agent -name __pycache__ -type d -exec rm -rf {} +&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;7-一句话总结&quot;&gt;7. 一句话总结&lt;/h2&gt;
+
+&lt;p&gt;Hermes 的 CLI 命令很多，但真正每天用的就三条：&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes&lt;/code&gt; 进 TUI&lt;/strong&gt;、&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes -z &quot;问题&quot;&lt;/code&gt; 快速问&lt;/strong&gt;、&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hermes config set model.default &amp;lt;模型&amp;gt;&lt;/code&gt; 换模型&lt;/strong&gt;；会话内的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/model&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/compress&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/init&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/reasoning&lt;/code&gt; 是四个高频 slash。模型这块，Hermes 和 Codex 共用同一把 MiniMax key 完全可行，唯一的坑是模型 id 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-Preview&lt;/code&gt; 后缀和两边走的协议不同。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/NousResearch/hermes-agent&quot;&gt;NousResearch/hermes-agent&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://mafulong.github.io/2026/07/19/Hermes安装教程/&quot;&gt;Hermes-Agent 安装教程（上一篇）&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://platform.minimaxi.com/document&quot;&gt;MiniMax 开放平台文档&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/issues/783&quot;&gt;Claude Code –channels 踩坑 issue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Hermes" /><category term="MiniMax" /><category term="Codex" /><category term="Tools" /><category term="CLI" /><summary type="html">上一篇 Hermes-Agent 安装教程 讲的是怎么装、怎么接 Telegram。这篇讲真正每天要用的部分：Hermes 到底怎么操控、常用命令有哪些、以及怎么让 Hermes 和 Codex 用同一把 key、同一个模型。</summary></entry><entry><title type="html">EVO75 灯光控制说明书</title><link href="https://mafulong.github.io/2026/08/28/evo75-lighting-manual/" rel="alternate" type="text/html" title="EVO75 灯光控制说明书" /><published>2026-08-28T00:00:00+08:00</published><updated>2026-08-28T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/08/28/evo75-lighting-manual</id><content type="html" xml:base="https://mafulong.github.io/2026/08/28/evo75-lighting-manual/">&lt;h2 id=&quot;evo75-灯光控制说明书&quot;&gt;EVO75 灯光控制说明书&lt;/h2&gt;
 
 &lt;p&gt;如果你用的是 EVOWORKS &lt;strong&gt;EVO75&lt;/strong&gt;，关于”灯光关不了”的问题要特别注意：&lt;strong&gt;EVO75 有两套独立的灯光系统&lt;/strong&gt;，关闭方法不一样：&lt;/p&gt;
 
@@ -3571,325 +3997,4 @@ data.mint      →  箱子里是哪种币&lt;/p&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;本地 validator + 测试网部署与打日志看账户变化&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;需要的话可以说一下用 Anchor 还是原生，我按你的「进金库再转出」场景把第 16 节补成可复制的账户表 + 示例指令。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">Solana 账户模型入门（结合 Swap / 收款场景）</summary></entry><entry><title type="html">cloudcodeui 开源ui 安装</title><link href="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/" rel="alternate" type="text/html" title="cloudcodeui 开源ui 安装" /><published>2026-07-26T00:00:00+08:00</published><updated>2026-07-26T00:00:00+08:00</updated><id>https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA</id><content type="html" xml:base="https://mafulong.github.io/2026/07/26/CloudCLI%E8%87%AA%E6%89%98%E7%AE%A1%E5%AE%89%E8%A3%85%E4%B8%8E%E6%A1%8C%E9%9D%A2%E7%AB%AF%E6%9E%84%E5%BB%BA/">&lt;p&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui&quot;&gt;CloudCLI&lt;/a&gt;（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。&lt;/p&gt;
-
-&lt;p&gt;相比单独跑 CLI 的差异：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一个 UI 切三种 agent，不重启 server&lt;/li&gt;
-  &lt;li&gt;自动发现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt; 里所有已有会话（不是只暴露当前活跃那条）&lt;/li&gt;
-  &lt;li&gt;设置直接写回原生 Claude Code 配置（不是数据复制，是同一份）&lt;/li&gt;
-  &lt;li&gt;移动端浏览器访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;电脑内网IP&amp;gt;:3001&lt;/code&gt; 就能用&lt;/li&gt;
-  &lt;li&gt;可选 PWA + Web Push 通知&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;安装方式&quot;&gt;安装方式&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;形态&lt;/th&gt;
-      &lt;th&gt;适合&lt;/th&gt;
-      &lt;th&gt;命令&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Self-hosted npm&lt;/strong&gt;（本文重点）&lt;/td&gt;
-      &lt;td&gt;本地开发、机器一直开着、想用桌面端&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Docker Sandbox（实验）&lt;/td&gt;
-      &lt;td&gt;需要 microVM 隔离的 agent 环境&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli@latest sandbox ~/project&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;CloudCLI Cloud（€7/月起）&lt;/td&gt;
-      &lt;td&gt;云端跑、团队共享、不想自己维护&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://cloudcli.ai&quot;&gt;https://cloudcli.ai&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;下面只讲 self-hosted。&lt;/p&gt;
-
-&lt;h2 id=&quot;前置依赖&quot;&gt;前置依赖&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Node.js 22+&lt;/strong&gt;（实测 v24 也行；&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.nvmrc&lt;/code&gt; 写 v22）&lt;/p&gt;
-
-    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;node &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;    &lt;span class=&quot;c&quot;&gt;# 确认 &amp;gt;= v22&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;macOS / Linux / Windows&lt;/strong&gt;（桌面端官方包仅 macOS / Windows）&lt;/li&gt;
-  &lt;li&gt;8GB+ 内存（Electron + 原生模块比较吃）&lt;/li&gt;
-  &lt;li&gt;1.5GB+ 磁盘（&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules&lt;/code&gt; 会涨到 1.1-1.4GB）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;方式一npx-一行命令最快上手&quot;&gt;方式一：npx 一行命令（最快上手）&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npx @cloudcli-ai/cloudcli
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;启动后访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://localhost:3001&lt;/code&gt;，自动发现 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt; 里已有的会话。&lt;/p&gt;
-
-&lt;p&gt;或者全局装：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
-
-cloudcli             &lt;span class=&quot;c&quot;&gt;# 启动 server&lt;/span&gt;
-cloudcli status      &lt;span class=&quot;c&quot;&gt;# 看配置和路径（数据目录、监听端口、安装模式）&lt;/span&gt;
-cloudcli version     &lt;span class=&quot;c&quot;&gt;# 打印版本&lt;/span&gt;
-cloudcli &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;      &lt;span class=&quot;c&quot;&gt;# 所有子命令&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;方式二从源码构建--打桌面端&quot;&gt;方式二：从源码构建 + 打桌面端&lt;/h2&gt;
-
-&lt;p&gt;适合想改前端、做插件开发、或需要未签名本地包的人。&lt;/p&gt;
-
-&lt;h3 id=&quot;克隆--装依赖&quot;&gt;克隆 + 装依赖&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/siteboon/claudecodeui.git
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;claudecodeui
-
-&lt;span class=&quot;c&quot;&gt;# 装依赖（含 Electron、better-sqlite3、node-pty 等原生模块，约 18 分钟）&lt;/span&gt;
-npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;装完会跑 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;postinstall&lt;/code&gt;（自动 chmod &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node-pty/spawn-helper&lt;/code&gt;，macOS 进程隔离要求）和 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;prepare&lt;/code&gt;（husky）。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node_modules&lt;/code&gt; 大约 1.1-1.4GB。&lt;/p&gt;
-
-&lt;h3 id=&quot;构建产物&quot;&gt;构建产物&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run build
-&lt;span class=&quot;c&quot;&gt;# 产出：dist/（前端 7MB）+ dist-server/（后端 2.7MB）&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 只改前端代码时&lt;/span&gt;
-npm run dev                &lt;span class=&quot;c&quot;&gt;# 同时起 server:dev (tsx 监听) + Vite (HMR)&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 只改服务端时&lt;/span&gt;
-npm run server:dev-watch
-
-&lt;span class=&quot;c&quot;&gt;# 类型检查 / Lint&lt;/span&gt;
-npm run typecheck
-npm run lint
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;出未签名-appmacos本地自用&quot;&gt;出未签名 .app（macOS，本地自用）&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;npm run desktop:pack
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;产物在 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;release/desktop/mac-arm64/CloudCLI.app&lt;/code&gt;（Intel 是 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mac/&lt;/code&gt;），双击就能跑。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;为什么要 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY=false&lt;/code&gt;？&lt;/strong&gt; 项目默认 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mac.notarize: true&lt;/code&gt;，没 Apple Developer 凭证会卡在公证。设这个环境变量跳过签名 + 公证，本地使用足够。首次打开右键 → 打开（Gatekeeper 绕过）即可。&lt;/p&gt;
-
-&lt;h3 id=&quot;出-dmg--nsis-分发包&quot;&gt;出 dmg / nsis 分发包&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run desktop:dist:mac      &lt;span class=&quot;c&quot;&gt;# macOS dmg&lt;/span&gt;
-npm run desktop:dist:win      &lt;span class=&quot;c&quot;&gt;# Windows nsis&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;需要 Apple Developer 凭证：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CSC_LINK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/path/to/DeveloperID.p12
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;CSC_KEY_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;...
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;you@example.com
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_APP_SPECIFIC_PASSWORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;...
-&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;APPLE_TEAM_ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ABCDE12345
-npm run desktop:dist:mac
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;桌面--vite-hmr-联调&quot;&gt;桌面 + Vite HMR 联调&lt;/h3&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm run desktop:dev          &lt;span class=&quot;c&quot;&gt;# Electron 嵌 Vite dev server (端口 5173)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;配置与目录速查&quot;&gt;配置与目录速查&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 全局装的 cloudcli 数据目录&lt;/span&gt;
-~/.cloudcli/
-
-&lt;span class=&quot;c&quot;&gt;# 关键文件&lt;/span&gt;
-~/.cloudcli/local-server.json                       &lt;span class=&quot;c&quot;&gt;# 当前 local server 状态（PID、port、URL）&lt;/span&gt;
-~/Library/Application Support/CloudCLI/             &lt;span class=&quot;c&quot;&gt;# Electron desktop userData（macOS）&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 复制一份配置改&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; .env.example .env
-nano .env        &lt;span class=&quot;c&quot;&gt;# 主要项：SERVER_PORT、VITE_PORT、HOST&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Claude 原生会话位置（CloudCLI 直接读这里）&lt;/span&gt;
-~/.claude/projects/&amp;lt;encoded-path&amp;gt;/&amp;lt;session-id&amp;gt;.jsonl
-
-&lt;span class=&quot;c&quot;&gt;# Codex 原生会话&lt;/span&gt;
-~/.codex/sessions/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;安全提醒tools-默认全关&quot;&gt;安全提醒：tools 默认全关&lt;/h2&gt;
-
-&lt;p&gt;第一次进 UI，CloudCLI 会提示 &lt;strong&gt;所有 Claude Code tools 默认禁用&lt;/strong&gt;。这是有意设计 —— 防止 agent 误操作。&lt;/p&gt;
-
-&lt;p&gt;打开 &lt;strong&gt;Settings → Tools Settings&lt;/strong&gt;，按需开启。建议从基础工具（Read、Bash 白名单）开始，逐步放开。&lt;/p&gt;
-
-&lt;h2 id=&quot;几个值得知道的事实&quot;&gt;几个值得知道的事实&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;CloudCLI 读 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude&lt;/code&gt;&lt;/strong&gt;：你在 UI 里加的 MCP server / 改的工具权限，会写到原生 Claude Code 配置里，反之亦然。不是数据复制，是同一份。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;三个 CLI agent 共用一套 UI&lt;/strong&gt;：Claude Code（SDK 直连）、Cursor CLI（spawn + stream-json）、Codex（SDK）。切换不需要重启 server。&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;桌面端是 launcher，不是 Electron-only&lt;/strong&gt;：默认是 CloudCLI Cloud 入口 + 本地 server 切换器。想完全跳过：&lt;/p&gt;
-
-    &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 直接跑 server，浏览器访问 3001&lt;/span&gt;
-node /path/to/claudecodeui/dist-server/server/index.js
-
-&lt;span class=&quot;c&quot;&gt;# 装好的 .app 内部 server&lt;/span&gt;
-node /path/to/CloudCLI.app/Contents/Resources/app/dist-server/server/index.js
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;会话数据由 provider 自存&lt;/strong&gt;：UI 不重复存，SQLite 只存元数据（项目路径、会话索引、用户、推送订阅）。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;macOS 进程隔离&lt;/strong&gt;：&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;node-pty&lt;/code&gt; 的 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spawn-helper&lt;/code&gt; 二进制 postinstall 自动 chmod，不然首次启动终端会失败。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;升级--卸载&quot;&gt;升级 / 卸载&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# 升级（npm 全局版）&lt;/span&gt;
-npm update &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
-
-&lt;span class=&quot;c&quot;&gt;# 升级（源码）&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;claudecodeui
-git pull
-npm &lt;span class=&quot;nb&quot;&gt;install
-&lt;/span&gt;npm run build
-&lt;span class=&quot;nv&quot;&gt;CSC_IDENTITY_AUTO_DISCOVERY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;npm run desktop:pack
-
-&lt;span class=&quot;c&quot;&gt;# 卸载（全局版）&lt;/span&gt;
-npm uninstall &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; @cloudcli-ai/cloudcli
-
-&lt;span class=&quot;c&quot;&gt;# 清数据（注意会丢项目列表、用户、推送订阅）&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ~/.cloudcli/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;常用命令速查&quot;&gt;常用命令速查&lt;/h2&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;命令&lt;/th&gt;
-      &lt;th&gt;作用&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npx @cloudcli-ai/cloudcli&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;一键启动（不装）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli start&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;全局版启动 server&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli status&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;看配置、路径、运行状态&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli version&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli --help&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;版本 / 子命令&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run dev&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;前端 + 服务端一起 dev&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run server:dev-watch&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;只重启服务端&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run build&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;出 dist/ + dist-server/&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:pack&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;出未签名 .app&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:dist:mac&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;macOS dmg（需 Apple 凭证）&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run desktop:dist:win&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Windows nsis&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run typecheck&lt;/code&gt; / &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm run lint&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;静态检查&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsof -i :3001 -sTCP:LISTEN&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;看 server 是否在跑&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsof -ti :3001 \| xargs kill&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;杀进程&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;h2 id=&quot;调试&quot;&gt;调试&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Server 日志直接 stdout&lt;/span&gt;
-node dist-server/server/index.js
-
-&lt;span class=&quot;c&quot;&gt;# 桌面端启动日志&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; ~/Library/Logs/CloudCLI/main.log     &lt;span class=&quot;c&quot;&gt;# macOS&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# SQLite 数据库位置（看 schema 用）&lt;/span&gt;
-sqlite3 ~/.cloudcli/auth.db &lt;span class=&quot;s2&quot;&gt;&quot;.tables&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# 触发完整 server 重启&lt;/span&gt;
-pkill &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;dist-server/server/index.js&quot;&lt;/span&gt;
-cloudcli
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;常见问题&quot;&gt;常见问题&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 一定要装桌面端吗？&lt;/strong&gt;
-A: 不必须。&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm install -g @cloudcli-ai/cloudcli&lt;/code&gt; 然后 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli&lt;/code&gt; 就够了，浏览器访问 3001。桌面端是多一层 macOS 窗口 + 托盘 + 开机启动。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 能在 Windows 用吗？&lt;/strong&gt;
-A: 服务端可以（Node 跨平台），桌面端有官方 nsis 安装包（GitHub Releases 下 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cloudcli-desktop-*-win-*.exe&lt;/code&gt;）。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 移动端怎么访问？&lt;/strong&gt;
-A: 服务端默认监听 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.0.0.0:3001&lt;/code&gt;，同一 Wi-Fi 下手机浏览器访问 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;http://&amp;lt;电脑内网IP&amp;gt;:3001&lt;/code&gt; 即可。要改：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;0.0.0.0 cloudcli       &lt;span class=&quot;c&quot;&gt;# 或在 .env 里改&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 自带推送通知吗？&lt;/strong&gt;
-A: 是。Web Push + Service Worker + VAPID。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 插件怎么装？&lt;/strong&gt;
-A: UI 里 &lt;strong&gt;Settings → Plugins&lt;/strong&gt;，粘贴 git repo URL 即可。或者基于 starter 模板自己做：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/cloudcli-ai/cloudcli-plugin-starter.git
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;cloudcli-plugin-starter
-npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# 按 README 配置 manifest.json 和 plugin.config.js&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Q: 怎么知道当前跑的是哪个版本？&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cloudcli version                                            &lt;span class=&quot;c&quot;&gt;# 全局版&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;package.json | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;&quot;version&quot;&apos;&lt;/span&gt;                         &lt;span class=&quot;c&quot;&gt;# 源码&lt;/span&gt;
-curl http://localhost:3001/health                           &lt;span class=&quot;c&quot;&gt;# 前端实际跑的版本&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# {&quot;status&quot;:&quot;ok&quot;,&quot;timestamp&quot;:&quot;...&quot;,&quot;version&quot;:&quot;1.36.3&quot;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;参考&quot;&gt;参考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/siteboon/claudecodeui/blob/main/README.zh-CN.md&quot;&gt;项目 README（中文）&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://cloudcli.ai/docs&quot;&gt;官方文档&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/cloudcli-ai/cloudcli-plugin-starter&quot;&gt;Plugin Starter 模板&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://discord.gg/buxwujPNRE&quot;&gt;Discord 社区&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Fulong Ma</name></author><category term="AI" /><category term="AI" /><category term="Tools" /><category term="CloudCLI" /><category term="ClaudeCode" /><category term="Cursor" /><category term="Codex" /><category term="SelfHosted" /><summary type="html">CloudCLI（aka Claude Code UI）是一个开源的 AI 编程 Agent 统一 Web/桌面 UI，覆盖 Claude Code / Cursor CLI / Codex 三种 CLI。它自己不带 AI，用你自己的 Claude / Cursor / OpenAI 订阅，在浏览器、移动端、原生桌面端用同一套界面跑文件浏览、Git 操作、xterm 终端、MCP 管理。</summary></entry></feed>
+&lt;p&gt;需要的话可以说一下用 Anchor 还是原生，我按你的「进金库再转出」场景把第 16 节补成可复制的账户表 + 示例指令。&lt;/p&gt;</content><author><name>Fulong Ma</name></author><category term="Web3" /><category term="Web3" /><summary type="html">Solana 账户模型入门（结合 Swap / 收款场景）</summary></entry></feed>
