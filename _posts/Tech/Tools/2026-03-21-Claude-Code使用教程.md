@@ -1,6 +1,6 @@
 ---
 layout: post
-category: tools
+category: Tools
 title: Claude Code使用教程
 tags: Claude
 ---

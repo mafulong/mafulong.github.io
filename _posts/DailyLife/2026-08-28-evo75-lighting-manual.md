@@ -2,7 +2,7 @@
 layout: post
 category: DailyLife
 title: EVO75 灯光控制说明书
-tags: DailyLife 键盘 EVO75 灯光 RGB
+tags: [DailyLife, 键盘, EVO75, 灯光, RGB]
 ---
 
 ## EVO75 灯光控制说明书

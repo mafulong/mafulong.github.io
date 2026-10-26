@@ -2,7 +2,7 @@
 layout: post
 category: AI
 title: 鱼皮AI知识库与VibeCoding零基础教程调研
-tags: AI Tools VibeCoding 鱼皮 知识库 教程资源 Cursor ClaudeCode
+tags: [AI, Tools, VibeCoding, 鱼皮, 知识库, 教程资源, Cursor, ClaudeCode]
 ---
 
 之前在 B 站刷到程序员鱼皮的 Vibe Coding 教程视频，今天顺着视频简介里的链接翻到了他的 AI 知识库主站 [ai.codefather.cn](https://ai.codefather.cn/library/1936010874183520257) —— 是个**完全免费**的 AI 资源导航站 + 配套的 Vibe Coding 系统课。看了下内容覆盖度和质量，比我预期要高，把调研要点记下来。

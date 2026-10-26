@@ -2,7 +2,7 @@
 layout: post
 category: AI
 title: 9router 安装与对比 cc-switch
-tags: AI Tools 9router cc-switch ClaudeCode LLMGateway Proxy
+tags: [AI, Tools, 9router, cc-switch, ClaudeCode, LLMGateway, Proxy]
 ---
 
 最近折腾 AI CLI 工具链，发现 [9router](https://github.com/decolua/9router) 这个项目在 GitHub Trending 上蹿得很快（24.6k⭐，周下载量也在涨）。第一眼以为是 cc-switch 的"另一个桌面端替代品"，但翻完文档 + 实际跑了一下，发现定位完全不同 —— **9router 是 LLM 网关/路由器，cc-switch 是供应商配置管理器**。两个东西不是替代关系，是互补的，但默认值不一样。

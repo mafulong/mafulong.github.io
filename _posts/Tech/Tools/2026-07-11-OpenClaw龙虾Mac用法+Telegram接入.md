@@ -2,7 +2,7 @@
 layout: post
 category: Tools
 title: OpenClaw（龙虾）Mac 用法 + Telegram 接入
-tags: OpenClaw AI Telegram Tools
+tags: [OpenClaw, AI, Telegram, Tools]
 ---
 
 [OpenClaw](https://openclaw.ai/) 是开源的个人 AI 助手，🦞 「龙虾」是它的吉祥物。一套 Gateway 服务跑在本地（Mac/Linux/Windows），通过 channel 接入你已经在用的 IM 应用（Telegram、WhatsApp、Discord、Slack、Signal、iMessage、微信、QQ 等 20+ 渠道）。
