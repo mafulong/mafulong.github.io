@@ -2,7 +2,7 @@
 layout: post
 category: Tools
 title: Syncthing 多设备文件同步（2 台 Mac + 多台 Android）
-tags: Syncthing P2P Tools
+tags: [Syncthing, P2P, Tools]
 ---
 
 ## 概述

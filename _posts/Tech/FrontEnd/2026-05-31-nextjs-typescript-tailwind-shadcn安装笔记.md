@@ -1,6 +1,6 @@
 ---
 layout: post
-category: Tech
+category: FrontEnd
 title: Next.js + TypeScript + Tailwind + shadcn/ui 学习安装笔记
 tags: Frontend
 ---
