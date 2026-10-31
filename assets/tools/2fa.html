@@ -11,16 +11,34 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <title>2FA 验证码工具</title>
+<!--
+  防点击劫持：CSP 的 frame-ancestors 在 <meta> 里会被规范忽略，GitHub Pages 也不发
+  X-Frame-Options 响应头，所以只能自己在 JS 里发现"我被嵌在别人的页面里"，
+  然后把可交互内容全部抹掉 —— 攻击者没有可点的东西，也就劫持不了。
+-->
+<script>
+if (window.top !== window.self) {
+  var wipe = function () {
+    if (document.body) document.body.innerHTML = '';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wipe);
+  } else {
+    wipe();
+  }
+}
+</script>
 <style>
   :root{
     --bg:#f4f6fb; --panel:#ffffff; --border:#e3e7ef; --text:#1f2430; --muted:#6b7280;
     --primary:#4361ee; --primary-dark:#3146c4; --danger:#e5484d; --ok:#2bb673;
     --track:#eef1f7; --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    --warn:#b45309;
   }
   @media (prefers-color-scheme: dark){
     :root{
       --bg:#14161d; --panel:#1c1f29; --border:#2a2e3a; --text:#e7e9ee; --muted:#9298a8;
-      --track:#2a2e3a;
+      --track:#2a2e3a; --warn:#e0af68;
     }
   }
   *{box-sizing:border-box;}
@@ -49,7 +67,13 @@
     font-family:var(--mono); font-size:13px; line-height:1.6; outline:none;
   }
   textarea:focus{ border-color:var(--primary); }
-  .toolbar{ display:flex; gap:8px; margin-top:10px; }
+  .toolbar{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+  .toolbar .opt{ display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); }
+  select{
+    padding:5px 8px; border-radius:8px; border:1px solid var(--border); background:var(--panel);
+    color:var(--text); font-size:13px; outline:none; cursor:pointer; font-family:inherit;
+  }
+  select:focus{ border-color:var(--primary); }
   button{
     cursor:pointer; border:1px solid var(--border); background:var(--panel); color:var(--text);
     border-radius:8px; padding:7px 14px; font-size:13px;
@@ -73,6 +97,7 @@
     font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .card-error-msg{ font-size:12px; color:var(--danger); line-height:1.5; word-break:break-all; }
+  .card-warn{ font-size:11px; color:var(--warn); line-height:1.5; }
   .code-row{
     display:flex; align-items:baseline; justify-content:space-between; gap:8px; cursor:pointer;
     user-select:none;
@@ -87,8 +112,12 @@
   .progress-bar{
     height:100%; background:var(--primary); width:100%; transition:width 1s linear, background-color .2s;
   }
-  .progress-bar.warn{ background:var(--danger); }
+  .progress-bar.warn{ background:var(--warn); }
+  .progress-bar.danger{ background:var(--danger); }
   .meta-row{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+  .cd{ font-variant-numeric:tabular-nums; }
+  .cd.warn{ color:var(--warn); font-weight:600; }
+  .cd.danger{ color:var(--danger); font-weight:600; }
 
   .toast{
     position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px);
@@ -124,6 +153,22 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
 
 # 以 # 开头的行会被当作注释忽略"></textarea>
     <div class="toolbar">
+      <label class="opt">位数
+        <select id="digits">
+          <option value="6">6 位</option>
+          <option value="8">8 位</option>
+        </select>
+      </label>
+      <label class="opt">周期
+        <select id="period">
+          <option value="30">30 秒</option>
+          <option value="60">60 秒</option>
+        </select>
+      </label>
+    </div>
+    <div class="toolbar">
+      <button id="demoBtn" type="button">示例</button>
+      <button id="copyAllBtn" type="button">复制全部</button>
       <button id="clearBtn" type="button">清空</button>
     </div>
     <div class="status" id="status"></div>
@@ -132,7 +177,8 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
       1. <code>场景名,密钥</code> 或 <code>场景名&#9;密钥</code>（逗号 / Tab 分隔，推荐）<br>
       2. <code>场景名 密钥</code>（空格分隔，密钥内部允许有空格，会自动去除）<br>
       3. 完整的 <code>otpauth://totp/...?secret=...</code> 链接（扫码软件导出的格式）<br>
-      密钥仅支持标准 Base32 编码、算法仅支持 SHA1（绝大多数验证码场景均为此类型）。
+      密钥仅支持标准 Base32 编码、算法仅支持 SHA1（绝大多数验证码场景均为此类型）。<br>
+      <b>位数</b>与<b>周期</b>对普通行生效；otpauth 链接自带 <code>digits</code> / <code>period</code> 时以链接为准。
     </div>
   </section>
 
@@ -277,6 +323,17 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
   var STD_LENGTHS = [16, 26, 32, 52];
   function isStdLength(n){ return STD_LENGTHS.indexOf(n) !== -1; }
 
+  // 普通行使用的默认位数 / 周期（由界面上的下拉框控制）。
+  // otpauth:// 链接自带 digits / period 参数时，以链接里的为准。
+  var defDigits = 6;
+  var defPeriod = 30;
+  function readDefaults(){
+    var d = parseInt(digitsEl.value, 10);
+    var p = parseInt(periodEl.value, 10);
+    defDigits = (d === 6 || d === 8) ? d : 6;
+    defPeriod = (p === 30 || p === 60) ? p : 30;
+  }
+
   /**
    * 空格分隔时，怎么把一行拆成"场景名"和"密钥"？
    *
@@ -399,7 +456,10 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
     if (!secretBytes.length){
       return { label: label, error: '密钥长度不足，无法解码', raw: raw };
     }
-    return { label: label, secretBytes: secretBytes, digits: 6, period: 30, raw: raw };
+    return {
+      label: label, secretBytes: secretBytes, cleanSecret: cleanSecret,
+      digits: defDigits, period: defPeriod, raw: raw
+    };
   }
 
   function parseAll(text){
@@ -418,13 +478,18 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
   var gridEl = document.getElementById('grid');
   var statusEl = document.getElementById('status');
   var clearBtn = document.getElementById('clearBtn');
+  var demoBtn = document.getElementById('demoBtn');
+  var copyAllBtn = document.getElementById('copyAllBtn');
+  var digitsEl = document.getElementById('digits');
+  var periodEl = document.getElementById('period');
   var toastEl = document.getElementById('toast');
 
   var entries = [];   // 当前解析出的条目
   var cardRefs = [];  // 与 entries 对应的 DOM 引用缓存
 
   function formatCode(code){
-    var half = Math.ceil(code.length / 2);
+    // 8 位按 4-4 分组，6 位按 3-3 分组
+    var half = code.length === 8 ? 4 : Math.ceil(code.length / 2);
     return code.slice(0, half) + ' ' + code.slice(half);
   }
 
@@ -488,6 +553,21 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
             '<div class="card-error-msg">⚠️ ' + escapeHtml(e.error) + '</div>' +
           '</div>';
       } else {
+        // 密钥长度不标准、或压根不含数字 —— 多半不是密钥，
+        // 提醒一下比算出一个永远对不上的验证码强。
+        var warns = [];
+        if (e.cleanSecret && !isStdLength(e.cleanSecret.length)){
+          warns.push('密钥长度 ' + e.cleanSecret.length + ' 字符，请核对');
+        }
+        // 随机密钥几乎必然含数字（16 位 Base32 不含数字的概率约 3.6%），
+        // 而一句英文散文去掉空格后往往正好是 16 个字母。
+        if (e.cleanSecret && !/[2-7]/.test(e.cleanSecret)){
+          warns.push('密钥不含数字，可能不是密钥');
+        }
+        var warnHtml = warns.map(function(w){
+          return '<div class="card-warn">⚠ ' + escapeHtml(w) + '</div>';
+        }).join('');
+
         html += '' +
           '<div class="card" data-idx="' + i + '">' +
             '<div class="card-title">' + escapeHtml(e.label) + '</div>' +
@@ -497,9 +577,10 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
             '</div>' +
             '<div class="progress-track"><div class="progress-bar" data-role="bar"></div></div>' +
             '<div class="meta-row">' +
-              '<span data-role="seconds">--s</span>' +
+              '<span class="cd" data-role="seconds">--s</span>' +
               '<span>' + e.period + 's · ' + e.digits + '位</span>' +
             '</div>' +
+            warnHtml +
           '</div>';
       }
     });
@@ -544,18 +625,53 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
       var pct = (remaining / e.period) * 100;
       ref.barEl.style.width = pct + '%';
       ref.secEl.textContent = remaining + 's';
-      if (remaining <= 5){
-        ref.barEl.classList.add('warn');
-      } else {
-        ref.barEl.classList.remove('warn');
-      }
+      // 三档：正常(主色) / 即将失效(黄) / 马上失效(红)
+      var level = remaining <= 5 ? 'danger' : (remaining <= 10 ? 'warn' : '');
+      ref.barEl.className = 'progress-bar' + (level ? ' ' + level : '');
+      ref.secEl.className = 'cd' + (level ? ' ' + level : '');
     });
   }
 
   var debounceTimer = null;
-  inputEl.addEventListener('input', function(){
+  function scheduleRebuild(){
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(rebuild, 250);
+  }
+
+  inputEl.addEventListener('input', scheduleRebuild);
+
+  // 位数 / 周期变了，所有普通行都要重新解析（otpauth 链接自带参数的不受影响）
+  digitsEl.addEventListener('change', function(){
+    readDefaults();
+    scheduleRebuild();
+  });
+  periodEl.addEventListener('change', function(){
+    readDefaults();
+    scheduleRebuild();
+  });
+
+  // 「示例」：塞一份可直接看的样例进去
+  demoBtn.addEventListener('click', function(){
+    inputEl.value = [
+      'GitHub,JBSWY3DPEHPK3PXP',
+      'AWS    KRSXG5CTMVRXEZLU',
+      'Cloudflare,JBSW Y3DP EHPK 3PXP',
+      'otpauth://totp/Demo:alice?secret=GEZDGNBVGY3TQOJQ&issuer=Demo'
+    ].join('\n');
+    readDefaults();
+    rebuild();
+  });
+
+  // 「复制全部」：把所有当前验证码按行复制
+  copyAllBtn.addEventListener('click', function(){
+    var codes = [];
+    entries.forEach(function(e, i){
+      if (e.error) return;
+      var ref = cardRefs[i];
+      if (ref && ref.lastCode) codes.push(ref.lastCode);
+    });
+    if (!codes.length){ showToast('没有可复制的验证码'); return; }
+    copyText(codes.join('\n'));
   });
 
   clearBtn.addEventListener('click', function(){
@@ -564,6 +680,7 @@ otpauth://totp/Example:me@example.com?secret=JBSWY3DPEHPK3PXP&issuer=Example
     inputEl.focus();
   });
 
+  readDefaults();
   rebuild();
   setInterval(tick, 1000);
 
