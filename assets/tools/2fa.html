@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--
+  密钥页面：不发起任何网络请求，禁止外连与外部资源加载。
+  这是个自包含的单文件页面：CSS 和 JS 全部内联，不引用任何外部资源，
+  所以 script-src 放开 'unsafe-inline' 不会带来外部代码注入面
+  （页面里的用户数据一律走 textContent，不拼进 innerHTML）。
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>2FA 验证码工具</title>
+<!--
+  防点击劫持：CSP 的 frame-ancestors 在 <meta> 里会被规范忽略，GitHub Pages 也不发
+  X-Frame-Options 响应头，所以只能自己在 JS 里发现"我被嵌在别人的页面里"，
+  然后把可交互内容全部抹掉 —— 攻击者没有可点的东西，也就劫持不了。
+-->
+<script>
+if (window.top !== window.self) {
+  var wipe = function () {
+    if (document.body) document.body.innerHTML = '';
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', wipe);
+  } else {
+    wipe();
+  }
+}
+</script>
+<style>
+  :root{
+    --bg:#f4f6fb; --panel:#ffffff; --border:#e3e7ef; --text:#1f2430; --muted:#6b7280;
+    --primary:#4361ee; --primary-dark:#3146c4; --danger:#e5484d; --ok:#2bb673;
+    --track:#eef1f7; --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    --warn:#b45309;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14161d; --panel:#1c1f29; --border:#2a2e3a; --text:#e7e9ee; --muted:#9298a8;
+      --track:#2a2e3a; --warn:#e0af68;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  header{
+    padding:20px 24px 8px; max-width:1200px; margin:0 auto;
+  }
+  header h1{ margin:0 0 4px; font-size:20px; }
+  header p{ margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
+  main{
+    display:flex; gap:20px; max-width:1200px; margin:16px auto; padding:0 24px 40px;
+    align-items:flex-start; flex-wrap:wrap;
+  }
+  .panel{
+    background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px;
+  }
+  .left{ flex:1 1 360px; min-width:320px; position:sticky; top:16px; }
+  .right{ flex:2 1 480px; min-width:320px; }
+  .left h2, .right h2{ margin:0 0 10px; font-size:14px; color:var(--muted); font-weight:600; }
+  textarea{
+    width:100%; min-height:320px; resize:vertical; padding:12px; border-radius:8px;
+    border:1px solid var(--border); background:var(--bg); color:var(--text);
+    font-family:var(--mono); font-size:13px; line-height:1.6; outline:none;
+  }
+  textarea:focus{ border-color:var(--primary); }
+  .toolbar{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center; }
+  button{
+    cursor:pointer; border:1px solid var(--border); background:var(--panel); color:var(--text);
+    border-radius:8px; padding:7px 14px; font-size:13px;
+  }
+  button:hover{ border-color:var(--primary); color:var(--primary); }
+  .status{ margin-top:10px; font-size:12px; color:var(--muted); min-height:16px; }
+  .status .bad{ color:var(--danger); }
+  .format-hint{ margin-top:14px; font-size:12px; color:var(--muted); line-height:1.7; }
+  .format-hint code{ background:var(--track); padding:1px 5px; border-radius:4px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
+  .empty{ color:var(--muted); font-size:13px; padding:30px 8px; text-align:center; border:1px dashed var(--border); border-radius:10px; }
+
+  .card{
+    border:1px solid var(--border); border-radius:10px; padding:14px; background:var(--bg);
+    display:flex; flex-direction:column; gap:10px; position:relative; transition:border-color .15s;
+  }
+  .card:hover{ border-color:var(--primary); }
+  .card.err{ border-color:var(--danger); }
+  .card-title{
+    font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .card-error-msg{ font-size:12px; color:var(--danger); line-height:1.5; word-break:break-all; }
+  .card-warn{ font-size:11px; color:var(--warn); line-height:1.5; }
+  .code-row{
+    display:flex; align-items:baseline; justify-content:space-between; gap:8px; cursor:pointer;
+    user-select:none;
+  }
+  .code{
+    font-family:var(--mono); font-size:26px; font-weight:600; letter-spacing:2px; color:var(--primary);
+  }
+  .copy-tip{ font-size:11px; color:var(--muted); }
+  .progress-track{
+    height:5px; border-radius:3px; background:var(--track); overflow:hidden;
+  }
+  .progress-bar{
+    height:100%; background:var(--primary); width:100%; transition:width 1s linear, background-color .2s;
+  }
+  .progress-bar.warn{ background:var(--warn); }
+  .progress-bar.danger{ background:var(--danger); }
+  .meta-row{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); }
+  .cd{ font-variant-numeric:tabular-nums; }
+  .cd.warn{ color:var(--warn); font-weight:600; }
+  .cd.danger{ color:var(--danger); font-weight:600; }
+  .code .sep{ letter-spacing:0; }
+
+  /* ── 下面这些是为「本地记忆」补的控件 ── */
+  select{
+    padding:6px 8px; border-radius:8px; border:1px solid var(--border); background:var(--panel);
+    color:var(--text); font-size:13px; outline:none; cursor:pointer; font-family:inherit;
+  }
+  select:focus{ border-color:var(--primary); }
+  .toolbar label{ display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted); }
+  .chk{ cursor:pointer; user-select:none; }
+  .chk input{ accent-color:var(--primary); cursor:pointer; margin:0; }
+  .pw-row{ display:flex; gap:8px; align-items:center; margin-top:10px; }
+  .pw-row input{
+    flex:1; min-width:0; padding:7px 10px; border-radius:8px; border:1px solid var(--border);
+    background:var(--bg); color:var(--text); font-family:var(--mono); font-size:13px; outline:none;
+  }
+  .pw-row input:focus{ border-color:var(--primary); }
+  .note{ margin-top:8px; font-size:12px; color:var(--muted); line-height:1.6; }
+  .note.bad{ color:var(--danger); }
+  .sr-only{
+    position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden;
+    clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; border:0;
+  }
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(8px);
+    background:var(--panel); border:1px solid var(--primary); color:var(--primary);
+    padding:8px 18px; border-radius:999px; font-size:13px; opacity:0; pointer-events:none;
+    transition:opacity .2s, transform .2s; z-index:99; box-shadow:0 6px 20px rgba(0,0,0,.12);
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  @media (max-width:820px){
+    .left{ position:static; }
+    header{ padding:16px 16px 4px; }
+    main{ padding:0 16px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>2FA 验证码工具</h1>
+  <p>每行一个「场景名 + 密钥」，左侧输入，右侧实时显示验证码与倒计时。全部在本机计算，不发送任何网络请求。</p>
+</header>
+
+<main>
+  <section class="panel left">
+    <h2>密钥场景</h2>
+    <textarea id="src" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off"
+      aria-label="密钥场景输入" data-1p-ignore data-lpignore="true" data-bwignore="true"
+      placeholder="GitHub: JBSWY3DPEHPK3PXP&#10;Google: GEZDGNBVGY3TQOJQ&#10;Cloudflare: JBSW Y3DP EHPK 3PXP&#10;otpauth://totp/Example:alice?secret=GEZDGNBVGY3TQOJQ"></textarea>
+    <div class="toolbar">
+      <label>位数
+        <select id="digits">
+          <option value="6">6 位</option>
+          <option value="8">8 位</option>
+        </select>
+      </label>
+      <label>周期
+        <select id="period">
+          <option value="30">30 秒</option>
+          <option value="60">60 秒</option>
+        </select>
+      </label>
+      <label class="chk"><input type="checkbox" id="remember"> 本地记忆</label>
+    </div>
+    <div class="toolbar">
+      <button type="button" id="demoBtn">示例</button>
+      <button type="button" id="copyAllBtn">复制全部</button>
+      <button type="button" id="clearBtn">清空</button>
+    </div>
+    <div class="pw-row" id="pwRow" style="display:none">
+      <label class="sr-only" for="pw">解锁口令</label>
+      <input type="password" id="pw" placeholder="设置一个解锁口令" autocomplete="off"
+        spellcheck="false" data-1p-ignore data-lpignore="true" data-bwignore="true">
+      <button type="button" id="pwBtn">设置口令</button>
+    </div>
+    <div class="note" id="originNote" style="display:none"></div>
+    <div class="note" id="rememberNote" style="display:none"></div>
+    <div class="status" id="stat"></div>
+    <div class="format-hint">
+      每行一条：<code>场景名称</code> 与 <code>Base32 密钥</code>（用空格、冒号、逗号或等号分隔均可），<br>
+      例：<code>GitHub: JBSWY3DPEHPK3PXP</code>；也支持直接粘贴 <code>otpauth://</code> 链接。<br>
+      <code>#</code> 开头的行会被忽略。验证码基于<b>本机时钟</b>计算，请确保系统时间准确。<br>
+      <b>刷新或离开页面会清空输入</b>：本机不保留明文密钥，需要留存请勾选「本地记忆」。
+    </div>
+  </section>
+
+  <section class="panel right">
+    <h2>验证码与倒计时</h2>
+    <div class="grid" id="list"></div>
+    <div class="empty" id="empty">在左侧输入密钥后，这里显示每个场景的实时验证码与倒计时。</div>
+  </section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ─────────── TOTP 核心（Base32 + HMAC-SHA1 + RFC 6238） ─────────── -->
+<script id="totp-core">
+'use strict';
+
+const B32_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+
+/** 去掉空格、连字符、下划线与尾部补位符，并转大写 */
+function normalizeSecret(s) {
+  return String(s).replace(/[\s\-_]/g, '').replace(/=+$/, '').toUpperCase();
+}
+
+/** 是否是合法的 Base32 字符串 */
+function isBase32(s) {
+  return /^[A-Z2-7]+$/.test(s);
+}
+
+/** Base32 解码（RFC 4648），失败返回 null */
+function base32Decode(input) {
+  const clean = normalizeSecret(input);
+  if (!clean) return null;
+  const out = [];
+  let bits = 0;
+  let value = 0;
+  for (let i = 0; i < clean.length; i++) {
+    const idx = B32_ALPHABET.indexOf(clean[i]);
+    if (idx === -1) return null;
+    value = (value << 5) | idx;
+    bits += 5;
+    if (bits >= 8) {
+      bits -= 8;
+      out.push((value >>> bits) & 0xff);
+      value &= (1 << bits) - 1;
+    }
+  }
+  return new Uint8Array(out);
+}
+
+/** SHA-1 摘要，返回 20 字节 */
+function sha1(bytes) {
+  const total = Math.ceil((bytes.length + 9) / 64) * 64;
+  const buf = new Uint8Array(total);
+  buf.set(bytes);
+  buf[bytes.length] = 0x80;
+
+  const bitLen = bytes.length * 8;
+  const hi = Math.floor(bitLen / 0x100000000);
+  const lo = bitLen >>> 0;
+  buf[total - 8] = (hi >>> 24) & 0xff;
+  buf[total - 7] = (hi >>> 16) & 0xff;
+  buf[total - 6] = (hi >>> 8) & 0xff;
+  buf[total - 5] = hi & 0xff;
+  buf[total - 4] = (lo >>> 24) & 0xff;
+  buf[total - 3] = (lo >>> 16) & 0xff;
+  buf[total - 2] = (lo >>> 8) & 0xff;
+  buf[total - 1] = lo & 0xff;
+
+  let h0 = 0x67452301, h1 = 0xefcdab89, h2 = 0x98badcfe, h3 = 0x10325476, h4 = 0xc3d2e1f0;
+  const w = new Uint32Array(80);
+
+  for (let off = 0; off < total; off += 64) {
+    for (let i = 0; i < 16; i++) {
+      const j = off + i * 4;
+      w[i] = ((buf[j] << 24) | (buf[j + 1] << 16) | (buf[j + 2] << 8) | buf[j + 3]) >>> 0;
+    }
+    for (let i = 16; i < 80; i++) {
+      const n = (w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]) >>> 0;
+      w[i] = ((n << 1) | (n >>> 31)) >>> 0;
+    }
+
+    let a = h0, b = h1, c = h2, d = h3, e = h4;
+    for (let i = 0; i < 80; i++) {
+      let f, k;
+      if (i < 20)      { f = ((b & c) | (~b & d)) >>> 0; k = 0x5a827999; }
+      else if (i < 40) { f = (b ^ c ^ d) >>> 0;             k = 0x6ed9eba1; }
+      else if (i < 60) { f = ((b & c) | (b & d) | (c & d)) >>> 0; k = 0x8f1bbcdc; }
+      else             { f = (b ^ c ^ d) >>> 0;             k = 0xca62c1d6; }
+      const tmp = ((((a << 5) | (a >>> 27)) >>> 0) + f + e + k + w[i]) >>> 0;
+      e = d;
+      d = c;
+      c = ((b << 30) | (b >>> 2)) >>> 0;
+      b = a;
+      a = tmp;
+    }
+
+    h0 = (h0 + a) >>> 0;
+    h1 = (h1 + b) >>> 0;
+    h2 = (h2 + c) >>> 0;
+    h3 = (h3 + d) >>> 0;
+    h4 = (h4 + e) >>> 0;
+  }
+
+  const out = new Uint8Array(20);
+  const hs = [h0, h1, h2, h3, h4];
+  for (let i = 0; i < 5; i++) {
+    out[i * 4]     = (hs[i] >>> 24) & 0xff;
+    out[i * 4 + 1] = (hs[i] >>> 16) & 0xff;
+    out[i * 4 + 2] = (hs[i] >>> 8) & 0xff;
+    out[i * 4 + 3] = hs[i] & 0xff;
+  }
+  buf.fill(0);   // 分组缓冲里含密钥派生材料，用完抹掉
+  w.fill(0);     // 消息调度表同样由密钥材料展开而来
+  return out;
+}
+
+function concatBytes(a, b) {
+  const out = new Uint8Array(a.length + b.length);
+  out.set(a, 0);
+  out.set(b, a.length);
+  return out;
+}
+
+/** HMAC-SHA1 */
+function hmacSha1(key, msg) {
+  const BLOCK = 64;
+  let k = key;
+  if (k.length > BLOCK) k = sha1(k);
+  const kPad = new Uint8Array(BLOCK);
+  kPad.set(k);
+  const oPad = new Uint8Array(BLOCK);
+  const iPad = new Uint8Array(BLOCK);
+  for (let i = 0; i < BLOCK; i++) {
+    oPad[i] = kPad[i] ^ 0x5c;
+    iPad[i] = kPad[i] ^ 0x36;
+  }
+  const inBlock  = concatBytes(iPad, msg);
+  const inner    = sha1(inBlock);
+  const outBlock = concatBytes(oPad, inner);
+  const outer    = sha1(outBlock);
+  // 这些中间缓冲都掺了密钥材料，算完立刻抹掉，别在内存里多留一份
+  kPad.fill(0); oPad.fill(0); iPad.fill(0);
+  inBlock.fill(0); outBlock.fill(0); inner.fill(0);
+  return outer;
+}
+
+/** 按计数窗口取动态截断的验证码（RFC 4226） */
+function hotp(secretBytes, counter, digits) {
+  const msg = new Uint8Array(8);
+  let c = counter;
+  for (let i = 7; i >= 0; i--) {
+    msg[i] = c & 0xff;
+    c = Math.floor(c / 256);
+  }
+  const h = hmacSha1(secretBytes, msg);
+  const offset = h[19] & 0x0f;
+  const bin = (((h[offset] & 0x7f) << 24) | (h[offset + 1] << 16) |
+               (h[offset + 2] << 8) | h[offset + 3]) >>> 0;
+  h.fill(0);   // HMAC 摘要由密钥派生，算完抹掉
+  msg.fill(0);
+  return String(bin % Math.pow(10, digits)).padStart(digits, '0');
+}
+
+/** TOTP（RFC 6238）：counter = floor(unixSeconds / period) */
+function totp(secretBytes, counter, digits) {
+  return hotp(secretBytes, counter, digits);
+}
+
+/** 用 Base32 字符串直接算某个时刻的验证码 */
+function totpAt(secret, unixSeconds, period, digits) {
+  const bytes = base32Decode(secret);
+  if (!bytes) return null;
+  return totp(bytes, Math.floor(unixSeconds / period), digits);
+}
+</script>
+
+<!-- ─────────── 界面逻辑 ─────────── -->
+<script>
+'use strict';
+
+
+const LS_VAULT  = '2fa-tool-vault';
+const PBKDF2_ITER = 600000;   // OWASP 对 PBKDF2-HMAC-SHA256 的建议值
+
+const srcEl     = document.getElementById('src');
+const listEl    = document.getElementById('list');
+const emptyEl   = document.getElementById('empty');
+const statEl    = document.getElementById('stat');
+const digitsEl  = document.getElementById('digits');
+const periodEl  = document.getElementById('period');
+const rememberEl = document.getElementById('remember');
+const rememberNoteEl = document.getElementById('rememberNote');
+const originNoteEl  = document.getElementById('originNote');
+const pwRowEl   = document.getElementById('pwRow');
+const pwEl      = document.getElementById('pw');
+const pwBtnEl   = document.getElementById('pwBtn');
+
+/* ── 输入解析 ── */
+
+/** 常见的 TOTP 密钥长度（Base32 字符数）：16 / 26 / 32 / 52（对应 10 / 16 / 20 / 32 字节） */
+const SECRET_LENGTHS = [16, 26, 32, 52];
+
+/**
+ * 按显式分隔符把一行切成字段（"标签: 密钥" 会切成两段）。
+ * 场景名要用各段的原文拼回去 —— 否则 "my-site-JBSWY3DPEHPK3PXP"
+ * 这样的标签会被拼成 "my site"，把连字符弄丢。
+ */
+function splitFields(line) {
+  const out = [];
+  const re = /[:：|｜=＝,，、;；]+/g;
+  let cursor = 0, m;
+  const push = (seg) => {
+    const trimmed = seg.trim();
+    if (!trimmed) return;
+    out.push({ text: trimmed });
+  };
+  while ((m = re.exec(line)) !== null) {
+    push(line.slice(cursor, m.index));
+    cursor = m.index + m[0].length;
+  }
+  push(line.slice(cursor));
+  return out;
+}
+
+/** 清掉场景名两端残留的分隔符，并把连续空白压成一个空格 */
+function cleanLabel(s) {
+  return s.replace(/\s+/g, ' ')
+          .replace(/^[\s\-_|｜·,，、;；:：=＝]+/, '')
+          .replace(/[\s\-_|｜·,，、;；:：=＝]+$/, '')
+          .trim();
+}
+
+/**
+ * 候选的"像密钥程度"：长度越标准、含数字、全大写则越可信。
+ *
+ * 但"长度标准"这条线索只在整段就是密钥时才成立：
+ *   - 单个词（"JBSWY3DPEHPK3PXP"）—— 长度即密钥长度
+ *   - 等宽分组（"JBSW Y3DP EHPK 3PXP"）—— 总长也是密钥长度
+ *   - 其余多词拼接（"GITHUB JBSWY3DPEHPK3PXPABCD"）—— 总长只是"标签长 + 密钥长"
+ *     的巧合。这时若还按总长给标准长度的加分，标签刚好把总长凑成 26/32 时，
+ *     合并串会盖过真正的密钥，工具就会给出一个看着完全正常的错误验证码。
+ */
+function secretLikeness(raw, cleaned, parts) {
+  let score = 0;
+  if (isUniformGrouping(parts)) {
+    if (SECRET_LENGTHS.indexOf(cleaned.length) >= 0) score += 3;
+    else if (cleaned.length % 4 === 0) score += 1;
+  }
+  if (!/[a-z]/.test(raw)) score += 1;                  // 密钥通常是全大写
+  // 随机密钥几乎必然含数字（16 位 Base32 不含数字的概率约 3.6%），
+  // 而人类可读的标签（账号名）通常全是字母 —— 这是区分两者的强信号。
+  if (/[2-7]/.test(cleaned)) score += 2;
+  return score;
+}
+
+/**
+ * 分组是否"等长"。
+ * 密钥常按固定宽度分组显示，但最后一段可以是余数（26 位的密钥会分成
+ * 4-4-4-4-4-4-2），所以末段更短也算等长。
+ * 另外要求首段宽度不超过总长的一半：否则"26 字符的标签 + 6 字符的碎片"
+ * 这种两段长度悬殊的拼接会被误当成一个分组密钥，把标签并进密钥里。
+ */
+function isUniformGrouping(parts) {
+  if (parts.length < 2) return true;
+  const lens = parts.map(p => p.length);
+  const last = lens[lens.length - 1];
+  const head = lens.slice(0, -1);
+  const L = head[0];
+  if (!head.every(l => l === L)) return false;
+  if (last > L) return false;
+  return L * 2 <= lens.reduce((a, b) => a + b, 0);
+}
+
+/**
+ * 多段合并的调整分。
+ * 密钥常写成 "JBSW Y3DP EHPK 3PXP" 这样的等长分组，而同一行里也可能有另一个
+ * 标签片段。两条线索用来分辨"这是同一个密钥的分组"还是"这是标签 + 密钥"：
+ *   1) 等长分组：真实密钥的分组通常等长，混进标签后就不等长了；
+ *   2) 数字证据：随机密钥几乎必然含数字，纯字母的账号名不会。
+ *      只在长度 ≥8 的片段上判断 —— 4 字符的分组含不含数字没有统计意义。
+ */
+function mergeAdjust(raw, parts) {
+  if (parts.length < 2) return 0;
+  // 每一段本身都是完整长度的密钥 —— 这就不是"一个密钥的分组"，而是好几个密钥并列，
+  // 合并它们只会得到一个不存在的长密钥。
+  if (parts.every(p => SECRET_LENGTHS.indexOf(p.length) >= 0)) return -6;
+
+  // 等宽分组是"从验证器 App 复制过来的密钥"的特征。带小写说明是手写的普通文字，
+  // 不给这个加分 —— 否则 "production production backup" 这种标签会被当成密钥。
+  let score = isUniformGrouping(parts) ? (/[a-z]/.test(raw) ? 0 : 1) : -1;
+
+  const big = parts.filter(p => p.length >= 8);
+  const hasDigit = big.map(p => /[2-7]/.test(p));
+  if (hasDigit.length && hasDigit.some(d => d !== hasDigit[0])) score -= 3;  // 有一段更像标签
+  return score;
+}
+
+/**
+ * 这个候选是不是"等宽分组的完整密钥"。
+ *
+ * 例如 32 位的密钥写成 4-4-4-4-4-4-4-4：这时中间任意连续 4 组的滑动窗口
+ * 也都是长度标准的合法 Base32，光看长度分不开。
+ * 判据是"整段等宽分组 + 总长正好是标准密钥长度 + 每一段本身都不是密钥"。
+ * 反过来，"标签 + 密钥"（PRODUCTION JBSW Y3DP EHPK 3PXP）宽度不一致，不满足这个条件，
+ * 因此不会被误伤。
+ *
+ * 代价：一行里塞了两把各 16 位、且都写成分组形式的密钥
+ * （"JBSW Y3DP EHPK 3PXP GEZD GNBV GY3T QOJQ"），和"一把 32 位密钥写成 8 组"
+ * 在字面上完全一样，工具只能按后者理解（合并成 32 位）。这是有意的取舍：
+ * 后者是常见写法，前者可以靠"一行一个场景"的规矩避免。
+ */
+function isGroupedSecretRun(c) {
+  if (c.parts.length < 2) return false;
+  if (c.parts.every(p => SECRET_LENGTHS.indexOf(p.length) >= 0)) return false;  // 那是好几个独立密钥
+  if (!isUniformGrouping(c.parts)) return false;
+  return SECRET_LENGTHS.indexOf(c.cleaned.length) >= 0;
+}
+
+/** 候选是不是某个分组密钥的一部分（少了一组或几组） */
+function isFragmentOfRun(c, runs) {
+  return runs.some(r =>
+    r.span[0] <= c.span[0] && r.span[1] >= c.span[1] &&
+    (r.span[0] < c.span[0] || r.span[1] > c.span[1]));
+}
+
+/** 字段内挑选候选时的总分 */
+function scoreCandidate(raw, cleaned, parts) {
+  return secretLikeness(raw, cleaned, parts) + mergeAdjust(raw, parts);
+}
+
+/**
+ * 枚举一段文本里所有像密钥的片段。
+ * 两种切词方式各试一遍：
+ *   1) 只按空白切 —— "JBSW Y3DP EHPK 3PXP" 这类分组密钥
+ *   2) 空白 + 连字符一起切 —— "标签-密钥" 这类写法（否则整串会被当成密钥）
+ *
+ * 这里的枚举是"段数"的平方级，如果一行里塞了几百个词就会把页面卡死，
+ * 所以先卡住上限：单段最多拆成 MAX_TOKENS 个词，候选最长 MAX_CANDIDATE_LEN 个字符。
+ * 超出上限的整行会直接报错，而不是硬算到浏览器崩溃。
+ */
+const MAX_TOKENS = 32;            // 单段最多拆成多少个词（够放很长的多词场景名）
+const MAX_CANDIDATE_LEN = 128;    // 候选最长多少字符（标准密钥最长 52，留足余量给少见的长密钥）
+const MAX_LINE_LEN = 512;         // 单行最长多少字符
+
+// word 用来定位每个词在原文中的位置，split 用来切出词本身，两者一一对应
+const TOKENIZERS = [
+  { split: /\s+/, word: /[^\s]+/g },
+  { split: /[\s\-_]+/, word: /[^\s\-_]+/g },
+];
+
+/** 每个词在原文里的起止位置，用来判断两个候选是不是前后包含关系 */
+function wordSpans(text, wordRe) {
+  const spans = [];
+  const rx = new RegExp(wordRe.source, 'g');
+  let m;
+  while ((m = rx.exec(text)) !== null) spans.push([m.index, m.index + m[0].length]);
+  return spans;
+}
+
+function findSecretCandidates(text) {
+  const cands = [];
+  for (let li = 0; li < TOKENIZERS.length; li++) {
+    const tokens = text.split(TOKENIZERS[li].split).filter(Boolean);
+    if (tokens.length > MAX_TOKENS) return null;   // 太长的一段：交由调用方报错
+    const spans = wordSpans(text, TOKENIZERS[li].word);
+    for (let i = 0; i < tokens.length; i++) {
+      for (let j = i; j < tokens.length; j++) {
+        const raw = tokens.slice(i, j + 1).join(' ');
+        const cleaned = normalizeSecret(raw);
+        if (cleaned.length < 8 || cleaned.length > MAX_CANDIDATE_LEN) continue;
+        if (!isBase32(cleaned)) continue;
+        // 分段一律按所有分隔符切（空白 + 连字符 + 下划线），
+        // 这样 "标签-密钥" 这种写法也能看出它其实是两段。
+        const parts = raw.split(/[\s\-_]+/).filter(Boolean).map(normalizeSecret);
+        cands.push({
+          li, tokens, i, j, raw, cleaned, parts,
+          span: [spans[i][0], spans[j][1]],
+          score: scoreCandidate(raw, cleaned, parts),
+        });
+      }
+    }
+  }
+  return cands;
+}
+
+/**
+ * 候选是不是"够格"当密钥 —— 一道硬门槛，不够格的一律不算。
+ *
+ * 只靠长度打分太宽松：一句英文散文去掉空格后正好 16 个字母（"my production
+ * account for the website"），会被当成密钥，工具就会给出一个永远对不上的验证码。
+ * 所以这里要求至少有一条强证据：
+ *   1) 长度 ≥ 16 且含数字 —— 随机 Base32 几乎必然含 2-7；
+ *   2) 长度正好是标准值（16/26/32/52）且全是大写形态 —— 不含数字时走这条，
+ *      界面上会给出"可能不是密钥"的警告。
+ * 多段拼起来的候选还要再过一道：
+ *   - 等宽分组（"JBSW Y3DP EHPK 3PXP"）直接放行；
+ *   - 宽度不齐时，只有"整段长度正好是标准密钥长度、里面没有任何一段本身就是
+ *     完整密钥、而且每一段都带数字"才放行。少一条都不行：
+ *     "GITHUB <26 位密钥>" 拼起来正好 32 位，放行就会给出一把完全不对的验证码。
+ */
+function candidateStrength(c, hasSep) {
+  const stdLen = SECRET_LENGTHS.indexOf(c.cleaned.length) >= 0;
+  const hasDigit = /[2-7]/.test(c.cleaned);
+  const upperShape = !/[a-z]/.test(c.raw);
+  // 用户明确写了分隔符（"场景名: 密钥"）时，才允许短于标准长度的密钥；
+  // 否则一行里随便一个带数字的短词（"ACCOUNT2"）都会被当成密钥。
+  const minLen = hasSep ? 8 : 16;
+
+  if (c.parts.length >= 2 && !isUniformGrouping(c.parts)) {
+    const partIsStd = c.parts.some(p => SECRET_LENGTHS.indexOf(p.length) >= 0);
+    if (!stdLen || partIsStd) return 0;
+    if (!c.parts.every(p => /[2-7]/.test(p))) return 0;
+  }
+
+  // 含数字且长度够：最强的证据。标准长度再高一档。
+  if (hasDigit && c.cleaned.length >= minLen) return stdLen ? 3 : 2;
+
+  // 不含数字：随机 Base32 有 3.4% 的概率一个数字都没有，所以不能一律拒绝；
+  // 但也不能什么都收 —— 一句英文散文去掉空格后正好 16 个字母时，
+  // 收下它就等于给出一个永远对不上的验证码。
+  // 所以只收"整段就是一个词"的（大小写都行），或者整段全大写的（手抄密钥的形态）。
+  if (stdLen && (upperShape || c.parts.length === 1)) return 1;
+
+  // 长度不标准的纯字母串（21 位、30 位……）更可能是英文句子而不是密钥。
+  // 只有用户明确写了分隔符时才收下 —— 这时至少说明他知道自己在写什么，
+  // 界面也会同时提示"长度不对"和"不含数字"。
+  if (hasSep && upperShape && c.cleaned.length >= 8) return 1;
+  return 0;
+}
+
+/**
+ * 场景名里若还留着一段"像密钥"的内容，这一行就有两种可能：
+ * 一是场景名和密钥写反了，二是这一行本来就塞了两把密钥。
+ *
+ * 这两种情况在字面上几乎分不开 —— 真正的随机 Base32 有 3.4% 的概率
+ * 一个数字都没有，而场景名只要凑够 16 个大写字母就能以假乱真
+ * （"ACME2345CORPABCD GNXYMZXVFVOEVTCX" 里哪段是名字、哪段是密钥，
+ * 光看文字判断不了）。解析器不替用户猜，但也不能一声不响：
+ * 把这一行标出来让人去核对，好过悄悄给出一个看着正常却对不上的验证码。
+ *
+ * 判据要和解析器保持一致：这段残留"自己会不会被当成密钥"
+ * （用同一套 candidateStrength 的规则），再要求长度 ≥ 16 ——
+ * 短于 16 位的不可能是密钥，不该为此打扰用户；
+ * 判据若只看长度，一句普通的英文场景名（"My Enterprise Account"）
+ * 也会被报成"像密钥"，白白打扰用户。
+ */
+function leftoverKeyWarning(c, hasSep) {
+  const alt = c.keep.filter(t => {
+    const cleaned = normalizeSecret(t);
+    if (cleaned.length < 16) return false;
+    const parts = t.split(/[\s\-_]+/).filter(Boolean).map(normalizeSecret);
+    return candidateStrength({ raw: t, cleaned, parts }, hasSep) > 0;
+  });
+  if (!alt.length) return '';
+  return '场景名里也有一段像密钥的内容（' + alt[0] + '）—— 若那才是密钥，请把两段调换顺序';
+}
+
+/**
+ * 从一行里找出密钥与场景名 */
+function extractSecret(line) {
+  const fields = splitFields(line);
+  if (!fields.length) return null;
+  // 行里写了明确的分隔符（"场景名: 密钥"）—— 这是用户主动说明了"哪段是密钥"
+  const hasSep = fields.length >= 2;
+
+  // 收集整行里所有候选，并算出各自的"剩余文本"（也就是场景名）
+  const cands = [];
+  for (let fi = 0; fi < fields.length; fi++) {
+    const field = fields[fi];
+    const list = findSecretCandidates(field.text);
+    // 一段里塞了太多词 —— 硬算会把页面卡死，直接报这一行无法识别
+    if (!list) return { error: '这一行的内容太长，无法识别。请一行只写一个场景与密钥。' };
+    // 这一段里"等宽分组的完整密钥"。它少了一两组的碎片同样长得像密钥，
+    // 但碎片不该跟整段并列 —— 否则 52 位的分组密钥会和它自己的前 16 位打平。
+    const runs = list.filter(isGroupedSecretRun);
+    list.forEach(c => {
+      const strength = candidateStrength(c, hasSep);
+      if (!strength) return;
+      // 本字段里挖掉候选之后剩下的原文（保留连字符等原样字符）。
+      // 场景名按原文顺序拼：前面的字段在前，本字段剩下的部分在后 ——
+      // "工作:账号 <密钥>" 拼出来才是"工作 账号"而不是"账号 工作"。
+      const pieces = [];
+      fields.forEach((f, k) => {
+        if (k === fi) pieces.push(f.text.slice(0, c.span[0]) + f.text.slice(c.span[1]));
+        else pieces.push(f.text);
+      });
+      const leftover = pieces.map(t => t.trim()).filter(Boolean);
+      const frag = isFragmentOfRun(c, runs);
+      cands.push({
+        fi, j: c.j, li: c.li, span: c.span, cleaned: c.cleaned, leftover, strength, frag,
+        // evidence 只衡量"这段文字本身有多像密钥"，不含位置偏好 ——
+        // 位置偏好放在最后挑选时用。否则真正的并列（同一行有两种读法）
+        // 会被位置的加分掩盖，工具就会悄悄挑一个给出错误的验证码。
+        evidence: c.score - (frag ? 2 : 0),
+      });
+    });
+  }
+  if (!cands.length) return { error: '未找到合法的 Base32 密钥' };
+
+  // 先按"像密钥的程度"分层：同一行里如果既有货真价实的密钥、又有只沾边的碎片，
+  // 只在最强的那一层里挑。否则一块 16 位全大写但没有数字的碎片
+  // （多半是场景名）能凭"长度刚好标准"压过真正的密钥。
+  const maxStrength = cands.reduce((m, c) => Math.max(m, c.strength), 0);
+  const strong = cands.filter(c => c.strength === maxStrength);
+
+  const maxEvidence = strong.reduce((m, c) => Math.max(m, c.evidence), -Infinity);
+  let top = strong.filter(c => c.evidence === maxEvidence);
+
+  // 证据分打平时，再看剩下的文字（也就是场景名）像不像人话：
+  // 随机密钥才爱出现 2-7 这些数字，标签里出现它们，多半说明这一段其实是密钥的一部分。
+  // 例如 "GEZD GNBV GY3T QOJQ ACME CORP"：当 "ACME" 被当成第四组时，
+  // 剩下的 "36QH" 这种随机碎片带数字，而 "ACME CORP" 不带 —— 据此分出高下。
+  const labelDigits = c => c.leftover.filter(t => /[2-7]/.test(t)).length;
+  const fewestDigits = top.reduce((m, c) => Math.min(m, labelDigits(c)), Infinity);
+  top = top.filter(c => labelDigits(c) === fewestDigits);
+
+  // 证据分并列、而且并列的几段都是标准长度的合法 Base32 —— 说明这行有多种
+  // 合理解释（同一段里的两个片段，或两个字段各像一段密钥）。
+  // 宁可报错，也不能随便挑一个给出错误的验证码。
+  const distinct = [];
+  top.forEach(c => { if (!distinct.some(d => d.cleaned === c.cleaned)) distinct.push(c); });
+  const stdRivals = distinct.filter(c => SECRET_LENGTHS.indexOf(c.cleaned.length) >= 0);
+  if (stdRivals.length > 1) {
+    const crossField = stdRivals.some(c => c.fi !== stdRivals[0].fi);
+    return { error: crossField
+      ? '这一行的场景名和密钥都像密钥，无法确定哪个是密钥。请把场景名改成更好认的名字，或把密钥单独写一行。'
+      : '这一行有多种合理解释，无法确定哪个是密钥。请用「场景名: 密钥」明确指定，或把密钥写成一整串（不要用空格分组）' };
+  }
+
+  // 只有一个解释时，按"场景名在前、密钥在后"的约定取分最高的那一段。
+  //
+  // 注意这里的取舍：两段都像密钥时，"含数字"这条证据比位置更可信
+  // （随机密钥有 96.4% 的概率含 2-7，而场景名几乎不含）。所以当场景名
+  // 恰好也长得像密钥、而密钥本身不含数字时，会取到场景名那一段 ——
+  // 这种情形没法从字面上分辨（见 leftoverKeyWarning），
+  // 只能靠界面上那条提示让人自己核对。
+  let best = top.reduce((b, c) => {
+    if (!b) return c;
+    const sc = c.evidence + (c.fi === fields.length - 1 ? 1 : 0);
+    const sb = b.evidence + (b.fi === fields.length - 1 ? 1 : 0);
+    if (sc !== sb) return sc > sb ? c : b;
+    if (c.cleaned.length !== b.cleaned.length) return c.cleaned.length > b.cleaned.length ? c : b;
+    if (c.fi !== b.fi) return c.fi > b.fi ? c : b;    // 后面的字段："场景名在前、密钥在后"
+    if (c.li !== b.li) return c.li < b.li ? c : b;    // 优先用空白切词，标签更完整
+    return c.j > b.j ? c : b;                          // 同长时取靠后的一段
+  }, null);
+
+  // 赢家短于 16 位：TOTP 密钥不可能这么短（RFC 6238 至少 128 位，
+  // 也就是 16 个 Base32 字符），所以这一段一定是场景名，不是密钥。
+  // 这时如果后面还有一段标准长度的候选，那才是真正的密钥 ——
+  // "ACCOUNT2: GNXYMZXVFVOEVTCX" 里的 "ACCOUNT2" 只有 8 位，是场景名；
+  // 密钥是后面那段 16 位的。
+  //
+  // 这里为什么敢压过"含数字"那条证据：只有赢家短于 16 位才会走到这一步，
+  // 而"赢家含数字"在这种情况下毫无意义 —— 它根本不可能是密钥。
+  // （反过来不行：赢家只要够长，"长度不标准"就不代表它不是密钥 ——
+  //   18 位、20 位的密钥是存在的，不能因为它不是 16/26/32/52 就换掉。）
+  //
+  // 只在"后面"找：页面上的约定是「场景名在前、密钥在后」。
+  // 反过来的写法（密钥在前）若也撞上"标签含数字、密钥不含数字"，
+  // 字面上分不出来 —— 底下的提示会告诉用户把两段调换顺序，调换后就对了。
+  let displaced = null;
+  if (best.cleaned.length < 16) {
+    const later = cands.filter(c =>
+      !c.frag &&
+      SECRET_LENGTHS.indexOf(c.cleaned.length) >= 0 &&
+      (c.fi > best.fi || (c.fi === best.fi && c.span[0] >= best.span[1])));
+    const distinctLater = [];
+    later.forEach(c => { if (!distinctLater.some(d => d.cleaned === c.cleaned)) distinctLater.push(c); });
+    if (distinctLater.length > 1) {
+      // 后面的内容有两段都像密钥 —— 和上面一样分不出来，宁可报错。
+      return { error: '这一行有多段长度都符合密钥的内容，无法确定哪一段是密钥。请把场景名改成更好认的名字（如「生产环境」），或把密钥单独写一行。' };
+    }
+    if (distinctLater.length === 1) {
+      displaced = best;
+      best = distinctLater[0];
+    }
+  }
+
+  // 场景名里不能混进密钥本身："secret: JBSW… JBSW…" 这种一行的场景名
+  // 若把第二份密钥也留下，界面上就会把密钥显示在场景名里。
+  // 只拿"和赢家一样有资格"的那些来比对 —— 分数低一档的候选多半是场景名
+  // （"WORKACCOUNTSERVER" 这种全大写标签），误删了场景名就没了。
+  const secretSet = new Set(top.map(c => c.cleaned));
+  // 补选时被换掉的那一段已经判定是场景名，不能当成密钥剔掉；
+  // 换上来的那段则要算进密钥集合（它多半不在 top 里）。
+  if (displaced) secretSet.delete(displaced.cleaned);
+  secretSet.add(best.cleaned);
+  cands.forEach(c => {
+    // 剩下的这些片段才是真正的"场景名"：把与密钥本身重复的部分剔掉
+    c.keep = c.leftover.filter(t => !secretSet.has(normalizeSecret(t)));
+    c.label = cleanLabel(c.keep.join(' '));
+  });
+
+  return {
+    label: best.label,
+    secret: best.cleaned,
+    length: best.cleaned.length,
+    warn: leftoverKeyWarning(best, hasSep)
+  };
+}
+
+/** 解析 otpauth://totp/... 链接 */
+function parseOtpauth(uri) {
+  const m = uri.match(/^otpauth:\/\/([^?]*)\??(.*)$/i);
+  if (!m) return { error: '无法识别的 otpauth 链接' };
+  const type = (m[1].split('/')[0] || '').toLowerCase();
+  if (type && type !== 'totp') return { error: '暂不支持 ' + type.toUpperCase() + '（计数型）密钥' };
+
+  let path = '';
+  const slash = m[1].indexOf('/');
+  if (slash >= 0) path = m[1].slice(slash + 1);
+  const query = m[2] || '';
+
+  const params = new URLSearchParams(query);
+  const secret = params.get('secret') || '';
+  const issuer = params.get('issuer') || '';
+
+  const algorithm = (params.get('algorithm') || 'SHA1').toUpperCase();
+  if (algorithm !== 'SHA1') {
+    return { error: '该链接使用 ' + algorithm + ' 算法，本工具仅支持 SHA-1' };
+  }
+  let label = path;
+  try { label = decodeURIComponent(path); } catch (e) { /* 保留原样 */ }
+
+  // "Issuer:account" → "account"，并把 issuer 补到名字后面
+  const colon = label.indexOf(':');
+  let account = label;
+  let issuerFromPath = '';
+  if (colon >= 0) {
+    issuerFromPath = label.slice(0, colon).trim();
+    account = label.slice(colon + 1).trim();
+  }
+  const issuerName = issuerFromPath || issuer;
+  if (account && issuerName && account.toLowerCase() !== issuerName.toLowerCase()) {
+    label = account + ' (' + issuerName + ')';
+  } else {
+    label = account || issuerName || '未命名';
+  }
+
+  const digitsRaw = parseInt(params.get('digits'), 10);
+  if (isFinite(digitsRaw) && [6, 7, 8].indexOf(digitsRaw) < 0) {
+    return { error: '该链接指定了 ' + digitsRaw + ' 位验证码，本工具支持 6 / 7 / 8 位' };
+  }
+  const periodRaw = parseInt(params.get('period'), 10);
+
+  return {
+    label: label,
+    secret: normalizeSecret(secret),
+    length: normalizeSecret(secret).length,
+    digits: [6, 7, 8].indexOf(digitsRaw) >= 0 ? digitsRaw : 0,
+    period: (isFinite(periodRaw) && periodRaw > 0) ? periodRaw : 0
+  };
+}
+
+/** 解析整段文本，返回条目数组 */
+function parseEntries(text) {
+  const defDigits = parseInt(digitsEl.value, 10) || 6;
+  const defPeriod = parseInt(periodEl.value, 10) || 30;
+  const entries = [];
+
+  text.split(/\r?\n/).forEach((rawLine, idx) => {
+    const line = rawLine.trim();
+    if (!line) return;
+    if (line.startsWith('#') || line.startsWith('//')) return;
+
+    // 一行过长基本不可能是"一行一个场景"，直接报错，别让解析器去硬算
+    if (line.length > MAX_LINE_LEN) {
+      entries.push({
+        name: '第 ' + (idx + 1) + ' 行',
+        error: '这一行超过 ' + MAX_LINE_LEN + ' 个字符，无法识别。请一行只写一个场景与密钥。'
+      });
+      return;
+    }
+
+    // otpauth 链接可以独占一行，也可以跟在标签后面
+    const uriMatch = line.match(/otpauth:\/\/\S*/i);
+    if (uriMatch) {
+      const prefix = line.slice(0, uriMatch.index).replace(/[:：|｜=＝,，、;；\s]+$/, '').trim();
+      const parsed = parseOtpauth(uriMatch[0]);
+      if (parsed.error) {
+        entries.push({ name: prefix || '第 ' + (idx + 1) + ' 行', error: parsed.error });
+        return;
+      }
+      if (!isBase32(parsed.secret)) {
+        entries.push({ name: parsed.label, error: '链接中的 secret 不是合法的 Base32 密钥' });
+        return;
+      }
+      // 过短的 secret 一定不是有效的 TOTP 密钥（标准为 16 / 26 / 32 字符），
+      // 直接算错，避免算出一个看着像模像样却永远对不上的验证码。
+      if (parsed.secret.length < 8) {
+        entries.push({ name: parsed.label, error: '链接中的密钥只有 ' + parsed.secret.length + ' 个字符，不足以构成有效的 TOTP 密钥' });
+        return;
+      }
+      entries.push({
+        name: prefix ? prefix + ' · ' + parsed.label : parsed.label,
+        secret: parsed.secret,
+        length: parsed.length,
+        digits: parsed.digits || defDigits,
+        period: parsed.period || defPeriod
+      });
+      return;
+    }
+
+    const found = extractSecret(line);
+    if (!found) {
+      entries.push({ name: '第 ' + (idx + 1) + ' 行', error: '未找到合法的 Base32 密钥' });
+      return;
+    }
+    if (found.error) {
+      entries.push({ name: '第 ' + (idx + 1) + ' 行', error: found.error });
+      return;
+    }
+    entries.push({
+      name: found.label || '未命名',
+      secret: found.secret,
+      length: found.length,
+      digits: defDigits,
+      period: defPeriod,
+      warn: found.warn
+    });
+  });
+
+  return entries;
+}
+
+
+
+/* ── 渲染 ── */
+
+const state = { entries: [], rows: [] };
+
+/** 把内存里的明文密钥和解码后的字节抹掉（清空、离开页面、取消记忆时用） */
+function wipeState() {
+  state.rows.forEach(r => { if (r.bytes) r.bytes.fill(0); });
+  state.entries.forEach(e => { e.secret = ''; });
+  state.rows = [];
+  state.entries = [];
+}
+
+function render() {
+  state.entries = parseEntries(srcEl.value);
+  listEl.innerHTML = '';
+  // 旧行的密钥字节要抹掉再丢 —— 直接把 state.rows 清空会让上一轮解出的
+  // 密钥字节在内存里多留一份（等 GC 回收），和这个页面"不留明文密钥"的
+  // 前提对不上。
+  state.rows.forEach(r => { if (r.bytes) r.bytes.fill(0); });
+  state.rows = [];
+
+  const valid = state.entries.filter(e => !e.error);
+  const invalid = state.entries.filter(e => e.error);
+
+  state.entries.forEach(entry => {
+    const card = document.createElement('div');
+    card.className = 'card' + (entry.error ? ' err' : '');
+
+    const title = document.createElement('div');
+    title.className = 'card-title';
+    title.textContent = entry.name;
+    title.title = entry.name;
+    card.appendChild(title);
+
+    if (entry.error) {
+      const msg = document.createElement('div');
+      msg.className = 'card-error-msg';
+      msg.textContent = entry.error;
+      card.appendChild(msg);
+      listEl.appendChild(card);
+      return;
+    }
+
+    const codeRow = document.createElement('div');
+    codeRow.className = 'code-row';
+    codeRow.dataset.act = 'copy';
+    codeRow.title = '点击复制验证码';
+    const codeEl = document.createElement('div');
+    codeEl.className = 'code';
+    const copyTip = document.createElement('div');
+    copyTip.className = 'copy-tip';
+    copyTip.textContent = '点击复制';
+    codeRow.appendChild(codeEl);
+    codeRow.appendChild(copyTip);
+
+    const track = document.createElement('div');
+    track.className = 'progress-track';
+    const fill = document.createElement('div');
+    fill.className = 'progress-bar';
+    track.appendChild(fill);
+
+    const metaRow = document.createElement('div');
+    metaRow.className = 'meta-row';
+    const cdEl = document.createElement('span');
+    cdEl.className = 'cd';
+    const metaEl = document.createElement('span');
+    metaEl.className = 'meta';
+    metaEl.textContent = entry.digits + ' 位 / ' + entry.period + ' 秒';
+    metaRow.appendChild(cdEl);
+    metaRow.appendChild(metaEl);
+
+    card.appendChild(codeRow);
+    card.appendChild(track);
+    card.appendChild(metaRow);
+
+    // 密钥长度不标准、或压根不含数字 —— 多半不是密钥，提醒一下
+    // 比算出一个永远对不上的验证码强。
+    const warnings = [];
+    if (SECRET_LENGTHS.indexOf(entry.length) < 0) {
+      warnings.push('密钥长度 ' + entry.length + ' 字符，请核对');
+    }
+    // 随机密钥几乎必然含数字（16 位 Base32 不含数字的概率约 3.6%），
+    // 而一句英文散文去掉空格后往往正好是 16 个字母。
+    if (!/[2-7]/.test(entry.secret)) {
+      warnings.push('密钥不含数字，可能不是密钥');
+    }
+    warnings.forEach(w => {
+      const el = document.createElement('div');
+      el.className = 'card-warn';
+      el.textContent = '⚠ ' + w;
+      card.appendChild(el);
+    });
+
+    card.dataset.idx = String(state.rows.length);
+    listEl.appendChild(card);
+
+    // 预先建好分组结构，之后只改文本，不重建 DOM
+    const groups = [];
+    const groupSize = entry.digits === 8 ? 4 : Math.ceil(entry.digits / 2);
+    for (let i = 0; i < entry.digits; i += groupSize) {
+      if (i > 0) {
+        const sep = document.createElement('span');
+        sep.className = 'sep';
+        sep.textContent = ' ';
+        codeEl.appendChild(sep);
+      }
+      const g = document.createElement('span');
+      g.className = 'g';
+      codeEl.appendChild(g);
+      groups.push(g);
+    }
+
+    state.rows.push({
+      entry: entry,
+      bytes: base32Decode(entry.secret),
+      codeEl: codeEl,
+      groups: groups,
+      groupSize: groupSize,
+      fillEl: fill,
+      barEl: fill,
+      cdEl: cdEl,
+      cdText: '',
+      counter: -1,
+      code: ''
+    });
+  });
+
+  emptyEl.style.display = state.entries.length ? 'none' : '';
+
+  let stat = '共 ' + valid.length + ' 个场景';
+  statEl.textContent = stat;
+  if (invalid.length) {
+    const bad = document.createElement('span');
+    bad.className = 'bad';
+    bad.textContent = ' · ' + invalid.length + ' 行无法识别';
+    statEl.appendChild(bad);
+  }
+
+  tick();
+}
+
+/** 刷新验证码与倒计时 */
+function tick() {
+  const nowSec = Math.floor(Date.now() / 1000);
+
+  state.rows.forEach(row => {
+    if (!row.bytes) return;
+    const period = row.entry.period;
+    const counter = Math.floor(nowSec / period);
+    const remain = period - (nowSec % period);
+
+    if (counter !== row.counter) {
+      row.counter = counter;
+      row.code = totp(row.bytes, counter, row.entry.digits);
+      row.groups.forEach((g, i) => {
+        g.textContent = row.code.substr(i * row.groupSize, row.groupSize);
+      });
+    }
+
+    row.fillEl.style.width = (remain / period * 100).toFixed(2) + '%';
+    // 倒计时文本每秒才变一次，没必要每 250ms 都往 DOM 里写一遍
+    const cdText = remain + ' 秒后失效';
+    if (row.cdText !== cdText) {
+      row.cdEl.textContent = cdText;
+      row.cdText = cdText;
+    }
+    // 三档：正常(主色) / 即将失效(黄) / 马上失效(红)
+    const level = remain <= 5 ? 'danger' : (remain <= 10 ? 'warn' : '');
+    row.barEl.className = 'progress-bar' + (level ? ' ' + level : '');
+    row.cdEl.className = 'cd' + (level ? ' ' + level : '');
+  });
+}
+
+setInterval(tick, 250);
+
+/* ── 交互 ── */
+
+function copyText(s) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(s).catch(() => fallbackCopy(s));
+  }
+  return fallbackCopy(s);
+}
+
+function fallbackCopy(s) {
+  const ta = document.createElement('textarea');
+  ta.value = s;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  document.body.removeChild(ta);
+  return ok ? Promise.resolve() : Promise.reject(new Error('copy failed'));
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => t.classList.remove('show'), 1500);
+}
+
+function copyCode(i) {
+  const row = state.rows[i];
+  if (!row || !row.code) return;
+  copyText(row.code)
+    .then(() => toast('已复制验证码 ' + row.code))
+    .catch(() => toast('复制失败，请手动选中验证码复制'));
+}
+
+function copyAll() {
+  const codes = state.rows.filter(r => r.code).map(r => r.code);
+  if (!codes.length) { toast('没有可复制的验证码'); return; }
+  copyText(codes.join('\n'))
+    .then(() => toast('已复制 ' + codes.length + ' 个验证码'))
+    .catch(() => toast('复制失败，请手动选中验证码复制'));
+}
+
+function clearAll() {
+  // 记下"本机原本有没有留下记录"（可用的或损坏的都算），清空后好如实告知用户
+  const hadVault = vaultExists() || vaultBroken();
+  // 一次点击就同时清空输入并删除本机密钥库，且无法撤销 —— 先确认
+  if (!confirm('将清空输入框，并删除本机保存的加密密钥，确定继续？')) return;
+  invalidateVaultOps();          // 作废在途的保存/解锁，防止删完之后又被写回来
+  clearTimeout(inputTimer);      // 取消待执行的防抖，避免清空后又把旧内容存回去
+  srcEl.value = '';
+  wipeState();                   // 内存里的明文密钥和字节一并抹掉
+  dropVault();
+  vault.key = null;
+  vault.salt = null;
+  rememberEl.checked = false;
+  pwEl.value = '';
+  syncVaultUI();
+  render();
+  srcEl.focus();
+  if (hadVault) setNote('✓ 已清空输入，并删除本机保存的加密密钥。', false);
+}
+
+function loadDemo() {
+  // 只有"已解锁"时，示例内容才会真的覆盖本机保存的密钥；
+  // 上锁状态下保存的是密文，解锁时会先询问要不要覆盖当前输入。
+  const overwritesVault = !!vault.key;
+  const msg = overwritesVault
+    ? '「示例」会覆盖当前输入与本机已保存的密钥，确定继续？'
+    : '「示例」会覆盖当前输入内容，确定继续？';
+  if ((srcEl.value.trim() || overwritesVault) && !confirm(msg)) return;
+  srcEl.value = [
+    'GitHub: JBSWY3DPEHPK3PXP',
+    'Google: GEZDGNBVGY3TQOJQ',
+    'Cloudflare: JBSW Y3DP EHPK 3PXP',
+    'otpauth://totp/Demo:alice?secret=GEZDGNBVGY3TQOJQ&issuer=Demo'
+  ].join('\n');
+  onSourceChanged();
+}
+
+
+/* ── 本地记忆：口令加密存储 ──
+ *
+ * 密钥不以明文落地：口令经 PBKDF2-SHA256（600k 次）派生出 AES-GCM-256 密钥，
+ * 本地只保存「盐 + IV + 密文」，口令与派生密钥都只存在于内存中。
+ * 页面载入时绝不自动恢复内容 —— 必须由用户输入口令显式解锁，
+ * 以免共用设备时直接显示上一个人的验证码。
+ */
+
+const vault = { key: null, salt: null };   // key / salt 只在内存中
+let saveSeq = 0;
+// 每次"删除/清空"都让 epoch 自增。PBKDF2 要跑几百毫秒，这中间用户完全可能
+// 又点了清空；用 epoch 给在途的异步操作发一张"此票已作废"的凭证，
+// 免得删完之后，旧的异步结果又把密钥写回去。
+let vaultEpoch = 0;
+
+/** 作废所有在途的加解密操作 */
+function invalidateVaultOps() {
+  vaultEpoch++;
+  saveSeq++;
+}
+
+const cryptoOK = !!(window.crypto && window.crypto.subtle && window.TextEncoder && window.TextDecoder);
+
+function b64(bytes) {
+  const b = new Uint8Array(bytes);
+  let s = '';
+  for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s);
+}
+
+function unb64(str) {
+  const s = atob(str);
+  const b = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i++) b[i] = s.charCodeAt(i);
+  return b;
+}
+
+/** 解 base64；本机数据损坏时返回 null，而不是把异常抛给调用方 */
+function unb64Safe(str) {
+  try { return unb64(str); } catch (e) { return null; }
+}
+
+async function deriveVaultKey(passphrase, salt) {
+  const base = await crypto.subtle.importKey(
+    'raw', new TextEncoder().encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: salt, iterations: PBKDF2_ITER, hash: 'SHA-256' },
+    base,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']);
+}
+
+// 附加认证数据：把密文绑定到"本工具的这个版本"上。
+// 换一段 AAD 就解不开 —— 但 AAD 本身写在页面源码里，不是秘密：
+// 它挡的是"别的工具顺手拿这份密文来解"这种情况，
+// 挡不住"页面源码泄露"这种情况（那本来就该靠口令强度顶着）。
+// 放在函数里而不是顶层：顶层求值会把整个页面绑死在 WebCrypto 一定可用的假设上。
+function vaultAAD() { return new TextEncoder().encode('2fa-tool-vault:v1'); }
+
+async function encryptText(text, key) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv: iv, additionalData: vaultAAD() },
+    key, new TextEncoder().encode(text));
+  return { iv: b64(iv), ct: b64(ct) };
+}
+
+async function decryptText(iv, ct, key) {
+  const plain = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: iv, additionalData: vaultAAD() },
+    key, ct);
+  return new TextDecoder().decode(plain);
+}
+
+/**
+ * 读本机密钥库，区分三种情况：
+ *   { v: 记录 }        —— 有一条可用的密文
+ *   { v: null, broken: true }  —— 有记录但结构坏了（不是"没有"，不能静默删掉）
+ *   { v: null, broken: false } —— 本机没有记录
+ */
+function vaultState() {
+  let raw = null;
+  try { raw = localStorage.getItem(LS_VAULT); } catch (e) { return { v: null, broken: false }; }
+  if (!raw) return { v: null, broken: false };
+  try {
+    const v = JSON.parse(raw);
+    if (v && v.v === 1 && v.salt && v.iv && v.ct) return { v: v, broken: false };
+  } catch (e) { /* 落到下面当成损坏 */ }
+  return { v: null, broken: true };
+}
+
+function readVault() { return vaultState().v; }
+
+function writeVault(v) {
+  localStorage.setItem(LS_VAULT, JSON.stringify(v));
+}
+
+function dropVault() {
+  try { localStorage.removeItem(LS_VAULT); } catch (e) { /* 忽略 */ }
+}
+
+function vaultExists() { return !!readVault(); }
+
+/** 本机有一条读不出来的记录：不能当成"没有"，也不该被静默删掉 */
+function vaultBroken() { return vaultState().broken; }
+
+function setNote(text, bad) {
+  rememberNoteEl.textContent = text;
+  rememberNoteEl.className = 'note' + (bad ? ' bad' : '');
+  rememberNoteEl.style.display = text ? '' : 'none';
+}
+
+/** 按「是否勾选 / 是否有密文 / 是否已解锁」刷新口令框与提示 */
+function syncVaultUI() {
+  if (!rememberEl.checked) {
+    pwRowEl.style.display = 'none';
+    pwEl.value = '';
+    // 有一条读不出来的残留记录时明确告知：它解不开，也不能被悄悄抹掉
+    if (vaultBroken()) {
+      setNote('⚠️ 本机有一条已损坏的密钥记录，无法解锁；点「清空」可将其删除。', true);
+    } else {
+      setNote('', false);
+    }
+    return;
+  }
+  if (vault.key) {
+    pwRowEl.style.display = 'none';
+    pwEl.value = '';
+    setNote('🔒 已解锁：密钥以密文保存在本机（口令不会被保存）。', false);
+    return;
+  }
+  const has = vaultExists();
+  pwRowEl.style.display = '';
+  pwBtnEl.textContent = has ? '解锁' : '设置口令';
+  pwEl.placeholder = has ? '输入口令解锁' : '设置一个解锁口令';
+  setNote(has
+    ? '🔒 本机存有加密的密钥，需要你输入口令解锁；为安全起见不会自动恢复内容。'
+    : '🔒 输入一个口令后才开始保存：密钥将以密文存在本机，口令不会被保存。', false);
+}
+
+/** 当前下拉框里的位数与周期。这两个只是算码参数、不是机密，可以明文存在记录里 */
+function currentDefaults() {
+  return {
+    digits: parseInt(digitsEl.value, 10) || 6,
+    period: parseInt(periodEl.value, 10) || 30
+  };
+}
+
+/**
+ * 解锁后把记下来的位数与周期恢复回下拉框。
+ * 不恢复的话，8 位 / 60 秒的服务会被按默认的 6 位 / 30 秒算出另一个"看着正常"的验证码。
+ */
+function applyVaultDefaults(def) {
+  if (!def) return;
+  if (def.digits === 6 || def.digits === 8) digitsEl.value = String(def.digits);
+  if (def.period === 30 || def.period === 60) periodEl.value = String(def.period);
+}
+
+/** 把当前输入加密后写入本机；未解锁时什么都不做 */
+async function saveSecret() {
+  const epoch = vaultEpoch;                 // 记下当前世代
+  try {
+    if (!rememberEl.checked) {
+      // 不勾选"记忆"时不做任何删除：删除只发生在用户明确确认的路径上
+      // （取消勾选 / 点「清空」）。否则敲一个字符就会静默抹掉本机数据。
+      invalidateVaultOps();      // 作废在途的保存，避免取消勾选后又被写回密文
+      vault.key = null;
+      vault.salt = null;
+      return;
+    }
+    if (!vault.key) return;                 // 还没设口令：不落任何东西
+    const text = srcEl.value;
+    if (!text.trim()) {                      // 内容清空 → 连密文一起删掉，不留残骸
+      invalidateVaultOps();
+      dropVault();
+      vault.key = null;
+      vault.salt = null;
+      rememberEl.checked = false;
+      syncVaultUI();
+      setNote('✓ 输入已清空，本机保存的密钥已一并删除。', false);
+      return;
+    }
+    const seq = ++saveSeq;
+    // 快照：await 期间 vault.key / vault.salt 可能被清掉
+    const key = vault.key, salt = vault.salt;
+    const payload = await encryptText(text, key);
+    if (seq !== saveSeq || epoch !== vaultEpoch) return;   // 期间被作废，丢弃这次结果
+    writeVault({ v: 1, salt: b64(salt), iv: payload.iv, ct: payload.ct, def: currentDefaults() });
+  } catch (e) {
+    setNote('⚠️ 保存失败：' + (e && e.message ? e.message : '未知错误'), true);
+  }
+}
+
+/** 等待期间用户又清空了内容 → 本次操作作废 */
+function opCancelled(epoch) {
+  if (epoch === vaultEpoch) return false;
+  pwEl.value = '';
+  setNote('⚠️ 操作已取消：本机保存的内容在等待期间已被清空。', true);
+  return true;
+}
+
+/** 口令框的提交：第一次是「设置口令」，之后是「解锁」 */
+async function handlePwSubmit() {
+  if (!cryptoOK) { setNote('⚠️ 当前环境不支持加密存储，记忆功能不可用。', true); return; }
+  const pass = pwEl.value;
+  if (!pass) { setNote('⚠️ 请输入口令。', true); return; }
+  // 短口令在密文外泄后可以被离线爆破，这里直接挡住
+  if (pass.length < 8) { setNote('⚠️ 口令至少 8 个字符。', true); return; }
+  const existing = readVault();
+  const epoch = vaultEpoch;
+  try {
+    if (existing) {
+      const salt = unb64Safe(existing.salt);
+      const iv = unb64Safe(existing.iv);
+      const ct = unb64Safe(existing.ct);
+      // 密文本身不是合法 base64 —— 这是本机数据损坏，不是口令写错了。
+      // 先看结构再看异常，别靠异常的 name 去分辨（各浏览器的叫法不一样）。
+      if (!salt || !iv || !ct) {
+        setNote('⚠️ 本机保存的数据已损坏，无法解锁。请重新设置口令。', true);
+        return;
+      }
+      const key = await deriveVaultKey(pass, salt);
+      if (opCancelled(epoch)) return;
+      let plain;
+      try {
+        plain = await decryptText(iv, ct, key);
+      } catch (e) {
+        // AES-GCM 校验失败有两种可能：口令不对，或密文被改动过；
+        // 这两种从现象上分不开，就照实说，不替用户猜是哪一种。
+        pwEl.value = '';        // 失败了就别把口令留在框里（肩窥/截图会带走它）
+        setNote('⚠️ 口令错误，或本机保存的数据已被改动，无法解锁。', true);
+        return;
+      }
+      if (opCancelled(epoch)) return;
+      if (srcEl.value.trim() && srcEl.value !== plain &&
+          !confirm('解锁会用本机保存的密钥覆盖当前输入框内容，确定继续？')) return;
+      srcEl.value = plain;
+      vault.key = key;
+      vault.salt = salt;
+      applyVaultDefaults(existing.def);   // 位数与周期一起恢复，否则会按默认值算错
+      render();
+    } else {
+      if (!srcEl.value.trim()) { setNote('⚠️ 请先在左侧输入密钥再设置口令。', true); return; }
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const key = await deriveVaultKey(pass, salt);
+      if (opCancelled(epoch)) return;
+      const payload = await encryptText(srcEl.value, key);
+      if (opCancelled(epoch)) return;
+      writeVault({ v: 1, salt: b64(salt), iv: payload.iv, ct: payload.ct, def: currentDefaults() });
+      vault.key = key;
+      vault.salt = salt;
+    }
+    pwEl.value = '';
+    syncVaultUI();
+  } catch (e) {
+    setNote('⚠️ 加密存储不可用：' + (e && e.message ? e.message : '未知错误'), true);
+  }
+}
+
+
+
+/* ── 事件绑定 ── */
+
+let inputTimer = null;
+function onSourceChanged() {
+  clearTimeout(inputTimer);
+  inputTimer = setTimeout(() => {
+    render();
+    saveSecret();
+  }, 250);
+}
+
+srcEl.addEventListener('input', onSourceChanged);
+digitsEl.addEventListener('change', onSourceChanged);
+periodEl.addEventListener('change', onSourceChanged);
+
+rememberEl.addEventListener('change', () => {
+  if (!rememberEl.checked) {
+    if (vaultExists() && !confirm('取消「本地记忆」会删除本机保存的加密密钥，确定吗？')) {
+      rememberEl.checked = true;
+      return;
+    }
+    invalidateVaultOps();
+    dropVault();
+    vault.key = null;
+    vault.salt = null;
+    // 取消"记忆"的意思是"本机不再留有"，那输入框里的明文也要一起抹掉，
+    // 否则密文没了、明文还留在页面上，跟"清空"的行为对不上。
+    srcEl.value = '';
+    wipeState();
+    render();
+  }
+  syncVaultUI();
+});
+
+pwBtnEl.addEventListener('click', handlePwSubmit);
+pwEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') handlePwSubmit(); });
+
+// 不用 inline onclick：这样 CSP 的 script-src 只需放行下面这几个内联脚本，
+// 不用放开任何外部来源
+document.getElementById('copyAllBtn').addEventListener('click', copyAll);
+document.getElementById('clearBtn').addEventListener('click', clearAll);
+document.getElementById('demoBtn').addEventListener('click', loadDemo);
+
+listEl.addEventListener('click', (e) => {
+  const target = e.target.closest('[data-act="copy"]');
+  if (!target) return;
+  const card = target.closest('.card');
+  if (!card || card.dataset.idx === undefined) return;
+  copyCode(Number(card.dataset.idx));
+});
+
+/* ── 初始化 ── */
+
+// 早期版本曾以明文把密钥写进 localStorage，这里顺手清掉历史遗留
+try {
+  localStorage.removeItem('2fa-tool-secrets');
+  localStorage.removeItem('2fa-tool-remember');
+} catch (e) { /* 忽略 */ }
+
+// 结构损坏的记录不能静默删掉：那也是用户的数据，删之前得让他知道。
+// 把它标成"已损坏"（vaultBroken），由界面提示用户点「清空」处理。
+
+rememberEl.checked = vaultExists() && cryptoOK;
+syncVaultUI();
+if (!cryptoOK) {
+  // 放在 syncVaultUI 之后，否则提示会被它覆盖掉
+  rememberEl.disabled = true;
+  setNote('⚠️ 当前环境不支持加密存储，无法使用「本地记忆」。', true);
+}
+
+// 用 file:// 直接打开时，本机所有本地页面共用同一份存储空间
+if (window.location && window.location.protocol === 'file:') {
+  originNoteEl.textContent =
+    '⚠️ 通过 file:// 打开时，本机所有本地页面共用同一份存储空间。「本地记忆」中的密钥以口令加密后存放，用完仍建议点「清空」。';
+  originNoteEl.style.display = '';
+}
+
+// 离开页面时抹掉所有明文密钥：输入框、渲染好的验证码、以及内存里的
+// 密钥字节与条目（进入 bfcache 被冻结的页面里也不留）
+window.addEventListener('pagehide', () => {
+  srcEl.value = '';
+  pwEl.value = '';            // 口令同样属于"不保存"
+  vault.key = null;
+  vault.salt = null;
+  invalidateVaultOps();
+  wipeState();
+  listEl.innerHTML = '';
+  emptyEl.style.display = '';
+  statEl.textContent = '共 0 个场景';
+});
+
+// 从 bfcache 回来时（页面被冻结过）把界面同步回"已清空 + 已上锁"的状态：
+// pagehide 已经把内存里的密钥抹了，界面不能还显示"已解锁"
+window.addEventListener('pageshow', e => {
+  if (e && e.persisted) {
+    syncVaultUI();
+    render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
