@@ -31,6 +31,20 @@
   .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
   h1 { font-size: 22px; margin: 0 0 4px; }
   .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
   .warning {
     background: rgba(245,158,11,.1);
     border: 1px solid rgba(245,158,11,.4);
@@ -113,6 +127,7 @@
 </head>
 <body>
 <div class="wrap">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <h1>本地钱包工具</h1>
   <div class="sub">助记词派生 EVM / Solana / Tron 地址与私钥 · 多链主链币与代币余额查询 · 全部在浏览器本地计算</div>
   <div class="warning">⚠️ 私钥与助记词仅用于本地测试，请勿在此输入主网真实资产的助记词。派生在本地完成；余额查询会通过公共 RPC 发起只读请求（仅发送地址，不发送私钥）。</div>

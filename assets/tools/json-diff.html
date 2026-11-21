@@ -31,6 +31,20 @@
   .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 80px; }
   h1 { font-size: 22px; margin: 0 0 4px; }
   .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -198,6 +212,7 @@
 </head>
 <body>
 <div class="wrap">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <h1>JSON Diff 工具</h1>
   <div class="sub">比较两个 JSON 对象的差异，支持嵌套结构与数组</div>
 

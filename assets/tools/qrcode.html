@@ -26,6 +26,19 @@ body {
   border-bottom: 1px solid var(--border); flex-shrink: 0; user-select: none;
 }
 .topbar-logo { font-size: 14px; font-weight: 800; color: var(--accent); }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
 .lib-status { margin-left: auto; font-size: 11px; }
 .lib-ok  { color: var(--green); }
 .lib-err { color: var(--red); }
@@ -142,6 +155,7 @@ select:focus { border-color: var(--accent); }
 <body>
 
 <div class="topbar">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <div class="topbar-logo">◼ 二维码工具</div>
   <div class="lib-status lib-loading" id="libStatus">⋯ 加载库…</div>
 </div>

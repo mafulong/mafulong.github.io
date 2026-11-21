@@ -67,6 +67,19 @@ body {
   margin-right: 6px;
   letter-spacing: 1px;
 }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
 .sep { width: 1px; height: 20px; background: var(--border); margin: 0 3px; flex-shrink: 0; }
 
 .btn {
@@ -415,6 +428,7 @@ body {
 
 <!-- 顶栏 -->
 <div class="topbar">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <div class="topbar-logo">{ DIFF }</div>
   <button class="btn prim" onclick="doCompare()" title="比较 (Ctrl+Enter)">比较<kbd>⌘↵</kbd></button>
   <button class="btn" onclick="doFormat('left')"  title="格式化左侧">格式化左侧</button>

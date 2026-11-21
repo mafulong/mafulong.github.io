@@ -17,6 +17,19 @@ body { font-family: 'Consolas','Monaco','Courier New',monospace; background: var
 
 .topbar { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--bg2); border-bottom: 1px solid var(--border); flex-shrink: 0; user-select: none; }
 .topbar-logo { font-size: 14px; font-weight: 800; color: var(--accent); }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
 .counter { margin-left: auto; font-size: 12px; color: var(--text3); }
 .counter .ok { color: var(--green); }
 .counter .fail { color: var(--red); }
@@ -80,6 +93,7 @@ body { font-family: 'Consolas','Monaco','Courier New',monospace; background: var
 <body>
 
 <div class="topbar">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <div class="topbar-logo">🖼 图片预览工具</div>
   <div class="counter" id="counter"></div>
 </div>
