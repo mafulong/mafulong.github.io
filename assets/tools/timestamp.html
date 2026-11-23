@@ -57,6 +57,19 @@ body {
   margin-right: 8px;
 }
 
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    padding: 3px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+  }
+  .tool-back:hover { color: var(--accent); border-color: var(--accent); }
+
 .now-bar {
   display: flex;
   align-items: center;
@@ -256,6 +269,7 @@ select:focus { border-color: var(--accent); }
 <body>
 
 <div class="topbar">
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <div class="topbar-logo">⏱ 时间戳工具</div>
 </div>
 

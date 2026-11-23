@@ -51,6 +51,20 @@ if (window.top !== window.self) {
   }
   header h1{ margin:0 0 4px; font-size:20px; }
   header p{ margin:0; color:var(--muted); font-size:13px; line-height:1.6; }
+
+  .tool-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .tool-back:hover { color: var(--primary); border-color: var(--primary); }
   main{
     display:flex; gap:20px; max-width:1200px; margin:16px auto; padding:0 24px 40px;
     align-items:flex-start; flex-wrap:wrap;
@@ -134,6 +148,7 @@ if (window.top !== window.self) {
 <body>
 
 <header>
+  <a class="tool-back" href="index.html" title="返回工具集">← 工具集</a>
   <h1>2FA 验证码工具</h1>
   <p>
     纯静态单文件 HTML / JS 实现，所有计算均在浏览器本地完成，不会把任何密钥内容发送到任何服务器，也不会写入本地存储——
